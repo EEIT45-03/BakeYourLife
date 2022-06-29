@@ -11,7 +11,7 @@ import eeit45.group3.bakeyourlife.good.dao.GoodDao;
 import eeit45.group3.bakeyourlife.good.model.Goods;
 //import eeit45.group3.util.HibernateUtils;
 
-@Repository
+//@Repository
 public class GoodDaoImpl implements GoodDao {
 	@Autowired
 	SessionFactory factory;
