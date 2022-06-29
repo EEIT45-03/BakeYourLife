@@ -1,0 +1,74 @@
+<div class="card-body">
+	<p class="row mb-3">
+		<span class="col-sm-3">訂單編號:</span> <span class="col-sm-9" th:text="${order.orderNo}"></span>
+	</p>
+	<p class="row mb-3" th:if="${order.shipDate}">
+			<span class="col-sm-3">發貨日期:</span>
+			<span class="col-sm-9" th:text="${#dates.format(order.shipDate, 'yyyy/MM/dd HH:mm')}">
+			</span>
+	</p>
+	<!-- orderDate(in server) -->
+	<p class="row mb-3">
+		<span class="col-sm-3">訂單日期:</span> 
+		<span class="col-sm-9" th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">
+		</span>
+	</p>
+	<p class="row mb-3">
+		<span class="col-sm-3">訂單類型:</span><span class="col-sm-9" th:text="${order.orderType}"></span>
+	</p>
+	<form th:action="@{UpdateOrder(orderId=${order.orderId})}" method="post"
+		 th:object="${orderRequest}">
+		<!-- 訂單狀態: -->
+		<div class="row mb-3">
+			<label for="orderStatus"
+				class="col-sm-3 col-form-labels">訂單狀態:</label>
+			<div class="col-sm-9">
+				<select th:field="*{orderStatus}"
+					class="form-control form-select mb-3" name="orderStatus"
+					id="orderStatus" aria-label="Default select example">
+					<option value="未付款">未付款</option>
+					<option value="未發貨">未發貨</option>
+					<option value="待收貨">待收貨</option>
+					<option value="已完成">已完成</option>
+				</select>
+			</div>
+		</div>
+			<!-- 發貨日期: -->
+			<div class="row mb-3" th:if="${order.orderStatus.name() == 'WAIT_DELIVER'}">
+				<label for="shipDate"
+					class="col-sm-3 col-form-labels">發貨日期:</label>
+				<div class="col-sm-9">
+					<input th:field="*{shipDate}" type="datetime-local"
+						class="form-control" name="shipDate" id="shipDate" />
+				</div>
+			</div>
+
+		<!-- 會員編號: -->
+		<div class="row mb-3">
+			<label for="userId" class="col-sm-3 col-form-labels">會員編號:</label>
+			<div class="col-sm-9">
+				<input th:field="*{userId}" type="text" class="form-control"
+					name="userId" id="userId" required="required" />
+			</div>
+		</div>
+		<!-- 地址: -->
+		<div class="row mb-3">
+			<label for="address"
+				class="col-sm-3 col-form-labels">地址:</label>
+			<div class="col-sm-9">
+				<input th:field="*{address}" type="text" class="form-control"
+					name="address" id="address" required="required" />
+			</div>
+		</div>
+		<!-- 運費: -->
+		<div class="row mb-3">
+			<label for="shippingFee"
+				class="col-sm-3 col-form-labels">運費:</label>
+			<div class="col-sm-9">
+				<input th:field="*{shippingFee}" type="number" class="form-control"
+					name="shippingFee" id="shippingFee" min="0" required="required" />
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">修改訂單</button>
+	</form>
+</div>

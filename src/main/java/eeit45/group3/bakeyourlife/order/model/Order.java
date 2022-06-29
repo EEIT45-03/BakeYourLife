@@ -1,0 +1,235 @@
+package eeit45.group3.bakeyourlife.order.model;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatusConverter;
+import eeit45.group3.bakeyourlife.order.constant.PayType;
+import eeit45.group3.bakeyourlife.user.model.User;
+
+
+@Entity
+@Table(name = "Orders")
+public class Order implements Serializable {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	//自增id(PK)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer orderId;
+	/**
+	 * 訂單編號15碼(20220505120000X)後1碼隨機生成
+	 */
+	@Column(unique = true)
+	private String orderNo;
+	
+	//會員ID
+	@Transient
+	private Integer userId;
+	
+	@OneToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name = "userId")
+	@JsonIgnore
+	private User user;
+	
+	//收貨地址
+	private String address;
+
+	//宅配單號
+	private String trackingNumber;
+
+	//訂單日期
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date orderDate;
+
+	//付款時間
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date payDate;
+
+	//發貨日期
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date shipDate;
+
+	
+	//訂單類型(一般、小農、...)
+	private String orderType;
+	
+	//訂單狀態
+	@Convert(converter = OrderStatusConverter.class)
+	private OrderStatus orderStatus;
+	
+	//運費
+	private Integer shippingFee;
+	
+	//總金額
+	private Integer totalPrice;
+
+	//付款方式
+	private PayType payType;
+
+
+	public Date getPayDate() {
+		return payDate;
+	}
+
+	public void setPayDate(Date payDate) {
+		this.payDate = payDate;
+	}
+
+	public PayType getPayType() {
+		return payType;
+	}
+
+	public void setPayType(PayType payType) {
+		this.payType = payType;
+	}
+
+	//持有的商品清單
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",cascade = CascadeType.ALL)
+	private Set<OrderItem> orderItemList = new LinkedHashSet<>();
+
+
+	public String getTrackingNumber() {
+		return trackingNumber;
+	}
+
+	public void setTrackingNumber(String trackingNumber) {
+		this.trackingNumber = trackingNumber;
+	}
+
+	public Integer getUserId() {
+		if(user!=null) {
+			return user.getUserId();			
+		}else {
+			return this.userId;
+		}
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+		this.user = new User();
+		this.user.setUserId(userId);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderId) {
+		this.orderNo = orderId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getShipDate() {
+		return shipDate;
+	}
+
+	public void setShipDate(Date shipDate) {
+		this.shipDate = shipDate;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public Integer getShippingFee() {
+		return shippingFee;
+	}
+
+	public void setShippingFee(Integer shippingFee) {
+		this.shippingFee = shippingFee;
+	}
+
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Set<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(Set<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+
+
+
+	
+	
+	
+	
+	
+}

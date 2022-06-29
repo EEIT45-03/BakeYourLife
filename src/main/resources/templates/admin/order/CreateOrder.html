@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>建立訂單</title>
+
+<div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<div th:replace="/admin/sidebar.html"></div>
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<div th:replace="/admin/header.html"></div>
+
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800"></h1>
+					<p class="mb-4">
+						<a href="../Order/" class="btn btn-primary btn-icon-split btn-sm">
+							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回訂單管理</span>
+						</a>
+
+
+
+					</p>
+					<div th:if="${error}" class="alert alert-danger" role="alert"></div>
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">建立訂單</h6>
+						</div>
+						<div class="card-body">
+							<form action="" method="post" th:object="${order}">
+								<!-- 會員編號: -->
+								<div class="row mb-3">
+									<label for="userId" class="col-sm-2 col-form-labels">會員編號:</label>
+									<div class="col-sm-10">
+										<input th:field="*{userId}" type="text" class="form-control" name="userId"
+											id="userId" placeholder="請輸入會員編號" required />
+									</div>
+								</div>
+								<!-- 地址: -->
+								<div class="row mb-3">
+									<label for="address" class="col-sm-2 col-form-labels">地址:</label>
+									<div class="col-sm-10">
+										<input th:field="*{address}" type="text" class="form-control" name="address"
+											id="address" placeholder="請輸入地址" required />
+									</div>
+								</div>
+<!-- 								<input th:field="*{orderType}" type="hidden" name="orderType" id="orderType" value="一般商品"/> -->
+								<!-- 訂單類型: -->
+								<div class="row mb-3">
+									<label for="orderType" class="col-sm-2 col-form-labels">訂單類型:</label>
+									<div class="col-sm-10">
+										<select th:field="*{orderType}" class="form-control form-select mb-3" name="orderType"
+											aria-label="Default select example">
+											<option value="一般商品" selected>一般商品</option>
+											<option value="小農商品">小農商品</option>
+										</select>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-body">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>商品ID</th>
+													<th>商品名稱</th>
+													<th>數量</th>
+													<th>小計</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input th:field="*{productNo}" type="number" class="form-control"
+														name="productNo" id="productNo" placeholder="商品ID"
+														required/></td>
+													<td><input th:field="*{productName}" type="text" class="form-control"
+														name="productName" id="productName" placeholder="商品名稱"
+														required/></td>
+													<td><select th:field="*{qty}" class="form-control form-select mb-3"
+														name="qty" aria-label="Default select example">
+															<option value="1" selected=>1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+													</select></td>
+													<td><input th:field="*{subTotal}" type="number" class="form-control subTotal"
+														name="subTotal" id="subTotal" placeholder="小計" required/>
+													</td>
+													<td><button id="btn" class="btn btn-primary">
+															<i class="fas fa-plus"></i>
+														</button></td>
+
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+								<!-- 運費: -->
+								<div class="row mb-3">
+									<label for="shippingFee" class="col-sm-2 col-form-labels">運費:</label>
+									<div class="col-sm-10">
+										<input th:field="*{shippingFee}" type="number" class="form-control" name="shippingFee"
+											id="shippingFee" placeholder="請輸入運費" required/>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary">建立訂單</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+
+			<div th:replace="/admin/footer.html"></div>
+
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+
+
+	<!-- Bootstrap core JavaScript-->
+<div th:replace="/admin/javascript.html"></div>
+	<script>
+    $(function () {
+        
+        $('tbody').on('blur','.subTotal',function(){
+        	let subTotal=parseInt($(this).closest('.subTotal').val())
+        	console.log(subTotal)
+            if(subTotal<0){
+            	$(this).closest('.subTotal').val(0)
+            	Swal.fire('小計不能為負數')
+            }
+        })
+        
+        $('#shippingFee').change(function(){
+            let shippingFee=parseInt($('#shippingFee').val());
+            if(shippingFee<0){
+            	$('#shippingFee').val(0)
+            	Swal.fire('運費不能為負數')
+            }
+        })
+        $('#btn').click(function(){
+        	let content=`<tr>
+                <td>
+                <input type="number" class="form-control" name="productNo"
+                    id="productNo" placeholder="商品ID" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="productName"
+                    id="productName" placeholder="商品名稱" required>
+            </td>
+            <td>
+                <select class="form-control form-select mb-3" name="qty"
+                    aria-label="Default select example">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control subTotal" name="subTotal"
+                     placeholder="小計" required>
+            </td>
+            <td><button class="del btn btn-danger"><i class="fas fa-minus"></i>	</button></td>
+
+        </tr>`
+		if($('tr').length<=10){
+			$('tbody').append(content)
+		}
+        })
+        $('tbody').on('click','.del',function(){
+        	$(this).closest('tr').remove()
+        })
+        $('#memNo').blur(function(){
+        	let memNo=$('#memNo');
+        	let address=$('#address')
+            let memNoValue=parseInt(memNo.val());
+            $.ajax({
+                type: "GET",
+                url: "./Check?memNo="+memNoValue,
+                dataType: "json",
+                success: function (response) {
+                	memNo.val(response.user_id)
+                	address.val(response.address)
+                },
+                error: function (thrownError) {
+                  memNo.val('')
+                  address.val('')
+                  Swal.fire({
+                        icon: 'error',
+                        title: '發生錯誤',
+                        text: '不存在這個會員編號'
+                    })
+                }
+              });
+        })
+    });
+    </script>
+</body>
+
+</html>

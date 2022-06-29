@@ -1,0 +1,56 @@
+package eeit45.group3.bakeyourlife.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig   {
+
+	UserDetailsService userDetailsService;
+
+	@Autowired @Lazy
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+		.authorizeHttpRequests()
+			//login頁面不需要認證
+			.antMatchers("/login").permitAll()
+			//其他都要認證
+			.anyRequest().authenticated()
+		.and()
+			.formLogin()
+			//自訂登入頁
+			.loginPage("/login")
+				//1.successForwardUrl：請求轉發，轉發後瀏覽器的位址不會變，登入成功後不會跳轉到原來的位址。
+				//2.defaultSuccessUrl：302重定向，登入成功後會跳轉到原來的位址。
+				.defaultSuccessUrl("/default",true)
+		.and()
+			.httpBasic()
+		.and()
+		//使用自己實作的userDetailsService
+		.userDetailsService(userDetailsService)
+		//綠界需要關csrf
+		.csrf().disable();
+		return http.build();
+	}
+
+
+}

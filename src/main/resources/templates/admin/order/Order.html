@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>訂單管理</title>
+
+  <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="/admin/sidebar.html"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="/admin/header.html"></div>
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">訂單管理</h1>
+        <p class="mb-4">
+          <a href="CreateOrder"
+             class="btn btn-primary btn-icon-split btn-sm"> <span
+                  class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">建立訂單</span>
+          </a>
+          <a href="#" onClick="Javascript:window.open('Cart','','width=800,height=800')"
+             class="btn btn-primary btn-icon-split btn-sm"> <span
+                  class="icon text-white-50"> <i class="fa-solid fa-cart-shopping"></i>
+						</span> <span class="text">模擬前台購物</span>
+          </a>
+
+
+
+        </p>
+        <p class="mb-4">
+
+        <form action="" class="form-inline">
+          <label class="my-1 mx-3" for="sdate">開始日期:</label>
+          <input type="date" name="sdate" id="sdate" th:value="${sdate}">
+          <label class="my-1 mx-3" for="edate">結束日期:</label>
+          <input type="date" name="edate" id="edate" th:value="${edate}">
+          <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
+        </form>
+
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">訂單資訊</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped" id="oredrTable">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>編號</th>
+                  <th>訂單編號</th>
+                  <th>帳號</th>
+                  <th>訂單日期</th>
+                  <th>發貨日期</th>
+                  <th>總金額</th>
+                  <th>運費</th>
+                  <th>訂單狀態</th>
+                  <th>修改</th>
+                  <th>刪除</th>
+                  <th class="none">訂單商品</th>
+                  <th class="none">地址</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+<!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
+                  <tr th:each="order: ${orders}">
+                    <td></td>
+                    <td th:text="${order.orderId}">1</td>
+                    <td th:text="${order.orderNo}">222222222222222</td>
+                    <td th:text="${order.user.userName}">user</td>
+                    <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
+                    <td th:text="*{order.shipDate}?${#dates.format(order.shipDate, 'yyyy/MM/dd HH:mm')}: '---'">---</td>
+                    <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
+                    <td th:text="|NT$${order.shippingFee}|">NT$60</td>
+                    <td th:text="${order.orderStatus.code}"></td>
+                    <td>
+                      <button type="button"
+                              class="btn btn-warning btn-icon-split btn-sm"
+                              th:onclick="|updateAlert(${order.orderId})|">
+														<span class="icon text-white-50"> <i
+                                                                class="fas fa-exclamation-triangle"></i>
+														</span>
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button"
+                              class="btn btn-danger btn-icon-split btn-sm"
+                              th:onclick="|deleteAlert(${order.orderId})|">
+														<span class="icon text-white-50"> <i
+                                                                class="fas fa-trash"></i>
+														</span>
+                      </button>
+                    </td>
+                    <td>
+
+                      <ul th:each="orderItem:${order.orderItemList}">
+                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>
+                      </ul>
+                    </td>
+                    <td th:text="${order.address}"></td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    <div th:replace="/admin/footer.html"></div>
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<!-- 訂單頁面 -->
+<script th:src="@{/js/order.js}"></script>
+
+
+</body>
+
+</html>
