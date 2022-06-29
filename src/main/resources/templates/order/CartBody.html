@@ -14,7 +14,7 @@
 								<input class="product-id" type="hidden" th:value="${cartItem.productNo}" >
 								<td class="product-remove" scope="row">
 									<button class="btn btn-link"
-											th:onclick="remove(${cartItem.productNo})">
+											th:onclick="remove([[${cartItem.productNo}]])">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								</td>

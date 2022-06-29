@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>優惠卷管理</title>
+
+  <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="/admin/sidebar.html"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="/admin/header.html"></div>
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">優惠卷管理</h1>
+        <p class="mb-4">
+          <a href="CreateCoupon"
+             class="btn btn-primary btn-icon-split btn-sm"> <span
+                  class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">建立優惠卷</span>
+          </a>
+        </p>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">優惠卷資訊</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped" id="couponTable">
+                <thead>
+                <tr>
+                  <th>名稱</th>
+                  <th>優惠卷代碼</th>
+                  <th>折扣額度</th>
+                  <th>最低消費金額</th>
+                  <th>使用上限</th>
+                  <th>已使用</th>
+                  <th>開始時間</th>
+                  <th>結束時間</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    <div th:replace="/admin/footer.html"></div>
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<script>
+  $(function () {
+  var table = $('#couponTable').DataTable({
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+    },
+    ajax:{
+      url:'[[@{/Coupons}]]',
+      dataSrc:''
+    },
+    columns: [
+      {data:'name'},
+      {data:'code'},
+      {data:'discountString'},
+      {data:'minimum'},
+      {data:'maxQuantity'},
+      {data:'usedQuantity'},
+      {data:'startDate'},
+      {data:'endDate'},
+      {data:null,defaultContent:
+      `<button type="button" class="btn btn-warning btn-icon-split btn-sm update">
+       <span class="icon text-white-50"><i class="fas fa-pen"></i></span></button>
+       <button type="button" class="btn btn-danger btn-icon-split btn-sm delete">
+       <span class="icon text-white-50"> <i class="fas fa-trash"></i></span></button>
+`}
+    ]
+  });
+    $('#couponTable tbody').on('click', '.delete', function () {
+      var data = table.row($(this).parents('tr')).data();
+      deleteAlert(data.code);
+    });
+  });
+  function deleteAlert(code) {
+    Swal.fire({
+      title: '請問是否要刪除此優惠卷?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: '取消',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: '刪除'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "DELETE",
+          url: '[[@{/Coupons/}]]' + code,
+          success: function (msg) {
+            Swal.fire(
+                    '已刪除!',
+                    '訂單已成功刪除!',
+                    'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            })
+          },
+          error: function (msg) {
+            // console.log(msg.status)
+            Swal.fire({
+              icon: 'error',
+              title: '發生錯誤',
+              text: 'HTTP 狀態碼為 ' + msg.status,
+              footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+            })
+          }
+        });
+
+
+      }
+    })
+  }
+
+
+</script>
+
+
+</body>
+
+</html>

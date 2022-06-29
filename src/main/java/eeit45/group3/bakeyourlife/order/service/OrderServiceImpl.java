@@ -176,27 +176,27 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public Order createOrder(Order order) {
 
-		User user = userService.findByUserId(order.getUserId());
-		order.setUser(user);
-		if(order.getTotalPrice() == null) {
-			order.setTotalPrice(0);
-		}
-		order.getOrderItemList().forEach(ot -> {
-			//設定訂單
-			ot.setOrder(order);
-			//計算總價
-			order.setTotalPrice(order.getTotalPrice() + ot.getSubTotal());
-		});
-		
-		//加入運費
-		order.setTotalPrice(order.getTotalPrice() + order.getShippingFee());
-		//設定訂單編號
-		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date current = new Date();
-		int end = (int) (Math.random()*10);
-		order.setOrderNo(df.format(current) + end);
-		order.setOrderDate(current);
-		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+//		User user = userService.findByUserId(order.getUserId());
+//		order.setUser(user);
+//		if(order.getTotalPrice() == null) {
+//			order.setTotalPrice(0);
+//		}
+//		order.getOrderItemList().forEach(ot -> {
+//			//設定訂單
+//			ot.setOrder(order);
+//			//計算總價
+//			order.setTotalPrice(order.getTotalPrice() + ot.getSubTotal());
+//		});
+//
+//		//加入運費
+//		order.setTotalPrice(order.getTotalPrice() + order.getShippingFee());
+//		//設定訂單編號
+//		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//		Date current = new Date();
+//		int end = (int) (Math.random()*10);
+//		order.setOrderNo(df.format(current) + end);
+//		order.setOrderDate(current);
+//		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
 		return orderRepository.save(order);
 	}
 	

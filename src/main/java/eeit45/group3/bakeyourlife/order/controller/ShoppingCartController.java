@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
+import java.net.URI;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import eeit45.group3.bakeyourlife.order.constant.PayType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,7 +44,7 @@ public class ShoppingCartController {
 	@Autowired
 	UserService userService;
 	
-	Integer shippingFee = 60;
+	Integer shippingFee = 100;
 
 	
 	@GetMapping("/Cart")
@@ -108,6 +110,7 @@ public class ShoppingCartController {
 			cart.remove(itemId);
 			System.out.println("購物車移除商品:"+itemId);
 		}
+
 		model.addAttribute("cartItems", cart.values());
 		model.addAttribute("total", total(cart));
 		model.addAttribute("shippingFee", shippingFee);
@@ -154,10 +157,12 @@ public class ShoppingCartController {
 	@PostMapping(path = "/CheckOut",produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> checkOut(@SessionAttribute("cart") Map<Integer, OrderItem> cart,
 			@RequestParam String address,
+			@RequestParam PayType payType,
 			HttpServletRequest request,
 			Model model,
 			Principal principal) {
 		String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
+		String orderNo = null;
 		if(cart!=null) {
 			Order order = new Order();
 			
@@ -167,13 +172,15 @@ public class ShoppingCartController {
 		    Date current = new Date();
 		    int end = (int) (Math.random()*10);
 			order.setOrderNo(df.format(current) + end);
-			
+			orderNo = order.getOrderNo();
 			order.setOrderDate(current);
 			
 			//訂單狀態
 			order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
 			
-			
+			order.setPayType(payType);
+
+
 //			User user = (User) request.getSession().getAttribute("user");
 			User user = userService.findByUserName(principal.getName());
 			
@@ -185,7 +192,7 @@ public class ShoppingCartController {
 			order.setShippingFee(shippingFee);
 			
 			order.setOrderItemList(new LinkedHashSet<>(cart.values()));
-			
+
 			order.getOrderItemList().forEach((e) -> e.setOrder(order));
 			
 			order.setTotalPrice(total(cart));
@@ -201,13 +208,13 @@ public class ShoppingCartController {
 //			System.out.println("Session: " + request.getSession(false).getId());
 //			response.setContentType("text/html; charset=utf-8");
 //			PrintWriter out = response.getWriter();
-			String string = EcpayPayment.genAioCheckOutALL(order, url);
-			return new ResponseEntity<String>(string,HttpStatus.OK);
+//			String string = EcpayPayment.genAioCheckOutALL(order, url);
+//			return new ResponseEntity<String>(string,HttpStatus.OK);
 			
 			}
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", baseURL+"/Cart");
-		return new ResponseEntity<String>(HttpStatus.OK);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Location", );
+		return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL+"/Order/" + orderNo + "/Pay")).build();
 	}
 	
 	

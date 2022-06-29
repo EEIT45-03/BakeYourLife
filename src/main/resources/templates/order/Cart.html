@@ -25,9 +25,9 @@
 				<div class="row mb-3">
 					<div class="col-sm-9">
 						<select class="form-control form-select mb-3" id="itemId"
-							aria-label="Default select example" th:each="good: ${goods}">
+							aria-label="Default select example">
 							
-							<option th:value="${good.id}" th:text="|${good.name} ${good.packages}元|"></option>
+							<option th:each="good: ${goods}" th:value="${good.id}" th:text="|${good.name} ${good.packages}元|"></option>
 
 						</select>
 					</div>

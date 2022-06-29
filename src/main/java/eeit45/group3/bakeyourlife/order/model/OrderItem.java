@@ -25,10 +25,6 @@ public class OrderItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer itemNo;
 	
-	//訂單ID
-//	@Transient
-//	private Integer orderId;
-	
 	//商品ID
 	private Integer productNo;
 	
