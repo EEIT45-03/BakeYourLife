@@ -126,6 +126,11 @@
       var data = table.row($(this).parents('tr')).data();
       deleteAlert(data.code);
     });
+    $('#couponTable tbody').on('click', '.update', function () {
+      var data = table.row($(this).parents('tr')).data();
+      location.href = '[[@{/admin/Coupon/UpdateCoupon(code)}]]='+data.code
+      updateAlert(data.code);
+    });
   });
   function deleteAlert(code) {
     Swal.fire({

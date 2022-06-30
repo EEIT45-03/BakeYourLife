@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>建立優惠卷</title>
+    <title>修改優惠卷</title>
 
     <div th:replace="/admin/css.html"></div>
 </head>
@@ -47,10 +47,9 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">建立優惠卷</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">修改優惠卷</h6>
                         </div>
                         <div class="card-body">
-                            <!--   					<form action="" method="post" modelAttribute="order">-->
 
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-labels">優惠卷名稱:</label>
@@ -63,8 +62,7 @@
                             <div class="row mb-3">
                                 <label for="code" class="col-sm-2 col-form-labels">優惠卷代碼:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="code" id="code" placeholder="請輸入優惠卷代碼"
-                                        required />
+                                    <input type="text" class="form-control" name="code" id="code" disabled />
                                 </div>
                             </div>
 
@@ -82,7 +80,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-labels">折扣額度限制:</label>
                                 <div class="col-sm-10 input-group">
-                                    <select class="custom-select col-sm-2" id="type">
+                                    <select class="custom-select col-sm-2" id="type" disabled>
                                         <option value="deduct" selected>折扣金額</option>
                                         <option value="discount">折扣折數</option>
                                     </select>
@@ -109,6 +107,7 @@
                             <div class="row mb-3">
                                 <label for="maxQuantity" class="col-sm-2 col-form-labels">可使用數量:</label>
                                 <div class="col-sm-10">
+
                                     <input type="number" class="form-control" name="maxQuantity" id="maxQuantity" placeholder="請輸入數量" required />
                                 </div>
                             </div>
@@ -117,7 +116,7 @@
 
 
 
-                        <button id="send" class="btn btn-primary">建立優惠卷</button>
+                        <button id="send" class="btn btn-primary">修改優惠卷</button>
                         <!--                    </form>-->
                     </div>
                 </div>
@@ -142,6 +141,44 @@
     <div th:replace="/admin/javascript.html"></div>
     <script>
         $(function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            $('#code').val(code);
+            fetch('[[@{/Coupons/}]]'+code)
+                .then(response => response.json())
+                .then(function (data) {
+
+                        console.log(data.state)
+                    $("#type").val(data.type);
+                    $("#code").val(data.code);
+                    $("#name").val(data.name);
+                    $("#startDate").val(data.startDate);
+                    $("#endDate").val(data.endDate);
+                    $("#minimum").val(data.minimum);
+                    $("#maxQuantity").val(data.maxQuantity);
+
+                    if(data.type === 'deduct'){
+                        $("#deductAmount").val(data.deductAmount);
+                    }
+
+                    if(data.type === 'discount'){
+                        $("#discountInput").val(data.discount);
+                    }
+                    if(data.state=== '已結束') {
+                            $("#type").attr('disabled', true);
+                            $("#code").attr('disabled', true);
+                            $("#name").attr('disabled', true);
+                            $("#startDate").attr('disabled', true);
+                            $("#endDate").attr('disabled', true);
+                            $("#minimum").attr('disabled', true);
+                            $("#maxQuantity").attr('disabled', true);
+                            $("#deductAmount").attr('disabled', true);
+                            $("#discountInput").attr('disabled', true);
+                            $('#send').attr('disabled', true);
+                        }
+
+                })
+
             $('#type').change(function () {
                 if ($(this).val() === 'deduct') {
                     $('#discount').css("display", "none");
@@ -181,11 +218,11 @@
                 xhr.onreadystatechange = function () {
                     var data = xhr.responseText;
                     var json = JSON.parse(data);
-                    //建立成功，狀態碼會是201
-                    if (xhr.readyState === 4 && xhr.status === 201) {
+                    //修改成功，狀態碼會是200
+                    if (xhr.readyState === 4 && xhr.status === 200) {
                         Swal.fire(
-                            '優惠卷新增!',
-                            '優惠卷已成功新增!',
+                            '優惠卷修改!',
+                            '優惠卷已成功修改!',
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
@@ -194,13 +231,13 @@
                         })
                     }else if(xhr.status === 400){
                         Swal.fire(
-                            '優惠卷新增失敗!',
+                            '優惠卷修改失敗!',
                             json.message,
                             'error'
                         )
                     }
                 }
-                xhr.open("POST", '[[@{/Coupons}]]', true);
+                xhr.open("PUT", '[[@{/Coupons}]]/'+code, true);
                 xhr.setRequestHeader("Content-type", "application/json");
                 xhr.send(jsonString);
             });
@@ -208,7 +245,7 @@
 
             function getCoupon() {
                 var type = $("#type").val();
-                var code = $("#code").val();
+                // var code = $("#code").val();
                 var name = $("#name").val();
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
@@ -217,7 +254,7 @@
 
                 var coupon = {
                     "type":type,
-                    "code": code,
+                    // "code": code,
                     "name": name,
                     "startDate": startDate,
                     "endDate": endDate,
@@ -230,7 +267,7 @@
                 }
 
                 if(type === 'discount'){
-                    coupon.discount = $("#discountInput").val();
+                    coupon.discount = $("#discountInput").val()
                 }
                 return coupon;
             }

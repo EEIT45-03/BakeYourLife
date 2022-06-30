@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +43,6 @@ public class OrderController {
 		if(rtnCode.equals("1")) {
 			if(order!=null) {
 				Order pay = orderService.pay(order.getOrderId());
-				pay.setPayDate(new Date());
-				orderService.updateOrder(pay);
 			}
 		}
 		model.addFlashAttribute("orderNo", order.getOrderNo());
@@ -58,8 +57,6 @@ public class OrderController {
 		Order order = orderService.findByOrderNo(orderNo).orElse(null);
 		if(order!=null) {
 				Order pay = orderService.pay(order.getOrderId());
-				pay.setPayDate(new Date());
-				orderService.updateOrder(pay);
 		}
 		model.addFlashAttribute("orderNo", order.getOrderNo());
 		return "redirect:/Order/PaySuccess";
@@ -88,6 +85,38 @@ public class OrderController {
 			}
 		}
 		return null;
+	}
+
+
+	@PostMapping("/Order/{orderNo}/Ship")
+	public ResponseEntity<Order> deliver(@RequestParam String trackingNumber,
+									   @PathVariable String orderNo){
+
+		Order order = orderService.findByOrderNo(orderNo).orElse(null);
+		if(order == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
+		}
+		Order deliver = orderService.deliver(order.getOrderId(), trackingNumber);
+
+		return ResponseEntity.status(HttpStatus.OK).body(deliver);
+
+	}
+
+	@PostMapping("/Order/{orderNo}/Refund")
+	public ResponseEntity<Order> refund(@RequestParam String choose,
+										 @PathVariable String orderNo){
+		Order order = orderService.findByOrderNo(orderNo).orElse(null);
+		if(order == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
+		}
+		Order refund = null;
+		if(choose.equals("accept")){
+			refund = orderService.accept(order.getOrderId());
+		} else if (choose.equals("reject")) {
+			refund = orderService.reject(order.getOrderId());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(refund);
 	}
 
 

@@ -37,14 +37,15 @@ public class CouponController {
     @PutMapping("/Coupons/{code}")
     public ResponseEntity<Coupon> updateCoupon(@PathVariable String code,
                                                @RequestBody @Valid Coupon coupon){
-        Coupon couponDb = couponService.findById(code).orElse(null);
-        if(couponDb==null) {
+//        Coupon couponDb = couponService.findById(code).orElse(null);
+        //回傳是否存在，存在回傳true，反相
+        if(!couponService.existsById(code)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         coupon.setCode(code);
         couponService.updateCoupon(coupon);
 
-        couponDb = couponService.findById(code).orElse(null);
+        Coupon couponDb = couponService.findById(code).orElse(null);
         return ResponseEntity.status(HttpStatus.OK).body(couponDb);
     }
 
@@ -54,6 +55,14 @@ public class CouponController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/Coupons/{code}")
+    public ResponseEntity<Coupon> getCoupon(@PathVariable String code){
+        Coupon coupon = couponService.findById(code).orElse(null);
+        if(coupon == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(coupon);
+    }
 
 
 }

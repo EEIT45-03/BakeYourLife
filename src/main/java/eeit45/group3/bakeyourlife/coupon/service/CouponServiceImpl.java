@@ -33,7 +33,7 @@ public class CouponServiceImpl implements CouponService{
 
     @Override
     public void updateCoupon(Coupon coupon) {
-        Optional<Coupon> couponDb = repository.findById(coupon.getCode());
+        Coupon couponDb = repository.findById(coupon.getCode()).orElse(null);
         if(couponDb!=null){
             repository.save(coupon);
         }

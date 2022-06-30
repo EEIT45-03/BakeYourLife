@@ -7,6 +7,7 @@ import java.util.Optional;
 import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
     //查詢定單區間
@@ -42,7 +43,7 @@ public interface OrderService {
     Order pay(Integer orderId);
 
     //訂單發貨
-    Order deliver(Integer orderId);
+    Order deliver(Integer orderId, String trackingNumber);
 
     //訂單收貨
     Order receive(Integer orderId);
