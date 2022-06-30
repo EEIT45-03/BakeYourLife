@@ -198,22 +198,10 @@ public class ShoppingCartController {
 			order.setTotalPrice(total(cart));
 
 			orderService.createOrder(order);
-			
-//			request.getSession().setAttribute("cart", new LinkedHashMap<Integer, OrderItem>());
-			model.addAttribute("cart", new LinkedHashMap<Integer, OrderItem>());
-			//http://localhost:8080/XXXX
-			//http://localhost:8080/XXXX/Order/Result
-			String url =  baseURL + "/Order/Result";
 
-//			System.out.println("Session: " + request.getSession(false).getId());
-//			response.setContentType("text/html; charset=utf-8");
-//			PrintWriter out = response.getWriter();
-//			String string = EcpayPayment.genAioCheckOutALL(order, url);
-//			return new ResponseEntity<String>(string,HttpStatus.OK);
+			model.addAttribute("cart", new LinkedHashMap<Integer, OrderItem>());
 			
 			}
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Location", );
 		return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL+"/Order/" + orderNo + "/Pay")).build();
 	}
 	

@@ -32,7 +32,7 @@ $(document).ready(function () {
             }
         },
         columnDefs: [{
-            className: 'dtr-control',
+            className: 'dt-center',
             orderable: false,
             targets: 0
         }, {

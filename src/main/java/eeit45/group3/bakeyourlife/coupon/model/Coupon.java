@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.util.Date;
 
 @Entity
@@ -24,10 +25,11 @@ public abstract class Coupon {
     //開始時間
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd'T'HH:mm")
 //    @DateTimeFormat(pattern="")
+
     private Date startDate;
     //結束時間
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd'T'HH:mm")
-//    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+    @Future(message = "結束時間不能是過去日期")
     private Date endDate;
     //最低消費金額
     private Integer minimum;
@@ -37,12 +39,29 @@ public abstract class Coupon {
     private Integer usedQuantity = 0;
 
 
+
     //取得扣減金額
     abstract Integer getDiscountAmount(Integer totalPrice);
 
     //取得折扣額度，NT$100/9.9折
     @JsonGetter
     abstract String getDiscountString();
+
+    @JsonGetter
+    public String getState(){
+        Date now = new Date();
+
+
+
+        if(now.before(startDate)){//如果現在比開始時間早
+            return "尚未開始";
+        }else if(now.after(endDate)){//如果現在比結束時間遠
+            return "已結束";
+        }else if(now.after(startDate)) {//如果現在比開始時間遠
+            return "進行中";
+        }
+        return null;
+    }
 
     public String getCode() {
         return code;
