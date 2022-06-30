@@ -56,6 +56,23 @@ public class OrderController {
 		return "order/PaySucess";
 	}
 
+	@PostMapping("/Order/PAYPAL/Result")
+	public String resultPaypal(@RequestParam String token,
+						 Model model) {
+		System.out.println("Token: " + token);
+
+//		Order order = orderService.findByOrderNo(merchantTradeNo).orElse(null);
+//		if(rtnCode.equals("1")) {
+//			if(order!=null) {
+//				Order pay = orderService.pay(order.getOrderId());
+//				pay.setPayDate(new Date());
+//				orderService.updateOrder(pay);
+//			}
+//		}
+//		model.addAttribute("orderNo", order.getOrderNo());
+		return "order/PaySucess";
+	}
+
 	@GetMapping(value = "/Order/{orderNo}/Pay",produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> pay(@PathVariable String orderNo, HttpServletRequest request){
 		Order order = orderService.findByOrderNo(orderNo).orElse(null);
@@ -63,13 +80,14 @@ public class OrderController {
 		if(order!=null){
 			switch (order.getPayType()){
 				case ECPAY:
-					String url =  baseURL + "/Order/ECPAY/Result";
-					System.out.println("URL:" + url);
-					String string = EcpayPayment.genAioCheckOutALL(order, url);
+					String ecpayUrl =  baseURL + "/Order/ECPAY/Result";
+					System.out.println("ecpayUrl:" + ecpayUrl);
+					String string = EcpayPayment.genAioCheckOutALL(order, ecpayUrl);
 					return new ResponseEntity<>(string, HttpStatus.OK);
 				case PAYPAL:
-					System.out.println("PAYPAL");
-					return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("PAYPAL的連結")).build();
+					String paypalUrl =  baseURL + "/Order/PAYPAL/Result";
+					System.out.println("paypalUrl:" + paypalUrl);
+					return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(test2(order,paypalUrl))).build();
 			}
 		}
 		return null;
@@ -97,9 +115,8 @@ public class OrderController {
 		Map map = objectMapper.readValue(response.getBody(), Map.class);
 		return (String) map.get("access_token");
 	}
-	@GetMapping("/test")
-	@ResponseBody
-	public void test2() throws JsonProcessingException {
+
+	public String test2(Order order,String url){
 
 		String json = "{\n" +
 				"   \"intent\":\"CAPTURE\",\n" +
@@ -114,9 +131,9 @@ public class OrderController {
 				"      {\n" +
 				"         \"amount\":{\n" +
 				"            \"currency_code\":\"TWD\",\n" +
-				"            \"value\":\"100\"\n" +
+				"            \"value\":\""+ order.getTotalPrice() +"\"\n" +
 				"         },\n" +
-				"        \"custom_id\":\"202206282344126\"\n" +
+				"        \"custom_id\":\"" + order.getOrderNo() + "\"\n" +
 				"      }\n" +
 				"     \n" +
 				"   ]\n" +
@@ -124,15 +141,54 @@ public class OrderController {
 
 		String uri = "https://api-m.sandbox.paypal.com/v2/checkout/orders";
 		RestTemplate restTemplate = new RestTemplate();
-
+		String approveUri = null;
+		try {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(test());
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		ResponseEntity<String> response = restTemplate.exchange
 				(uri, HttpMethod.POST, new HttpEntity<Object>(json, headers), String.class);
 		Map map = objectMapper.readValue(response.getBody(), Map.class);
-		System.out.println(map.get("links"));
+
+		List<Map<String,String>> links = (List<Map<String, String>>) map.get("links");
+
+		for (Map<String, String> link : links) {
+			if(link.get("rel").equals("approve")){
+				approveUri = link.get("href");
+				System.out.println(approveUri);
+			}
+		}
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+		return approveUri;
 	}
+
+	@GetMapping("/test")
+	@ResponseBody
+	public String test3(String token){
+//		String uri = "https://api-m.sandbox.paypal.com/v2/checkout/orders/"+ token +"/capture";
+		String uri = "https://api-m.sandbox.paypal.com/v2/checkout/orders/6Y6382101W533212G/capture";
+		RestTemplate restTemplate = new RestTemplate();
+		String approveUri = null;
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setBearerAuth(test());
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			ResponseEntity<String> response = restTemplate.exchange
+					(uri, HttpMethod.POST, new HttpEntity<Object>(headers), String.class);
+			Map map = objectMapper.readValue(response.getBody(), Map.class);
+
+			Map<String,Map<String,String>> purchase_units = ((List<Map<String, Map<String,String>>>) map.get("purchase_units")).get(0);
+
+			Map<String,String> payments = purchase_units.get("payments");
+
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+		return approveUri;
+	}
+
 
 	
 }
