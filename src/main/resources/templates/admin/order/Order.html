@@ -70,7 +70,7 @@
           </div>
           <div class="card-body">
             <div class="">
-              <table class="table table-striped" id="oredrTable">
+              <table class="table table-striped text-center" id="oredrTable">
                 <thead>
                 <tr>
 <!--                  <th></th>-->
@@ -107,7 +107,7 @@
                                                           <i class="fa-solid fa-info"></i> 訂單明細
 														</span>
                       </button></td>
-                    <td>
+                    <td class="text-right">
 <!--                      <button type="button"-->
 <!--                              class="btn btn-warning btn-sm"-->
 <!--                              th:onclick="|updateAlert(${order.orderId})|">-->
@@ -116,7 +116,7 @@
 <!--														</span>-->
 <!--                      </button>-->
                       <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
-                              class="btn btn-warning btn-sm"
+                              class="btn btn-warning btn-sm mr-5"
                               th:attr="onclick=|shipAlert('${order.orderNo}')|">
 														<span class="icon text-gray-50">
                                                           <i class="fa-solid fa-truck-fast"></i> 發貨
@@ -124,19 +124,19 @@
                       </button>
 
                         <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
-                                class="btn btn-danger btn-sm"
+                                class="btn btn-danger btn-sm mr-4"
                                 th:attr="onclick=|refundAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 處理退款
 														</span>
                         </button>
-<!--                      <button type="button"-->
-<!--                              class="btn btn-danger btn-sm"-->
-<!--                              th:onclick="|deleteAlert(${order.orderId})|">-->
-<!--														<span class="icon text-white-50"> <i-->
-<!--                                                                class="fas fa-trash">刪除</i>-->
-<!--														</span>-->
-<!--                      </button>-->
+                      <button type="button"
+                              class="btn btn-danger btn-sm ml-2"
+                              th:onclick="|deleteAlert(${order.orderId})|">
+														<span class="icon text-white-50"> <i
+                                                                class="fas fa-trash">刪除</i>
+														</span>
+                      </button>
 
                     </td>
 <!--                    <td>-->
