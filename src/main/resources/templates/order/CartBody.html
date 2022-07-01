@@ -4,17 +4,18 @@
 							<th scope="col" class="col-sm-1"></th>
 							<!-- <th scope="col" width="50"></th> -->
 							<th scope="col" class="col-sm-5">商品名稱</th>
+							<th scope="col" class="col-sm-1">商品類型</th>
 							<th scope="col" class="col-sm-1">單價</th>
-							<th scope="col" class="col-sm-3">數量</th>
+							<th scope="col" class="col-sm-2">數量</th>
 							<th scope="col" class="col-sm-1">小計</th>
 						</tr>
 					</thead>
 					<tbody>
-							<tr th:each="cartItem: ${cartItems}">
-								<input class="product-id" type="hidden" th:value="${cartItem.productNo}" >
+							<tr th:each="cartItem: ${cart.cart}">
+								<input class="product-id" type="hidden" th:value="${cartItem.value.productNo}" >
 								<td class="product-remove" scope="row">
 									<button class="btn btn-link"
-											th:onclick="remove([[${cartItem.productNo}]])">
+											th:onclick="remove([[${cartItem.value.productNo}]])">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								</td>
@@ -24,27 +25,32 @@
                             class="card-img-top" alt="...">
                               </div>
                             </td> -->
-								<td class="product-name" th:text="${cartItem.productName}"></td>
-								<td class="product-price" th:text="|$${cartItem.price}|"></td>
+								<td class="product-name" th:text="${cartItem.value.productName}"></td>
+								<td class="product-type" th:text="${cartItem.value.productType}"></td>
+								<td class="product-price" th:text="|$${cartItem.value.price}|"></td>
 								<td class="product-qty"><button
 										class="btn btn-light btn-sm minus">
 										<i class="fa-solid fa-minus fa-2xs"></i>
 									</button> <input type="text" class="text-center qty" name="qty"
-													 th:value="${cartItem.qty}" max="20" style="width: 25px">
+													 th:value="${cartItem.value.qty}" max="20" style="width: 25px">
 									<button class="btn btn-light btn-sm plus">
 										<i class="fa-solid fa-plus fa-2xs"></i>
 									</button></td>
-								<td class="text-right product-subTotal" th:text="|$${cartItem.subTotal}|"></td>
+								<td class="text-right product-subTotal" th:text="|$${cartItem.value.subTotal}|"></td>
 							</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="4" class="text-right">運費</td>
-							<td class="text-right" id="shippingFee" th:text="|$${shippingFee}|"></td>
+							<td colspan="2" class="text-right" id="shippingFee" th:text="|$${cart.shippingFee}|"></td>
+						</tr>
+						<tr th:if="${cart.coupon}">
+							<td colspan="4" class="text-right" th:text="|優惠卷:${cart.coupon.code}|"></td>
+							<td colspan="2" class="text-right" id="coupon" th:text="|-$${  }|"></td>
 						</tr>
 						<tr>
-							<td colspan="4 " class="text-right">合計</td>
-							<td class="text-right" id="total" th:text="|$${total}|"></td>
+							<td colspan="4" class="text-right">合計</td>
+							<td colspan="2" class="text-right" id="total" th:text="|$${cart.total}|"></td>
 						</tr>
 					</tfoot>
 				</table>

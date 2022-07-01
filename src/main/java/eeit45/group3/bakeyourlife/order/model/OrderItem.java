@@ -26,7 +26,7 @@ public class OrderItem implements Serializable {
 	private Integer itemNo;
 	
 	//商品ID
-	private Integer productNo;
+	private String productNo;
 	
 	//商品名稱
 	private String productName;
@@ -82,11 +82,11 @@ public class OrderItem implements Serializable {
 		this.itemNo = itemNo;
 	}
 
-	public Integer getProductNo() {
+	public String getProductNo() {
 		return productNo;
 	}
 
-	public void setProductNo(Integer productNo) {
+	public void setProductNo(String productNo) {
 		this.productNo = productNo;
 	}
 

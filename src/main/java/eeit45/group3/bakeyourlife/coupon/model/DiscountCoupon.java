@@ -19,7 +19,7 @@ public class DiscountCoupon extends Coupon {
     private Double discount;
 
     @Override
-    Integer getDiscountAmount(Integer totalPrice) {
+    public Integer getDiscountAmount(Integer totalPrice) {
         if(totalPrice >= this.getMinimum()){
             //0.1~9.9
             BigDecimal discount = new BigDecimal(this.discount.toString());
@@ -35,7 +35,7 @@ public class DiscountCoupon extends Coupon {
     }
 
     @Override
-    String getDiscountString() {
+    public String getDiscountString() {
         return this.discount.toString()+"折";
     }
 

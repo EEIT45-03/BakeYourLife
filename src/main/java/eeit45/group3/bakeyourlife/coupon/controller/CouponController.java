@@ -2,6 +2,8 @@ package eeit45.group3.bakeyourlife.coupon.controller;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
+import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,12 @@ import java.util.Optional;
 public class CouponController {
 
     private CouponService couponService;
+    private OrderService orderService;
 
     @Autowired
-    public CouponController(CouponService couponService) {
+    public CouponController(CouponService couponService, OrderService orderService) {
         this.couponService = couponService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/Coupons")
@@ -62,6 +66,13 @@ public class CouponController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(coupon);
+    }
+
+    @GetMapping("/Coupons{code}/Orders")
+    public ResponseEntity<List<Order>> getOrdersByCouponCode(@PathVariable String code){
+        List<Order> list = orderService.findAllByCouponCode(code);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+
     }
 
 

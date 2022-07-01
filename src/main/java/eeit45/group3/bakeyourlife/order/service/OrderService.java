@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OrderService {
     //查詢定單區間
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
+
+    List<Order> findAllByCouponCode(String code);
 
     /*
      * 用商品名稱找訂單

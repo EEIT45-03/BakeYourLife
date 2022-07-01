@@ -37,15 +37,15 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">訂單管理</h1>
         <p class="mb-4">
-          <a href="CreateOrder"
-             class="btn btn-primary btn-icon-split btn-sm"> <span
-                  class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">建立訂單</span>
-          </a>
-          <a href="#" onClick="Javascript:window.open('Cart','','width=800,height=800')"
+<!--          <a href="CreateOrder"-->
+<!--             class="btn btn-primary btn-icon-split btn-sm"> <span-->
+<!--                  class="icon text-white-50"> <i class="fas fa-plus"></i>-->
+<!--						</span> <span class="text">建立訂單</span>-->
+<!--          </a>-->
+          <a th:href="@{/Cart}" target="_blank"
              class="btn btn-primary btn-icon-split btn-sm"> <span
                   class="icon text-white-50"> <i class="fa-solid fa-cart-shopping"></i>
-						</span> <span class="text">模擬前台購物</span>
+						</span> <span class="text">前往購物車</span>
           </a>
 
 
@@ -73,7 +73,7 @@
               <table class="table table-striped text-center" id="oredrTable">
                 <thead>
                 <tr>
-<!--                  <th></th>-->
+                  <th></th>
                   <th>編號</th>
                   <th>訂單編號</th>
                   <th>帳號</th>
@@ -92,7 +92,7 @@
 
 <!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
                   <tr th:each="order: ${orders}">
-<!--                    <td></td>-->
+                    <td></td>
                     <td th:text="${order.orderId}">1</td>
                     <td th:text="${order.orderNo}">222222222222222</td>
                     <td th:text="${order.user.userName}">user</td>
@@ -116,7 +116,7 @@
 <!--														</span>-->
 <!--                      </button>-->
                       <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
-                              class="btn btn-warning btn-sm mr-5"
+                              class="btn btn-warning btn-sm mr-3"
                               th:attr="onclick=|shipAlert('${order.orderNo}')|">
 														<span class="icon text-gray-50">
                                                           <i class="fa-solid fa-truck-fast"></i> 發貨
@@ -124,7 +124,7 @@
                       </button>
 
                         <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
-                                class="btn btn-danger btn-sm mr-4"
+                                class="btn btn-danger btn-sm mr-2"
                                 th:attr="onclick=|refundAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 處理退款

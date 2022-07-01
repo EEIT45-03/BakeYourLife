@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import eeit45.group3.bakeyourlife.coupon.dao.CouponRepository;
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
+import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
@@ -32,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
 	private OrderRepository orderRepository;
 	private OrderItemRepository orderItemRepository;
+	private CouponService couponService;
 	private UserService userService;
 	private StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine;
 	private StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister;
@@ -40,11 +44,13 @@ public class OrderServiceImpl implements OrderService {
 	public OrderServiceImpl(OrderRepository orderRepository,
 							OrderItemRepository orderItemRepository,
 							UserService userService,
+							CouponService couponService,
 							StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine,
 							StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister) {
 		this.orderRepository = orderRepository;
 		this.orderItemRepository = orderItemRepository;
 		this.userService = userService;
+		this.couponService = couponService;
 		this.orderStateMachine = orderStateMachine;
 		this.persister = persister;
 	}
@@ -54,6 +60,16 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderRepository.findAllByOrderDateBetween(orderDateStart, orderDateEnd);
 	}
+
+	@Override
+	public List<Order> findAllByCouponCode(String code) {
+		Coupon coupon = couponService.findById(code).orElse(null);
+		if(coupon != null){
+			return orderRepository.findAllByCoupon(coupon);
+		}
+		return null;
+	}
+
 
 	@Override
 	public List<Order> findAll() {
@@ -221,7 +237,7 @@ public class OrderServiceImpl implements OrderService {
 		User user = userService.findByUserId(orderRequest.getUserId());
 		order.setUser(user);
 		order.setAddress(orderRequest.getAddress());
-		order.setOrderType(orderRequest.getOrderType());
+//		order.setOrderType(orderRequest.getOrderType());
 		order.setShippingFee(orderRequest.getShippingFee());
 		
 		

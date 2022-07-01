@@ -59,7 +59,8 @@
             $('#cartBody').on('click', '.minus', function () {
                 // console.log('minus')
                 let input = $(this).next('input')
-                let id = $(this).parent().prev().prev().prev().prev().closest('.product-id').val()
+                let id = $(this).parent().parent().children().closest('.product-id').val();
+				console.log("minus " + id)
                 let qty = input.val()
                 if (parseInt(qty) > 1) {
                     qty--;
@@ -74,7 +75,7 @@
             $('#cartBody').on('click', '.plus', function () {
                 // console.log('plus')
                 let input = $(this).prev('input')
-                let id = $(this).parent().prev().prev().prev().prev().closest('.product-id').val()
+                let id = $(this).parent().parent().children().closest('.product-id').val();
                 let qty = input.val()
                 if (parseInt(qty) < 20) {
                     qty++;
@@ -86,7 +87,7 @@
             })
             $('#cartBody').on('blur', '.product-qty input', function () {
                 console.log($(this).val())
-                let id = $(this).parent().prev().prev().prev().prev().closest('.product-id').val()
+                let id = $(this).parent().parent().children().closest('.product-id').val();
                 let input = $(this)
                 let qty = input.val()
                 if (parseInt(qty) > 0) {
@@ -102,7 +103,7 @@
             
             $('#addCart').click(function(){
             	let id = $('#itemId').val()
-            	fetch("./Cart/Add?itemId="+id).then(response => response.text())
+            	fetch("./Cart/Add?type=G&itemId="+id).then(response => response.text())
             	.then(function(data){
             	updateTable(data)            		
             	})
@@ -124,7 +125,7 @@
                     confirmButtonText: '是'
                 }).then((result) => {
                     	if (result.isConfirmed) {
-                        	fetch("./Cart/Remove?itemId="+id).then(response => response.text())
+                        	fetch("./Cart/Remove?itemNo="+id).then(response => response.text())
                         	.then(function(data){
                         	updateTable(data)            		
                         	})
@@ -133,7 +134,7 @@
                     })
             }
             function update(id,qty){
-            	fetch("./Cart/Update?itemId="+id+'&qty='+qty).then(response => response.text())
+            	fetch("./Cart/Update?itemNo="+id+'&qty='+qty).then(response => response.text())
             	.then(function(data){
             	updateTable(data)            		
             	})

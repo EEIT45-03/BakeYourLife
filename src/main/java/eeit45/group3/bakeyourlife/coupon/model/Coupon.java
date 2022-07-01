@@ -1,12 +1,16 @@
 package eeit45.group3.bakeyourlife.coupon.model;
 
 import com.fasterxml.jackson.annotation.*;
+import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -38,14 +42,20 @@ public abstract class Coupon {
     //已使用數量
     private Integer usedQuantity = 0;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupon")
+    private Set<Order> orderList = new LinkedHashSet<>();
 
 
     //取得扣減金額
-    abstract Integer getDiscountAmount(Integer totalPrice);
+    public Integer getDiscountAmount(Integer totalPrice) {
+        return null;
+    }
 
     //取得折扣額度，NT$100/9.9折
     @JsonGetter
-    abstract String getDiscountString();
+    public String getDiscountString(){
+        return null;
+    }
 
     @JsonGetter
     public String getState(){

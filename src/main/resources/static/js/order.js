@@ -32,7 +32,7 @@ $(document).ready(function () {
             }
         },
         columnDefs: [{
-            className: 'dt-center',
+            className: 'dtr-control',
             orderable: false,
             targets: 0
         }, {
@@ -145,7 +145,7 @@ function getData(result){
         data = data +
             `<tr>
 			<td class="product-name">${element.productName}</td>
-			<td class="product-typr"></td>
+			<td class="product-type">${element.productType}</td>
 			<td class="product-qty">${element.qty}</td>
 			<td class="text-center product-subTotal">NT$${element.subTotal}</td>
 		</tr>`

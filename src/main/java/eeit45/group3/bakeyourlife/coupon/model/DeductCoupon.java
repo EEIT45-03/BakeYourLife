@@ -14,7 +14,7 @@ public class DeductCoupon extends Coupon{
 
 
     @Override
-    Integer getDiscountAmount(Integer totalPrice) {
+    public Integer getDiscountAmount(Integer totalPrice) {
         if(totalPrice >= this.getMinimum()){
             return deductAmount;
         }
@@ -22,7 +22,7 @@ public class DeductCoupon extends Coupon{
     }
 
     @Override
-    String getDiscountString() {
+    public String getDiscountString() {
         return "NT$" + deductAmount;
     }
 
