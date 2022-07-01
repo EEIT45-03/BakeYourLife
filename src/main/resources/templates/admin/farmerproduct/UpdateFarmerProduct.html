@@ -1,0 +1,384 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>修改小農商品</title>
+	<div th:replace="/admin/css.html"></div>
+	
+	<style>
+
+
+textarea.form-control {
+	resize: none;
+	height: 100px;
+}
+
+.imgParent {
+	width: 120px;
+	height: 90px;
+	overflow: hidden;
+}
+
+.img {
+	border-radius: 5px;
+	object-fit: cover;
+	width: 120px;
+	height: 90px;
+	/* max-width: 100%; */
+	/* max-height: 100%; */
+}
+</style>
+	
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="/admin/sidebar.html"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="/admin/header.html"></div>
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+      	<h1 class="h3 mb-4 text-gray-800"></h1>
+					<p class="mb-4">
+						<a href="./" class="btn btn-primary btn-icon-split btn-sm"> <span
+							class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回</span>
+						</a>
+					</p>
+
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">修改小農商品</h6>
+						</div>
+
+
+						<div class="card-body">
+						<form action="" method="post" th:object="${farmerProductBean}" >
+						
+						<!-- 申請單編號: -->
+
+						<div class="row mb-3">
+							<label for="farmerProductId" class="col-sm-2 col-form-labels">商品編號:</label>
+							<div class="col-sm-10">
+							<span th:text="*{farmerProductId}"></span> 
+							<input type="hidden" th:field="*{farmerProductId}" name="farmerProductId" th:value="*{farmerProductId}">
+
+							</div>
+						</div>
+						
+						
+							
+							<!--商品類型: -->
+								<div class="row mb-3">
+									<label for="type"
+										class="col-sm-2 col-form-labels">商品類型:</label>
+									<div class="col-sm-4">
+										<select th:field="*{type}" name="type" class="form-control"
+											id="type"  required>
+											<option th:value="*{type}" th:text="*{type}" selected hidden >請選擇商品類型</option>
+											<option value="蔬菜類">蔬菜類</option>
+											<option value="水果類">水果類</option>
+											<option value="牛奶類">牛奶類</option>
+											<option value="茶葉類">茶葉類</option>
+											<option value="咖啡豆類">咖啡豆類</option>
+										</select> 
+									</div>
+									
+										<div id="typeError" class="col-sm-5" style="color:#f15e5e"> </div>
+								
+								</div>
+							
+								<!-- 商品名稱: -->
+								<div class="row mb-3">
+									<label for="name" class="col-sm-2 col-form-labels">商品名稱:</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control"
+											th:field="*{name}"
+											name="name" id="name"
+											maxlength="30" value="" placeholder="請輸入商品名稱" required>
+									</div>
+									
+										<span id="nameSize">  </span> 
+										<div id="nameError" class="col-sm-5" style="color:#f15e5e"> </div>
+									
+								</div>
+
+								<!-- 價格: -->
+								<div class="row mb-3 ">
+									<label for="price"
+										class="col-sm-2 col-form-labels">價格:</label>
+									<div class="col-sm-4">
+										<input type="number" class="form-control"
+											oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+											min="0" max="99999" name="price" th:field="*{price}"
+											id="price" placeholder="請輸入價格" required>
+									</div>
+										<span id="priceSize"> </span> 
+										<div id="priceError" class="col-sm-5" style="color:#f15e5e"> </div>
+								</div>
+								<!--數量:-->
+								<div class="row mb-3">
+									<label for="quantity"
+										class="col-sm-2 col-form-labels">數量:</label>
+									<div class="col-sm-4">
+										<input type="number" class="form-control"
+											oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+											min="0" max="99999" name="quantity" th:field="*{quantity}"
+											id="quantity" placeholder="請輸入數量" required>
+									</div>
+										<span id="quaSize">  </span> 
+										<div id="quaError" class="col-sm-5" style="color:#f15e5e"> </div>
+								</div>
+								<!--保存方式: -->
+								<div class="row mb-3">
+									<label for="storage"
+										class="col-sm-2 col-form-labels">保存方式:</label>
+									<div class="col-sm-4">
+										<select th:field="*{storage}" name="storage" class="form-control"
+											id="storage"  required>
+											<option value="" selected hidden >請選擇保存方式</option>
+											<option value="冰箱冷藏">冰箱冷藏</option>
+											<option value="冰箱冷凍">冰箱冷凍</option>
+											<option value="放置陰涼處">放於陰涼處</option>
+										</select> 
+									</div>
+									<div id="stoError" class="col-sm-5" style="color:#f15e5e"> </div>
+								</div>
+								<!--內容物:-->
+								<div class="row mb-3">
+									<label for="content"
+										class="col-sm-2 col-form-labels">內容物:</label>
+									<div class="col-sm-4">
+										<textarea class="form-control" th:field="*{contents}" name="contents"
+											id="contents" value="" placeholder="請輸入內容物"
+											maxlength="100" required></textarea>
+
+									</div>
+										<span id="conSize"> </span> 
+										<div id="conError" class="col-sm-5" style="color:#f15e5e"> </div>
+									
+								</div>
+
+
+								<!--商品介紹:-->
+								<div class="row mb-3">
+									<label for="description"
+										class="col-sm-2 col-form-labels">商品介紹:</label>
+									<div class="col-sm-4">
+										<textarea class="form-control" th:field="*{description}" name="description"
+											id="description" value="" placeholder="請輸入商品介紹"
+											maxlength="500" required></textarea>
+									</div>
+								
+										<span id="desSize"> </span>
+										<div id="desError" class="col-sm-5" style="color:#f15e5e"> </div>
+									
+									
+								</div>
+								<div class="row mb-3">
+									<label for="farmerProductPic" class="col-sm-2 col-form-labels">商品圖片:</label>
+									<div class="col-sm-2">
+										<img id="img" class="img"  th:src="*{pictureDataUrl}" /> 
+									</div>
+									
+									<div class="col-sm-2 imgParent">
+										<input type="file" accept="image/png,image/gif,image/jpg,image/jpeg"
+											name="farmerProductPic" id="farmerProductPic" value=""> 
+										<input type="hidden" th:field="*{pictureDataUrl}" name="pictureDataUrl" id="pictureDataUrl" value=""> 
+									</div>
+								
+											<span id="picSize"> </span>
+											<div id="picError" class="col-sm-5" style="color:#f15e5e"> </div>
+								</div>
+								<input type="hidden" th:field="*{state}" name="state" id="state" value=""> 
+								<input type="hidden" th:field="*{launchedTime}" name="launchedTime" id="launchedTime" value=""> 
+								<input type="hidden" th:field="*{suspendTime}" name="suspendTime" id="suspendTime" value=""> 
+								<input type="hidden" th:field="*{violationTime}" name="violationTime" id="violationTime" value=""> 
+
+								<button type="submit" class="btn btn-primary" id="sendData">確認修改</button>
+							</form>
+						</div>
+					</div>
+				</div>
+      
+      
+      
+      
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    <div th:replace="/admin/footer.html"></div>
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+	<script>
+     $(document).ready(function() {
+    	
+    	 
+    	 
+    		function getLength(input) {
+    			//獲取輸入內容
+    			let userDesc = input.val();
+
+    			//判斷字數
+    			let len;
+    			if (userDesc) {
+    				len = userDesc.length;
+    			} else {
+    				len = 0
+    			}
+
+    			return len
+    		}
+
+
+    		$("#name").on('input propertychange', function() {
+    			let len = getLength($(this));
+    			$("#nameSize").text(len + '/30');
+    		});
+    		$("#price").on('input propertychange', function() {
+    			let len = getLength($(this));
+    			$("#priceSize").text(len + '/5');
+    		});
+    		$("#quantity").on('input propertychange', function() {
+    			let len = getLength($(this));
+    			$("#quaSize").text(len + '/5');
+    		});
+    		$("#contents").on('input propertychange', function() {
+    			let len = getLength($(this));
+    			$("#conSize").text(len + '/100');
+    		});
+
+
+    		$("#description").on('input propertychange', function() {
+    			let len = getLength($(this));
+    			$("#desSize").text(len + '/500');
+    		});
+
+    			var originalDataUrl =$("#pictureDataUrl").val();
+
+    		//圖片大小驗證
+    		$("#farmerProductPic").on("change",function(){
+    			var file =document.getElementById("farmerProductPic");
+    			var inputDataUrl =document.getElementById("pictureDataUrl");
+    			
+    			var fileSize = 0;
+    			var fileMaxSize = 1024;//1M
+    			var filePath = file.value;
+    			
+    			if (filePath) {
+    				fileSize = file.files[0].size;
+    				var size = fileSize / 1024;
+    				$('#picSize').text((size/1000).toFixed(2) + 'MB/1MB');
+    				if (size > fileMaxSize) {
+    					$("#img").attr('src', originalDataUrl);
+    					$("#pictureDataUrl").val(originalDataUrl);
+//     					alert("檔案大小不能大於1M！");
+    					$('#picError').text("檔案大小不能大於1MB！");
+    					file.value = "";
+    					return false;
+    				} else if (size <= 0) {
+    					$("#img").attr('src',originalDataUrl);
+    					$("#farmerProductPicDataUrl").val(originalDataUrl);
+//     					alert("檔案大小不能為0M！");
+    					$('#picError').text("檔案大小不能為0MB！");
+    					file.value = "";
+    					return false;
+    				}else{
+    					$('#picError').text("");
+    					readURL(this)
+    				}
+    			} else {
+    				$("#img").attr('src',originalDataUrl);
+    				$("#pictureDataUrl").val(originalDataUrl);
+    				
+    				return false;
+    			}
+    		});
+    		
+    		
+    		
+
+
+//     		$("#farmerProductPic").change(function() {
+    			
+
+//     			readURL(this)
+
+//     		});
+
+
+    		var dataUrl =null; 
+    		function readURL(input) {
+
+    			if (input.files && input.files[0]) {
+
+    				var reader = new FileReader();
+
+    				reader.onload = function(e) {
+    					 dataUrl =  e.target.result;
+    					$("#img").attr('src', dataUrl);
+    					
+    					$("#pictureDataUrl").val(dataUrl);
+    					
+
+    				}
+
+    				reader.readAsDataURL(input.files[0]);
+
+    			}
+
+    		}
+
+
+    		
+    	});
+     
+     
+     $("#sendData").on("click", function() {
+
+ 		$("#name").val($.trim($("#name").val()));
+ 		$("#price").val($.trim($("#price").val()));
+ 		$("#quantity").val($.trim($("#quantity").val()));
+ 		$("#contents").val($.trim($("#contents").val()));
+ 		$("#description").val($.trim($("#description").val()));
+
+ 	});
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

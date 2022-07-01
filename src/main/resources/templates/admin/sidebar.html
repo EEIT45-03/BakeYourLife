@@ -1,122 +1,121 @@
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/}">
-             <div class="sidebar-brand-icon rotate-n-15"> 
-<!--                  <i class="fas fa-laugh-wink"></i>  -->
-						<i class="fa-solid fa-bread-slice"></i>
-             </div>
-             
-             <div class="sidebar-brand-text mx-3">Bake Your Life <sup></sup></div> 
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>首頁</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        
-
-        <!-- Nav Item - 會員管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/User/}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>會員管理</span></a>
-       <!-- Nav Item - 商品管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/Goods/}">
-                <i class="fas fa-fw fa-gift"></i>
-                <span>商品管理</span></a>
-        </li>
-        <!-- Nav Item - 小農廠商-商品申請單管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/FarmerApplyList/}">
-                <i class="fas fa-fw fa-tractor"></i>
-                <span>模擬小農廠商-商品申請</span></a>
-        </li>
-        
-        <!-- Nav Item - 小農商品管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/FarmerProduct/}">
-             	<i class="fas fa-fw fa-carrot"></i>
-                <span>小農商品管理</span></a>
-        </li>
-        <!-- Nav Item - 訂單管理 -->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" th:href="@{/admin/Order/}">-->
-<!--                 <i class="fas fa-fw fa-shopping-cart"></i>-->
-<!--                <span>訂單管理</span></a>-->
-<!--        </li>-->
-        <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-                    aria-expanded="false" aria-controls="collapseOrders">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>訂單</span>
-                </a>
-               <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" th:href="@{/admin/Order/}">訂單管理</a>
-                        <a class="collapse-item" th:href="@{/admin/Coupon/}">優惠券管理</a>
-                    </div>
-                </div>
-            </li>
-
-		<!-- Nav Item - 課程管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/Course/}">
-                <i class="fas fa-fw fa-chalkboard-user"></i>
-                <span>課程管理</span></a>
-        </li>
-        
-        <!-- Nav Item - 貼文管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/Article/}">
-                <i class="fas fa-fw fa-scroll"></i>
-                <span>貼文管理</span></a>
-        </li>
-        
-        <!-- Nav Item - 租借管理 -->
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admins/Rental/}">
-                <i class="fas fa-fw fa-kitchen-set"></i>
-                <span>租借管理</span></a>
-        </li>
-                            
-        <!-- Nav Item - Tables  -->
-        <!--<li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseOrders"
-                    aria-expanded="true" aria-controls="collapseOrders">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>訂單管理</span>
-                </a>
-               <div id="collapseOrders" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">一般商品:</h6>
-                        <a class="collapse-item  active" href="../Order/">一般訂單管理</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">小農商品:</h6>
-                        <a class="collapse-item" href="404.html">小農訂單管理</a>
-                        <h6 class="collapse-header">課程:</h6>
-                        <a class="collapse-item" href="404.html">課程訂單管理</a> 
-                    </div>
-                </div>
-            </li>-->
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <!--                  <i class="fas fa-laugh-wink"></i>  -->
+            <i class="fa-solid fa-bread-slice"></i>
         </div>
 
-    </ul>
-    <!-- End of Sidebar -->
+        <div class="sidebar-brand-text mx-3">Bake Your Life <sup></sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>首頁</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+
+    <!-- Nav Item - 會員管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/User/}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>會員管理</span></a>
+        <!-- Nav Item - 商品管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/Goods/}">
+            <i class="fas fa-fw fa-gift"></i>
+            <span>商品管理</span></a>
+    </li>
+    <!-- Nav Item - 小農廠商-商品申請單管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/FarmerProductSupplier/}">
+            <i class="fas fa-fw fa-tractor"></i>
+            <span>模擬小農廠商-商品申請</span></a>
+    </li>
+
+    <!-- Nav Item - 小農商品管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/FarmerProduct/}">
+            <i class="fas fa-fw fa-carrot"></i>
+            <span>小農商品管理</span></a>
+    </li>
+    <!-- Nav Item - 訂單管理 -->
+    <!--        <li class="nav-item">-->
+    <!--            <a class="nav-link" th:href="@{/admin/Order/}">-->
+    <!--                 <i class="fas fa-fw fa-shopping-cart"></i>-->
+    <!--                <span>訂單管理</span></a>-->
+    <!--        </li>-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+           aria-expanded="false" aria-controls="collapseOrders">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>訂單</span>
+        </a>
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Order/}">訂單管理</a>
+                <a class="collapse-item" th:href="@{/admin/Coupon/}">優惠券管理</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - 課程管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/Course/}">
+            <i class="fas fa-fw fa-chalkboard-user"></i>
+            <span>課程管理</span></a>
+    </li>
+
+    <!-- Nav Item - 貼文管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/Article/}">
+            <i class="fas fa-fw fa-scroll"></i>
+            <span>貼文管理</span></a>
+    </li>
+
+    <!-- Nav Item - 租借管理 -->
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/admins/Rental/}">
+            <i class="fas fa-fw fa-kitchen-set"></i>
+            <span>租借管理</span></a>
+    </li>
+
+    <!-- Nav Item - Tables  -->
+    <!--<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseOrders"
+                aria-expanded="true" aria-controls="collapseOrders">
+                <i class="fas fa-fw fa-shopping-cart"></i>
+                <span>訂單管理</span>
+            </a>
+           <div id="collapseOrders" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">一般商品:</h6>
+                    <a class="collapse-item  active" href="../Order/">一般訂單管理</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">小農商品:</h6>
+                    <a class="collapse-item" href="404.html">小農訂單管理</a>
+                    <h6 class="collapse-header">課程:</h6>
+                    <a class="collapse-item" href="404.html">課程訂單管理</a>
+                </div>
+            </div>
+        </li>-->
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->
