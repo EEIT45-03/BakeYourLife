@@ -29,12 +29,12 @@ public class UserController {
 	public String viewIndex(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
-		return "user/User";
+		return "admin/user/User";
 	}
 
 	@GetMapping("CreateUser")
 	public String viewCreateUser() {
-		return "user/CreateUser";
+		return "admin/user/CreateUser";
 	}
 
 	@PostMapping("CreateUser")
@@ -47,7 +47,7 @@ public class UserController {
 	public String viewUpdateUser(@PathVariable("userId") Integer userId, Model model) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute(user);
-		return "user/UpdateUser";
+		return "admin/user/UpdateUser";
 
 	}
 
@@ -65,8 +65,8 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
-	public @ResponseBody boolean checkUser(@RequestParam String userName) {
-		User user = userService.findByUserName(userName);
+	public @ResponseBody boolean checkUser(@RequestParam String username) {
+		User user = userService.findByUsername(username);
 		if (user == null) {
 			return true;
 		}

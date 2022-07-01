@@ -140,7 +140,7 @@ public class ShoppingCartController {
 	@GetMapping("CheckOut")
 	public String viewCheckOut(@SessionAttribute("cart") Map<Integer, OrderItem> cart,
 							   Model model, Principal principal) {
-		User user = userService.findByUserName(principal.getName());
+		User user = userService.findByUsername(principal.getName());
 
 
 		model.addAttribute("address", user.getAddress());
@@ -175,7 +175,7 @@ public class ShoppingCartController {
 			
 			
 //			User user = (User) request.getSession().getAttribute("user");
-			User user = userService.findByUserName(principal.getName());
+			User user = userService.findByUsername(principal.getName());
 			
 			
 			order.setUser(user);

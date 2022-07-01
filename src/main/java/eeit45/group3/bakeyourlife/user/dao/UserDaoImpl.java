@@ -43,10 +43,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User findByUserName(String userName) {
+	public User findByUsername(String username) {
 		Session session = factory.getCurrentSession();
-		String hql_userIsExist = "FROM User u WHERE u.userName = :uname";
-		User user = session.createQuery(hql_userIsExist, User.class).setParameter("uname", userName).uniqueResult();
+		String hql_userIsExist = "FROM User u WHERE u.username = :uname";
+		User user = session.createQuery(hql_userIsExist, User.class).setParameter("uname", username).uniqueResult();
 		return user;
 	}
 

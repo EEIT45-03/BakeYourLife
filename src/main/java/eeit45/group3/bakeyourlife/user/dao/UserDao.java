@@ -12,7 +12,7 @@ public interface UserDao {
 
 	User findByUserId(Integer userId);
 
-	User findByUserName(String userName);
+	User findByUsername(String username);
 
 	void deleteByUserId(Integer userId);
 

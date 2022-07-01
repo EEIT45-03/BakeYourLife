@@ -16,11 +16,14 @@ public interface UserService {
 
 	User findByUserId(Integer userId);
 
-	User findByUserName(String userName);
+	User findByUsername(String username);
 
 	void deleteByUserId(Integer userId);
 
 	void updateUser(User user);
-	
 
+
+    User findByPhone(String phone);
+
+	User findByEmail(String email);
 }

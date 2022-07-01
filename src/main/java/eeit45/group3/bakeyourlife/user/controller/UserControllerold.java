@@ -25,9 +25,9 @@ package eeit45.group3.bakeyourlife.user.controller;//package eeit45.group3.bakey
 //		"/User/DeleteUser",
 //		"/User/CheckUser"}, 
 //initParams = {
-//		@WebInitParam(name = "UserIndexPath", value = "/JSP/user/User.jsp"),
-//		@WebInitParam(name = "CreateUserPath", value = "/JSP/user/CreateUser.jsp"),
-//		@WebInitParam(name = "UpdateUserPath", value = "/JSP/user/UpdateUser.jsp") })
+//		@WebInitParam(name = "UserIndexPath", value = "/JSP/user/UserOld.jsp"),
+//		@WebInitParam(name = "CreateUserPath", value = "/JSP/user/CreateUserOld.jsp"),
+//		@WebInitParam(name = "UpdateUserPath", value = "/JSP/user/UpdateUserOld.jsp") })
 //public class UserControllerold extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
 //	private String UserIndexPath;

@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByUserName(String userName) {
-		return repository.findByUserName(userName);
+	public User findByUsername(String username) {
+		return repository.findByUsername(username);
 	}
 
 	@Override
@@ -61,6 +61,16 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(encoder.encode(user.getPassword()));
 		repository.save(user);
 
+	}
+
+	@Override
+	public User findByPhone(String phone) {
+		return repository.findByPhone(phone);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 }
