@@ -284,7 +284,7 @@
 <script>
     var count = 1;
     $(".imgAdd").click(function () {
-        if (count < 3) {
+        if (count < 5) {
             $(this)
                 .closest(".row")
                 .find(".imgAdd")
@@ -301,7 +301,7 @@
 										</div>`);
 
         }
-        if (count == 2) {
+        if (count == 4) {
             $(".imgAdd").css("display", "none")
         }
         count++;
