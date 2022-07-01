@@ -1,11 +1,14 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductPicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -27,14 +30,23 @@ public class FarmerProductSupplierController {
 
     FarmerProductService farmerProductService;
 
-    @Autowired
-    public FarmerProductSupplierController(FarmerProductService farmerProductService) {
+    FarmerProductPicService farmerProductPicService;
+
+    //    @Autowired
+    public FarmerProductSupplierController(FarmerProductService farmerProductService, FarmerProductPicService farmerProductPicService) {
         this.farmerProductService = farmerProductService;
+        this.farmerProductPicService = farmerProductPicService;
     }
 
     @GetMapping("/")
     public String viewIndex(Model model) {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
+        List<Object> farmerProductPicList = new ArrayList<>();
+        for (FarmerProductBean bean : farmerProductBeans) {
+            farmerProductPicList.add(bean.getFarmerProductPicList());
+        }
+        model.addAttribute("farmerProductPicList", farmerProductPicList);
+
         model.addAttribute("farmerProductBeans", farmerProductBeans);
         return "admin/farmerproduct/FarmerProductSupplier";
     }
@@ -48,9 +60,22 @@ public class FarmerProductSupplierController {
     @PostMapping("CreateFarmerProduct")
     public String createFarmerProduct(@ModelAttribute FarmerProductBean farmerProductBean) {
 
+        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
+        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+        for (String dataUrl : dataUrls) {
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureDataUrl(dataUrl);
+            farmerProductPicList.add(farmerProductPic);
+        }
+
+
         Date date = new Date();
         farmerProductBean.setLaunchedTime(date);
         farmerProductService.insert(farmerProductBean);
+
+
+        farmerProductPicService.insertAll(farmerProductPicList);
         return "redirect:./";
     }
 
