@@ -114,7 +114,29 @@
 
                                     <td th:text="${bean.farmerProductId}"></td>
                                     <td th:text="${bean.type}"></td>
-                                    <td class="imgParent"><img th:src="${bean.pictureDataUrl}" class="img"></td>
+                                    <td>
+                                        <div class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item"
+                                                     th:each="FarmerProductPic: ${bean.farmerProductPicList}">
+                                                    <img class="d-block w-100 img"
+                                                         th:src="${FarmerProductPic.pictureDataUrl}">
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev"
+                                               role="button" data-slide="prev"
+                                               onclick="$(this).parent().carousel('prev')">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next"
+                                               role="button" data-slide="next"
+                                               onclick="$(this).parent().carousel('next')">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td th:text="${bean.name}"></td>
                                     <td th:text="|NT$ ${bean.price}|"></td>
                                     <td th:text="${bean.quantity}"></td>

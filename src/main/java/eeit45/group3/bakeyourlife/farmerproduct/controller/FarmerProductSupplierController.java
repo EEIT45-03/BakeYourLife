@@ -41,11 +41,6 @@ public class FarmerProductSupplierController {
     @GetMapping("/")
     public String viewIndex(Model model) {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
-        List<Object> farmerProductPicList = new ArrayList<>();
-        for (FarmerProductBean bean : farmerProductBeans) {
-            farmerProductPicList.add(bean.getFarmerProductPicList());
-        }
-        model.addAttribute("farmerProductPicList", farmerProductPicList);
 
         model.addAttribute("farmerProductBeans", farmerProductBeans);
         return "admin/farmerproduct/FarmerProductSupplier";
@@ -64,9 +59,11 @@ public class FarmerProductSupplierController {
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
         for (String dataUrl : dataUrls) {
             FarmerProductPic farmerProductPic = new FarmerProductPic();
-            farmerProductPic.setFarmerProductBean(farmerProductBean);
-            farmerProductPic.setPictureDataUrl(dataUrl);
-            farmerProductPicList.add(farmerProductPic);
+            if (dataUrl != null && dataUrl.length() > 0) {
+                farmerProductPic.setFarmerProductBean(farmerProductBean);
+                farmerProductPic.setPictureDataUrl(dataUrl);
+                farmerProductPicList.add(farmerProductPic);
+            }
         }
 
 

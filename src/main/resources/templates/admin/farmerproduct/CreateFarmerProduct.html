@@ -237,7 +237,7 @@
 
 
                                 <div class="imgUp" id="imgdiv">
-                                    <img id="img1" class="imagePreview" style="display: none;" src="#"><br>
+                                    <img id="img" class="imagePreview" style="display: none;" src="#"><br>
                                     <label class="btn btn-primary imgbtn">
                                         選擇圖片
                                         <input type="file" class="uploadFile"
@@ -282,12 +282,13 @@
 <!-- 小農頁面 -->
 <script th:src="@{/js/createFarmerProduct.js}"></script>
 <script>
-
+    var count = 1;
     $(".imgAdd").click(function () {
-        $(this)
-            .closest(".row")
-            .find(".imgAdd")
-            .before(`<div class=" imgUp" id="imgdiv" >
+        if (count < 3) {
+            $(this)
+                .closest(".row")
+                .find(".imgAdd")
+                .before(`<div class=" imgUp" id="imgdiv" >
 											<img id="img" class="imagePreview" style="display: none;" src="#"><br>
 											<label class="btn btn-primary imgbtn">
 												選擇圖片
@@ -298,12 +299,19 @@
 												<input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
 											</label><i class="fa fa-times del"></i>
 										</div>`);
+
+        }
+        if (count == 2) {
+            $(".imgAdd").css("display", "none")
+        }
+        count++;
     })
 
 
     $(document).on("click", "i.del", function () {
         $(this).parent().remove();
         $(".imgAdd").css("display", "block")
+        count--;
     });
 
 
