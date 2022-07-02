@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>租借管理</title>
+
+  <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="/admin/sidebar.html"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="/admin/header.html"></div>
+
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">租借管理</h1>
+        <p class="mb-4">
+          <a href="CreateRental"
+             class="btn btn-primary btn-icon-split btn-sm"> <span
+                  class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">建立租借單</span>
+          </a>
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">租借單資訊</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+              <table class="table table-striped" id="rentalTable">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>租借單ID</th>
+                    <th>租借單編號</th>
+                    <th>租借類型</th>
+                    <th>會員</th>
+                    <th>總金額</th>
+                    <th>新增</th>
+                    <th>修改</th>
+                    <th>刪除</th>
+                    <th class="none"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rental: ${rentals}">
+                  <td></td>
+                  <td th:text="${rental.rentalId}"></td>
+                  <td th:text="${rental.rentalNo}"></td>
+                  <td th:text="${rental.user.userName}"></td>
+                  <td th:text="${rental.type}"></td>
+                  <td th:text="${rental.total}"></td>
+                  <td th:if="${rental.type} == 'tackle'">
+                    <button type="button"
+                            class="btn btn-warning btn-icon-split btn-sm"
+                            th:onclick="|createTackleList(${rental.rentalId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <td th:if="${rental.type} == 'venue'">
+                    <button type="button"
+                            class="btn btn-warning btn-icon-split btn-sm"
+                            th:onclick="|createVenueList(${rental.rentalId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button"
+                            class="btn btn-warning btn-icon-split btn-sm"
+                            th:onclick="|updateRental(${rental.rentalId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button"
+                            class="btn btn-warning btn-icon-split btn-sm"
+                            th:onclick="|deleteRental(${rental.rentalId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <td th:if="${rental.type} == 'tackle'">
+                    <table id="rentalTable">
+                      <tr>
+                        <td>清單ID:</td>
+                        <td>清單編號:</td>
+                        <td>租借器具:</td>
+                        <td>出租時間:</td>
+                        <td>結束時間:</td>
+                        <td>歸還時間:</td>
+                        <td>租借狀態:</td>
+                        <td>數量:</td>
+                        <td>小計:</td>
+                        <th>修改</th>
+                        <th>刪除</th>
+                      </tr>
+                      <tr th:each="tackleList : ${rental.tackleList}">
+                        <td th:text="${tackleList.tackleListId}"></td>
+                        <td th:text="${tackleList.tackleListNo}"></td>
+                        <td th:text="${tackleList.tackle.tackleName}"></td>
+                        <td th:text="${#dates.format(tackleList.lendDate, 'yyyy/MM/dd')}"></td>
+                        <td th:text="${#dates.format(tackleList.endDate, 'yyyy/MM/dd')}"></td>
+                        <td th:text="${#dates.format(tackleList.returnDate, 'yyyy/MM/dd')}"></td>
+                        <td th:text="${tackleList.state}"></td>
+                        <td th:text="${tackleList.quantity}"></td>
+                        <td th:text="${tackleList.price}"></td>
+                        <td>
+                          <button type="button"
+                                  class="btn btn-warning btn-icon-split btn-sm"
+                                  th:onclick="|updateTackleList(${tackleList.tackleListId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                      </span>
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button"
+                                  class="btn btn-warning btn-icon-split btn-sm"
+                                  th:onclick="|deleteTackleList(${tackleList.tackleListId})|">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+
+                  <td th:if="${rental.type} == 'venue'">
+                    <table id="rentalTable">
+                      <tr>
+                        <td>清單ID:</td>
+                        <td>清單編號:</td>
+                        <td>租借場地:</td>
+                        <td>出租時間:</td>
+                        <td>結束時間:</td>
+                        <td>食材提供:</td>
+                        <td>人數:</td>
+                        <td>小計:</td>
+                        <th>修改</th>
+                        <th>刪除</th>
+                      </tr>
+                      <tr th:each="venueList : ${rental.venueList}">
+                        <td th:text="${venueList.venueListId}"></td>
+                        <td th:text="${venueList.venueListNo}"></td>
+                        <td th:text="${venueList.venue.venueName}"></td>
+                        <td th:text="${#dates.format(venueList.lendTime, 'yyyy/MM/dd HH:mm')}"></td>
+                        <td th:text="${#dates.format(venueList.endTime, 'yyyy/MM/dd HH:mm')}"></td>
+                        <td th:text="${venueList.ingredients}"></td>
+                        <td th:text="${venueList.person}"></td>
+                        <td th:text="${venueList.price}"></td>
+                        <td>
+                          <button type="button"
+                                  class="btn btn-warning btn-icon-split btn-sm"
+                                  th:onclick="|updateVenueList(${venueList.venueListId})|">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button"
+                                  class="btn btn-warning btn-icon-split btn-sm"
+                                  th:onclick="|deleteVenueList(${venueList.venueListId})|">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-trash"></i>
+                            </span>
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    <div th:replace="/admin/footer.html"></div>
+
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<!-- 訂單頁面 -->
+<script th:src="@{/js/rental.js}"></script>
+
+
+</body>
+
+</html>

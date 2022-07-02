@@ -1,19 +1,19 @@
 package eeit45.group3.bakeyourlife.rental.dto;
 
-import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 public class RentalRequest {
 
-	
-	private String rentalNO;
+	private Integer rentalId;
+	private String rentalNo;
 	
 	private String listType;
 
 	private Integer userId;
 	
-	private Integer total = 0;
+	private Integer total ;
 
 	private String[] venueListNo;	
 
@@ -32,14 +32,21 @@ public class RentalRequest {
 	private Integer[] quantity;
 	
 	private Integer[] price;
-	
-	
-	public String getRentalNO() {
-		return rentalNO;
+
+	public Integer getRentalId() {
+		return rentalId;
 	}
 
-	public void setRentalNO(String rentalNO) {
-		this.rentalNO = rentalNO;
+	public void setRentalId(Integer rentalId) {
+		this.rentalId = rentalId;
+	}
+
+	public String getRentalNo() {
+		return rentalNo;
+	}
+
+	public void setRentalNo(String rentalNo) {
+		this.rentalNo = rentalNo;
 	}
 
 	public String getListType() {

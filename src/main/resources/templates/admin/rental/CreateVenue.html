@@ -1,0 +1,23 @@
+<form th:action="@{CreateVenue}" method="post" th:object="${venue}">
+
+
+    <!-- 場地名稱: -->
+    <div class="row mb-3">
+        <label for="venueName" class="col-sm-2 col-form-labels">場地名稱:</label>
+        <div class="col-sm-10">
+            <input th:field="*{venueName}" type="text" class="form-control"
+                   name="venueName" id="venueName" required="required"/>
+        </div>
+    </div>
+
+    <!-- 人數上限: -->
+    <div class="row mb-3">
+        <label for="personMax" class="col-sm-2 col-form-labels">人數上限:</label>
+        <div class="col-sm-10">
+            <input th:field="*{personMax}" type="number" class="form-control"
+                   name="personMax" id="personMax" th:min="0" required="required"/>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">建立</button>
+</form>

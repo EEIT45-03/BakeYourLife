@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 
 
 @Entity
-@Table(name = "class")
+@Table(name = "Venue")
 @Component
-public class Classroom implements Serializable {
+public class Venue implements Serializable {
 
 	/**
 	 * 
@@ -28,13 +28,13 @@ public class Classroom implements Serializable {
 	
 	//教室ID PK
 	@Id
-	@Column(name = "classId")
+	@Column(name = "venueId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer classId;
+	private Integer venueId;
 
 	//教室名稱
-	@Column(name = "className",columnDefinition = "varchar(5) not null unique")
-	private String className;
+	@Column(name = "VenueName",columnDefinition = "varchar(5) not null unique")
+	private String venueName;
 	
 	//人數上限
 	@Column(name = "personMax",columnDefinition = "int not null")
@@ -42,43 +42,34 @@ public class Classroom implements Serializable {
 	
 	
 	//對應場地清單
-	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "classroom")
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 	
 	
-	public Classroom() {
+	public Venue() {
 	}
-	
-	
-	public Classroom(Integer classId, String className, Integer personMax ,Set<VenueList> venueList) {
-		this.classId = classId;
-		this.className = className;
+
+
+	public Venue(String venueName, Integer personMax, Set<VenueList> venueList) {
+		this.venueName = venueName;
 		this.personMax = personMax;
 		this.venueList = venueList;
 	}
-	
 
-	public Classroom(String className, Integer personMax) {
-		this.className = className;
-		this.personMax = personMax;
+	public Integer getVenueId() {
+		return venueId;
 	}
 
-
-	public Integer getClassId() {
-		return classId;
-	}
-	
-	
-	public void setClassId(Integer classId) {
-		this.classId = classId;
+	public void setVenueId(Integer venueId) {
+		this.venueId = venueId;
 	}
 
-	public String getClassName() {
-		return className;
+	public String getVenueName() {
+		return venueName;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setVenueName(String venueName) {
+		this.venueName = venueName;
 	}
 
 	public Integer getPersonMax() {
@@ -89,14 +80,22 @@ public class Classroom implements Serializable {
 		this.personMax = personMax;
 	}
 
-
 	public Set<VenueList> getVenueList() {
 		return venueList;
 	}
 
-
 	public void setVenueList(Set<VenueList> venueList) {
 		this.venueList = venueList;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Venue{" +
+				"venueId=" + venueId +
+				", venueName='" + venueName + '\'' +
+				", personMax=" + personMax +
+				", venueList=" + venueList +
+				'}';
+	}
 }
 

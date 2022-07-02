@@ -4,21 +4,27 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import eeit45.group3.bakeyourlife.rental.model.Rental;
+import eeit45.group3.bakeyourlife.rental.model.*;
 
 public class VenueListRequest {
-	
+
+	private Integer venueListId;
 	private String venueListNo;
 
-	private String className;
+	private Integer venueId;
+
+	private Venue venue;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private Date lendTime;
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date returnTime;
+	private Date endTime;
 	
 	private Integer person;
-	
+
+
+	private String ingredients;
+
 	private Integer price;
 	
 	private Rental rental;
@@ -30,14 +36,12 @@ public class VenueListRequest {
 		this.rental = rental;
 	}
 
-	
-	
-	public Rental getRental() {
-		return rental;
+	public Integer getVenueListId() {
+		return venueListId;
 	}
 
-	public void setRental(Rental rental) {
-		this.rental = rental;
+	public void setVenueListId(Integer venueListId) {
+		this.venueListId = venueListId;
 	}
 
 	public String getVenueListNo() {
@@ -48,12 +52,20 @@ public class VenueListRequest {
 		this.venueListNo = venueListNo;
 	}
 
-	public String getClassName() {
-		return className;
+	public Integer getVenueId() {
+		return venueId;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setVenueId(Integer venueId) {
+		this.venueId = venueId;
+	}
+
+	public Venue getVenue() {
+		return venue;
+	}
+
+	public void setVenue(Venue venue) {
+		this.venue = venue;
 	}
 
 	public Date getLendTime() {
@@ -64,12 +76,12 @@ public class VenueListRequest {
 		this.lendTime = lendTime;
 	}
 
-	public Date getReturnTime() {
-		return returnTime;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 	public Integer getPerson() {
@@ -80,6 +92,14 @@ public class VenueListRequest {
 		this.person = person;
 	}
 
+	public String getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	public Integer getPrice() {
 		return price;
 	}
@@ -87,6 +107,13 @@ public class VenueListRequest {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
-	
+
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
 }
+

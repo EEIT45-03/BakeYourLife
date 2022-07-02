@@ -1,155 +1,107 @@
 package eeit45.group3.bakeyourlife.rental.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.hibernate.SessionFactory;
+import eeit45.group3.bakeyourlife.rental.dao.*;
+import eeit45.group3.bakeyourlife.rental.dto.RentalRequest;
+import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
+import eeit45.group3.bakeyourlife.rental.model.*;
+import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import eeit45.group3.bakeyourlife.rental.dao.RentalDAO;
-import eeit45.group3.bakeyourlife.rental.dto.RentalRequest;
-import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
-import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
-import eeit45.group3.bakeyourlife.rental.model.Classroom;
-import eeit45.group3.bakeyourlife.rental.model.Rental;
-import eeit45.group3.bakeyourlife.rental.model.Tackle;
-import eeit45.group3.bakeyourlife.rental.model.TackleList;
-import eeit45.group3.bakeyourlife.rental.model.VenueList;
-import eeit45.group3.bakeyourlife.rental.service.RentalService;
-import eeit45.group3.bakeyourlife.user.model.User;
+import java.util.List;
 
 
 @Service("rentalService")
 @Transactional(readOnly = true)
 public class RentalServiceImpl implements RentalService{
 	
+
+//	RentalDAO rentalDao;
+
+	UserService userService;
+
+	RentalRepository rentalRepository;
+
+	VenueListRepository venueListRepository;
+
+	TackleListRepository tackleListRepository;
+
+	VenueRepository venueRepository;
+
+	TackleRepository tackleRepository;
 	@Autowired
-	SessionFactory factory;
-	
-	@Autowired
-	RentalDAO rentalDao;
-	
-//	public RentalServiceImpl() {
-//		factory = HibernateUtils.getSessionFactory();
-//		rentalDao = new RentalDAOimp();
-//	}
-	
-	
-	/*租借單 DAO
+	public RentalServiceImpl(TackleRepository tackleRepository,
+							 UserService userService,
+							 RentalRepository rentalRepository,
+							 VenueListRepository venueListRepository,
+							 TackleListRepository tackleListRepository,
+							 VenueRepository venueRepository
+							/* ,RentalDAO rentalDao*/) {
+
+		this.userService = userService;
+		this.rentalRepository = rentalRepository;
+		this.venueListRepository = venueListRepository;
+		this.tackleListRepository = tackleListRepository;
+		this.venueRepository = venueRepository;
+		this.tackleRepository = tackleRepository;
+//		this.rentalDao = rentalDao;
+	}
+
+
+
+
+/*租借單 DAO
 	----------------------------------------------------------------*/	
 	
 	//查詢全部的租借單
 	@Override
 	@Transactional
-	public List<Rental> findAllByRental() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<Rental> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByRental();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+	public List<Rental> findAllRental() {
+		return rentalRepository.findAll();
 	}
 
 	//依租借單ID查詢租借單
 	@Override
 	public Rental findByRentalId(Integer rentalId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Rental rental = null;
-//		try {
-//			tx = session.beginTransaction();
-			rental = rentalDao.findByRentalId(rentalId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return rental;
+		return rentalRepository.findById(rentalId).orElse(null);
 	}
 
 	//新增租借單
 	@Override
 	@Transactional
-	public boolean createRental(Rental rental) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.createRental(rental);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Rental createRental(Rental rental) {
+		return rentalRepository.save(rental);
 	}
 
 	@Override
 	@Transactional
-	public boolean createRental(RentalRequest rentalRequest) {
+	public Rental createRental(RentalRequest rentalRequest) {
 		Rental rental = new Rental();
-		User user = rentalDao.findByUserId(rentalRequest.getUserId());
-		rental.setRentalNO(rentalRequest.getRentalNO());
+		User user = userService.findByUserId(rentalRequest.getUserId());
+		rental.setRentalNo(rentalRequest.getRentalNo());
 		rental.setUser(user);
 		rental.setType(rentalRequest.getListType());
 		rental.setTotal(rentalRequest.getTotal());
-		return rentalDao.createRental(rental);
+		return rentalRepository.save(rental);
 	}
 	
 	
 	//更新租借單
 	@Override
 	@Transactional
-	public boolean updateRental(Rental rental) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.updateRental(rental);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Rental updateRental(Rental rental) {
+		return rentalRepository.save(rental);
 	}
 
 	//刪除租借單
 	@Override
 	@Transactional
-	public boolean deleteRental(Integer rentalId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.deleteRental(rentalId);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public void deleteRental(Integer rentalId) {
+		rentalRepository.deleteById(rentalId);
 	}
 
 	/*場地租借清單 DAO
@@ -157,153 +109,67 @@ public class RentalServiceImpl implements RentalService{
 	
 	//查詢全部的場地租借清單
 	@Override
-	public List<VenueList> findAllByVenueList() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<VenueList> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByVenueList();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+	public List<VenueList> findAllVenueList() {
+		return venueListRepository.findAll();
 	}
 
 	//依清單ID查詢場地租借清單
 	@Override
 	public VenueList findByVenueListId(Integer venueListId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		VenueList venueList = null;
-//		try {
-//			tx = session.beginTransaction();
-			venueList = rentalDao.findByVenueListId(venueListId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return venueList;
+		return venueListRepository.findById(venueListId).orElse(null);
 	}
 
 	//依租借單ID查詢場地租借清單
 	@Override
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<VenueList> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findVenueListByFK_RentalId(FK_rentalId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+		Rental rental = rentalRepository.findById(FK_rentalId).orElse(null);
+		return venueListRepository.findAllByRental(rental);
 	}
 
 	//依租借時間查詢場地
-	@Override
-	public Long findDateBetweenByFK_ClassId(Integer FK_classId, Date lendTime, Date returnTime) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Long sum = null;
-//		try {
-//			tx = session.beginTransaction();
-			sum = rentalDao.findDateBetweenByFK_ClassId(FK_classId, lendTime, returnTime);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return sum;
-	}
+//	@Override
+//	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime) {
+//		Long sum = null;
+//			sum = rentalDao.findDateBetweenByFK_VenueId(FK_venueId, lendTime, returnTime);
+//		return sum;
+//	}
 
 	//新增場地租借清單
 	@Override
 	@Transactional
-	public boolean createVenueList(VenueList venueList) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.createVenueList(venueList);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public VenueList createVenueList(VenueList venueList) {
+		return venueListRepository.save(venueList);
 	}
+
 	@Override
 	@Transactional
-	public boolean createVenueList(Integer rentalId, VenueListRequest venueListRequest) {
+	public VenueList createVenueList(Integer rentalId, VenueListRequest venueListRequest) {
 		VenueList venueList = new VenueList();
-		Rental rental = rentalDao.findByRentalId(rentalId);
-		Classroom room = rentalDao.findByClassName(venueListRequest.getClassName());
+		Rental rental = rentalRepository.findById(rentalId).orElse(null);
+		Venue venue = venueRepository.findById(venueListRequest.getVenueId()).orElse(null);
 		venueList.setVenueListNo(venueListRequest.getVenueListNo());
-		venueList.setClassroom(room);
+		venueList.setVenue(venue);
 		venueList.setLendTime(venueListRequest.getLendTime());
-		venueList.setReturnTime(venueListRequest.getReturnTime());
+		venueList.setEndTime(venueListRequest.getEndTime());
+		venueList.setIngredients(venueListRequest.getIngredients());
 		venueList.setPerson(venueListRequest.getPerson());
 		venueList.setPrice(venueListRequest.getPrice());
 		venueList.setRental(rental);
-		return rentalDao.createVenueList(venueList);
+		return venueListRepository.save(venueList);
 	}
 	
 	//更新場地租借清單
 	@Override
 	@Transactional
-	public boolean updateVenueList(VenueList venueList) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.updateVenueList(venueList);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public VenueList updateVenueList(VenueList venueList) {
+		return venueListRepository.save(venueList);
 	}
 
 	//刪除場地租借清單
 	@Override
 	@Transactional
-	public boolean deleteVenueList(Integer venueListId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.deleteVenueList(venueListId);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public void deleteVenueList(Integer venueListId) {
+		venueListRepository.deleteById(venueListId);
 	}
 
 	
@@ -312,119 +178,42 @@ public class RentalServiceImpl implements RentalService{
 	
 	//查詢全部的教室
 	@Override
-	public List<Classroom> findAllByClassroom() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<Classroom> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByClassroom();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+	public List<Venue> findAllVenue() {
+		return venueRepository.findAll();
 	}
 
 	//依教室ID查詢教室
 	@Override
-	public Classroom findByClassId(Integer classId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Classroom classroom = null;
-//		try {
-//			tx = session.beginTransaction();
-			classroom = rentalDao.findByClassId(classId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return classroom;
+	public Venue findByVenueId(Integer venueId) {
+		return venueRepository.findById(venueId).orElse(null);
 	}
 
 	//依教室名稱查詢教室	
 	@Override
-	public Classroom findByClassName(String className) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Classroom classroom = null;
-//		try {
-//			tx = session.beginTransaction();
-			classroom = rentalDao.findByClassName(className);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return classroom;
+	public Venue findByVenueName(String venueName) {
+		return venueRepository.findByVenueName(venueName);
 	}
 
 	//新增教室
 	@Override
 	@Transactional
-	public boolean createClassroom(Classroom classroom) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.createClassroom(classroom);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Venue createVenue(Venue venue) {
+		return venueRepository.save(venue);
 	}
+
 
 	//更新教室	
 	@Override
 	@Transactional
-	public boolean updateClassroom(Classroom classroom) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.updateClassroom(classroom);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Venue updateVenue(Venue venue) {
+		return venueRepository.save(venue);
 	}
 
 	//刪除教室	
 	@Override
 	@Transactional
-	public boolean deleteClassroom(Integer classId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.deleteClassroom(classId);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public void deleteVenue(Integer venueId) {
+		venueRepository.deleteById(venueId);
 	}
 	
 	
@@ -433,154 +222,69 @@ public class RentalServiceImpl implements RentalService{
 	
 	//查詢全部的器具租借清單
 	@Override
-	public List<TackleList> findAllByTackleList() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<TackleList> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByTackleList();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+	public List<TackleList> findAllTackleList() {
+		return tackleListRepository.findAll();
 	}
 
 	//依清單ID查詢器具租借清單
 	@Override
 	public TackleList findByTackleListId(Integer tackleListId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		TackleList tackleList = null;
-//		try {
-//			tx = session.beginTransaction();
-			tackleList = rentalDao.findByTackleListId(tackleListId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return tackleList;
+		return tackleListRepository.findById(tackleListId).orElse(null);
 	}
 
 	//依租借單ID查詢器具租借清單
 	@Override
 	public List<TackleList> findTackleListByFK_RentalId(Integer FK_RentalId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<TackleList> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findTackleListByFK_RentalId(FK_RentalId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+		Rental rental = rentalRepository.findById(FK_RentalId).orElse(null);
+		return tackleListRepository.findAllByRental(rental);
 	}
 
 	//依租借時間查詢器具
-	@Override
-	public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Long sum = null;
-//		try {
-//			tx = session.beginTransaction();
-			sum = rentalDao.findDateBetweenByFK_TackleId(FK_tackleId, lendTime, returnTime);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return sum;
-	}
+//	@Override
+//	public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime) {
+//		Long sum = null;
+//		sum = rentalDao.findDateBetweenByFK_TackleId(FK_tackleId, lendTime, returnTime);
+//		return sum;
+//	}
 
 	//新增器具租借清單
 	@Override
 	@Transactional
-	public boolean createTackleList(TackleList tackleList) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.createTackleList(tackleList);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public TackleList createTackleList(TackleList tackleList) {
+		return tackleListRepository.save(tackleList);
 	}
 
 	@Override
 	@Transactional
-	public boolean createTackleList(Integer rentalId, TackleListRequest tackleListRequest) {
+	public TackleList createTackleList(Integer rentalId, TackleListRequest tackleListRequest) {
 		TackleList tackleList = new TackleList();
-		Rental rental = rentalDao.findByRentalId(rentalId);
-		Tackle tackle = rentalDao.findByTackleName(tackleListRequest.getTackleName());
+		Rental rental = rentalRepository.findById(rentalId).orElse(null);
+		Tackle tackle = tackleRepository.findById(tackleListRequest.getTackleId()).orElse(null);
+		tackleList.setTackleListId(tackleListRequest.getTackleListId());
 		tackleList.setTackleListNo(tackleListRequest.getTackleListNo());
 		tackleList.setTackle(tackle);
-		tackleList.setLendTime(tackleListRequest.getLendTime());
-		tackleList.setReturnTime(tackleListRequest.getReturnTime());
+		tackleList.setLendDate(tackleListRequest.getLendDate());
+		tackleList.setEndDate(tackleListRequest.getEndDate());
+		tackleList.setReturnDate(tackleListRequest.getReturnDate());
 		tackleList.setQuantity(tackleListRequest.getQuantity());
 		tackleList.setPrice(tackleListRequest.getPrice());
+		tackleList.setState(tackleListRequest.getState());
 		tackleList.setRental(rental);
-		return rentalDao.createTackleList(tackleList);
+		return tackleListRepository.save(tackleList);
 	}
 	
 	//更新器具租借清單
 	@Override
 	@Transactional
-	public boolean updateTackleList(TackleList tackleList) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.updateTackleList(tackleList);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public TackleList updateTackleList(TackleList tackleList) {
+		return tackleListRepository.save(tackleList);
 	}
 
 	//刪除場地租借清單
 	@Override
 	@Transactional
-	public boolean deleteTackleList(Integer tackleListId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.deleteTackleList(tackleListId);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public void deleteTackleList(Integer tackleListId) {
+		tackleListRepository.deleteById(tackleListId);
 	}
 
 	
@@ -589,107 +293,41 @@ public class RentalServiceImpl implements RentalService{
 	
 	//查詢全部的器具
 	@Override
-	public List<Tackle> findAllByTackle() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<Tackle> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByTackle();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
+	public List<Tackle> findAllTackle() {
+		return tackleRepository.findAll();
 	}
 
 	//依器具ID查詢器具
 	@Override
 	public Tackle findByTackleId(Integer tackleId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		Tackle tackle = null;
-//		try {
-//			tx = session.beginTransaction();
-			tackle = rentalDao.findByTackleId(tackleId);
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return tackle;
+		return tackleRepository.findById(tackleId).orElse(null);
 	}
 
 	//依器具名稱查詢器具
 	@Override
 	public Tackle findByTackleName(String tackleName) {
-		Tackle tackle = rentalDao.findByTackleName(tackleName);
-		return tackle;
+		return tackleRepository.findByTackleName(tackleName);
 	}
 	
 	//新增器具	
 	@Override
 	@Transactional
-	public boolean createTackle(Tackle tackle) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.createTackle(tackle);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Tackle createTackle(Tackle tackle) {
+		return tackleRepository.save(tackle);
 	}
 
 	//更新器具
 	@Override
 	@Transactional
-	public boolean updateTackle(Tackle tackle) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.updateTackle(tackle);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public Tackle updateTackle(Tackle tackle) {
+		return tackleRepository.save(tackle);
 	}
 
 	//刪除器具	
 	@Override
 	@Transactional
-	public boolean deleteTackle(Integer tackleId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction();
-			rentalDao.deleteTackle(tackleId);
-//		    tx.commit();
-		    return true;
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return false;
+	public void deleteTackle(Integer tackleId) {
+		tackleRepository.deleteById(tackleId);
 	}
 	
 	
@@ -698,39 +336,18 @@ public class RentalServiceImpl implements RentalService{
 	----------------------------------------------------------------*/	
 	
 	//查詢全部的會員
-	@Override
-	public List<User> findAllByUser() {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		List<User> list = null;
-//		try {
-//			tx = session.beginTransaction();
-			list = rentalDao.findAllByUser();
-//		    tx.commit();
-//		} catch(Exception e) {
-//			if (tx != null) {
-//				tx.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-		return list;
-	}
+//	@Override
+//	public List<User> findAllByUser() {
+//		List<User> list = null;
+//		list = rentalDao.findAllByUser();
+//		return list;
+//	}
 
 	//依Id搜尋查詢會員
-	@Override
-	public User findByUserId(Integer userId) {
-//		Session session = factory.getCurrentSession();
-//		Transaction tx = null;
-		User user = null;
-//		try {
-//			tx = session.beginTransaction();
-			user = rentalDao.findByUserId(userId);
-//		   
-		return user;
-	}
-
-
-
-
-
+//	@Override
+//	public User findByUserId(Integer userId) {
+//		User user = null;
+//		user = rentalDao.findByUserId(userId);
+//		return user;
+//	}
 }

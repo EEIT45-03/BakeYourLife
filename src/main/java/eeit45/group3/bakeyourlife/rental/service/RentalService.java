@@ -6,11 +6,8 @@ import java.util.List;
 import eeit45.group3.bakeyourlife.rental.dto.RentalRequest;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
-import eeit45.group3.bakeyourlife.rental.model.Classroom;
-import eeit45.group3.bakeyourlife.rental.model.Rental;
-import eeit45.group3.bakeyourlife.rental.model.Tackle;
-import eeit45.group3.bakeyourlife.rental.model.TackleList;
-import eeit45.group3.bakeyourlife.rental.model.VenueList;
+import eeit45.group3.bakeyourlife.rental.model.*;
+import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 
@@ -20,27 +17,27 @@ public interface RentalService {
 	----------------------------------------------------------------*/	
 		
 		//查詢全部的租借單
-		public List<Rental> findAllByRental();
+		public List<Rental> findAllRental();
 		
 		//依租借單ID查詢租借單
 		public Rental findByRentalId(Integer rentalId);
 		
 		//新增租借單
-		public boolean createRental(Rental rental);
-		public boolean createRental(RentalRequest rentalRequest);
+		public Rental createRental(Rental rental);
+		public Rental createRental(RentalRequest rentalRequest);
 		
 		//更新租借單
-		public boolean updateRental(Rental rental);
+		public Rental updateRental(Rental rental);
 		
 		//刪除租借單
-		public boolean deleteRental(Integer rentalId);
+		public void deleteRental(Integer rentalId);
 		
 		
 	/*場地租借清單 DAO
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的場地租借清單
-		public List<VenueList> findAllByVenueList();
+		public List<VenueList> findAllVenueList();
 			
 		//依清單ID查詢場地租借清單
 		public VenueList findByVenueListId(Integer venueListId);
@@ -49,46 +46,47 @@ public interface RentalService {
 		public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId);
 		
 		//依租借時間查詢場地
-		public Long findDateBetweenByFK_ClassId(Integer FK_classId, Date lendTime, Date returnTime);
+//		public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime);
 		
 		//新增場地租借清單
-		public boolean createVenueList(VenueList venueList);
-		public boolean createVenueList(Integer rentalId, VenueListRequest venueListRequest);
+		public VenueList createVenueList(VenueList venueList);
+		public VenueList createVenueList(Integer rentalId, VenueListRequest venueListRequest);
 		
 		//更新場地租借清單
-		public boolean updateVenueList(VenueList venueList);
+		public VenueList updateVenueList(VenueList venueList);
 			
 		//刪除場地租借清單
-		public boolean deleteVenueList(Integer venueListId);
+		public void deleteVenueList(Integer venueListId);
 		
 		
 	/*教室 DAO
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的教室
-		public List<Classroom>  findAllByClassroom();
+		public List<Venue>  findAllVenue();
 		
 		//依教室ID查詢教室
-		public Classroom findByClassId(Integer classId);
+		public Venue findByVenueId(Integer venueId);
 		
 		//依教室名稱查詢教室	
-		public Classroom findByClassName(String className);
+		public Venue findByVenueName(String venueName);
 		
 		//新增教室	
-		public boolean createClassroom(Classroom classroom);
+		public Venue createVenue(Venue venue);
+//		public boolean createVenue(VenueRequest venueRequest);
 		
 		//更新教室	
-		public boolean updateClassroom(Classroom classroom);
+		public Venue updateVenue(Venue venue);
 		
 		//刪除教室	
-		public boolean deleteClassroom(Integer classId);
+		public void deleteVenue(Integer venueId);
 
 		
 		/*器具租借清單 DAO
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的器具租借清單
-		public List<TackleList> findAllByTackleList();
+		public List<TackleList> findAllTackleList();
 			
 		//依清單ID查詢器具租借清單
 		public TackleList findByTackleListId(Integer tackleListId);
@@ -97,24 +95,24 @@ public interface RentalService {
 		public List<TackleList> findTackleListByFK_RentalId(Integer FK_RentalId);
 		
 		//依租借時間查詢器具
-		public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime);
+//		public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime);
 		
 		//新增器具租借清單
-		public boolean createTackleList(TackleList tackleList);
-		public boolean createTackleList(Integer rentalId, TackleListRequest tackleListRequest);
+		public TackleList createTackleList(TackleList tackleList);
+		public TackleList createTackleList(Integer rentalId, TackleListRequest tackleListRequest);
 		
 		//更新器具租借清單
-		public boolean updateTackleList(TackleList tackleList);
+		public TackleList updateTackleList(TackleList tackleList);
 			
 		//刪除器具租借清單
-		public boolean deleteTackleList(Integer tackleListId);
+		public void deleteTackleList(Integer tackleListId);
 		
 		
 		/*器具 DAO
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的器具
-		public List<Tackle>  findAllByTackle();
+		public List<Tackle>  findAllTackle();
 		
 		//依器具ID查詢器具
 		public Tackle findByTackleId(Integer tackleId);
@@ -123,13 +121,13 @@ public interface RentalService {
 		public Tackle findByTackleName(String tackleName);
 		
 		//新增器具	
-		public boolean createTackle(Tackle tackle);
+		public Tackle createTackle(Tackle tackle);
 		
 		//更新器具	
-		public boolean updateTackle(Tackle tackle);
+		public Tackle updateTackle(Tackle tackle);
 		
 		//刪除器具
-		public boolean deleteTackle(Integer tackleId);
+		public void deleteTackle(Integer tackleId);
 		
 		
 		
@@ -138,8 +136,8 @@ public interface RentalService {
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的會員
-		public List<User> findAllByUser();
+//		public List<User> findAllByUser();
 		
 		//依Id搜尋查詢會員
-		public User findByUserId(Integer userId);	
+//		public User findByUserId(Integer userId);
 }

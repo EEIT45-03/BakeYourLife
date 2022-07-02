@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.rental.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -35,7 +36,15 @@ public class Tackle implements Serializable {
 	//器具名稱
 	@Column(name = "tackleName",columnDefinition = "varchar(10) not null unique")
 	private String tackleName;
-	
+
+	//器具型號
+	@Column(name = "productModel",columnDefinition = "varchar(max)")
+	private String productModel;
+
+	//器具規格
+	@Column(name = "specification",columnDefinition = "varchar(max)")
+	private String specification;
+
 	//圖片
 	@Column(name = "picture")
 	private byte[] picture;
@@ -55,21 +64,14 @@ public class Tackle implements Serializable {
 	public Tackle() {
 	}
 
-	public Tackle(Integer tackleId, String tackleName, byte[] picture, Integer dayPrice, Integer max,
-			Set<TackleList> tackleList) {
-		this.tackleId = tackleId;
+	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer max, Set<TackleList> tackleList) {
 		this.tackleName = tackleName;
+		this.productModel = productModel;
+		this.specification = specification;
 		this.picture = picture;
 		this.dayPrice = dayPrice;
 		this.max = max;
 		this.tackleList = tackleList;
-	}
-
-	public Tackle(String tackleName, byte[] picture, Integer dayPrice, Integer max) {
-		this.tackleName = tackleName;
-		this.picture = picture;
-		this.dayPrice = dayPrice;
-		this.max = max;
 	}
 
 	public Integer getTackleId() {
@@ -119,5 +121,36 @@ public class Tackle implements Serializable {
 	public void setTackleList(Set<TackleList> tackleList) {
 		this.tackleList = tackleList;
 	}
-	
+
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+
+	public String getProductModel() {
+		return productModel;
+	}
+
+	public void setProductModel(String productModel) {
+		this.productModel = productModel;
+	}
+
+	@Override
+	public String toString() {
+		return "Tackle{" +
+				"tackleId=" + tackleId +
+				", tackleName='" + tackleName + '\'' +
+				", productModel='" + productModel + '\'' +
+				", specification='" + specification + '\'' +
+				", picture=" + Arrays.toString(picture) +
+				", dayPrice=" + dayPrice +
+				", max=" + max +
+				", tackleList=" + tackleList +
+				'}';
+	}
 }
