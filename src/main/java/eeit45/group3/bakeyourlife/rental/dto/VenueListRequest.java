@@ -7,86 +7,85 @@ import org.springframework.format.annotation.DateTimeFormat;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 
 public class VenueListRequest {
-	
-	private String venueListNo;
 
-	private String className;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date lendTime;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date returnTime;
-	
-	private Integer person;
-	
-	private Integer price;
-	
-	private Rental rental;
-	
-	public VenueListRequest() {
-	}
+    private String venueListNo;
 
-	public VenueListRequest(Rental rental) {
-		this.rental = rental;
-	}
+    private String className;
 
-	
-	
-	public Rental getRental() {
-		return rental;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date lendTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date returnTime;
 
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
+    private Integer person;
 
-	public String getVenueListNo() {
-		return venueListNo;
-	}
+    private Integer price;
 
-	public void setVenueListNo(String venueListNo) {
-		this.venueListNo = venueListNo;
-	}
+    private Rental rental;
 
-	public String getClassName() {
-		return className;
-	}
+    public VenueListRequest() {
+    }
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
+    public VenueListRequest(Rental rental) {
+        this.rental = rental;
+    }
 
-	public Date getLendTime() {
-		return lendTime;
-	}
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
-	}
+    public Rental getRental() {
+        return rental;
+    }
 
-	public Date getReturnTime() {
-		return returnTime;
-	}
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
-	}
+    public String getVenueListNo() {
+        return venueListNo;
+    }
 
-	public Integer getPerson() {
-		return person;
-	}
+    public void setVenueListNo(String venueListNo) {
+        this.venueListNo = venueListNo;
+    }
 
-	public void setPerson(Integer person) {
-		this.person = person;
-	}
+    public String getClassName() {
+        return className;
+    }
 
-	public Integer getPrice() {
-		return price;
-	}
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	
-	
+    public Date getLendTime() {
+        return lendTime;
+    }
+
+    public void setLendTime(Date lendTime) {
+        this.lendTime = lendTime;
+    }
+
+    public Date getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Date returnTime) {
+        this.returnTime = returnTime;
+    }
+
+    public Integer getPerson() {
+        return person;
+    }
+
+    public void setPerson(Integer person) {
+        this.person = person;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+
 }

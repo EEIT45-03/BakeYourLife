@@ -31,26 +31,15 @@ $(document).ready(function () {
         $("#conSize").text(len + '/100');
     });
 
-
     $("#description").on('input propertychange', function () {
         let len = getLength($(this));
         $("#desSize").text(len + '/500');
     });
 
-    $("#sendData").on("click", function () {
-
-        $("#name").val($.trim($("#name").val()));
-        $("#price").val($.trim($("#price").val()));
-        $("#quantity").val($.trim($("#quantity").val()));
-        $("#content").val($.trim($("#content").val()));
-        $("#description").val($.trim($("#description").val()));
-
-    });
 
     $(document).on("change", ".uploadFile", function () {
         var file = $(this);
         var img = file.closest(".imgUp").find("img");
-        var inputDataUrl = file.next();
 
         var fileSize = 0;
         var fileMaxSize = 1024;//1M
@@ -60,7 +49,6 @@ $(document).ready(function () {
 
             var size = fileSize / 1024;
             if (size > fileMaxSize) {
-                img.css('display', 'none')
                 Swal.fire({
                     icon: 'error',
                     title: '檔案大小不能大於1MB！',
@@ -69,7 +57,6 @@ $(document).ready(function () {
                 file.val("");
                 return false;
             } else if (size <= 0) {
-                img.css('display', 'none')
                 Swal.fire({
                     icon: 'error',
                     title: '檔案大小不能為0MB！',
@@ -82,11 +69,10 @@ $(document).ready(function () {
                 readURL(file)
             }
         } else {
-            inputDataUrl.val("");
-            img.css('display', 'none')
             return false;
         }
     });
+
 
     function readURL(input) {
         let dataUrl = null;
@@ -121,6 +107,50 @@ $(document).ready(function () {
 
     }
 
+
+    $(".imgAdd").click(function () {
+
+        if ($(".imgUp").length < 5) {
+            $(this)
+                .closest(".row")
+                .find(".imgAdd")
+                .before(`<div class=" imgUp" id="imgdiv" >
+											<img id="img" class="imagePreview" style="display: none;" src="#"><br>
+											<label class="btn btn-primary imgbtn">
+												選擇圖片
+												<input type="file" class="uploadFile"
+													accept="image/png,image/gif,image/jpg,image/jpeg"
+													 id="farmerProductPic" value=""
+													style="width: 0px;height: 0px;overflow: hidden;">
+												<input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
+											</label><i class="fa fa-times del"></i>
+										</div>`);
+
+        }
+        if ($(".imgUp").length == 5) {
+            $(".imgAdd").css("display", "none")
+        }
+    })
+
+
+    $(document).on("click", "i.del", function () {
+        $(this).prev().children().next().val("");
+        $(this).parent().remove();
+        $(".imgAdd").css("display", "block");
+    });
+
+
+    $("#sendData").on("click", function () {
+
+        $("#name").val($.trim($("#name").val()));
+        $("#price").val($.trim($("#price").val()));
+        $("#quantity").val($.trim($("#quantity").val()));
+        $("#content").val($.trim($("#content").val()));
+        $("#description").val($.trim($("#description").val()));
+
+    });
+
 });
+
 
 

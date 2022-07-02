@@ -31,9 +31,6 @@
             /* max-height: 100%; */
         }
 
-        #pictureDataUrl {
-            width: 25%;
-        }
 
         .imagePreview {
             border-radius: 5px;
@@ -236,24 +233,12 @@
                                 <span class="col-sm-2 col-form-labels">商品圖片:</span>
 
 
-                                <div class="imgUp" id="imgdiv">
-                                    <img id="img" class="imagePreview" style="display: none;" src="#"><br>
-                                    <label class="btn btn-primary imgbtn">
-                                        選擇圖片
-                                        <input type="file" class="uploadFile"
-                                               accept="image/png,image/gif,image/jpg,image/jpeg"
-                                               name="farmerProductPic" id="farmerProductPic" value=""
-                                               style="width: 0px;height: 0px;overflow: hidden;">
-                                        <input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
-                                    </label>
-                                </div>
-
                                 <i class="fa fa-plus imgAdd"></i>
-
                             </div>
                             <input type="hidden" name="state" id="state" value="0">
 
                             <button type="submit" class="btn btn-primary" id="sendData">確認新增</button>
+
                         </form>
                     </div>
                 </div>
@@ -279,43 +264,8 @@
 <!-- Page level custom scripts -->
 
 
-<!-- 小農頁面 -->
-<script th:src="@{/js/createFarmerProduct.js}"></script>
-<script>
-    var count = 1;
-    $(".imgAdd").click(function () {
-        if (count < 5) {
-            $(this)
-                .closest(".row")
-                .find(".imgAdd")
-                .before(`<div class=" imgUp" id="imgdiv" >
-											<img id="img" class="imagePreview" style="display: none;" src="#"><br>
-											<label class="btn btn-primary imgbtn">
-												選擇圖片
-												<input type="file" class="uploadFile"
-													accept="image/png,image/gif,image/jpg,image/jpeg"
-													name="farmerProductPic" id="farmerProductPic" value=""
-													style="width: 0px;height: 0px;overflow: hidden;">
-												<input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
-											</label><i class="fa fa-times del"></i>
-										</div>`);
-
-        }
-        if (count == 4) {
-            $(".imgAdd").css("display", "none")
-        }
-        count++;
-    })
-
-
-    $(document).on("click", "i.del", function () {
-        $(this).parent().remove();
-        $(".imgAdd").css("display", "block")
-        count--;
-    });
-
-
-</script>
+<!-- 新增修改小農頁面 -->
+<script th:src="@{/js/createUpdateFarmerProduct.js}"></script>
 
 
 </body>

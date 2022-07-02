@@ -20,125 +20,124 @@ import org.springframework.stereotype.Component;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 
-
 @Entity
 @Table(name = "Rental")
 @Component
 public class Rental implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	//自動生成PK
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "rentalId")
-	private Integer rentalId;
-	
-	//租借編號
-	@Column(name = "rentalNO",columnDefinition = "varchar(15) not null unique")
-	private String rentalNO;
-	
-	//會員ID
-	@OneToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name = "userId", nullable = false)
-	private User user;
-	
-	//租借類別
-	@Column(name = "listType",columnDefinition = "varchar(15) not null")
-	private String type;
-	
-	//場地租借清單
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental",orphanRemoval=true)
-	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
-	
-	//器具租借清單
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental_T")		
-	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
-	
-	//總價錢
-	@Column(name = "total", columnDefinition = "int")
-	private Integer total;
-	
-	
-	public Rental() {
-	}
+    //自動生成PK
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rentalId")
+    private Integer rentalId;
 
-	public Rental(Integer rentalId, String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList, Integer total) {
-		this.rentalId = rentalId;
-		this.rentalNO = rentalNO;
-		this.user = user;
-		this.type = type;
-		this.venueList = venueList;
-		this.tackleList = tackleList;
-		this.total = total;
-	}
-	
-	
-	public Rental(String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList,
-			Integer total) {
-		this.rentalNO = rentalNO;
-		this.user = user;
-		this.type = type;
-		this.venueList = venueList;
-		this.tackleList = tackleList;
-		this.total = total;
-	}
+    //租借編號
+    @Column(name = "rentalNO", columnDefinition = "varchar(15) not null unique")
+    private String rentalNO;
 
-	public Integer getRentalId() {
-		return rentalId;
-	}
+    //會員ID
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
-	public void setRentalId(Integer rentalId) {
-		this.rentalId = rentalId;
-	}
+    //租借類別
+    @Column(name = "listType", columnDefinition = "varchar(15) not null")
+    private String type;
 
-	public Integer getTotal() {
-		return total;
-	}
+    //場地租借清單
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental", orphanRemoval = true)
+    private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
+    //器具租借清單
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental_T")
+    private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
-	public User getUser() {
-		return user;
-	}
+    //總價錢
+    @Column(name = "total", columnDefinition = "int")
+    private Integer total;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
 
-	public Set<VenueList> getVenueList() {
-		return venueList;
-	}
+    public Rental() {
+    }
 
-	public void setVenueList(Set<VenueList> venueList) {
-		this.venueList = venueList;
-	}
+    public Rental(Integer rentalId, String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList, Integer total) {
+        this.rentalId = rentalId;
+        this.rentalNO = rentalNO;
+        this.user = user;
+        this.type = type;
+        this.venueList = venueList;
+        this.tackleList = tackleList;
+        this.total = total;
+    }
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public Rental(String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList,
+                  Integer total) {
+        this.rentalNO = rentalNO;
+        this.user = user;
+        this.type = type;
+        this.venueList = venueList;
+        this.tackleList = tackleList;
+        this.total = total;
+    }
 
-	public String getRentalNO() {
-		return rentalNO;
-	}
+    public Integer getRentalId() {
+        return rentalId;
+    }
 
-	public void setRentalNO(String rentalNO) {
-		this.rentalNO = rentalNO;
-	}
+    public void setRentalId(Integer rentalId) {
+        this.rentalId = rentalId;
+    }
 
-	public Set<TackleList> getTackleList() {
-		return tackleList;
-	}
+    public Integer getTotal() {
+        return total;
+    }
 
-	public void setTackleList(Set<TackleList> tackleList) {
-		this.tackleList = tackleList;
-	}
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<VenueList> getVenueList() {
+        return venueList;
+    }
+
+    public void setVenueList(Set<VenueList> venueList) {
+        this.venueList = venueList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getRentalNO() {
+        return rentalNO;
+    }
+
+    public void setRentalNO(String rentalNO) {
+        this.rentalNO = rentalNO;
+    }
+
+    public Set<TackleList> getTackleList() {
+        return tackleList;
+    }
+
+    public void setTackleList(Set<TackleList> tackleList) {
+        this.tackleList = tackleList;
+    }
 
 
 }

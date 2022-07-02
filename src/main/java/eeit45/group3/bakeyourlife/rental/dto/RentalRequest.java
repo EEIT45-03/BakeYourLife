@@ -6,138 +6,138 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class RentalRequest {
 
-	
-	private String rentalNO;
-	
-	private String listType;
 
-	private Integer userId;
-	
-	private Integer total = 0;
+    private String rentalNO;
 
-	private String[] venueListNo;	
+    private String listType;
 
-	private String[] tackleListNo;	
-	
-	private Integer[] FK_classId;
-	
-	private Integer[] FK_tackleId;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date[] lendTime;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date[] returnTime;
-	
-	private Integer[] person;
-	
-	private Integer[] quantity;
-	
-	private Integer[] price;
-	
-	
-	public String getRentalNO() {
-		return rentalNO;
-	}
+    private Integer userId;
 
-	public void setRentalNO(String rentalNO) {
-		this.rentalNO = rentalNO;
-	}
+    private Integer total = 0;
 
-	public String getListType() {
-		return listType;
-	}
+    private String[] venueListNo;
 
-	public void setListType(String listType) {
-		this.listType = listType;
-	}
+    private String[] tackleListNo;
 
-	public RentalRequest() {
-	}
+    private Integer[] FK_classId;
 
-	public Integer getUserId() {
-		return userId;
-	}
+    private Integer[] FK_tackleId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date[] lendTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date[] returnTime;
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    private Integer[] person;
 
-	public Integer getTotal() {
-		return total;
-	}
+    private Integer[] quantity;
 
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
+    private Integer[] price;
 
-	public String[] getVenueListNo() {
-		return venueListNo;
-	}
 
-	public void setVenueListNo(String[] venueListNo) {
-		this.venueListNo = venueListNo;
-	}
+    public String getRentalNO() {
+        return rentalNO;
+    }
 
-	public String[] getTackleListNo() {
-		return tackleListNo;
-	}
+    public void setRentalNO(String rentalNO) {
+        this.rentalNO = rentalNO;
+    }
 
-	public void setTackleListNo(String[] tackleListNo) {
-		this.tackleListNo = tackleListNo;
-	}
+    public String getListType() {
+        return listType;
+    }
 
-	public Integer[] getFK_classId() {
-		return FK_classId;
-	}
+    public void setListType(String listType) {
+        this.listType = listType;
+    }
 
-	public void setFK_classId(Integer[] fK_classId) {
-		FK_classId = fK_classId;
-	}
+    public RentalRequest() {
+    }
 
-	public Integer[] getFK_tackleId() {
-		return FK_tackleId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setFK_tackleId(Integer[] fK_tackleId) {
-		FK_tackleId = fK_tackleId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public Date[] getLendTime() {
-		return lendTime;
-	}
+    public Integer getTotal() {
+        return total;
+    }
 
-	public void setLendTime(Date[] lendTime) {
-		this.lendTime = lendTime;
-	}
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
-	public Date[] getReturnTime() {
-		return returnTime;
-	}
+    public String[] getVenueListNo() {
+        return venueListNo;
+    }
 
-	public void setReturnTime(Date[] returnTime) {
-		this.returnTime = returnTime;
-	}
+    public void setVenueListNo(String[] venueListNo) {
+        this.venueListNo = venueListNo;
+    }
 
-	public Integer[] getPerson() {
-		return person;
-	}
+    public String[] getTackleListNo() {
+        return tackleListNo;
+    }
 
-	public void setPerson(Integer[] person) {
-		this.person = person;
-	}
+    public void setTackleListNo(String[] tackleListNo) {
+        this.tackleListNo = tackleListNo;
+    }
 
-	public Integer[] getQuantity() {
-		return quantity;
-	}
+    public Integer[] getFK_classId() {
+        return FK_classId;
+    }
 
-	public void setQuantity(Integer[] quantity) {
-		this.quantity = quantity;
-	}
+    public void setFK_classId(Integer[] fK_classId) {
+        FK_classId = fK_classId;
+    }
 
-	public Integer[] getPrice() {
-		return price;
-	}
+    public Integer[] getFK_tackleId() {
+        return FK_tackleId;
+    }
 
-	public void setPrice(Integer[] price) {
-		this.price = price;
-	}
+    public void setFK_tackleId(Integer[] fK_tackleId) {
+        FK_tackleId = fK_tackleId;
+    }
+
+    public Date[] getLendTime() {
+        return lendTime;
+    }
+
+    public void setLendTime(Date[] lendTime) {
+        this.lendTime = lendTime;
+    }
+
+    public Date[] getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Date[] returnTime) {
+        this.returnTime = returnTime;
+    }
+
+    public Integer[] getPerson() {
+        return person;
+    }
+
+    public void setPerson(Integer[] person) {
+        this.person = person;
+    }
+
+    public Integer[] getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer[] quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer[] getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer[] price) {
+        this.price = price;
+    }
 }

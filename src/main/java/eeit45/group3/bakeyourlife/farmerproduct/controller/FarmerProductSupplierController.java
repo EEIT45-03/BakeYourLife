@@ -57,22 +57,33 @@ public class FarmerProductSupplierController {
 
         List<String> dataUrls = farmerProductBean.getPictureDataUrl();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
-        for (String dataUrl : dataUrls) {
+
+        if (dataUrls.get(0).length() < 30) {
+            String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
             FarmerProductPic farmerProductPic = new FarmerProductPic();
-            if (dataUrl != null && dataUrl.length() > 0) {
-                farmerProductPic.setFarmerProductBean(farmerProductBean);
-                farmerProductPic.setPictureDataUrl(dataUrl);
-                farmerProductPicList.add(farmerProductPic);
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureDataUrl(dataUrl);
+            farmerProductPicList.add(farmerProductPic);
+        } else {
+
+            for (String dataUrl : dataUrls) {
+                FarmerProductPic farmerProductPic = new FarmerProductPic();
+                if (dataUrl != null && dataUrl.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    farmerProductPic.setPictureDataUrl(dataUrl);
+                    farmerProductPicList.add(farmerProductPic);
+                }
             }
         }
 
 
         Date date = new Date();
         farmerProductBean.setLaunchedTime(date);
+        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
         farmerProductService.insert(farmerProductBean);
 
 
-        farmerProductPicService.insertAll(farmerProductPicList);
+//        farmerProductPicService.insertAll(farmerProductPicList);
         return "redirect:./";
     }
 
@@ -95,8 +106,33 @@ public class FarmerProductSupplierController {
     private String updateFarmerProduct(@RequestParam Integer farmerProductId, FarmerProductBean farmerProductBean) {
         FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(farmerProductId);
 
+        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
+        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+
+        if (dataUrls.get(0).length() < 30) {
+            String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureDataUrl(dataUrl);
+            farmerProductPicList.add(farmerProductPic);
+        } else {
+
+            for (String dataUrl : dataUrls) {
+                FarmerProductPic farmerProductPic = new FarmerProductPic();
+                if (dataUrl != null && dataUrl.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    farmerProductPic.setPictureDataUrl(dataUrl);
+                    farmerProductPicList.add(farmerProductPic);
+                }
+            }
+        }
+
+        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+
         if (farmerProductBeanDb != null) {
+            farmerProductPicService.deleteByFarmerProductId(farmerProductId);
             farmerProductService.update(farmerProductBean);
+//            farmerProductPicService.insertAll(farmerProductPicList);
         }
 
         return "redirect:./";

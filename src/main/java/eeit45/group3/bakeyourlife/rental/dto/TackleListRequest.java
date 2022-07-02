@@ -7,85 +7,86 @@ import org.springframework.format.annotation.DateTimeFormat;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 
 public class TackleListRequest {
-	
-	
-	private String tackleListNo;
-	
-	private String tackleName;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date lendTime;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date returnTime;
-	
-	private Integer quantity;
-	
-	private Integer price;
-
-	private Rental rental;
-	
-	public TackleListRequest() {
-	}
-	public TackleListRequest(Rental rental) {
-		this.rental = rental;
-	}
-	
-	public Rental getRental() {
-		return rental;
-	}
 
 
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
+    private String tackleListNo;
+
+    private String tackleName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date lendTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date returnTime;
+
+    private Integer quantity;
+
+    private Integer price;
+
+    private Rental rental;
+
+    public TackleListRequest() {
+    }
+
+    public TackleListRequest(Rental rental) {
+        this.rental = rental;
+    }
+
+    public Rental getRental() {
+        return rental;
+    }
 
 
-	public String getTackleListNo() {
-		return tackleListNo;
-	}
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
 
-	public void setTackleListNo(String tackleListNo) {
-		this.tackleListNo = tackleListNo;
-	}
 
-	public String getTackleName() {
-		return tackleName;
-	}
+    public String getTackleListNo() {
+        return tackleListNo;
+    }
 
-	public void setTackleName(String tackleName) {
-		this.tackleName = tackleName;
-	}
+    public void setTackleListNo(String tackleListNo) {
+        this.tackleListNo = tackleListNo;
+    }
 
-	public Date getLendTime() {
-		return lendTime;
-	}
+    public String getTackleName() {
+        return tackleName;
+    }
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
-	}
+    public void setTackleName(String tackleName) {
+        this.tackleName = tackleName;
+    }
 
-	public Date getReturnTime() {
-		return returnTime;
-	}
+    public Date getLendTime() {
+        return lendTime;
+    }
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
-	}
+    public void setLendTime(Date lendTime) {
+        this.lendTime = lendTime;
+    }
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public Date getReturnTime() {
+        return returnTime;
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public void setReturnTime(Date returnTime) {
+        this.returnTime = returnTime;
+    }
 
-	public Integer getPrice() {
-		return price;
-	}
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	
-	
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+
 }

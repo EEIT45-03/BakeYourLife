@@ -11,4 +11,6 @@ public interface FarmerProductPicRepository extends JpaRepository<FarmerProductP
 
     List<FarmerProductPic> findAllByFarmerProductBean_FarmerProductId(Integer farmerProductId);
 
+    void deleteFarmerProductPicsByFarmerProductBean_FarmerProductId(Integer farmerProductId);
+
 }

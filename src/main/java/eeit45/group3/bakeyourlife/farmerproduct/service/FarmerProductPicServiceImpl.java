@@ -18,15 +18,6 @@ public class FarmerProductPicServiceImpl implements FarmerProductPicService {
         this.farmerProductPicRepository = farmerProductPicRepository;
     }
 
-    @Override
-    public FarmerProductPic findByPicId(Integer picId) {
-        return farmerProductPicRepository.findByPicId(picId);
-    }
-
-    @Override
-    public List<FarmerProductPic> findAllByFarmerProductBean_FarmerProductId(Integer farmerProductId) {
-        return farmerProductPicRepository.findAllByFarmerProductBean_FarmerProductId(farmerProductId);
-    }
 
     @Override
     @Transactional
@@ -34,15 +25,10 @@ public class FarmerProductPicServiceImpl implements FarmerProductPicService {
         farmerProductPicRepository.saveAll(farmerProductPicList);
     }
 
-    @Override
-    @Transactional
-    public void saveOrUpdate(FarmerProductPic farmerProductPic) {
-        farmerProductPicRepository.save(farmerProductPic);
-    }
 
     @Override
     @Transactional
-    public void delete(Integer picId) {
-        farmerProductPicRepository.deleteById(picId);
+    public void deleteByFarmerProductId(Integer farmerProductId) {
+        farmerProductPicRepository.deleteFarmerProductPicsByFarmerProductBean_FarmerProductId(farmerProductId);
     }
 }

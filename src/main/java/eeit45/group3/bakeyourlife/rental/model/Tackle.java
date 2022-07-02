@@ -21,103 +21,103 @@ import org.springframework.stereotype.Component;
 @Component
 public class Tackle implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	//器具ID (PK)
-	@Id
-	@Column(name = "tackleId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer tackleId;
-	
-	//器具名稱
-	@Column(name = "tackleName",columnDefinition = "varchar(10) not null unique")
-	private String tackleName;
-	
-	//圖片
-	@Column(name = "picture")
-	private byte[] picture;
-	
-	//價錢/天
-	@Column(name = "dayPrice",columnDefinition = "int not null")
-	private Integer dayPrice;
-	
-	//總數量
-	@Column(name = "max",columnDefinition = "int not null")
-	private Integer max;
-	
-	//對應器具清單
-	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
-	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public Tackle() {
-	}
+    //器具ID (PK)
+    @Id
+    @Column(name = "tackleId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer tackleId;
 
-	public Tackle(Integer tackleId, String tackleName, byte[] picture, Integer dayPrice, Integer max,
-			Set<TackleList> tackleList) {
-		this.tackleId = tackleId;
-		this.tackleName = tackleName;
-		this.picture = picture;
-		this.dayPrice = dayPrice;
-		this.max = max;
-		this.tackleList = tackleList;
-	}
+    //器具名稱
+    @Column(name = "tackleName", columnDefinition = "varchar(10) not null unique")
+    private String tackleName;
 
-	public Tackle(String tackleName, byte[] picture, Integer dayPrice, Integer max) {
-		this.tackleName = tackleName;
-		this.picture = picture;
-		this.dayPrice = dayPrice;
-		this.max = max;
-	}
+    //圖片
+    @Column(name = "picture")
+    private byte[] picture;
 
-	public Integer getTackleId() {
-		return tackleId;
-	}
+    //價錢/天
+    @Column(name = "dayPrice", columnDefinition = "int not null")
+    private Integer dayPrice;
 
-	public void setTackleId(Integer tackleId) {
-		this.tackleId = tackleId;
-	}
+    //總數量
+    @Column(name = "max", columnDefinition = "int not null")
+    private Integer max;
 
-	public String getTackleName() {
-		return tackleName;
-	}
+    //對應器具清單
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
+    private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
-	public void setTackleName(String tackleName) {
-		this.tackleName = tackleName;
-	}
+    public Tackle() {
+    }
 
-	public byte[] getPicture() {
-		return picture;
-	}
+    public Tackle(Integer tackleId, String tackleName, byte[] picture, Integer dayPrice, Integer max,
+                  Set<TackleList> tackleList) {
+        this.tackleId = tackleId;
+        this.tackleName = tackleName;
+        this.picture = picture;
+        this.dayPrice = dayPrice;
+        this.max = max;
+        this.tackleList = tackleList;
+    }
 
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
-	}
+    public Tackle(String tackleName, byte[] picture, Integer dayPrice, Integer max) {
+        this.tackleName = tackleName;
+        this.picture = picture;
+        this.dayPrice = dayPrice;
+        this.max = max;
+    }
 
-	public Integer getDayPrice() {
-		return dayPrice;
-	}
+    public Integer getTackleId() {
+        return tackleId;
+    }
 
-	public void setDayPrice(Integer dayPrice) {
-		this.dayPrice = dayPrice;
-	}
+    public void setTackleId(Integer tackleId) {
+        this.tackleId = tackleId;
+    }
 
-	public Integer getMax() {
-		return max;
-	}
+    public String getTackleName() {
+        return tackleName;
+    }
 
-	public void setMax(Integer max) {
-		this.max = max;
-	}
+    public void setTackleName(String tackleName) {
+        this.tackleName = tackleName;
+    }
 
-	public Set<TackleList> getTackleList() {
-		return tackleList;
-	}
+    public byte[] getPicture() {
+        return picture;
+    }
 
-	public void setTackleList(Set<TackleList> tackleList) {
-		this.tackleList = tackleList;
-	}
-	
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public Integer getDayPrice() {
+        return dayPrice;
+    }
+
+    public void setDayPrice(Integer dayPrice) {
+        this.dayPrice = dayPrice;
+    }
+
+    public Integer getMax() {
+        return max;
+    }
+
+    public void setMax(Integer max) {
+        this.max = max;
+    }
+
+    public Set<TackleList> getTackleList() {
+        return tackleList;
+    }
+
+    public void setTackleList(Set<TackleList> tackleList) {
+        this.tackleList = tackleList;
+    }
+
 }

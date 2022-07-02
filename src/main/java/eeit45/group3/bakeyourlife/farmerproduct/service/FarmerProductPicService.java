@@ -6,14 +6,11 @@ import java.util.List;
 
 public interface FarmerProductPicService {
 
-    FarmerProductPic findByPicId(Integer picId);
-
-    List<FarmerProductPic> findAllByFarmerProductBean_FarmerProductId(Integer farmerProductId);
 
     void insertAll(List<FarmerProductPic> farmerProductPicList);
 
-    void saveOrUpdate(FarmerProductPic farmerProductPic);
 
-    void delete(Integer picId);
+    void deleteByFarmerProductId(Integer farmerProductId);
+
 
 }

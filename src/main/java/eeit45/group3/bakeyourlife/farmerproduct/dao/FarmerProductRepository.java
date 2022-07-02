@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface FarmerProductRepository extends JpaRepository<FarmerProductBean, Integer> {
 
     FarmerProductBean findByFarmerProductId(Integer farmerProductId);
+
 }
