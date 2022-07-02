@@ -25,15 +25,14 @@ public class OrderItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer itemNo;
 	
-	//訂單ID
-//	@Transient
-//	private Integer orderId;
-	
 	//商品ID
-	private Integer productNo;
+	private String productNo;
 	
 	//商品名稱
 	private String productName;
+
+	//商品類型
+	private String productType;
 	
 	//單價，不存入資料庫(購物車用)，因為未串接商品，暫時使用
 	@Transient
@@ -49,9 +48,16 @@ public class OrderItem implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="orderId")
 	private Order order;
-	
 
-	
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
 	public Order getOrder() {
 		return order;
 	}
@@ -76,11 +82,11 @@ public class OrderItem implements Serializable {
 		this.itemNo = itemNo;
 	}
 
-	public Integer getProductNo() {
+	public String getProductNo() {
 		return productNo;
 	}
 
-	public void setProductNo(Integer productNo) {
+	public void setProductNo(String productNo) {
 		this.productNo = productNo;
 	}
 

@@ -8,6 +8,8 @@ import org.springframework.statemachine.annotation.OnTransition;
 import org.springframework.statemachine.annotation.WithStateMachine;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component("orderStateListener")
 @WithStateMachine(name = "orderStateMachine")
 public class OrderStateListener {
@@ -62,7 +64,7 @@ public class OrderStateListener {
     @OnTransition(source = "REFUNDING", target = "WAIT_DELIVER")
     public boolean rejectTransition(Message<OrderStatusChangeEvent> message) {
         Order order = (Order) message.getHeaders().get("order");
-        order.setOrderStatus(OrderStatus.REFUNDING);
+        order.setOrderStatus(OrderStatus.WAIT_DELIVER);
         System.out.println("退款拒絕，狀態機反饋資訊：" + message.getHeaders().toString());
         return true;
     }

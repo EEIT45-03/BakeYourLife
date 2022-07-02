@@ -26,4 +26,10 @@ public class IndexController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/")
+    public String index(){
+//        return "/index";
+        return "example/shoping-cart";
+    }
 }

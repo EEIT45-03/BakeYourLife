@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.dao;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
 
     Optional<Order> findByOrderNo(String orderNo);
+
+    List<Order> findAllByCoupon(Coupon coupon);
 
 }

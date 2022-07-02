@@ -80,7 +80,7 @@ public class AdminOrderController {
 		if(order!=null) {
 			orderRequest.setUserId(order.getUser().getUserId());
 			orderRequest.setAddress(order.getAddress());
-			orderRequest.setOrderType(order.getOrderType());
+//			orderRequest.setOrderType(order.getOrderType());
 			orderRequest.setShippingFee(order.getShippingFee());
 			orderRequest.setOrderStatus(order.getOrderStatus().getCode());
 			orderRequest.setShipDate(order.getShipDate());

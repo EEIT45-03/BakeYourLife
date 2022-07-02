@@ -5,23 +5,12 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusConverter;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
@@ -77,7 +66,7 @@ public class Order implements Serializable {
 
 	
 	//訂單類型(一般、小農、...)
-	private String orderType;
+//	private String orderType;
 	
 	//訂單狀態
 	@Convert(converter = OrderStatusConverter.class)
@@ -92,6 +81,33 @@ public class Order implements Serializable {
 	//付款方式
 	private PayType payType;
 
+
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="code")
+	@JsonIgnore
+	private Coupon coupon;
+
+	private Integer discountAmount;
+
+	@Transient
+	private String code;
+
+	//持有的商品清單
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",cascade = CascadeType.ALL)
+	private Set<OrderItem> orderItemList = new LinkedHashSet<>();
+
+
+	public String getCode() {
+		return coupon.getCode() + " " +  coupon.getDiscountString();
+	}
+	public Integer getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(Integer discountAmount) {
+		this.discountAmount = discountAmount;
+	}
 
 	public Date getPayDate() {
 		return payDate;
@@ -108,11 +124,6 @@ public class Order implements Serializable {
 	public void setPayType(PayType payType) {
 		this.payType = payType;
 	}
-
-	//持有的商品清單
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",cascade = CascadeType.ALL)
-	private Set<OrderItem> orderItemList = new LinkedHashSet<>();
-
 
 	public String getTrackingNumber() {
 		return trackingNumber;
@@ -184,13 +195,13 @@ public class Order implements Serializable {
 		this.orderDate = orderDate;
 	}
 
-	public String getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
+//	public String getOrderType() {
+//		return orderType;
+//	}
+//
+//	public void setOrderType(String orderType) {
+//		this.orderType = orderType;
+//	}
 
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
@@ -225,11 +236,11 @@ public class Order implements Serializable {
 	}
 
 
+	public Coupon getCoupon() {
+		return coupon;
+	}
 
-
-	
-	
-	
-	
-	
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
+	}
 }
