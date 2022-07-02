@@ -97,6 +97,7 @@ function showAlert(orderId){
             console.log(result)
             let data = getData(result);
             let trackingNumber = getTrackingNumber(result);
+            let coupon = getCoupon(result);
             Swal.fire({
                 title: "訂單明細",
                 html: `<table class="table text-center">
@@ -116,10 +117,7 @@ function showAlert(orderId){
 							<td class="text-lift">運費</td>
 							<td colspan="3" class="text-center" id="shippingFee">NT$${result.shippingFee}</td>
 						</tr>
-						<tr>
-							<td class="text-lift">優惠卷折扣</td>
-							<td colspan="3" class="text-center" id="coupon">-NT$100</td>
-						</tr>
+                           ${coupon}
                         <tr>
 							<td class="text-lift">合計</td>
 							<td colspan="3" class="text-center" id="total">NT$${result.totalPrice}</td>
@@ -164,6 +162,17 @@ function getTrackingNumber(result) {
                    <td class="text-lift col-sm-2">發貨日期</td>
                    <td colspan="3" class="text-center col-sm-10">${result.shipDate}</td>
              </tr>`
+    }
+}
+
+function getCoupon(result) {
+    if(result.code == null){
+        return "";
+    }else {
+        return `						<tr>
+							<td class="text-lift">優惠卷代碼${result.code}</td>
+							<td colspan="3" class="text-center" id="coupon">-NT$${result.discountAmount}</td>
+						</tr>`
     }
 }
 //跳出修改訂單Alert

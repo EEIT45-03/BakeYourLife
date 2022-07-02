@@ -85,16 +85,29 @@ public class Order implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="code")
+	@JsonIgnore
 	private Coupon coupon;
+
+	private Integer discountAmount;
+
+	@Transient
+	private String code;
 
 	//持有的商品清單
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",cascade = CascadeType.ALL)
 	private Set<OrderItem> orderItemList = new LinkedHashSet<>();
 
 
+	public String getCode() {
+		return coupon.getCode() + " " +  coupon.getDiscountString();
+	}
+	public Integer getDiscountAmount() {
+		return discountAmount;
+	}
 
-
-
+	public void setDiscountAmount(Integer discountAmount) {
+		this.discountAmount = discountAmount;
+	}
 
 	public Date getPayDate() {
 		return payDate;
@@ -223,11 +236,11 @@ public class Order implements Serializable {
 	}
 
 
+	public Coupon getCoupon() {
+		return coupon;
+	}
 
-
-	
-	
-	
-	
-	
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
+	}
 }

@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductService;
 import eeit45.group3.bakeyourlife.good.model.Goods;
@@ -140,7 +141,7 @@ public class ShoppingCartNewController {
 
 
     @PostMapping(path = "/CheckOut",produces = "text/html;charset=UTF-8")
-    public ResponseEntity<String> checkOut(@ModelAttribute("cart") Cart cart,
+    public ResponseEntity<String> checkOut(@ModelAttribute Cart cart,
                                            @RequestParam String address,
                                            @RequestParam PayType payType,
                                            HttpServletRequest request,
@@ -178,8 +179,13 @@ public class ShoppingCartNewController {
             order.setOrderItemList(new LinkedHashSet<>(cart.getCart().values()));
 
             order.getOrderItemList().forEach((e) -> e.setOrder(order));
+            if(cart.getCoupon()!=null){
+                order.setCoupon(cart.getCoupon());
+            }
 
-            order.setTotalPrice(cart.getTotal());
+            order.setTotalPrice(cart.getTotal() - cart.getDiscountAmount());
+
+            order.setDiscountAmount(cart.getDiscountAmount());
 
             orderService.createOrder(order);
 
@@ -187,6 +193,24 @@ public class ShoppingCartNewController {
 
         }
         return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL+"/Order/" + orderNo + "/Pay")).build();
+    }
+
+
+    @GetMapping("/Cart/useCoupon")
+    public String useCoupon(@ModelAttribute Cart cart,
+                            @RequestParam String code,
+                            Model model){
+        Coupon coupon = couponService.findById(code).orElse(null);
+//        if(coupon == null) {
+//
+//        }
+        if(coupon!=null ){
+//            if(cart.getTotal() < coupon.getMinimum()){
+//                model.addAttribute("error","最低消費為"+coupon.getMinimum()+"元");
+//            }
+            cart.setCoupon(coupon);
+        }
+        return "order/CartBody";
     }
 
 

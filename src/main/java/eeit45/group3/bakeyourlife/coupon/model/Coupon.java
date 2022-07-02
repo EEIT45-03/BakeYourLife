@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -16,11 +17,12 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DISCRIMINATOR", discriminatorType = DiscriminatorType.STRING, length = 30)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonIgnoreProperties("orderList")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DeductCoupon.class,name = "deduct"),
         @JsonSubTypes.Type(value = DiscountCoupon.class,name = "discount"),
 })
-public abstract class Coupon {
+public abstract class Coupon implements Serializable {
     @Id//折扣卷代碼
     @Column(unique = true)
     private String code;
@@ -127,5 +129,14 @@ public abstract class Coupon {
 
     public void setUsedQuantity(Integer usedQuantity) {
         this.usedQuantity = usedQuantity;
+    }
+
+
+    public Set<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(Set<Order> orderList) {
+        this.orderList = orderList;
     }
 }

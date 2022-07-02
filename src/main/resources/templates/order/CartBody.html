@@ -45,12 +45,21 @@
 							<td colspan="2" class="text-right" id="shippingFee" th:text="|$${cart.shippingFee}|"></td>
 						</tr>
 						<tr th:if="${cart.coupon}">
-							<td colspan="4" class="text-right" th:text="|優惠卷:${cart.coupon.code}|"></td>
-							<td colspan="2" class="text-right" id="coupon" th:text="|-$${  }|"></td>
+							<td colspan="4" class="text-center" th:text="|優惠卷代碼${cart.coupon.code} ${cart.coupon.discountString}|"></td>
+							<td colspan="2" class="text-right" id="coupon" th:text="|-$${ cart.discountAmount }|"></td>
+						</tr>
+						<tr th:unless="${cart.coupon}">
+							<td colspan="2" class="text-center">優惠卷</td>
+							<td colspan="2" class="text-right">
+								<input type="text" class="form-control" name="coupon" id="coupon">
+
+							</td>
+							<td colspan="2"><button type="button" class="btn btn-primary"
+										id="useCoupon">使用優惠卷</button></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-right">合計</td>
-							<td colspan="2" class="text-right" id="total" th:text="|$${cart.total}|"></td>
+							<td colspan="2" class="text-right" id="total" th:text="|$${cart.total-cart.discountAmount}|"></td>
 						</tr>
 					</tfoot>
 				</table>

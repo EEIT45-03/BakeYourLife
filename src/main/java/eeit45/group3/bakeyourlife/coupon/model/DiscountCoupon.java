@@ -36,7 +36,8 @@ public class DiscountCoupon extends Coupon {
 
     @Override
     public String getDiscountString() {
-        return this.discount.toString()+"折";
+        BigDecimal b = new BigDecimal(this.discount);
+        return "滿"+ this.getMinimum() + "元打" + b.stripTrailingZeros().toPlainString()+"折";
     }
 
 

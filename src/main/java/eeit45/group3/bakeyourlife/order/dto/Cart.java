@@ -34,6 +34,13 @@ public class Cart {
         return total+shippingFee;
     }
 
+    public Integer getDiscountAmount() {
+        if(coupon!=null){
+            return coupon.getDiscountAmount(getTotal());
+        }
+        return 0;
+    }
+
 
     public Integer getShippingFee() {
         return shippingFee;

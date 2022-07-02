@@ -218,6 +218,12 @@ public class OrderServiceImpl implements OrderService {
 //		order.setOrderNo(df.format(current) + end);
 //		order.setOrderDate(current);
 //		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+		Coupon coupon = order.getCoupon();
+		if(coupon != null && coupon.getUsedQuantity() < coupon.getMaxQuantity()){
+			coupon.setUsedQuantity(coupon.getUsedQuantity()+1);
+		}
+		couponService.updateCoupon(coupon);
+
 		return orderRepository.save(order);
 	}
 	

@@ -23,7 +23,7 @@ public class DeductCoupon extends Coupon{
 
     @Override
     public String getDiscountString() {
-        return "NT$" + deductAmount;
+        return "滿"+ this.getMinimum() +"元折" + deductAmount + "元";
     }
 
     public Integer getDeductAmount() {

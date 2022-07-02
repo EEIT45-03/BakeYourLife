@@ -107,7 +107,15 @@
             	.then(function(data){
             	updateTable(data)            		
             	})
-            })            
+            });
+
+			$('#cartBody').on('click', '#useCoupon', function () {
+				let code = $('#coupon').val();
+				fetch("./Cart/useCoupon?code="+code).then(response => response.text())
+						.then(function(data){
+							updateTable(data)
+						})
+			})
         })
             function updateTable(data){
                 $('#cartBody').html(data)
