@@ -212,34 +212,42 @@
 
 
             $("#send").click(function () {
-                var xhr = new XMLHttpRequest();
-                var jsonString = JSON.stringify(getCoupon());
-                console.log(jsonString);
-                xhr.onreadystatechange = function () {
-                    var data = xhr.responseText;
-                    var json = JSON.parse(data);
-                    //修改成功，狀態碼會是200
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        Swal.fire(
-                            '優惠卷修改!',
-                            '優惠卷已成功修改!',
-                            'success'
-                        ).then((result) => {
-                            if (result.isConfirmed) {
-                                location = "./";
-                            }
-                        })
-                    }else if(xhr.status === 400){
-                        Swal.fire(
-                            '優惠卷修改失敗!',
-                            json.message,
-                            'error'
-                        )
+                if(check()) {
+                    var xhr = new XMLHttpRequest();
+                    var jsonString = JSON.stringify(getCoupon());
+                    console.log(jsonString);
+                    xhr.onreadystatechange = function () {
+                        var data = xhr.responseText;
+                        var json = JSON.parse(data);
+                        //修改成功，狀態碼會是200
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            Swal.fire(
+                                '優惠卷修改!',
+                                '優惠卷已成功修改!',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location = "./";
+                                }
+                            })
+                        } else if (xhr.status === 400) {
+                            Swal.fire(
+                                '優惠卷修改失敗!',
+                                json.message,
+                                'error'
+                            )
+                        }
                     }
+                    xhr.open("PUT", '[[@{/Coupons}]]/' + code, true);
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    xhr.send(jsonString);
+                }else {
+                    Swal.fire(
+                        '有欄位未填寫',
+                        '請填寫完整，謝謝!!',
+                        'error'
+                    )
                 }
-                xhr.open("PUT", '[[@{/Coupons}]]/'+code, true);
-                xhr.setRequestHeader("Content-type", "application/json");
-                xhr.send(jsonString);
             });
 
 
@@ -271,9 +279,48 @@
                 }
                 return coupon;
             }
-
-
         });
+        function check(){
+            let type = $("#type").val();
+            let code = $("#code").val();
+            let name = $("#name").val();
+            let startDate = $("#startDate").val();
+            let endDate = $("#endDate").val();
+            let minimum = $("#minimum").val();
+            let maxQuantity = $("#maxQuantity").val();
+            if(type===''){
+                return false;
+            }
+            if(code===''){
+                return false;
+            }
+            if(name===''){
+                return false;
+            }
+            if(startDate===''){
+                return false;
+            }
+            if(endDate===''){
+                return false
+            }
+            if(minimum===''){
+
+            }
+            if (maxQuantity===''){
+                return false
+            }
+            if(type === 'deduct'){
+                if($("#deductAmount").val()===''){
+                    return false;
+                }
+            }
+            if(type === 'discount'){
+                if($("#discountInput").val()===''){
+                    return false;
+                }
+            }
+            return true;
+        }
     </script>
 </body>
 

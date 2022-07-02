@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -25,21 +27,25 @@ import java.util.Set;
 public abstract class Coupon implements Serializable {
     @Id//折扣卷代碼
     @Column(unique = true)
+    @NotBlank
     private String code;
     //名稱
+    @NotBlank
     private String name;
     //開始時間
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd'T'HH:mm")
-//    @DateTimeFormat(pattern="")
-
+    @NotNull
     private Date startDate;
     //結束時間
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd'T'HH:mm")
     @Future(message = "結束時間不能是過去日期")
+    @NotNull
     private Date endDate;
     //最低消費金額
+    @NotNull
     private Integer minimum;
     //可使用數量
+    @NotNull
     private Integer maxQuantity;
     //已使用數量
     private Integer usedQuantity = 0;

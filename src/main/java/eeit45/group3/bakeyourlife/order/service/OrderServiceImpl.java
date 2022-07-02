@@ -90,13 +90,12 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public Order pay(Integer orderId) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		order.setPayDate(new Date());
 		System.out.println("訂單號：" + orderId + " 嘗試支付");
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.PAYED).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
 			System.out.println("訂單號：" + orderId + " 支付失敗，狀態異常");
 		}
-		order.setPayDate(new Date());
-		orderRepository.save(order);
 		return order;
 	}
 
@@ -104,13 +103,13 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public Order deliver(Integer orderId,String trackingNumber) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		order.setTrackingNumber(trackingNumber);
+		order.setShipDate(new Date());
 		System.out.println("訂單號：" + orderId + " 嘗試發貨");
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.DELIVERY).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
 			System.out.println("訂單號：" + orderId + " 發貨失敗，狀態異常");
 		}
-		order.setTrackingNumber(trackingNumber);
-		order.setShipDate(new Date());
 		orderRepository.save(order);
 		return order;
 	}

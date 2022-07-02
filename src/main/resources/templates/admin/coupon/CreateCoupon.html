@@ -50,7 +50,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">建立優惠卷</h6>
                         </div>
                         <div class="card-body">
-                            <!--   					<form action="" method="post" modelAttribute="order">-->
+                               					<form>
 
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-labels">優惠卷名稱:</label>
@@ -112,7 +112,7 @@
                                     <input type="number" class="form-control" name="maxQuantity" id="maxQuantity" placeholder="請輸入數量" required />
                                 </div>
                             </div>
-
+                                                </form>
 
 
 
@@ -178,9 +178,8 @@
                 var xhr = new XMLHttpRequest();
                 var jsonString = JSON.stringify(getCoupon());
                 console.log(jsonString);
+                if(check()){
                 xhr.onreadystatechange = function () {
-                    var data = xhr.responseText;
-                    var json = JSON.parse(data);
                     //建立成功，狀態碼會是201
                     if (xhr.readyState === 4 && xhr.status === 201) {
                         Swal.fire(
@@ -203,9 +202,14 @@
                 xhr.open("POST", '[[@{/Coupons}]]', true);
                 xhr.setRequestHeader("Content-type", "application/json");
                 xhr.send(jsonString);
+                }else {
+                    Swal.fire(
+                        '有欄位未填寫',
+                        '請填寫完整，謝謝!!',
+                        'error'
+                    )
+                }
             });
-
-
             function getCoupon() {
                 var type = $("#type").val();
                 var code = $("#code").val();
@@ -235,8 +239,48 @@
                 return coupon;
             }
 
-
         });
+        function check(){
+            let type = $("#type").val();
+            let code = $("#code").val();
+            let name = $("#name").val();
+            let startDate = $("#startDate").val();
+            let endDate = $("#endDate").val();
+            let minimum = $("#minimum").val();
+            let maxQuantity = $("#maxQuantity").val();
+            if(type===''){
+                return false;
+            }
+            if(code===''){
+                return false;
+            }
+            if(name===''){
+                return false;
+            }
+            if(startDate===''){
+                return false;
+            }
+            if(endDate===''){
+                return false
+            }
+            if(minimum===''){
+
+            }
+            if (maxQuantity===''){
+                return false
+            }
+            if(type === 'deduct'){
+                if($("#deductAmount").val()===''){
+                    return false;
+                }
+            }
+            if(type === 'discount'){
+                if($("#discountInput").val()===''){
+                    return false;
+                }
+            }
+            return true;
+        }
     </script>
 </body>
 

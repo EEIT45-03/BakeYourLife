@@ -8,6 +8,8 @@ import org.springframework.statemachine.annotation.OnTransition;
 import org.springframework.statemachine.annotation.WithStateMachine;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component("orderStateListener")
 @WithStateMachine(name = "orderStateMachine")
 public class OrderStateListener {
