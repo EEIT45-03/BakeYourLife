@@ -37,15 +37,15 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">訂單管理</h1>
         <p class="mb-4">
-          <a href="CreateOrder"
-             class="btn btn-primary btn-icon-split btn-sm"> <span
-                  class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">建立訂單</span>
-          </a>
-          <a href="#" onClick="Javascript:window.open('Cart','','width=800,height=800')"
+<!--          <a href="CreateOrder"-->
+<!--             class="btn btn-primary btn-icon-split btn-sm"> <span-->
+<!--                  class="icon text-white-50"> <i class="fas fa-plus"></i>-->
+<!--						</span> <span class="text">建立訂單</span>-->
+<!--          </a>-->
+          <a th:href="@{/Cart}" target="_blank"
              class="btn btn-primary btn-icon-split btn-sm"> <span
                   class="icon text-white-50"> <i class="fa-solid fa-cart-shopping"></i>
-						</span> <span class="text">模擬前台購物</span>
+						</span> <span class="text">前往購物車</span>
           </a>
 
 
@@ -69,8 +69,8 @@
             <h6 class="m-0 font-weight-bold text-primary">訂單資訊</h6>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped" id="oredrTable">
+            <div class="">
+              <table class="table table-striped text-center" id="oredrTable">
                 <thead>
                 <tr>
                   <th></th>
@@ -78,14 +78,13 @@
                   <th>訂單編號</th>
                   <th>帳號</th>
                   <th>訂單日期</th>
-                  <th>發貨日期</th>
+                  <th>付款方式</th>
                   <th>總金額</th>
-                  <th>運費</th>
                   <th>訂單狀態</th>
-                  <th>修改</th>
-                  <th>刪除</th>
-                  <th class="none">訂單商品</th>
-                  <th class="none">地址</th>
+                  <th>訂單明細</th>
+                  <th>操作</th>
+<!--                  <th class="none">訂單商品</th>-->
+<!--                  <th class="none">地址</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -98,35 +97,55 @@
                     <td th:text="${order.orderNo}">222222222222222</td>
                     <td th:text="${order.user.userName}">user</td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-                    <td th:text="*{order.shipDate}?${#dates.format(order.shipDate, 'yyyy/MM/dd HH:mm')}: '---'">---</td>
+                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
                     <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
-                    <td th:text="|NT$${order.shippingFee}|">NT$60</td>
                     <td th:text="${order.orderStatus.code}"></td>
-                    <td>
-                      <button type="button"
-                              class="btn btn-warning btn-icon-split btn-sm"
-                              th:onclick="|updateAlert(${order.orderId})|">
-														<span class="icon text-white-50"> <i
-                                                                class="fas fa-exclamation-triangle"></i>
+                      <td>                        <button type="button"
+                                                          class="btn btn-info btn-sm"
+                                                          th:onclick="|showAlert(${order.orderId})|">
+														<span class="icon text-white-50">
+                                                          <i class="fa-solid fa-info"></i> 訂單明細
+														</span>
+                      </button></td>
+                    <td class="text-right">
+<!--                      <button type="button"-->
+<!--                              class="btn btn-warning btn-sm"-->
+<!--                              th:onclick="|updateAlert(${order.orderId})|">-->
+<!--														<span class="icon text-white-50"> <i-->
+<!--                                                                class="fas fa-exclamation-triangle"></i>-->
+<!--														</span>-->
+<!--                      </button>-->
+                      <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
+                              class="btn btn-warning btn-sm mr-3"
+                              th:attr="onclick=|shipAlert('${order.orderNo}')|">
+														<span class="icon text-gray-50">
+                                                          <i class="fa-solid fa-truck-fast"></i> 發貨
 														</span>
                       </button>
-                    </td>
-                    <td>
+
+                        <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
+                                class="btn btn-danger btn-sm mr-2"
+                                th:attr="onclick=|refundAlert('${order.orderNo}')|">
+														<span class="icon text-danger-50">
+                                                          <i class="fa-solid fa-sack-dollar"></i> 處理退款
+														</span>
+                        </button>
                       <button type="button"
-                              class="btn btn-danger btn-icon-split btn-sm"
+                              class="btn btn-danger btn-sm ml-2"
                               th:onclick="|deleteAlert(${order.orderId})|">
 														<span class="icon text-white-50"> <i
-                                                                class="fas fa-trash"></i>
+                                                                class="fas fa-trash">刪除</i>
 														</span>
                       </button>
-                    </td>
-                    <td>
 
-                      <ul th:each="orderItem:${order.orderItemList}">
-                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>
-                      </ul>
                     </td>
-                    <td th:text="${order.address}"></td>
+<!--                    <td>-->
+
+<!--                      <ul th:each="orderItem:${order.orderItemList}">-->
+<!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
+<!--                      </ul>-->
+<!--                    </td>-->
+<!--                    <td th:text="${order.address}"></td>-->
 
                   </tr>
                 </tbody>

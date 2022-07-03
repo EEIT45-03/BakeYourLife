@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
+import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
@@ -32,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
 	private OrderRepository orderRepository;
 	private OrderItemRepository orderItemRepository;
+	private CouponService couponService;
 	private UserService userService;
 	private StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine;
 	private StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister;
@@ -40,11 +43,13 @@ public class OrderServiceImpl implements OrderService {
 	public OrderServiceImpl(OrderRepository orderRepository,
 							OrderItemRepository orderItemRepository,
 							UserService userService,
+							CouponService couponService,
 							StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine,
 							StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister) {
 		this.orderRepository = orderRepository;
 		this.orderItemRepository = orderItemRepository;
 		this.userService = userService;
+		this.couponService = couponService;
 		this.orderStateMachine = orderStateMachine;
 		this.persister = persister;
 	}
@@ -54,6 +59,25 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderRepository.findAllByOrderDateBetween(orderDateStart, orderDateEnd);
 	}
+
+	@Override
+	public List<Order> findAllByCouponCode(String code) {
+		Coupon coupon = couponService.findById(code).orElse(null);
+		if(coupon != null){
+			return orderRepository.findAllByCoupon(coupon);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Order> findAllByUserId(Integer userId) {
+		User user = userService.findByUserId(userId);
+		if(user == null){
+			return null;
+		}
+		return orderRepository.findAllByUser(user);
+	}
+
 
 	@Override
 	public List<Order> findAll() {
@@ -74,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public Order pay(Integer orderId) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		order.setPayDate(new Date());
 		System.out.println("訂單號：" + orderId + " 嘗試支付");
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.PAYED).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
@@ -84,13 +109,16 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public Order deliver(Integer orderId) {
+	public Order deliver(Integer orderId,String trackingNumber) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		order.setTrackingNumber(trackingNumber);
+		order.setShipDate(new Date());
 		System.out.println("訂單號：" + orderId + " 嘗試發貨");
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.DELIVERY).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
 			System.out.println("訂單號：" + orderId + " 發貨失敗，狀態異常");
 		}
+		orderRepository.save(order);
 		return order;
 	}
 
@@ -176,27 +204,33 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public Order createOrder(Order order) {
 
-		User user = userService.findByUserId(order.getUserId());
-		order.setUser(user);
-		if(order.getTotalPrice() == null) {
-			order.setTotalPrice(0);
+//		User user = userService.findByUserId(order.getUserId());
+//		order.setUser(user);
+//		if(order.getTotalPrice() == null) {
+//			order.setTotalPrice(0);
+//		}
+//		order.getOrderItemList().forEach(ot -> {
+//			//設定訂單
+//			ot.setOrder(order);
+//			//計算總價
+//			order.setTotalPrice(order.getTotalPrice() + ot.getSubTotal());
+//		});
+//
+//		//加入運費
+//		order.setTotalPrice(order.getTotalPrice() + order.getShippingFee());
+//		//設定訂單編號
+//		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//		Date current = new Date();
+//		int end = (int) (Math.random()*10);
+//		order.setOrderNo(df.format(current) + end);
+//		order.setOrderDate(current);
+//		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+		Coupon coupon = order.getCoupon();
+		if(coupon != null && coupon.getUsedQuantity() < coupon.getMaxQuantity()){
+			coupon.setUsedQuantity(coupon.getUsedQuantity()+1);
+			couponService.updateCoupon(coupon);
 		}
-		order.getOrderItemList().forEach(ot -> {
-			//設定訂單
-			ot.setOrder(order);
-			//計算總價
-			order.setTotalPrice(order.getTotalPrice() + ot.getSubTotal());
-		});
-		
-		//加入運費
-		order.setTotalPrice(order.getTotalPrice() + order.getShippingFee());
-		//設定訂單編號
-		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date current = new Date();
-		int end = (int) (Math.random()*10);
-		order.setOrderNo(df.format(current) + end);
-		order.setOrderDate(current);
-		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+
 		return orderRepository.save(order);
 	}
 	
@@ -216,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
 		User user = userService.findByUserId(orderRequest.getUserId());
 		order.setUser(user);
 		order.setAddress(orderRequest.getAddress());
-		order.setOrderType(orderRequest.getOrderType());
+//		order.setOrderType(orderRequest.getOrderType());
 		order.setShippingFee(orderRequest.getShippingFee());
 		
 		

@@ -35,31 +35,35 @@ public class VenueList implements Serializable {
 	private Integer venueListId;
 
 	//清單編號
-	@Column(name = "venueListNo",columnDefinition = "varchar(12) unique")
+	@Column(name = "venueListNo",columnDefinition = "varchar(12) not null unique")
 	private String venueListNo;
 	
 	//租借場地
 	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name="FK_classId", referencedColumnName = "classId")
-	private Classroom classroom;
+	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
+	private Venue venue;
 	
 	//出租時間
 	@Column(name = "lendTime", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date lendTime;
-	
-	//歸還時間
-	@Column(name = "returnTime", nullable = false)
+
+	//結束時間
+	@Column(name = "endTime", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date returnTime;
-	
+	private Date endTime;
+
+	//食材提供
+	@Column(name = "ingredients",columnDefinition = "varchar(5) not null")
+	private String ingredients;
+
 	//人數
-	@Column(name = "person",columnDefinition = "int")
+	@Column(name = "person",columnDefinition = "int", nullable = false)
 	private Integer person;
 	
 	//價錢
-	@Column(name = "price",columnDefinition = "int")
-	private Integer price_V;
+	@Column(name = "price",columnDefinition = "int", nullable = false)
+	private Integer price;
 	
 	//租借單
 	@ManyToOne(cascade = CascadeType.PERSIST )
@@ -70,19 +74,16 @@ public class VenueList implements Serializable {
 
 	}
 
-
-	public VenueList(Integer venueListId, String venueListNo, Date lendTime, Date returnTime,
-			Integer person, Integer price, Classroom classroom, Rental rental) {
-		this.venueListId = venueListId;
+	public VenueList(String venueListNo, Venue venue, Date lendTime, Date endTime, String ingredients, Integer person, Integer price, Rental rental) {
 		this.venueListNo = venueListNo;
-		this.classroom = classroom;
+		this.venue = venue;
 		this.lendTime = lendTime;
-		this.returnTime = returnTime;
+		this.endTime = endTime;
+		this.ingredients = ingredients;
 		this.person = person;
-		this.price_V = price;
+		this.price = price;
 		this.rental = rental;
 	}
-
 
 	public Integer getVenueListId() {
 		return venueListId;
@@ -100,20 +101,12 @@ public class VenueList implements Serializable {
 		this.venueListNo = venueListNo;
 	}
 
-	public Classroom getClassroom() {
-		return classroom;
+	public Venue getVenue() {
+		return venue;
 	}
 
-	public void setClassroom(Classroom classroom) {
-		this.classroom = classroom;
-	}
-
-	public Rental getRental() {
-		return rental;
-	}
-
-	public void setRental(Rental rental) {
-		this.rental = rental;
+	public void setVenue(Venue venue) {
+		this.venue = venue;
 	}
 
 	public Date getLendTime() {
@@ -124,12 +117,20 @@ public class VenueList implements Serializable {
 		this.lendTime = lendTime;
 	}
 
-	public Date getReturnTime() {
-		return returnTime;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	public Integer getPerson() {
@@ -141,10 +142,18 @@ public class VenueList implements Serializable {
 	}
 
 	public Integer getPrice() {
-		return price_V;
+		return price;
 	}
 
 	public void setPrice(Integer price) {
-		this.price_V = price;
+		this.price = price;
+	}
+
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
 	}
 }

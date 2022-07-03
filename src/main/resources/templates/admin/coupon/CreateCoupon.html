@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>建立優惠卷</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <div th:replace="/admin/sidebar.html"></div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <div th:replace="/admin/header.html"></div>
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800"></h1>
+                    <p class="mb-4">
+                        <a href="../Coupon/" class="btn btn-primary btn-icon-split btn-sm">
+                            <span class="icon text-white-50"> <i class="fas fa-undo"></i>
+                            </span> <span class="text">返回優惠卷管理</span>
+                        </a>
+
+
+                    </p>
+                    <!--                    <div th:if="${error}" class="alert alert-danger" role="alert"></div>-->
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">建立優惠卷</h6>
+                        </div>
+                        <div class="card-body">
+                               					<form>
+
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-2 col-form-labels">優惠卷名稱:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="請輸入優惠卷名稱"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="code" class="col-sm-2 col-form-labels">優惠卷代碼:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="code" id="code" placeholder="請輸入優惠卷代碼"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-labels">優惠卷可使用時間:</label>
+                                <div class="col-sm-10 input-group">
+                                    <input type="datetime-local" class="form-control" name="startDate" id="startDate"
+                                        required />
+                                    <span class="input-group-text"><i class="fas fa-arrow-right"></i></span>
+                                    <input type="datetime-local" class="form-control" name="endDate" id="endDate"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-labels">折扣額度限制:</label>
+                                <div class="col-sm-10 input-group">
+                                    <select class="custom-select col-sm-2" id="type">
+                                        <option value="deduct" selected>折扣金額</option>
+                                        <option value="discount">折扣折數</option>
+                                    </select>
+
+                                    <span class="input-group-text" id="deduct">NT$</span>
+                                    <input type="number" name="discount" min="0.1" max="9.9" step="0.1" style="display:none;" id="discountInput"
+                                        class="form-control" aria-label="Text input with dropdown button">
+                                    <input type="number" name="deductAmount" id="deductAmount" class="form-control"
+                                        aria-label="Text input with dropdown button">
+                                    <span class="input-group-text" id="discount" style="display:none;">折</span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="minimum" class="col-sm-2 col-form-labels">最低消費金額:</label>
+                                <div class="col-sm-10 input-group">
+                                    <span class="input-group-text">NT$</span>
+                                    <input type="number" class="form-control" name="minimum" id="minimum" placeholder="請輸入最低消費金額" required />
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="maxQuantity" class="col-sm-2 col-form-labels">可使用數量:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="maxQuantity" id="maxQuantity" placeholder="請輸入數量" required />
+                                </div>
+                            </div>
+                                                </form>
+
+
+
+
+                        <button id="send" class="btn btn-primary">建立優惠卷</button>
+                        <!--                    </form>-->
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <!-- Bootstrap core JavaScript-->
+    <div th:replace="/admin/javascript.html"></div>
+    <script>
+        $(function () {
+            $('#type').change(function () {
+                if ($(this).val() === 'deduct') {
+                    $('#discount').css("display", "none");
+                    $('#deduct').css("display", "flex");
+                    $('#discountInput').css("display", "none");
+                    $('#deductAmount').css("display", "flex");
+                } else {
+                    $('#deduct').css("display", "none");
+                    $('#discount').css("display", "flex");
+                    $('#deductAmount').css("display", "none");
+                    $('#discountInput').css("display", "flex");
+                }
+            });
+
+            $('#discountInput').blur(function (){
+                let str = $('#discountInput').val();
+                let number = parseFloat($('#discountInput').val());
+                if(number > 9.9){
+                    $('#discountInput').val(9.9);
+                }
+                if(number < 0.1){
+                    console.log("number < 0.1")
+                    $('#discountInput').val(0.1);
+                }
+
+                if($('#discountInput').val().length > 3){
+                    $('#discountInput').val(str.substring(0,3))
+                }
+
+            });
+
+
+            $("#send").click(function () {
+                var xhr = new XMLHttpRequest();
+                var jsonString = JSON.stringify(getCoupon());
+                console.log(jsonString);
+                if(check()){
+                xhr.onreadystatechange = function () {
+                    //建立成功，狀態碼會是201
+                    if (xhr.readyState === 4 && xhr.status === 201) {
+                        Swal.fire(
+                            '優惠卷新增!',
+                            '優惠卷已成功新增!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location = "./";
+                            }
+                        })
+                    }else if(xhr.status === 400){
+                        Swal.fire(
+                            '優惠卷新增失敗!',
+                            json.message,
+                            'error'
+                        )
+                    }
+                }
+                xhr.open("POST", '[[@{/Coupons}]]', true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.send(jsonString);
+                }else {
+                    Swal.fire(
+                        '有欄位未填寫',
+                        '請填寫完整，謝謝!!',
+                        'error'
+                    )
+                }
+            });
+            function getCoupon() {
+                var type = $("#type").val();
+                var code = $("#code").val();
+                var name = $("#name").val();
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                var minimum = $("#minimum").val();
+                var maxQuantity = $("#maxQuantity").val();
+
+                var coupon = {
+                    "type":type,
+                    "code": code,
+                    "name": name,
+                    "startDate": startDate,
+                    "endDate": endDate,
+                    "minimum": minimum,
+                    "maxQuantity":maxQuantity
+                }
+
+                if(type === 'deduct'){
+                    coupon.deductAmount = $("#deductAmount").val();
+                }
+
+                if(type === 'discount'){
+                    coupon.discount = $("#discountInput").val();
+                }
+                return coupon;
+            }
+
+        });
+        function check(){
+            let type = $("#type").val();
+            let code = $("#code").val();
+            let name = $("#name").val();
+            let startDate = $("#startDate").val();
+            let endDate = $("#endDate").val();
+            let minimum = $("#minimum").val();
+            let maxQuantity = $("#maxQuantity").val();
+            if(type===''){
+                return false;
+            }
+            if(code===''){
+                return false;
+            }
+            if(name===''){
+                return false;
+            }
+            if(startDate===''){
+                return false;
+            }
+            if(endDate===''){
+                return false
+            }
+            if(minimum===''){
+
+            }
+            if (maxQuantity===''){
+                return false
+            }
+            if(type === 'deduct'){
+                if($("#deductAmount").val()===''){
+                    return false;
+                }
+            }
+            if(type === 'discount'){
+                if($("#discountInput").val()===''){
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

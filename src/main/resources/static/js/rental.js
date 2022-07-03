@@ -1,27 +1,5 @@
 $(document).ready(function () {
-//    function formatDate(date) {
-//        var d = new Date(date),
-//            month = '' + (d.getMonth() + 1),
-//            day = '' + d.getDate(),
-//            year = d.getFullYear();
-//    
-//        if (month.length < 2) 
-//            month = '0' + month;
-//        if (day.length < 2) 
-//            day = '0' + day;
-//    
-//        return [year, month, day].join('-');
-//    }
-    
-//    let today = new Date();
-//	let endDate = new Date();
-//	endDate.setMonth(endDate.getMonth()-6)
-//    if($('#edate').val()==''){
-//	$('#edate').val(formatDate(today))
-//	}
-//	if($('#sdate').val()==''){
-//	$('#sdate').val(formatDate(endDate))
-//	}
+
     $('#rentalTable').DataTable({
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
@@ -39,41 +17,8 @@ $(document).ready(function () {
             className: 'dt-center',
             targets: [1, 2, 3, 4, 5, 6, 7]
         }],
-        order: [1, 'asc']/*,
-          dom: 'Bfrtip',
-          buttons: [
-              'copyHtml5',
-              'excelHtml5',
-              'csvHtml5'
-          ]*/
+        order: [1, 'asc']
     });
-//    		//在sweetalert2中檢查運費
-//            $('body').on('blur','#shippingFee',function(){
-//            let shippingFee=parseInt($('#shippingFee').val());
-//            if(shippingFee<0){
-//            	$('#shippingFee').val(0)
-//            	alert('運費不能為負數')
-//            }	
-//        })
-//        $('body').on('blur','#memNo',function(){
-//        	let memNo=$('#memNo');
-//        	let address=$('#address')
-//            let memNoValue=parseInt(memNo.val());
-//            $.ajax({
-//                type: "GET",
-//                url: "./Check?memNo="+memNoValue,
-//                dataType: "json",
-//                success: function (response) {
-//                	memNo.val(response.user_id)
-//                	address.val(response.address)
-//                },
-//                error: function (thrownError) {
-//                  memNo.val('')
-//                  address.val('')
-//				  alert('不存在這個會員編號')
-//                }
-//              });
-//        })
 });
 /*==========================================================================================================================*/
 //刪除租借單
@@ -198,6 +143,25 @@ Swal.fire({
 });
 }
 
+//跳出新增器具清單
+function createTackleList(rentalId){
+    Swal.showLoading()
+    fetch('./CreateTackleList?FK_rentalId=' + rentalId)
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '新增器具清單',
+                icon: 'info',
+                html:data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+        });
+}
+
 /*==========================================================================================*/
 
 
@@ -258,24 +222,8 @@ Swal.fire({
 })
 });
 }
-//跳出新增器具清單
-function createTackleList(rentalId){
-Swal.showLoading()
-	fetch('./CreateTackleList?FK_rentalId=' + rentalId)
-.then(response => response.text())
-.then(function(data){
 
-Swal.fire({
-  title: '新增器具清單',
-  icon: 'info',
-  html:data,
-  showCloseButton: true,
-  showCancelButton: false,
-  showConfirmButton: false,
-  focusConfirm: false
-})
-});
-}
+
 //跳出新增場地清單
 function createVenueList(rentalId){
 Swal.showLoading()
@@ -296,3 +244,163 @@ Swal.fire({
 }
 
 /*==========================================================================================*/
+
+
+//刪除場地
+function deleteVenue(venueId) {
+    Swal.fire({
+        title: '請問是否要刪除此場地?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '刪除'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: './DeleteVenue?venueId=' + venueId,
+                success: function (msg) {
+                    Swal.fire(
+                        '已刪除!',
+                        '已成功刪除!',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                },
+                error: function (msg) {
+                    // console.log(msg.status)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '發生錯誤',
+                        text: 'HTTP 狀態碼為 ' + msg.status,
+                        footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                    })
+                }
+            });
+        }
+    })
+}
+//跳出修改場地
+function updateVenue(venueId){
+    Swal.showLoading()
+    fetch('./UpdateVenue?venueId=' + venueId)
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '修改場地',
+                icon: 'info',
+                html:data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+        });
+}
+
+
+//跳出新增場地
+function createVenue(){
+    Swal.showLoading()
+    fetch('./CreateVenue')
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '新增場地',
+                icon: 'info',
+                html:data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+        });
+}
+
+/*==========================================================================================*/
+
+
+//刪除器具
+function deleteTackle(tackleId) {
+    Swal.fire({
+        title: '請問是否要刪除此器具?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '刪除'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: './DeleteTackle?tackleId=' + tackleId,
+                success: function (msg) {
+                    Swal.fire(
+                        '已刪除!',
+                        '已成功刪除!',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                },
+                error: function (msg) {
+                    // console.log(msg.status)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '發生錯誤',
+                        text: 'HTTP 狀態碼為 ' + msg.status,
+                        footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                    })
+                }
+            });
+        }
+    })
+}
+//跳出修改器具
+function updateTackle(tackleId){
+    Swal.showLoading()
+    fetch('./UpdateTackle?tackleId=' + tackleId)
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '修改器具',
+                icon: 'info',
+                html:data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+        });
+}
+
+
+//跳出新增器具
+function createTackle(){
+    Swal.showLoading()
+    fetch('./CreateTackle')
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '新增器具',
+                icon: 'info',
+                html:data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+        });
+}

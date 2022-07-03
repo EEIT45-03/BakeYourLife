@@ -32,7 +32,7 @@ public class SecurityConfig   {
 		http
 		.authorizeHttpRequests()
 			//login頁面不需要認證
-			.antMatchers("/login").permitAll()
+			.antMatchers("/login","/Order/*/Result","/Order/PaySuccess").permitAll()
 			//其他都要認證
 			.anyRequest().authenticated()
 		.and()

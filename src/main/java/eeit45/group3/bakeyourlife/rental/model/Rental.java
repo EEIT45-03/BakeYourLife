@@ -35,8 +35,8 @@ public class Rental implements Serializable {
 	private Integer rentalId;
 	
 	//租借編號
-	@Column(name = "rentalNO",columnDefinition = "varchar(15) not null unique")
-	private String rentalNO;
+	@Column(name = "rentalNo",columnDefinition = "varchar(15) not null unique")
+	private String rentalNo;
 	
 	//會員ID
 	@OneToOne(cascade = {CascadeType.PERSIST})
@@ -52,7 +52,7 @@ public class Rental implements Serializable {
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 	
 	//器具租借清單
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental_T")		
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental")
 	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 	
 	//總價錢
@@ -62,21 +62,10 @@ public class Rental implements Serializable {
 	
 	public Rental() {
 	}
-
-	public Rental(Integer rentalId, String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList, Integer total) {
-		this.rentalId = rentalId;
-		this.rentalNO = rentalNO;
-		this.user = user;
-		this.type = type;
-		this.venueList = venueList;
-		this.tackleList = tackleList;
-		this.total = total;
-	}
 	
-	
-	public Rental(String rentalNO, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList,
+	public Rental(String rentalNo, User user, String type, Set<VenueList> venueList, Set<TackleList> tackleList,
 			Integer total) {
-		this.rentalNO = rentalNO;
+		this.rentalNo = rentalNo;
 		this.user = user;
 		this.type = type;
 		this.venueList = venueList;
@@ -124,12 +113,12 @@ public class Rental implements Serializable {
 		this.type = type;
 	}
 
-	public String getRentalNO() {
-		return rentalNO;
+	public String getRentalNo() {
+		return rentalNo;
 	}
 
-	public void setRentalNO(String rentalNO) {
-		this.rentalNO = rentalNO;
+	public void setRentalNo(String rentalNo) {
+		this.rentalNo = rentalNo;
 	}
 
 	public Set<TackleList> getTackleList() {
@@ -140,5 +129,16 @@ public class Rental implements Serializable {
 		this.tackleList = tackleList;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Rental{" +
+				"rentalId=" + rentalId +
+				", rentalNo='" + rentalNo + '\'' +
+				", user=" + user +
+				", type='" + type + '\'' +
+				", venueList=" + venueList +
+				", tackleList=" + tackleList +
+				", total=" + total +
+				'}';
+	}
 }

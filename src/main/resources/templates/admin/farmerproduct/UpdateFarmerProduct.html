@@ -1,0 +1,315 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>修改小農商品</title>
+    <div th:replace="/admin/css.html"></div>
+
+    <style>
+
+
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+        .imgParent {
+            width: 120px;
+            height: 90px;
+            overflow: hidden;
+        }
+
+        .img {
+            border-radius: 5px;
+            object-fit: cover;
+            width: 120px;
+            height: 90px;
+            /* max-width: 100%; */
+            /* max-height: 100%; */
+        }
+
+        .imagePreview {
+            border-radius: 5px;
+            object-fit: cover;
+            width: 120px;
+            height: 90px;
+            /* width: 100%;
+            height: 180px; */
+            background-position: center center;
+            background-color: #fff;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: inline-block;
+            box-shadow: 0px -3px 6px 2px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .imgbtn {
+            width: 120px;
+            border-radius: 0px 0px 5px 5px;
+            box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.2);
+            margin-top: -5px;
+        }
+
+        .imgUp {
+            position: relative;
+            margin-bottom: 15px;
+            margin-right: 30px;
+        }
+
+        .del {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background-color: #f15e5e;
+            cursor: pointer;
+            border-radius: 50%;
+            color: #fff;
+        }
+
+        .imgAdd {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4bd7ef;
+            color: #fff;
+            box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            line-height: 30px;
+            margin-top: 0px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="./" class="btn btn-primary btn-icon-split btn-sm"> <span
+                            class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回</span>
+                    </a>
+                </p>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">修改小農商品</h6>
+                    </div>
+
+
+                    <div class="card-body">
+                        <form action="" method="post" th:object="${farmerProductBean}">
+
+                            <!-- 申請單編號: -->
+
+                            <div class="row mb-3">
+                                <label for="farmerProductId" class="col-sm-2 col-form-labels">商品編號:</label>
+                                <div class="col-sm-10">
+                                    <span th:text="*{farmerProductId}"></span>
+                                    <input type="hidden" th:field="*{farmerProductId}" name="farmerProductId"
+                                           th:value="*{farmerProductId}">
+
+                                </div>
+                            </div>
+
+
+                            <!--商品類型: -->
+                            <div class="row mb-3">
+                                <label for="type"
+                                       class="col-sm-2 col-form-labels">商品類型:</label>
+                                <div class="col-sm-4">
+                                    <select th:field="*{type}" name="type" class="form-control"
+                                            id="type" required>
+                                        <option th:value="*{type}" th:text="*{type}" selected hidden>請選擇商品類型</option>
+                                        <option value="蔬菜類">蔬菜類</option>
+                                        <option value="水果類">水果類</option>
+                                        <option value="牛奶類">牛奶類</option>
+                                        <option value="茶葉類">茶葉類</option>
+                                        <option value="咖啡豆類">咖啡豆類</option>
+                                    </select>
+                                </div>
+
+                                <div id="typeError" class="col-sm-5" style="color:#f15e5e"></div>
+
+                            </div>
+
+                            <!-- 商品名稱: -->
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-2 col-form-labels">商品名稱:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           th:field="*{name}"
+                                           name="name" id="name"
+                                           maxlength="30" value="" placeholder="請輸入商品名稱" required>
+                                </div>
+
+                                <span id="nameSize">  </span>
+                                <div id="nameError" class="col-sm-5" style="color:#f15e5e"></div>
+
+                            </div>
+
+                            <!-- 價格: -->
+                            <div class="row mb-3 ">
+                                <label for="price"
+                                       class="col-sm-2 col-form-labels">價格:</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control"
+                                           oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+                                           min="0" max="99999" name="price" th:field="*{price}"
+                                           id="price" placeholder="請輸入價格" required>
+                                </div>
+                                <span id="priceSize"> </span>
+                                <div id="priceError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--數量:-->
+                            <div class="row mb-3">
+                                <label for="quantity"
+                                       class="col-sm-2 col-form-labels">數量:</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control"
+                                           oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+                                           min="0" max="99999" name="quantity" th:field="*{quantity}"
+                                           id="quantity" placeholder="請輸入數量" required>
+                                </div>
+                                <span id="quaSize">  </span>
+                                <div id="quaError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--保存方式: -->
+                            <div class="row mb-3">
+                                <label for="storage"
+                                       class="col-sm-2 col-form-labels">保存方式:</label>
+                                <div class="col-sm-4">
+                                    <select th:field="*{storage}" name="storage" class="form-control"
+                                            id="storage" required>
+                                        <option value="" selected hidden>請選擇保存方式</option>
+                                        <option value="冰箱冷藏">冰箱冷藏</option>
+                                        <option value="冰箱冷凍">冰箱冷凍</option>
+                                        <option value="放置陰涼處">放於陰涼處</option>
+                                    </select>
+                                </div>
+                                <div id="stoError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--內容物:-->
+                            <div class="row mb-3">
+                                <label for="content"
+                                       class="col-sm-2 col-form-labels">內容物:</label>
+                                <div class="col-sm-4">
+										<textarea class="form-control" th:field="*{contents}" name="contents"
+                                                  id="contents" value="" placeholder="請輸入內容物"
+                                                  maxlength="100" required></textarea>
+
+                                </div>
+                                <span id="conSize"> </span>
+                                <div id="conError" class="col-sm-5" style="color:#f15e5e"></div>
+
+                            </div>
+
+
+                            <!--商品介紹:-->
+                            <div class="row mb-3">
+                                <label for="description"
+                                       class="col-sm-2 col-form-labels">商品介紹:</label>
+                                <div class="col-sm-4">
+										<textarea class="form-control" th:field="*{description}" name="description"
+                                                  id="description" value="" placeholder="請輸入商品介紹"
+                                                  maxlength="500" required></textarea>
+                                </div>
+
+                                <span id="desSize"> </span>
+                                <div id="desError" class="col-sm-5" style="color:#f15e5e"></div>
+
+
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <span class="col-sm-2 col-form-labels">商品圖片:</span>
+
+                                <div class="imgUp" id="imgdiv" th:each="FarmerProductPic: *{farmerProductPicList}">
+                                    <img id="img" class="imagePreview"
+                                         th:src="${FarmerProductPic.pictureDataUrl}"><br>
+                                    <label class="btn btn-primary imgbtn">
+                                        選擇圖片
+                                        <input type="file" class="uploadFile"
+                                               accept="image/png,image/gif,image/jpg,image/jpeg"
+                                               id="farmerProductPic" value=""
+                                               style="width: 0px;height: 0px;overflow: hidden;">
+                                        <input type="hidden" name="pictureDataUrl"
+                                               id="pictureDataUrl" th:value="${FarmerProductPic.pictureDataUrl}">
+                                    </label><i class="fa fa-times del"></i>
+                                </div>
+
+                                <i class="fa fa-plus imgAdd"></i>
+
+                            </div>
+
+
+                            <input type="hidden" th:field="*{state}" name="state" id="state" value="">
+                            <input type="hidden" th:field="*{launchedTime}" name="launchedTime" id="launchedTime"
+                                   value="">
+                            <input type="hidden" th:field="*{suspendTime}" name="suspendTime" id="suspendTime" value="">
+                            <input type="hidden" th:field="*{violationTime}" name="violationTime" id="violationTime"
+                                   value="">
+
+                            <button type="submit" class="btn btn-primary" id="sendData">確認修改</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+<!-- 新增修改小農頁面 -->
+<script th:src="@{/js/createUpdateFarmerProduct.js}"></script>
+
+
+</body>
+
+</html>

@@ -10,13 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import eeit45.group3.bakeyourlife.order.model.CartItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="Goods")
 @Component
-public class Goods {
+public class Goods implements CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -125,6 +126,25 @@ public class Goods {
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
-    
-    
-} 
+
+
+	@Override
+	public String getCartNo() {
+		return "G" + id;
+	}
+
+	@Override
+	public String getCartType() {
+		return "烘培材料";
+	}
+
+	@Override
+	public Integer getCartPrice() {
+		return Integer.valueOf(packages);
+	}
+
+	@Override
+	public String getCartName() {
+		return name;
+	}
+}

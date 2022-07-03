@@ -4,13 +4,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
     //查詢定單區間
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
+
+    List<Order> findAllByCouponCode(String code);
 
     /*
      * 用商品名稱找訂單
@@ -20,7 +25,9 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-    //List<Order> findAllByMemNo(Integer memNo);
+//    List<Order> findAllByUser(User user);
+
+    List<Order> findAllByUserId(Integer userId);
 
     //查詢所有訂單
     List<Order> findAll();
@@ -42,7 +49,7 @@ public interface OrderService {
     Order pay(Integer orderId);
 
     //訂單發貨
-    Order deliver(Integer orderId);
+    Order deliver(Integer orderId, String trackingNumber);
 
     //訂單收貨
     Order receive(Integer orderId);

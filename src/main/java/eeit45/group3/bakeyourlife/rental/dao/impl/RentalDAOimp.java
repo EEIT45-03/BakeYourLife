@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import eeit45.group3.bakeyourlife.rental.dao.RentalDAO;
-import eeit45.group3.bakeyourlife.rental.model.Classroom;
+import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.Tackle;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
@@ -30,8 +30,8 @@ public class RentalDAOimp implements RentalDAO {
 //	}
 
 	/*租借單 DAO
-	----------------------------------------------------------------*/	
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的租借單
 	@Override
 	public List<Rental> findAllByRental() {
@@ -75,13 +75,13 @@ public class RentalDAOimp implements RentalDAO {
 	public boolean deleteRental(Integer rentalId) {
 		Session session = factory.getCurrentSession();
 		Rental rental = session.get(Rental.class, rentalId);
-		session.delete(rental);	
+		session.delete(rental);
 		return true;
 	}
-	
+
 	/*場地租借清單 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的場地租借清單
 	@Override
 	public List<VenueList> findAllByVenueList() {
@@ -100,7 +100,7 @@ public class RentalDAOimp implements RentalDAO {
 	public VenueList findByVenueListId(Integer venueListId) {
 		Session session = factory.getCurrentSession();
 		VenueList venueList = session.get(VenueList.class, venueListId);
-		
+
 		return venueList;
 	}
 
@@ -120,15 +120,15 @@ public class RentalDAOimp implements RentalDAO {
 
 	//依租借時間查詢場地
 	@Override
-	public Long findDateBetweenByFK_ClassId(Integer FK_classId, Date lendTime, Date returnTime) {
+	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime) {
 		Session session = factory.getCurrentSession();
 		Long sum = null;
 		if(session != null) {
-			String hql = "select Count(FK_classId) FROM VenueList WHERE FK_classId = :classId AND lendTime <= :lTime AND returnTime <= :rTime ";
+			String hql = "select Count(FK_venueId) FROM VenueList WHERE FK_venueId = :venueId AND lendTime <= :lTime AND endTime <= :eTime ";
 			sum =	session.createQuery(hql, Long.class)
-					.setParameter("classId", FK_classId)
+					.setParameter("venueId", FK_venueId)
 					.setParameter("lTime", lendTime)
-					.setParameter("rTime", returnTime)
+					.setParameter("eTime", returnTime)
 					.getSingleResult();
 		}
 		return sum;
@@ -155,76 +155,76 @@ public class RentalDAOimp implements RentalDAO {
 	public boolean deleteVenueList(Integer venueListId) {
 		Session session = factory.getCurrentSession();
 		VenueList  venueList = session.get(VenueList.class, venueListId);
-		session.delete(venueList);	
+		session.delete(venueList);
 		return true;
 	}
 
 	/*教室 DAO
-	----------------------------------------------------------------*/	
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的教室
 	@Override
-	public List<Classroom> findAllByClassroom() {
+	public List<Venue> findAllByVenue() {
 		Session session = factory.getCurrentSession();
-		List<Classroom> classes = null;
+		List<Venue> venues = null;
 		if(session != null) {
-			String hql = "FROM Classroom";
-			classes = session.createQuery(hql, Classroom.class)
+			String hql = "FROM Venue";
+			venues = session.createQuery(hql, Venue.class)
 										  .getResultList();
 		}
-		return classes;
+		return venues;
 	}
 
 	//依教室ID查詢教室
 	@Override
-	public Classroom findByClassId(Integer classId) {
+	public Venue findByVenueId(Integer venueId) {
 		Session session = factory.getCurrentSession();
-		Classroom classroom = session.get(Classroom.class, classId);	
-		return classroom;
+		Venue venue = session.get(Venue.class, venueId);
+		return venue;
 	}
 
-	//依教室名稱查詢教室	
+	//依教室名稱查詢教室
 	@Override
-	public Classroom findByClassName(String className) {
+	public Venue findByVenueName(String venueName) {
 		Session session = factory.getCurrentSession();
-		Classroom classroom = null;
+		Venue venue = null;
 		if(session != null) {
-			String hql = "FROM Classroom WHERE className = :name";
-			classroom = session.createQuery(hql, Classroom.class)
-					.setParameter("name", className)
+			String hql = "FROM Venue WHERE venueName = :name";
+			venue = session.createQuery(hql, Venue.class)
+					.setParameter("name", venueName)
 					.getSingleResult();
 		}
-		return classroom;
+		return venue;
 	}
 
-	//新增教室	
+	//新增教室
 	@Override
-	public boolean createClassroom(Classroom classroom) {
+	public boolean createVenue(Venue venue) {
 		Session session = factory.getCurrentSession();
-		session.save(classroom);
+		session.save(venue);
 		return true;
 	}
-	
-	//更新教室	
+
+	//更新教室
 	@Override
-	public boolean updateClassroom(Classroom classroom) {
+	public boolean updateVenue(Venue venue) {
 		Session session = factory.getCurrentSession();
-		session.saveOrUpdate(classroom);
+		session.saveOrUpdate(venue);
 		return true;
 	}
-	
-	//刪除教室	
+
+	//刪除教室
 	@Override
-	public boolean deleteClassroom(Integer classId) {
+	public boolean deleteVenue(Integer venueId) {
 		Session session = factory.getCurrentSession();
-		Classroom  classroom = session.get(Classroom.class ,classId);
-		session.delete(classroom);
+		Venue  venue = session.get(Venue.class ,venueId);
+		session.delete(venue);
 		return true;
 	}
-	
+
 	/*器具租借清單 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的器具租借清單
 	@Override
 	public List<TackleList> findAllByTackleList() {
@@ -243,7 +243,7 @@ public class RentalDAOimp implements RentalDAO {
 	public TackleList findByTackleListId(Integer tackleListId) {
 		Session session = factory.getCurrentSession();
 		TackleList tackleLists = session.get(TackleList.class, tackleListId);
-		
+
 		return tackleLists;
 	}
 
@@ -267,7 +267,7 @@ public class RentalDAOimp implements RentalDAO {
 		Session session = factory.getCurrentSession();
 		Long sum = null;
 		if(session != null) {
-			String hql = "select Count(FK_tackleId) FROM TackleList WHERE FK_tackleId = :tackleId AND lendTime <= :lTime AND returnTime <= :rTime ";
+			String hql = "select Count(FK_tackleId) FROM TackleList WHERE FK_tackleId = :tackleId AND lendTime <= :lTime AND endTime <= :rTime ";
 			sum =	session.createQuery(hql, Long.class)
 					.setParameter("tackleId", FK_tackleId)
 					.setParameter("lTime", lendTime)
@@ -298,13 +298,13 @@ public class RentalDAOimp implements RentalDAO {
 	public boolean deleteTackleList(Integer tackleListId) {
 		Session session = factory.getCurrentSession();
 		TackleList  tackleList = session.get(TackleList.class, tackleListId);
-		session.delete(tackleList);	
+		session.delete(tackleList);
 		return true;
 	}
-	
+
 	/*器具 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的器具
 	public List<Tackle>  findAllByTackle(){
 		Session session = factory.getCurrentSession();
@@ -316,14 +316,14 @@ public class RentalDAOimp implements RentalDAO {
 		}
 		return tackle;
 	}
-	
+
 	//依教室ID查詢器具
 	public Tackle findByTackleId(Integer tackleId) {
 		Session session = factory.getCurrentSession();
-		Tackle tackle = session.get(Tackle.class, tackleId);	
+		Tackle tackle = session.get(Tackle.class, tackleId);
 		return tackle;
 	}
-	
+
 	//依器具名稱查詢器具
 	@Override
 	public Tackle findByTackleName(String tackleName) {
@@ -337,21 +337,21 @@ public class RentalDAOimp implements RentalDAO {
 		}
 		return tackle;
 	}
-	
-	//新增器具	
+
+	//新增器具
 	public boolean createTackle(Tackle tackle) {
 		Session session = factory.getCurrentSession();
 		session.save(tackle);
 		return true;
 	}
-	
-	//更新器具	
+
+	//更新器具
 	public boolean updateTackle(Tackle tackle) {
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(tackle);
 		return true;
 	}
-	
+
 	//刪除器具
 	public boolean deleteTackle(Integer tackleId) {
 		Session session = factory.getCurrentSession();
@@ -359,11 +359,11 @@ public class RentalDAOimp implements RentalDAO {
 		session.delete(tackle);
 		return true;
 	}
-	
-	
+
+
 	/*會員 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的會員
 	@Override
 	public List<User> findAllByUser() {
@@ -373,7 +373,7 @@ public class RentalDAOimp implements RentalDAO {
 							 		.getResultList();
 		return uesrs;
 	}
-	
+
 	//依Id搜尋查詢會員
 	@Override
 	public User findByUserId(Integer userlId) {
@@ -381,11 +381,11 @@ public class RentalDAOimp implements RentalDAO {
 		User user = session.get(User.class, userlId);
 		return user;
 	}
-	
 
-	
-	
-	
+
+
+
+
 //	@Override
 //	public Date stringToDate(String data) {
 //		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -397,7 +397,7 @@ public class RentalDAOimp implements RentalDAO {
 //		}
 //		return datetime;
 //	}
-//	
+//
 //	@Override
 //	public Date stringToDate(String date, String time) {
 //		String datetimeStr = date + " " + time;
@@ -410,7 +410,7 @@ public class RentalDAOimp implements RentalDAO {
 //		}
 //		return datetime;
 //	}
-//	
+//
 //	@Override
 //	public java.sql.Date DateUtilToSql(Date date) {
 //		java.sql.Date datetime = null;

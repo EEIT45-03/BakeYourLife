@@ -1,0 +1,256 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>模擬前台 小農廠商</title>
+    <div th:replace="/admin/css.html"></div>
+
+    <style>
+
+
+        .imgParent {
+            width: 120px;
+            height: 90px;
+            overflow: hidden;
+        }
+
+        .img {
+            border-radius: 5px;
+            object-fit: cover;
+            width: 120px;
+            height: 90px;
+            /* max-width: 100%; */
+            /* max-height: 100%; */
+        }
+
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        td.child {
+            text-align: left;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        .fa-solid {
+            font-size: 1.3rem;
+        }
+
+        /* #redbutton{ */
+        /* margin-top: 13px; */
+        /* } */
+
+        .text {
+            white-space: pre;
+        }
+
+        .btn {
+            margin: 5px;
+        }
+
+
+    </style>
+
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">模擬前台 小農廠商</h1>
+                <p class="mb-4">
+                    <a href="./CreateFarmerProduct" class="btn btn-primary btn-icon-split btn-sm"> <span
+                            class="icon text-white-50"> <i
+                            class="fas fa-plus"></i>
+                </span> <span class="text">新增小農商品</span>
+                    </a>
+
+
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4 ">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">小農商品資訊</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="FarmerProductTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>商品編號</th>
+                                    <th>商品類型</th>
+                                    <th>商品圖片</th>
+                                    <th>商品名稱</th>
+                                    <th>價格</th>
+                                    <th>數量</th>
+                                    <th>狀態</th>
+                                    <th class="none">內容物</th>
+                                    <th class="none">保存方式</th>
+                                    <th class="none">商品介紹</th>
+                                    <th>動作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="bean: ${farmerProductBeans}">
+                                    <td></td>
+
+                                    <td th:text="${bean.farmerProductId}"></td>
+                                    <td th:text="${bean.type}"></td>
+                                    <td>
+
+                                        <div class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item"
+                                                     th:each="FarmerProductPic: ${bean.farmerProductPicList}">
+                                                    <img class="d-block w-100 img"
+                                                         th:src="${FarmerProductPic.pictureDataUrl}">
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev"
+                                               role="button" data-slide="prev"
+                                               onclick="$(this).parent().carousel('prev')">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next"
+                                               role="button" data-slide="next"
+                                               onclick="$(this).parent().carousel('next')">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+
+
+                                    </td>
+                                    <td th:text="${bean.name}"></td>
+                                    <td th:text="|NT$${bean.price}|"></td>
+                                    <td th:text="${bean.quantity}"></td>
+
+                                    <td th:switch="${bean.state}">
+                                        <div th:case="0">
+                                            <i class="fa-solid fa-file-circle-check" style="color:#75d571;"></i>
+                                            上架中 <br> 上架時間:
+                                            <span th:text=" ${#dates.format(bean.launchedTime, 'yyyy/MM/dd HH:mm')}"></span>
+                                        </div>
+                                        <div th:case="1">
+                                            <i class="fa-solid fa-file-circle-minus" style="color:#8080C0;"></i>
+                                            已下架 <br> 下架時間:
+                                            <span th:text=" ${#dates.format(bean.suspendTime, 'yyyy/MM/dd HH:mm')}"></span>
+                                        </div>
+                                        <div th:case="2">
+                                            <i class="fa-solid fa-file-circle-xmark" style="color:#f15e5e;"></i>
+                                            違規下架中 <br> 違規時間:
+                                            <span th:text=" ${#dates.format(bean.violationTime, 'yyyy/MM/dd HH:mm')}"></span>
+                                        </div>
+                                    </td>
+
+                                    <td th:text="${bean.contents}"></td>
+                                    <td th:text="${bean.storage}"></td>
+                                    <td th:text="${bean.description}"></td>
+                                    <td>
+                                
+                                <span th:if="${bean.state}==1">
+                                	<button type="button" class="btn btn-info btn-icon-split btn-sm"
+                                            data-toggle="modal"
+                                            th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">
+                                        <span class="icon text-white-50"> <i class="fa-solid fa-arrow-up"></i>
+                                        </span> <span class="text">上架商品</span>
+                                    </button>
+                                </span>
+                                        <span th:if="${bean.state}==0">
+                                	<button type="button" class="btn btn-primary btn-icon-split btn-sm"
+                                            data-toggle="modal" data-target="#myModal1"
+                                            th:onclick="|updateState(${bean.farmerProductId},1,'確認下架此商品?','')|">
+                                        <span class="icon text-white-50"> <i class="fa-solid fa-arrow-down"></i>
+                                        </span> <span class="text">下架商品</span>
+                                    </button>
+                                	
+                                </span>
+
+                                        <br>
+
+                                        <span th:if="${bean.state}!=2">
+                                <a th:href="@{UpdateFarmerProduct(farmerProductId=${bean.farmerProductId})}"
+                                   class="btn btn-warning btn-icon-split btn-sm"><span class="icon text-white-50">
+                                   <i class="fas fa-exclamation-triangle"></i></span> 
+                                   <span class="text">修改</span> </a>
+                                </span>
+
+                                        <button type="button" class="btn btn-danger btn-icon-split btn-sm"
+                                                id="redbutton"
+                                                data-toggle="modal" data-target="#myModal"
+                                                th:onclick="|deleteProduct(${bean.farmerProductId})|">
+                                    <span class="icon text-white-50"> <i class="fas fa-trash"></i>
+                                    </span> <span class="text">刪除</span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<!-- 小農頁面 -->
+<script th:src="@{/js/farmerproduct.js}"></script>
+
+
+</body>
+
+</html>

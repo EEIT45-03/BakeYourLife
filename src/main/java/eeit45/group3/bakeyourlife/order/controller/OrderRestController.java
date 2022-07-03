@@ -58,6 +58,14 @@ public class OrderRestController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
+
+	@GetMapping("/Users/{userId}/Orders")
+	public ResponseEntity<List<Order>> getOrdersByUserId(
+			@PathVariable Integer userId) {
+		List<Order> orders = orderService.findAllByUserId(userId);
+		return ResponseEntity.status(HttpStatus.OK).body(orders);
+	}
+
 	
 	
 	//查詢單筆訂單
@@ -110,6 +118,9 @@ public class OrderRestController {
 		List<OrderItem> orderItems = orderService.findOrderItemByOrderId(orderId);
 		return ResponseEntity.status(HttpStatus.OK).body(orderItems);
 	}
+
+
+
 	
 	
 	

@@ -1,0 +1,67 @@
+<div class="card-body">
+
+
+
+    <form th:action="@{UpdateTackle(tackleId=*{tackleId})}" method="post"
+          th:object="${tackleRequest}">
+
+        <!-- 器具ID: -->
+        <p class="row mb-3">
+            <span class="col-sm-3">器具ID:</span><span class="col-sm-9" th:text="*{tackleId}"></span>
+        </p>
+
+
+        <!-- 器具名稱: -->
+        <div class="row mb-3">
+            <label for="tackleName" class="col-sm-3 col-form-labels">器具名稱:</label>
+            <div class="col-sm-9">
+                <input th:field="*{tackleName}" type="text" class="form-control"
+                       name="tackleName" id="tackleName" required="required"/>
+            </div>
+        </div>
+
+
+        <!-- 器具型號: -->
+        <div class="row mb-3">
+            <label for="productModel" class="col-sm-3 col-form-labels">器具型號:</label>
+            <div class="col-sm-9">
+                <input th:field="*{productModel}" type="text" class="form-control"
+                       name="productModel" id="productModel" />
+            </div>
+        </div>
+
+
+        <!-- 器具規格: -->
+        <div class="row mb-3">
+            <label for="specification" class="col-sm-3 col-form-labels">器具規格:</label>
+            <div class="col-sm-9">
+                <input th:field="*{specification}" type="text" class="form-control"
+                       name="specification" id="specification" />
+            </div>
+        </div>
+
+
+        <!-- 價錢/1天: -->
+        <div class="row mb-3">
+            <label for="dayPrice" class="col-sm-3 col-form-labels"> 價錢/天:</label>
+            <div class="col-sm-9">
+                <input th:field="*{dayPrice}" type="number" class="form-control"
+                       name="dayPrice" id="dayPrice" th:min="50" required="required"/>
+            </div>
+        </div>
+
+
+        <!-- 總數量: -->
+        <div class="row mb-3">
+            <label for="max" class="col-sm-3 col-form-labels"> 總數量:</label>
+            <div class="col-sm-9">
+                <input th:field="*{max}" type="number" class="form-control"
+                       name="max" id="max" th:min="1" required="required"/>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">修改</button>
+
+        <form>
+</div>

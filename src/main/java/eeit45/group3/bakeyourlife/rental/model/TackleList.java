@@ -1,21 +1,10 @@
 package eeit45.group3.bakeyourlife.rental.model;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.stereotype.Component;
 
 
 @Entity
@@ -36,59 +25,58 @@ public class TackleList implements Serializable {
 	//清單編號
 	@Column(name = "tackleListNo",columnDefinition = "varchar(12) not null unique")
 	public String tackleListNo;
-	
-	//租借器具
-	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name="FK_tackleId", referencedColumnName = "tackleId")
-	private Tackle tackle;
+
 	
 	//出租時間
-	@Column(name = "lendTime", nullable = false)
+	@Column(name = "lendDate", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date lendTime;
-	
+	private Date lendDate;
+
+	//結束時間
+	@Column(name = "endDate", nullable = false)
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date endDate;
+
 	//歸還時間
-	@Column(name = "returnTime", nullable = false)
+	@Column(name = "returnDate")
 	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date returnTime;
+	private Date returnDate;
 	
 	//數量
 	@Column(name = "quantity",columnDefinition = "int not null")
 	private Integer quantity;
 	
-	//價錢
+	//小計
 	@Column(name = "price",columnDefinition = "int not null")
-	private Integer price_T;
-	
+	private Integer price;
+
+	//租借狀態
+	@Column(name = "state",columnDefinition = "varchar(10)")
+	private String state;
+
 	//租借單
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="FK_rentalId", referencedColumnName = "rentalId", nullable = false)
-	public Rental rental_T;
+	private Rental rental;
 
-	public TackleList(Integer tackleListId, String tackleListNo, Tackle tackle, Date lendTime, Date returnTime,
-			Integer quantity, Integer price, Rental rental) {
-		this.tackleListId = tackleListId;
-		this.tackleListNo = tackleListNo;
-		this.tackle = tackle;
-		this.lendTime = lendTime;
-		this.returnTime = returnTime;
-		this.quantity = quantity;
-		this.price_T = price;
-		this.rental_T = rental;
-	}
-
-	public TackleList(String tackleListNo, Tackle tackle, Date lendTime, Date returnTime, Integer quantity,
-			Integer price, Rental rental) {
-		this.tackleListNo = tackleListNo;
-		this.tackle = tackle;
-		this.lendTime = lendTime;
-		this.returnTime = returnTime;
-		this.quantity = quantity;
-		this.price_T = price;
-		this.rental_T = rental;
-	}
+	//租借器具
+	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name="FK_tackleId", referencedColumnName = "tackleId", nullable = false)
+	private Tackle tackle;
 
 	public TackleList() {
+	}
+
+	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer quantity, Integer price, String state, Rental rental, Tackle tackle) {
+		this.tackleListNo = tackleListNo;
+		this.lendDate = lendDate;
+		this.endDate = endDate;
+		this.returnDate = returnDate;
+		this.quantity = quantity;
+		this.price = price;
+		this.state = state;
+		this.rental = rental;
+		this.tackle = tackle;
 	}
 
 	public Integer getTackleListId() {
@@ -107,28 +95,28 @@ public class TackleList implements Serializable {
 		this.tackleListNo = tackleListNo;
 	}
 
-	public Tackle getTackle() {
-		return tackle;
+	public Date getLendDate() {
+		return lendDate;
 	}
 
-	public void setTackle(Tackle tackle) {
-		this.tackle = tackle;
+	public void setLendDate(Date lendDate) {
+		this.lendDate = lendDate;
 	}
 
-	public Date getLendTime() {
-		return lendTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	public Date getReturnTime() {
-		return returnTime;
+	public Date getReturnDate() {
+		return returnDate;
 	}
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public Integer getQuantity() {
@@ -140,19 +128,50 @@ public class TackleList implements Serializable {
 	}
 
 	public Integer getPrice() {
-		return price_T;
+		return price;
 	}
 
 	public void setPrice(Integer price) {
-		this.price_T = price;
+		this.price = price;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public Rental getRental() {
-		return rental_T;
+		return rental;
 	}
 
-	public void setRental(Rental rental_T) {
-		this.rental_T = rental_T;
+	public void setRental(Rental rental) {
+		this.rental = rental;
 	}
 
+	public Tackle getTackle() {
+		return tackle;
+	}
+
+	public void setTackle(Tackle tackle) {
+		this.tackle = tackle;
+	}
+
+	@Override
+	public String toString() {
+		return "TackleList{" +
+				"tackleListId=" + tackleListId +
+				", tackleListNo='" + tackleListNo + '\'' +
+				", lendDate=" + lendDate +
+				", endDate=" + endDate +
+				", returnDate=" + returnDate +
+				", quantity=" + quantity +
+				", price=" + price +
+				", state='" + state + '\'' +
+				", rental=" + rental +
+				", tackle=" + tackle +
+				'}';
+	}
 }

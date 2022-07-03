@@ -1,0 +1,81 @@
+<div class="card-body">
+
+  <form th:action="@{UpdateVenueList(venueListId=*{venueListId})}" method="post"
+             th:object="${venueListRequest}">
+    <!-- 租借編號: -->
+    <p class="row mb-3">
+      <span class="col-sm-3">租借編號:</span> <span class="col-sm-9" th:text="*{rental.rentalNo}"></span>
+    </p>
+    <!-- 租借類型: -->
+    <p class="row mb-3">
+      <span class="col-sm-3">租借類型:</span><span class="col-sm-9" th:text="*{rental.type}"></span>
+    </p>
+    <!-- 清單編號: -->
+    <p class="row mb-3">
+      <span class="col-sm-3">清單編號:</span><span class="col-sm-9" th:text="*{venueListNo}"></span>
+    </p>
+
+    <!-- 租借場地: -->
+    <div class="row mb-3">
+      <label for="venueId" class="col-sm-3 col-form-labels">租借場地:</label>
+      <div class="col-sm-9" >
+        <select th:field="*{venueId}" class="form-control form-select mb-3" name="venueId"
+                type="text"  id="venueId" aria-label="Default select example" >
+          <option th:each="venue : ${venues}" th:text="${venue.venueName}"
+                  th:value="${venue.venueId}" ></option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 出租時間: -->
+    <div class="row mb-3">
+      <label for="lendTime" class="col-sm-3 col-form-labels">出租時間:</label>
+      <div class="col-sm-9">
+        <input th:field="*{lendTime}" type="datetime-local" class="form-control"
+               name="lendTime" id="lendTime" />
+      </div>
+    </div>
+
+
+    <!-- 結束時間: -->
+    <div class="row mb-3">
+      <label for="endTime" class="col-sm-3 col-form-labels">結束時間:</label>
+      <div class="col-sm-9">
+        <input th:field="*{endTime}" type="datetime-local" class="form-control"
+               name="endTime" id="endTime" />
+      </div>
+    </div>
+
+    <!-- 食材提供: -->
+    <div class="row mb-3">
+      <label for="ingredients" class="col-sm-3 col-form-labels">食材提供:</label>
+      <div class="col-sm-9" >
+        <select th:field="*{ingredients}" class="form-control form-select mb-3" name="state"
+                type="text" id="ingredients" aria-label="Default select example">
+          <option th:value="N" th:text="不提供" selected></option>
+          <option th:value="Y" th:text="提供" ></option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 人數: -->
+    <div class="row mb-3">
+      <label for="person" class="col-sm-3 col-form-labels">人數:</label>
+      <div class="col-sm-9">
+        <input th:field="*{person}" type="number" class="form-control"
+               name="person" id="person" min="1" required="required" />
+      </div>
+    </div>
+
+    <!-- 小計: -->
+    <div class="row mb-3">
+      <label for="price" class="col-sm-3 col-form-labels">小計:</label>
+      <div class="col-sm-9">
+        <input th:field="*{price}" type="number" class="form-control"
+               name="price" id="price" min="0" required="required" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">修改場地清單</button>
+  <form>
+</div>

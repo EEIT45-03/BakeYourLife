@@ -16,8 +16,8 @@ import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 //import eeit45.group3.util.HibernateUtils;
 
-@Service
-@Transactional
+//@Service
+//@Transactional
 public class GoodServiceHibernateImpl implements GoodService {
 
 	@Autowired

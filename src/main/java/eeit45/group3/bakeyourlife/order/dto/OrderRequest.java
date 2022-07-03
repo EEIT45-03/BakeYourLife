@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Deprecated
 public class OrderRequest {
 	private Integer userId;
 	private String address;
@@ -13,7 +14,7 @@ public class OrderRequest {
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private Date shipDate;
 	
-	private Integer[] productNo;
+	private String[] productNo;
 	private String[] productName;
 	private Integer[] qty;
 	private Integer[] subTotal;
@@ -55,10 +56,10 @@ public class OrderRequest {
 	public void setShipDate(Date shipDate) {
 		this.shipDate = shipDate;
 	}
-	public Integer[] getProductNo() {
+	public String[] getProductNo() {
 		return productNo;
 	}
-	public void setProductNo(Integer[] productNo) {
+	public void setProductNo(String[] productNo) {
 		this.productNo = productNo;
 	}
 	public String[] getProductName() {

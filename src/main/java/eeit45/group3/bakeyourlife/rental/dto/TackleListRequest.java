@@ -7,37 +7,42 @@ import org.springframework.format.annotation.DateTimeFormat;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 
 public class TackleListRequest {
-	
-	
+
+	private Integer tackleListId;
 	private String tackleListNo;
 	
-	private String tackleName;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date lendTime;
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
-	private Date returnTime;
+	private Integer tackleId;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date lendDate;
+
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date endDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date returnDate;
 	
 	private Integer quantity;
 	
 	private Integer price;
 
+
+	private String state;
+
 	private Rental rental;
 	
 	public TackleListRequest() {
 	}
+
+	public Integer getTackleListId() {
+		return tackleListId;
+	}
+
+	public void setTackleListId(Integer tackleListId) {
+		this.tackleListId = tackleListId;
+	}
+
 	public TackleListRequest(Rental rental) {
 		this.rental = rental;
 	}
-	
-	public Rental getRental() {
-		return rental;
-	}
-
-
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
-
 
 	public String getTackleListNo() {
 		return tackleListNo;
@@ -47,28 +52,36 @@ public class TackleListRequest {
 		this.tackleListNo = tackleListNo;
 	}
 
-	public String getTackleName() {
-		return tackleName;
+	public Integer getTackleId() {
+		return tackleId;
 	}
 
-	public void setTackleName(String tackleName) {
-		this.tackleName = tackleName;
+	public void setTackleId(Integer tackleId) {
+		this.tackleId = tackleId;
 	}
 
-	public Date getLendTime() {
-		return lendTime;
+	public Date getLendDate() {
+		return lendDate;
 	}
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
+	public void setLendDate(Date lendDate) {
+		this.lendDate = lendDate;
 	}
 
-	public Date getReturnTime() {
-		return returnTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public Integer getQuantity() {
@@ -86,6 +99,20 @@ public class TackleListRequest {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
-	
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
 }

@@ -26,30 +26,34 @@
 				<table class="table text-center">
 					<thead>
 						<tr>
-							<!-- <th scope="col" class="col-sm-1"></th> -->
-							<!-- <th scope="col" width="50"></th> -->
 							<th scope="col" class="col-sm-5">商品名稱</th>
+							<th scope="col" class="col-sm-1">商品類型</th>
 							<th scope="col" class="col-sm-1">單價</th>
-							<th scope="col" class="col-sm-3">數量</th>
+							<th scope="col" class="col-sm-2">數量</th>
 							<th scope="col" class="col-sm-1">小計</th>
 						</tr>
 					</thead>
 					<tbody>
-							<tr th:each="cartItem: ${cartItems}">
-								<td class="product-name" th:text="${cartItem.productName }"></td>
-								<td class="product-price" th:text="|$${cartItem.price }|"></td>
-								<td class="product-qty" th:text="${cartItem.qty}"></td>
-								<td class="text-right product-subTotal"th:text="|$${cartItem.subTotal}|"></td>
+							<tr th:each="cartItem: ${cart.cart}">
+								<td class="product-name" th:text="${cartItem.value.productName }"></td>
+								<td class="product-type" th:text="${cartItem.value.productType}"></td>
+								<td class="product-price" th:text="|$${cartItem.value.price }|"></td>
+								<td class="product-qty" th:text="${cartItem.value.qty}"></td>
+								<td class="text-right product-subTotal"th:text="|$${cartItem.value.subTotal}|"></td>
 							</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="3" class="text-right">運費</td>
-							<td class="text-right" id="shippingFee" th:text="|$${shippingFee}|"></td>
+							<td colspan="2" class="text-right" id="shippingFee" th:text="|$${cart.shippingFee}|"></td>
+						</tr>
+						<tr th:if="${cart.coupon}">
+							<td colspan="4" class="text-right" th:text="|優惠卷:${cart.coupon.code} ${cart.coupon.discountString}|"></td>
+							<td colspan="2" class="text-right" id="coupon" th:text="|-$${ cart.discountAmount }|"></td>
 						</tr>
 						<tr>
 							<td colspan="3 " class="text-right">合計</td>
-							<td class="text-right" id="total"th:text="|$${total}|"></td>
+							<td colspan="2" class="text-right" id="total"th:text="|$${cart.total-cart.discountAmount}|"></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -62,12 +66,25 @@
 			<div class="card card-body">
 			<form action="" method="post">
 				<div class="row mb-3">
+					<label class="col-sm-2 col-form-labels">付款方式:</label>
+					<div class="col-sm-10">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="payType" id="ECPAY" value="ECPAY" checked>
+							<label class="form-check-label" for="ECPAY">綠界支付</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="payType" id="PAYPAL" value="PAYPAL">
+							<label class="form-check-label" for="PAYPAL"><i class="fab fa-cc-paypal"></i>PAYPAL</label>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-3">
 					<label for="address"
-						class="col-sm-2 col-form-labels">地址:</label>
+						   class="col-sm-2 col-form-labels">地址:</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control"
-							name="address" id="address" placeholder="請輸入地址"
-							required="required" th:value="${address}" />
+							   name="address" id="address" placeholder="請輸入地址"
+							   required="required" th:value="${address}" />
 					</div>
 				</div>
 <input type="submit" value="提交訂單"  class="btn btn-warning col-12" />

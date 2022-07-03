@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>建立租借單</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="../Rental/" class="btn btn-primary btn-icon-split btn-sm">
+							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回租借管理</span></a>
+                </p>
+
+<!--                <div th:if="${error}" class="alert alert-danger" role="alert"></div>-->
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">建立租借單</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" th:object="${rental}">
+
+                            <!-- 租借單編號: -->
+                            <div class="row mb-3">
+                                <label for="rentalNo" class="col-sm-2 col-form-labels">租借單編號:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{rentalNo}" type="text" class="form-control" name="rentalNo"
+                                           id="rentalNo" placeholder="請輸入租借單編號" required="required" />
+                                </div>
+                            </div>
+
+                            <!-- 會員: -->
+                            <div class="row mb-3">
+                                <label for="userId" class="col-sm-2 col-form-labels">會員:</label>
+                                <div class="col-sm-10">
+                                    <select th:field="*{userId}" type="text" class="form-control form-select mb-3" name="userId"
+                                                id="userId" aria-label="Default select example">
+                                        <option th:each="user1 : ${users}" th:value="${user1.userId}" th:text="${user1.userName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 租借類型: -->
+                            <div class="row mb-3">
+                                <label for="listType" class="col-sm-2 col-form-labels">租借類型:</label>
+                                <div class="col-sm-10">
+                                    <select th:field="*{listType}" type="text" class="form-control form-select mb-3"
+                                                 name="listType" id="listType" aria-label="Default select example">
+                                        <option th:value="venue" th:text="場地"></option>
+                                        <option th:value="tackle" th:text="器具"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <!-- 租借單總金額: -->
+                            <div class="row mb-3">
+                                <label for="total" class="col-sm-2 col-form-labels">總金額:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{total}" type="number" class="form-control" name="total"
+                                               id="total" th:min="0" required="required" />
+                                </div>
+                            </div>
+
+                            <!-- 	<div class="card">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>清單編號</th>
+                                                    <th>租借場地</th>
+                                                    <th>出租時間</th>
+                                                    <th>歸還時間</th>
+                                                    <th>人數</th>
+                                                    <th>小計</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td><form:input path="venueListNo" type="text" class="form-control"
+                                                        name="venueListNo" id="venueListNo" placeholder="清單編號"
+                                                        required="required"/></td>
+
+                                                    <td><form:input path="FK_classId" type="number" class="form-control"
+                                                        name="FK_classId" id="FK_classId" min="0" placeholder="租借場地"
+                                                        required="required"/></td>
+
+                                                    <td><form:input path="lendTime" type="datetime-local" class="form-control"
+                                                        name="lendTime" id="lendTime" required="required"/></td>
+
+                                                    <td><form:input path="returnTime" type="datetime-local" class="form-control"
+                                                        name="returnTime" id="returnTime" required="required"/></td>
+
+                                                    <td><form:select path="person" class="form-control form-select mb-3"
+                                                        name="person" id="person" aria-label="Default select example" multiple="false">
+                                                            <form:option value="1" selected="selected">1</form:option>
+                                                            <form:option value="2">2</form:option>
+                                                            <form:option value="3">3</form:option>
+                                                            <form:option value="4">4</form:option>
+                                                            <form:option value="5">5</form:option>
+                                                            <form:option value="6">6</form:option>
+                                                            <form:option value="7">7</form:option>
+                                                            <form:option value="8">8</form:option>
+                                                            <form:option value="9">9</form:option>
+                                                            <form:option value="10">10</form:option>
+                                                    </form:select></td>
+
+                                                    <td><form:input path="price" type="number" class="form-control subTotal"
+                                                        name="price" id="price" placeholder="小計" required="required"/>
+                                                    </td>
+
+                                                    <td><button id="btn" class="btn btn-primary">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>	-->
+                            <button type="submit" class="btn btn-primary">建立租借單</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <%@include file="/JSP/footer.html"%>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<!-- Bootstrap core JavaScript-->
+<%@include file="/JSP/javascript.html" %>
+<script>
+
+</script>
+</body>
+
+</html>
