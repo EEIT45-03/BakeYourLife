@@ -2,7 +2,7 @@ package eeit45.group3.bakeyourlife.order.controller;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductService;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
