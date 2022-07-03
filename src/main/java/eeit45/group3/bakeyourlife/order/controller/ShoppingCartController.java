@@ -2,7 +2,7 @@ package eeit45.group3.bakeyourlife.order.controller;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductService;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
@@ -26,7 +26,9 @@ import java.net.URI;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 @Controller
 @SessionAttributes(value = {"cart"})
@@ -67,7 +69,7 @@ public class ShoppingCartController {
                           @RequestParam String type,
                           @ModelAttribute Cart cart) {
         CartItem cartItem = null;
-        switch (type){
+        switch (type) {
             case "G":
                 cartItem = goodService.getGoods(itemId);
                 break;
@@ -76,7 +78,7 @@ public class ShoppingCartController {
                 break;
         }
 
-        if(cartItem!=null){
+        if (cartItem != null) {
             cart.addItem(cartItem);
         }
         return "order/CartBody";
@@ -87,9 +89,9 @@ public class ShoppingCartController {
 //                             @RequestParam String type,
                              @ModelAttribute Cart cart) {
         CartItem cartItem = null;
-        String type = itemNo.substring(0,1);
+        String type = itemNo.substring(0, 1);
         Integer itemId = Integer.valueOf(itemNo.substring(1));
-        switch (type){
+        switch (type) {
             case "G":
                 cartItem = goodService.getGoods(itemId);
                 break;
@@ -98,7 +100,7 @@ public class ShoppingCartController {
                 break;
         }
 
-        if(cartItem!=null){
+        if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
         return "order/CartBody";
@@ -111,9 +113,9 @@ public class ShoppingCartController {
                              @RequestParam Integer qty,
                              @ModelAttribute Cart cart) {
         CartItem cartItem = null;
-        String type = itemNo.substring(0,1);
+        String type = itemNo.substring(0, 1);
         Integer itemId = Integer.valueOf(itemNo.substring(1));
-        switch (type){
+        switch (type) {
             case "G":
                 cartItem = goodService.getGoods(itemId);
                 break;
@@ -122,8 +124,8 @@ public class ShoppingCartController {
                 break;
         }
 
-        if(cartItem!=null){
-            cart.updataItem(cartItem.getCartNo(),qty);
+        if (cartItem != null) {
+            cart.updataItem(cartItem.getCartNo(), qty);
         }
         return "order/CartBody";
     }
@@ -138,8 +140,7 @@ public class ShoppingCartController {
     }
 
 
-
-    @PostMapping(path = "/CheckOut",produces = "text/html;charset=UTF-8")
+    @PostMapping(path = "/CheckOut", produces = "text/html;charset=UTF-8")
     public ResponseEntity<String> checkOut(@ModelAttribute Cart cart,
                                            @RequestParam String address,
                                            @RequestParam PayType payType,
@@ -148,13 +149,13 @@ public class ShoppingCartController {
                                            Principal principal) {
         String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
         String orderNo = null;
-        if(cart!=null) {
+        if (cart != null) {
             Order order = new Order();
 
             //設定訂單編號
             DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
             Date current = new Date();
-            int end = (int) (Math.random()*10);
+            int end = (int) (Math.random() * 10);
             order.setOrderNo(df.format(current) + end);
             orderNo = order.getOrderNo();
             order.setOrderDate(current);
@@ -178,7 +179,7 @@ public class ShoppingCartController {
             order.setOrderItemList(new LinkedHashSet<>(cart.getCart().values()));
 
             order.getOrderItemList().forEach((e) -> e.setOrder(order));
-            if(cart.getCoupon()!=null){
+            if (cart.getCoupon() != null) {
                 order.setCoupon(cart.getCoupon());
             }
 
@@ -191,19 +192,19 @@ public class ShoppingCartController {
             status.setComplete();
 
         }
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL+"/Order/" + orderNo + "/Pay")).build();
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL + "/Order/" + orderNo + "/Pay")).build();
     }
 
 
     @GetMapping("/Cart/useCoupon")
     public String useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
-                            Model model){
+                            Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
 //        if(coupon == null) {
 //
 //        }
-        if(coupon!=null ){
+        if (coupon != null) {
 //            if(cart.getTotal() < coupon.getMinimum()){
 //                model.addAttribute("error","最低消費為"+coupon.getMinimum()+"元");
 //            }
@@ -214,13 +215,12 @@ public class ShoppingCartController {
 
 
     @ModelAttribute
-    public Cart cart(@ModelAttribute Cart cart){
-        if(cart == null){
+    public Cart cart(@ModelAttribute Cart cart) {
+        if (cart == null) {
             return new Cart();
         }
         return cart;
     }
-
 
 
 }
