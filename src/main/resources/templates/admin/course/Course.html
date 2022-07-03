@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>課程管理</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">課程管理</h1>
+                <p class="mb-4">
+                    <a href="./CreateCourse" class="btn btn-primary btn-icon-split btn-sm"/> <span
+                            class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">建立課程</span>
+                    </a>
+
+
+
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">課程資訊</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="courseTable">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>開課編號</th>
+                                    <th>課程代碼</th>
+                                    <th>開課日期</th>
+                                    <th>結束日期</th>
+                                    <th>教室</th>
+                                    <th>人數上限</th>
+                                    <th>報名人數</th>
+                                    <!--                                        <th>人數上限</th>-->
+                                    <th class="none">老師</th>
+                                    <th class="none">備註</th>
+                                    <th>修改</th>
+                                    <th>刪除</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="course: ${courses}">
+                                    <td></td>
+                                    <td th:text="${course.openCourse}"></td>
+                                    <td th:text="${course.courseId}"></td>
+                                    <!--                                        <td>-->
+                                    <!--                                            <button type="button"-->
+                                    <!--                                                    STYLE="background-color: transparent; border:none"-->
+                                    <!--                                                    onclick="courseIdAlert('${course.courseId}')">-->
+                                    <!--                                                <span class="text">${course.courseId}</span>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </td>-->
+                                    <td th:text="${#dates.format(course.startDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                    <td th:text="${#dates.format(course.endDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                    <td th:text="${course.venue.venueName }"></td>
+                                    <td th:text="${course.venue.personMax}"></td>
+                                    <td th:text="${course.applicants }"></td>
+                                    <!--                                        <td th:text="${course.registerMax }"></td>-->
+                                    <td th:text="${course.teacher }"></td>
+                                    <td th:text="${course.note }"></td>
+                                    <td>
+                                        <!--                                                href="./UpdateCourse?openCourse=${course.openCourse}"-->
+                                        <a
+
+                                                href="admin/Course/UpdateCourse"
+                                                th:href="@{/admin/Course/UpdateCourse/{id}(id=${course.openCourse})}"
+                                                class="btn btn-warning btn-icon-split btn-sm"> <span
+                                                class="icon text-white-50"> <i
+                                                class="fas fa-exclamation-triangle"></i>
+													</span> <span class="text">修改課程</span>
+                                        </a>
+<!--                                        <a href="buy.html"-->
+<!--                                           th:href="@{/buy/{id}/{name}.html(id=${productId}, name=${productName})}">Buy now!</a>-->
+
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-danger btn-icon-split btn-sm"
+                                                data-toggle="modal" data-target="#deleteButton"
+                                                th:onclick="|deleteCourseAlert(${course.openCourse})|">
+														<span class="icon text-white-50"> <i
+                                                                class="fas fa-trash"></i>
+														</span> <span class="text">刪除課程</span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<div th:replace="/admin/javascript.html"></div>
+<script th:src="@{/js/course.js}"></script>
+</body>
+</html>
+
+<!--<script>-->
+<!--    //刪除訂單傳值-->
+<!--    function values(openCourse) {-->
+<!--        $('#openCourse').val(openCourse);-->
+<!--    }-->
+<!--    $(document).ready(function() {-->
+<!--        $('#courseTable').DataTable( {-->
+<!--            language: {-->
+<!--                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'-->
+<!--            },-->
+<!--            responsive: {-->
+<!--                details: {-->
+<!--                    type: 'column'-->
+<!--                }-->
+<!--            },-->
+<!--            columnDefs: [{-->
+<!--                className: 'dtr-control',-->
+<!--                orderable: false,-->
+<!--                targets: 0-->
+<!--            }],-->
+<!--            order: [ 1, 'asc' ]-->
+<!--        } );-->
+<!--    });-->
+<!--</script>-->
+

@@ -21,17 +21,28 @@ import java.util.List;
 @RequestMapping(path = "/admin/Rental")
 public class AdminRentalController {
 
-    @Autowired
     private RentalService rentalService;
-    @Autowired
+
     private UserService userService;
 
+    @Autowired
+    public AdminRentalController(RentalService rentalService, UserService userService) {
+        this.rentalService = rentalService;
+        this.userService = userService;
+    }
+
     @GetMapping("/")
-    public String viewIndex(Model model) {
+    public String viewIndex(@RequestParam(value = "listType", required = false) String listType,
+                            Model model) {
 
         List<Rental> rentals = null;
+        System.out.println(listType);
+        if (listType != null) {
+            rentals = rentalService.findAllByType(listType);
+        } else {
+            rentals = rentalService.findAllRental();
+        }
 
-        rentals = rentalService.findAllRental();
         //設置給JSP使用
         model.addAttribute("rentals", rentals);
         return "admin/rental/Rental";
