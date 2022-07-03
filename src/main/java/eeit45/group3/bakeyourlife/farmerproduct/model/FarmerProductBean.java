@@ -2,13 +2,9 @@ package eeit45.group3.bakeyourlife.farmerproduct.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,178 +12,189 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "FarmerProduct")
 public class FarmerProductBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer farmerProductId;
-//	private Integer farmerProductNo;
-//	private Integer farmerApplyListNo;
-	private String farmerProductName;
-	private Integer farmerProductPrice;
-	private Integer farmerProductQuantity;
-	private String farmerProductStorage;
-	private String farmerProductContent;
-	@Column(columnDefinition = "nvarchar(600)")
-	private String farmerProductDescription;
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date farmerProductLaunchedTime;// 上架時間
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date farmerProductSoldTime;// 下價時間
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date farmerProductApplyTime;// 申請時間
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date farmerProductCheckTime;// 審核時間
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer farmerProductId; // 小農商品Id
+    private String type;// 產品類型
+    private String name;// 名稱
+    private Integer price;// 價格
+    private Integer quantity;// 數量
+    private String storage;// 保存方式
+    private String contents;// 內容物
+    @Column(columnDefinition = "nvarchar(600)")
+    private String description;// 描述
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date launchedTime;// 上架時間
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date suspendTime;// 下架時間
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date violationTime;// 違規下架時間
 
-	private Integer farmerProductState;// 狀態 0審核中 1上架 2未通過 3下架
+    private Integer state;// 狀態 0上架 1下架 2違規下架
 
-	@Column(columnDefinition = "nvarchar(MAX)")
-	private String farmerProductPicDataUrl;
+    @OneToMany(mappedBy = "farmerProductBean", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FarmerProductPic> farmerProductPicList;
 
-//	@Column(columnDefinition = "varbinary(MAX)")
-//	private byte[] farmerProductPic;
+    @Transient
+    private List<String> pictureDataUrl;
 
-	public FarmerProductBean() {
 
-	}
+//	@Column(columnDefinition = "nvarchar(MAX)")
+//	private String pictureDataUrl;// 圖片的dataurl
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "type_id", nullable = false)
 
-	public FarmerProductBean(Integer farmerProductId, String farmerProductName, Integer farmerProductPrice,
-			Integer farmerProductQuantity, String farmerProductContent, String farmerProductStorage,
-			String farmerProductDescription, Date farmerProductLaunchedTime, Date farmerProductSoldTime,
-			Date farmerProductApplyTime, Date farmerProductCheckTime, Integer farmerProductState,
-			String farmerProductPicDataUrl) {
-		this.farmerProductId = farmerProductId;
-		this.farmerProductName = farmerProductName;
-		this.farmerProductPrice = farmerProductPrice;
-		this.farmerProductQuantity = farmerProductQuantity;
-		this.farmerProductContent = farmerProductContent;
-		this.farmerProductStorage = farmerProductStorage;
-		this.farmerProductDescription = farmerProductDescription;
-		this.farmerProductLaunchedTime = farmerProductLaunchedTime;
-		this.farmerProductSoldTime = farmerProductSoldTime;
-		this.farmerProductApplyTime = farmerProductApplyTime;
-		this.farmerProductCheckTime = farmerProductCheckTime;
-		this.farmerProductState = farmerProductState;
-		this.farmerProductPicDataUrl = farmerProductPicDataUrl;
-	}
+    public FarmerProductBean() {
 
-	public Integer getFarmerProductId() {
-		return farmerProductId;
-	}
+    }
 
-	public void setFarmerProductId(Integer farmerProductId) {
-		this.farmerProductId = farmerProductId;
-	}
+    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> pictureDataUrl) {
+        this.farmerProductId = farmerProductId;
+        this.type = type;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.storage = storage;
+        this.contents = contents;
+        this.description = description;
+        this.launchedTime = launchedTime;
+        this.suspendTime = suspendTime;
+        this.violationTime = violationTime;
+        this.state = state;
+        this.farmerProductPicList = farmerProductPicList;
+        this.pictureDataUrl = pictureDataUrl;
+    }
 
-	public String getFarmerProductName() {
-		return farmerProductName;
-	}
+    public Integer getFarmerProductId() {
+        return farmerProductId;
+    }
 
-	public void setFarmerProductName(String farmerProductName) {
-		this.farmerProductName = farmerProductName;
-	}
+    public void setFarmerProductId(Integer farmerProductId) {
+        this.farmerProductId = farmerProductId;
+    }
 
-	public Integer getFarmerProductPrice() {
-		return farmerProductPrice;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setFarmerProductPrice(Integer farmerProductPrice) {
-		this.farmerProductPrice = farmerProductPrice;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public Integer getFarmerProductQuantity() {
-		return farmerProductQuantity;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setFarmerProductQuantity(Integer farmerProductQuantity) {
-		this.farmerProductQuantity = farmerProductQuantity;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getFarmerProductContent() {
-		return farmerProductContent;
-	}
+    public Integer getPrice() {
+        return price;
+    }
 
-	public void setFarmerProductContent(String farmerProductContent) {
-		this.farmerProductContent = farmerProductContent;
-	}
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
-	public String getFarmerProductStorage() {
-		return farmerProductStorage;
-	}
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-	public void setFarmerProductStorage(String farmerProductStorage) {
-		this.farmerProductStorage = farmerProductStorage;
-	}
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
-	public String getFarmerProductDescription() {
-		return farmerProductDescription;
-	}
+    public String getStorage() {
+        return storage;
+    }
 
-	public void setFarmerProductDescription(String farmerProductDescription) {
-		this.farmerProductDescription = farmerProductDescription;
-	}
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
 
-	public Date getFarmerProductLaunchedTime() {
-		return farmerProductLaunchedTime;
-	}
+    public String getContents() {
+        return contents;
+    }
 
-	public void setFarmerProductLaunchedTime(Date farmerProductLaunchedTime) {
-		this.farmerProductLaunchedTime = farmerProductLaunchedTime;
-	}
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
 
-	public Date getFarmerProductSoldTime() {
-		return farmerProductSoldTime;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setFarmerProductSoldTime(Date farmerProductSoldTime) {
-		this.farmerProductSoldTime = farmerProductSoldTime;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Date getFarmerProductApplyTime() {
-		return farmerProductApplyTime;
-	}
+    public Date getLaunchedTime() {
+        return launchedTime;
+    }
 
-	public void setFarmerProductApplyTime(Date farmerProductApplyTime) {
-		this.farmerProductApplyTime = farmerProductApplyTime;
-	}
+    public void setLaunchedTime(Date launchedTime) {
+        this.launchedTime = launchedTime;
+    }
 
-	public Date getFarmerProductCheckTime() {
-		return farmerProductCheckTime;
-	}
+    public Date getSuspendTime() {
+        return suspendTime;
+    }
 
-	public void setFarmerProductCheckTime(Date farmerProductCheckTime) {
-		this.farmerProductCheckTime = farmerProductCheckTime;
-	}
+    public void setSuspendTime(Date suspendTime) {
+        this.suspendTime = suspendTime;
+    }
 
-	public Integer getFarmerProductState() {
-		return farmerProductState;
-	}
+    public Date getViolationTime() {
+        return violationTime;
+    }
 
-	public void setFarmerProductState(Integer farmerProductState) {
-		this.farmerProductState = farmerProductState;
-	}
+    public void setViolationTime(Date violationTime) {
+        this.violationTime = violationTime;
+    }
 
-	public String getFarmerProductPicDataUrl() {
-		return farmerProductPicDataUrl;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	public void setFarmerProductPicDataUrl(String farmerProductPicDataUrl) {
-		this.farmerProductPicDataUrl = farmerProductPicDataUrl;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public List<FarmerProductPic> getFarmerProductPicList() {
+        return farmerProductPicList;
+    }
 
-	@Override
-	public String toString() {
+    public void setFarmerProductPicList(List<FarmerProductPic> farmerProductPicList) {
+        this.farmerProductPicList = farmerProductPicList;
+    }
 
-		return "FarmerProductBean [farmerProductId=" + farmerProductId + ", farmerProductName=" + farmerProductName
-				+ ", farmerProductPrice=" + farmerProductPrice + ", farmerProductQuantity=" + farmerProductQuantity
-				+ ", farmerProductStorage=" + farmerProductStorage + ", farmerProductContent=" + farmerProductContent
-				+ ", farmerProductDescription=" + farmerProductDescription + ", farmerProductLaunchedTime="
-				+ farmerProductLaunchedTime + ", farmerProductSoldTime=" + farmerProductSoldTime
-				+ ", farmerProductApplyTime=" + farmerProductApplyTime + ", farmerProductCheckTime="
-				+ farmerProductCheckTime + ", farmerProductState=" + farmerProductState + "]";
-	}
+    public List<String> getPictureDataUrl() {
+        return pictureDataUrl;
+    }
 
+    public void setPictureDataUrl(List<String> pictureDataUrl) {
+        this.pictureDataUrl = pictureDataUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "FarmerProductBean{" +
+                "farmerProductId=" + farmerProductId +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", storage='" + storage + '\'' +
+                ", contents='" + contents + '\'' +
+                ", description='" + description + '\'' +
+                ", launchedTime=" + launchedTime +
+                ", suspendTime=" + suspendTime +
+                ", violationTime=" + violationTime +
+                ", state=" + state +
+                ", farmerProductPicList=" + farmerProductPicList +
+                ", pictureDataUrl=" + pictureDataUrl +
+                '}';
+    }
 }
