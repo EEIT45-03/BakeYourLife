@@ -11,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Paypal封裝物件
+ */
 public class PaypalPayment {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();

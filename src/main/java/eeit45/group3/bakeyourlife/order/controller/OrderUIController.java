@@ -1,46 +1,31 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
-import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
-import eeit45.group3.bakeyourlife.user.model.User;
-import eeit45.group3.bakeyourlife.user.service.UserService;
 
 @Controller
-@RequestMapping(path = "/admin/Order")
-public class AdminOrderController {
+//@RequestMapping(path = "")
+public class OrderUIController {
 	
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private UserService userService;
+//	@Autowired
+//	private UserService userService;
 	
-	@GetMapping("/")
-	public String viewIndex(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date sdate,
+	@GetMapping("/admin/Order/")
+	public String viewAdminIndex(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date sdate,
 						@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date edate,
 						Model model) {
 		List<Order> orders = null;
@@ -58,11 +43,16 @@ public class AdminOrderController {
 		return "admin/order/Order";
 	}
 
-	@RequestMapping("DeleteOrder")
-	public ResponseEntity<?> deleteOrder(@RequestParam Integer orderId) {
-		orderService.deleteOrder(orderId);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	@GetMapping("/user/order")
+	public String viewOrder(){
+		return "order/Order";
 	}
+//
+//	@RequestMapping("DeleteOrder")
+//	public ResponseEntity<?> deleteOrder(@RequestParam Integer orderId) {
+//		orderService.deleteOrder(orderId);
+//		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+//	}
 	
 //
 //	@GetMapping("/UpdateOrder")

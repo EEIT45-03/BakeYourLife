@@ -99,7 +99,11 @@ public class Order implements Serializable {
 
 
 	public String getCode() {
+		if(coupon!=null){
 		return coupon.getCode() + " " +  coupon.getDiscountString();
+		}else {
+			return "";
+		}
 	}
 	public Integer getDiscountAmount() {
 		return discountAmount;

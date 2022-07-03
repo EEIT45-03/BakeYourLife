@@ -188,23 +188,23 @@ function getCoupon(result) {
 }
 
 //跳出修改訂單Alert
-function updateAlert(orderId) {
-    Swal.showLoading()
-    fetch('./UpdateOrder?orderId=' + orderId)
-        .then(response => response.text())
-        .then(function (data) {
-            Swal.fire({
-                title: '修改訂單',
-                icon: 'info',
-                html: data,
-                showCloseButton: true,
-                showCancelButton: false,
-                showConfirmButton: false,
-                focusConfirm: false
-            })
-
-        });
-}
+// function updateAlert(orderId) {
+//     Swal.showLoading()
+//     fetch('./UpdateOrder?orderId=' + orderId)
+//         .then(response => response.text())
+//         .then(function (data) {
+//             Swal.fire({
+//                 title: '修改訂單',
+//                 icon: 'info',
+//                 html: data,
+//                 showCloseButton: true,
+//                 showCancelButton: false,
+//                 showConfirmButton: false,
+//                 focusConfirm: false
+//             })
+//
+//         });
+// }
 
 
 function refundAlert(orderNo) {
@@ -290,8 +290,8 @@ function deleteAlert(orderId) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                type: "POST",
-                url: './DeleteOrder?orderId=' + orderId,
+                type: "DELETE",
+                url: '/Orders/' +orderId,
                 success: function (msg) {
                     Swal.fire(
                         '已刪除!',

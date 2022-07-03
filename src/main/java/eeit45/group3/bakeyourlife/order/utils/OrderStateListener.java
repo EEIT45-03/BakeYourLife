@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 狀態監聽器
+ */
 @Component("orderStateListener")
 @WithStateMachine(name = "orderStateMachine")
 public class OrderStateListener {
