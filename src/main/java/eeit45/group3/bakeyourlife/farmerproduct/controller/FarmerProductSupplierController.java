@@ -1,28 +1,19 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
-import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductPicService;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
-import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/admin/FarmerProductSupplier")
@@ -30,13 +21,18 @@ public class FarmerProductSupplierController {
 
     FarmerProductService farmerProductService;
 
-    FarmerProductPicService farmerProductPicService;
-
-    //    @Autowired
-    public FarmerProductSupplierController(FarmerProductService farmerProductService, FarmerProductPicService farmerProductPicService) {
+    @Autowired
+    public FarmerProductSupplierController(FarmerProductService farmerProductService) {
         this.farmerProductService = farmerProductService;
-        this.farmerProductPicService = farmerProductPicService;
     }
+
+    //    FarmerProductPicService farmerProductPicService;
+//
+//    //    @Autowired
+//    public FarmerProductSupplierController(FarmerProductService farmerProductService, FarmerProductPicService farmerProductPicService) {
+//        this.farmerProductService = farmerProductService;
+//        this.farmerProductPicService = farmerProductPicService;
+//    }
 
     @GetMapping("/")
     public String viewIndex(Model model) {
@@ -130,9 +126,7 @@ public class FarmerProductSupplierController {
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);
 
         if (farmerProductBeanDb != null) {
-            farmerProductPicService.deleteByFarmerProductId(farmerProductId);
             farmerProductService.update(farmerProductBean);
-//            farmerProductPicService.insertAll(farmerProductPicList);
         }
 
         return "redirect:./";

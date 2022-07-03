@@ -1,11 +1,13 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -83,6 +85,31 @@ public class FarmerProductController {
     @PostMapping("UpdateFarmerProduct")
     private String updateFarmerProduct(@RequestParam Integer farmerProductId,
                                        @ModelAttribute FarmerProductBean farmerProductBean) {
+
+        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
+        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+
+        if (dataUrls.get(0).length() < 30) {
+            String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureDataUrl(dataUrl);
+            farmerProductPicList.add(farmerProductPic);
+        } else {
+
+            for (String dataUrl : dataUrls) {
+                FarmerProductPic farmerProductPic = new FarmerProductPic();
+                if (dataUrl != null && dataUrl.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    farmerProductPic.setPictureDataUrl(dataUrl);
+                    farmerProductPicList.add(farmerProductPic);
+                }
+            }
+        }
+
+        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+
+
         FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(farmerProductId);
         if (farmerProductBeanDb != null) {
             farmerProductService.update(farmerProductBean);
