@@ -40,6 +40,7 @@ public class FarmerProductSupplierController {
 
         model.addAttribute("farmerProductBeans", farmerProductBeans);
         return "admin/farmerproduct/FarmerProductSupplier";
+//        return "farmerproduct/FarmerProductSupplier";
     }
 
     @GetMapping("CreateFarmerProduct")
