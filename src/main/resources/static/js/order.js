@@ -177,7 +177,7 @@ function getTrackingNumber(result) {
 }
 
 function getCoupon(result) {
-    if (result.code == null) {
+    if (result.code === "") {
         return "";
     } else {
         return `						<tr>
