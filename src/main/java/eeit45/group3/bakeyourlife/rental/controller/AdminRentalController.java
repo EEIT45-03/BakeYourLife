@@ -39,18 +39,17 @@ public class AdminRentalController {
                             Model model) {
 
         List<Rental> rentals = null;
-        System.out.println(listType);
-        if ((listType != null && lDate == null) && eDate ==null) {
-            rentals = rentalService.findAllByType(listType);
-            System.out.println("---------------------------------------------------");
-        } else if ((listType == "tackle" && lDate != null) && eDate !=null) {
-            rentals = rentalService.findAllByDateBetween(lDate, eDate);
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
-        else {
+
+        if(listType != null && listType.length()>0){
+            if(listType == "tackle"){
+
+            } else if(listType == "venue"){
+
+            }
+        } else {
             rentals = rentalService.findAllRental();
-            System.out.println("=================================================");
         }
+
 
         //設置給JSP使用
         model.addAttribute("rentals", rentals);

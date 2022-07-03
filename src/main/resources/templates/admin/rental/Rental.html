@@ -48,13 +48,14 @@
         <p class="mb-4">
 
         <form action="" class="form-inline">
-            <label for="listType" class="row-cols-1 col-form-labels">租借類型:</label>
-            <select type="text" class="form-control form-select mb-sm-1"
-                      th:name="listType" id="listType" aria-label="Default select example">
-                <option value="">請選擇</option>
-                <option th:value="venue" th:text="場地"></option>
-                <option th:value="tackle" th:text="器具"></option>
-            </select>
+          <label for="listType" class="row-cols-1 col-form-labels">租借類型:</label>
+          <select type="text" class="form-control form-select mb-sm-1"
+                  th:name="listType" id="listType" aria-label="Default select example">
+            <option value="">請選擇</option>
+            <option th:value="venue" th:text="場地"></option>
+            <option th:value="tackle" th:text="器具"></option>
+          </select>
+
           <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
         </form>
 
@@ -252,15 +253,15 @@
 <script>
   $(function () {
 
-    $('#listType').on('change',function(){
-      var type = $('#listType').val();
-      console.log(type);
-      if(type == 'tackle') {
-        $('#listType').after(
-                " <label for='lDate' class='row-cols-2 col-1-form-labels'>出租日期:</label>",
-                " <input type='date' th:name='${lDate}' id='lDate'>",
-                " <label for='eDate' class='row-cols-2 col-1-form-labels'>結束日期:</label>",
-                " <input type='date' th:name='${eDate}' id='eDate'>"
+    // $('#listType').on('change',function(){
+    //   var type = $('#listType').val();
+    //   console.log(type);
+    //   if(type == 'tackle') {
+    //     $('#listType').after(
+    //             " <label for='lDate' class='row-cols-2 col-1-form-labels'>出租日期:</label>",
+    //             " <input type='date' th:name='${lDate}' id='lDate'>",
+    //             " <label for='eDate' class='row-cols-2 col-1-form-labels'>結束日期:</label>",
+    //             " <input type='date' th:name='${eDate}' id='eDate'>"
                 // " ,<label for='tState' class='row-cols-2 col-1-form-labels'>租借狀態:</label>",
                 // "<select type='text' th:name='tState' id='tState' class='form-control form-select mb-sm-1' aria-label='Default select example'>"+
                 // "<option value=''  selected>請選擇</option>"+
@@ -270,10 +271,10 @@
                 // "<option value='return'>已歸還</option>"+
                 // "<option value='noReturn'>未歸還</option>"+
                 // "</select>"
-        );
-      }
-
-    })
+        // );
+    //   }
+    //
+    // })
   });
 </script>
 

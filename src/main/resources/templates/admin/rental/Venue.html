@@ -30,15 +30,6 @@
 
             <div th:replace="/admin/header.html"></div>
 
-            <form action="" class="form-inline">
-                <label for="name" class="row-cols-1 col-form-labels">教室名稱:</label>
-                <select type="text" class="form-control form-select mb-sm-1"
-                        th:name="name" id="name" aria-label="Default select example">
-                    <option value="">請選擇</option>
-                    <option th:each="venueName : ${venueNames}" th:text="venueName"></option>
-                </select>
-                <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
-            </form>
 
 
             <!-- Begin Page Content -->
@@ -61,10 +52,22 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">場地資訊</h6>
                     </div>
+
+                    <form action="" class="form-inline">
+                        <label for="vName" class="row-cols-1 col-form-labels">教室名稱:</label>
+                        <select type="text" class="form-control form-select mb-sm-1"
+                                th:name="vName" id="vName" aria-label="Default select example">
+                            <option value="">全部</option>
+                            <option th:each="venueName : ${venueNames}" th:text="${venueName}"></option>
+                        </select>
+                        <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
+                    </form>
+
+
                     <div class="card-body">
                         <div class="table-responsive">
 
-                            <table class="table table-striped" id="rentalTable">
+                            <table class="table table-striped" id="venueTable">
                                 <thead>
                                     <tr>
                                         <th></th>

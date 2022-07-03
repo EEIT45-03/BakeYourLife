@@ -121,7 +121,9 @@ public interface RentalService {
 		----------------------------------------------------------------*/		
 		
 		//查詢全部的器具
-		public List<Tackle>  findAllTackle();
+		public List<Tackle> findAllTackle();
+		//查詢全部的器具名稱
+		public List<String> findAllTackleName();
 		
 		//依器具ID查詢器具
 		public Tackle findByTackleId(Integer tackleId);

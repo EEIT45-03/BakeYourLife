@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -310,6 +309,13 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Tackle> findAllTackle() {
 		return tackleRepository.findAll();
+	}
+
+
+	//查詢全部的器具名稱
+	@Override
+	public List<String> findAllTackleName(){
+		return tackleRepository.findAllTackleName();
 	}
 
 	//依器具ID查詢器具
