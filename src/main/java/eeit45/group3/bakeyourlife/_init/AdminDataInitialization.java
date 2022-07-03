@@ -21,7 +21,7 @@ public class AdminDataInitialization implements ApplicationListener<ContextRefre
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		User user = userService.findByUserName("user");
+		User user = userService.findByUsername("user");
 		//建立管理員帳戶
 		if(user==null) {
     		user = new User("user","user","管理者","vison919@gmail.com"

@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 @Service
@@ -22,18 +21,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails userDetails;
 	    boolean disabled = false;
 	    boolean accountExpired = false;
 	    boolean credentialsExpired = false;
 	    boolean accountLocked = false;
-		User user = userService.findByUserName(username);
-		if (user == null) {
+		//使用者是否存在
+		User user = userService.findByUsername(username);
+		User user1= userService.findByPhone(username);
+		User user2= userService.findByEmail(username);
+		if (user == null && user1 == null && user2 == null) {
 			throw new UsernameNotFoundException("使用者名稱:" + username + "不存在");
-		}
+		} else if (user != null && user1 == null && user2 == null) {
 
 //		UserDetails userDetails = new CustomUserDetails(user);
-		UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-				.username(user.getUserName())
+				 userDetails = org.springframework.security.core.userdetails.User.builder()
+				.username(username)
 				.password(user.getPassword())
 				.disabled(disabled)
 				.accountExpired(accountExpired)
@@ -45,6 +48,35 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				.build();
 
 		return userDetails;
+		} else if (user == null && user1 != null && user2 == null) {
+					 userDetails = org.springframework.security.core.userdetails.User.builder()
+					.username(username)
+					.password(user1.getPassword())
+					.disabled(disabled)
+					.accountExpired(accountExpired)
+					.credentialsExpired(credentialsExpired)
+					.accountLocked(accountLocked)
+//				.authorities("ROLE_ADMIN")
+					//roles會自動加ROLE_
+					.roles("ADMIN")
+					.build();
+
+			return userDetails;
+		}
+				 userDetails = org.springframework.security.core.userdetails.User.builder()
+				.username(username)
+				.password(user2.getPassword())
+				.disabled(disabled)
+				.accountExpired(accountExpired)
+				.credentialsExpired(credentialsExpired)
+				.accountLocked(accountLocked)
+//				.authorities("ROLE_ADMIN")
+				//roles會自動加ROLE_
+				.roles("ADMIN")
+				.build();
+
+		return userDetails;
+
 	}
 
 }
