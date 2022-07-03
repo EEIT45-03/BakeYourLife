@@ -39,8 +39,8 @@ public class FarmerProductSupplierController {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
 
         model.addAttribute("farmerProductBeans", farmerProductBeans);
-        return "admin/farmerproduct/FarmerProductSupplier";
-//        return "farmerproduct/FarmerProductSupplier";
+//        return "admin/farmerproduct/FarmerProductSupplier";
+        return "farmerproduct/FarmerProductSupplier";
     }
 
     @GetMapping("CreateFarmerProduct")
