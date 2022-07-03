@@ -1,4 +1,4 @@
-package eeit45.group3.bakeyourlife.order.ecpay;
+package eeit45.group3.bakeyourlife.order.pay;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

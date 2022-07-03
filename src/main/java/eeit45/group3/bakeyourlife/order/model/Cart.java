@@ -1,4 +1,4 @@
-package eeit45.group3.bakeyourlife.order.dto;
+package eeit45.group3.bakeyourlife.order.model;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
@@ -9,9 +9,11 @@ import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart {
 
-    //總金額
+/**
+ * 購物車封裝物件
+ */
+public class Cart {
 
     //運費
     private Integer shippingFee = 100;

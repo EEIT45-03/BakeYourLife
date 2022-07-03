@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Ogani Template">
+  <meta name="keywords" content="Ogani, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ogani | Template</title>
+
+  <div th:replace="/css.html"></div>
+
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="breadcrumb__text">
+          <h2>購買清單</h2>
+          <div class="breadcrumb__option">
+            <a href="/">首頁</a>
+            <span>購買清單</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
+        <div class="blog__sidebar">
+<!--          <div class="blog__sidebar__search">-->
+<!--            <form action="#">-->
+<!--              <input type="text" placeholder="Search...">-->
+<!--              <button type="submit"><span class="icon_search"></span></button>-->
+<!--            </form>-->
+<!--          </div>-->
+          <div class="blog__sidebar__item">
+            <h4>待修改</h4>
+            <ul>
+              <li><a href="#">All</a></li>
+              <li><a href="#">Beauty (20)</a></li>
+              <li><a href="#">Food (5)</a></li>
+              <li><a href="#">Life Style (9)</a></li>
+              <li><a href="#">Travel (10)</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-10 spad">
+        <table class="table" id="oredrTable">
+          <thead>
+          <tr>
+            <th></th>
+            <th>訂單編號</th>
+            <th>訂單日期</th>
+            <th>付款方式</th>
+            <th>總金額</th>
+            <th>訂單狀態</th>
+            <th>訂單明細</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
+          <tr th:each="order: ${orders}">
+            <td></td>
+            <td th:text="${order.orderNo}">222222222222222</td>
+            <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
+            <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
+            <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
+            <td th:text="${order.orderStatus.code}"></td>
+            <td>                        <button type="button"
+                                                class="btn btn-info btn-sm"
+                                                th:onclick="|showAlert(${order.orderId})|">
+														<span class="icon text-white-50">
+                                                          <i class="fa-solid fa-info"></i> 訂單明細
+														</span>
+            </button></td>
+            <td class="text-right">
+              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
+                      class="btn btn-warning btn-sm mr-3"
+                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
+														<span class="icon text-gray-50">
+                                                          <i class="fa-solid fa-truck-fast"></i> 去付款
+														</span>
+              </button>
+              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
+                      class="btn btn-warning btn-sm mr-3"
+                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
+														<span class="icon text-gray-50">
+                                                          <i class="fa-solid fa-truck-fast"></i> 取消訂單
+														</span>
+              </button>
+
+              <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
+                      class="btn btn-danger btn-sm mr-2"
+                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
+														<span class="icon text-danger-50">
+                                                          <i class="fa-solid fa-sack-dollar"></i> 提出退款
+														</span>
+              </button>
+              <button th:if="${order.orderStatus.code} == '待收貨'" type="button"
+                      class="btn btn-danger btn-sm mr-2"
+                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
+														<span class="icon text-danger-50">
+                                                          <i class="fa-solid fa-sack-dollar"></i> 確認收貨
+														</span>
+              </button>
+
+            </td>
+            <!--                    <td>-->
+
+            <!--                      <ul th:each="orderItem:${order.orderItemList}">-->
+            <!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
+            <!--                      </ul>-->
+            <!--                    </td>-->
+            <!--                    <td th:text="${order.address}"></td>-->
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Blog Section End -->
+<div th:replace="/footer.html"></div>
+
+<script th:src="@{/js/order.js}"></script>
+
+<script>
+
+
+
+</script>
+</body>
+
+</html>

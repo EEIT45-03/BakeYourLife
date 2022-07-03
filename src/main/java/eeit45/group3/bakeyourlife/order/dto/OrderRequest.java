@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Deprecated
 public class OrderRequest {
 	private Integer userId;
 	private String address;

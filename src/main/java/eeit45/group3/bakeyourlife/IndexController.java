@@ -29,7 +29,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-//        return "/index";
-        return "example/shoping-cart";
+        return "/index";
+//        return "example/shoping-cart";
     }
 }
