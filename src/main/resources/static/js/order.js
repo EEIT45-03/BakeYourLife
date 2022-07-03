@@ -4,24 +4,35 @@ $(document).ready(function () {
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
             year = d.getFullYear();
-    
-        if (month.length < 2) 
+
+        if (month.length < 2)
             month = '0' + month;
-        if (day.length < 2) 
+        if (day.length < 2)
             day = '0' + day;
-    
+
         return [year, month, day].join('-');
     }
-    
-    let today = new Date();
-	let endDate = new Date();
-	endDate.setMonth(endDate.getMonth()-6)
-    if($('#edate').val()==''){
-	$('#edate').val(formatDate(today))
-	}
-	if($('#sdate').val()==''){
-	$('#sdate').val(formatDate(endDate))
-	}
+
+    let urlParams = new URLSearchParams(window.location.search);
+
+    var edate = $('#edate');
+
+    var sdate = $('#sdate');
+
+    if (urlParams.get('sdate') && urlParams.get('edate')) {
+        edate.val(urlParams.get('edate'));
+        sdate.val(urlParams.get('sdate'));
+    } else {
+        let today = new Date();
+        let endDate = new Date();
+        endDate.setMonth(endDate.getMonth() - 6)
+        if (edate.val() === '') {
+            edate.val(formatDate(today))
+        }
+        if (sdate.val() === '') {
+            sdate.val(formatDate(endDate))
+        }
+    }
     $('#oredrTable').DataTable({
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
@@ -47,40 +58,39 @@ $(document).ready(function () {
               'csvHtml5'
           ]*/
     });
-    	// 	//在sweetalert2中檢查運費
-        //     $('body').on('blur','#shippingFee',function(){
-        //     let shippingFee=parseInt($('#shippingFee').val());
-        //     if(shippingFee<0){
-        //     	$('#shippingFee').val(0)
-        //     	alert('運費不能為負數')
-        //     }
-        // })
-        // $('body').on('blur','#userId',function(){
-        // 	let userId=$('#userId');
-        // 	let address=$('#address')
-        //     let userIdValue=parseInt(userId.val());
-        //     $.ajax({
-        //         type: "GET",
-        //         url: "./Check?userId="+userIdValue,
-        //         dataType: "json",
-        //         success: function (response) {
-        //         	userId.val(response.user_id)
-        //         	address.val(response.address)
-        //         },
-        //         error: function (thrownError) {
-        //           memNo.val('')
-        //           address.val('')
-		// 		  alert('不存在這個會員編號')
-        //         }
-        //       });
-        // })
+    // 	//在sweetalert2中檢查運費
+    //     $('body').on('blur','#shippingFee',function(){
+    //     let shippingFee=parseInt($('#shippingFee').val());
+    //     if(shippingFee<0){
+    //     	$('#shippingFee').val(0)
+    //     	alert('運費不能為負數')
+    //     }
+    // })
+    // $('body').on('blur','#userId',function(){
+    // 	let userId=$('#userId');
+    // 	let address=$('#address')
+    //     let userIdValue=parseInt(userId.val());
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "./Check?userId="+userIdValue,
+    //         dataType: "json",
+    //         success: function (response) {
+    //         	userId.val(response.user_id)
+    //         	address.val(response.address)
+    //         },
+    //         error: function (thrownError) {
+    //           memNo.val('')
+    //           address.val('')
+    // 		  alert('不存在這個會員編號')
+    //         }
+    //       });
+    // })
 });
 
 
-
-function showAlert(orderId){
+function showAlert(orderId) {
     Swal.showLoading()
-    fetch('//localhost:8080/Orders/'+orderId)
+    fetch('//localhost:8080/Orders/' + orderId)
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText)
@@ -88,11 +98,11 @@ function showAlert(orderId){
             return response.json()
         })
         .catch(error => {
-        Swal.showValidationMessage(
-            `Request failed: ${error}`
-        )
-    })
-        .then(function(result){
+            Swal.showValidationMessage(
+                `Request failed: ${error}`
+            )
+        })
+        .then(function (result) {
 
             console.log(result)
             let data = getData(result);
@@ -129,7 +139,7 @@ function showAlert(orderId){
                         ${trackingNumber}
 					</tfoot>
 				</table>`,
-                width:1000
+                width: 1000
             })
 
         });
@@ -137,7 +147,7 @@ function showAlert(orderId){
 }
 
 
-function getData(result){
+function getData(result) {
     let data = "";
     result.orderItemList.forEach(element => {
         data = data +
@@ -150,10 +160,11 @@ function getData(result){
     });
     return data;
 }
+
 function getTrackingNumber(result) {
-    if(result.trackingNumber == null){
+    if (result.trackingNumber == null) {
         return "";
-    }else {
+    } else {
         return `<tr>
                    <td class="text-lift col-sm-2">物流單號</td>
                    <td colspan="3" class="text-center col-sm-10">${result.trackingNumber}</td>
@@ -166,36 +177,37 @@ function getTrackingNumber(result) {
 }
 
 function getCoupon(result) {
-    if(result.code == null){
+    if (result.code == null) {
         return "";
-    }else {
+    } else {
         return `						<tr>
 							<td class="text-lift">優惠卷代碼${result.code}</td>
 							<td colspan="3" class="text-center" id="coupon">-NT$${result.discountAmount}</td>
 						</tr>`
     }
 }
-//跳出修改訂單Alert
-function updateAlert(orderId){
-Swal.showLoading()
-	fetch('./UpdateOrder?orderId='+orderId)
-.then(response => response.text())
-.then(function(data){
-Swal.fire({
-  title: '修改訂單',
-  icon: 'info',
-  html:data,
-  showCloseButton: true,
-  showCancelButton: false,
-  showConfirmButton: false,
-  focusConfirm: false
-})
 
-});
+//跳出修改訂單Alert
+function updateAlert(orderId) {
+    Swal.showLoading()
+    fetch('./UpdateOrder?orderId=' + orderId)
+        .then(response => response.text())
+        .then(function (data) {
+            Swal.fire({
+                title: '修改訂單',
+                icon: 'info',
+                html: data,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+            })
+
+        });
 }
 
 
-function refundAlert(orderNo){
+function refundAlert(orderNo) {
     Swal.fire({
         title: '請問是否要通過此訂單的退款請求',
         showDenyButton: true,
@@ -208,22 +220,22 @@ function refundAlert(orderNo){
         if (result.isConfirmed) {
             fetch('http://localhost:8080/Order/' + orderNo + '/Refund?choose=accept',
                 {
-                    method:"POST"
+                    method: "POST"
                 }).then(
-            Swal.fire('退款請求已同意', '', 'success')
+                Swal.fire('退款請求已同意', '', 'success')
             )
         } else if (result.isDenied) {
             fetch('http://localhost:8080/Order/' + orderNo + '/Refund?choose=reject',
                 {
-                    method:"POST"
+                    method: "POST"
                 }).then(
-            Swal.fire('退款請求已拒絕', '', 'success')
+                Swal.fire('退款請求已拒絕', '', 'success')
             )
         }
     })
 }
 
-function shipAlert(orderNo){
+function shipAlert(orderNo) {
     Swal.fire({
         title: '請輸入物流單號',
         input: 'text',
@@ -236,9 +248,9 @@ function shipAlert(orderNo){
         showLoaderOnConfirm: true,
         preConfirm: (trackingNumber) => {
 
-            return     fetch('http://localhost:8080/Order/' + orderNo + '/Ship?trackingNumber='+trackingNumber,
+            return fetch('http://localhost:8080/Order/' + orderNo + '/Ship?trackingNumber=' + trackingNumber,
                 {
-                    method:"POST"
+                    method: "POST"
                 })
                 .then(response => {
                     if (!response.ok) {

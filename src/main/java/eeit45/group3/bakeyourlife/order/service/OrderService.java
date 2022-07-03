@@ -8,6 +8,7 @@ import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
@@ -24,7 +25,9 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-    //List<Order> findAllByMemNo(Integer memNo);
+//    List<Order> findAllByUser(User user);
+
+    List<Order> findAllByUserId(Integer userId);
 
     //查詢所有訂單
     List<Order> findAll();

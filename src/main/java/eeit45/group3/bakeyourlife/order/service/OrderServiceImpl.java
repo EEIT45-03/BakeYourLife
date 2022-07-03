@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import eeit45.group3.bakeyourlife.coupon.dao.CouponRepository;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
@@ -68,6 +67,15 @@ public class OrderServiceImpl implements OrderService {
 			return orderRepository.findAllByCoupon(coupon);
 		}
 		return null;
+	}
+
+	@Override
+	public List<Order> findAllByUserId(Integer userId) {
+		User user = userService.findByUserId(userId);
+		if(user == null){
+			return null;
+		}
+		return orderRepository.findAllByUser(user);
 	}
 
 
@@ -220,8 +228,8 @@ public class OrderServiceImpl implements OrderService {
 		Coupon coupon = order.getCoupon();
 		if(coupon != null && coupon.getUsedQuantity() < coupon.getMaxQuantity()){
 			coupon.setUsedQuantity(coupon.getUsedQuantity()+1);
+			couponService.updateCoupon(coupon);
 		}
-		couponService.updateCoupon(coupon);
 
 		return orderRepository.save(order);
 	}
