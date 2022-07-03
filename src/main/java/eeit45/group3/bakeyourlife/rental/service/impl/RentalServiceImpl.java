@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -74,6 +75,11 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Rental> findAllByType(String listType) {
 		return rentalRepository.findAllByType(listType);
+	}
+
+	@Override
+	public List<Rental> findAllByDateBetween(String lDate, String eDate){
+		return rentalRepository.findAllByDateBetween(lDate, eDate);
 	}
 
 	//新增租借單
@@ -187,6 +193,9 @@ public class RentalServiceImpl implements RentalService{
 	public List<Venue> findAllVenue() {
 		return venueRepository.findAll();
 	}
+
+	//查詢全部的教室名稱
+	public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
 
 	//依教室ID查詢教室
 	@Override

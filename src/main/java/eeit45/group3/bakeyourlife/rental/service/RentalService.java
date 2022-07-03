@@ -25,6 +25,8 @@ public interface RentalService {
 		//依租借單類型查詢租借單
 		public List<Rental> findAllByType(String type);
 
+		public List<Rental> findAllByDateBetween(String lDate, String eDate);
+
 		
 		//新增租借單
 		public Rental createRental(Rental rental);
@@ -68,6 +70,9 @@ public interface RentalService {
 		
 		//查詢全部的教室
 		public List<Venue>  findAllVenue();
+
+		//查詢全部的教室名稱
+		public List<String> findAllVenueName();
 		
 		//依教室ID查詢教室
 		public Venue findByVenueId(Integer venueId);

@@ -20,12 +20,17 @@ public class VenueController {
     private RentalService rentalService;
 
     @GetMapping("/")
-    public String viewIndex(Model model) {
-
+    public String viewIndex(@RequestParam(value = "name", required = false) String name,Model model) {
+        List<String> venueNames = rentalService.findAllVenueName();
         List<Venue> venues = null;
 
-        venues = rentalService.findAllVenue();
+        if( name != null){
+
+        } else{
+            venues = rentalService.findAllVenue();
+        }
         //設置給JSP使用
+        model.addAttribute("venueNames", venueNames);
         model.addAttribute("venues", venues);
         return "/admin/rental/Venue";
     }

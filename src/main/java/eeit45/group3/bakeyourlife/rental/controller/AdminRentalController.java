@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,14 +34,22 @@ public class AdminRentalController {
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "listType", required = false) String listType,
+                            @RequestParam(value = "lDate", required = false) String lDate,
+                            @RequestParam(value = "eDate", required = false) String eDate,
                             Model model) {
 
         List<Rental> rentals = null;
         System.out.println(listType);
-        if (listType != null) {
+        if ((listType != null && lDate == null) && eDate ==null) {
             rentals = rentalService.findAllByType(listType);
-        } else {
+            System.out.println("---------------------------------------------------");
+        } else if ((listType == "tackle" && lDate != null) && eDate !=null) {
+            rentals = rentalService.findAllByDateBetween(lDate, eDate);
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+        else {
             rentals = rentalService.findAllRental();
+            System.out.println("=================================================");
         }
 
         //設置給JSP使用
