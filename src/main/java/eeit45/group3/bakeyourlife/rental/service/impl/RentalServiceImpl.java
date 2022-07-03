@@ -70,6 +70,12 @@ public class RentalServiceImpl implements RentalService{
 		return rentalRepository.findById(rentalId).orElse(null);
 	}
 
+	//依租借單類型查詢租借單
+	@Override
+	public List<Rental> findAllByType(String listType) {
+		return rentalRepository.findAllByType(listType);
+	}
+
 	//新增租借單
 	@Override
 	@Transactional

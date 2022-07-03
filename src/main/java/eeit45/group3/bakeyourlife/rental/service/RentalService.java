@@ -21,6 +21,10 @@ public interface RentalService {
 		
 		//依租借單ID查詢租借單
 		public Rental findByRentalId(Integer rentalId);
+
+		//依租借單類型查詢租借單
+		public List<Rental> findAllByType(String type);
+
 		
 		//新增租借單
 		public Rental createRental(Rental rental);
