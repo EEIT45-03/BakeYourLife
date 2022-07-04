@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.order.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.pay.EcpayPayment;
 import eeit45.group3.bakeyourlife.order.pay.PaypalPayment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class OrderController {
 	public ResponseEntity<String> pay(@PathVariable String orderNo, HttpServletRequest request){
 		Order order = orderService.findByOrderNo(orderNo).orElse(null);
 		String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
-		if(order!=null){
+		if(order!=null && order.getOrderStatus() == OrderStatus.WAIT_PAYMENT){
 			switch (order.getPayType()){
 				case ECPAY:
 					String ecpayUrl =  baseURL + "/Order/ECPAY/Result";
@@ -102,8 +103,48 @@ public class OrderController {
 
 	}
 
+
+	@PostMapping("/Order/{orderNo}/Cancel")
+	public ResponseEntity<Order> cancel(@PathVariable String orderNo){
+
+		Order order = orderService.findByOrderNo(orderNo).orElse(null);
+		if(order == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
+		}
+		Order cancel = orderService.cancel(order.getOrderId());
+
+		return ResponseEntity.status(HttpStatus.OK).body(cancel);
+
+	}
+
+	@PostMapping("/Order/{orderNo}/Receive")
+	public ResponseEntity<Order> receive(@PathVariable String orderNo){
+
+		Order order = orderService.findByOrderNo(orderNo).orElse(null);
+		if(order == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
+		}
+		Order receive = orderService.receive(order.getOrderId());
+
+		return ResponseEntity.status(HttpStatus.OK).body(receive);
+
+	}
+
 	@PostMapping("/Order/{orderNo}/Refund")
-	public ResponseEntity<Order> refund(@RequestParam String choose,
+	public ResponseEntity<Order> refund(@PathVariable String orderNo){
+
+		Order order = orderService.findByOrderNo(orderNo).orElse(null);
+		if(order == null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
+		}
+		Order cancel = orderService.refund(order.getOrderId());
+
+		return ResponseEntity.status(HttpStatus.OK).body(cancel);
+
+	}
+
+	@PostMapping("/Order/{orderNo}/Refunding")
+	public ResponseEntity<Order> refunding(@RequestParam String choose,
 										 @PathVariable String orderNo){
 		Order order = orderService.findByOrderNo(orderNo).orElse(null);
 		if(order == null){

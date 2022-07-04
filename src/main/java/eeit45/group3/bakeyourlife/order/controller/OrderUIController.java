@@ -4,8 +4,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +50,7 @@ public class OrderUIController {
 	public String viewOrder(
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date sdate,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date edate,
+			@AuthenticationPrincipal CustomUserDetails userDetails,
 			Model model){
 		List<Order> orders = null;
 		if(sdate!=null && edate!=null) {
@@ -55,9 +58,9 @@ public class OrderUIController {
 			cal.setTime(edate);
 			cal.add(Calendar.DATE, 1);
 			edate = cal.getTime();
-			orders = orderService.findAllByOrderDateBetween(sdate, edate);
+			orders = orderService.findAllByUserAndOrderDateBetween(userDetails.getUser(),sdate, edate);
 		}else {
-			orders = orderService.findAll();
+			orders = orderService.findAllByUser(userDetails.getUser());
 		}
 
 		model.addAttribute("orders", orders);
