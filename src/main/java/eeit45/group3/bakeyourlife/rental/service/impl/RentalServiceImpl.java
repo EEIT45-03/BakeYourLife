@@ -161,19 +161,15 @@ public class RentalServiceImpl implements RentalService{
 	//建立租借單請求資料
 	@Override
 	public RentalRequest createRentalRequest() {
-
 		ProduceNo produceNo = produceNoRepository.findByName("rental");
-
-
+		System.out.println(produceNo+"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String newDate = sdf.format(new Date());
 
-
 		if(produceNo == null ){
 			produceNo = new ProduceNo("rental",newDate,1);
-
+			produceNoRepository.save(produceNo);
 		} else {
-
 			String date = produceNo.getDate();
 
 
@@ -267,13 +263,14 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public VenueListRequest createVenueListRequest(Rental rental) {
 
-		ProduceNo produceNo = produceNoRepository.findByName("venue");
+		ProduceNo produceNo = produceNoRepository.findByName("VenueList");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String newDate = sdf.format(new Date());
 
 		if(produceNo == null ){
-			produceNo = new ProduceNo("venue",newDate,1);
+			produceNo = new ProduceNo("VenueList",newDate,1);
+			produceNoRepository.save(produceNo);
 		} else {
 
 			String date = produceNo.getDate();
@@ -415,13 +412,14 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public TackleListRequest createTackleListRequest(Rental rental) {
 
-		ProduceNo produceNo = produceNoRepository.findByName("tackle");
+		ProduceNo produceNo = produceNoRepository.findByName("TackleList");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String newDate = sdf.format(new Date());
 
 		if(produceNo == null ){
-			produceNo = new ProduceNo("tackle",newDate,1);
+			produceNo = new ProduceNo("TackleList",newDate,1);
+			produceNoRepository.save(produceNo);
 		} else {
 
 			String date = produceNo.getDate();
@@ -526,12 +524,11 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public ProduceNo updateProduceNo(String no) {
 		ProduceNo produceNo = null;
-
-		if(no.substring(1) == "T"){
+		if(no.charAt(0) == 'T'){
 			produceNo = produceNoRepository.findByName("TackleList");
 			produceNo.setDate(no.substring(1,9));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
-		} else if (no.substring(1) == "V") {
+		} else if (no.charAt(0) == 'V') {
 			produceNo = produceNoRepository.findByName("VenueList");
 			produceNo.setDate(no.substring(1,9));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
