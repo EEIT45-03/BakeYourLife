@@ -1,19 +1,12 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--    <meta charset="utf-8">-->
-    <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-    <!--    <meta name="viewport"-->
-    <!--          content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-    <!--    <meta name="description" content="">-->
-    <!--    <meta name="author" content="">-->
-
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>模擬前台 小農廠商</title>
+    <title>小農廠商</title>
     <div th:replace="/admin/css.html"></div>
     <div th:replace="/css.html"></div>
 
@@ -26,8 +19,7 @@
             object-fit: cover;
             width: 120px;
             height: 90px;
-            /* max-width: 100%; */
-            /* max-height: 100%; */
+
         }
 
         .table th {
@@ -53,7 +45,7 @@
         }
 
 
-        .text {
+        .text, .text-white {
             white-space: pre;
         }
 
@@ -65,7 +57,28 @@
             padding-top: 50px;
         }
 
+        .table, body {
+            color: #858796;
+            font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
 
+        .primary-btn {
+            padding: 0.25rem 0.5rem;
+        }
+
+
+        .page-item.active .page-link {
+            background-color: #7fad39;
+            border-color: #7fad39;
+        }
+
+        .text-primary {
+            color: #7fad39 !important;
+        }
+
+        .namelink > a:hover {
+            color: #7fad39;
+        }
     </style>
 
 </head>
@@ -112,11 +125,9 @@
                         <div class="blog__sidebar__item ">
                             <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">All</a></li>
-                                <li><a href="#">Beauty (20)</a></li>
-                                <li><a href="#">Food (5)</a></li>
-                                <li><a href="#">Life Style (9)</a></li>
-                                <li><a href="#">Travel (10)</a></li>
+                                <li><a href="#">資訊設定</a></li>
+                                <li><a href="#">管理商品</a></li>
+                                <li><a href="#">管理訂單</a></li>
                             </ul>
                         </div>
                     </div>
@@ -128,9 +139,9 @@
                 <!-- DataTales Example -->
                 <div class="col-lg-10 product-list">
                     <p class="mb-4">
-                        <a href="./CreateFarmerProduct" class="btn btn-primary btn-icon-split btn-sm">
+                        <a href="./CreateFarmerProduct" class="btn primary-btn btn-icon-split btn-sm">
                             <span class="icon text-white-50"> <i class="fas fa-plus"></i> </span> <span
-                                class="text">新增小農商品</span>
+                                class="text-white">新增小農商品</span>
                         </a>
                     </p>
 
@@ -147,16 +158,17 @@
                                     <tr>
                                         <th></th>
                                         <th>商品編號</th>
-                                        <th>商品類型</th>
+                                        <th class="none">商品類型</th>
                                         <th>商品圖片</th>
                                         <th>商品名稱</th>
-                                        <th>價格</th>
-                                        <th>數量</th>
+                                        <th class="none">價格</th>
+                                        <th class="none">數量</th>
                                         <th>狀態</th>
                                         <th class="none">內容物</th>
                                         <th class="none">保存方式</th>
                                         <th class="none">商品介紹</th>
-                                        <th>動作</th>
+                                        <th>上下架</th>
+                                        <th>修改</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -166,9 +178,9 @@
 
                                         <td th:text="${bean.farmerProductId}"></td>
                                         <td th:text="${bean.type}"></td>
-                                        <td>
+                                        <td class="w-25">
 
-                                            <div class="carousel slide" data-ride="carousel">
+                                            <div class=" carousel slide" data-ride="carousel">
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item"
                                                          th:each="FarmerProductPic: ${bean.farmerProductPicList}">
@@ -194,7 +206,12 @@
 
 
                                         </td>
-                                        <td th:text="${bean.name}"></td>
+                                        <td class="namelink">
+                                            <a th:href="@{ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                               th:text="${bean.name}">
+
+                                            </a>
+                                        </td>
                                         <td th:text="|NT$${bean.price}|"></td>
                                         <td th:text="${bean.quantity}"></td>
 
@@ -230,30 +247,28 @@
                                     </button>
                                 </span>
                                             <span th:if="${bean.state}==0">
-                                	<button type="button" class="btn btn-primary btn-icon-split btn-sm"
+                                	<button type="button" class="btn primary-btn btn-icon-split btn-sm"
                                             data-toggle="modal" data-target="#myModal1"
                                             th:onclick="|updateState(${bean.farmerProductId},1,'確認下架此商品?','')|">
                                         <span class="icon text-white-50"> <i class="fa-solid fa-arrow-down"></i>
-                                        </span> <span class="text">下架商品</span>
+                                        </span> <span class="text-white">下架商品</span>
                                     </button>
                                 	
                                 </span>
-
-                                            <br>
+                                        </td>
+                                        <td>
 
                                             <span th:if="${bean.state}!=2">
                                 <a th:href="@{UpdateFarmerProduct(farmerProductId=${bean.farmerProductId})}"
                                    class="btn btn-warning btn-icon-split btn-sm"><span class="icon text-white-50">
                                    <i class="fas fa-exclamation-triangle"></i></span> 
-                                   <span class="text">修改</span> </a>
-                                </span>
+                                   <span class="text-white">修改</span> </a>
+                                            </span>
 
                                             <button type="button" class="btn btn-danger btn-icon-split btn-sm"
-                                                    id="redbutton"
-                                                    data-toggle="modal" data-target="#myModal"
                                                     th:onclick="|deleteProduct(${bean.farmerProductId})|">
-                                    <span class="icon text-white-50"> <i class="fas fa-trash"></i>
-                                    </span> <span class="text">刪除</span>
+                                                <span class="icon text-white-50"> <i class="fas fa-trash"></i> </span>
+                                                <span class="text">刪除</span>
                                             </button>
                                         </td>
 
@@ -266,7 +281,6 @@
                     </div>
                 </div>
             </div>
-            <!--        </div>-->
             <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
