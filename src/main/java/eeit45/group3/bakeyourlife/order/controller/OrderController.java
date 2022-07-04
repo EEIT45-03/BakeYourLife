@@ -1,27 +1,28 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
+import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.pay.EcpayPayment;
 import eeit45.group3.bakeyourlife.order.pay.PaypalPayment;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-
-import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.util.*;
 
+
+/**
+ * 接收付款資訊、提供操作(付款、發貨...)
+ */
 @Controller
 public class OrderController {
 	
@@ -43,7 +44,7 @@ public class OrderController {
 		Order order = orderService.findByOrderNo(merchantTradeNo).orElse(null);
 		if(rtnCode.equals("1")) {
 			if(order!=null) {
-				Order pay = orderService.pay(order.getOrderId());
+				orderService.pay(order.getOrderId());
 			}
 		}
 		model.addFlashAttribute("orderNo", order.getOrderNo());

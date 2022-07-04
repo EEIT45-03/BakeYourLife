@@ -13,6 +13,8 @@ import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -66,8 +68,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user) {
-		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user);
+	public Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable) {
+		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user,pageable);
 	}
 
 	@Override
@@ -96,10 +98,14 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAllByUser(user);
 	}
 
-
 	@Override
 	public List<Order> findAll() {
 		return orderRepository.findAll();
+	}
+
+	@Override
+	public Page<Order> findAll(Pageable pageable) {
+		return orderRepository.findAll(pageable);
 	}
 
 	@Override
