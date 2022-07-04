@@ -52,7 +52,7 @@ public class OrderRestController {
 		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
 		OrderStatus status = null;
 		User user = null;
-		if(!orderStatus.equals("")){
+		if(!"".equals(orderStatus)){
 			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
 			user = userService.findByUsername(principal.getName());
 		}
@@ -81,6 +81,10 @@ public class OrderRestController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
+
+
+
+
 
 	@GetMapping("/Users/{userId}/Orders")
 	public ResponseEntity<List<Order>> getOrdersByUserId(

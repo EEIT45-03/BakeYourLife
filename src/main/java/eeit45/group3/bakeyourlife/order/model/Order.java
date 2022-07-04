@@ -20,7 +20,6 @@ import eeit45.group3.bakeyourlife.user.model.User;
 
 @Entity
 @Table(name = "Orders")
-@JsonIgnoreProperties("orderItemList")
 public class Order implements Serializable {
 
 	
