@@ -21,13 +21,18 @@ public class TackleController {
     private RentalService rentalService;
 
     @GetMapping("/")
-    public String viewIndex(Model model) {
+    public String viewIndex(@RequestParam(value = "tName", required = false) String tackleName,
+                            Model model) {
+        model.addAttribute("tackleNames", rentalService.findAllTackleName());
 
-        List<Tackle> tackles = null;
+        if(tackleName!=null && tackleName.length()>0){
+            //設置給JSP使用
+            model.addAttribute("tackles", rentalService.findByTackleName(tackleName));
+        } else{
+            //設置給JSP使用
+            model.addAttribute("tackles", rentalService.findAllTackle());
+        }
 
-        tackles = rentalService.findAllTackle();
-        //設置給JSP使用
-        model.addAttribute("tackles", tackles);
         return "/admin/rental/Tackle";
     }
 
