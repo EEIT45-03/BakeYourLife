@@ -158,38 +158,36 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 
-	//建立請求租借單
+	//建立租借單請求資料
 	@Override
 	public RentalRequest createRentalRequest() {
 
-		ProduceNo produceNo = produceNoRepository.findById(1).orElse(null);
-		String rentalNo;
-		System.out.println(produceNo+"-----------------------------------------------");
+		ProduceNo produceNo = produceNoRepository.findByName("rental");
+
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String date = sdf.format(new Date());
+		String newDate = sdf.format(new Date());
 
 
 		if(produceNo == null ){
-			produceNo.setTableName("rental");
-			produceNo.setDate(date);
-			produceNo.setNumber(1);
-
-			createProduceNo(produceNo);
+			produceNo = new ProduceNo("rental",newDate,1);
 
 		} else {
 
-			if(produceNo.getDate() == date){
-				int number = produceNo.getNumber() + 1;
-				produceNo.setNumber(number);
-			} else if(produceNo.getDate() != date){
-				produceNo.setDate(date);
-				produceNo.setNumber(1);
+			String date = produceNo.getDate();
+
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
 			}
 
 		}
 
-
-		rentalNo = produceNo.getDate() + String.format("%07d", produceNo.getNumber());;
+		String rentalNo = produceNo.getDate() + String.format("%07d", produceNo.getNum());
 
 		RentalRequest rentalRequest = new RentalRequest();
 		rentalRequest.setRentalNo(rentalNo);
@@ -266,7 +264,37 @@ public class RentalServiceImpl implements RentalService{
 		venueListRepository.deleteById(venueListId);
 	}
 
-	
+	@Override
+	public VenueListRequest createVenueListRequest(Rental rental) {
+
+		ProduceNo produceNo = produceNoRepository.findByName("venue");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String newDate = sdf.format(new Date());
+
+		if(produceNo == null ){
+			produceNo = new ProduceNo("venue",newDate,1);
+		} else {
+
+			String date = produceNo.getDate();
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
+			}
+		}
+		String no =  "V" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
+
+		VenueListRequest venueListRequest = new VenueListRequest();
+		venueListRequest.setVenueListNo(no);
+		venueListRequest.setPrice(0);
+		venueListRequest.setRental(rental);
+		return venueListRequest;
+	}
+
 	/*教室 DAO
 	----------------------------------------------------------------*/		
 	
@@ -384,7 +412,39 @@ public class RentalServiceImpl implements RentalService{
 		tackleListRepository.deleteById(tackleListId);
 	}
 
-	
+	@Override
+	public TackleListRequest createTackleListRequest(Rental rental) {
+
+		ProduceNo produceNo = produceNoRepository.findByName("tackle");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String newDate = sdf.format(new Date());
+
+		if(produceNo == null ){
+			produceNo = new ProduceNo("tackle",newDate,1);
+		} else {
+
+			String date = produceNo.getDate();
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
+			}
+		}
+		String no =  "T" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
+
+		TackleListRequest tackleListRequest = new TackleListRequest();
+		tackleListRequest.setTackleListNo(no);
+		tackleListRequest.setPrice(0);
+		tackleListRequest.setRental(rental);
+		return tackleListRequest;
+
+	}
+
+
 	/*器具 DAO
 	----------------------------------------------------------------*/		
 	
@@ -446,7 +506,7 @@ public class RentalServiceImpl implements RentalService{
 
 	@Override
 	public ProduceNo findByTable(String table) {
-		return produceNoRepository.findByTableName(table);
+		return produceNoRepository.findByName(table);
 	}
 
 	//新增產生編號
@@ -456,10 +516,31 @@ public class RentalServiceImpl implements RentalService{
 		return produceNoRepository.save(produceNo);
 	}
 
+
 	//更新編號
 	@Override
 	@Transactional
 	public ProduceNo updateProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.save(produceNo);
+	}
+	@Override
+	public ProduceNo updateProduceNo(String no) {
+		ProduceNo produceNo = null;
+
+		if(no.substring(1) == "T"){
+			produceNo = produceNoRepository.findByName("TackleList");
+			produceNo.setDate(no.substring(1,9));
+			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+		} else if (no.substring(1) == "V") {
+			produceNo = produceNoRepository.findByName("VenueList");
+			produceNo.setDate(no.substring(1,9));
+			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+		} else {
+			produceNo = produceNoRepository.findByName("Rental");
+			produceNo.setDate(no.substring(0,8));
+			produceNo.setNum(Integer.valueOf(no.substring(8,15)));
+		}
+
 		return produceNoRepository.save(produceNo);
 	}
 

@@ -49,10 +49,9 @@ public interface RentalService {
 	//更新租借單
 	public Rental updateRental(Rental rental);
 
-	//刪除租借單
 	public void deleteRental(Integer rentalId);
 
-
+	//建請租借單請求資料
 	public RentalRequest createRentalRequest();
 		
 
@@ -80,7 +79,11 @@ public interface RentalService {
 			
 	//刪除場地租借清單
 	public void deleteVenueList(Integer venueListId);
-		
+
+	//建請場地清單請求資料
+	public VenueListRequest createVenueListRequest(Rental rental);
+
+
 		
 	/*教室 DAO
 		----------------------------------------------------------------*/		
@@ -132,8 +135,10 @@ public interface RentalService {
 			
 	//刪除器具租借清單
 	public void deleteTackleList(Integer tackleListId);
-		
-		
+
+	//建立器具清單請求資料
+	public TackleListRequest createTackleListRequest(Rental rental);
+
 	/*器具 DAO
 		----------------------------------------------------------------*/		
 		
@@ -172,6 +177,7 @@ public interface RentalService {
 
 	//更新編號
 	public ProduceNo updateProduceNo(ProduceNo produceNo);
+	public ProduceNo updateProduceNo(String no);
 
 	//刪除編號
 	public void deleteProduceNo(Integer id);

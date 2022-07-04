@@ -102,6 +102,7 @@ public class AdminRentalController {
 
     @PostMapping("CreateRental")
     public String createRental(@ModelAttribute("rental") RentalRequest rentalRequest ) {
+        rentalService.updateProduceNo(rentalRequest.getRentalNo());
         rentalService.createRental(rentalRequest);
         return "redirect:./";
     }
@@ -118,7 +119,7 @@ public class AdminRentalController {
             rental = rentalService.findByRentalId(rentalId);
         }
         if(rental != null) {
-            rentalRequest.setRentalId(rental.getRentalId());
+            rentalRequest.setRentalId(rentalId);
             rentalRequest.setRentalNo(rental.getRentalNo());
             rentalRequest.setListType(rental.getType());
             rentalRequest.setUserId(rental.getUser().getUserId());
@@ -167,12 +168,12 @@ public class AdminRentalController {
 
         if(FK_rentalId != null) {
             rental = rentalService.findByRentalId(FK_rentalId);
-
         }
         if(rental != null) {
+            TackleListRequest tackleListRequest = rentalService.createTackleListRequest(rental);
             tackles = rentalService.findAllTackle();
             model.addAttribute("tackles",tackles);
-            model.addAttribute("tackleList",new TackleListRequest(rental));
+            model.addAttribute("tackleList", tackleListRequest);
             return "admin/rental/CreateTackleList";
         }
         return null;
@@ -180,6 +181,7 @@ public class AdminRentalController {
 
     @PostMapping("CreateTackleList")
     public String createTackleList(@RequestParam Integer FK_rentalId, @ModelAttribute("tackleList") TackleListRequest tackleListRequest ) {
+        rentalService.updateProduceNo(tackleListRequest.getTackleListNo());
         rentalService.createTackleList(FK_rentalId,tackleListRequest);
         return "redirect:./";
     }
@@ -264,9 +266,10 @@ public class AdminRentalController {
             rental = rentalService.findByRentalId(FK_rentalId);
         }
         if(rental != null) {
+            VenueListRequest venueListRequest = rentalService.createVenueListRequest(rental);
             venues = rentalService.findAllVenue();
             model.addAttribute("venues",venues);
-            model.addAttribute("venueList",new VenueListRequest(rental));
+            model.addAttribute("venueList", venueListRequest);
             return "admin/rental/CreateVenueList";
         }
         return null;
@@ -274,6 +277,7 @@ public class AdminRentalController {
 
     @PostMapping("CreateVenueList")
     public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueListRequest venueListRequest ) {
+        rentalService.updateProduceNo(venueListRequest.getVenueListNo());
         rentalService.createVenueList(FK_rentalId,venueListRequest);
         return "redirect:./";
     }

@@ -7,49 +7,55 @@ import java.io.Serializable;
 
 
 @Entity
+
 @Component
 public class ProduceNo implements Serializable {
 
+    /**
+     *
+     */
     private static final long serialVersionUID = 1L;
 
+    //器具ID (PK)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
-    @Column(columnDefinition = "varchar(15) not null")
-    private String tableName;
+    //器具名稱
+    @Column(unique = true, nullable = false)
+    private String name;
 
-    @Column(columnDefinition = "varchar(15) not null")
+    //器具名稱
+    @Column(nullable = false)
     private String date;
 
-    @Column(columnDefinition = "int not null")
-    private Integer number;
+    //器具型號
+    @Column(nullable = false)
+    private Integer num;
 
+    public ProduceNo(String name, String date, Integer num) {
+        this.name = name;
+        this.date = date;
+        this.num = num;
+    }
 
     public ProduceNo() {
     }
 
-    public ProduceNo(Integer id, String tableName, String date, Integer number) {
-        Id = id;
-        this.tableName = tableName;
-        this.date = date;
-        this.number = number;
-    }
-
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getName() {
+        return name;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDate() {
@@ -60,11 +66,12 @@ public class ProduceNo implements Serializable {
         this.date = date;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }
+
