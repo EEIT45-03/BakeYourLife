@@ -17,17 +17,24 @@
         <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
     <div class="humberger__menu__widget">
-        <div class="header__top__right__language">
-            <img src="/img/language.png" alt="">
-            <div>English</div>
-            <span class="arrow_carrot-down"></span>
-            <ul>
-                <li><a href="#">Spanis</a></li>
-                <li><a href="#">English</a></li>
-            </ul>
+<!--        <div class="header__top__right__language">-->
+<!--            <img src="/img/language.png" alt="">-->
+<!--            <div>English</div>-->
+<!--            <span class="arrow_carrot-down"></span>-->
+<!--            <ul>-->
+<!--                <li><a href="#">Spanis</a></li>-->
+<!--                <li><a href="#">English</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+        <div sec:authorize="!isAuthenticated()">
+            <div class="header__top__right__auth">
+                <a href="/login"><i class="fa fa-user"></i> Login</a>
+            </div>
         </div>
-        <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
+        <div sec:authorize="isAuthenticated()">
+            <div class="header__top__right__auth">
+                <a href="/logout"><i class="fa fa-user"></i> Logout</a>
+            </div>
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
@@ -44,14 +51,22 @@
             </li>
             <li><a href="./blog.html">Blog</a></li>
             <li><a href="./contact.html">Contact</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>
+                <ul class="header__menu__dropdown">
+                    <li><a href="/user/profile">個人資料</a></li>
+                    <li><a href="/user/order">購買清單</a></li>
+                    <li><a href="./checkout.html">我的優惠卷</a></li>
+                    <li><a href="./blog-details.html">我的課程</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+<!--        <a href="#"><i class="fa fa-facebook"></i></a>-->
+<!--        <a href="#"><i class="fa fa-twitter"></i></a>-->
+<!--        <a href="#"><i class="fa fa-linkedin"></i></a>-->
+<!--        <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
     </div>
     <div class="humberger__menu__contact">
         <ul>
@@ -77,23 +92,16 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="header__top__right">
-                        <div class="header__top__right__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                        </div>
-                        <div class="header__top__right__language">
-                            <img src="/img/language.png" alt="">
-                            <div>English</div>
-                            <span class="arrow_carrot-down"></span>
-                            <ul>
-                                <li><a href="#">Spanis</a></li>
-                                <li><a href="#">English</a></li>
-                            </ul>
-                        </div>
+<!--                        <div sec:authorize="isAuthenticated()">-->
+<!--                            <a href="/logout"><i class="fa fa-user"></i> Logout</a>-->
+<!--                        </div>-->
                         <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
+                        <div sec:authorize="!isAuthenticated()">
+                                <a href="/login"><i class="fa fa-user"></i> Login</a>
+                        </div>
+                        <div sec:authorize="isAuthenticated()">
+                                <a href="/logout"><i class="fa fa-user"></i> Logout</a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +129,14 @@
                             </ul>
                         </li>
                         <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="/user/profile">個人資料</a></li>
+                                    <li><a href="/user/order">購買清單</a></li>
+                                    <li><a href="./checkout.html">我的優惠卷</a></li>
+                                    <li><a href="./blog-details.html">我的課程</a></li>
+                                </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>

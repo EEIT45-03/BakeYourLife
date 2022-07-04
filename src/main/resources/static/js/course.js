@@ -29,22 +29,22 @@ function checkForm() {
 
 $('#wrongInput').click(function () {
     
-    $('#courseID').val('C0001')
-    $('#startDate').val('2022-05-22')
-    $('#endDate').val('2022-05-20')
-    $('#room').val('R302')
-    $('#registerMax').val('')
+    $('#courseId').val('C0001')
+    $('#startDate').val('2022-05-22  01:00')
+    $('#endDate').val('2022-05-20 01:00')
+    $('#venue').val('1')
+	$('#applicants').val('0')
     $('#teacher').val('Teacher1')
     $('#note').val('')
 })
 
 $('#correctInput').click(function () {
     
-    $('#courseID').val('C0001')
-    $('#startDate').val('2022-05-10')
-    $('#endDate').val('2022-05-20')
-    $('#room').val('R301')
-    $('#registerMax').val('20')
+    $('#courseId').val('101')
+    $('#startDate').val('2022-05-10 01:00')
+    $('#endDate').val('2022-05-20 01:00')
+    $('#venue').val('1')
+	$('#applicants').val('0')
     $('#teacher').val('Teacher2')
     $('#note').val('本期新增馬卡龍製作')
 })
@@ -113,5 +113,70 @@ function courseIdAlert(courseID){
 	
 //});
 }
+
+function values(openCourse) {
+	$('#openCourse').val(openCourse);
+}
+$(document).ready(function() {
+	$('#courseTable').DataTable( {
+		language: {
+			url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+		},
+		responsive: {
+			details: {
+				type: 'column'
+			}
+		},
+		columnDefs: [{
+			className: 'dtr-control',
+			orderable: false,
+			targets: 0,
+		}],
+		order: [ 1, 'asc' ],
+	} );
+});
+
+function deleteCourseAlert(openCourse) {
+	Swal.fire({
+		title: '請問是否要刪除此筆開課資料?',
+		text: "如果刪除開課資料，相關項目也會一併刪除!",
+		icon: 'warning',
+		showCancelButton: true,
+		cancelButtonText: '取消',
+		confirmButtonColor: '#ff0000',
+		cancelButtonColor: '#3085d6',
+		confirmButtonText: '刪除'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "POST",
+				url: './DeleteCourse?openCourse=' + openCourse,
+				success: function (msg) {
+					Swal.fire(
+						'已刪除!',
+						'開課資料已成功刪除!',
+						'success'
+					).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+				},
+				error: function (msg) {
+					// console.log(msg.status)
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤',
+						text: 'HTTP 狀態碼為 ' + msg.status,
+						footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+					})
+				}
+			});
+
+
+		}
+	})
+}
+
 
 
