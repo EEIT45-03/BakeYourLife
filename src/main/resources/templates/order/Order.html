@@ -104,7 +104,6 @@
 
 
 <script>
-
     $(function () {
         changeTab();
         /*
@@ -222,23 +221,23 @@
                 data += `
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-    <li class="page-item${isFirst}"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
+    <li class="page-item${isFirst}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
 
                 if (totalPages >= 10) {
 
                 } else {
                     for (let i = 0; i < totalPages; i++) {
                         if (i === current) {
-                            data += `<li class="page-item active"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
+                            data += `<li class="page-item active"><a class="page-link" href="#">${i + 1}`;
                             data += '<span class="sr-only">(current)</span>';
                         } else {
-                            data += `<li class="page-item"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
+                            data += `<li class="page-item"><a class="page-link" href="#" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
                         }
                         data += '</a></li>';
                     }
                 }
 
-                data += `<li class="page-item${isLast}"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${current + 2}');">下一頁</a></li>
+                data += `<li class="page-item${isLast}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${current + 2}');">下一頁</a></li>
   </ul>
 </nav>`;
 
@@ -249,17 +248,16 @@
 
 
 
-    // $('.nav-tabs a').on('show.bs.tab', function (e) {
-    //     console.log($(e.currentTarget)[0].innerText);
-    //     let status = $(e.currentTarget)[0].innerText;
-    //
-    //     //對應內容區
-    //     let tabs = $(e.currentTarget)[0].attributes['aria-controls'].nodeValue
-    //     // $('#' + tabs).html('test')
-    //     // console.log(tabs);
-    //     // getData(status);
-    //
-    // });
+    $('.nav-tabs a').on('show.bs.tab', function (e) {
+        console.log($(e.currentTarget)[0].innerText);
+        let status = $(e.currentTarget)[0].innerText;
+        window.history.pushState("", "", window.location.href.split("?")[0]);
+        let tabs = $(e.currentTarget)[0].attributes['aria-controls'].nodeValue
+        // $('#' + tabs).html('test')
+        // console.log(tabs);
+        // getData(status);
+
+    });
 </script>
 </body>
 
