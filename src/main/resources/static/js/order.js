@@ -33,31 +33,6 @@ $(document).ready(function () {
             sdate.val(formatDate(endDate))
         }
     }
-    $('#oredrTable').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
-        },
-        responsive: {
-            details: {
-                type: 'column'
-            }
-        },
-        columnDefs: [{
-            className: 'dtr-control',
-            orderable: false,
-            targets: 0
-        }, {
-            className: 'dt-center',
-            targets: [1, 2, 3, 4, 5, 6, 7]
-        }],
-        order: [1, 'asc']/*,
-          dom: 'Bfrtip',
-          buttons: [
-              'copyHtml5',
-              'excelHtml5',
-              'csvHtml5'
-          ]*/
-    });
 });
 
 

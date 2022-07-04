@@ -112,7 +112,7 @@
                               <!--                 th:href="@{/Order/{orderNo}/Pay(orderNo=${order.orderNo})}">														<span class="icon text-gray-50">-->
                               <!--                                                          <i class="fa-solid fa-coins"></i> 去付款-->
                               <!--														</span></a>-->
-                              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
+                              <button th:if="${order.orderStatus.code} == '待付款'" type="button"
                                       class="btn btn-danger btn-sm mr-3"
                                       th:attr="onclick=|cancelAlert('${order.orderNo}')|">
 														<span class="icon text-gray-50">
@@ -120,14 +120,14 @@
 														</span>
                               </button>
 
-                              <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
+                              <button th:if="${order.orderStatus.code} == '待出貨'" type="button"
                                       class="btn btn-danger btn-sm mr-3"
                                       th:attr="onclick=|refundAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 提出退款
 														</span>
                               </button>
-                              <button th:if="${order.orderStatus.code} == '待收貨'" type="button"
+                              <button th:if="${order.orderStatus.code} == '待出貨'" type="button"
                                       class="btn btn-success btn-sm mr-3"
                                       th:attr="onclick=|receiveAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
@@ -165,6 +165,24 @@
 <script th:src="@{/js/order.js}"></script>
 
 <script>
+    $('.nav-tabs a').on('show.bs.tab', function(e){
+        console.log($(e.currentTarget)[0].innerText);
+        let status = $(e.currentTarget)[0].innerText;
+        if(status === '全部'){
+            status='';
+        }
+        //對應內容區
+        let tabs = $(e.currentTarget)[0].attributes['aria-controls'].nodeValue
+        // $('#' + tabs).html('test')
+        fetch('[[@{/Orders}]]?orderStatus='+status)
+            .then(response => response.text())
+            .then(function (result) {
+                console.log(result)
+
+                $('#' + tabs).html(result)
+            });
+    });
+
 
 
 

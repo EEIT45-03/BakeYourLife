@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
-import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -16,6 +16,10 @@ public interface OrderService {
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
 
     List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
+
+    List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
+
+
     List<Order> findAllByCouponCode(String code);
 
     /*
@@ -81,5 +85,5 @@ public interface OrderService {
 
     List<OrderItem> findOrderItemByOrderId(Integer orderId);
 
-    Order createOrder(OrderRequest orderRequest);
+//    Order createOrder(OrderRequest orderRequest);
 }

@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +8,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatusConverter;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,18 +31,31 @@ import org.springframework.web.bind.annotation.RestController;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
 
+import javax.persistence.Convert;
+
 @RestController
 @CrossOrigin(origins = "*")
 public class OrderRestController {
 	
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private UserService userService;
 
 	//查詢全部或指定日期區間
 	@GetMapping("/Orders")
 	public ResponseEntity<List<Order>> getOrders(
 			@RequestParam(required = false) String sdate,
-			@RequestParam(required = false) String edate) {
+			@RequestParam(required = false) String edate,
+			@RequestParam(required = false) String orderStatus,
+			Principal principal) {
+		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
+		OrderStatus status = null;
+		User user = null;
+		if(!orderStatus.equals("")){
+			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
+			user = userService.findByUsername(principal.getName());
+		}
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		List<Order> orders = null;
 		if(sdate!=null && edate!=null) {
@@ -52,9 +72,12 @@ public class OrderRestController {
 				e.printStackTrace();
 			}
 			orders = orderService.findAllByOrderDateBetween(orderDateStart, orderDateEnd);
+		}else if(user!=null && status != null){
+			orders = orderService.findAllByOrderStatusAndUser(status,user);
 		}else {
 			orders = orderService.findAll();				
 		}
+
 		
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
