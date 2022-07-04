@@ -13,6 +13,70 @@
     <title>小農商品評論管理</title>
 
     <div th:replace="/admin/css.html"></div>
+
+    <style>
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+
+        .commentcard {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            width: 450px;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: 6px;
+            -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+        }
+
+        .rating {
+            display: flex;
+            margin-top: 6px;
+            flex-direction: row-reverse;
+            margin-left: -4px;
+            float: left;
+        }
+
+        .rating > input {
+            display: none
+        }
+
+        .rating > label {
+            position: relative;
+            width: 40px;
+            font-size: 50px;
+            color: #1cc88a;
+            cursor: pointer;
+        }
+
+        .rating > label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+            opacity: 1 !important
+        }
+
+        .rating > input:checked ~ label:before {
+            opacity: 1
+        }
+
+        .rating:hover > input:checked ~ label:before {
+            opacity: 0.4
+        }
+
+    </style>
+
+
 </head>
 
 <body id="page-top">
@@ -37,11 +101,10 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">小農評論管理</h1>
                 <p class="mb-4">
-                    <a href="CreateProductComment"
-                       class="btn btn-primary btn-icon-split btn-sm"> <span
-                            class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">建立評論</span>
-                    </a>
+
+                    <button type="button" class="btn btn-primary btn-icon-split btn-sm create">
+                        <span class="icon text-white-50"><i class="fas fa-plus"></i></span><span
+                            class="text">建立評論</span></button>
                 </p>
 
 
@@ -123,10 +186,50 @@
         });
         $('#couponTable tbody').on('click', '.update', function () {
             var data = table.row($(this).parents('tr')).data();
-            location.href = '[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + data.productCommentId
+            // location.href = '[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + data.productCommentId
             updateAlert(data.productCommentId);
         });
     });
+    $(".create").on("click", function () {
+
+        Swal.showLoading()
+        fetch('./CreateProductComment')
+            .then(response => response.text())
+            .then(function (data) {
+
+                Swal.fire({
+                    title: '建立評論',
+                    icon: 'info',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+
+    })
+
+
+    //跳出修改
+    function updateAlert(productCommentId) {
+        Swal.showLoading()
+        fetch('[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + productCommentId)
+            .then(response => response.text())
+            .then(function (data) {
+
+                Swal.fire({
+                    title: '修改評論',
+                    icon: 'info',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+    }
+
 
     function deleteAlert(productCommentId) {
         Swal.fire({
