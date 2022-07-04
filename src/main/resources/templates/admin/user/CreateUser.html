@@ -206,7 +206,7 @@
       $.ajax({
         type: "POST",
         url: "./CheckUser",
-        data: "userName=" + userName,
+        data: "username=" + userName,
         success: function (data) {
           if (data == true) {
             document.getElementById("s2_userName").innerHTML = "<i class='fa-solid fa-check'>帳號無重複可使用</i>"

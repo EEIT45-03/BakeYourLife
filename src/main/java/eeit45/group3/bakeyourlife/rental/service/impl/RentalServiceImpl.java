@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,14 +35,17 @@ public class RentalServiceImpl implements RentalService{
 	VenueRepository venueRepository;
 
 	TackleRepository tackleRepository;
+
+	ProduceNoRepository produceNoRepository;
+
 	@Autowired
 	public RentalServiceImpl(TackleRepository tackleRepository,
 							 UserService userService,
 							 RentalRepository rentalRepository,
 							 VenueListRepository venueListRepository,
 							 TackleListRepository tackleListRepository,
-							 VenueRepository venueRepository
-							/* ,RentalDAO rentalDao*/) {
+							 VenueRepository venueRepository,
+							 ProduceNoRepository produceNoRepository) {
 
 		this.userService = userService;
 		this.rentalRepository = rentalRepository;
@@ -48,7 +53,7 @@ public class RentalServiceImpl implements RentalService{
 		this.tackleListRepository = tackleListRepository;
 		this.venueRepository = venueRepository;
 		this.tackleRepository = tackleRepository;
-//		this.rentalDao = rentalDao;
+		this.produceNoRepository = produceNoRepository;
 	}
 
 
@@ -74,6 +79,43 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Rental> findAllByType(String listType) {
 		return rentalRepository.findAllByType(listType);
+	}
+
+	//依租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByRentalNoStartingWith(String rentalNo) {
+		return rentalRepository.findAllByRentalNoStartingWith(rentalNo);
+	}
+
+	//依會員查詢租借單
+	@Override
+	public List<Rental> findAllByUser(Integer userId) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUser(userBean);
+	}
+
+	//依會員與租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByUserAndRentalNoStartingWith(Integer userId, String RentalNo) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndRentalNoStartingWith(userBean,RentalNo);
+	}
+	//依租借類型與租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByTypeAndRentalNoStartingWith(String listType, String RentalNo) {
+		return rentalRepository.findAllByTypeAndRentalNoStartingWith(listType,RentalNo);
+	}
+	//依會員與租借類型查詢租借單
+	@Override
+	public List<Rental> findAllByUserAndType(Integer userId, String listType) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndType(userBean, listType);
+	}
+
+	@Override
+	public List<Rental> findAllByUserAndTypeAndRentalNoStartingWith(Integer userId, String listType, String rentalNo) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndTypeAndRentalNoStartingWith(userBean, listType, rentalNo);
 	}
 
 	@Override
@@ -114,6 +156,47 @@ public class RentalServiceImpl implements RentalService{
 	public void deleteRental(Integer rentalId) {
 		rentalRepository.deleteById(rentalId);
 	}
+
+
+	//建立請求租借單
+	@Override
+	public RentalRequest createRentalRequest() {
+
+		ProduceNo produceNo = produceNoRepository.findById(1).orElse(null);
+		String rentalNo;
+		System.out.println(produceNo+"-----------------------------------------------");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String date = sdf.format(new Date());
+
+
+		if(produceNo == null ){
+			produceNo.setTableName("rental");
+			produceNo.setDate(date);
+			produceNo.setNumber(1);
+
+			createProduceNo(produceNo);
+
+		} else {
+
+			if(produceNo.getDate() == date){
+				int number = produceNo.getNumber() + 1;
+				produceNo.setNumber(number);
+			} else if(produceNo.getDate() != date){
+				produceNo.setDate(date);
+				produceNo.setNumber(1);
+			}
+
+		}
+
+
+		rentalNo = produceNo.getDate() + String.format("%07d", produceNo.getNumber());;
+
+		RentalRequest rentalRequest = new RentalRequest();
+		rentalRequest.setRentalNo(rentalNo);
+		rentalRequest.setTotal(0);
+		return rentalRequest;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/		
@@ -353,22 +436,38 @@ public class RentalServiceImpl implements RentalService{
 	
 	
 	
-	/*會員 DAO
-	----------------------------------------------------------------*/	
-	
-	//查詢全部的會員
-//	@Override
-//	public List<User> findAllByUser() {
-//		List<User> list = null;
-//		list = rentalDao.findAllByUser();
-//		return list;
-//	}
+	/*自動產生編號 DAO
+	----------------------------------------------------------------*/
 
-	//依Id搜尋查詢會員
-//	@Override
-//	public User findByUserId(Integer userId) {
-//		User user = null;
-//		user = rentalDao.findByUserId(userId);
-//		return user;
-//	}
+	@Override
+	public List<ProduceNo> findAllByProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.findAll();
+	}
+
+	@Override
+	public ProduceNo findByTable(String table) {
+		return produceNoRepository.findByTableName(table);
+	}
+
+	//新增產生編號
+	@Override
+	@Transactional
+	public ProduceNo createProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.save(produceNo);
+	}
+
+	//更新編號
+	@Override
+	@Transactional
+	public ProduceNo updateProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.save(produceNo);
+	}
+
+	//刪除編號
+	@Override
+	@Transactional
+	public void deleteProduceNo(Integer id) {
+		produceNoRepository.deleteById(id);
+	}
+
 }
