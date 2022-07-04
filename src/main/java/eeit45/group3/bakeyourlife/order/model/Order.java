@@ -21,183 +21,183 @@ import eeit45.group3.bakeyourlife.user.model.User;
 @Table(name = "Orders")
 public class Order implements Serializable {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	//自增id(PK)
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer orderId;
-	/**
-	 * 訂單編號15碼(20220505120000X)後1碼隨機生成
-	 */
-	@Column(unique = true)
-	private String orderNo;
-	
-	//會員ID
-	@Transient
-	private Integer userId;
-	
-	@OneToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name = "userId")
-	@JsonIgnore
-	private User user;
-	
-	//收貨地址
-	private String address;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	//宅配單號
-	private String trackingNumber;
+    //自增id(PK)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer orderId;
+    /**
+     * 訂單編號15碼(20220505120000X)後1碼隨機生成
+     */
+    @Column(unique = true)
+    private String orderNo;
 
-	//訂單日期
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date orderDate;
+    //會員ID
+    @Transient
+    private Integer userId;
 
-	//付款時間
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date payDate;
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "userId")
+    @JsonIgnore
+    private User user;
 
-	//發貨日期
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date shipDate;
+    //收貨地址
+    private String address;
 
-	
-	//訂單類型(一般、小農、...)
+    //宅配單號
+    private String trackingNumber;
+
+    //訂單日期
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date orderDate;
+
+    //付款時間
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date payDate;
+
+    //發貨日期
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date shipDate;
+
+
+    //訂單類型(一般、小農、...)
 //	private String orderType;
-	
-	//訂單狀態
-	@Convert(converter = OrderStatusConverter.class)
-	private OrderStatus orderStatus;
-	
-	//運費
-	private Integer shippingFee;
-	
-	//總金額
-	private Integer totalPrice;
 
-	//付款方式
-	private PayType payType;
+    //訂單狀態
+    @Convert(converter = OrderStatusConverter.class)
+    private OrderStatus orderStatus;
 
+    //運費
+    private Integer shippingFee;
 
+    //總金額
+    private Integer totalPrice;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="code")
-	@JsonIgnore
-	private Coupon coupon;
-
-	private Integer discountAmount;
-
-	@Transient
-	private String code;
-
-	//持有的商品清單
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",cascade = CascadeType.ALL)
-	private Set<OrderItem> orderItemList = new LinkedHashSet<>();
+    //付款方式
+    private PayType payType;
 
 
-	public String getCode() {
-		if(coupon!=null){
-		return coupon.getCode() + " " +  coupon.getDiscountString();
-		}else {
-			return "";
-		}
-	}
-	public Integer getDiscountAmount() {
-		return discountAmount;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "code")
+    @JsonIgnore
+    private Coupon coupon;
 
-	public void setDiscountAmount(Integer discountAmount) {
-		this.discountAmount = discountAmount;
-	}
+    private Integer discountAmount;
 
-	public Date getPayDate() {
-		return payDate;
-	}
+    @Transient
+    private String code;
 
-	public void setPayDate(Date payDate) {
-		this.payDate = payDate;
-	}
+    //持有的商品清單
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+    private Set<OrderItem> orderItemList = new LinkedHashSet<>();
 
-	public PayType getPayType() {
-		return payType;
-	}
 
-	public void setPayType(PayType payType) {
-		this.payType = payType;
-	}
+    public String getCode() {
+        if (coupon != null) {
+            return coupon.getCode() + " " + coupon.getDiscountString();
+        } else {
+            return "";
+        }
+    }
 
-	public String getTrackingNumber() {
-		return trackingNumber;
-	}
+    public Integer getDiscountAmount() {
+        return discountAmount;
+    }
 
-	public void setTrackingNumber(String trackingNumber) {
-		this.trackingNumber = trackingNumber;
-	}
+    public void setDiscountAmount(Integer discountAmount) {
+        this.discountAmount = discountAmount;
+    }
 
-	public Integer getUserId() {
-		if(user!=null) {
-			return user.getUserId();			
-		}else {
-			return this.userId;
-		}
-	}
+    public Date getPayDate() {
+        return payDate;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-		this.user = new User();
-		this.user.setUserId(userId);
-	}
+    public void setPayDate(Date payDate) {
+        this.payDate = payDate;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public PayType getPayType() {
+        return payType;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setPayType(PayType payType) {
+        this.payType = payType;
+    }
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
 
-	public String getOrderNo() {
-		return orderNo;
-	}
+    public Integer getUserId() {
+        if (user != null) {
+            return user.getUserId();
+        } else {
+            return this.userId;
+        }
+    }
 
-	public void setOrderNo(String orderId) {
-		this.orderNo = orderId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+        this.user = new User();
+        this.user.setUserId(userId);
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public Date getShipDate() {
-		return shipDate;
-	}
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-	public void setShipDate(Date shipDate) {
-		this.shipDate = shipDate;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
+    public String getOrderNo() {
+        return orderNo;
+    }
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+    public void setOrderNo(String orderId) {
+        this.orderNo = orderId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(Date shipDate) {
+        this.shipDate = shipDate;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
 
 //	public String getOrderType() {
 //		return orderType;
@@ -207,44 +207,44 @@ public class Order implements Serializable {
 //		this.orderType = orderType;
 //	}
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public Integer getShippingFee() {
-		return shippingFee;
-	}
+    public Integer getShippingFee() {
+        return shippingFee;
+    }
 
-	public void setShippingFee(Integer shippingFee) {
-		this.shippingFee = shippingFee;
-	}
+    public void setShippingFee(Integer shippingFee) {
+        this.shippingFee = shippingFee;
+    }
 
-	public Integer getTotalPrice() {
-		return totalPrice;
-	}
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
 
-	public void setTotalPrice(Integer totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public Set<OrderItem> getOrderItemList() {
-		return orderItemList;
-	}
+    public Set<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
 
-	public void setOrderItemList(Set<OrderItem> orderItemList) {
-		this.orderItemList = orderItemList;
-	}
+    public void setOrderItemList(Set<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
 
 
-	public Coupon getCoupon() {
-		return coupon;
-	}
+    public Coupon getCoupon() {
+        return coupon;
+    }
 
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
-	}
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
 }

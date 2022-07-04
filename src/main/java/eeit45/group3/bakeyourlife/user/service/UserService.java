@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 //@Service
 public interface UserService {
 
-	User save(User user);
+    User save(User user);
 
-	List<User> findAll();
+    List<User> findAll();
 
-	User findByUserId(Integer userId);
+    User findByUserId(Integer userId);
 
-	User findByUsername(String username);
+    User findByUsername(String username);
 
-	void deleteByUserId(Integer userId);
+    void deleteByUserId(Integer userId);
 
-	void updateUser(User user);
+    void updateUser(User user);
 
 
     User findByPhone(String phone);
 
-	User findByEmail(String email);
+    User findByEmail(String email);
 }

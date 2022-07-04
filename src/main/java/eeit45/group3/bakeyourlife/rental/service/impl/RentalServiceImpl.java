@@ -17,8 +17,8 @@ import java.util.List;
 
 @Service("rentalService")
 @Transactional(readOnly = true)
-public class RentalServiceImpl implements RentalService{
-	
+public class RentalServiceImpl implements RentalService {
+
 
 //	RentalDAO rentalDao;
 
@@ -33,6 +33,7 @@ public class RentalServiceImpl implements RentalService{
 	VenueRepository venueRepository;
 
 	TackleRepository tackleRepository;
+
 	@Autowired
 	public RentalServiceImpl(TackleRepository tackleRepository,
 							 UserService userService,
@@ -40,7 +41,7 @@ public class RentalServiceImpl implements RentalService{
 							 VenueListRepository venueListRepository,
 							 TackleListRepository tackleListRepository,
 							 VenueRepository venueRepository
-							/* ,RentalDAO rentalDao*/) {
+			/* ,RentalDAO rentalDao*/) {
 
 		this.userService = userService;
 		this.rentalRepository = rentalRepository;
@@ -55,8 +56,8 @@ public class RentalServiceImpl implements RentalService{
 
 
 /*租借單 DAO
-	----------------------------------------------------------------*/	
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的租借單
 	@Override
 	@Transactional
@@ -94,8 +95,8 @@ public class RentalServiceImpl implements RentalService{
 		rental.setTotal(rentalRequest.getTotal());
 		return rentalRepository.save(rental);
 	}
-	
-	
+
+
 	//更新租借單
 	@Override
 	@Transactional
@@ -111,8 +112,8 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	/*場地租借清單 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的場地租借清單
 	@Override
 	public List<VenueList> findAllVenueList() {
@@ -163,7 +164,7 @@ public class RentalServiceImpl implements RentalService{
 		venueList.setRental(rental);
 		return venueListRepository.save(venueList);
 	}
-	
+
 	//更新場地租借清單
 	@Override
 	@Transactional
@@ -180,8 +181,8 @@ public class RentalServiceImpl implements RentalService{
 
 	
 	/*教室 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的教室
 	@Override
 	public List<Venue> findAllVenue() {
@@ -194,7 +195,7 @@ public class RentalServiceImpl implements RentalService{
 		return venueRepository.findById(venueId).orElse(null);
 	}
 
-	//依教室名稱查詢教室	
+	//依教室名稱查詢教室
 	@Override
 	public Venue findByVenueName(String venueName) {
 		return venueRepository.findByVenueName(venueName);
@@ -208,14 +209,14 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 
-	//更新教室	
+	//更新教室
 	@Override
 	@Transactional
 	public Venue updateVenue(Venue venue) {
 		return venueRepository.save(venue);
 	}
 
-	//刪除教室	
+	//刪除教室
 	@Override
 	@Transactional
 	public void deleteVenue(Integer venueId) {
@@ -224,8 +225,8 @@ public class RentalServiceImpl implements RentalService{
 	
 	
 	/*器具租借清單 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的器具租借清單
 	@Override
 	public List<TackleList> findAllTackleList() {
@@ -278,7 +279,7 @@ public class RentalServiceImpl implements RentalService{
 		tackleList.setRental(rental);
 		return tackleListRepository.save(tackleList);
 	}
-	
+
 	//更新器具租借清單
 	@Override
 	@Transactional
@@ -295,8 +296,8 @@ public class RentalServiceImpl implements RentalService{
 
 	
 	/*器具 DAO
-	----------------------------------------------------------------*/		
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的器具
 	@Override
 	public List<Tackle> findAllTackle() {
@@ -314,8 +315,8 @@ public class RentalServiceImpl implements RentalService{
 	public Tackle findByTackleName(String tackleName) {
 		return tackleRepository.findByTackleName(tackleName);
 	}
-	
-	//新增器具	
+
+	//新增器具
 	@Override
 	@Transactional
 	public Tackle createTackle(Tackle tackle) {
@@ -329,7 +330,7 @@ public class RentalServiceImpl implements RentalService{
 		return tackleRepository.save(tackle);
 	}
 
-	//刪除器具	
+	//刪除器具
 	@Override
 	@Transactional
 	public void deleteTackle(Integer tackleId) {
@@ -339,8 +340,8 @@ public class RentalServiceImpl implements RentalService{
 	
 	
 	/*會員 DAO
-	----------------------------------------------------------------*/	
-	
+	----------------------------------------------------------------*/
+
 	//查詢全部的會員
 //	@Override
 //	public List<User> findAllByUser() {

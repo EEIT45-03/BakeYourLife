@@ -6,16 +6,16 @@ import eeit45.group3.bakeyourlife.user.model.User;
 
 public interface UserDao {
 
-	Object save(User user);
+    Object save(User user);
 
-	List<User> findAll();
+    List<User> findAll();
 
-	User findByUserId(Integer userId);
+    User findByUserId(Integer userId);
 
-	User findByUsername(String username);
+    User findByUsername(String username);
 
-	void deleteByUserId(Integer userId);
+    void deleteByUserId(Integer userId);
 
-	void updateUser(User user);
+    void updateUser(User user);
 
 }

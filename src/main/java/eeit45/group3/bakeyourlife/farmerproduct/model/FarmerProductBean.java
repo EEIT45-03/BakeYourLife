@@ -39,6 +39,9 @@ public class FarmerProductBean implements Serializable {
     @Transient
     private List<String> pictureDataUrl;
 
+    @OneToMany(mappedBy = "farmerProductBean", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<ProductComment> productCommentList;
+
 
 //	@Column(columnDefinition = "nvarchar(MAX)")
 //	private String pictureDataUrl;// 圖片的dataurl
@@ -49,7 +52,7 @@ public class FarmerProductBean implements Serializable {
 
     }
 
-    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> pictureDataUrl) {
+    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> pictureDataUrl, List<ProductComment> productCommentList) {
         this.farmerProductId = farmerProductId;
         this.type = type;
         this.name = name;
@@ -64,6 +67,7 @@ public class FarmerProductBean implements Serializable {
         this.state = state;
         this.farmerProductPicList = farmerProductPicList;
         this.pictureDataUrl = pictureDataUrl;
+        this.productCommentList = productCommentList;
     }
 
     public Integer getFarmerProductId() {
@@ -178,23 +182,11 @@ public class FarmerProductBean implements Serializable {
         this.pictureDataUrl = pictureDataUrl;
     }
 
-    @Override
-    public String toString() {
-        return "FarmerProductBean{" +
-                "farmerProductId=" + farmerProductId +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", storage='" + storage + '\'' +
-                ", contents='" + contents + '\'' +
-                ", description='" + description + '\'' +
-                ", launchedTime=" + launchedTime +
-                ", suspendTime=" + suspendTime +
-                ", violationTime=" + violationTime +
-                ", state=" + state +
-                ", farmerProductPicList=" + farmerProductPicList +
-                ", pictureDataUrl=" + pictureDataUrl +
-                '}';
+    public List<ProductComment> getProductCommentList() {
+        return productCommentList;
+    }
+
+    public void setProductCommentList(List<ProductComment> productCommentList) {
+        this.productCommentList = productCommentList;
     }
 }

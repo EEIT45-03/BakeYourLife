@@ -12,28 +12,28 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 public class AdminDataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 
 
-	UserService userService;
+    UserService userService;
 
-	@Autowired
-	public AdminDataInitialization(UserService userService) {
-		this.userService = userService;
-	}
+    @Autowired
+    public AdminDataInitialization(UserService userService) {
+        this.userService = userService;
+    }
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event) {
-		User user = userService.findByUsername("user");
-		//建立管理員帳戶
-		if(user==null) {
-    		user = new User("user","user","管理者","vison919@gmail.com"
-    						,"0918583187","1994-09-19","男","桃園市楊梅區中山路121巷4弄9號");
-    		userService.save(user);
-	}else if ("user".equals(user.getPassword())) {
-		//加密密碼
-		user.setPassword("user");
-		userService.updateUser(user);
-	}
-		
-	}
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        User user = userService.findByUsername("user");
+        //建立管理員帳戶
+        if (user == null) {
+            user = new User("user", "user", "管理者", "vison919@gmail.com"
+                    , "0918583187", "1994-09-19", "男", "桃園市楊梅區中山路121巷4弄9號");
+            userService.save(user);
+        } else if ("user".equals(user.getPassword())) {
+            //加密密碼
+            user.setPassword("user");
+            userService.updateUser(user);
+        }
+
+    }
 
 //    public void contextDestroyed(ServletContextEvent sce)  { 
 //    }
