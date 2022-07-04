@@ -65,10 +65,10 @@
 
               <!-- 帳號: -->
               <div class="row mb-3">
-                <label  for="userName" class="col-sm-2 col-form-labels">帳號:</label>
+                <label  for="username" class="col-sm-2 col-form-labels">帳號:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="userName"
-                         id="userName" placeholder="請輸入帳號" required> <span
+                  <input type="text" class="form-control" name="username"
+                         id="username" placeholder="請輸入帳號" required> <span
                         class="show" id="s_userName"></span> <span class="show"
                                                                    id="s2_userName"></span>
 
@@ -189,7 +189,7 @@
       return checkUserName() && checkPassword();
       //&&checkFullname()&&checkEmail()&&checkPhone();
     }
-    document.getElementById("userName").onblur = checkUserName;
+    document.getElementById("username").onblur = checkUserName;
     document.getElementById("password").onblur = checkPassword;
     document.getElementById("fullName").onblur = checkFullName;
     document.getElementById("email").onblur = checkEmail;
@@ -198,15 +198,15 @@
 
   function checkUserName() {
 
-    var userName = document.getElementById("userName").value;
+    var username = document.getElementById("username").value;
     var res = /^[a-zA-Z0-9]{6,}$/;
-    var flag1 = res.test(userName);
+    var flag1 = res.test(username);
     if (flag1) {
       document.getElementById("s_userName").innerHTML = "<i class='fa-solid fa-check'>帳號格式正確</i>";
       $.ajax({
         type: "POST",
         url: "./CheckUser",
-        data: "userName=" + userName,
+        data: "username=" + username,
         success: function (data) {
           if (data == true) {
             document.getElementById("s2_userName").innerHTML = "<i class='fa-solid fa-check'>帳號無重複可使用</i>"
