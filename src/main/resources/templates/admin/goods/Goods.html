@@ -252,7 +252,7 @@
 <!--                                                <span>查看</span>-->
 <!--                                                &lt;!&ndash; <span class="text">刪除訂單</span> &ndash;&gt;-->
 <!--                                            </button></td>-->
-                                            <td th:text="${good.admissionTime}">8</td>
+                                            <td th:text="${#dates.format(good.admissionTime,'yyyy-MM-dd HH:mm')}">8</td>
                                             <td th:text="${good.count}">8</td>
 
                                             <td><a th:href="@{UpdateGoods(id=${good.id})}"
