@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.user.service;
 
+import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,18 +35,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("使用者名稱:" + username + "不存在");
 		} else if (user != null && user1 == null && user2 == null) {
 
-//		UserDetails userDetails = new CustomUserDetails(user);
-				 userDetails = org.springframework.security.core.userdetails.User.builder()
-				.username(username)
-				.password(user.getPassword())
-				.disabled(disabled)
-				.accountExpired(accountExpired)
-				.credentialsExpired(credentialsExpired)
-				.accountLocked(accountLocked)
-//				.authorities("ROLE_ADMIN")
-				//roles會自動加ROLE_
-				.roles("ADMIN")
-				.build();
+		userDetails = new CustomUserDetails(user);
+//				 userDetails = org.springframework.security.core.userdetails.User.builder()
+//				.username(username)
+//				.password(user.getPassword())
+//				.disabled(disabled)
+//				.accountExpired(accountExpired)
+//				.credentialsExpired(credentialsExpired)
+//				.accountLocked(accountLocked)
+////				.authorities("ROLE_ADMIN")
+//				//roles會自動加ROLE_
+//				.roles("ADMIN")
+//				.build();
 
 		return userDetails;
 		} else if (user == null && user1 != null && user2 == null) {

@@ -147,4 +147,9 @@ public class Goods implements CartItem {
 	public String getCartName() {
 		return name;
 	}
+
+	@Override
+	public boolean isEnable() {
+		return false;
+	}
 }

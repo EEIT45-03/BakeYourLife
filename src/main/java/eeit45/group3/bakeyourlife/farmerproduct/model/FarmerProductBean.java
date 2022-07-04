@@ -7,10 +7,11 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.order.model.CartItem;
 
 @Entity
 @Table(name = "FarmerProduct")
-public class FarmerProductBean implements Serializable {
+public class FarmerProductBean implements Serializable, CartItem {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -196,5 +197,33 @@ public class FarmerProductBean implements Serializable {
                 ", farmerProductPicList=" + farmerProductPicList +
                 ", pictureDataUrl=" + pictureDataUrl +
                 '}';
+    }
+
+    @Override
+    public String getCartNo() {
+        return "F" + this.farmerProductId;
+    }
+
+    @Override
+    public String getCartType() {
+        return "小農";
+    }
+
+    @Override
+    public Integer getCartPrice() {
+        return this.price;
+    }
+
+    @Override
+    public String getCartName() {
+        return this.name;
+    }
+
+    @Override
+    public boolean isEnable() {
+        if (this.state == 0){
+            return true;
+        }
+        return false;
     }
 }

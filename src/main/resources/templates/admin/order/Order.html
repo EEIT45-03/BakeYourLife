@@ -95,7 +95,7 @@
                     <td></td>
                     <td th:text="${order.orderId}">1</td>
                     <td th:text="${order.orderNo}">222222222222222</td>
-                    <td th:text="${order.user.userName}">user</td>
+                    <td th:text="${order.user.username}">user</td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
                     <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
                     <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
@@ -125,7 +125,7 @@
 
                         <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
                                 class="btn btn-danger btn-sm mr-2"
-                                th:attr="onclick=|refundAlert('${order.orderNo}')|">
+                                th:attr="onclick=|refundingAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 處理退款
 														</span>
