@@ -30,9 +30,9 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-//@Controller
-//@SessionAttributes(value = {"cart"})
-public class ShoppingCartController {
+@RestController
+@SessionAttributes(value = {"cart"})
+public class ShoppingCartRestController {
     private final OrderService orderService;
 
     private final GoodService goodService;
@@ -44,11 +44,11 @@ public class ShoppingCartController {
     private final FarmerProductService farmerProductService;
 
     @Autowired
-    public ShoppingCartController(OrderService orderService,
-                                  GoodService goodService,
-                                  UserService userService,
-                                  CouponService couponService,
-                                  FarmerProductService farmerProductService) {
+    public ShoppingCartRestController(OrderService orderService,
+                                      GoodService goodService,
+                                      UserService userService,
+                                      CouponService couponService,
+                                      FarmerProductService farmerProductService) {
         this.orderService = orderService;
         this.goodService = goodService;
         this.userService = userService;
@@ -57,15 +57,16 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/Cart")
-    public String viewCart(Model model,
+    public ResponseEntity<Cart> viewCart(Model model,
                            @ModelAttribute Cart cart) {
         List<Goods> goods = goodService.getAllGoods();
         model.addAttribute("goods", goods);
-        return "order/Cart";
+//        return "order/Cart";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
     @GetMapping("/Cart/Add")
-    public String cartAdd(@RequestParam Integer itemId,
+    public ResponseEntity<Cart> cartAdd(@RequestParam Integer itemId,
                           @RequestParam String type,
                           @ModelAttribute Cart cart) {
         CartItem cartItem = null;
@@ -81,11 +82,12 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.addItem(cartItem);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
     @GetMapping("/Cart/Remove")
-    public String cartRemove(@RequestParam String itemNo,
+    public ResponseEntity<Cart> cartRemove(@RequestParam String itemNo,
 //                             @RequestParam String type,
                              @ModelAttribute Cart cart) {
         CartItem cartItem = null;
@@ -103,12 +105,13 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
 
     @GetMapping("/Cart/Update")
-    public String cartUpdate(@RequestParam String itemNo,
+    public ResponseEntity<Cart> cartUpdate(@RequestParam String itemNo,
 //                             @RequestParam String type,
                              @RequestParam Integer qty,
                              @ModelAttribute Cart cart) {
@@ -127,7 +130,8 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.updataItem(cartItem.getCartNo(), qty);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
 
@@ -197,7 +201,7 @@ public class ShoppingCartController {
 
 
     @GetMapping("/Cart/useCoupon")
-    public String useCoupon(@ModelAttribute Cart cart,
+    public ResponseEntity<Cart> useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
                             Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
@@ -210,7 +214,8 @@ public class ShoppingCartController {
 //            }
             cart.setCoupon(coupon);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
 
