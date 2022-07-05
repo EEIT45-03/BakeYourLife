@@ -3,40 +3,45 @@ package eeit45.group3.bakeyourlife.good.model;
 import java.sql.Blob;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
-import eeit45.group3.bakeyourlife.order.model.CartItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name="Goods")
+@Table(name="Member_GoodsTable3")
 @Component
-public class Goods implements CartItem {
+public class Goods {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String name;//名稱
-    String element;//成分
-    String origin;//產地
-    String savetime;//保存期限
-    String packages;//包裝價格
-    
-    String packagematerial;//包裝材質
-    String saveway;//保存方式
-    Blob image;
-    String fileName;
-    Timestamp admissionTime;  //Get Time that's moment .
-    @Transient
-    MultipartFile productImage;
+	Integer id;
+	String name;//名稱
+	String element;//成分
+	String origin;//產地
+	String savetime;//保存期限
+	String packages;//包裝價格
+
+	String packagematerial;//包裝材質
+	String saveway;//保存方式
+	@JsonIgnore//++
+	Blob image;
+	String fileName;
+
+	Timestamp admissionTime;  //Get Time that's moment .
+	@Transient
+	MultipartFile productImage;
+
+	String count;//數量
+
+	String system;//上架狀態
+
+	@Column(columnDefinition = "nvarchar(max)")
+	String describe;//描述
+
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
-			String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
-			MultipartFile productImage) {
+				 String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
+				 MultipartFile productImage, String count, String system, String describe) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,6 +55,9 @@ public class Goods implements CartItem {
 		this.fileName = fileName;
 		this.admissionTime = admissionTime;
 		this.productImage = productImage;
+		this.count = count;
+		this.system = system;
+		this.describe = describe;
 	}
 	public Goods() {
 		super();
@@ -57,6 +65,15 @@ public class Goods implements CartItem {
 	public Integer getId() {
 		return id;
 	}
+
+	public String getDescribe() {
+		return describe;
+	}
+
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -126,30 +143,17 @@ public class Goods implements CartItem {
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
-
-
-	@Override
-	public String getCartNo() {
-		return "G" + id;
+	public String getCount() {
+		return count;
+	}
+	public void setCount(String count) {
+		this.count = count;
+	}
+	public String getSystem() {
+		return system;
+	}
+	public void setSystem(String system) {
+		this.system = system;
 	}
 
-	@Override
-	public String getCartType() {
-		return "烘培材料";
-	}
-
-	@Override
-	public Integer getCartPrice() {
-		return Integer.valueOf(packages);
-	}
-
-	@Override
-	public String getCartName() {
-		return name;
-	}
-
-	@Override
-	public boolean isEnable() {
-		return false;
-	}
-}
+} 
