@@ -10,7 +10,16 @@
     <meta name="author" content="">
 
     <title>建立課程</title>
-
+    <style>
+        /*.course-custom {*/
+        /*    position: relative;*/
+        /*    width: 100%;*/
+        /*    !*padding-right: .75rem;*!*/
+        /*    !*padding-left: .75rem;*!*/
+        /*    padding-bottom: 250mm;*/
+        /*    padding-top: 100mm;*/
+        /*}*/
+    </style>
     <div th:replace="/admin/css.html"></div>
 </head>
 <body id="page-top">
@@ -55,7 +64,7 @@
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-labels">課程名稱:</label>
                                 <div class="col-sm-10">
-                                    <input th:value="*{name}" type="text" name="pname" id="name" class="form-control mb-4"
+                                    <input th:field="*{name}" type="text" name="pname" id="name" class="form-control mb-4"
                                            placeholder="課程名稱">
                                 </div>
                             </div>
@@ -66,7 +75,7 @@
                             <div class="row mb-3">
                                 <label for="price" class="col-sm-2 col-form-labels">課程金額:</label>
                                 <div class="col-sm-10">
-                                    <input th:value="*{price}" type="text" name="price" id="price" class="form-control mb-4"
+                                    <input th:field="*{price}" type="text" name="price" id="price" class="form-control mb-4"
                                            placeholder="課程金額">
                                 </div>
                             </div>
@@ -76,20 +85,30 @@
                             <div class="row mb-3">
                                 <label for="desc" class="col-sm-2 col-form-labels">課程說明:</label>
                                 <div class="col-sm-10">
-                                    <textarea th:value="*{description}" class="form-control mb-4" id="desc" name="desc"
+                                    <textarea th:field="*{description}" class="form-control mb-4" id="desc" name="desc"
                                               placeholder="課程說明">
                                     </textarea>
                                 </div>
                             </div>
                             <!-- Description -->
                             <div class="custom-file mb-4">
-<!--                            <div class="col-sm-10">-->
-                                <label class="custom-file-label" for="customFile" >Product Image</label>
 
-                                <input th:value="*{image}" type="file" name="file" class="custom-file-input"
-                                       id="customFile"  >
-<!--                                </div>-->
-                            </div>
+                                <label  class="col-sm-2 col-form-labels">圖片:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{file}" type="file" name="file" class="custom-file-input" onblur=""
+                                           id="customFile"  >
+                                    <label class="custom-file-label" for="customFile" >課程圖片</label>
+    <!--                                <label class="custom-file-label" for="customFile" >Product Image</label>  class="custom-file-input"-->
+                                </div>
+<!--                                預覽圖片框框-->
+                                <br/>
+                                    <div class="card" style="max-width: 16rem; margin:auto" >
+                                            <img class="card-img" id="previewImage" height="200" />
+    <!--                                    <div> width="200" height="200" style="display:block; margin:auto;"</div>-->
+                                    </div>
+                                </div>
+                            <br/>
+                            <br/>
 
                             <!-- Sign in button -->
                             <button class="btn btn-secondary" type="submit">新增課程</button>
@@ -108,6 +127,8 @@
 
 <div th:replace="/admin/javascript.html"></div>
 <script th:src="@{/js/course.js}"></script>
+//這是讓上傳檔案可以有文字
+<script th:src="@{https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js}"></script>
 
 
 </body>

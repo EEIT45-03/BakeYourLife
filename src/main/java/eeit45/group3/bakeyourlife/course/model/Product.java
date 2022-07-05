@@ -1,22 +1,31 @@
 package eeit45.group3.bakeyourlife.course.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name="CourseProdcut")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String description;
-	private int price;
+	private Integer price;
 	@Lob
 	private String image;
+	@Transient
+	private MultipartFile file;
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -35,10 +44,10 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	public String getImage() {
@@ -49,10 +58,10 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description=" 
+		return "Product [id=" + id + ", name=" + name + ", description="
 	            + description + ", price=" + price + ", image="
 				+ image + "]";
 	}
-	
+
 
 }

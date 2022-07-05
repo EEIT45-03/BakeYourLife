@@ -1,3 +1,29 @@
+//圖片顯示的js
+$(document).ready(function(){
+	$("body").on("change", "#customFile", function(e){
+		var file = e.target.files[0];
+		var mediabase64data;
+		getBase64(file).then(
+			mediabase64data => $('#previewImage').attr('src', mediabase64data)
+		);
+	});
+})
+
+function getBase64(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = error => reject(error);
+	});
+}
+//-------圖片顯示的js End-------
+//顯示文字的js----
+$(document).ready(function () {
+	bsCustomFileInput.init()
+})
+//顯示文字的js End----
+
 function checkForm() {
   //  let checkResult = true;
 
@@ -40,7 +66,7 @@ $('#wrongInput').click(function () {
 
 $('#correctInput').click(function () {
     
-    $('#courseId').val('101')
+    $('#courseId').val('1')
     $('#startDate').val('2022-05-10 01:00')
     $('#endDate').val('2022-05-20 01:00')
     $('#venue').val('1')
@@ -51,12 +77,12 @@ $('#correctInput').click(function () {
 
 
 //課程
-function courseIdAlert(courseID){
+function courseIdAlert(courseId){
 //	fetch('./UpdateOrder?orderId='+orderId)
 //.then(response => response.text())
 //.then(function(data){
 	
-	if(courseID=="C0001"){
+	if(courseId=='1'){
 	Swal.fire({
 	  title: 'C0001 西點蛋糕麵包',
 	  text: '蛋糕、西點、麵包產品教學：戚風蛋糕、杯子蛋糕、蛋糕捲、切片蛋糕、磅蛋糕、古早味鹹蛋糕',
@@ -64,10 +90,10 @@ function courseIdAlert(courseID){
 	  imageWidth: 400,
 	  
 	  imageAlt: 'Custom image',
-	  footer: '<a href="./CreateCourse">點我新增課程吧</a>',
+	  footer: '<a href="./CreateCourse">點我開課吧</a>',
 	})}
 	
-	if(courseID=="C0002"){
+	if(courseId=="C0002"){
 	Swal.fire({
 	  title: 'C0002 中式麵食',
 	  text: '中式麵食',
@@ -75,7 +101,7 @@ function courseIdAlert(courseID){
 	  imageWidth: 400,
 	  
 	  imageAlt: 'Custom image',
-	  footer: '<a href="./CreateCourse">點我新增課程吧</a>',
+	  footer: '<a href="./CreateCourse">點我開課吧</a>',
 	})}
 	
 	if(courseID=="C0003"){
@@ -86,7 +112,7 @@ function courseIdAlert(courseID){
 	  imageWidth: 400,
 	  
 	  imageAlt: 'Custom image',
-	  footer: '<a href="./CreateCourse">點我新增課程吧</a>',
+	  footer: '<a href="./CreateCourse">點我開課吧</a>',
 	})}
 	
 	if(courseID=="C0004"){
@@ -97,7 +123,7 @@ function courseIdAlert(courseID){
 	  imageWidth: 400,
 	  
 	  imageAlt: 'Custom image',
-	  footer: '<a href="./CreateCourse">點我新增課程吧</a>',
+	  footer: '<a href="./CreateCourse">點我開課吧</a>',
 	})}
 	
 	if(courseID=="T0001"){
@@ -108,7 +134,7 @@ function courseIdAlert(courseID){
 	  imageWidth: 400,
 	  
 	  imageAlt: 'Custom image',
-	  footer: '<a href="./CreateCourse">點我新增課程吧</a>',
+	  footer: '<a href="./CreateCourse">點我開課吧</a>',
 	})}
 	
 //});

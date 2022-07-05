@@ -42,12 +42,15 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/addP", method = RequestMethod.POST)
-    public String saveProduct(@RequestParam("file") MultipartFile file,
-    		@RequestParam("pname") String name,
-    		@RequestParam("price") int price,
-    		@RequestParam("desc") String desc)
+    public String saveProduct(
+//			@RequestParam("file") MultipartFile file,
+//    		@RequestParam("pname") String name,
+//    		@RequestParam("price") Integer price,
+//    		@RequestParam("desc") String desc
+			@ModelAttribute Product product
+	)
     {
-    	productService.saveProductToDB(file, name, desc, price);
+    	productService.saveProductToDB(product.getFile(), product.getName(), product.getDescription(), product.getPrice());
     	return "redirect:./listProducts";
     }
     
@@ -55,7 +58,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") Long id)
     {
     	productService.deleteProductById(id);
-    	return "redirect:/admin/Course/CourseProduct";
+    	return "redirect:/admin/Course/listProducts";
     }
     
     @PostMapping("/changeName")
