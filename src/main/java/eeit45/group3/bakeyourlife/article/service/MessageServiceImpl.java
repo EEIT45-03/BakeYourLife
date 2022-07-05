@@ -1,0 +1,52 @@
+package eeit45.group3.bakeyourlife.article.service;
+
+import eeit45.group3.bakeyourlife.article.dao.MessageRepository;
+import eeit45.group3.bakeyourlife.article.model.Message;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@Transactional
+public class MessageServiceImpl implements MessageService {
+
+
+    private MessageRepository messageRepository;
+
+    @Autowired
+    public MessageServiceImpl(MessageRepository messageRepository) {
+
+        this.messageRepository = messageRepository;
+    }
+
+    @Override
+    public List<Message> findMessageAll() {
+        return messageRepository.findAll();
+    }
+
+
+    @Override
+    public Optional<Message> MessageOne(Integer messageId) {
+        return messageRepository.findById(messageId);
+    }
+
+    @Override
+    public Message insert(Message newArticle) {
+
+        return messageRepository.save(newArticle);
+    }
+
+    @Override
+    public Message update(Message upArticle) {
+        return messageRepository.save(upArticle);
+    }
+
+    @Override
+    public void delete(Integer messageId) {
+        messageRepository.deleteById(messageId);
+    }
+};
+
