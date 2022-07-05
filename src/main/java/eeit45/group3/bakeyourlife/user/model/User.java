@@ -1,12 +1,11 @@
 package eeit45.group3.bakeyourlife.user.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Users")
@@ -25,12 +24,33 @@ public class User implements Serializable {
 	private String gender;
 	private String address;
 
+	private String fileName;
+
+	private Blob userImage;
+
+	private Timestamp registerTime;
+
+	@Transient
+	MultipartFile productImage;
+
+
 	public User() {
 		super();
 	}
 
+	public User(String username, String password, String fullName, String email, String phone, String birth, String gender, String address) {
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+		this.email = email;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.address = address;
+	}
+
 	public User(Integer userId, String username, String password, String fullName, String email, String phone,
-			String birth, String gender, String address) {
+				String birth, String gender, String address, String fileName, Blob userImage, Timestamp registerTime, MultipartFile productImage) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -41,10 +61,16 @@ public class User implements Serializable {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
+		this.fileName = fileName;
+		this.userImage = userImage;
+		this.registerTime = registerTime;
+		this.productImage = productImage;
+
+
 	}
 
 	public User(String username, String password, String fullName, String email, String phone, String birth,
-			String gender, String address) {
+			String gender, String address, String fileName, Blob userImage,Timestamp registerTime,MultipartFile productImage) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -54,7 +80,14 @@ public class User implements Serializable {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
+		this.fileName = fileName;
+		this.userImage = userImage;
+		this.registerTime = registerTime;
+		this.productImage = productImage;
+
+
 	}
+
 
 	public Integer getUserId() {
 		return userId;
@@ -126,6 +159,35 @@ public class User implements Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public Blob getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(Blob userImage) {
+		this.userImage = userImage;
+	}
+	public Timestamp getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(Timestamp registerTime) {
+		this.registerTime = registerTime;
+	}
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 
 }
