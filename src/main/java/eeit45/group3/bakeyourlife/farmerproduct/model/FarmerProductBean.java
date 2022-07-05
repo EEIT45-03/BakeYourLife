@@ -40,7 +40,7 @@ public class FarmerProductBean implements Serializable, CartItem {
     @Transient
     private List<String> pictureDataUrl;
 
-    @OneToMany(mappedBy = "farmerProductBean", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "farmerProductBean", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ProductComment> productCommentList;
 
 
@@ -213,7 +213,7 @@ public class FarmerProductBean implements Serializable, CartItem {
 
     @Override
     public boolean isEnable() {
-        if (this.state == 0){
+        if (this.state == 0) {
             return true;
         }
         return false;
