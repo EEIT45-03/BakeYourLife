@@ -15,6 +15,22 @@
     <div th:replace="/admin/css.html"></div>
 
     <style>
+
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+
+        .text {
+            white-space: pre;
+        }
+
         textarea.form-control {
             resize: none;
             height: 100px;
@@ -115,7 +131,7 @@
                     </div>
                     <div class="card-body">
                         <div class="">
-                            <table class="table table-striped" id="couponTable">
+                            <table class="table table-striped" id="commentTable">
                                 <thead>
                                 <tr>
                                     <th>評論編號</th>
@@ -124,9 +140,36 @@
                                     <th>評論時間</th>
                                     <th>星星數</th>
                                     <th>評論內容</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr th:each="comment: ${productCommentList}">
+                                    <td th:text="${comment.productCommentId}"></td>
+                                    <td th:text="${comment.user.username}"></td>
+                                    <td class="namelink">
+                                        <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${comment.farmerProductBean.farmerProductId})}"
+                                           th:text="${comment.farmerProductBean.name}" target=" _blank">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
+                                    </td>
+                                    <td th:text="${comment.star}"></td>
+                                    <td th:text="${comment.commentContent}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-sm update"
+                                                th:onclick="|updateAlert(${comment.productCommentId})|">
+                                            <span class="icon text-white-50"><i class="fas fa-pen"></i></span></button>
+                                        <button type="button" class="btn btn-danger btn-sm delete"
+                                                th:onclick="|deleteAlert(${comment.productCommentId})|">
+                                            <span class="icon text-white-50"> <i class="fas fa-trash"></i></span>
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -152,44 +195,32 @@
 <div th:replace="/admin/javascript.html"></div>
 <!-- Page level custom scripts -->
 
-
+<!-- 評論頁面 -->
 <script>
-    $(function () {
-        var table = $('#couponTable').DataTable({
+
+    $(document).ready(function () {
+
+        $('#commentTable').DataTable({
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
             },
-            ajax: {
-                url: '[[@{/ProductComments}]]',
-                dataSrc: ''
-            },
-            columns: [
-                {data: 'productCommentId'},
-                {data: 'user'},
-                {data: 'farmerProductBean'},
-                {data: 'time'},
-                {data: 'star'},
-                {data: 'cotent'},
-                {
-                    data: null, defaultContent:
-                        `<button type="button" class="btn btn-warning btn-sm update">
-       <span class="icon text-white-50"><i class="fas fa-pen"></i></span></button>
-       <button type="button" class="btn btn-danger btn-sm delete">
-       <span class="icon text-white-50"> <i class="fas fa-trash"></i></span></button>
-`
+            responsive: {
+                details: {
+                    type: 'column'
                 }
-            ]
+            },
+            columnDefs: [{
+                className: 'dtr-control',
+                orderable: false,
+                targets: 0
+            }],
+            order: [1, 'asc']
         });
-        $('#couponTable tbody').on('click', '.delete', function () {
-            var data = table.row($(this).parents('tr')).data();
-            deleteAlert(data.productCommentId);
-        });
-        $('#couponTable tbody').on('click', '.update', function () {
-            var data = table.row($(this).parents('tr')).data();
-            // location.href = '[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + data.productCommentId
-            updateAlert(data.productCommentId);
-        });
+
+
     });
+
+
     $(".create").on("click", function () {
 
         Swal.showLoading()
@@ -271,6 +302,120 @@
 
             }
         })
+    }
+
+    // ====================新增========================
+
+    function sendcreate() {
+        var xhr = new XMLHttpRequest();
+        var jsonString = JSON.stringify(getComment());
+        console.log(jsonString);
+        if (check()) {
+            var userId = $("#userId").val();
+            var farmerProductId = $("#farmerProductId").val();
+            xhr.onreadystatechange = function () {
+                //建立成功，狀態碼會是201
+                if (xhr.readyState === 4 && xhr.status === 201) {
+                    Swal.fire(
+                        '新增成功!',
+                        ':D',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location = "./";
+                        }
+                    })
+                } else if (xhr.status === 400) {
+                    Swal.fire(
+                        '新增失敗!',
+                        json.message,
+                        'error'
+                    )
+                }
+            }
+            xhr.open("POST", '[[@{/ProductComments/}]]' + userId + '/' + farmerProductId, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send(jsonString);
+        } else {
+            Swal.fire(
+                '有欄位未填寫',
+                '請填寫完整，謝謝!!',
+                'error'
+            )
+        }
+
+    }
+
+    // ===================修改========================
+    function sendupdate(productCommentId) {
+        var xhr = new XMLHttpRequest();
+        var jsonString = JSON.stringify(getComment());
+        console.log(jsonString);
+        if (check()) {
+            xhr.onreadystatechange = function () {
+                //修改成功，狀態碼會是200
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    Swal.fire(
+                        '修改成功!',
+                        ':D',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location = "./";
+                        }
+                    })
+                } else if (xhr.status === 400) {
+                    Swal.fire(
+                        '修改失敗!',
+                        json.message,
+                        'error'
+                    )
+                }
+            }
+            xhr.open("PUT", '[[@{/ProductComments/}]]' + productCommentId, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send(jsonString);
+        } else {
+            Swal.fire(
+                '有欄位未填寫',
+                '請填寫完整，謝謝!!',
+                'error'
+            )
+        }
+
+    }
+
+
+    function getComment() {
+
+        var star = $('input[name=star]:checked').val();
+        var commentContent = $("#commentContent").val();
+
+        var Comment = {
+            "star": star,
+            "commentContent": commentContent,
+        }
+        return Comment;
+    }
+
+    function check() {
+        let userId = $("#userId").val();
+        let farmerProductId = $("#farmerProductId").val();
+        let star = $('input[name=star]:checked').val();
+        let commentContent = $("#commentContent").val();
+        if (userId === '') {
+            return false;
+        }
+        if (farmerProductId === '') {
+            return false;
+        }
+        if (star === '') {
+            return false;
+        }
+        if (commentContent === '') {
+            return false;
+        }
+        return true;
     }
 
 

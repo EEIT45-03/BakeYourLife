@@ -16,6 +16,11 @@
             object-fit: cover;
         }
 
+        .userimg {
+            width: 120px;
+            height: 90px;
+        }
+
         body {
             margin-top: 20px;
         }
@@ -145,6 +150,10 @@
             font-size: 15px;
             margin-right: 10px;
         }
+
+        .star {
+            color: #ffbf00;
+        }
     </style>
 
 </head>
@@ -273,21 +282,47 @@
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <!-- COMMENT 1 - START -->
-                                                <div class="media">
-                                                    <a class="pull-left" href="#"><img class="img media-object"
-                                                                                       src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                                       alt=""></a>
+                                                <div class="media" th:each="comment :*{productCommentList}">
+                                                    <a class="pull-left" href="#">
+                                                        <img class="img userimg media-object"
+                                                             src="/img/undraw_profile.svg"
+                                                             alt=""></a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading">John Doe</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                        <h4 class="media-heading" th:text="${comment.user.username}">
+                                                            John Doe</h4>
+                                                        <span th:switch="${comment.star}" class="star">
+                                                               <span th:case="1">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="2">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case=3>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="4">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="5">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                        </span>
+                                                        <p th:text="${comment.commentContent}"></p>
                                                         <ul class="list-unstyled list-inline media-detail pull-left">
-                                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                                            <li><i class="fa fa-calendar"></i>
+                                                                <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
+                                                            </li>
+
                                                         </ul>
                                                         <!--                                                        <ul class="list-unstyled list-inline media-detail pull-right">-->
                                                         <!--                                                            <li class=""><a href="">Like</a></li>-->
@@ -405,6 +440,11 @@
 <!-- Related Product Section End -->
 
 <div th:replace="/footer.html"></div>
+
+<script>
+
+
+</script>
 
 
 </body>

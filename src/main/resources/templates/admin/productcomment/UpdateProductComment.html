@@ -1,46 +1,62 @@
-<form>
+<div class="commentcard" th:object="${productComment}">
 
-    <div class="commentcard">
-
-        <div class="row">
-
-            <div class="col-2">
-
-
-                <img src="/img/undraw_profile.svg" width="70" class="rounded-circle mt-2">
-
-
-            </div>
-
-            <div class="col-10">
-
-                <div class="comment-box ml-2">
-
-
-                    <div class="rating">
-                        <input type="radio" name="star" value="5" id="5"><label for="5">☆</label>
-                        <input type="radio" name="star" value="4" id="4"><label for="4">☆</label>
-                        <input type="radio" name="star" value="3" id="3"><label for="3">☆</label>
-                        <input type="radio" name="star" value="2" id="2"><label for="2">☆</label>
-                        <input type="radio" name="star" value="1" id="1"><label for="1">☆</label>
-                    </div>
-
-                    <div class="comment-area">
-
-                        <textarea class="form-control" placeholder="評論..." rows="4"></textarea>
-
-                    </div>
-
-                    <div class="comment-btns mt-2">
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-labels">會員:</label>
+        <div class="col-sm-5">
+            <span th:text="*{user.username}"></span>
+            <input type="hidden" th:value="*{user.userId}" id="userId">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-labels">商品:</label>
+        <div class="col-sm-5">
+            <span th:text="*{farmerProductBean.name}"></span>
+            <input type="hidden" th:value="*{farmerProductBean.farmerProductId}" id="farmerProductId">
+        </div>
+    </div>
 
 
-                        <div class="col-10">
+    <div class="row">
+
+        <div class="col-2">
 
 
-                            <button class="btn btn-success send ">送出</button>
+            <img src="/img/undraw_profile.svg" width="70" class="rounded-circle mt-2">
 
 
-                        </div>
+        </div>
+
+        <div class="col-10">
+
+            <div class="comment-box ml-2">
+
+
+                <div class="rating">
+                    <input type="radio" name="star" value="5" id="5" th:field="*{star}"><label for="5">☆</label>
+                    <input type="radio" name="star" value="4" id="4" th:field="*{star}"><label for="4">☆</label>
+                    <input type="radio" name="star" value="3" id="3" th:field="*{star}"><label for="3">☆</label>
+                    <input type="radio" name="star" value="2" id="2" th:field="*{star}"><label for="2">☆</label>
+                    <input type="radio" name="star" value="1" id="1" th:field="*{star}"><label for="1">☆</label>
+                </div>
+
+                <div class="comment-area">
+
+                        <textarea id="commentContent" name="commentContent" th:field="*{commentContent}"
+                                  class="form-control" placeholder="評論..."
+                                  rows="4"
+                                  maxlength="100"
+                                  required></textarea>
+
+                </div>
+
+                <div class="comment-btns mt-2">
+
+
+                    <div class="col-10">
+
+
+                        <button class="btn btn-success" th:onclick="|sendupdate(*{productCommentId})|">送出
+                        </button>
 
 
                     </div>
@@ -48,11 +64,13 @@
 
                 </div>
 
-            </div>
 
+            </div>
 
         </div>
 
+
     </div>
 
-</form>
+</div>
+

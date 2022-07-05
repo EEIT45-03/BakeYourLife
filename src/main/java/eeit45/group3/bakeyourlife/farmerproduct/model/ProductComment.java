@@ -18,7 +18,7 @@ public class ProductComment {
     @JoinColumn(name = "farmer_product_id")
     private FarmerProductBean farmerProductBean;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -26,22 +26,20 @@ public class ProductComment {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date time;
 
-    private String cotent;
+    private String commentContent;
 
     private Integer star;
 
     public ProductComment() {
     }
 
-
-    public ProductComment(Integer productCommentId, FarmerProductBean farmerProductBean, Date time, String cotent, Integer star) {
+    public ProductComment(Integer productCommentId, FarmerProductBean farmerProductBean, User user, Date time, String commentContent, Integer star) {
         this.productCommentId = productCommentId;
         this.farmerProductBean = farmerProductBean;
+        this.user = user;
         this.time = time;
-        this.cotent = cotent;
+        this.commentContent = commentContent;
         this.star = star;
-
-
     }
 
     public Integer getProductCommentId() {
@@ -60,6 +58,14 @@ public class ProductComment {
         this.farmerProductBean = farmerProductBean;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Date getTime() {
         return time;
     }
@@ -68,12 +74,12 @@ public class ProductComment {
         this.time = time;
     }
 
-    public String getCotent() {
-        return cotent;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setCotent(String cotent) {
-        this.cotent = cotent;
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 
     public Integer getStar() {
@@ -83,6 +89,4 @@ public class ProductComment {
     public void setStar(Integer star) {
         this.star = star;
     }
-
-
 }

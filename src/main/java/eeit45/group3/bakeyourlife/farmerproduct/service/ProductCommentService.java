@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ProductCommentService {
 
+    ProductComment findById(Integer productCommentId);
+
     List<ProductComment> findAll();
 
     ProductComment create(ProductComment productComment);
