@@ -43,7 +43,7 @@
         <div class="col-sm-10">
 <!--            <input th:field="*{dayPrice}" type="number" class="form-control"-->
 <!--                   name="dayPrice" id="dayPrice" th:min="50" required="required"/>-->
-            <input type="number" class="form-control"
+            <input type="number" class="form-control" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'');if(value>=500) value=500;"
                    th:name="dayPrice" id="dayPrice" th:min="50" required="required"/>
         </div>
     </div>
@@ -55,8 +55,8 @@
         <div class="col-sm-10">
 <!--            <input th:field="*{max}" type="number" class="form-control"-->
 <!--                   name="max" id="max" th:min="1" required="required"/>-->
-            <input type="number" class="form-control"
-                   th:name="max" id="max" th:min="1" required="required"/>
+            <input type="number" class="form-control" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'');if(value>=100) value=100;"
+                   th:name="max" id="max" required="required" />
         </div>
     </div>
 
