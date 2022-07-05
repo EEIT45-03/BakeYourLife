@@ -33,58 +33,6 @@ $(document).ready(function () {
             sdate.val(formatDate(endDate))
         }
     }
-    $('#oredrTable').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
-        },
-        responsive: {
-            details: {
-                type: 'column'
-            }
-        },
-        columnDefs: [{
-            className: 'dtr-control',
-            orderable: false,
-            targets: 0
-        }, {
-            className: 'dt-center',
-            targets: [1, 2, 3, 4, 5, 6, 7]
-        }],
-        order: [1, 'asc']/*,
-          dom: 'Bfrtip',
-          buttons: [
-              'copyHtml5',
-              'excelHtml5',
-              'csvHtml5'
-          ]*/
-    });
-    // 	//在sweetalert2中檢查運費
-    //     $('body').on('blur','#shippingFee',function(){
-    //     let shippingFee=parseInt($('#shippingFee').val());
-    //     if(shippingFee<0){
-    //     	$('#shippingFee').val(0)
-    //     	alert('運費不能為負數')
-    //     }
-    // })
-    // $('body').on('blur','#userId',function(){
-    // 	let userId=$('#userId');
-    // 	let address=$('#address')
-    //     let userIdValue=parseInt(userId.val());
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "./Check?userId="+userIdValue,
-    //         dataType: "json",
-    //         success: function (response) {
-    //         	userId.val(response.user_id)
-    //         	address.val(response.address)
-    //         },
-    //         error: function (thrownError) {
-    //           memNo.val('')
-    //           address.val('')
-    // 		  alert('不存在這個會員編號')
-    //         }
-    //       });
-    // })
 });
 
 
@@ -187,27 +135,9 @@ function getCoupon(result) {
     }
 }
 
-//跳出修改訂單Alert
-// function updateAlert(orderId) {
-//     Swal.showLoading()
-//     fetch('./UpdateOrder?orderId=' + orderId)
-//         .then(response => response.text())
-//         .then(function (data) {
-//             Swal.fire({
-//                 title: '修改訂單',
-//                 icon: 'info',
-//                 html: data,
-//                 showCloseButton: true,
-//                 showCancelButton: false,
-//                 showConfirmButton: false,
-//                 focusConfirm: false
-//             })
-//
-//         });
-// }
 
 
-function refundAlert(orderNo) {
+function refundingAlert(orderNo) {
     Swal.fire({
         title: '請問是否要通過此訂單的退款請求',
         showDenyButton: true,
@@ -216,20 +146,92 @@ function refundAlert(orderNo) {
         denyButtonText: `拒絕`,
         cancelButtonText: '取消',
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
+        let baseUrl = 'http://localhost:8080/Order/' + orderNo + '/Refunding?choose=';
         if (result.isConfirmed) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Refund?choose=accept',
+            fetch(baseUrl + 'accept',
                 {
                     method: "POST"
                 }).then(
                 Swal.fire('退款請求已同意', '', 'success')
             )
         } else if (result.isDenied) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Refund?choose=reject',
+            fetch(baseUrl + 'reject',
                 {
                     method: "POST"
                 }).then(
                 Swal.fire('退款請求已拒絕', '', 'success')
+            )
+        }
+    })
+}
+
+function refundAlert(orderNo) {
+    Swal.fire({
+        title: '請問是否要提出此訂單的退款請求',
+        showCancelButton: true,
+        confirmButtonText: '提出',
+        cancelButtonText: '放棄',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Order/' + orderNo + '/Refund',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('退款請求已提出', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+            )
+        }
+    })
+}
+
+function cancelAlert(orderNo) {
+    Swal.fire({
+        title: '請問是否要取消此訂單嗎?',
+        showCancelButton: true,
+        confirmButtonText: '確定取消訂單',
+        cancelButtonText: '放棄',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Order/' + orderNo + '/Cancel',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('訂單已取消', '', 'success')
+                    .then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+            )
+        }
+    })
+}
+
+function receiveAlert(orderNo) {
+    Swal.fire({
+        title: '請問是否已收到商品?',
+        showCancelButton: true,
+        confirmButtonText: '確認收貨',
+        cancelButtonText: '放棄',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Order/' + orderNo + '/Receive',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('訂單已完成', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
             )
         }
     })

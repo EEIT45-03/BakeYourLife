@@ -37,18 +37,33 @@
             <span>商品管理</span></a>
     </li>
     <!-- Nav Item -小農廠商(模擬前台) -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/FarmerProductSupplier/}">
-            <i class="fas fa-fw fa-tractor"></i>
-            <span>模擬前台 小農廠商</span></a>
-    </li>
+    <!--    <li class="nav-item">-->
+    <!--        <a class="nav-link" th:href="@{/FarmerProductSupplier/}">-->
+    <!--            <i class="fas fa-fw fa-tractor"></i>-->
+    <!--            <span>模擬前台 小農廠商</span></a>-->
+    <!--    </li>-->
 
     <!-- Nav Item - 小農商品管理 -->
+    <!--    <li class="nav-item">-->
+    <!--        <a class="nav-link" th:href="@{/admin/FarmerProduct/}">-->
+    <!--            <i class="fas fa-fw fa-carrot"></i>-->
+    <!--            <span>小農商品管理</span></a>-->
+    <!--    </li>-->
     <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/FarmerProduct/}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFarmer"
+           aria-expanded="false" aria-controls="collapseFarmer">
             <i class="fas fa-fw fa-carrot"></i>
-            <span>小農商品管理</span></a>
+            <span>小農</span>
+        </a>
+        <div id="collapseFarmer" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/FarmerProduct/}">小農商品管理</a>
+                <a class="collapse-item" th:href="@{/admin/ProductComment/}">小農評論管理</a>
+            </div>
+        </div>
     </li>
+
+
     <!-- Nav Item - 訂單管理 -->
     <!--        <li class="nav-item">-->
     <!--            <a class="nav-link" th:href="@{/admin/Order/}">-->

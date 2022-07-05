@@ -4,5 +4,8 @@ import eeit45.group3.bakeyourlife.good.model.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GoodsRepository extends JpaRepository<Goods,Integer> {
-    Goods findByName(String name);
+
+    Goods findGoodsByName(String name);
+
+    Goods findGoodsById(Integer Id);
 }

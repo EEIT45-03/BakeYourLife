@@ -5,15 +5,22 @@ import java.util.List;
 import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
-import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
     //查詢定單區間
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
+
+    List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
+
+    Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable);
+
 
     List<Order> findAllByCouponCode(String code);
 
@@ -25,12 +32,16 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-//    List<Order> findAllByUser(User user);
+    List<Order> findAllByUser(User user);
 
     List<Order> findAllByUserId(Integer userId);
 
+
+
     //查詢所有訂單
     List<Order> findAll();
+
+    Page<Order> findAll(Pageable pageable);
 
     //用訂單類型找訂單
     //List<Order> findAllByOrderType(Integer orderType);
@@ -78,5 +89,5 @@ public interface OrderService {
 
     List<OrderItem> findOrderItemByOrderId(Integer orderId);
 
-    Order createOrder(OrderRequest orderRequest);
+//    Order createOrder(OrderRequest orderRequest);
 }

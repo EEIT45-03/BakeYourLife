@@ -95,7 +95,7 @@
                     <td></td>
                     <td th:text="${order.orderId}">1</td>
                     <td th:text="${order.orderNo}">222222222222222</td>
-                    <td th:text="${order.user.userName}">user</td>
+                    <td th:text="${order.user.username}">user</td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
                     <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
                     <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
@@ -115,7 +115,7 @@
 <!--                                                                class="fas fa-exclamation-triangle"></i>-->
 <!--														</span>-->
 <!--                      </button>-->
-                      <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
+                      <button th:if="${order.orderStatus.code} == '待出貨'" type="button"
                               class="btn btn-warning btn-sm mr-3"
                               th:attr="onclick=|shipAlert('${order.orderNo}')|">
 														<span class="icon text-gray-50">
@@ -125,7 +125,7 @@
 
                         <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
                                 class="btn btn-danger btn-sm mr-2"
-                                th:attr="onclick=|refundAlert('${order.orderNo}')|">
+                                th:attr="onclick=|refundingAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 處理退款
 														</span>
@@ -176,7 +176,34 @@
 
 <!-- 訂單頁面 -->
 <script th:src="@{/js/order.js}"></script>
+<script>
 
+    $('#oredrTable').DataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+        },
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        columnDefs: [{
+            className: 'dtr-control',
+            orderable: false,
+            targets: 0
+        }, {
+            className: 'dt-center',
+            targets: [1, 2, 3, 4, 5, 6, 7]
+        }],
+        order: [1, 'asc']/*,
+          dom: 'Bfrtip',
+          buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5'
+          ]*/
+    });
+</script>
 
 </body>
 

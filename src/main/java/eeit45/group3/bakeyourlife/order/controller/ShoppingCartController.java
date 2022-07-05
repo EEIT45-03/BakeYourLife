@@ -74,7 +74,7 @@ public class ShoppingCartController {
                 cartItem = goodService.getGoods(itemId);
                 break;
             case "F":
-//                cartItem = farmerProductService.findById(itemId);
+                cartItem = farmerProductService.findByFarmerProductId(itemId);
                 break;
         }
 
@@ -96,7 +96,7 @@ public class ShoppingCartController {
                 cartItem = goodService.getGoods(itemId);
                 break;
             case "F":
-//                cartItem = farmerProductService.findById(itemId);
+                cartItem = farmerProductService.findByFarmerProductId(itemId);
                 break;
         }
 

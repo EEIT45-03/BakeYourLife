@@ -222,7 +222,7 @@
 												<td>${user.birth}</td>
 												<td>${user.gender}</td>
 												<td>${user.address}</td>
-												<td>${user.userName}</td>
+												<td>${user.username}</td>
 												<td>${user.password}</td>
 												<td><a href="${pageContext.request.contextPath}/User/update/${user.userId}"
 													class="btn btn-warning btn-icon-split btn-sm"> <span

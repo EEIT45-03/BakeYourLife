@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/admin/FarmerProductSupplier")
+@RequestMapping(path = "/FarmerProductSupplier")
 public class FarmerProductSupplierController {
 
     FarmerProductService farmerProductService;
@@ -26,27 +26,20 @@ public class FarmerProductSupplierController {
         this.farmerProductService = farmerProductService;
     }
 
-    //    FarmerProductPicService farmerProductPicService;
-//
-//    //    @Autowired
-//    public FarmerProductSupplierController(FarmerProductService farmerProductService, FarmerProductPicService farmerProductPicService) {
-//        this.farmerProductService = farmerProductService;
-//        this.farmerProductPicService = farmerProductPicService;
-//    }
 
     @GetMapping("/")
     public String viewIndex(Model model) {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
 
         model.addAttribute("farmerProductBeans", farmerProductBeans);
-        return "admin/farmerproduct/FarmerProductSupplier";
-//        return "farmerproduct/FarmerProductSupplier";
+//        return "admin/farmerproduct/FarmerProductSupplier";
+        return "farmerproduct/FarmerProductSupplier";
     }
 
     @GetMapping("CreateFarmerProduct")
     public String viewCreateFarmerProduct(Model model) {
         model.addAttribute("farmerProductBean", new FarmerProductBean());
-        return "admin/farmerproduct/CreateFarmerProduct";
+        return "farmerproduct/CreateFarmerProduct";
     }
 
     @PostMapping("CreateFarmerProduct")
@@ -95,7 +88,7 @@ public class FarmerProductSupplierController {
 
         model.addAttribute(farmerProductBean);
 
-        return "admin/farmerproduct/UpdateFarmerProduct";
+        return "farmerproduct/UpdateFarmerProduct";
 
     }
 
@@ -159,10 +152,24 @@ public class FarmerProductSupplierController {
         return "redirect:./";
     }
 
+
     @RequestMapping("DeleteFarmerProduct")
     private String deleteFarmerProduct(@RequestParam Integer farmerProductId) {
         farmerProductService.delete(farmerProductId);
         return "redirect:./";
+    }
+
+    @GetMapping("ShopDetails")
+    private String ShopDetails(@RequestParam Integer farmerProductId, Model model) {
+        FarmerProductBean farmerProductBean = null;
+
+        if (farmerProductId != null) {
+            farmerProductBean = farmerProductService.findByFarmerProductId(farmerProductId);
+        }
+
+        model.addAttribute(farmerProductBean);
+
+        return "farmerproduct/FarmerProductShopDetails";
     }
 
     @InitBinder

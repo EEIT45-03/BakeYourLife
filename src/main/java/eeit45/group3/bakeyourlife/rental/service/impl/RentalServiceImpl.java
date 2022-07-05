@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,14 +35,17 @@ public class RentalServiceImpl implements RentalService{
 	VenueRepository venueRepository;
 
 	TackleRepository tackleRepository;
+
+	ProduceNoRepository produceNoRepository;
+
 	@Autowired
 	public RentalServiceImpl(TackleRepository tackleRepository,
 							 UserService userService,
 							 RentalRepository rentalRepository,
 							 VenueListRepository venueListRepository,
 							 TackleListRepository tackleListRepository,
-							 VenueRepository venueRepository
-							/* ,RentalDAO rentalDao*/) {
+							 VenueRepository venueRepository,
+							 ProduceNoRepository produceNoRepository) {
 
 		this.userService = userService;
 		this.rentalRepository = rentalRepository;
@@ -48,7 +53,7 @@ public class RentalServiceImpl implements RentalService{
 		this.tackleListRepository = tackleListRepository;
 		this.venueRepository = venueRepository;
 		this.tackleRepository = tackleRepository;
-//		this.rentalDao = rentalDao;
+		this.produceNoRepository = produceNoRepository;
 	}
 
 
@@ -74,6 +79,48 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Rental> findAllByType(String listType) {
 		return rentalRepository.findAllByType(listType);
+	}
+
+	//依租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByRentalNoStartingWith(String rentalNo) {
+		return rentalRepository.findAllByRentalNoStartingWith(rentalNo);
+	}
+
+	//依會員查詢租借單
+	@Override
+	public List<Rental> findAllByUser(Integer userId) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUser(userBean);
+	}
+
+	//依會員與租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByUserAndRentalNoStartingWith(Integer userId, String RentalNo) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndRentalNoStartingWith(userBean,RentalNo);
+	}
+	//依租借類型與租借單編號查詢租借單
+	@Override
+	public List<Rental> findAllByTypeAndRentalNoStartingWith(String listType, String RentalNo) {
+		return rentalRepository.findAllByTypeAndRentalNoStartingWith(listType,RentalNo);
+	}
+	//依會員與租借類型查詢租借單
+	@Override
+	public List<Rental> findAllByUserAndType(Integer userId, String listType) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndType(userBean, listType);
+	}
+
+	@Override
+	public List<Rental> findAllByUserAndTypeAndRentalNoStartingWith(Integer userId, String listType, String rentalNo) {
+		User userBean = userService.findByUserId(userId);
+		return rentalRepository.findAllByUserAndTypeAndRentalNoStartingWith(userBean, listType, rentalNo);
+	}
+
+	@Override
+	public List<Rental> findAllByDateBetween(String lDate, String eDate){
+		return rentalRepository.findAllByDateBetween(lDate, eDate);
 	}
 
 	//新增租借單
@@ -109,6 +156,41 @@ public class RentalServiceImpl implements RentalService{
 	public void deleteRental(Integer rentalId) {
 		rentalRepository.deleteById(rentalId);
 	}
+
+
+	//建立租借單請求資料
+	@Override
+	public RentalRequest createRentalRequest() {
+		ProduceNo produceNo = produceNoRepository.findByName("rental");
+		System.out.println(produceNo+"++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String newDate = sdf.format(new Date());
+
+		if(produceNo == null ){
+			produceNo = new ProduceNo("rental",newDate,1);
+			produceNoRepository.save(produceNo);
+		} else {
+			String date = produceNo.getDate();
+
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
+			}
+
+		}
+
+		String rentalNo = produceNo.getDate() + String.format("%07d", produceNo.getNum());
+
+		RentalRequest rentalRequest = new RentalRequest();
+		rentalRequest.setRentalNo(rentalNo);
+		rentalRequest.setTotal(0);
+		return rentalRequest;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/		
@@ -178,7 +260,38 @@ public class RentalServiceImpl implements RentalService{
 		venueListRepository.deleteById(venueListId);
 	}
 
-	
+	@Override
+	public VenueListRequest createVenueListRequest(Rental rental) {
+
+		ProduceNo produceNo = produceNoRepository.findByName("VenueList");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String newDate = sdf.format(new Date());
+
+		if(produceNo == null ){
+			produceNo = new ProduceNo("VenueList",newDate,1);
+			produceNoRepository.save(produceNo);
+		} else {
+
+			String date = produceNo.getDate();
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
+			}
+		}
+		String no =  "V" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
+
+		VenueListRequest venueListRequest = new VenueListRequest();
+		venueListRequest.setVenueListNo(no);
+		venueListRequest.setPrice(0);
+		venueListRequest.setRental(rental);
+		return venueListRequest;
+	}
+
 	/*教室 DAO
 	----------------------------------------------------------------*/		
 	
@@ -187,6 +300,9 @@ public class RentalServiceImpl implements RentalService{
 	public List<Venue> findAllVenue() {
 		return venueRepository.findAll();
 	}
+
+	//查詢全部的教室名稱
+	public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
 
 	//依教室ID查詢教室
 	@Override
@@ -293,7 +409,40 @@ public class RentalServiceImpl implements RentalService{
 		tackleListRepository.deleteById(tackleListId);
 	}
 
-	
+	@Override
+	public TackleListRequest createTackleListRequest(Rental rental) {
+
+		ProduceNo produceNo = produceNoRepository.findByName("TackleList");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String newDate = sdf.format(new Date());
+
+		if(produceNo == null ){
+			produceNo = new ProduceNo("TackleList",newDate,1);
+			produceNoRepository.save(produceNo);
+		} else {
+
+			String date = produceNo.getDate();
+
+			if(date.equals(newDate)){
+				int number = produceNo.getNum() + 1;
+				produceNo.setNum(number);
+			} else{
+				produceNo.setDate(newDate);
+				produceNo.setNum(1);
+			}
+		}
+		String no =  "T" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
+
+		TackleListRequest tackleListRequest = new TackleListRequest();
+		tackleListRequest.setTackleListNo(no);
+		tackleListRequest.setPrice(0);
+		tackleListRequest.setRental(rental);
+		return tackleListRequest;
+
+	}
+
+
 	/*器具 DAO
 	----------------------------------------------------------------*/		
 	
@@ -301,6 +450,13 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Tackle> findAllTackle() {
 		return tackleRepository.findAll();
+	}
+
+
+	//查詢全部的器具名稱
+	@Override
+	public List<String> findAllTackleName(){
+		return tackleRepository.findAllTackleName();
 	}
 
 	//依器具ID查詢器具
@@ -338,22 +494,58 @@ public class RentalServiceImpl implements RentalService{
 	
 	
 	
-	/*會員 DAO
-	----------------------------------------------------------------*/	
-	
-	//查詢全部的會員
-//	@Override
-//	public List<User> findAllByUser() {
-//		List<User> list = null;
-//		list = rentalDao.findAllByUser();
-//		return list;
-//	}
+	/*自動產生編號 DAO
+	----------------------------------------------------------------*/
 
-	//依Id搜尋查詢會員
-//	@Override
-//	public User findByUserId(Integer userId) {
-//		User user = null;
-//		user = rentalDao.findByUserId(userId);
-//		return user;
-//	}
+	@Override
+	public List<ProduceNo> findAllByProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.findAll();
+	}
+
+	@Override
+	public ProduceNo findByTable(String table) {
+		return produceNoRepository.findByName(table);
+	}
+
+	//新增產生編號
+	@Override
+	@Transactional
+	public ProduceNo createProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.save(produceNo);
+	}
+
+
+	//更新編號
+	@Override
+	@Transactional
+	public ProduceNo updateProduceNo(ProduceNo produceNo) {
+		return produceNoRepository.save(produceNo);
+	}
+	@Override
+	public ProduceNo updateProduceNo(String no) {
+		ProduceNo produceNo = null;
+		if(no.charAt(0) == 'T'){
+			produceNo = produceNoRepository.findByName("TackleList");
+			produceNo.setDate(no.substring(1,9));
+			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+		} else if (no.charAt(0) == 'V') {
+			produceNo = produceNoRepository.findByName("VenueList");
+			produceNo.setDate(no.substring(1,9));
+			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+		} else {
+			produceNo = produceNoRepository.findByName("Rental");
+			produceNo.setDate(no.substring(0,8));
+			produceNo.setNum(Integer.valueOf(no.substring(8,15)));
+		}
+
+		return produceNoRepository.save(produceNo);
+	}
+
+	//刪除編號
+	@Override
+	@Transactional
+	public void deleteProduceNo(Integer id) {
+		produceNoRepository.deleteById(id);
+	}
+
 }

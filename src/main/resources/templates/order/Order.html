@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Ogani Template">
-  <meta name="keywords" content="Ogani, unica, creative, html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Ogani | Template</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
 
-  <div th:replace="/css.html"></div>
+    <div th:replace="/css.html"></div>
 
 </head>
 
@@ -19,133 +19,245 @@
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="breadcrumb__text">
-          <h2>購買清單</h2>
-          <div class="breadcrumb__option">
-            <a href="/">首頁</a>
-            <span>購買清單</span>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>購買清單</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">首頁</a>
+                        <span>購買清單</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 <!-- Breadcrumb Section End -->
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col-2">
-        <div class="blog__sidebar">
-<!--          <div class="blog__sidebar__search">-->
-<!--            <form action="#">-->
-<!--              <input type="text" placeholder="Search...">-->
-<!--              <button type="submit"><span class="icon_search"></span></button>-->
-<!--            </form>-->
-<!--          </div>-->
-          <div class="blog__sidebar__item">
-            <h4>待修改</h4>
-            <ul>
-              <li><a href="#">All</a></li>
-              <li><a href="#">Beauty (20)</a></li>
-              <li><a href="#">Food (5)</a></li>
-              <li><a href="#">Life Style (9)</a></li>
-              <li><a href="#">Travel (10)</a></li>
-            </ul>
-          </div>
+    <div class="container">
+        <div class="row">
+<!--            <div class="col-2">-->
+<!--                <div class="blog__sidebar">-->
+<!--                    <div class="blog__sidebar__item">-->
+<!--                        <h4>待修改</h4>-->
+<!--                        <ul>-->
+<!--                            <li><a href="#">All</a></li>-->
+<!--                            <li><a href="#">Beauty (20)</a></li>-->
+<!--                            <li><a href="#">Food (5)</a></li>-->
+<!--                            <li><a href="#">Life Style (9)</a></li>-->
+<!--                            <li><a href="#">Travel (10)</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 
+<!--                </div>-->
+<!--            </div>-->
+            <div class="col-12 spad">
+                <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all"
+                           aria-selected="false">全部</a>
+                    </li>
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="wait-pay-tab" data-toggle="tab" href="#waitpay" role="tab"
+                           aria-controls="waitpay"
+                           aria-selected="false">待付款</a>
+                    </li>
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="wait-ship-tab" data-toggle="tab" href="#waitship" role="tab"
+                           aria-controls="waitship" aria-selected="false">待出貨</a>
+                    </li>
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="receive-tab" data-toggle="tab" href="#receive" role="tab"
+                           aria-controls="receive"
+                           aria-selected="false">待收貨</a>
+                    </li>
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="finish-tab" data-toggle="tab" href="#finish" role="tab"
+                           aria-controls="finish"
+                           aria-selected="false">完成</a>
+                    </li>
+                    <li class="nav-item col-2" role="presentation">
+                        <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab"
+                           aria-controls="cancel"
+                           aria-selected="false">已取消</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">...</div>
+                    <div class="tab-pane fade" id="waitpay" role="tabpanel" aria-labelledby="wait-pay-tab">...</div>
+                    <div class="tab-pane fade" id="waitship" role="tabpanel" aria-labelledby="wait-ship-tab">...</div>
+                    <div class="tab-pane fade" id="receive" role="tabpanel" aria-labelledby="receive-tab">...</div>
+                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">...</div>
+                    <div class="tab-pane fade" id="cancel" role="tabpanel" aria-labelledby="cancel-tab">...</div>
+                    <!--            <div id="pages"></div>-->
+                </div>
+
+            </div>
         </div>
-      </div>
-      <div class="col-10 spad">
-        <table class="table" id="oredrTable">
-          <thead>
-          <tr>
-            <th></th>
-            <th>訂單編號</th>
-            <th>訂單日期</th>
-            <th>付款方式</th>
-            <th>總金額</th>
-            <th>訂單狀態</th>
-            <th>訂單明細</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-
-
-          <!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
-          <tr th:each="order: ${orders}">
-            <td></td>
-            <td th:text="${order.orderNo}">222222222222222</td>
-            <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-            <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
-            <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
-            <td th:text="${order.orderStatus.code}"></td>
-            <td>                        <button type="button"
-                                                class="btn btn-info btn-sm"
-                                                th:onclick="|showAlert(${order.orderId})|">
-														<span class="icon text-white-50">
-                                                          <i class="fa-solid fa-info"></i> 訂單明細
-														</span>
-            </button></td>
-            <td class="text-right">
-              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
-                      class="btn btn-warning btn-sm mr-3"
-                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
-														<span class="icon text-gray-50">
-                                                          <i class="fa-solid fa-truck-fast"></i> 去付款
-														</span>
-              </button>
-              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
-                      class="btn btn-warning btn-sm mr-3"
-                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
-														<span class="icon text-gray-50">
-                                                          <i class="fa-solid fa-truck-fast"></i> 取消訂單
-														</span>
-              </button>
-
-              <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
-                      class="btn btn-danger btn-sm mr-2"
-                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
-														<span class="icon text-danger-50">
-                                                          <i class="fa-solid fa-sack-dollar"></i> 提出退款
-														</span>
-              </button>
-              <button th:if="${order.orderStatus.code} == '待收貨'" type="button"
-                      class="btn btn-danger btn-sm mr-2"
-                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
-														<span class="icon text-danger-50">
-                                                          <i class="fa-solid fa-sack-dollar"></i> 確認收貨
-														</span>
-              </button>
-
-            </td>
-            <!--                    <td>-->
-
-            <!--                      <ul th:each="orderItem:${order.orderItemList}">-->
-            <!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
-            <!--                      </ul>-->
-            <!--                    </td>-->
-            <!--                    <td th:text="${order.address}"></td>-->
-
-          </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
-  </div>
 </section>
 <!-- Blog Section End -->
 <div th:replace="/footer.html"></div>
 
 <script th:src="@{/js/order.js}"></script>
 
+
 <script>
+    $(function () {
+        changeTab();
+        /*
+        * 網址#後面改變事件
+        * */
+        $(window).on('hashchange', function () {
+            changeTab();
+            let status = $('.nav-link.active')[0].innerText;
+            // console.log("hashchange");
+            getTabsData(status);
+
+            document.documentElement.scrollTop = 0;
+        }).trigger('hashchange');
+
+        /*
+        * 從url取得hash並顯示這個tab
+        * https://stackoverflow.com/questions/34491182/make-bootstrap-tab-active-on-the-bases-of-url-link
+        * */
+        function changeTab() {
+            let hash = window.location.hash;
+            if (!hash) {
+                window.location.hash = 'all';
+            }
+            hash && $('ul.nav-tabs a[href="' + hash + '"]').tab('show');
+            $('ul.nav-tabs a').click(function (e) {
+                $(this).tab('show');
+                // $('body').scrollTop();
+                window.location.hash = this.hash;
+            });
+        }
+
+    });
+    /*
+     *取得並寫入HTML
+     *注意function名稱，可能會跟引入的js衝突
+     */
+    function getTabsData(status) {
+        if (status === '全部') {
+            status = '';
+        }
+        // console.log("getTabsData");
+        let urlParams = new URLSearchParams(window.location.search);
+        let cpage = urlParams.get('page');
+        if (cpage == null) {
+            cpage = 1;
+        }
+        fetch('[[@{/Orders}]]?orderStatus=' + status + '&page=' + cpage)
+            .then(response => response.json())
+            .then(function (result) {
+                // console.log(result)
+                let hash = window.location.hash;
+                //是否為第一頁
+                if (result.first) {
+                    var isFirst = ' disabled';
+                }
+                //是否為最後一頁
+                if (result.last) {
+                    var isLast = ' disabled';
+                }
+
+
+                let totalPages = result.totalPages;
+
+                let totalElements = result.totalElements;
+
+                let current = result.number;
+
+                result = result.content;
+                let data = `<table class="table text-center">
+                      <thead>
+                      <tr>
+                          <th>訂單編號</th>
+                          <th>訂單日期</th>
+                          <th>付款方式</th>
+                          <th>總金額</th>
+                          <th>訂單狀態</th>
+                          <th>訂單明細</th>
+                          <th>操作</th>
+                      </tr>
+                      </thead>
+                      <tbody>`;
+                for (var i = 0; i < result.length; i++) {
+                    data += `<tr>
+                        <td>${result[i].orderNo}</td>
+                          <td>${result[i].orderDate}</td>
+                          <td>${result[i].payType === 'ECPAY' ? '綠界支付' : result[i].payType}</td>
+                          <td>NT$${result[i].totalPrice}</td>
+                          <td>${result[i].orderStatus}</td>
+                          <td>
+                            <button type="button" class="btn btn-info btn-sm" onclick="showAlert(${result[i].orderId})">
+<span class="icon text-white-50"> <i class="fa-solid fa-info"></i> 訂單明細 </span>
+                          </button></td>
+                          <td class="text-right">`;
+
+                    if (result[i].orderStatus === '待付款') {
+                        data += `<button type="button" class="btn btn-danger btn-sm mr-3" onclick="cancelAlert('${result[i].orderNo}')">
+<span class="icon text-gray-50"> <i class="fa-solid fa-ban"></i> 取消訂單 </span> </button>`;
+                    }
+                    if (result[i].orderStatus === '待出貨') {
+                        data += `<button type="button" class="btn btn-danger btn-sm mr-3" onclick="refundAlert('${result[i].orderNo}')">
+<span class="icon text-danger-50"> <i class="fa-solid fa-sack-dollar"></i> 提出退款 </span> </button>`
+                    }
+                        if (result[i].orderStatus === '待收貨') {
+                            data += `<button type="button" class="btn btn-success btn-sm mr-3" onclick="receiveAlert('${result[i].orderNo}')">
+<span class="icon text-danger-50">
+<i class="fa-solid fa-sack-dollar"></i> 確認收貨
+</span>
+</button>`
+                    }
+                    data += `</td></tr>`;
+                }
+                data += `</tbody></table>`;
+
+
+                data += `
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item${isFirst}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
+
+                if (totalPages >= 10) {
+
+                } else {
+                    for (let i = 0; i < totalPages; i++) {
+                        if (i === current) {
+                            data += `<li class="page-item active"><a class="page-link" href="#">${i + 1}`;
+                            data += '<span class="sr-only">(current)</span>';
+                        } else {
+                            data += `<li class="page-item"><a class="page-link" href="#" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
+                        }
+                        data += '</a></li>';
+                    }
+                }
+
+                data += `<li class="page-item${isLast}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${current + 2}');">下一頁</a></li>
+  </ul>
+</nav>`;
+
+                //hash 的字串為 #XXX 剛好可以用來抓ID的HTML
+                $(hash).html(data);
+            });
+    }
 
 
 
+    $('.nav-tabs a').on('show.bs.tab', function (e) {
+        console.log($(e.currentTarget)[0].innerText);
+        let status = $(e.currentTarget)[0].innerText;
+        window.history.pushState("", "", window.location.href.split("?")[0]);
+        let tabs = $(e.currentTarget)[0].attributes['aria-controls'].nodeValue
+        // $('#' + tabs).html('test')
+        // console.log(tabs);
+        // getData(status);
+
+    });
 </script>
 </body>
 

@@ -3,7 +3,10 @@ package eeit45.group3.bakeyourlife.order.pay;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -14,20 +17,29 @@ import java.util.Map;
 /**
  * Paypal封裝物件
  */
+@Component
 public class PaypalPayment {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static Environment env;
+    private static ObjectMapper objectMapper;
+
+    @Autowired
+    public PaypalPayment(Environment env, ObjectMapper objectMapper) {
+        PaypalPayment.env = env;
+        PaypalPayment.objectMapper = objectMapper;
+    }
 
     private static String getBearerToken() throws JsonProcessingException {
 
 
         String uri = "https://api-m.sandbox.paypal.com/v1/oauth2/token?grant_type=client_credentials";
-        String username = "AesYSP7qlkdrNuhIikeK7xp0OfYnwu_O3jbaE5u_sHM4TzEbzee5u9uBLuMOeBWHHcN_zsxBMi_bEg0A";
-        String password = "EIEbQo6Ax_VUfVpy-G-_QRKYel8jsnrrhSmeKV8bV57QBffmrpZhILDU03owotA1f87FVLKgadPkmi4v";
+
+        String clientId = env.getProperty("paypal.client-Id");
+        String secret = env.getProperty("paypal.secret");
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth(username,password);
+        headers.setBasicAuth(clientId, secret);
         headers.add("Accept", "application/json");
         MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
         body.add("grant_type","client_credentials");
@@ -126,4 +138,5 @@ public class PaypalPayment {
         }
         return orderNo;
     }
+
 }

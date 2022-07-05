@@ -5,8 +5,10 @@
     <div class="row mb-3">
         <label for="venueName" class="col-sm-2 col-form-labels">場地名稱:</label>
         <div class="col-sm-10">
-            <input th:field="*{venueName}" type="text" class="form-control"
-                   name="venueName" id="venueName" required="required"/>
+<!--            <input th:field="*{venueName}" type="text" class="form-control"-->
+<!--                   name="venueName" id="venueName" required="required"/>-->
+            <input type="text" class="form-control"
+                   th:name="venueName" id="venueName" required="required"/>
         </div>
     </div>
 
@@ -14,8 +16,10 @@
     <div class="row mb-3">
         <label for="personMax" class="col-sm-2 col-form-labels">人數上限:</label>
         <div class="col-sm-10">
-            <input th:field="*{personMax}" type="number" class="form-control"
-                   name="personMax" id="personMax" th:min="0" required="required"/>
+<!--            <input th:field="*{personMax}" type="number" class="form-control"-->
+<!--                   name="personMax" id="personMax" th:min="0" required="required"/>-->
+            <input type="number" class="form-control"
+                   th:name="personMax" id="personMax" th:min="0" required="required"/>
         </div>
     </div>
 
