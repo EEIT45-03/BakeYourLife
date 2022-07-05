@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.Venue;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,13 +23,12 @@ public class Course implements Serializable{
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "CoSeq")
 	private Integer openCourse;
 
-	//課程代號 連到courseType
-//	@OneToOne(cascade = {CascadeType.PERSIST})
-//	@JoinColumn(name = "courseId", nullable = false)
-//	private CourseType courseType;
+	@ManyToOne(cascade = CascadeType.PERSIST )
+	@JoinColumn(name="FK_cProductId", referencedColumnName = "Id", nullable = false)
+	private Product cProduct;
 
 	@Column(nullable = false)
-	private Integer courseId;
+	private Integer hours;
 
 	@JsonFormat(timezone = "GMT+8")
 	@Column(nullable = false)
@@ -48,11 +48,22 @@ public class Course implements Serializable{
 	@Transient
 	private Integer clVenueId;
 //	教室人數=課程人數上限
-//	private Integer registerMax;
+
 
 	//報名人數
-//	@Column(columnDefinition = "number default 0")
 	private Integer applicants;
+
+	@Column(name = "teacher",columnDefinition = "nvarchar(20) not null")
+	private String teacher;
+
+	@Column(name = "note",columnDefinition = "nvarchar(MAX)")
+	private String note;
+
+
+	
+	public Course() {
+
+	}
 
 	public Venue getVenue() {
 		return venue;
@@ -70,16 +81,6 @@ public class Course implements Serializable{
 		this.clVenueId = clVenueId;
 	}
 
-	@Column(name = "teacher",columnDefinition = "nvarchar(20) not null")
-	private String teacher;
-
-	@Column(name = "note",columnDefinition = "nvarchar(MAX)")
-	private String note;
-	
-	public Course() {
-
-	}
-
 	public Integer getRoomId() {
 		if(venue!=null) {
 			return venue.getVenueId();
@@ -94,16 +95,17 @@ public class Course implements Serializable{
 		this.setRoomId(clVenueId);
 	}
 
-	public Course(Integer openCourse, Integer courseId, Date startDate, Date endDate, Venue room, Integer roomId, Integer applicants, String teacher, String note) {
+	public Course(Integer openCourse, Integer hours, Date startDate, Date endDate, Venue venue, Integer clVenueId, Integer applicants, String teacher, String note, Product cProduct) {
 		this.openCourse = openCourse;
-		this.courseId = courseId;
+		this.hours = hours;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.venue = room;
-		this.clVenueId = roomId;
+		this.venue = venue;
+		this.clVenueId = clVenueId;
 		this.applicants = applicants;
 		this.teacher = teacher;
 		this.note = note;
+		this.cProduct = cProduct;
 	}
 
 	public Integer getOpenCourse() {
@@ -114,12 +116,12 @@ public class Course implements Serializable{
 		this.openCourse = openCourse;
 	}
 
-	public Integer getCourseId() {
-		return courseId;
+	public Integer getHours() {
+		return hours;
 	}
 
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
+	public void setHours(Integer hours) {
+		this.hours = hours;
 	}
 
 	public Date getStartDate() {
@@ -170,15 +172,24 @@ public class Course implements Serializable{
 		this.applicants = applicants;
 	}
 
+	public Product getcProduct() {
+		return cProduct;
+	}
+
+	public void setcProduct(Product cProduct) {
+		this.cProduct = cProduct;
+	}
+
 	@Override
 	public String toString() {
 		return "Course{" +
 				"openCourse=" + openCourse +
-				", courseId=" + courseId +
+				", cProduct=" + cProduct +
+				", hours=" + hours +
 				", startDate=" + startDate +
 				", endDate=" + endDate +
-				", room=" + venue +
-				", roomId=" + clVenueId +
+				", venue=" + venue +
+				", clVenueId=" + clVenueId +
 				", applicants=" + applicants +
 				", teacher='" + teacher + '\'' +
 				", note='" + note + '\'' +

@@ -1,8 +1,12 @@
 package eeit45.group3.bakeyourlife.course.model;
 
+import eeit45.group3.bakeyourlife.rental.model.VenueList;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="CourseProdcut")
@@ -17,6 +21,22 @@ public class Product {
 	private String image;
 	@Transient
 	private MultipartFile file;
+
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "cProduct")
+	private Set<Course> courseSet = new LinkedHashSet<Course>();
+
+	public Product(){
+	}
+
+	public Product(Long id, String name, String description, Integer price, String image, MultipartFile file, Set<Course> courseSet) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.image = image;
+		this.file = file;
+		this.courseSet = courseSet;
+	}
 
 	public MultipartFile getFile() {
 		return file;
@@ -56,12 +76,25 @@ public class Product {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description="
-	            + description + ", price=" + price + ", image="
-				+ image + "]";
+
+	public Set<Course> getCourseSet() {
+		return courseSet;
 	}
 
+	public void setCourseSet(Set<Course> courseSet) {
+		this.courseSet = courseSet;
+	}
 
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				", price=" + price +
+				", image='" + image + '\'' +
+				", file=" + file +
+				", courseSet=" + courseSet +
+				'}';
+	}
 }

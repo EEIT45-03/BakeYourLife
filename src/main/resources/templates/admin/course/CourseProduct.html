@@ -63,6 +63,7 @@
                                 <thead>
                                 <tr>
                                     <th></th>
+                                    <th scope="col">課程代號</th>
                                     <th scope="col">課程封面</th>
                                     <th scope="col">課程名稱</th>
                                     <th scope="col">課程資訊</th>
@@ -75,10 +76,11 @@
                                 <tbody>
                                 <tr th:each="product : ${products}">
                                     <td></td>
+                                    <td>[[*{product.id}]]</td>
                                     <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height: 100px;"></th>
                                     <td>[[*{product.name}]]</td>
                                     <td>[[*{product.description}]]</td>
-                                    <td>[[*{product.price}]]</td>
+                                    <td>NT$[[*{product.price}]]</td>
                                     <td><a th:href="@{'deleteProd/{id}'(id=${product.id})}"
                                            class="btn btn-danger mt-4">delete</a></td>
 

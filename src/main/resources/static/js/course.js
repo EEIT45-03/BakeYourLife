@@ -55,7 +55,8 @@ function checkForm() {
 
 $('#wrongInput').click(function () {
     
-    $('#courseId').val('C0001')
+    $('#cProduct').val('1')
+	$('#hours').val('60')
     $('#startDate').val('2022-05-22  01:00')
     $('#endDate').val('2022-05-20 01:00')
     $('#venue').val('1')
@@ -66,7 +67,8 @@ $('#wrongInput').click(function () {
 
 $('#correctInput').click(function () {
     
-    $('#courseId').val('1')
+    $('#cProduct').val('1')
+	$('#hours').val('60')
     $('#startDate').val('2022-05-10 01:00')
     $('#endDate').val('2022-05-20 01:00')
     $('#venue').val('1')
@@ -77,12 +79,12 @@ $('#correctInput').click(function () {
 
 
 //課程
-function courseIdAlert(courseId){
+function courseIdAlert(id){
 //	fetch('./UpdateOrder?orderId='+orderId)
 //.then(response => response.text())
 //.then(function(data){
 	
-	if(courseId=='1'){
+	if(id==47){
 	Swal.fire({
 	  title: 'C0001 西點蛋糕麵包',
 	  text: '蛋糕、西點、麵包產品教學：戚風蛋糕、杯子蛋糕、蛋糕捲、切片蛋糕、磅蛋糕、古早味鹹蛋糕',
