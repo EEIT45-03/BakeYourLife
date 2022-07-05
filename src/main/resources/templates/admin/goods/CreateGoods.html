@@ -107,53 +107,53 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label  for="orderStatus" class="col-sm-2 col-form-labels">狀態:</label>
+                                <label  for="system" class="col-sm-2 col-form-labels">狀態:</label>
                                 <div class="col-sm-10">
                                     <select th:field="*{system}" class="form-control form-select mb-3" name="system" id="system"
                                             aria-label="Default select example">
-                                        <%-- 問一下 --%> <option value="上架中" >上架中</option>
-                                        <option value="已下架" >已下架</option>
-                                        <option value="待上架" >待上架</option>
-                                    </select>
-                                </div>
-                            </div>
+                                        <!-- 問一下 --> <option value="上架中" >上架中</option>
+                                         <option value="已下架" >已下架</option>
+                                         <option value="待上架" >待上架</option>
+                                     </select>
+                                 </div>
+                             </div>
 
-                            <div class="row mb-3">
-                                <label  for="orderStatus" class="col-sm-2 col-form-labels">商品包裝材質:</label>
-                                <div class="col-sm-10">
-                                    <select th:field="*{packagematerial}" class="form-control form-select mb-3" name="packagematerial" id="packagematerial"
-                                                 aria-label="Default select example">
-                                        <%-- 問一下 --%> <option value="原裝利樂包" >原裝利樂包</option>
-                                        <option value="透明夾鏈立袋" >透明夾鏈立袋</option>
-                                        <option value="保溫錫箔紙" >保溫錫箔紙</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label  for="orderStatus" class="col-sm-2 col-form-labels">商品保存方式:</label>
-                                <div class="col-sm-10">
-                                    <select th:field="*{saveway}" class="form-control form-select mb-3" name="saveway" id="saveway"
-                                                 aria-label="Default select example">
-                                        <%-- 問一下 --%> <option value="常溫" >常溫</option>
-                                        <option value="冷藏" >冷藏</option>
-                                        <option value="冷凍" >冷凍</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label  for="count" class="col-sm-2 col-form-labels">商品描述:</label>
-                                <div class="col-sm-10">
-                                    <input th:field="*{describe}" type="text" class="form-control" name="describe"
-                                           id="describe"  placeholder="請輸入商品描述" required="required"/>
-                                </div>
-                            </div>
+                             <div class="row mb-3">
+                                 <label  for="packagematerial" class="col-sm-2 col-form-labels">商品包裝材質:</label>
+                                 <div class="col-sm-10">
+                                     <select th:field="*{packagematerial}" class="form-control form-select mb-3" name="packagematerial" id="packagematerial"
+                                                  aria-label="Default select example">
+                                         <!-- 問一下  --> <option value="原裝利樂包" >原裝利樂包</option>
+                                         <option value="透明夾鏈立袋" >透明夾鏈立袋</option>
+                                         <option value="保溫錫箔紙" >保溫錫箔紙</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="row mb-3">
+                                 <label  for="saveway" class="col-sm-2 col-form-labels">商品保存方式:</label>
+                                 <div class="col-sm-10">
+                                     <select th:field="*{saveway}" class="form-control form-select mb-3" name="saveway" id="saveway"
+                                                  aria-label="Default select example">
+                                         <!-- 問一下 --> <option value="常溫" >常溫</option>
+                                         <option value="冷藏" >冷藏</option>
+                                         <option value="冷凍" >冷凍</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="row mb-3">
+                                 <label  for="describe" class="col-sm-2 col-form-labels">商品描述:</label>
+                                 <div class="col-sm-10">
+                                     <input th:field="*{describe}" type="text" class="form-control" name="describe"
+                                            id="describe"  placeholder="請輸入商品描述" required="required"/>
+                                 </div>
+                             </div>
 
-                            <button type="submit" class="btn btn-primary">建立商品</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
+                             <button type="submit" class="btn btn-primary">建立商品</button>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+             <!-- /.container-fluid -->
 
         </div>
         <!-- End of Main Content -->

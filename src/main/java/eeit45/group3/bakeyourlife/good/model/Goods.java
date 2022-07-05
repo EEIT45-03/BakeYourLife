@@ -6,13 +6,14 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eeit45.group3.bakeyourlife.order.model.CartItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="Member_GoodsTable3")
 @Component
-public class Goods {
+public class Goods implements CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
@@ -156,4 +157,28 @@ public class Goods {
 		this.system = system;
 	}
 
-} 
+	@Override
+	public String getCartNo() {
+		return "G" + this.id;
+	}
+
+	@Override
+	public String getCartType() {
+		return "烘培材料";
+	}
+
+	@Override
+	public Integer getCartPrice() {
+		return Integer.valueOf(this.packages);
+	}
+
+	@Override
+	public String getCartName() {
+		return this.name;
+	}
+
+	@Override
+	public boolean isEnable() {
+		return "上架中".equals(this.system);
+	}
+}
