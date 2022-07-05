@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -39,12 +39,6 @@
     <div class="row">
       <div class="col-2">
         <div class="blog__sidebar">
-<!--          <div class="blog__sidebar__search">-->
-<!--            <form action="#">-->
-<!--              <input type="text" placeholder="Search...">-->
-<!--              <button type="submit"><span class="icon_search"></span></button>-->
-<!--            </form>-->
-<!--          </div>-->
           <div class="blog__sidebar__item">
             <h4>待修改</h4>
             <ul>
@@ -59,80 +53,108 @@
         </div>
       </div>
       <div class="col-10 spad">
-        <table class="table" id="oredrTable">
-          <thead>
-          <tr>
-            <th></th>
-            <th>訂單編號</th>
-            <th>訂單日期</th>
-            <th>付款方式</th>
-            <th>總金額</th>
-            <th>訂單狀態</th>
-            <th>訂單明細</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
+          <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">全部</a>
+              </li>
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link" id="wait-pay-tab" data-toggle="tab" href="#waitpay" role="tab" aria-controls="waitpay" aria-selected="false">待付款</a>
+              </li>
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link" id="wait-ship-tab" data-toggle="tab" href="#waitship" role="tab" aria-controls="waitship" aria-selected="false">待出貨</a>
+              </li>
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link" id="receive-tab" data-toggle="tab" href="#receive" role="tab" aria-controls="receive" aria-selected="false">待收貨</a>
+              </li>
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link" id="finish-tab" data-toggle="tab" href="#finish" role="tab" aria-controls="finish" aria-selected="false">完成</a>
+              </li>
+              <li class="nav-item col-2" role="presentation">
+                  <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab" aria-controls="cancel" aria-selected="false">已取消</a>
+              </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                  <table class="table" id="oredrTable">
+                      <thead>
+                      <tr>
+                          <th></th>
+                          <th>訂單編號</th>
+                          <th>訂單日期</th>
+                          <th>付款方式</th>
+                          <th>總金額</th>
+                          <th>訂單狀態</th>
+                          <th>訂單明細</th>
+                          <th>操作</th>
+                      </tr>
+                      </thead>
+                      <tbody>
 
 
-          <!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
-          <tr th:each="order: ${orders}">
-            <td></td>
-            <td th:text="${order.orderNo}">222222222222222</td>
-            <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-            <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
-            <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
-            <td th:text="${order.orderStatus.code}"></td>
-            <td>                        <button type="button"
-                                                class="btn btn-info btn-sm"
-                                                th:onclick="|showAlert(${order.orderId})|">
+                      <!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
+                      <tr th:each="order: ${orders}">
+                          <td></td>
+                          <td th:text="${order.orderNo}">222222222222222</td>
+                          <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
+                          <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
+                          <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
+                          <td th:text="${order.orderStatus.code}"></td>
+                          <td>                        <button type="button"
+                                                              class="btn btn-info btn-sm"
+                                                              th:onclick="|showAlert(${order.orderId})|">
 														<span class="icon text-white-50">
                                                           <i class="fa-solid fa-info"></i> 訂單明細
 														</span>
-            </button></td>
-            <td class="text-right">
-              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
-                      class="btn btn-warning btn-sm mr-3"
-                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
+                          </button></td>
+                          <td class="text-right">
+                              <!--              <a th:if="${order.orderStatus.code} == '未付款'"-->
+                              <!--                 class="btn btn-warning btn-sm mr-3"-->
+                              <!--                 th:href="@{/Order/{orderNo}/Pay(orderNo=${order.orderNo})}">														<span class="icon text-gray-50">-->
+                              <!--                                                          <i class="fa-solid fa-coins"></i> 去付款-->
+                              <!--														</span></a>-->
+                              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
+                                      class="btn btn-danger btn-sm mr-3"
+                                      th:attr="onclick=|cancelAlert('${order.orderNo}')|">
 														<span class="icon text-gray-50">
-                                                          <i class="fa-solid fa-truck-fast"></i> 去付款
+                                                          <i class="fa-solid fa-ban"></i> 取消訂單
 														</span>
-              </button>
-              <button th:if="${order.orderStatus.code} == '未付款'" type="button"
-                      class="btn btn-warning btn-sm mr-3"
-                      th:attr="onclick=|shipAlert('${order.orderNo}')|">
-														<span class="icon text-gray-50">
-                                                          <i class="fa-solid fa-truck-fast"></i> 取消訂單
-														</span>
-              </button>
+                              </button>
 
-              <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
-                      class="btn btn-danger btn-sm mr-2"
-                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
+                              <button th:if="${order.orderStatus.code} == '未發貨'" type="button"
+                                      class="btn btn-danger btn-sm mr-3"
+                                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 提出退款
 														</span>
-              </button>
-              <button th:if="${order.orderStatus.code} == '待收貨'" type="button"
-                      class="btn btn-danger btn-sm mr-2"
-                      th:attr="onclick=|refundAlert('${order.orderNo}')|">
+                              </button>
+                              <button th:if="${order.orderStatus.code} == '待收貨'" type="button"
+                                      class="btn btn-success btn-sm mr-3"
+                                      th:attr="onclick=|receiveAlert('${order.orderNo}')|">
 														<span class="icon text-danger-50">
                                                           <i class="fa-solid fa-sack-dollar"></i> 確認收貨
 														</span>
-              </button>
+                              </button>
 
-            </td>
-            <!--                    <td>-->
+                          </td>
+                          <!--                    <td>-->
 
-            <!--                      <ul th:each="orderItem:${order.orderItemList}">-->
-            <!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
-            <!--                      </ul>-->
-            <!--                    </td>-->
-            <!--                    <td th:text="${order.address}"></td>-->
+                          <!--                      <ul th:each="orderItem:${order.orderItemList}">-->
+                          <!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
+                          <!--                      </ul>-->
+                          <!--                    </td>-->
+                          <!--                    <td th:text="${order.address}"></td>-->
 
-          </tr>
-          </tbody>
-        </table>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="tab-pane fade" id="waitpay" role="tabpanel" aria-labelledby="wait-pay-tab">...</div>
+              <div class="tab-pane fade" id="waitship" role="tabpanel" aria-labelledby="wait-ship-tab">...</div>
+              <div class="tab-pane fade" id="receive" role="tabpanel" aria-labelledby="receive-tab">...</div>
+              <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">...</div>
+              <div class="tab-pane fade" id="cancel" role="tabpanel" aria-labelledby="cancel-tab">...</div>
+          </div>
+
       </div>
     </div>
   </div>

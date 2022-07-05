@@ -15,6 +15,7 @@ public interface OrderService {
     //查詢定單區間
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
 
+    List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
     List<Order> findAllByCouponCode(String code);
 
     /*
@@ -25,9 +26,11 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-//    List<Order> findAllByUser(User user);
+    List<Order> findAllByUser(User user);
 
     List<Order> findAllByUserId(Integer userId);
+
+
 
     //查詢所有訂單
     List<Order> findAll();

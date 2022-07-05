@@ -71,7 +71,7 @@
 									<label for="userName" class="col-sm-2 col-form-labels">帳號:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" name="userName"
-											id="userName" value="${user.userName}"  readonly required>
+											id="userName" value="${user.username}"  readonly required>
 											<span
 											class="show" id="s_userName"></span>
 									</div>

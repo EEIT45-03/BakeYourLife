@@ -76,6 +76,11 @@ public class RentalServiceImpl implements RentalService{
 		return rentalRepository.findAllByType(listType);
 	}
 
+	@Override
+	public List<Rental> findAllByDateBetween(String lDate, String eDate){
+		return rentalRepository.findAllByDateBetween(lDate, eDate);
+	}
+
 	//新增租借單
 	@Override
 	@Transactional
@@ -187,6 +192,9 @@ public class RentalServiceImpl implements RentalService{
 	public List<Venue> findAllVenue() {
 		return venueRepository.findAll();
 	}
+
+	//查詢全部的教室名稱
+	public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
 
 	//依教室ID查詢教室
 	@Override
@@ -301,6 +309,13 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public List<Tackle> findAllTackle() {
 		return tackleRepository.findAll();
+	}
+
+
+	//查詢全部的器具名稱
+	@Override
+	public List<String> findAllTackleName(){
+		return tackleRepository.findAllTackleName();
 	}
 
 	//依器具ID查詢器具

@@ -54,10 +54,16 @@ public class OrderServiceImpl implements OrderService {
 		this.persister = persister;
 	}
 
+
 	@Override
 	public List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd) {
 
 		return orderRepository.findAllByOrderDateBetween(orderDateStart, orderDateEnd);
+	}
+
+	@Override
+	public List<Order> findAllByUserAndOrderDateBetween(User user, Date orderDateStart, Date orderDateEnd) {
+		return orderRepository.findAllByUserAndOrderDateBetween(user,orderDateStart,orderDateEnd);
 	}
 
 	@Override
@@ -67,6 +73,14 @@ public class OrderServiceImpl implements OrderService {
 			return orderRepository.findAllByCoupon(coupon);
 		}
 		return null;
+	}
+
+	@Override
+	public List<Order> findAllByUser(User user) {
+		if(user == null){
+			return null;
+		}
+		return orderRepository.findAllByUser(user);
 	}
 
 	@Override

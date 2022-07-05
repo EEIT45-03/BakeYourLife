@@ -15,11 +15,32 @@ $(document).ready(function () {
             targets: 0
         }, {
             className: 'dt-center',
-            targets: [1, 2, 3, 4, 5, 6, 7]
+            targets: [1, 2, 3, 4, 5]
+        }],
+        order: [1, 'asc']
+    });
+
+    $('#venueTable').DataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+        },
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        columnDefs: [{
+            className: 'dtr-control',
+            orderable: false,
+            targets: 0
+        }, {
+            className: 'dt-center',
+            targets: [1, 2, 3, 4, 5]
         }],
         order: [1, 'asc']
     });
 });
+
 /*==========================================================================================================================*/
 //刪除租借單
 function deleteRental(rentalId) {
@@ -142,7 +163,6 @@ Swal.fire({
 })
 });
 }
-
 //跳出新增器具清單
 function createTackleList(rentalId){
     Swal.showLoading()
@@ -222,8 +242,6 @@ Swal.fire({
 })
 });
 }
-
-
 //跳出新增場地清單
 function createVenueList(rentalId){
 Swal.showLoading()
@@ -303,8 +321,6 @@ function updateVenue(venueId){
             })
         });
 }
-
-
 //跳出新增場地
 function createVenue(){
     Swal.showLoading()
@@ -384,8 +400,6 @@ function updateTackle(tackleId){
             })
         });
 }
-
-
 //跳出新增器具
 function createTackle(){
     Swal.showLoading()
