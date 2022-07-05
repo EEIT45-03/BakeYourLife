@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>小農商品評論管理</title>
+
+    <div th:replace="/admin/css.html"></div>
+
+    <style>
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+
+        .commentcard {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            width: 450px;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: 6px;
+            -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+        }
+
+        .rating {
+            display: flex;
+            margin-top: 6px;
+            flex-direction: row-reverse;
+            margin-left: -4px;
+            float: left;
+        }
+
+        .rating > input {
+            display: none
+        }
+
+        .rating > label {
+            position: relative;
+            width: 40px;
+            font-size: 50px;
+            color: #1cc88a;
+            cursor: pointer;
+        }
+
+        .rating > label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+            opacity: 1 !important
+        }
+
+        .rating > input:checked ~ label:before {
+            opacity: 1
+        }
+
+        .rating:hover > input:checked ~ label:before {
+            opacity: 0.4
+        }
+
+    </style>
+
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">小農評論管理</h1>
+                <p class="mb-4">
+
+                    <button type="button" class="btn btn-primary btn-icon-split btn-sm create">
+                        <span class="icon text-white-50"><i class="fas fa-plus"></i></span><span
+                            class="text">建立評論</span></button>
+                </p>
+
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">評論資訊</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <table class="table table-striped" id="couponTable">
+                                <thead>
+                                <tr>
+                                    <th>評論編號</th>
+                                    <th>評論者</th>
+                                    <th>商品名稱</th>
+                                    <th>評論時間</th>
+                                    <th>星星數</th>
+                                    <th>評論內容</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<script>
+    $(function () {
+        var table = $('#couponTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+            },
+            ajax: {
+                url: '[[@{/ProductComments}]]',
+                dataSrc: ''
+            },
+            columns: [
+                {data: 'productCommentId'},
+                {data: 'user'},
+                {data: 'farmerProductBean'},
+                {data: 'time'},
+                {data: 'star'},
+                {data: 'cotent'},
+                {
+                    data: null, defaultContent:
+                        `<button type="button" class="btn btn-warning btn-sm update">
+       <span class="icon text-white-50"><i class="fas fa-pen"></i></span></button>
+       <button type="button" class="btn btn-danger btn-sm delete">
+       <span class="icon text-white-50"> <i class="fas fa-trash"></i></span></button>
+`
+                }
+            ]
+        });
+        $('#couponTable tbody').on('click', '.delete', function () {
+            var data = table.row($(this).parents('tr')).data();
+            deleteAlert(data.productCommentId);
+        });
+        $('#couponTable tbody').on('click', '.update', function () {
+            var data = table.row($(this).parents('tr')).data();
+            // location.href = '[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + data.productCommentId
+            updateAlert(data.productCommentId);
+        });
+    });
+    $(".create").on("click", function () {
+
+        Swal.showLoading()
+        fetch('./CreateProductComment')
+            .then(response => response.text())
+            .then(function (data) {
+
+                Swal.fire({
+                    title: '建立評論',
+                    icon: 'info',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+
+    })
+
+
+    //跳出修改
+    function updateAlert(productCommentId) {
+        Swal.showLoading()
+        fetch('[[@{/admin/ProductComment/UpdateProductComment(productCommentId)}]]=' + productCommentId)
+            .then(response => response.text())
+            .then(function (data) {
+
+                Swal.fire({
+                    title: '修改評論',
+                    icon: 'info',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+    }
+
+
+    function deleteAlert(productCommentId) {
+        Swal.fire({
+            title: '請問是否要刪除此評論?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '刪除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: '[[@{/ProductComments/}]]' + productCommentId,
+                    success: function (msg) {
+                        Swal.fire(
+                            '已刪除!',
+                            '評論已成功刪除!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+
+
+            }
+        })
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

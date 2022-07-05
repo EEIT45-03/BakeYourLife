@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    
+
     List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
 
     List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);

@@ -22,59 +22,60 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 @RequestMapping(path = "/admin/User")
 public class UserController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@GetMapping("/")
-	public String viewIndex(Model model) {
-		List<User> users = userService.findAll();
-		model.addAttribute("users", users);
-		return "admin/user/User";
-	}
+    @GetMapping("/")
+    public String viewIndex(Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "admin/user/User";
+    }
 
-	@GetMapping("CreateUser")
-	public String viewCreateUser() {
-		return "admin/user/CreateUser";
-	}
+    @GetMapping("CreateUser")
+    public String viewCreateUser() {
+        return "admin/user/CreateUser";
+    }
 
-	@PostMapping("CreateUser")
-	public String createUser(User user) {
-		userService.save(user);
-		return "redirect:./";
-	}
+    @PostMapping("CreateUser")
+    public String createUser(User user) {
+        userService.save(user);
+        return "redirect:./";
+    }
 
-	@GetMapping("/update/{userId}")
-	public String viewUpdateUser(@PathVariable("userId") Integer userId, Model model) {
-		User user = userService.findByUserId(userId);
-		model.addAttribute(user);
-		return "admin/user/UpdateUser";
+    @GetMapping("/update/{userId}")
+    public String viewUpdateUser(@PathVariable("userId") Integer userId, Model model) {
+        User user = userService.findByUserId(userId);
+        model.addAttribute(user);
+        return "admin/user/UpdateUser";
 
-	}
+    }
 
-	@PostMapping("/update/{userId}")
-	public String updateUser(User user) {
-		userService.updateUser(user);
-		return "redirect:../";
-	}
+    @PostMapping("/update/{userId}")
+    public String updateUser(User user) {
+        userService.updateUser(user);
+        return "redirect:../";
+    }
 
-	@RequestMapping("DeleteUser")
-	public String deleteUser(@RequestParam Integer userId) {
-		userService.deleteByUserId(userId);
-		return "redirect:./";
+    @RequestMapping("DeleteUser")
+    public String deleteUser(@RequestParam Integer userId) {
+        userService.deleteByUserId(userId);
+        return "redirect:./";
 
-	}
+    }
 
-	@PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
-	public @ResponseBody boolean checkUser(@RequestParam String username) {
-		User user = userService.findByUsername(username);
-		if (user == null) {
-			return true;
-		}
-		return false;
-	}
-	@GetMapping("/logUser")
-	public ResponseEntity<?> getAuth(Principal principal){
-		return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
-	}
+    @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
+    public @ResponseBody boolean checkUser(@RequestParam String username) {
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            return true;
+        }
+        return false;
+    }
+
+    @GetMapping("/logUser")
+    public ResponseEntity<?> getAuth(Principal principal) {
+        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
+    }
 
 }

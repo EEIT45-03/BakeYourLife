@@ -13,19 +13,12 @@
     <style>
 
 
-        .imgParent {
-            width: 120px;
-            height: 90px;
-            overflow: hidden;
-        }
-
         .img {
             border-radius: 5px;
             object-fit: cover;
             width: 120px;
             height: 90px;
-            /* max-width: 100%; */
-            /* max-height: 100%; */
+
         }
 
         .table th {
@@ -55,7 +48,12 @@
         }
 
         .btn {
+
             margin: 5px;
+        }
+
+        span {
+            white-space: nowrap;
         }
 
 
@@ -84,6 +82,15 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">小農商品管理</h1>
 
+
+                <p class="mb-4">
+                    <a href="/FarmerProductSupplier/" target="_blank" class="btn btn-primary btn-icon-split btn-sm">
+                        <span class="icon text-white-50"> <i class="fas fa-fw fa-tractor"></i> </span> <span
+                            class="text">前往小農廠商 (前台) </span>
+                    </a>
+                </p>
+
+
                 <div class="card shadow mb-4 ">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">小農商品資訊</h6>
@@ -95,16 +102,17 @@
                                 <tr>
                                     <th></th>
                                     <th>商品編號</th>
-                                    <th>商品類型</th>
+                                    <th class="none">商品類型</th>
                                     <th>商品圖片</th>
                                     <th>商品名稱</th>
-                                    <th>價格</th>
-                                    <th>數量</th>
+                                    <th class="none">價格</th>
+                                    <th class="none">數量</th>
                                     <th>狀態</th>
                                     <th class="none">內容物</th>
                                     <th class="none">保存方式</th>
                                     <th class="none">商品介紹</th>
-                                    <th>動作</th>
+                                    <th>上下架</th>
+                                    <th>修改</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,7 +145,11 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td th:text="${bean.name}"></td>
+                                    <td class="namelink">
+                                        <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                           th:text="${bean.name}" target=" _blank">
+                                        </a>
+                                    </td>
                                     <td th:text="|NT$ ${bean.price}|"></td>
                                     <td th:text="${bean.quantity}"></td>
 
@@ -186,7 +198,8 @@
                                         </span> <span class="text">商品違規</span>
                                     </button>
                                 </span>
-                                        <br>
+                                    </td>
+                                    <td>
 
                                         <span th:if="${bean.state}!=2">
                                 <a th:href="@{UpdateFarmerProduct(farmerProductId=${bean.farmerProductId})}"

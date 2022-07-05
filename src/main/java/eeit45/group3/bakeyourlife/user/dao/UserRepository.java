@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUsername(String username);
+
     User findByPhone(String phone);
+
     User findByEmail(String email);
 }
