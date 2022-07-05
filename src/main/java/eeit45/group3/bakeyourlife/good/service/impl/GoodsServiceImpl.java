@@ -11,45 +11,45 @@ import java.util.List;
 
 @Service
 @Transactional
-public class GoodServiceImpl implements GoodService {
+public class GoodsServiceImpl implements GoodService {
 
-    GoodsRepository repository;
+    GoodsRepository goodsRepository;
 
     @Autowired
-    public GoodServiceImpl(GoodsRepository repository) {
-        this.repository = repository;
+    public GoodsServiceImpl(GoodsRepository goodsRepository) {
+        this.goodsRepository = goodsRepository;
     }
 
     @Override
     public Goods isDup(String name) {
-        return repository.findByName(name);
-    }
 
+        return goodsRepository.findGoodsByName(name);
+    }
+    @Transactional
     @Override
-    public int save(Goods good) {
-        Goods goods = repository.save(good);
-        return goods.getId();
+    public void save(Goods good) {
+        goodsRepository.save(good);
     }
 
     @Override
     public List<Goods> getAllGoods() {
-        return repository.findAll();
+        return goodsRepository.findAll();
     }
 
     @Override
     public Goods getGoods(int pk) {
-        return repository.findById(pk).orElse(null);
+        return goodsRepository.findGoodsById(pk);
     }
 
     @Override
-    public int deleteGoods(int ipk) {
-        repository.deleteById(ipk);
-        return 1;
+    @Transactional
+    public void deleteGoods(int ipk) {
+         goodsRepository.deleteById(ipk);
     }
 
     @Override
-    public int updateGoods(Goods mb) {
-        repository.save(mb);
-        return 1;
+    @Transactional
+    public void updateGoods(Goods mb) {
+         goodsRepository.save(mb);
     }
 }

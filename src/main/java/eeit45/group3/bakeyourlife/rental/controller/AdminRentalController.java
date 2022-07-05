@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class AdminRentalController {
 
     private UserService userService;
 
+
+    /*================================租借單=========================================*/
+
     @Autowired
     public AdminRentalController(RentalService rentalService, UserService userService) {
         this.rentalService = rentalService;
@@ -34,35 +38,62 @@ public class AdminRentalController {
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "listType", required = false) String listType,
-                            @RequestParam(value = "lDate", required = false) String lDate,
-                            @RequestParam(value = "eDate", required = false) String eDate,
+                            @RequestParam(value = "rNo", required = false) String rNo,
+                            @RequestParam(value = "user1", required = false) String user1,
                             Model model) {
+        model.addAttribute("users", userService.findAll());
 
         List<Rental> rentals = null;
 
+        List<String> select = new ArrayList<String>();
         if(listType != null && listType.length()>0){
-            if(listType == "tackle"){
+            select.add(listType);
+        } else{
+            listType = null;
+        }
+        if(rNo != null && rNo.length()>0){
+            select.add(rNo);
+        }
+        if(user1 != null && user1.length()>0){
+            select.add(user1);
+        }
 
-            } else if(listType == "venue"){
-
+        if(select.size() == 1){
+            if(select.get(0) == listType){
+                rentals = rentalService.findAllByType(listType);
+            } else if (select.get(0) == rNo) {
+                rentals = rentalService.findAllByRentalNoStartingWith(rNo);
+            } else if (select.get(0) == user1){
+                rentals = rentalService.findAllByUser(Integer.valueOf(user1));
             }
+        } else if(select.size() == 2){
+            if(listType == null || listType.length()<=0){
+                rentals = rentalService.findAllByUserAndRentalNoStartingWith(Integer.valueOf(user1), rNo);
+            } else if (rNo == null || rNo.length()<=0) {
+                rentals = rentalService.findAllByUserAndType(Integer.valueOf(user1) ,listType);
+            } else if (user1 == null || user1.length()<=0){
+                rentals = rentalService.findAllByTypeAndRentalNoStartingWith(listType, rNo);
+            }
+        } else if (select.size() == 3) {
+            rentals = rentalService.findAllByUserAndTypeAndRentalNoStartingWith(Integer.valueOf(user1),listType,rNo);
         } else {
             rentals = rentalService.findAllRental();
         }
 
-
         //設置給JSP使用
         model.addAttribute("rentals", rentals);
+
         return "admin/rental/Rental";
     }
 
-    /*================================租借單=========================================*/
 
     @GetMapping("/CreateRental")
     public String viewCreateRental(Model model) {
+
         List<User> users = userService.findAll();
-        RentalRequest rentalRequest = new RentalRequest();
-        rentalRequest.setTotal(0);
+
+        RentalRequest rentalRequest = rentalService.createRentalRequest();
+
         //表單綁定用
         model.addAttribute("users",users);
         model.addAttribute("rental",rentalRequest);
@@ -71,6 +102,7 @@ public class AdminRentalController {
 
     @PostMapping("CreateRental")
     public String createRental(@ModelAttribute("rental") RentalRequest rentalRequest ) {
+        rentalService.updateProduceNo(rentalRequest.getRentalNo());
         rentalService.createRental(rentalRequest);
         return "redirect:./";
     }
@@ -87,7 +119,7 @@ public class AdminRentalController {
             rental = rentalService.findByRentalId(rentalId);
         }
         if(rental != null) {
-            rentalRequest.setRentalId(rental.getRentalId());
+            rentalRequest.setRentalId(rentalId);
             rentalRequest.setRentalNo(rental.getRentalNo());
             rentalRequest.setListType(rental.getType());
             rentalRequest.setUserId(rental.getUser().getUserId());
@@ -136,12 +168,12 @@ public class AdminRentalController {
 
         if(FK_rentalId != null) {
             rental = rentalService.findByRentalId(FK_rentalId);
-
         }
         if(rental != null) {
+            TackleListRequest tackleListRequest = rentalService.createTackleListRequest(rental);
             tackles = rentalService.findAllTackle();
             model.addAttribute("tackles",tackles);
-            model.addAttribute("tackleList",new TackleListRequest(rental));
+            model.addAttribute("tackleList", tackleListRequest);
             return "admin/rental/CreateTackleList";
         }
         return null;
@@ -149,6 +181,7 @@ public class AdminRentalController {
 
     @PostMapping("CreateTackleList")
     public String createTackleList(@RequestParam Integer FK_rentalId, @ModelAttribute("tackleList") TackleListRequest tackleListRequest ) {
+        rentalService.updateProduceNo(tackleListRequest.getTackleListNo());
         rentalService.createTackleList(FK_rentalId,tackleListRequest);
         return "redirect:./";
     }
@@ -233,9 +266,10 @@ public class AdminRentalController {
             rental = rentalService.findByRentalId(FK_rentalId);
         }
         if(rental != null) {
+            VenueListRequest venueListRequest = rentalService.createVenueListRequest(rental);
             venues = rentalService.findAllVenue();
             model.addAttribute("venues",venues);
-            model.addAttribute("venueList",new VenueListRequest(rental));
+            model.addAttribute("venueList", venueListRequest);
             return "admin/rental/CreateVenueList";
         }
         return null;
@@ -244,6 +278,7 @@ public class AdminRentalController {
     @PostMapping("CreateVenueList")
     public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueListRequest venueListRequest ) {
         rentalService.createVenueList(FK_rentalId,venueListRequest);
+        rentalService.updateProduceNo(venueListRequest.getVenueListNo());
         return "redirect:./";
     }
 

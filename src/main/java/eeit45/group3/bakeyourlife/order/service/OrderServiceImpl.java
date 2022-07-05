@@ -13,6 +13,8 @@ import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -21,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
-import eeit45.group3.bakeyourlife.order.dto.OrderRequest;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -67,6 +68,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable) {
+		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user,pageable);
+	}
+
+	@Override
 	public List<Order> findAllByCouponCode(String code) {
 		Coupon coupon = couponService.findById(code).orElse(null);
 		if(coupon != null){
@@ -92,10 +98,14 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAllByUser(user);
 	}
 
-
 	@Override
 	public List<Order> findAll() {
 		return orderRepository.findAll();
+	}
+
+	@Override
+	public Page<Order> findAll(Pageable pageable) {
+		return orderRepository.findAll(pageable);
 	}
 
 	@Override
@@ -249,45 +259,45 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 
-	@Override
-	@Transactional
-	public Order createOrder(OrderRequest orderRequest) {
-		Order order = new Order();
-		//設定訂單編號
-		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date current = new Date();
-		int end = (int) (Math.random()*10);
-		order.setOrderNo(df.format(current) + end);
-		order.setOrderDate(current);
-		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
-		
-		User user = userService.findByUserId(orderRequest.getUserId());
-		order.setUser(user);
-		order.setAddress(orderRequest.getAddress());
-//		order.setOrderType(orderRequest.getOrderType());
-		order.setShippingFee(orderRequest.getShippingFee());
-		
-		
-		Set<OrderItem> orderItems = new LinkedHashSet<>();
-		order.setOrderItemList(orderItems);
-		
-		int sum=0;
-		for(int i = 0;i<orderRequest.getProductNo().length;i++) {
-			OrderItem orderItem = new OrderItem();
-			orderItem.setProductName(orderRequest.getProductName()[i].trim());
-			orderItem.setProductNo(orderRequest.getProductNo()[i]);
-			orderItem.setQty(orderRequest.getQty()[i]);
-			orderItem.setSubTotal(orderRequest.getSubTotal()[i]);
-			orderItem.setOrder(order);
-			sum+=orderItem.getSubTotal();
-			orderItems.add(orderItem);
-		}
-		
-		order.setTotalPrice(sum+order.getShippingFee());
-		
-
-		return orderRepository.save(order);
-	}
+//	@Override
+//	@Transactional
+//	public Order createOrder(OrderRequest orderRequest) {
+//		Order order = new Order();
+//		//設定訂單編號
+//		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//		Date current = new Date();
+//		int end = (int) (Math.random()*10);
+//		order.setOrderNo(df.format(current) + end);
+//		order.setOrderDate(current);
+//		order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+//
+//		User user = userService.findByUserId(orderRequest.getUserId());
+//		order.setUser(user);
+//		order.setAddress(orderRequest.getAddress());
+////		order.setOrderType(orderRequest.getOrderType());
+//		order.setShippingFee(orderRequest.getShippingFee());
+//
+//
+//		Set<OrderItem> orderItems = new LinkedHashSet<>();
+//		order.setOrderItemList(orderItems);
+//
+//		int sum=0;
+//		for(int i = 0;i<orderRequest.getProductNo().length;i++) {
+//			OrderItem orderItem = new OrderItem();
+//			orderItem.setProductName(orderRequest.getProductName()[i].trim());
+//			orderItem.setProductNo(orderRequest.getProductNo()[i]);
+//			orderItem.setQty(orderRequest.getQty()[i]);
+//			orderItem.setSubTotal(orderRequest.getSubTotal()[i]);
+//			orderItem.setOrder(order);
+//			sum+=orderItem.getSubTotal();
+//			orderItems.add(orderItem);
+//		}
+//
+//		order.setTotalPrice(sum+order.getShippingFee());
+//
+//
+//		return orderRepository.save(order);
+//	}
 
 
 	@Override

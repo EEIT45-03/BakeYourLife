@@ -4,17 +4,19 @@ import java.util.List;
 
 
 import eeit45.group3.bakeyourlife.good.model.Goods;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface GoodService {
 	Goods isDup(String name);
 
-	int save(Goods good);
+	void save(Goods good);
 
 	List<Goods> getAllGoods();
 
 	Goods getGoods(int pk);
 
-	int deleteGoods(int ipk);
+	void deleteGoods(int ipk);
 
-	int updateGoods(Goods mb);
+	void updateGoods(Goods mb);
 }
