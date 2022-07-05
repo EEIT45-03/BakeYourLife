@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>課程管理</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">課程管理</h1>
+
+
+                <p class="mb-4">
+                    <a href="./" class="btn btn-secondary btn-icon-split btn-sm"/> <span
+                        class="icon text-white-50"> <i class="fas fa-plus"></i>
+                            </span> <span class="text">回前頁</span>
+                    </a>
+
+
+                    <a href="./addP" class="btn btn-primary btn-icon-split btn-sm"/> <span
+                        class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">新增課程種類</span>
+                    </a>
+
+
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">課程資訊</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="courseProductTable">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th scope="col">課程封面</th>
+                                    <th scope="col">課程名稱</th>
+                                    <th scope="col">課程資訊</th>
+                                    <th scope="col">課程價格</th>
+                                    <th scope="col">刪除課程</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="product : ${products}">
+                                    <td></td>
+                                    <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height: 100px;"></th>
+                                    <td>[[*{product.name}]]</td>
+                                    <td>[[*{product.description}]]</td>
+                                    <td>[[*{product.price}]]</td>
+                                    <td><a th:href="@{'deleteProd/{id}'(id=${product.id})}"
+                                           class="btn btn-danger mt-4">delete</a></td>
+
+
+
+                                </tr>
+                                <!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<div th:replace="/admin/javascript.html"></div>
+<script th:src="@{/js/course.js}"></script>
+</body>
+</html>
+
+

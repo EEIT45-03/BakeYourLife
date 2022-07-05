@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>建立課程</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="./" class="btn btn-primary btn-icon-split btn-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-undo"></i>
+                                    </span>
+                        <span class="text">返回課程管理</span>
+                    </a>
+                </p>
+
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">建立新課程類型</h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- FormInput -->
+                        <form action="" method="post" enctype="multipart/form-data" th:object="${product}">
+                            <!-- Name -->
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-2 col-form-labels">課程名稱:</label>
+                                <div class="col-sm-10">
+                                    <input th:value="*{name}" type="text" name="pname" id="name" class="form-control mb-4"
+                                           placeholder="課程名稱">
+                                </div>
+                            </div>
+
+
+
+                            <!-- Price -->
+                            <div class="row mb-3">
+                                <label for="price" class="col-sm-2 col-form-labels">課程金額:</label>
+                                <div class="col-sm-10">
+                                    <input th:value="*{price}" type="text" name="price" id="price" class="form-control mb-4"
+                                           placeholder="課程金額">
+                                </div>
+                            </div>
+
+
+                            <!-- Description -->
+                            <div class="row mb-3">
+                                <label for="desc" class="col-sm-2 col-form-labels">課程說明:</label>
+                                <div class="col-sm-10">
+                                    <textarea th:value="*{description}" class="form-control mb-4" id="desc" name="desc"
+                                              placeholder="課程說明">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <!-- Description -->
+                            <div class="custom-file mb-4">
+<!--                            <div class="col-sm-10">-->
+                                <label class="custom-file-label" for="customFile" >Product Image</label>
+
+                                <input th:value="*{image}" type="file" name="file" class="custom-file-input"
+                                       id="customFile"  >
+<!--                                </div>-->
+                            </div>
+
+                            <!-- Sign in button -->
+                            <button class="btn btn-secondary" type="submit">新增課程</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Main Content -->
+        <div th:replace="/admin/footer.html"></div>
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<div th:replace="/admin/javascript.html"></div>
+<script th:src="@{/js/course.js}"></script>
+
+
+</body>
+
+</html>
