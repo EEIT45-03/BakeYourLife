@@ -39,6 +39,8 @@ public interface RentalService {
 
 	List<Rental> findAllByUserAndTypeAndRentalNoStartingWith(Integer userId,String listType, String rentalNo);
 
+
+
 	public List<Rental> findAllByDateBetween(String lDate, String eDate);
 
 		
@@ -66,6 +68,9 @@ public interface RentalService {
 		
 	//依租借單ID查詢場地租借清單
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId);
+
+	//查詢租借單場地租借總金額
+	public Long findVenueListPriceSumByRental(Rental rental);
 		
 	//依租借時間查詢場地
 //	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime);
@@ -126,6 +131,9 @@ public interface RentalService {
 		
 	//依租借單ID查詢器具租借清單
 	public List<TackleList> findTackleListByFK_RentalId(Integer FK_RentalId);
+
+	//查詢租借單器具租借總金額
+	public Long findTackleListPriceSumByRental(Rental rental);
 		
 	//依租借時間查詢器具
 //	public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime);

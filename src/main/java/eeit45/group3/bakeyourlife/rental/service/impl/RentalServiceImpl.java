@@ -212,6 +212,13 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.findAllByRental(rental);
 	}
 
+	//查詢租借單場地租借總金額
+	@Override
+	public Long findVenueListPriceSumByRental(Rental rental) {
+		return venueListRepository.findPriceSumByRental(rental);
+	}
+
+
 	//依租借時間查詢場地
 //	@Override
 //	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime) {
@@ -362,6 +369,12 @@ public class RentalServiceImpl implements RentalService{
 	public List<TackleList> findTackleListByFK_RentalId(Integer FK_RentalId) {
 		Rental rental = rentalRepository.findById(FK_RentalId).orElse(null);
 		return tackleListRepository.findAllByRental(rental);
+	}
+
+	//查詢租借單器具租借總金額
+	@Override
+	public Long findTackleListPriceSumByRental(Rental rental) {
+		return tackleListRepository.findPriceSumByRental(rental);
 	}
 
 	//依租借時間查詢器具
