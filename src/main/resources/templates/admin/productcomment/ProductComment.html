@@ -26,6 +26,14 @@
             text-align: center;
         }
 
+        td.child {
+            text-align: left;
+        }
+
+        ul {
+            text-align: left;
+        }
+
 
         .text {
             white-space: pre;
@@ -139,7 +147,7 @@
                                     <th>商品名稱</th>
                                     <th>評論時間</th>
                                     <th>星星數</th>
-                                    <th>評論內容</th>
+                                    <th class="none">評論內容</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -156,7 +164,10 @@
                                         <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
                                     </td>
                                     <td th:text="${comment.star}"></td>
-                                    <td th:text="${comment.commentContent}"></td>
+                                    <td>
+                                        <p th:utext="${#strings.replace(#strings.escapeXml(comment.commentContent),'&#10;','&lt;br&gt;')}"></p>
+                                    </td>
+
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm update"
                                                 th:onclick="|updateAlert(${comment.productCommentId})|">
@@ -388,9 +399,9 @@
 
     function getComment() {
 
-        var star = $('input[name=star]:checked').val();
-        var commentContent = $("#commentContent").val();
 
+        var star = $('input[name=star]:checked').val();
+        var commentContent = $.trim($("#commentContent").val());
         var Comment = {
             "star": star,
             "commentContent": commentContent,
@@ -416,6 +427,18 @@
             return false;
         }
         return true;
+    }
+
+    function inputGood() {
+        $("#commentContent").val("好讚 好讚 好讚 好讚\n" +
+            "好讚 好讚 好讚 好讚\n" +
+            "好讚 好讚 好讚 好讚")
+    }
+
+    function inputBad() {
+        $("#commentContent").val("好爛 好爛 好爛 好爛\n" +
+            "好爛 好爛 好爛 好爛\n" +
+            "好爛 好爛 好爛 好爛")
     }
 
 

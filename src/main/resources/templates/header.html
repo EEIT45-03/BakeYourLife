@@ -73,6 +73,7 @@
                 </ul>
             </li>
 
+
             <!--            <li><a href="#">Pages</a>-->
             <!--                <ul class="header__menu__dropdown">-->
             <!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
@@ -165,7 +166,7 @@
                     <a href="./index.html"><img src="/img/logo3.png" alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="/">Bake Your Life</a>
@@ -226,18 +227,18 @@
                                 <li><a href="./blog-details.html">我的租借</a></li>
                             </ul>
                         </li>
-                        <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>
+                        <li sec:authorize="isAuthenticated()"><a href="/FarmerProductSupplier/"
+                                                                 sec:authentication="name"></a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">小農廠商資料</a></li>
                                 <li><a href="#">小農商品清單</a></li>
                                 <li><a href="#">小農訂單紀錄</a></li>
-                                <li><a href="#">小農審核紀錄</a></li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>喜愛的項目</span></a></li>
