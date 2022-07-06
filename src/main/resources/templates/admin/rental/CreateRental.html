@@ -55,8 +55,10 @@
                             <div class="row mb-3">
                                 <label for="rentalNo" class="col-sm-2 col-form-labels">租借單編號:</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{rentalNo}" type="text" class="form-control" name="rentalNo"
-                                           id="rentalNo" placeholder="請輸入租借單編號" required="required" th:readonly="true" />
+                                    <input th:field="*{rentalNo}" name="rentalNo" id="rentalNo" type="text" class="form-control"
+                                           placeholder="請輸入租借單編號" required="required" th:readonly="true" />
+
+
                                 </div>
                             </div>
 
@@ -87,7 +89,7 @@
                                 <label for="total" class="col-sm-2 col-form-labels">總金額:</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{total}" type="number" class="form-control" name="total"
-                                               id="total" th:min="0" required="required" />
+                                               id="total" th:min="0"  required="required" />
                                 </div>
                             </div>
 

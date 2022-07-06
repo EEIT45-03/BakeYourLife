@@ -1,5 +1,8 @@
 package eeit45.group3.bakeyourlife._init;
 
+import eeit45.group3.bakeyourlife.rental.model.Tackle;
+import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -14,9 +17,12 @@ public class AdminDataInitialization implements ApplicationListener<ContextRefre
 
     UserService userService;
 
+    RentalService rentalService;
+
     @Autowired
-    public AdminDataInitialization(UserService userService) {
+    public AdminDataInitialization(UserService userService,RentalService rentalService) {
         this.userService = userService;
+        this.rentalService = rentalService;
     }
 
     @Override
@@ -33,6 +39,11 @@ public class AdminDataInitialization implements ApplicationListener<ContextRefre
             userService.updateUser(user);
         }
 
+        Venue venue = rentalService.findByVenueId(1);
+        if (venue == null){
+            venue= new Venue("B201", 10);
+            rentalService.createVenue(venue);
+        }
     }
 
 }
