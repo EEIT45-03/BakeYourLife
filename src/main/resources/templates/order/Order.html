@@ -83,14 +83,20 @@
                            aria-selected="false">已取消</a>
                     </li>
                 </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">...</div>
-                    <div class="tab-pane fade" id="waitpay" role="tabpanel" aria-labelledby="wait-pay-tab">...</div>
-                    <div class="tab-pane fade" id="waitship" role="tabpanel" aria-labelledby="wait-ship-tab">...</div>
-                    <div class="tab-pane fade" id="receive" role="tabpanel" aria-labelledby="receive-tab">...</div>
-                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">...</div>
-                    <div class="tab-pane fade" id="cancel" role="tabpanel" aria-labelledby="cancel-tab">...</div>
-                    <!--            <div id="pages"></div>-->
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">...</div>
+                                <div class="tab-pane fade" id="waitpay" role="tabpanel" aria-labelledby="wait-pay-tab">...</div>
+                                <div class="tab-pane fade" id="waitship" role="tabpanel" aria-labelledby="wait-ship-tab">...</div>
+                                <div class="tab-pane fade" id="receive" role="tabpanel" aria-labelledby="receive-tab">...</div>
+                                <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">...</div>
+                                <div class="tab-pane fade" id="cancel" role="tabpanel" aria-labelledby="cancel-tab">...</div>
+                                <!--            <div id="pages"></div>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -116,7 +122,7 @@
             // console.log("hashchange");
             getTabsData(status);
 
-            document.documentElement.scrollTop = 0;
+            // document.documentElement.scrollTop = 0;
         }).trigger('hashchange');
 
         /*
@@ -156,6 +162,7 @@
             .then(function (result) {
                 // console.log(result)
                 let hash = window.location.hash;
+                console.log(hash);
                 //是否為第一頁
                 if (result.first) {
                     var isFirst = ' disabled';
@@ -224,23 +231,23 @@
 
 <span class="text-left float-left">總共有${totalElements}筆訂單</span>
   <ul class="pagination justify-content-center">
-    <li class="page-item${isFirst}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
+    <li class="page-item${isFirst}"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
 
                 if (totalPages >= 10) {
 
                 } else {
                     for (let i = 0; i < totalPages; i++) {
                         if (i === current) {
-                            data += `<li class="page-item active"><a class="page-link" href="#">${i + 1}`;
+                            data += `<li class="page-item active"><a class="page-link" href="${hash}">${i + 1}`;
                             data += '<span class="sr-only">(current)</span>';
                         } else {
-                            data += `<li class="page-item"><a class="page-link" href="#" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
+                            data += `<li class="page-item"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${i + 1}');">${i + 1}`;
                         }
                         data += '</a></li>';
                     }
                 }
 
-                data += `<li class="page-item${isLast}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${current + 2}');">下一頁</a></li>
+                data += `<li class="page-item${isLast}"><a class="page-link" href="${hash}" onclick="history.pushState('','','?page=${current + 2}');">下一頁</a></li>
   </ul>
 </nav>`;
 
