@@ -29,7 +29,7 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public Optional<Message> MessageOne(Integer messageId) {
+    public Optional<Message> messageOne(Integer messageId) {
         return messageRepository.findById(messageId);
     }
 

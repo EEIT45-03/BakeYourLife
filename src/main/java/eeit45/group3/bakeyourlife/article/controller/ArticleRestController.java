@@ -1,7 +1,9 @@
 package eeit45.group3.bakeyourlife.article.controller;
 
 import eeit45.group3.bakeyourlife.article.model.Article;
+import eeit45.group3.bakeyourlife.article.model.Message;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
+import eeit45.group3.bakeyourlife.article.service.MessageService;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class ArticleRestController {
 
     @Autowired
     private ArticleService articleService;
-
+    private MessageService messageService;
     /*
     GET /Articles findAll
     GET /Articles/{postId} 查詢單筆
@@ -32,17 +34,24 @@ public class ArticleRestController {
      */
 
     @GetMapping(value = "/ArticlesTitle/{title}", produces = "application/json")
-    public ResponseEntity<List<Article>> findByTitle(@PathVariable String title){
+    public ResponseEntity<List<Article>> findByTitle(@PathVariable String title) {
         List<Article> article = articleService.findByTitle(title);
         return ResponseEntity.status(HttpStatus.OK).body(article);
     }
 
     @GetMapping(value = "/ArticlesType/{type}", produces = "application/json")
-    public ResponseEntity<List<Article>> findAllByTypeContaining(@PathVariable String type){
+    public ResponseEntity<List<Article>> findAllByTypeContaining(@PathVariable String type) {
         List<Article> article = articleService.findAllByTypeContaining(type);
 
 //        String encoded64 = new String(article.getBase64());
 //        article.setBase64(encoded64);
         return ResponseEntity.status(HttpStatus.OK).body(article);
     }
+
+    @PostMapping(value = "/MessageAdd", produces = "application/json")
+    public ResponseEntity<Message> insert(@RequestBody(required = false) Message message) {
+        Message createMessage = messageService.insert(message);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createMessage);
+    }
 }
+
