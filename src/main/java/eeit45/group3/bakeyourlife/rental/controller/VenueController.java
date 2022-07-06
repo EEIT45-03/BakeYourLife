@@ -23,8 +23,9 @@ public class VenueController {
     public String viewIndex(@RequestParam(value = "vName", required = false) String venueName,
                             Model model) {
         List<String> venueNames = rentalService.findAllVenueName();
-
         model.addAttribute("venueNames", venueNames);
+
+
         if( venueName != null && venueName.length()>0){
             model.addAttribute("venues", rentalService.findByVenueName(venueName));
         } else{
