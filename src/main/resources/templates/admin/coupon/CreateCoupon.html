@@ -191,10 +191,10 @@
                                 location = "./";
                             }
                         })
-                    }else if(xhr.status === 400){
+                    }else if(xhr.readyState === 4 && xhr.status === 400){
                         Swal.fire(
                             '優惠卷新增失敗!',
-                            json.message,
+                            JSON.parse(xhr.response).message,
                             'error'
                         )
                     }
