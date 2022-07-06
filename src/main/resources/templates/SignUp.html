@@ -149,26 +149,26 @@
                 <div class="col-lg-2 col-md-3 ">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__item ">
-<!--                            <h4>Categories</h4>-->
-<!--                            <ul>-->
-<!--                                <li><a href="#">資訊設定</a></li>-->
-<!--                                <li><a href="#">管理商品</a></li>-->
-<!--                                <li><a href="#">管理訂單</a></li>-->
-<!--                            </ul>-->
+                            <!--                            <h4>Categories</h4>-->
+                            <!--                            <ul>-->
+                            <!--                                <li><a href="#">資訊設定</a></li>-->
+                            <!--                                <li><a href="#">管理商品</a></li>-->
+                            <!--                                <li><a href="#">管理訂單</a></li>-->
+                            <!--                            </ul>-->
                         </div>
                     </div>
                 </div>
 
                 <!-- Page Heading -->
                 <div class="col-lg-10 product-list">
-<!--                    <p class="mb-4">-->
-<!--                        <a href="/index" class="btn btn-primary btn-icon-split btn-sm"> <span class="icon text-white-50"> <i-->
-<!--                                class="fas fa-undo"></i>-->
-<!--							</span> <span class="text">返回</span>-->
-<!--                        </a>-->
+                    <!--                    <p class="mb-4">-->
+                    <!--                        <a href="/index" class="btn btn-primary btn-icon-split btn-sm"> <span class="icon text-white-50"> <i-->
+                    <!--                                class="fas fa-undo"></i>-->
+                    <!--							</span> <span class="text">返回</span>-->
+                    <!--                        </a>-->
 
 
-<!--                    </p>-->
+                    <!--                    </p>-->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">會員註冊表單</h6>
@@ -247,7 +247,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-labels">性別:</label>
                                     <div class="col-sm-10">
-                                        <select th:field="*{gender}" class="form-control form-select mb-3" name="gender">
+                                        <select id="gender" th:field="*{gender}" class="form-control form-select mb-3" name="gender">
                                             <option value="男" selected>男</option>
                                             <option value="女">女</option>
                                         </select>
@@ -284,8 +284,10 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-primary" id="submit">新增會員</button>
+                                <button type="submit" class="site-btn" id="submit">新增會員</button>
+
                             </form>
+                            <button id="correctInput" class="btn btn-primary">測試 一鍵輸入</button>
                         </div>
                     </div>
                 </div>
@@ -340,6 +342,19 @@
 
         }
     }
+    $('#correctInput').click(function () {
+
+        $('#username').val('usertest1')
+        $('#password').val('asdASD123')
+        $('#fullName').val('王曉明')
+        $('#email').val('ddfoew133@gmail.com')
+        $('#phone').val('0956326532')
+        $('#birth').val('1994-08-19')
+        $('#gender').val('男')
+        $('#address').val('320桃園市中壢區新生路二段421號')
+
+
+    })
 
 
     window.onload = function () {
