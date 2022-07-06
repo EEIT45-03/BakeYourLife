@@ -262,7 +262,13 @@
 <!-- 訂單頁面 -->
 <script th:src="@{/js/rental.js}"></script>
 <script>
+  $(function (){
 
+    $('#personMax').on('keypress keyup blur',function (){
+      console.log('123456');
+      $(this).val($(this).val().replace(/^(0+)|[^\d]+/g,''));
+    })
+  })
 </script>
 
 </body>

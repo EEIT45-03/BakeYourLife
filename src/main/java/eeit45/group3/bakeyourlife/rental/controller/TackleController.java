@@ -53,19 +53,12 @@ public class TackleController {
     @GetMapping("/UpdateTackle")
     public String viewUpdateTackle(@RequestParam Integer tackleId, Model model) {
         Tackle tackle = null;
-        TackleRequest tackleRequest = new TackleRequest();
         if(tackleId != null){
             tackle = rentalService.findByTackleId(tackleId);
         }
         if(tackle != null){
-            tackleRequest.setTackleId(tackle.getTackleId());
-            tackleRequest.setTackleName(tackle.getTackleName());
-            tackleRequest.setProductModel(tackle.getProductModel());
-            tackleRequest.setSpecification(tackle.getSpecification());
-            tackleRequest.setDayPrice(tackle.getDayPrice());
-            tackleRequest.setMax(tackle.getMax());
 
-            model.addAttribute("tackleRequest",tackleRequest);
+            model.addAttribute("tackle",tackle);
         }
 
         return "/admin/rental/UpdateTackle";

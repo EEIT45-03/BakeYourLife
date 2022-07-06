@@ -39,6 +39,7 @@ $(document).ready(function () {
         }],
         order: [1, 'asc']
     });
+
 });
 
 /*==========================================================================================================================*/
@@ -95,6 +96,7 @@ Swal.fire({
   title: '修改租借單',
   icon: 'info',
   html:data,
+    width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -156,6 +158,7 @@ Swal.fire({
   title: '修改器具清單',
   icon: 'info',
   html:data,
+    width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -174,10 +177,12 @@ function createTackleList(rentalId){
                 title: '新增器具清單',
                 icon: 'info',
                 html:data,
+                width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
                 focusConfirm: false
+
             })
         });
 }
@@ -235,6 +240,7 @@ Swal.fire({
   title: '修改場地清單',
   icon: 'info',
   html:data,
+    width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -253,6 +259,7 @@ Swal.fire({
   title: '新增場地清單',
   icon: 'info',
   html:data,
+    width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -309,11 +316,11 @@ function updateVenue(venueId){
     fetch('./UpdateVenue?venueId=' + venueId)
         .then(response => response.text())
         .then(function(data){
-
             Swal.fire({
                 title: '修改場地',
                 icon: 'info',
                 html:data,
+                width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -327,15 +334,15 @@ function createVenue(){
     fetch('./CreateVenue')
         .then(response => response.text())
         .then(function(data){
-
             Swal.fire({
                 title: '新增場地',
                 icon: 'info',
-                html:data,
+                html:  data,
+                width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
-                focusConfirm: false
+                focusConfirm: false,
             })
         });
 }
@@ -393,6 +400,7 @@ function updateTackle(tackleId){
                 title: '修改器具',
                 icon: 'info',
                 html:data,
+                width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -411,10 +419,201 @@ function createTackle(){
                 title: '新增器具',
                 icon: 'info',
                 html:data,
+                width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
                 focusConfirm: false
             })
         });
+}
+
+
+//器材名稱輸入檢查
+function checkTN() {
+    var tName = document.getElementById("tackleName").value;
+    var res = /^[\u4e00-\u9fa5]{2,10}$/;
+    var flag = res.test(tName);
+    if (flag) {
+        document.getElementById("s_tName").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit').disabled = false;
+        return true;
+    } else {
+        document.getElementById("s_tName").innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>格式錯誤:請輸入器具的中文名稱</p>";
+        document.getElementById('submit').disabled = true;
+        return false;
+    }
+}
+
+//場地名稱輸入檢查
+function checkVN() {
+    var vName = document.getElementById("venueName").value;
+    var res = /^[A-Z]\d{2,5}$/;
+    var flag = res.test(vName);
+    if (flag && vName.length >3 ) {
+        document.getElementById("s_vName").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_vName').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>格式錯誤:場地名稱第一個字為大寫英文,加上3~4個數字</p>";
+        document.getElementById('submit').disabled = true;
+        return false;
+    }
+
+}
+
+//場地清單的場地輸入檢查
+
+function checkVId() {
+
+    var vId = document.getElementById("venueId").value;
+
+    if (vId.length >0 && vId!= null) {
+        document.getElementById("s_vId").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_vId').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請選擇使用場地</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+
+}
+
+//場地清單的出租時間輸入檢查
+function checkVLT() {
+
+    var lT = document.getElementById("lendTime").value;
+    var lTime = new Date(lT).getTime();
+
+    var now = Date.now();
+    var date = new Date(now);
+    date.setDate(date.getDate()+1);
+
+    if (lTime > date) {
+        document.getElementById("s_lTime").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_lTime').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>出租時間輸入錯誤,最快為明天</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+}
+
+//場地清單的結束時間輸入檢查
+function checkVET() {
+
+    var lT1 = document.getElementById("lendTime").value;
+    var lTime1 = new Date(lT1);
+    lTime1.setHours(lTime1.getHours()+2);
+    lTime1 = new Date(lTime1).getTime();
+    var eT = document.getElementById("endTime").value;
+    var eTime = new Date(eT).getTime();
+
+    if (eTime >= lTime1 && lTime1 != null) {
+        document.getElementById("s_eTime").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else if(!lTime1){
+        document.getElementById('s_eTime').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請先輸入出租時間</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    } else {
+        document.getElementById('s_eTime').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>結束時間輸入錯誤,至少要多於出租時間2小時</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+
+}
+
+//器具清單的器具輸入檢查
+
+function checkTId() {
+
+    var tId = document.getElementById("tackleId").value;
+
+    if (tId.length >0 && tId != null) {
+        document.getElementById("s_tId").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_tId').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請選擇器具</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+
+}
+
+//器具清單的出租時間輸入檢查
+function checkTLD() {
+
+    var lD = document.getElementById("lendDate").value;
+    var lDate = new Date(lD).getTime();
+
+    var now = Date.now();
+
+    if (lDate > now) {
+        document.getElementById("s_lDate").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_lDate').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>出租日期輸入錯誤,不可輸入今天以前的日期</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+}
+
+//場地清單的結束時間輸入檢查
+function checkTED() {
+
+    var lD1 = document.getElementById("lendDate").value;
+    var lDate1 = new Date(lD1).getTime();
+    var eD = document.getElementById("endDate").value;
+    var eDate = new Date(eD).getTime();
+
+    if (eDate >= lDate1 && lDate1 != null) {
+        document.getElementById("s_eDate").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else if(!lDate1){
+        document.getElementById('s_eDate').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請先輸入出租日期</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    } else {
+        document.getElementById('s_eDate').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>結束日期輸入錯誤,不可早於出租日期</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+
+}
+
+//場地清單的歸還時間輸入檢查
+function checkTRD() {
+
+    var eD1 = document.getElementById("endDate").value;
+    var eDate1 = new Date(eD1).getTime();
+    var rD = document.getElementById("returnDate").value;
+    var rDate = new Date(rD).getTime();
+
+
+    if (rDate >= eDate1) {
+        document.getElementById("s_rDate").innerHTML = "<i class='fa-solid fa-check'></i>";
+        document.getElementById('submit_List').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_rDate').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>歸還日期輸入錯誤,不可早於結束日期</p>";
+        document.getElementById('submit_List').disabled = true;
+        return false;
+    }
+}
+
+function getState() {
+
+    var sta = document.getElementById("state").value;
+    if(sta == 'return'){
+        document.getElementById('rD').style.display="black";
+    } else {
+        document.getElementById('rD').style.display="none";
+    }
 }
