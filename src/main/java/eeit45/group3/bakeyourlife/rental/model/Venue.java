@@ -56,6 +56,11 @@ public class Venue implements Serializable {
 		this.venueList = venueList;
 	}
 
+	public Venue(String venueName, Integer personMax) {
+		this.venueName = venueName;
+		this.personMax = personMax;
+	}
+
 	public Integer getVenueId() {
 		return venueId;
 	}
