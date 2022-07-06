@@ -208,6 +208,8 @@
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
+
+
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {
@@ -218,6 +220,7 @@
                 newVal = 0;
             }
         }
+        $('.product-subTotal').html('NT$' + newVal*55);
         $button.parent().find('input').val(newVal);
     });
 

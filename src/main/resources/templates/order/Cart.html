@@ -143,7 +143,7 @@
 	}
 
 	function update(id, qty) {
-		fetch("./Cart/Update?itemNo=" + id + '&qty=' + qty).then(response => response.text())
+		fetch("./Carts/Update?itemNo=" + id + '&qty=' + qty).then(response => response.text())
 				.then(function (data) {
 					updateTable(data)
 				})

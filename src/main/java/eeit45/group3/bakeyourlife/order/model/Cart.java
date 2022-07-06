@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.good.model.Goods;
@@ -7,6 +8,7 @@ import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -63,6 +65,7 @@ public class Cart {
     public Map<String, OrderItem> getCart() {
         return cart;
     }
+
 
 
     public void addItem(CartItem cartItem){

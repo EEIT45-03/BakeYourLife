@@ -50,16 +50,18 @@ public class OrderRestController {
 			@RequestParam(required = false) String orderStatus,
 			@RequestParam(required = false) Integer page,
 			Principal principal) {
+		if(principal==null){
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
 		OrderStatus status = null;
-		User user = null;
+		User user = userService.findByUsername(principal.getName());
 		if(page==null){
 			//如果不指定頁數，預設第一頁
 			page = 1;
 		}
 		if(!"".equals(orderStatus)){
 			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
-			user = userService.findByUsername(principal.getName());
 		}
 		Page<Order> orders = null;
 		Pageable pageable = PageRequest.of(page-1, 2);
@@ -70,7 +72,7 @@ public class OrderRestController {
 
 			orders = orderService.findAllByOrderStatusAndUser(status,user,pageable);
 		}else {
-			orders = orderService.findAll(pageable);
+			orders = orderService.findAllByUser(user,pageable);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
@@ -97,21 +99,7 @@ public class OrderRestController {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(order);
 	}
-	
-//	@PutMapping("/Orders/{orderId}")
-//	public ResponseEntity<Order> updateOrder(
-//			@PathVariable Integer orderId,
-//			@RequestBody(required = false) Order orderReq ) {
-//		Order order = orderService.findByOrderId(orderId).orElse(null);
-//		if(order==null) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//		}
-//		orderReq.setOrderId(orderId);
-//		orderService.updateOrder(orderReq);
-//
-//		Order updatedOrder = orderService.findByOrderId(orderId).orElse(null);
-//		return ResponseEntity.status(HttpStatus.OK).body(updatedOrder);
-//	}
+
 	
 	
 	@DeleteMapping("/Orders/{orderId}")

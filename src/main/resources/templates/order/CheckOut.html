@@ -1,111 +1,161 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>購物車</title>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
-	rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>結帳</title>
+
+    <div th:replace="/css.html"></div>
+
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">烘焙工作坊</a>
-	</nav>
-
-	<div class="container-fluid">
-		<div class="card-body">
-			<div class="card-body"></div>
-			<div class="card card-body" id="cartBody">
-				<table class="table text-center">
-					<thead>
-						<tr>
-							<th scope="col" class="col-sm-5">商品名稱</th>
-							<th scope="col" class="col-sm-1">商品類型</th>
-							<th scope="col" class="col-sm-1">單價</th>
-							<th scope="col" class="col-sm-2">數量</th>
-							<th scope="col" class="col-sm-1">小計</th>
-						</tr>
-					</thead>
-					<tbody>
-							<tr th:each="cartItem: ${cart.cart}">
-								<td class="product-name" th:text="${cartItem.value.productName }"></td>
-								<td class="product-type" th:text="${cartItem.value.productType}"></td>
-								<td class="product-price" th:text="|$${cartItem.value.price }|"></td>
-								<td class="product-qty" th:text="${cartItem.value.qty}"></td>
-								<td class="text-right product-subTotal"th:text="|$${cartItem.value.subTotal}|"></td>
-							</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="3" class="text-right">運費</td>
-							<td colspan="2" class="text-right" id="shippingFee" th:text="|$${cart.shippingFee}|"></td>
-						</tr>
-						<tr th:if="${cart.coupon}">
-							<td colspan="4" class="text-right" th:text="|優惠卷:${cart.coupon.code} ${cart.coupon.discountString}|"></td>
-							<td colspan="2" class="text-right" id="coupon" th:text="|-$${ cart.discountAmount }|"></td>
-						</tr>
-						<tr>
-							<td colspan="3 " class="text-right">合計</td>
-							<td colspan="2" class="text-right" id="total"th:text="|$${cart.total-cart.discountAmount}|"></td>
-						</tr>
-					</tfoot>
-				</table>
-
-			</div>
-		</div>
-
-		<div class="card-body">
-<!-- 			<div class="card-body"></div> -->
-			<div class="card card-body">
-			<form action="" method="post">
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-labels">付款方式:</label>
-					<div class="col-sm-10">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="payType" id="ECPAY" value="ECPAY" checked>
-							<label class="form-check-label" for="ECPAY">綠界支付</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="payType" id="PAYPAL" value="PAYPAL">
-							<label class="form-check-label" for="PAYPAL"><i class="fab fa-cc-paypal"></i>PAYPAL</label>
-						</div>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label for="address"
-						   class="col-sm-2 col-form-labels">地址:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control"
-							   name="address" id="address" placeholder="請輸入地址"
-							   required="required" th:value="${address}" />
-					</div>
-				</div>
-<input type="submit" value="提交訂單"  class="btn btn-warning col-12" />
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
 
 
-				</form>
-			</div>
-		</div>
-	</div>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>結帳</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">首頁</a>
+                        <span>結帳</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <!--        <div class="row">-->
+        <!--            <div class="col-lg-12">-->
+        <!--                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code-->
+        <!--                </h6>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="checkout__form text-center">
+            <form action="" method="post">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="checkout__order">
+                            <div class="shoping__cart__table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <input class="product-id" type="hidden" value="1">
+                                        <th class="shoping__product">商品</th>
+                                        <th>商品類型</th>
+                                        <th>數量</th>
+                                        <th>小計</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${cart.cart.values()}">
+                                        <td class="shoping__cart__item product-name">
+                                            <!--                                <img src="/img/cart/cart-1.jpg" alt="">-->
+                                            <h5 th:text="${item.productName}">Vegetable’s Package</h5>
+                                        </td>
+                                        <td class="product-type">烘培材料</td>
+                                        <td class="shoping__cart__quantity product-qty" th:text="${item.qty}">
+
+                                        </td>
+                                        <td class="shoping__cart__total product-subTotal"
+                                            th:text="|NT$${item.subTotal}|">
+                                            NT$55
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                                            <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>
+                                                            <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>
+                                                            <div class="checkout__order__total" th:if="${cart.coupon}">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>
+                                                            <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total - cart.discountAmount}|">$750.99</span></div>
+                            </div>
+                            <!--                            <h4>你的訂單</h4>-->
+                            <!--                            <div class="checkout__order__products">商品 <span>小計</span></div>-->
+                            <!--                            <ul>-->
+                            <!--                                <li th:each="item:${cart.cart.values()}" th:utext="|${item.productName} <span>NT$${item.subTotal}</span>|">Vegetable’s Package <span></span></li>-->
+                            <!--                            </ul>-->
+                            <!--                            <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>-->
+                            <!--                            <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>-->
+                            <!--                            <div class="checkout__order__total">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>-->
+                            <!--                            <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total}|">$750.99</span></div>-->
+                            <!--                            <div class="checkout__input__checkbox">-->
+                            <!--                                <label for="acc-or">-->
+                            <!--                                    Create an account?-->
+                            <!--                                    <input type="checkbox" id="acc-or">-->
+                            <!--                                    <span class="checkmark"></span>-->
+                            <!--                                </label>-->
+                            <!--                            </div>-->
+                            <!--                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt-->
+                            <!--                                ut labore et dolore magna aliqua.</p>-->
+                            <!--                            <div class="checkout__input__checkbox">-->
+                            <!--                                <label for="payment">-->
+                            <!--                                    Check Payment-->
+                            <!--                                    <input type="checkbox" id="payment">-->
+                            <!--                                    <span class="checkmark"></span>-->
+                            <!--                                </label>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="checkout__input__checkbox">-->
+                            <!--                                <label for="paypal">-->
+                            <!--                                    Paypal-->
+                            <!--                                    <input type="checkbox" id="paypal">-->
+                            <!--                                    <span class="checkmark"></span>-->
+                            <!--                                </label>-->
+                            <!--                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-10">
+                        <div class="col-lg-12">
+                            <!--                                                            <div class="checkout__input">-->
+                            <div class="row mb-3 checkout__input">
+                                <label class="col-sm-2 col-form-labels">付款方式:</label>
+                                <div class="col-sm-10 text-center">
+                                    <select class="wide" name="payType" id="ECPAY" value="ECPAY">
+                                        <option value="ECPAY" selected>綠界支付</option>
+                                        <option value="PAYPAL">PAYPAL</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="row mb-3 checkout__input">
+                                <label for="address"
+                                       class="col-sm-2 col-form-labels">地址:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"
+                                           name="address" id="address" placeholder="請輸入地址"
+                                           required="required" th:value="${address}" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--                                                            </div>-->
+                    <button type="submit" class="site-btn btn-block">提交訂單</button>
+                    </div>
+                </div>
+<!--        </div>-->
+        </form>
+    </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
 
 
+<div th:replace="/footer.html"></div>
 
 
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

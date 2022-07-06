@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>購買清單</title>
 
     <div th:replace="/css.html"></div>
 
@@ -110,6 +110,7 @@
         * 網址#後面改變事件
         * */
         $(window).on('hashchange', function () {
+            $('#preloder').css('display','')
             changeTab();
             let status = $('.nav-link.active')[0].innerText;
             // console.log("hashchange");
@@ -220,6 +221,8 @@
 
                 data += `
 <nav aria-label="Page navigation example">
+
+<span class="text-left float-left">總共有${totalElements}筆訂單</span>
   <ul class="pagination justify-content-center">
     <li class="page-item${isFirst}"><a class="page-link" href="#" onclick="history.pushState('','','?page=${isFirst ? 1 : current}');">上一頁</a></li>`;
 
@@ -244,6 +247,8 @@
                 //hash 的字串為 #XXX 剛好可以用來抓ID的HTML
                 $(hash).html(data);
             });
+
+        $('#preloder').css('display','none')
     }
 
 

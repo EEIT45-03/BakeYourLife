@@ -35,17 +35,4 @@ public class AdminDataInitialization implements ApplicationListener<ContextRefre
 
     }
 
-//    public void contextDestroyed(ServletContextEvent sce)  { 
-//    }
-//
-//	
-//    public void contextInitialized(ServletContextEvent sce)  { 
-//    	//建立管理員帳戶
-//    	if(!userService.userIsExist("user")) {
-//    		User user = new User("user","user","管理者","vison919@gmail.com"
-//    				,"0918583187","1994-09-19","男","桃園市楊梅區中山路121巷4弄9號");
-//    		userService.save(user);
-//    	}
-//    }
-//	
 }

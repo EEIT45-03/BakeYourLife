@@ -1915,8 +1915,8 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-    width: 630px;
-    text-align: left;
+	width:450px;
+	text-align: left;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item img {
