@@ -38,9 +38,9 @@ public class Order implements Serializable {
     @Column(unique = true)
     private String orderNo;
 
-    //會員ID
+    //管理員端資訊
     @Transient
-    private Integer userId;
+    private String username;
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "userId")
@@ -138,18 +138,13 @@ public class Order implements Serializable {
         this.trackingNumber = trackingNumber;
     }
 
-    public Integer getUserId() {
+    public String getUsername() {
         if (user != null) {
-            return user.getUserId();
+            return user.getUsername();
         } else {
-            return this.userId;
+            return null;
         }
-    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-        this.user = new User();
-        this.user.setUserId(userId);
     }
 
     public User getUser() {

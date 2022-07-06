@@ -25,6 +25,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findAllByCoupon(Coupon coupon);
 
-    List<Order> findAllByUser(User user);
+    Page<Order> findAllByUser(User user, Pageable pageable);
 
 }

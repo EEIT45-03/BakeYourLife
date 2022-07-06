@@ -3,7 +3,6 @@ package eeit45.group3.bakeyourlife.order.controller;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
-import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
@@ -16,10 +15,10 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
@@ -28,10 +27,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 
-//@Controller
-//@SessionAttributes(value = {"cart"})
+@RestController
+@SessionAttributes(value = {"cart"})
 public class ShoppingCartController {
     private final OrderService orderService;
 
@@ -56,16 +54,16 @@ public class ShoppingCartController {
         this.farmerProductService = farmerProductService;
     }
 
-    @GetMapping("/Cart")
-    public String viewCart(Model model,
-                           @ModelAttribute Cart cart) {
-        List<Goods> goods = goodService.getAllGoods();
-        model.addAttribute("goods", goods);
-        return "order/Cart";
+    @GetMapping("/Carts")
+    public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart) {
+//        List<Goods> goods = goodService.getAllGoods();
+//        model.addAttribute("goods", goods);
+//        return "order/Cart";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
-    @GetMapping("/Cart/Add")
-    public String cartAdd(@RequestParam Integer itemId,
+    @GetMapping("/Carts/Add")
+    public ResponseEntity<Cart> cartAdd(@RequestParam Integer itemId,
                           @RequestParam String type,
                           @ModelAttribute Cart cart) {
         CartItem cartItem = null;
@@ -81,11 +79,12 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.addItem(cartItem);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
-    @GetMapping("/Cart/Remove")
-    public String cartRemove(@RequestParam String itemNo,
+    @GetMapping("/Carts/Remove")
+    public ResponseEntity<Cart> cartRemove(@RequestParam String itemNo,
 //                             @RequestParam String type,
                              @ModelAttribute Cart cart) {
         CartItem cartItem = null;
@@ -103,12 +102,13 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
 
-    @GetMapping("/Cart/Update")
-    public String cartUpdate(@RequestParam String itemNo,
+    @GetMapping("/Carts/Update")
+    public ResponseEntity<Cart> cartUpdate(@RequestParam String itemNo,
 //                             @RequestParam String type,
                              @RequestParam Integer qty,
                              @ModelAttribute Cart cart) {
@@ -127,17 +127,10 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.updataItem(cartItem.getCartNo(), qty);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
-
-    @GetMapping("CheckOut")
-    public String viewCheckOut(@ModelAttribute("cart") Cart cart,
-                               Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("address", user.getAddress());
-        return "order/CheckOut";
-    }
 
 
     @PostMapping(path = "/CheckOut", produces = "text/html;charset=UTF-8")
@@ -147,6 +140,9 @@ public class ShoppingCartController {
                                            HttpServletRequest request,
                                            SessionStatus status,
                                            Principal principal) {
+        if(principal==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
         String orderNo = null;
         if (cart != null) {
@@ -197,20 +193,22 @@ public class ShoppingCartController {
 
 
     @GetMapping("/Cart/useCoupon")
-    public String useCoupon(@ModelAttribute Cart cart,
+    public ResponseEntity<Cart> useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
                             Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
-//        if(coupon == null) {
-//
-//        }
+        Date now = new Date();
+        if(coupon == null || !now.after(coupon.getStartDate()) || !now.before(coupon.getEndDate())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         if (coupon != null) {
 //            if(cart.getTotal() < coupon.getMinimum()){
 //                model.addAttribute("error","最低消費為"+coupon.getMinimum()+"元");
 //            }
             cart.setCoupon(coupon);
         }
-        return "order/CartBody";
+//        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
 

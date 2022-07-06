@@ -1,45 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>購物車</title>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
-	rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="description" content="Ogani Template">
+  <meta name="keywords" content="Ogani, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>支付成功</title>
+
+  <div th:replace="/css.html"></div>
+
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">烘焙工作坊</a>
-	</nav>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
 
-	<div class="container-fluid">
-		<div class="card-body">
-			<div class="card-body"></div>
-			<div class="card card-body" id="cartBody">
-				<p>訂單編號: [[${orderNo}]] 已付款成功</p>
-				<button class="btn btn-primary" onclick="window.close();">你可以關閉此頁</button>
-			</div>
-		</div>
-	</div>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="breadcrumb__text">
+          <h2>支付成功</h2>
+          <div class="breadcrumb__option">
+            <a href="/">首頁</a>
+            <span>支付成功</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+
+<section class="checkout spad">
+  <div class="container">
 
 
 
+<div class="card-body">
+  <div class="card-body"></div>
+  <div class="card card-body" id="cartBody">
+    <p>訂單編號: [[${orderNo}]] 已付款成功</p>
+    <p><span id="sec"></span>秒後自動跳轉到購買清單</p>
+  </div>
+</div>
+  </div>
+</section>
 
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div th:replace="/footer.html"></div>
+
+<script type="text/javascript">
+  //設定倒數秒數
+  var t = 5;
+  //顯示倒數秒數
+  function showTime(){
+    t -= 1;
+    document.getElementById('sec').innerHTML= t;
+    if(t==0){
+      location.href='/user/order';
+    }
+//每秒執行一次,showTime()
+    setTimeout("showTime()",1000);
+  }
+  //執行showTime()
+  showTime();
+</script>
+
 </body>
 
 </html>
