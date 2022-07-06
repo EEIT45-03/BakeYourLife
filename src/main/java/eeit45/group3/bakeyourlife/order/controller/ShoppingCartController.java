@@ -2,7 +2,9 @@ package eeit45.group3.bakeyourlife.order.controller;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
@@ -25,8 +27,7 @@ import java.net.URI;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 @RestController
 @SessionAttributes(value = {"cart"})
@@ -120,12 +121,12 @@ public class ShoppingCartController {
                 cartItem = goodService.getGoods(itemId);
                 break;
             case "F":
-//                cartItem = farmerProductService.findById(itemId);
+                cartItem = farmerProductService.findByFarmerProductId(itemId);
                 break;
         }
 
         if (cartItem != null) {
-            cart.updataItem(cartItem.getCartNo(), qty);
+            cart.updataItem(cartItem, qty);
         }
 //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
@@ -218,6 +219,34 @@ public class ShoppingCartController {
             return new Cart();
         }
         return cart;
+    }
+
+
+
+
+
+    @GetMapping("/Carts/getItemList")
+    public ResponseEntity<Map<String ,Map<String  ,String >>> getItemList(@ModelAttribute Cart cart) {
+        //produectNo,productType+productName
+        Map<String ,Map<String  ,String > > res = new HashMap<>();
+        Map<String  ,String > map = new HashMap<>();
+        List<Goods> allGoods = goodService.getAllGoods();
+        List<FarmerProductBean> allFarmerProduc = farmerProductService.findAll();
+        for(Goods goods : allGoods){
+            if(goods.isEnable()){
+                map.put(goods.getCartNo(),goods.getCartName());
+            }
+        }
+        res.put("烘培材料",map);
+        map = new HashMap<>();
+        for(FarmerProductBean farmerProductBean : allFarmerProduc){
+            if(farmerProductBean.isEnable()){
+                map.put(farmerProductBean.getCartNo(),farmerProductBean.getCartName());
+            }
+        }
+        res.put("小農",map);
+
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
 

@@ -90,11 +90,15 @@ public class Cart {
         cart.remove(itemNo);
     }
 
-    public void updataItem(String itemNo,Integer qty){
-        OrderItem orderItem = cart.get(itemNo);
+    public void updataItem(CartItem cartItem,Integer qty){
+        if(!cart.containsKey(cartItem.getCartNo())){
+            addItem(cartItem);
+        }else {
+        OrderItem orderItem = cart.get(cartItem.getCartNo());
         orderItem.setQty(qty);
         orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
-        cart.put(itemNo, orderItem);
+        cart.put(cartItem.getCartNo(), orderItem);
+        }
     }
 
 }

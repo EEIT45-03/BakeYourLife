@@ -116,7 +116,7 @@
 <!--        </div>-->
     </div>
         <div class="text-center">
-            <a href="#" class="primary-btn" onclick="add(1)">新增烘培商品</a>
+            <a href="#" class="primary-btn" onclick="add()">新增商品</a>
         </div>
 </section>
 <!-- Shoping Cart Section End -->
@@ -126,12 +126,36 @@
 <script>
 
 
-    function add(id){
-        fetch('[[@{/Carts/Add}]]' + '?type=G&itemId='+ id)
+    function add(){
+        var inputOption;
+        fetch('[[@{/Carts/getItemList}]]')
             .then(response => response.json())
-            .then(function (cart) {
-                getDataFormJosn(cart)
-            });
+            .then(function (data) {
+
+        Swal.fire({
+            title: '選擇商品',
+            input: 'select',
+            inputOptions: data,
+            inputPlaceholder: '選擇商品',
+            showCancelButton: true,
+            preConfirm:(value)  =>{
+                console.log(value);
+                update(value, 1);
+            }
+        })
+            })
+        // if (fruit) {
+        //     Swal.fire(`You selected: ${fruit}`)
+        // }
+
+
+
+
+        // fetch('[[@{/Carts/Add}]]' + '?type=G&itemId='+ id)
+        //     .then(response => response.json())
+        //     .then(function (cart) {
+        //         getDataFormJosn(cart)
+        //     });
     }
 function getCartDate(data){
     fetch('[[@{/Carts}]]')
