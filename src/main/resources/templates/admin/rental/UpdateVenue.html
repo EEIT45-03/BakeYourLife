@@ -14,8 +14,9 @@
         <div class="row mb-3">
             <label for="venueName" class="col-sm-3 col-form-labels">場地名稱:</label>
             <div class="col-sm-9" >
-                <input th:field="*{venueName}" type="text" class="form-control"
-                       name="venueName" id="venueName" required="required" />
+                <input th:field="*{venueName}" type="text" class="form-control" th:onkeyup="|checkVN()|"
+                       name="venueName" id="venueName" maxlength="5" required="required" />
+                <span class="show" id="s_vName"></span>
             </div>
         </div>
 
@@ -24,10 +25,10 @@
             <label for="personMax" class="col-sm-3 col-form-labels">人數上限:</label>
             <div class="col-sm-9">
                 <input th:field="*{personMax}" type="number" class="form-control"
-                       name="personMax" id="personMax" th:min="0" required="required" />
+                       name="personMax" id="personMax" th:min="1" th:max="30" required="required" />
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">修改</button>
+        <button type="submit" id="submit" class="btn btn-primary">修改</button>
         <form>
 </div>

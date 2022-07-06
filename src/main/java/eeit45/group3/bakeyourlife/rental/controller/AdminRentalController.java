@@ -277,8 +277,8 @@ public class AdminRentalController {
 
     @PostMapping("CreateVenueList")
     public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueListRequest venueListRequest ) {
-        rentalService.createVenueList(FK_rentalId,venueListRequest);
         rentalService.updateProduceNo(venueListRequest.getVenueListNo());
+        rentalService.createVenueList(FK_rentalId,venueListRequest);
         return "redirect:./";
     }
 

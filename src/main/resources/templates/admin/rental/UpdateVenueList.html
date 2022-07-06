@@ -22,7 +22,7 @@
         <select th:field="*{venueId}" class="form-control form-select mb-3" name="venueId"
                 type="text"  id="venueId" aria-label="Default select example" >
           <option th:each="venue : ${venues}" th:text="${venue.venueName}"
-                  th:value="${venue.venueId}" ></option>
+                  th:value="${venue.venueId}" th:c></option>
         </select>
       </div>
     </div>
@@ -76,6 +76,6 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">修改場地清單</button>
+    <button type="submit" class="btn btn-primary" th:submit="checkVL()">修改場地清單</button>
   <form>
 </div>

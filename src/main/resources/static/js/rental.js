@@ -39,6 +39,7 @@ $(document).ready(function () {
         }],
         order: [1, 'asc']
     });
+
 });
 
 /*==========================================================================================================================*/
@@ -309,7 +310,6 @@ function updateVenue(venueId){
     fetch('./UpdateVenue?venueId=' + venueId)
         .then(response => response.text())
         .then(function(data){
-
             Swal.fire({
                 title: '修改場地',
                 icon: 'info',
@@ -327,15 +327,14 @@ function createVenue(){
     fetch('./CreateVenue')
         .then(response => response.text())
         .then(function(data){
-
             Swal.fire({
                 title: '新增場地',
                 icon: 'info',
-                html:data,
+                html:  data,
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
-                focusConfirm: false
+                focusConfirm: false,
             })
         });
 }
@@ -417,4 +416,85 @@ function createTackle(){
                 focusConfirm: false
             })
         });
+}
+
+
+//器材名稱輸入檢查
+function checkTN() {
+    var tName = document.getElementById("tackleName").value;
+    var res = /^[\u4e00-\u9fa5]{2,10}$/;
+    var flag = res.test(tName);
+    if (flag) {
+        // document.getElementById("s_tName").innerHTML = "<i class='fa-solid fa-check' style='color: #1cc88a'></i>";
+        document.getElementById('submit').disabled = false;
+        return true;
+    } else {
+        document.getElementById("s_tName").innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>格式錯誤:請輸入器具的中文名稱</p>";
+        document.getElementById('submit').disabled = true;
+        return false;
+    }
+}
+
+//場地名稱輸入檢查
+function checkVN() {
+    var vName = document.getElementById("venueName").value;
+    var res = /^[A-Z]\d{2,5}$/;
+    var flag = res.test(vName);
+    if (flag && vName.length >3 ) {
+        // document.getElementById("s_tName").innerHTML = "<i></i>";
+        document.getElementById('submit').disabled = false;
+        return true;
+    } else {
+        document.getElementById('s_vName').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>格式錯誤:場地名稱第一個字為大寫英文,加上3~4個數字</p>";
+        document.getElementById('submit').disabled = true;
+        return false;
+    }
+
+}
+
+//場地清單的場地輸入檢查
+
+function checkVL() {
+    console.log('----------------------')
+    var  now = Date.now();
+    now.setDate(now.getDate()+1);
+
+
+    var vId = document.getElementById("venueId").value;
+    console.log(vId)
+    var lTime = document.getElementById("lendTime").value;
+    var eTime = document.getElementById("endTime").value;
+
+
+    if (vId.length >0 ) {
+        console.log(vId+"-0000")
+        // document.getElementById("s_tName").innerHTML = "<i></i>";
+        document.getElementById('submit').disabled = false;
+        return true;
+    } else {
+        console.log(vId+"-11111")
+        document.getElementById('s_vId').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請選擇使用場地</p>";
+        document.getElementById('submit').disabled = true;
+        return false;
+    }
+    //
+    // if (lTime.getTime() >= now.getTime() ) {
+    //     // document.getElementById("s_tName").innerHTML = "<i></i>";
+    //     document.getElementById('submit').disabled = false;
+    // } else {
+    //     document.getElementById('s_lTime').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>輸入錯誤</p>";
+    //     document.getElementById('submit').disabled = true;
+    //     return false;
+    // }
+    //
+    // if (lTime != null && lTime.length > 0  ) {
+    //     var limit = lTime.setHours(lTime.getHours() + 2);
+    //     if()
+    //     document.getElementById('submit').disabled = false;
+    // } else {
+    //     document.getElementById('eTime').innerHTML = "<p style='color: red ; font-size: small ; font-style: italic'>請選擇出租時間</p>";
+    //     document.getElementById('submit').disabled = true;
+    //     return false;
+    // }
+
 }

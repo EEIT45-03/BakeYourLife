@@ -162,13 +162,11 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	public RentalRequest createRentalRequest() {
 		ProduceNo produceNo = produceNoRepository.findByName("rental");
-		System.out.println(produceNo+"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String newDate = sdf.format(new Date());
 
 		if(produceNo == null ){
 			produceNo = new ProduceNo("rental",newDate,1);
-			produceNoRepository.save(produceNo);
 		} else {
 			String date = produceNo.getDate();
 
@@ -270,7 +268,6 @@ public class RentalServiceImpl implements RentalService{
 
 		if(produceNo == null ){
 			produceNo = new ProduceNo("VenueList",newDate,1);
-			produceNoRepository.save(produceNo);
 		} else {
 
 			String date = produceNo.getDate();
@@ -419,7 +416,6 @@ public class RentalServiceImpl implements RentalService{
 
 		if(produceNo == null ){
 			produceNo = new ProduceNo("TackleList",newDate,1);
-			produceNoRepository.save(produceNo);
 		} else {
 
 			String date = produceNo.getDate();
@@ -521,19 +517,36 @@ public class RentalServiceImpl implements RentalService{
 	public ProduceNo updateProduceNo(ProduceNo produceNo) {
 		return produceNoRepository.save(produceNo);
 	}
+
+	//自動新增或更新編號
 	@Override
 	public ProduceNo updateProduceNo(String no) {
 		ProduceNo produceNo = null;
 		if(no.charAt(0) == 'T'){
-			produceNo = produceNoRepository.findByName("TackleList");
+			if(produceNoRepository.findByName("TackleList") == null){
+				produceNo = new ProduceNo();
+				produceNo.setName("TackleList");
+			} else{
+				produceNo = produceNoRepository.findByName("TackleList");
+			}
 			produceNo.setDate(no.substring(1,9));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
 		} else if (no.charAt(0) == 'V') {
-			produceNo = produceNoRepository.findByName("VenueList");
+			if(produceNoRepository.findByName("VenueList") == null){
+				produceNo = new ProduceNo();
+				produceNo.setName("VenueList");
+			} else{
+				produceNo = produceNoRepository.findByName("VenueList");
+			}
 			produceNo.setDate(no.substring(1,9));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
 		} else {
-			produceNo = produceNoRepository.findByName("Rental");
+			if(produceNoRepository.findByName("Rental") == null){
+				produceNo = new ProduceNo();
+				produceNo.setName("Rental");
+			} else{
+				produceNo = produceNoRepository.findByName("Rental");
+			}
 			produceNo.setDate(no.substring(0,8));
 			produceNo.setNum(Integer.valueOf(no.substring(8,15)));
 		}
