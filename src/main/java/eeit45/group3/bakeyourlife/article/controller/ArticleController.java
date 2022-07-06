@@ -32,24 +32,26 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleservice;
-	private MessageService messageService;
+	//private MessageService messageService;
 
 
 	@GetMapping(path = "/")
 	private String processFindOne(@RequestParam(required = false) Integer postid, Model m) {
 
 		List<Article> listAll = articleservice.findAll();
-		List<Message> messageAll = messageService.findMessageAll();
 		m.addAttribute("articles", listAll);
+//		List<Message> messageAll = messageService.findMessageAll();
+//		m.addAttribute("messages", messageAll);
 		return "admin/article/Article";
 	}
 
-	//發文id
+	//發文id}
 	//AAA/{id}/CCC
 	@GetMapping(path = "/QueryArticle")
-	public String processQuery(@RequestParam(required = false) Integer postid,
+	public String processQuery(@RequestParam(required = false) Integer postid,@RequestParam(required = false) Integer messageId,
 							   Model model) throws IOException {
 		Article article = articleservice.selectOne(postid).orElse(null);
+		//Message message = messageService.messageOne(messageId).orElse(null);
 //		article = listone.get(0);
 		article.setCounter(article.getCounter() + 1);
 		articleservice.update(article);
@@ -58,6 +60,7 @@ public class ArticleController {
 		String encoded64 = new String(article.getPicture());
 		article.setBase64(encoded64);
 		model.addAttribute("article", article);
+		//model.addAttribute("message", message);
 		return "admin/article/ShowArticle";
 
 	}
