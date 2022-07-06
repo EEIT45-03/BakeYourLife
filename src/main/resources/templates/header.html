@@ -28,8 +28,10 @@
 <!--        </div>-->
         <div sec:authorize="!isAuthenticated()">
             <div class="header__top__right__auth">
-                <a href="/login"><i class="fa fa-user"></i> 登入</a>
-                <a href="/SignUp">註冊</a>
+                <ul>
+                    <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
+                    <li><a href="/SignUp">註冊</a></li>
+                </ul>
             </div>
         </div>
         <div sec:authorize="isAuthenticated()">
@@ -151,9 +153,12 @@
 <!--                            <a href="/logout"><i class="fa fa-user"></i> Logout</a>-->
 <!--                        </div>-->
                         <div class="header__top__right__auth">
+
                         <div sec:authorize="!isAuthenticated()">
-                                <a href="/login"><i class="fa fa-user"></i> 登入</a>
-                                <a href="/SignUp">註冊</a>
+                            <ul>
+                                <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
+                                <li><a href="/SignUp">註冊</a></li>
+                            </ul>
                         </div>
                         <div sec:authorize="isAuthenticated()">
                                 <a href="/logout"><i class="fa fa-user"></i> 登出</a>
