@@ -267,7 +267,7 @@ public class AdminRentalController {
         }
         if(rental != null) {
             VenueListRequest venueListRequest = rentalService.createVenueListRequest(rental);
-            venues = rentalService.findAllVenue();
+            venues = rentalService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueList", venueListRequest);
             return "admin/rental/CreateVenueList";
@@ -301,7 +301,7 @@ public class AdminRentalController {
             venueListRequest.setVenue(venueList.getVenue());
             venueListRequest.setRental(venueList.getRental());
 
-            venues = rentalService.findAllVenue();
+            venues = rentalService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueListRequest", venueListRequest);
             return "admin/rental/UpdateVenueList";

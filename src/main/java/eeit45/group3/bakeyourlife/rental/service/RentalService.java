@@ -91,8 +91,12 @@ public interface RentalService {
 	//查詢全部的教室
 	public List<Venue>  findAllVenue();
 
+	//查詢全部的教室,依教室名稱遞增排列
+	public List<Venue> findByOrderByVenueNameAsc();
+
 	//查詢全部的教室名稱
 	public List<String> findAllVenueName();
+
 		
 	//依教室ID查詢教室
 	public Venue findByVenueId(Integer venueId);

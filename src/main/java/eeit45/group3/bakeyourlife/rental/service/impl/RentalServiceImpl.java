@@ -298,6 +298,12 @@ public class RentalServiceImpl implements RentalService{
 		return venueRepository.findAll();
 	}
 
+	//查詢全部的教室,依教室名稱遞增排列
+	@Override
+	public List<Venue> findByOrderByVenueNameAsc() {
+		return venueRepository.findByOrderByVenueNameAsc();
+	}
+
 	//查詢全部的教室名稱
 	public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
 
