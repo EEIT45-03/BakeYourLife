@@ -14,6 +14,23 @@
         .img {
             border-radius: 5px;
             object-fit: cover;
+
+        }
+
+        .product__details__pic__item--large {
+
+            max-height: 500px;
+        }
+
+        .smallimg .owl-item {
+            object-fit: cover;
+            width: 125px;
+            height: 100px;
+        }
+
+        .userimg {
+            width: 120px;
+            height: 90px;
         }
 
         body {
@@ -145,6 +162,10 @@
             font-size: 15px;
             margin-right: 10px;
         }
+
+        .star {
+            color: #ffbf00;
+        }
     </style>
 
 </head>
@@ -177,17 +198,26 @@
     <div class="container" th:object="${farmerProductBean}">
         <div class="row">
             <div class="col-lg-6 col-md-6">
-                <div class="product__details__pic">
+                <div th:if="${not #lists.isEmpty(farmerProductBean.farmerProductPicList)}"
+                     class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="img product__details__pic__item--large"
                              th:src="*{farmerProductPicList[0].pictureDataUrl}" alt="">
                     </div>
                     <div class=" product__details__pic__slider owl-carousel">
-                        <img class="img" th:each="FarmerProductPic: *{farmerProductPicList}"
+                        <img class="img smallimg" th:each="FarmerProductPic : *{farmerProductPicList}"
                              th:data-imgbigurl="${FarmerProductPic.pictureDataUrl}"
                              th:src="${FarmerProductPic.pictureDataUrl}" alt="">
 
                     </div>
+                </div>
+                <div th:unless="${not #lists.isEmpty(farmerProductBean.farmerProductPicList)}"
+                     class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="img product__details__pic__item--large"
+                             src="/img/logo5.jpg" alt="">
+                    </div>
+
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -250,18 +280,7 @@
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
                                 <h6>商品介紹</h6>
-                                <p th:text="*{description}">Vestibulum ac diam sit amet quam vehicula elementum sed sit
-                                    amet dui.
-                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                    suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                    vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                    accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                    pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                    elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                    et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                    vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-
+                                <p th:utext="${#strings.replace(#strings.escapeXml(farmerProductBean.description),'&#10;','&lt;br&gt;')}"></p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
@@ -273,21 +292,50 @@
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <!-- COMMENT 1 - START -->
-                                                <div class="media">
-                                                    <a class="pull-left" href="#"><img class="img media-object"
-                                                                                       src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                                       alt=""></a>
+                                                <div class="media" th:each="comment :*{productCommentList}">
+                                                    <a class="pull-left" href="#">
+                                                        <img class="img userimg media-object"
+                                                             src="/img/undraw_profile.svg"
+                                                             alt=""></a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading">John Doe</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                        <h4 class="media-heading" th:text="${comment.user.username}">
+                                                            John Doe</h4>
+                                                        <span th:switch="${comment.star}" class="star">
+                                                               <span th:case="1">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="2">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case=3>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="4">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                            <span th:case="5">
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                                  <i class="fa-solid fa-star"></i>
+                                                               </span>
+                                                        </span>
+                                                        <!--                                                        <p th:text="${comment.commentContent}"></p>-->
+                                                        <p th:utext="${#strings.replace(#strings.escapeXml(comment.commentContent),'&#10;','&lt;br&gt;')}"></p>
+
+
                                                         <ul class="list-unstyled list-inline media-detail pull-left">
-                                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                                            <li><i class="fa fa-calendar"></i>
+                                                                <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
+                                                            </li>
+
                                                         </ul>
                                                         <!--                                                        <ul class="list-unstyled list-inline media-detail pull-right">-->
                                                         <!--                                                            <li class=""><a href="">Like</a></li>-->
@@ -405,6 +453,11 @@
 <!-- Related Product Section End -->
 
 <div th:replace="/footer.html"></div>
+
+<script>
+
+
+</script>
 
 
 </body>
