@@ -33,7 +33,7 @@ public class SecurityConfig   {
 		http
 		.authorizeHttpRequests()
 			//login頁面不需要認證
-			.antMatchers("/*","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
+			.antMatchers("/*","/webfonts/**","/SignUp","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
 //				.antMatchers("/admin/**").hasRole("ADMIN")
 //				.antMatchers("/user/**").hasRole("USER")
 //				.antMatchers("/XXXX/**").hasRole("FARMER")
