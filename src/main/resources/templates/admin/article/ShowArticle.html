@@ -1,9 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.io.*"  %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -15,7 +11,7 @@
 
     <title>編輯貼文</title>
 
-    <%@include file="/JSP/css.html"%>
+    <div th:replace="/admin/css.html"></div>
 <style> 
  .t2{ margin: auto;
  }
@@ -27,7 +23,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <%@include file="/JSP/sidebar.html" %>
+        <div th:replace="/admin/sidebar.html"></div>
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -35,7 +31,7 @@
                 <!-- Main Content -->
                 <div id="content">
 
-                    <%@include file="/JSP/header.html" %>
+                    <div th:replace="/admin/header.html"></div>
 
 
                         <!-- Begin Page Content -->
@@ -54,67 +50,59 @@
 
 
                             </p>
-                            <c:if test="${error!=null }">
-                                <div class="alert alert-danger" role="alert">
-
-                                </div>
-                            </c:if>
+                            <div th:if="${error}" class="alert alert-danger" role="alert"></div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">查看貼文</h6>
                                 </div>
                                 <div class="card-body">
                                      <form enctype="multipart/form-data" action="QueryArticle" method="Get">
-                                     <c:forEach items="${articles}" var="article"> 
+<!--                                     <th:each items="${articles}" var="article">-->
                                         <!-- 發文ID: -->
                                         <div class="row mb-3">
                                             <label for="postid" class="col-sm-2 col-form-labels">發文ID:</label>
                                             <div class="col-sm-10">
-                                                ${ article.postid}
+                                                <td th:text="${ article.postid}"></td>
                                             </div>
                                         </div>
                                         <!-- 標題: -->
                                         <div class="row mb-3">
                                             <label for="title" class="col-sm-2 col-form-labels">標題:</label>
                                             <div class="col-sm-10">
-                                               <span>${ article.title}</span><br>
+                                               <span><td th:text="${ article.title}"></td></span><br>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="type" class="col-sm-2 col-form-labels">文章分類:</label>
                                             <div class="col-sm-10">
-                                               <span>${ article.type}</span><br>
+                                               <span><td th:text="${ article.type}"></td>
+											</span><br>
                                             </div>
                                         </div>
                                         <!-- 訂單類型: -->
                                         <div class="row mb-3">
                                         <label for="" class="col-sm-2 col-form-labels">發文日期</label>
-                                        ${ article.date}                                        
+                                            <td th:text="${ article.date}"></td>
                                         </div>
                                         <hr>
                                         <div class="row mb-3">
-                                        <p>${ article.content}</p>
+                                        <p><td th:utext="${ article.content}"></td></p>
                                          </div>
                                          <div align="center" class="row mb-3">
-                                         <img width="300" height="300" style="display:block; margin:auto;" <img src="data:image/jpg;base64,${article.base64}"/> />	
+                                         <img width="300" height="300" style="display:block; margin:auto;" th:src="|data:image;base64,${article.base64}|"/>
                                          
                                          </div> 
                                                                               
-                                        <div class="t2"><a class="btn btn-warning" 
-												href="UpdateArticle?postid=${article.postid}">編輯貼文</a></div>
+                                        <div class="t2"><a class="btn btn-warning"
+												th:href="@{/admin/Article/UpdateArticle(postid=${article.postid})}">編輯貼文</a></div>
                                          <div style="float: right;"> 
-                                        觀看次數:${ article.counter}
+                                        觀看次數:<td th:text="${ article.counter}"></td>
                                         </div>
-                                      </c:forEach>  
+<!--                                      </th:each>-->
                                     </form>
                                     <div style="float: right;">
                                    
-<!--                                        觀看次數: -->
-<%--                                      <% --%>
-<!-- //                                        SessionCounter counter = (SessionCounter) session -->
-<!-- //                                                .getAttribute("counter"); -->
-<%--                                                                       %> --%>
-<%--                       Number of online user(s): <%= counter.getActiveSessionNumber() %> --%>
+
                                      </div>
                                 </div>
                             </div>
@@ -125,7 +113,7 @@
                 <!-- End of Main Content -->
 
 
-                <%@include file="/JSP/footer.html" %>
+                <div th:replace="/admin/footer.html"></div>
 
 
             </div>
@@ -136,7 +124,7 @@
 
 
 
-<%@include file="/JSP/javascript.html"%>
+    <div th:replace="/admin/javascript.html"></div>
 
 </body>
 

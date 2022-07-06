@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>BakeYourLife</title>
+
+	<div th:replace="/admin/css.html"></div>
+<script type="text/javascript"> 
+function del(){ 
+if(!confirm("確認要刪除？")){ 
+window.event.returnValue = false; 
+} 
+}
+</script> 
+</head>
+<style>
+.st1 {
+            width: 500px;
+/*              border-bottom: 1px dashed #0072E3;  */
+            padding-bottom: 20px; 
+            margin: 20px;
+        }
+        
+  fieldset {
+            width: 600px;
+            border-radius: 10px;
+            border: solid #0072E3;
+            margin: 0px auto;
+
+        }
+        
+      legend {
+/*              text-align: center;  */
+            color: #0072E3;
+            MARGIN-LEFT: 100PX;  
+            MARGIN-RIGHT: 100PX;  
+        }
+        #dataTable_filter{
+        display:none;
+        }
+
+   #container {
+	margin: 0;
+	width: 49%;
+	float: left;
+	text-align: center;
+}
+
+   #container div {
+	margin: 0;
+	width: 49%;
+	float: left;
+	text-align: center;
+}
+
+   .s1{
+	   border: 3px groove #D2E9FF;
+	   width: 1000px;
+	   font-family: 微軟正黑體;
+   }
+
+   #css_table {
+	display:table;
+   }
+   .css_tr {
+	display: table-row;
+}
+   .css_td {
+	display: table-cell;
+}
+</style>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<div th:replace="/admin/sidebar.html"></div>
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<div th:replace="/admin/header.html"></div>
+
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800">貼文管理</h1>
+					<p class="mb-4">
+						 最新貼文資訊
+						<br>
+						<br>
+						<a href="CreateArticle"
+							class="btn btn-primary btn-icon-split btn-sm"> <span
+							class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">新增貼文</span>
+						</a>
+						</p>
+<!-- 						<form action="Art" method="post" class="row float-right"> 						 -->
+<!--                         <span>查詢標題:</span><br><input type="text" class="form-control" name="title" id="title" style="width:100px; height:30px;"> -->
+<!--                        <input type="submit" name="confirm" value="搜尋" class="btn btn-primary btn-icon-split btn-sm" style="width:80px; height:30px;"> -->
+<!--                        </form> -->
+					    <table class="for-table">
+
+						<label for="type" class="col-sm-2 col-form-labels">文章分類:</label>
+						<select name="type" aria-label="Default select example" id="type">
+							<option th:value="-1" label="請選擇分類">請選擇分類</option>
+							<option th:value="活動資訊">活動資訊</option>
+							<option th:value="課程資訊">課程資訊</option>
+							<option th:value="食譜討論">食譜討論</option>
+						</select>
+							<tbody></tbody>
+					</table>
+							<div id='container'></div>
+                       <br><br>
+<!--                      <table>-->
+<!--						  <tr>-->
+<!--										<fieldset>-->
+<!--                                        <legend>貼文資訊</legend>-->
+<!--										<div style="text-align:center;"class="st1"> -->
+<!--											發文ID:${article.postid}<br>-->
+<!--											<a href="QueryArticle?postid=${ article.postid}">-->
+<!--											標題:${ article.title}-->
+<!--											</a><br>-->
+<!--											文章分類:${ article.type}<br>-->
+<!--											發文日期:${ article.date}<br>-->
+<!--											內文:${ article.content}<br>-->
+<!--											-->
+<!--											</div> -->
+<!--											<img th:src="|data:image;base64,|" width="100" height="100" style="display:block; margin:20px;"/>-->
+<!--											</fieldset>-->
+<!--											-->
+<!--											-->
+<!--                                             -->
+
+<!--									</table> -->
+					                
+								
+<!--					<div class="card shadow mb-4">-->
+<!--					</div>-->
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary"></h6>
+						
+						<div class="card-body">
+						
+							<div class="table-responsive">
+                            
+							<form action="Article" method="get">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											
+											<th>發文ID</th>
+											<th>標題</th>
+											<th>文章分類</th>
+											<th>發文日期</th>
+											<th>觀看次數</th>
+											<th>刪除</th>
+										</tr>
+									</thead>
+<!--									th:each="article: ${articles}"-->
+									<tr>
+											
+										<tr th:each="article: ${articles}">
+											<td th:text="${article.postid}"></td>
+											<td><a th:href="@{QueryArticle(postid=${article.postid})}" th:text="${ article.title}">
+												${ article.title}
+											</a></td>
+											<td th:text="${ article.type}"></td>
+											<td th:text="${ article.date}"></td>
+											<td th:text="${ article.counter}"></td>
+											<td><button type="button"
+														class="btn btn-danger"
+														th:onclick="|archiveFunction(${article.postid})|" id="btn">刪除貼文</button></td>
+								     <!--<td><a class="btn btn-danger"
+												href="DeleteArticle?postid=${article.postid}" onclick="del()">刪除貼文</a></td>--> 
+										</tr>
+											
+											
+                                             
+
+								</table>
+                                    </form>
+                              
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+
+			<div th:replace="/admin/footer.html"></div>
+
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+
+	<div th:replace="/admin/javascript.html"></div>
+<script>
+function archiveFunction(postid) {   
+    Swal.fire({
+        title: '確定要刪除嗎?',
+        text: "刪除後無法復原!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '刪除'
+    }).then((result) => {
+        if (result.isConfirmed) {
+       	 $.post( "./DeleteArticle?postid=" +postid, function( data ) {
+       		location.reload();
+       	});
+        }
+    })
+}
+
+         var selectElement = document.getElementById('type');
+         var xhr2 = new XMLHttpRequest();
+         var companyData = [];
+         selectElement.onchange = function(){
+	     xhr2.onreadystatechange = function() {
+		if (xhr2.readyState == 4 && xhr2.status == 200) {
+			displayPageBooks(xhr2.responseText);
+		}
+	}
+	//使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
+	var articleType = selectElement.options[ selectElement.selectedIndex ].value;
+	// 定義open方法
+	xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
+	// 送出請求
+	xhr2.send();
+
+			 function displayPageBooks(article){
+				 $('#container').html('')
+				 //debugger
+				 //console.log(article)
+				  var mapData = JSON.parse(article);
+				  var content = "<table class='s1'>";
+				  content += "<tbody>"+"<tr>"+
+						  "<th>發文ID</th>"+
+						  "<th>標題</th>"+
+						  "<th>文章分類</th>"+
+						  "<th>發文時間</th>"+
+						  // "<th>內文</th>"+
+						  // "<th>觀看次數</th>"+
+						  "<th>照片</th>"+
+						  "</tr> ";
+				 //var forTable = document.querySelector('.for-table tbody');
+				 //var div = document.getElementById('container');
+				 // The parent <div>.
+				 // document.getElementById('container').innerHTML('');
+				 for(var i=0; i < mapData.length; i++){
+					 //forTable.innerHTML +=
+					 content +=
+					 "<tr><td >" + mapData[i].postid + "</td>" +
+							 "<td>" + mapData[i].title + "</td>" +
+							 "<td>" + mapData[i].type + "</td>" +
+							 "<td>" + mapData[i].date + "</td>" +
+					 		 // "<td>" + mapData[i].content + "</td>" +
+							 // "<td>" + mapData[i].counter + "</td>" +
+							 // "<td>" + mapData[i].base64 +
+							 "<td>" +"<img  width='40' height='48' src=\"data:image;base64,"+ mapData[i].base64 +"\"> " +
+					 		  "</td></tr>" + "</tbody>";
+				  }
+				 content += "</table>";
+				 var div = document.getElementById('container');
+ 				 // var divs = document.getElementById("somedivS");
+				  div.innerHTML = content;
+				 // detail.innerHTML = companyName.substring(0,2) + "出版社目前共有" + BookType + "種書籍";
+			 }
+		 }
+</script>
+</body>
+
+</html>

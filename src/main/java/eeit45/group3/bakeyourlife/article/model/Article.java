@@ -2,15 +2,16 @@ package eeit45.group3.bakeyourlife.article.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import org.springframework.web.multipart.MultipartFile;
 
 //@NamedQuery(
@@ -30,20 +31,31 @@ public class Article implements Serializable {
 	//@Column(name="postid")
 	private Integer postid;
 	//@Column(name="title")
+	@Valid
+	@NotBlank(message = "標題不可為空")
 	private String title;
+	@Valid
+	@NotBlank(message = "分類不可為空")
 	private String type;
 	//@Column(name="date")
+	@Valid
+	@NotNull(message = "日期不可為空")
 	private Date date;
+	@Valid
+	@NotBlank(message = "內容欄不可為空")
 	@Lob
 	private String content;
 	@Lob
+	@JsonIgnore
 	private byte[] picture;
 	@Transient
 	private MultipartFile articleImage;
 	@Transient
 	private String base64;
 	private Integer counter;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+	private Set<Message> MessageList = new LinkedHashSet<>();
 	
 	public Article() {
 		super();
@@ -121,7 +133,7 @@ public class Article implements Serializable {
 	}
 
 	public String getBase64() {
-		return base64;
+		return new String(this.getPicture());
 	}
 
 	public void setBase64(String base64) {
