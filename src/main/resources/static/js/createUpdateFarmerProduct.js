@@ -65,7 +65,6 @@ $(document).ready(function () {
                 file.val("");
                 return false;
             } else {
-                img.css('display', 'inline')
                 readURL(file)
             }
         } else {
@@ -98,10 +97,10 @@ $(document).ready(function () {
 
                 input.next().val(dataUrl)
 
-
             }
 
             reader.readAsDataURL(input[0].files[0]);
+            imgAdd();
 
         }
 
@@ -109,13 +108,15 @@ $(document).ready(function () {
 
 
     $(".imgAdd").click(function () {
+        imgAdd();
+    })
+
+    function imgAdd() {
 
         if ($(".imgUp").length < 5) {
-            $(this)
-                .closest(".row")
-                .find(".imgAdd")
+            $(".imgAdd")
                 .before(`<div class=" imgUp" id="imgdiv" >
-											<img id="img" class="imagePreview" style="display: none;" src="#"><br>
+											<img id="img" class="imagePreview"  src="/img/logo4.png"><br>
 											<label class="btn btn-primary imgbtn">
 												選擇圖片
 												<input type="file" class="uploadFile"
@@ -130,7 +131,8 @@ $(document).ready(function () {
         if ($(".imgUp").length == 5) {
             $(".imgAdd").css("display", "none")
         }
-    })
+
+    }
 
 
     $(document).on("click", "i.del", function () {
@@ -140,15 +142,32 @@ $(document).ready(function () {
     });
 
 
+    $("#inputData").on("click", function () {
+        $("#type").val("水果類").change();
+        $("#name").val("愛文芒果5斤(8~9入)禮盒裝");
+        $("#price").val("799");
+        $("#quantity").val("200");
+        $("#storage").val("冰箱冷藏").change();
+        $("#contents").val("中、大果規格：8~9入裝");
+        $("#description").val("★我們推薦大熊農場愛文芒果的理由\n" +
+            "■草生栽培安全用藥\n" +
+            "■甜度高 香氣足 果肉細緻\n" +
+            "■通過屏科大 381項農藥殘留檢驗\n" +
+            "■經產銷履歷驗證");
+
+    })
+
+
     $("#sendData").on("click", function () {
 
         $("#name").val($.trim($("#name").val()));
         $("#price").val($.trim($("#price").val()));
         $("#quantity").val($.trim($("#quantity").val()));
-        $("#content").val($.trim($("#content").val()));
+        $("#contents").val($.trim($("#contents").val()));
         $("#description").val($.trim($("#description").val()));
 
     });
+
 
 });
 
