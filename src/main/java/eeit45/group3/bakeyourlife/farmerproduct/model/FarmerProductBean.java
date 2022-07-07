@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 
 @Entity
 @Table(name = "FarmerProduct")

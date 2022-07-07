@@ -1,9 +1,9 @@
-package eeit45.group3.bakeyourlife.farmerproduct.controller;
+package eeit45.group3.bakeyourlife.productcomment.controller;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
-import eeit45.group3.bakeyourlife.farmerproduct.model.ProductComment;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
-import eeit45.group3.bakeyourlife.farmerproduct.service.ProductCommentService;
+import eeit45.group3.bakeyourlife.productcomment.service.ProductCommentService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.stereotype.Controller;

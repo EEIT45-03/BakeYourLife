@@ -282,8 +282,8 @@
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: '取消',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#f15e5e',
+            cancelButtonColor: '#ADADAD',
             confirmButtonText: '刪除'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -406,7 +406,7 @@
         var commentContent = $.trim($("#commentContent").val());
         var Comment = {
             "star": star,
-            "commentContent": commentContent,
+            "commentContent": commentContent
         }
         return Comment;
     }

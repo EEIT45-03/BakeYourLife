@@ -39,8 +39,8 @@ function deleteProduct(farmerProductId) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                type: "POST",
-                url: './DeleteFarmerProduct?farmerProductId=' + farmerProductId,
+                type: "DELETE",
+                url: '/FarmerProducts/' + farmerProductId,
                 success: function (msg) {
                     Swal.fire(
                         '已刪除!',
@@ -80,8 +80,8 @@ function updateState(farmerProductId, state, title, text) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                type: "POST",
-                url: './UpdateFarmerProductState?farmerProductId=' + farmerProductId + '&state=' + state,
+                type: "PUT",
+                url: '/FarmerProducts/' + farmerProductId + '/' + state,
                 success: function (msg) {
                     Swal.fire(
                         '成功',

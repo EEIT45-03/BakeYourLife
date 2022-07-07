@@ -1,6 +1,6 @@
-package eeit45.group3.bakeyourlife.farmerproduct.service;
+package eeit45.group3.bakeyourlife.productcomment.service;
 
-import eeit45.group3.bakeyourlife.farmerproduct.model.ProductComment;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 
 import java.util.List;
 

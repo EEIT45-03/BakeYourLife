@@ -1,4 +1,4 @@
-package eeit45.group3.bakeyourlife.farmerproduct.model;
+package eeit45.group3.bakeyourlife.productcomment.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
