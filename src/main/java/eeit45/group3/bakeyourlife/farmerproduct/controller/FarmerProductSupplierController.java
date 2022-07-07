@@ -47,25 +47,26 @@ public class FarmerProductSupplierController {
 
         List<String> dataUrls = farmerProductBean.getPictureDataUrl();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+        if (dataUrls != null && dataUrls.size() > 0) {
 
-        if (dataUrls.get(0).length() < 30) {
-            String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
-            FarmerProductPic farmerProductPic = new FarmerProductPic();
-            farmerProductPic.setFarmerProductBean(farmerProductBean);
-            farmerProductPic.setPictureDataUrl(dataUrl);
-            farmerProductPicList.add(farmerProductPic);
-        } else {
-
-            for (String dataUrl : dataUrls) {
+            if (dataUrls.get(0).length() < 30 && dataUrls.get(0).length() > 0) {
+                String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
                 FarmerProductPic farmerProductPic = new FarmerProductPic();
-                if (dataUrl != null && dataUrl.length() > 0) {
-                    farmerProductPic.setFarmerProductBean(farmerProductBean);
-                    farmerProductPic.setPictureDataUrl(dataUrl);
-                    farmerProductPicList.add(farmerProductPic);
+                farmerProductPic.setFarmerProductBean(farmerProductBean);
+                farmerProductPic.setPictureDataUrl(dataUrl);
+                farmerProductPicList.add(farmerProductPic);
+            } else {
+
+                for (String dataUrl : dataUrls) {
+                    FarmerProductPic farmerProductPic = new FarmerProductPic();
+                    if (dataUrl != null && dataUrl.length() > 0) {
+                        farmerProductPic.setFarmerProductBean(farmerProductBean);
+                        farmerProductPic.setPictureDataUrl(dataUrl);
+                        farmerProductPicList.add(farmerProductPic);
+                    }
                 }
             }
         }
-
 
         Date date = new Date();
         farmerProductBean.setLaunchedTime(date);
@@ -98,21 +99,23 @@ public class FarmerProductSupplierController {
 
         List<String> dataUrls = farmerProductBean.getPictureDataUrl();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+        if (dataUrls != null && dataUrls.size() > 0) {
 
-        if (dataUrls.get(0).length() < 30) {
-            String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
-            FarmerProductPic farmerProductPic = new FarmerProductPic();
-            farmerProductPic.setFarmerProductBean(farmerProductBean);
-            farmerProductPic.setPictureDataUrl(dataUrl);
-            farmerProductPicList.add(farmerProductPic);
-        } else {
-
-            for (String dataUrl : dataUrls) {
+            if (dataUrls.get(0).length() < 30 && dataUrls.get(0).length() > 0) {
+                String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
                 FarmerProductPic farmerProductPic = new FarmerProductPic();
-                if (dataUrl != null && dataUrl.length() > 0) {
-                    farmerProductPic.setFarmerProductBean(farmerProductBean);
-                    farmerProductPic.setPictureDataUrl(dataUrl);
-                    farmerProductPicList.add(farmerProductPic);
+                farmerProductPic.setFarmerProductBean(farmerProductBean);
+                farmerProductPic.setPictureDataUrl(dataUrl);
+                farmerProductPicList.add(farmerProductPic);
+            } else {
+
+                for (String dataUrl : dataUrls) {
+                    FarmerProductPic farmerProductPic = new FarmerProductPic();
+                    if (dataUrl != null && dataUrl.length() > 0) {
+                        farmerProductPic.setFarmerProductBean(farmerProductBean);
+                        farmerProductPic.setPictureDataUrl(dataUrl);
+                        farmerProductPicList.add(farmerProductPic);
+                    }
                 }
             }
         }

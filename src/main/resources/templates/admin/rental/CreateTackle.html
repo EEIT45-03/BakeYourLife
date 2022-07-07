@@ -9,6 +9,7 @@
 <!--                   name="tackleName" id="tackleName" required="required"/>-->
             <input type="text" class="form-control"
                    th:name="tackleName" id="tackleName" required="required"/>
+            <span class="show" id="s_tName"></span>
         </div>
     </div>
 
@@ -19,7 +20,7 @@
         <div class="col-sm-10">
 <!--            <input th:field="*{productModel}" type="text" class="form-control"-->
 <!--                   name="productModel" id="productModel" />-->
-            <input type="text" class="form-control"
+            <input type="text" class="form-control" th:onblur="|checkTN()|"
                    th:name="productModel" id="productModel" />
         </div>
     </div>
@@ -44,7 +45,7 @@
 <!--            <input th:field="*{dayPrice}" type="number" class="form-control"-->
 <!--                   name="dayPrice" id="dayPrice" th:min="50" required="required"/>-->
             <input type="number" class="form-control"
-                   th:name="dayPrice" id="dayPrice" th:min="50" required="required"/>
+                   th:name="dayPrice" id="dayPrice" th:min="50" th:max="500" required="required"/>
         </div>
     </div>
 
@@ -56,7 +57,7 @@
 <!--            <input th:field="*{max}" type="number" class="form-control"-->
 <!--                   name="max" id="max" th:min="1" required="required"/>-->
             <input type="number" class="form-control"
-                   th:name="max" id="max" th:min="1" required="required"/>
+                   th:name="max" id="max" th:min="1" th:max="100" required="required" />
         </div>
     </div>
 
@@ -69,5 +70,5 @@
 <!--        </div>-->
 <!--    </div>-->
 
-    <button type="submit" class="btn btn-primary">建立</button>
+    <button type="submit" id="submit" class="btn btn-primary">建立</button>
 </form>

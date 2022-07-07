@@ -19,6 +19,11 @@ public class ProductCommentServiceImpl implements ProductCommentService {
     }
 
     @Override
+    public ProductComment findById(Integer productCommentId) {
+        return productCommentRepository.findByProductCommentId(productCommentId);
+    }
+
+    @Override
     public List<ProductComment> findAll() {
         return productCommentRepository.findAll();
     }

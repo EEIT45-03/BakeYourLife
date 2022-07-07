@@ -8,7 +8,7 @@
             <i class="fa-solid fa-bread-slice"></i>
         </div>
 
-        <div class="sidebar-brand-text mx-3">Bake Your Life <sup></sup></div>
+        <div class="sidebar-brand-text mx-3">Bake Your Life <br>後台管理系統 <sup></sup></div>
     </a>
 
     <!-- Divider -->
@@ -18,7 +18,7 @@
     <li class="nav-item">
         <a class="nav-link" th:href="@{/admin/}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>首頁</span></a>
+            <span>後台管理首頁</span></a>
     </li>
 
     <!-- Divider -->
@@ -86,16 +86,38 @@
 
     <!-- Nav Item - 課程管理 -->
     <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/Course/}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourse"
+           aria-expanded="false" aria-controls="collapseCourse">
             <i class="fas fa-fw fa-chalkboard-user"></i>
-            <span>課程管理</span></a>
+            <span>課程管理</span>
+        </a>
+        <div id="collapseCourse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Course/}">開課管理</a>
+                <a class="collapse-item" th:href="@{/admin/Course/listProducts}">課程類型管理</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - 貼文管理 -->
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link" th:href="@{/admin/Article/}">-->
+<!--            <i class="fas fa-fw fa-scroll"></i>-->
+<!--            <span>貼文管理</span></a>-->
+<!--    </li>-->
+
     <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/Article/}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticle"
+           aria-expanded="false" aria-controls="collapseArticle">
             <i class="fas fa-fw fa-scroll"></i>
-            <span>貼文管理</span></a>
+            <span>專欄管理</span>
+        </a>
+        <div id="collapseArticle" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Article/}">貼文管理</a>
+                <a class="collapse-item" th:href="@{/admin/Message/}">留言管理</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - 租借管理 -->

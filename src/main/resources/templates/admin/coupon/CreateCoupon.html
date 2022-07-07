@@ -118,6 +118,7 @@
 
 
                         <button id="send" class="btn btn-primary">建立優惠卷</button>
+                            <button id="auto" class="btn btn-warning">一鍵輸入</button>
                         <!--                    </form>-->
                     </div>
                 </div>
@@ -191,10 +192,10 @@
                                 location = "./";
                             }
                         })
-                    }else if(xhr.status === 400){
+                    }else if(xhr.readyState === 4 && xhr.status === 400){
                         Swal.fire(
                             '優惠卷新增失敗!',
-                            json.message,
+                            JSON.parse(xhr.response).message,
                             'error'
                         )
                     }
@@ -209,6 +210,17 @@
                         'error'
                     )
                 }
+            });
+
+            $('#auto').click(function (){
+               $('#name').val("一鍵輸入優惠卷");
+               $('#type').val("deduct");
+               $('#code').val('BYL888');
+               $('#startDate').val(new Date().toISOString().substring(0,10) + 'T00:00');
+               $('#endDate').val(new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().substring(0,10) + 'T00:00');
+               $('#minimum').val(500);
+               $('#maxQuantity').val(10);
+               $('#deductAmount').val(100);
             });
             function getCoupon() {
                 var type = $("#type").val();

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>編輯貼文</title>
+
+    <div th:replace="/admin/css.html"></div>
+    <style>
+
+    </style>
+    <script>
+        //  function check_select(form){
+        //      if(date.value == ""){
+        //          alert("請輸入日期");
+        //          return false;
+        //      }else{
+        //          return true;
+        //      }
+        //      }
+
+    </script>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="./" class="btn btn-primary btn-icon-split btn-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-undo"></i>
+                                    </span>
+                        <span class="text">返回選單</span>
+                    </a>
+
+
+
+                </p>
+                <div th:if="${error}" class="alert alert-danger" role="alert"></div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">新增貼文</h6>
+                    </div>
+
+                    <div class="card-body">
+                                     <form enctype="multipart/form-data" th:action= "@{UpdateArticle(postid=${article.postid})}" method="post" th:object="${article}">
+<!--                                         <tr th:each="article: ${articles}">-->
+                                     <!-- 發文ID: -->
+                                        <div class="row mb-3">
+                                            <label for="postid" class="col-sm-2 col-form-labels">發文ID:</label>
+
+                                            <div class="col-sm-10">
+
+                                                <!--<input type="text" class="form-control" name="postid" id="article"-->
+                                                <!--value="${article.postid}" required>-->
+                                            </div>
+                                        </div>
+                                        <!-- 標題: -->
+                                        <div class="row mb-3">
+                                            <label for="title" class="col-sm-2 col-form-labels">標題:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control"  name="title" id="title" th:field="*{title}" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                             <label for="type" class="col-sm-2 col-form-labels">文章分類</label>
+                                            <select name="type"  aria-label="Default select example" id="type" th:field="*{type}"  required>
+<!--                                           <option th:value="${ article.type}"></option>-->
+                                           <option th:value="活動資訊">活動資訊</option>
+                                           <option th:value="課程資訊">課程資訊</option>
+                                           <option th:value="食譜討論">食譜討論</option>
+                                           </select>
+                                           </div>
+                                        <!-- 訂單類型: -->
+                                        <div class="row mb-3">
+                                        <label for="date" class="col-sm-2 col-form-labels">發文日期</label>
+                                        <input type="date" name="date" id="date" th:field="*{date}" required>
+                                        </div>
+                                        <div class="row mb-3">
+                                        <lable for="" class="col-sm-2 col-form-labels">內文:</lable><textarea name="content" id="article" cols="70"
+                                         rows="10" required th:field="*{content}">[[${article.content}]]</textarea> <br>
+                                         </div>
+                                         <div>                                    
+                                           <img th:src="|data:image;base64,${article.base64}|"  width="200" height="200" style="display:block; margin:auto;" id="previewImage"/>
+                                          </div>                                                                                                                                                                 
+                                         <div class="row mb-3">照片上傳 
+                                         <input type="file" name="articleImage" value="" required id="image"  th:field="*{articleImage}">
+                                         <br>
+                                         <br>                                      
+                                          <!-- <img id="previewImage" width="200" height="200" style="float:right;" /> -->                         
+                                         </div> 
+                                         <INPUT  class="btn btn-warning" NAME="INSERT" TYPE="SUBMIT" VALUE="送出編輯">
+
+
+
+
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!--CKEditor編輯器-->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>    
+<script>
+                        ClassicEditor
+                                .create( document.querySelector( '#article' ) )
+                                .then( editor => {
+                                        console.log( editor );
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
+                        
+                        
+                        $(document).ready(function(){
+                            $("body").on("change", "#image", function(e){
+                                var file = e.target.files[0];
+                                var mediabase64data;
+                                getBase64(file).then(
+                                    mediabase64data => $('#previewImage').attr('src', mediabase64data)
+                                );
+                            });
+                        })
+
+                        function getBase64(file) {
+                            return new Promise((resolve, reject) => {
+                                const reader = new FileReader();
+                                reader.readAsDataURL(file);
+                                reader.onload = () => resolve(reader.result);
+                                reader.onerror = error => reject(error);
+                            });
+                        }
+                           
+                </script>
+</body>
+
+
+</html>

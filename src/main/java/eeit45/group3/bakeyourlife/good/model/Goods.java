@@ -40,9 +40,30 @@ public class Goods implements CartItem {
 	@Column(columnDefinition = "nvarchar(max)")
 	String describe;//描述
 
+	@Column(columnDefinition = "nvarchar(max)")
+	String evaluation;//評論
+
+	String stars;//星星數
+
+	public String getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(String evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public String getStars() {
+		return stars;
+	}
+
+	public void setStars(String stars) {
+		this.stars = stars;
+	}
+
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
 				 String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
-				 MultipartFile productImage, String count, String system, String describe) {
+				 MultipartFile productImage, String count, String system, String describe, String stars, String evaluation) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -59,6 +80,8 @@ public class Goods implements CartItem {
 		this.count = count;
 		this.system = system;
 		this.describe = describe;
+		this.stars = stars;
+		this.evaluation = evaluation;
 	}
 	public Goods() {
 		super();

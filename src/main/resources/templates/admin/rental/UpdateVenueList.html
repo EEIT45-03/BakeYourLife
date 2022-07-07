@@ -19,8 +19,8 @@
     <div class="row mb-3">
       <label for="venueId" class="col-sm-3 col-form-labels">租借場地:</label>
       <div class="col-sm-9" >
-        <select th:field="*{venueId}" class="form-control form-select mb-3" name="venueId"
-                type="text"  id="venueId" aria-label="Default select example" >
+        <select th:field="*{venue.venueId}" class="form-control form-select mb-3" name="venueId"
+                type="text"  id="venueId" aria-label="Default select example">
           <option th:each="venue : ${venues}" th:text="${venue.venueName}"
                   th:value="${venue.venueId}" ></option>
         </select>
@@ -31,8 +31,9 @@
     <div class="row mb-3">
       <label for="lendTime" class="col-sm-3 col-form-labels">出租時間:</label>
       <div class="col-sm-9">
-        <input th:field="*{lendTime}" type="datetime-local" class="form-control"
+        <input th:field="*{lendTime}" type="datetime-local" class="form-control" th:onchange="|checkVLT()|"
                name="lendTime" id="lendTime" />
+        <span class="show" id="s_lTime"></span>
       </div>
     </div>
 
@@ -41,8 +42,9 @@
     <div class="row mb-3">
       <label for="endTime" class="col-sm-3 col-form-labels">結束時間:</label>
       <div class="col-sm-9">
-        <input th:field="*{endTime}" type="datetime-local" class="form-control"
+        <input th:field="*{endTime}" type="datetime-local" class="form-control" th:onchange="|checkVET()|"
                name="endTime" id="endTime" />
+        <span class="show" id="s_eTime"></span>
       </div>
     </div>
 
@@ -76,6 +78,6 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">修改場地清單</button>
-  <form>
+    <button type="submit" class="btn btn-primary" th:submit="|checkVL()|">修改場地清單</button>
+  </form>
 </div>

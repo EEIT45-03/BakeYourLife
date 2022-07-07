@@ -108,8 +108,8 @@
                                     <th class="none">價格</th>
                                     <th class="none">數量</th>
                                     <th>狀態</th>
-                                    <th class="none">內容物</th>
                                     <th class="none">保存方式</th>
+                                    <th class="none">內容物</th>
                                     <th class="none">商品介紹</th>
                                     <th>上下架</th>
                                     <th>修改</th>
@@ -123,7 +123,8 @@
                                     <td th:text="${bean.farmerProductId}"></td>
                                     <td th:text="${bean.type}"></td>
                                     <td>
-                                        <div class="carousel slide" data-ride="carousel">
+                                        <div th:if="${not #lists.isEmpty(bean.farmerProductPicList)}"
+                                             class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item"
                                                      th:each="FarmerProductPic: ${bean.farmerProductPicList}">
@@ -144,6 +145,9 @@
                                                 <span class="sr-only">Next</span>
                                             </a>
                                         </div>
+                                        <img th:unless="${not #lists.isEmpty(bean.farmerProductPicList)}"
+                                             class="d-block w-100 img"
+                                             src="/img/logo4.png">
                                     </td>
                                     <td class="namelink">
                                         <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${bean.farmerProductId})}"
@@ -171,9 +175,13 @@
                                         </div>
                                     </td>
 
-                                    <td th:text="${bean.contents}"></td>
                                     <td th:text="${bean.storage}"></td>
-                                    <td th:text="${bean.description}"></td>
+                                    <td>
+                                        <p th:utext="${#strings.replace(#strings.escapeXml(bean.contents),'&#10;','&lt;br&gt;')}"></p>
+                                    </td>
+                                    <td>
+                                        <p th:utext="${#strings.replace(#strings.escapeXml(bean.description),'&#10;','&lt;br&gt;')}"></p>
+                                    </td>
                                     <td>
                                 
                                 <span th:if="${bean.state}==1">
@@ -181,7 +189,7 @@
                                             data-toggle="modal" data-target="#myModal0"
                                             th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">
                                         <span class="icon text-white-50"> <i class="fa-solid fa-arrow-up"></i>
-                                        </span> <span class="text">上架商品</span>
+                                        </span> <span class="text">上架</span>
                                     </button>
                                 </span>
                                         <span th:if="${bean.state}==0">
@@ -189,13 +197,13 @@
                                             data-toggle="modal" data-target="#myModal1"
                                             th:onclick="|updateState(${bean.farmerProductId},1,'確認下架此商品?','')|">
                                         <span class="icon text-white-50"> <i class="fa-solid fa-arrow-down"></i>
-                                        </span> <span class="text">下架商品</span>
+                                        </span> <span class="text">下架</span>
                                     </button>
                                 	<button type="button" class="btn btn-dark btn-icon-split btn-sm"
                                             data-toggle="modal" data-target="#myModal2"
                                             th:onclick="|updateState(${bean.farmerProductId},2,'確認下架此違規商品?','確認下架後將無法更改!')|">
                                         <span class="icon text-white-50"> <i class="fa-solid fa-ban"></i>
-                                        </span> <span class="text">商品違規</span>
+                                        </span> <span class="text">違規</span>
                                     </button>
                                 </span>
                                     </td>
@@ -208,8 +216,6 @@
                                    <span class="text">修改</span> </a>
                                 </span>
                                         <button type="button" class="btn btn-danger btn-icon-split btn-sm"
-                                                id="redbutton"
-                                                data-toggle="modal" data-target="#myModal"
                                                 th:onclick="|deleteProduct(${bean.farmerProductId})|">
                                     <span class="icon text-white-50"> <i class="fas fa-trash"></i>
                                     </span> <span class="text">刪除</span>

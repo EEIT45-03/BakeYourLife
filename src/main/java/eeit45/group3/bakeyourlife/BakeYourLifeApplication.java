@@ -10,6 +10,8 @@ public class BakeYourLifeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BakeYourLifeApplication.class, args);
+
+    }
     }
 
-}
+

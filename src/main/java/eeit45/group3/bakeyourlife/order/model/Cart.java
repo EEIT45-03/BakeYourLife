@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.order.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.good.model.Goods;
@@ -7,6 +8,7 @@ import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -65,6 +67,7 @@ public class Cart {
     }
 
 
+
     public void addItem(CartItem cartItem){
         OrderItem orderItem;
         if(cart.containsKey(cartItem.getCartNo())){
@@ -87,11 +90,15 @@ public class Cart {
         cart.remove(itemNo);
     }
 
-    public void updataItem(String itemNo,Integer qty){
-        OrderItem orderItem = cart.get(itemNo);
+    public void updataItem(CartItem cartItem,Integer qty){
+        if(!cart.containsKey(cartItem.getCartNo())){
+            addItem(cartItem);
+        }else {
+        OrderItem orderItem = cart.get(cartItem.getCartNo());
         orderItem.setQty(qty);
         orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
-        cart.put(itemNo, orderItem);
+        cart.put(cartItem.getCartNo(), orderItem);
+        }
     }
 
 }

@@ -21,10 +21,10 @@ import org.springframework.stereotype.Controller;
 //		
 //}, 
 //initParams = { 
-//		@WebInitParam(name = "ArticleIndexPath", value = "/JSP/article/Article.jsp"),
-//		@WebInitParam(name = "QueryArticlePath", value = "/JSP/article/ShowArticle.jsp"),
-//		@WebInitParam(name = "CreateArticlePath", value = "/JSP/article/CreateArticle.jsp"),
-//		@WebInitParam(name = "UpdateArticlePath", value = "/JSP/article/UpdateArticle.jsp")
+//		@WebInitParam(name = "ArticleIndexPath", value = "/JSP/article/Article.html"),
+//		@WebInitParam(name = "QueryArticlePath", value = "/JSP/article/ShowArticle.html"),
+//		@WebInitParam(name = "CreateArticlePath", value = "/JSP/article/CreateArticle.html"),
+//		@WebInitParam(name = "UpdateArticlePath", value = "/JSP/article/UpdateArticle.html")
 //})
 //@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 定義檔案暫存門檻
 //maxFileSize = 1024 * 1024 * 10, // 允許單個檔案最大大小；當上傳檔案大小超過定義會丟出 exception (IllegalStateException)

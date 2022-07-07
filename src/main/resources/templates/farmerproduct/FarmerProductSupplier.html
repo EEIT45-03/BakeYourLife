@@ -123,11 +123,11 @@
                 <div class="col-lg-2 col-md-3 ">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__item ">
-                            <h4>Categories</h4>
+                            <h4>小農廠商</h4>
                             <ul>
-                                <li><a href="#">資訊設定</a></li>
-                                <li><a href="#">管理商品</a></li>
-                                <li><a href="#">管理訂單</a></li>
+                                <li><a href="#">小農廠商資料</a></li>
+                                <li><a href="#">小農商品清單</a></li>
+                                <li><a href="#">小農訂單紀錄</a></li>
                             </ul>
                         </div>
                     </div>
@@ -164,8 +164,8 @@
                                         <th class="none">價格</th>
                                         <th class="none">數量</th>
                                         <th>狀態</th>
-                                        <th class="none">內容物</th>
                                         <th class="none">保存方式</th>
+                                        <th class="none">內容物</th>
                                         <th class="none">商品介紹</th>
                                         <th>上下架</th>
                                         <th>修改</th>
@@ -180,7 +180,8 @@
                                         <td th:text="${bean.type}"></td>
                                         <td class="w-25">
 
-                                            <div class=" carousel slide" data-ride="carousel">
+                                            <div th:if="${not #lists.isEmpty(bean.farmerProductPicList)}"
+                                                 class=" carousel slide" data-ride="carousel">
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item"
                                                          th:each="FarmerProductPic: ${bean.farmerProductPicList}">
@@ -203,7 +204,9 @@
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </div>
-
+                                            <img th:unless="${not #lists.isEmpty(bean.farmerProductPicList)}"
+                                                 class="d-block w-100 img"
+                                                 src="/img/logo4.png">
 
                                         </td>
                                         <td class="namelink">
@@ -233,28 +236,34 @@
                                             </div>
                                         </td>
 
-                                        <td th:text="${bean.contents}"></td>
                                         <td th:text="${bean.storage}"></td>
-                                        <td th:text="${bean.description}"></td>
                                         <td>
-                                
-                                <span th:if="${bean.state}==1">
-                                	<button type="button" class="btn btn-info btn-icon-split btn-sm"
-                                            data-toggle="modal"
-                                            th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">
-                                        <span class="icon text-white-50"> <i class="fa-solid fa-arrow-up"></i>
-                                        </span> <span class="text">上架商品</span>
-                                    </button>
-                                </span>
+                                            <p th:utext="${#strings.replace(#strings.escapeXml(bean.contents),'&#10;','&lt;br&gt;')}"></p>
+                                        </td>
+                                        <td>
+                                            <p th:utext="${#strings.replace(#strings.escapeXml(bean.description),'&#10;','&lt;br&gt;')}"></p>
+                                        </td>
+
+                                        <td>
+                                            <span th:if="${bean.state}==1">
+                                                <button type="button" class="btn btn-info btn-icon-split btn-sm"
+                                                        data-toggle="modal"
+                                                        th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">
+                                                    <span class="icon text-white-50"> <i
+                                                            class="fa-solid fa-arrow-up"></i>
+                                                    </span> <span class="text">上架</span>
+                                                </button>
+                                            </span>
                                             <span th:if="${bean.state}==0">
-                                	<button type="button" class="btn primary-btn btn-icon-split btn-sm"
-                                            data-toggle="modal" data-target="#myModal1"
-                                            th:onclick="|updateState(${bean.farmerProductId},1,'確認下架此商品?','')|">
-                                        <span class="icon text-white-50"> <i class="fa-solid fa-arrow-down"></i>
-                                        </span> <span class="text-white">下架商品</span>
-                                    </button>
-                                	
-                                </span>
+                                                <button type="button" class="btn primary-btn btn-icon-split btn-sm"
+                                                        data-toggle="modal" data-target="#myModal1"
+                                                        th:onclick="|updateState(${bean.farmerProductId},1,'確認下架此商品?','')|">
+                                                    <span class="icon text-white-50"> <i
+                                                            class="fa-solid fa-arrow-down"></i>
+                                                    </span> <span class="text-white">下架</span>
+                                                </button>
+
+                                            </span>
                                         </td>
                                         <td>
 

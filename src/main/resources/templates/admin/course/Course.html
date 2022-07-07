@@ -41,7 +41,10 @@
 						</span> <span class="text">建立課程</span>
                     </a>
 
-
+                    <a href="./listProducts" class="btn btn-primary btn-icon-split btn-sm"/> <span
+                        class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">查詢課程種類</span>
+                    </a>
 
                 </p>
 
@@ -58,12 +61,13 @@
                                     <th></th>
                                     <th>開課編號</th>
                                     <th>課程代碼</th>
+                                    <th>課程名稱</th>
+                                    <th class="none">課程時數</th>
                                     <th>開課日期</th>
                                     <th>結束日期</th>
-                                    <th>教室</th>
-                                    <th>人數上限</th>
-                                    <th>報名人數</th>
-                                    <!--                                        <th>人數上限</th>-->
+                                    <th class="none">教室</th>
+                                    <th class="none">人數上限</th>
+                                    <th class="none">報名人數</th>
                                     <th class="none">老師</th>
                                     <th class="none">備註</th>
                                     <th>修改</th>
@@ -75,14 +79,18 @@
                                 <tr th:each="course: ${courses}">
                                     <td></td>
                                     <td th:text="${course.openCourse}"></td>
-                                    <td th:text="${course.courseId}"></td>
-                                    <!--                                        <td>-->
-                                    <!--                                            <button type="button"-->
-                                    <!--                                                    STYLE="background-color: transparent; border:none"-->
-                                    <!--                                                    onclick="courseIdAlert('${course.courseId}')">-->
-                                    <!--                                                <span class="text">${course.courseId}</span>-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </td>-->
+<!--                                    <td th:text="${course.cProduct.id}"></td>-->
+
+                                    <td>
+                                        <button type="button"
+                                                STYLE="background-color: transparent; border:none"
+                                                onclick="courseIdAlert('${course.cProduct.id}')">
+                                            <span th:text="${course.cProduct.id}">"</span>
+                                        </button>
+                                    </td>
+
+                                    <td th:text="${course.cProduct.name}"></td>
+                                    <td th:text="${course.hours}"></td>
                                     <td th:text="${#dates.format(course.startDate, 'yyyy/MM/dd HH:mm')}"></td>
                                     <td th:text="${#dates.format(course.endDate, 'yyyy/MM/dd HH:mm')}"></td>
                                     <td th:text="${course.venue.venueName }"></td>

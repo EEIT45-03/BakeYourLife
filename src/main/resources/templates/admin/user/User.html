@@ -13,7 +13,8 @@
 
     <!--  modal  -->
     <div th:replace="/admin/css.html"></div>
-
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         .modal-confirm {
             color: #636363;
@@ -134,7 +135,6 @@
                         <div class="modal-header flex-column">
                             <div class="icon-box">
                                 <i class="material-icons">&#xE5CD;</i>
-
                             </div>
                             <h4 class="modal-title w-100">請確認是否要刪除此會員?</h4>
                             <button type="button" class="close" data-dismiss="modal"
@@ -168,6 +168,10 @@
 							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
 						</span> <span class="text">新增會員</span>
                     </a>
+                    <a href="/" class="btn btn-primary btn-icon-split btn-sm">
+							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">回前台首頁</span>
+                    </a>
 
 
                 </p>
@@ -183,6 +187,7 @@
                                 <tr>
                                     <th>帳號</th>
                                     <th>編號</th>
+                                    <th>頭像</th>
                                     <th>姓名</th>
                                     <th>E-mail</th>
                                     <th>電話</th>
@@ -192,6 +197,7 @@
 
                                     <th class="none">帳號:</th>
                                     <th class="none">密碼:</th>
+                                    <th class="none">創立時間:</th>
                                     <th class="none">動作:</th>
                                 </tr>
                                 </thead>
@@ -211,6 +217,9 @@
                                 <tr th:each="user: ${users}">
                                     <td></td>
                                     <td th:text="${user.userId}"></td>
+                                    <td>
+                                        <img width='70' height='72' th:src="@{/admin/User/picture(userId=${user.userId})}">
+                                    </td>
                                     <td th:text="${user.fullName}"></td>
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.phone}"></td>
@@ -219,7 +228,8 @@
                                     <td th:text="${user.address}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.password}"></td>
-                                    <td><a th:href="@{'update/'+${user.userId}}" class="btn btn-warning btn-icon-split btn-sm"> <span
+                                    <td th:text="${user.registerTime}"></td>
+                                    <td><a th:href="@{UpdateUser(userId=${user.userId})}" class="btn btn-warning btn-icon-split btn-sm"> <span
                                             class="icon text-white-50"> <i
                                             class="fas fa-exclamation-triangle"></i>
 													</span><span class="text">修改</span>

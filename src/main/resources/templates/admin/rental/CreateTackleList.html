@@ -28,10 +28,11 @@
     <label for="tackleId" class="col-sm-2 col-form-labels">租借器具:</label>
     <div class="col-sm-10" >
       <select th:field="*{tackleId}" type="text" class="form-control form-select mb-3" name="tackleId"
-              id="tackleId" aria-label="Default select example">
+              id="tackleId" aria-label="Default select example" th:onchange="|checkTId()|">
         <option value="" selected>請選擇</option>
         <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}" th:text="${tackle.tackleName}"></option>
       </select>
+      <span class="show" id="s_tId"></span>
     </div>
   </div>
 
@@ -39,8 +40,9 @@
   <div class="row mb-3">
     <label for="lendDate" class="col-sm-2 col-form-labels">出租時間:</label>
     <div class="col-sm-10">
-      <input th:field="*{lendDate}" type="date" class="form-control"
+      <input th:field="*{lendDate}" type="date" class="form-control" th:onchange="|checkTLD()|"
                   name="lendDate" id="lendDate" required="required"/>
+      <span class="show" id="s_lDate"></span>
     </div>
   </div>
 
@@ -48,19 +50,20 @@
   <div class="row mb-3">
     <label for="endDate" class="col-sm-2 col-form-labels">結束時間:</label>
     <div class="col-sm-10">
-      <input th:field="*{endDate}" type="date" class="form-control"
+      <input th:field="*{endDate}" type="date" class="form-control" th:onchange="|checkTED()|"
              name="endDate" id="endDate" required="required"/>
+      <span class="show" id="s_eDate"></span>
     </div>
   </div>
 
-  <!-- 歸還時間: -->
-  <div class="row mb-3">
-    <label for="returnDate" class="col-sm-2 col-form-labels">歸還時間:</label>
-    <div class="col-sm-10">
-      <input th:field="*{returnDate}" type="date" class="form-control"
-                  name="returnDate" id="returnDate"/>
-    </div>
-  </div>
+<!--  &lt;!&ndash; 歸還時間: &ndash;&gt;-->
+<!--  <div class="row mb-3" id="rD">-->
+<!--    <label for="returnDate" class="col-sm-2 col-form-labels">歸還時間:</label>-->
+<!--    <div class="col-sm-10">-->
+<!--      <input th:field="*{returnDate}" type="date" class="form-control" th:onchange="|checkTRD()|"-->
+<!--                  name="returnDate" id="returnDate"/>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <!-- 數量: -->
   <div class="row mb-3">
@@ -84,16 +87,16 @@
     <label for="state" class="col-sm-2 col-form-labels">租借狀態:</label>
     <div class="col-sm-10" >
       <select th:field="*{state}" type="text" class="form-control form-select mb-3" name="state"
-              id="state" aria-label="Default select example">
+              id="state" aria-label="Default select example" >
         <option th:value="unrented" th:text="未出租" selected></option>
-        <option th:value="unclaimed" th:text="未領取"></option>
+<!--        <option th:value="unclaimed" th:text="未領取"></option>-->
         <option th:value="rented" th:text="已出租"></option>
-        <option th:value="return" th:text="已歸還"></option>
-        <option th:value="noReturn" th:text="未歸還"></option>
+<!--        <option th:value="return" th:text="已歸還"></option>-->
+<!--        <option th:value="noReturn" th:text="未歸還"></option>-->
       </select>
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">建立清單</button>
+  <button type="submit" id="submit_List" class="btn btn-primary">建立清單</button>
 
 </form>

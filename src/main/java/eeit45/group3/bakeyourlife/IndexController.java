@@ -1,10 +1,11 @@
 package eeit45.group3.bakeyourlife;
 
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 
 @Controller
 public class IndexController {
@@ -30,6 +31,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(){
         return "/index";
-//        return "example/shoping-cart";
+//        return "example/checkout";
     }
+
 }

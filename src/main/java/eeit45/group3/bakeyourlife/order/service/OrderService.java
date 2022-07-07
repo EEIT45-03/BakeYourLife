@@ -32,9 +32,9 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-    List<Order> findAllByUser(User user);
+    Page<Order> findAllByUser(User user, Pageable pageable);
 
-    List<Order> findAllByUserId(Integer userId);
+    Page<Order> findAllByUserId(Integer userId, Pageable pageable);
 
 
 

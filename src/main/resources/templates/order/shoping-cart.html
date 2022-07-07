@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>購物車</title>
+
+    <div th:replace="/css.html"></div>
+
+</head>
+
+<body onload="getCartDate()">
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>購物車</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">首頁</a>
+                        <span>購物車</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container" id="cart">
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <div class="shoping__cart__table">-->
+<!--                    <table>-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <input class="product-id" type="hidden" value="1" >-->
+<!--                            <th class="shoping__product">商品</th>-->
+<!--                            <th>商品類型</th>-->
+<!--                            <th>價格</th>-->
+<!--                            <th>數量</th>-->
+<!--                            <th>小計</th>-->
+<!--                            <th></th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr>-->
+<!--                            <td class="shoping__cart__item product-name">-->
+<!--&lt;!&ndash;                                <img src="/img/cart/cart-1.jpg" alt="">&ndash;&gt;-->
+<!--                                <h5>Vegetable’s Package</h5>-->
+<!--                            </td>-->
+<!--                            <td class="product-type">烘培材料</td>-->
+<!--                            <td class="shoping__cart__price product-price">-->
+<!--                                NT$55-->
+<!--                            </td>-->
+<!--                            <td class="shoping__cart__quantity product-qty">-->
+<!--                                <div class="quantity">-->
+<!--                                    <div class="pro-qty">-->
+<!--                                        <input name="qty" type="text" value="1">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            <td class="shoping__cart__total product-subTotal">-->
+<!--                                NT$55-->
+<!--                            </td>-->
+<!--                            <td class="shoping__cart__item__close">-->
+<!--                                <span class="icon_close" onclick="remove(1)"></span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <div class="shoping__cart__btns">-->
+<!--                    <a href="/" class="primary-btn cart-btn">繼續購物</a>-->
+<!--                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>-->
+<!--                        更新購物車</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6">-->
+<!--                <div class="shoping__continue">-->
+<!--                    <div class="shoping__discount">-->
+<!--                        <h5>優惠卷</h5>-->
+<!--                        <form action="#">-->
+<!--                            <input type="text" placeholder="輸入你的優惠卷代碼">-->
+<!--                            <button type="submit" class="site-btn">使用優惠卷</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6">-->
+<!--                <div class="shoping__checkout">-->
+<!--&lt;!&ndash;                    <h5>Cart Total</h5>&ndash;&gt;-->
+<!--                    <ul>-->
+<!--                        <li>商品小計 <span>NT$454</span></li>-->
+<!--                        <li>折扣 <span>-NT$454</span></li>-->
+<!--                        <li>總金額 <span>NT$454</span></li>-->
+<!--                    </ul>-->
+<!--                    <a href="#" class="primary-btn" onclick="checkout()">結帳</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+        <div class="text-center">
+            <a href="#" class="primary-btn" onclick="add()">新增商品</a>
+        </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+<div th:replace="/footer.html"></div>
+
+<script>
+
+
+    function add(){
+        var inputOption;
+        fetch('[[@{/Carts/getItemList}]]')
+            .then(response => response.json())
+            .then(function (data) {
+
+        Swal.fire({
+            title: '選擇商品',
+            input: 'select',
+            inputOptions: data,
+            inputPlaceholder: '選擇商品',
+            showCancelButton: true,
+            preConfirm:(value)  =>{
+                console.log(value);
+                update(value, 1);
+            }
+        })
+            })
+        // if (fruit) {
+        //     Swal.fire(`You selected: ${fruit}`)
+        // }
+
+
+
+
+        // fetch('[[@{/Carts/Add}]]' + '?type=G&itemId='+ id)
+        //     .then(response => response.json())
+        //     .then(function (cart) {
+        //         getDataFormJosn(cart)
+        //     });
+    }
+function getCartDate(data){
+    fetch('[[@{/Carts}]]')
+        .then(response => response.json())
+        .then(function (cart) {
+            getDataFormJosn(cart)
+
+        });
+}
+
+function remove(id) {
+    Swal.fire({
+        title: '是否把此商品從購物車移除！',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: '否',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '是'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch("./Carts/Remove?itemNo=" + id).then(response => response.json())
+                .then(function (data) {
+                    getDataFormJosn(data)
+                })
+        }
+
+    })
+}
+    $('body').on('click', '#useCoupon', function () {
+        let code = $('#coupon').val();
+        fetch("./Cart/useCoupon?code=" + code).then(response => {
+            if (!response.ok) {
+                // make the promise be rejected if we didn't get a 2xx response
+                const err = new Error("Not 2xx response");
+                err.response = response;
+                throw err;
+            } else {
+            return response.json()
+            }
+        })
+            .then(function (data) {
+                Swal.fire({
+                    title: '優惠卷使用成功',
+                    text: "",
+                    icon: 'success',
+                })
+                getDataFormJosn(data)
+            }).catch(function(err) {
+            Swal.fire({
+                title: '錯誤',
+                text: "輸入錯誤的優惠卷或已過期",
+                icon: 'warning',
+            })
+        });
+    })
+
+function getDataFormJosn(cart) {
+
+
+    data = `        <div class="row">
+<div class="col-lg-12">
+    <div class="shoping__cart__table">
+        <table>
+            <thead>
+            <tr>
+                <th class="shoping__product">商品</th>
+                <th>商品類型</th>
+                <th>價格</th>
+                <th>數量</th>
+                <th>小計</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>`;
+    Object.values(cart.cart).forEach(val => {
+        data+= `<tr>
+                <input class="product-id" type="hidden" value="${val.productNo}" >
+                <td class="shoping__cart__item product-name">
+<!--                                <img src="/img/cart/cart-1.jpg" alt="">-->
+                    <h5>${val.productName}</h5>
+                </td>
+                <td class="product-type">${val.productType}</td>
+                <td class="shoping__cart__price product-price">
+                    NT$${val.price}
+                </td>
+                <td class="shoping__cart__quantity product-qty">
+                    <div class="quantity">
+                        <div class="pro-qty">
+                            <input name="qty" type="text" value="${val.qty}">
+                        </div>
+                    </div>
+                </td>
+                <td class="shoping__cart__total product-subTotal">
+                    NT$${val.subTotal}
+                </td>
+                <td class="shoping__cart__item__close">
+                    <span class="icon_close" onclick="remove('${val.productNo}')"></span>
+                </td>
+            </tr>`;
+    });
+
+
+    let coupon;
+    let discountAmount;
+    if(cart.coupon !=null){
+        coupon = `<span>優惠卷:${cart.coupon.code} 折扣額度為 ${cart.coupon.discountString}</span>`
+        discountAmount = `<li>折扣 <span>-NT$${cart.discountAmount}</span></li>`;
+    }else {
+        discountAmount = '';
+        coupon = `<input type="text" placeholder="輸入你的優惠卷代碼" id="coupon">
+                            <button class="site-btn" id="useCoupon">使用優惠卷</button>`
+    }
+
+
+
+
+
+    data+= `
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="/" class="primary-btn cart-btn">繼續購物</a>
+<!--                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>-->
+<!--                        更新購物車</a>-->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__continue">
+                    <div class="shoping__discount">
+                        <h5>優惠卷</h5>
+                            ${coupon}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+<!--                    <h5>Cart Total</h5>-->
+                    <ul>
+                        <li>商品小計 <span>NT$${cart.total-cart.shippingFee}</span></li>
+                        <li>運費 <span id="shippingFee">NT$${cart.shippingFee}</span></li>
+                        ${discountAmount}
+                        <li>總金額 <span id="total">NT$${cart.total - cart.discountAmount}</span></li>
+                    </ul>
+                    <a href="#" class="primary-btn" onclick="checkout()">結帳</a>
+                </div>
+            </div>
+        </div>
+
+        `
+    $('#cart').html(data)
+
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        let price = $button.parent().parent().parent().parent().children('.product-price')[0].innerText.replace('NT$','');
+        let subTotal = $button.parent().parent().parent().parent().children('.product-subTotal');
+        let id = $button.parent().parent().parent().parent().children('.product-id').val();
+        console.log(id)
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        subTotal.html('NT$' + newVal*price);
+        $button.parent().find('input').val(newVal);
+        update(id, newVal)
+    });
+
+}
+function update(id, qty) {
+    fetch("./Carts/Update?itemNo=" + id + '&qty=' + qty).then(response => response.json())
+        .then(function (data) {
+            getDataFormJosn(data)
+        })
+}
+
+function checkout() {
+    let shippingFee = parseInt($('#shippingFee').text().slice(3));
+    console.log('shippingFee=' + shippingFee)
+    let total = parseInt($('#total').text().slice(3));
+    console.log('total=' + total)
+    if (shippingFee > 0 && total > shippingFee) {
+        location.href = './CheckOut'
+    } else {
+        Swal.fire(
+            '購物車沒有商品，無法結帳！',
+            '',
+            'warning'
+        )
+    }
+
+}
+</script>
+
+</body>
+
+</html>

@@ -62,9 +62,17 @@
 
                             <!-- 課程編號: -->
                             <div class="row mb-3">
-                                <label for="courseId" class="col-sm-2 col-form-labels">課程編號:</label>
+                                <label for="cProduct" class="col-sm-2 col-form-labels">課程編號:</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{courseId}" type="text" class="form-control" name="courseId" id="courseId"
+                                    <input th:field="*{cProduct}" type="text" class="form-control" name="cProduct" id="cProduct"
+                                           placeholder="請輸入課程編號" required />
+                                </div>
+                            </div>
+                            <!-- Hours: -->
+                            <div class="row mb-3">
+                                <label for="hours" class="col-sm-2 col-form-labels">時數:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{hours}" type="text" class="form-control" name="hours" id="hours"
                                            placeholder="請輸入課程編號" required />
                                 </div>
                             </div>

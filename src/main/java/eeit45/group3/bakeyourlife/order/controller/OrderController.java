@@ -28,11 +28,16 @@ public class OrderController {
 	
 	
 
-	private OrderService orderService;
+	private final OrderService orderService;
 	@Autowired
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
+
+	/*
+	 * 接收付款資訊
+	 */
+
 
 	@PostMapping("/Order/ECPAY/Result")
 	public String result(@RequestParam("RtnCode") String rtnCode,
@@ -64,10 +69,20 @@ public class OrderController {
 		return "redirect:/Order/PaySuccess";
 	}
 
+
+	/*
+	 * 跳轉付款成功頁面
+	 */
+
 	@GetMapping("/Order/PaySuccess")
 	public String paySuccess(){
 		return "order/PaySuccess";
 	}
+
+	/*
+	* *************************************************************************************************************************
+	* 提供訂單各項操作
+	 */
 
 	@GetMapping(value = "/Order/{orderNo}/Pay",produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> pay(@PathVariable String orderNo, HttpServletRequest request){
@@ -162,7 +177,9 @@ public class OrderController {
 	}
 
 
-
+/*
+* *************************************************************************************************************************
+ */
 
 
 
