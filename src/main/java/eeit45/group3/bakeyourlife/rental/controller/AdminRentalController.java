@@ -209,7 +209,6 @@ public class AdminRentalController {
             tackleListRequest.setReturnDate(tackleList.getReturnDate());
             tackleListRequest.setQuantity(tackleList.getQuantity());
             tackleListRequest.setPrice(tackleList.getPrice());
-            tackleListRequest.setState(tackleList.getState());
             tackleListRequest.setTackleId(tackleList.getTackle().getTackleId());
             tackleListRequest.setRental(tackleList.getRental());
 
@@ -245,9 +244,6 @@ public class AdminRentalController {
         }
         if(tackleListRequest.getPrice() != null) {
             tackleListDb.setPrice(tackleListRequest.getPrice());
-        }
-        if(tackleListRequest.getState() != null) {
-            tackleListDb.setState(tackleListRequest.getState());
         }
         rentalService.updateTackleList(tackleListDb);
         Long sum = rentalService.findTackleListPriceSumByRental(tackleListDb.getRental());

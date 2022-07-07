@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -42,15 +43,15 @@ public class VenueList implements Serializable {
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
 	private Venue venue;
-	
+
 	//出租時間
 	@Column(name = "lendTime", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
 	private Date lendTime;
 
 	//結束時間
 	@Column(name = "endTime", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
 	private Date endTime;
 
 	//食材提供

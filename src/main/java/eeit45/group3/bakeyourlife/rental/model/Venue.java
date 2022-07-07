@@ -39,8 +39,16 @@ public class Venue implements Serializable {
 	//人數上限
 	@Column(name = "personMax",columnDefinition = "int not null")
 	private Integer personMax;
-	
-	
+
+	//價錢/時
+	@Column(name = "hrPrice",columnDefinition = "int not null")
+	private Integer hrPrice;
+
+	//備註
+	@Column
+	private String notes;
+
+
 	//對應場地清單
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
@@ -55,6 +63,12 @@ public class Venue implements Serializable {
 		this.personMax = personMax;
 	}
 
+	public Venue(String venueName, Integer personMax, Integer hrPrice, String notes) {
+		this.venueName = venueName;
+		this.personMax = personMax;
+		this.hrPrice = hrPrice;
+		this.notes = notes;
+	}
 
 	public Integer getVenueId() {
 		return venueId;
@@ -80,22 +94,28 @@ public class Venue implements Serializable {
 		this.personMax = personMax;
 	}
 
+	public Integer getHrPrice() {
+		return hrPrice;
+	}
+
+	public void setHrPrice(Integer hrPrice) {
+		this.hrPrice = hrPrice;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	public Set<VenueList> getVenueList() {
 		return venueList;
 	}
 
 	public void setVenueList(Set<VenueList> venueList) {
 		this.venueList = venueList;
-	}
-
-	@Override
-	public String toString() {
-		return "Venue{" +
-				"venueId=" + venueId +
-				", venueName='" + venueName + '\'' +
-				", personMax=" + personMax +
-				", venueList=" + venueList +
-				'}';
 	}
 }
 

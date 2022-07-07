@@ -406,7 +406,6 @@ public class RentalServiceImpl implements RentalService{
 		tackleList.setReturnDate(tackleListRequest.getReturnDate());
 		tackleList.setQuantity(tackleListRequest.getQuantity());
 		tackleList.setPrice(tackleListRequest.getPrice());
-		tackleList.setState(tackleListRequest.getState());
 		tackleList.setRental(rental);
 		return tackleListRepository.save(tackleList);
 	}

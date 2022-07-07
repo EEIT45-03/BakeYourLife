@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.rental.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -29,17 +30,17 @@ public class TackleList implements Serializable {
 	
 	//出租時間
 	@Column(name = "lendDate", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	private Date lendDate;
 
 	//結束時間
 	@Column(name = "endDate", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	private Date endDate;
 
 	//歸還時間
 	@Column(name = "returnDate")
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	private Date returnDate;
 	
 	//數量
@@ -49,10 +50,6 @@ public class TackleList implements Serializable {
 	//小計
 	@Column(name = "price",columnDefinition = "int not null")
 	private Integer price;
-
-	//租借狀態
-	@Column(name = "state",columnDefinition = "varchar(10)")
-	private String state;
 
 	//租借單
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -67,14 +64,13 @@ public class TackleList implements Serializable {
 	public TackleList() {
 	}
 
-	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer quantity, Integer price, String state, Rental rental, Tackle tackle) {
+	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer quantity, Integer price, Rental rental, Tackle tackle) {
 		this.tackleListNo = tackleListNo;
 		this.lendDate = lendDate;
 		this.endDate = endDate;
 		this.returnDate = returnDate;
 		this.quantity = quantity;
 		this.price = price;
-		this.state = state;
 		this.rental = rental;
 		this.tackle = tackle;
 	}
@@ -135,14 +131,6 @@ public class TackleList implements Serializable {
 		this.price = price;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
 	public Rental getRental() {
 		return rental;
 	}
@@ -159,19 +147,4 @@ public class TackleList implements Serializable {
 		this.tackle = tackle;
 	}
 
-	@Override
-	public String toString() {
-		return "TackleList{" +
-				"tackleListId=" + tackleListId +
-				", tackleListNo='" + tackleListNo + '\'' +
-				", lendDate=" + lendDate +
-				", endDate=" + endDate +
-				", returnDate=" + returnDate +
-				", quantity=" + quantity +
-				", price=" + price +
-				", state='" + state + '\'' +
-				", rental=" + rental +
-				", tackle=" + tackle +
-				'}';
-	}
 }

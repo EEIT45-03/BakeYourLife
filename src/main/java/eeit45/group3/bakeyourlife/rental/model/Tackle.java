@@ -52,10 +52,18 @@ public class Tackle implements Serializable {
 	//價錢/天
 	@Column(name = "dayPrice",columnDefinition = "int not null")
 	private Integer dayPrice;
+
+	//損壞賠償
+	@Column(name = "damages",columnDefinition = "int not null")
+	private Integer damages;
 	
 	//總數量
 	@Column(name = "max",columnDefinition = "int not null")
 	private Integer max;
+
+	//備註
+	@Column
+	private String notes;
 	
 	//對應器具清單
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
@@ -71,6 +79,17 @@ public class Tackle implements Serializable {
 		this.picture = picture;
 		this.dayPrice = dayPrice;
 		this.max = max;
+	}
+
+	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer damages, Integer max, String notes) {
+		this.tackleName = tackleName;
+		this.productModel = productModel;
+		this.specification = specification;
+		this.picture = picture;
+		this.dayPrice = dayPrice;
+		this.damages = damages;
+		this.max = max;
+		this.notes = notes;
 	}
 
 	public Integer getTackleId() {
@@ -89,6 +108,22 @@ public class Tackle implements Serializable {
 		this.tackleName = tackleName;
 	}
 
+	public String getProductModel() {
+		return productModel;
+	}
+
+	public void setProductModel(String productModel) {
+		this.productModel = productModel;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
 	public byte[] getPicture() {
 		return picture;
 	}
@@ -105,6 +140,14 @@ public class Tackle implements Serializable {
 		this.dayPrice = dayPrice;
 	}
 
+	public Integer getDamages() {
+		return damages;
+	}
+
+	public void setDamages(Integer damages) {
+		this.damages = damages;
+	}
+
 	public Integer getMax() {
 		return max;
 	}
@@ -113,43 +156,19 @@ public class Tackle implements Serializable {
 		this.max = max;
 	}
 
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	public Set<TackleList> getTackleList() {
 		return tackleList;
 	}
 
 	public void setTackleList(Set<TackleList> tackleList) {
 		this.tackleList = tackleList;
-	}
-
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
-
-
-	public String getProductModel() {
-		return productModel;
-	}
-
-	public void setProductModel(String productModel) {
-		this.productModel = productModel;
-	}
-
-	@Override
-	public String toString() {
-		return "Tackle{" +
-				"tackleId=" + tackleId +
-				", tackleName='" + tackleName + '\'' +
-				", productModel='" + productModel + '\'' +
-				", specification='" + specification + '\'' +
-				", picture=" + Arrays.toString(picture) +
-				", dayPrice=" + dayPrice +
-				", max=" + max +
-				", tackleList=" + tackleList +
-				'}';
 	}
 }

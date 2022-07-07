@@ -80,6 +80,8 @@
                   <th>價錢/1天</th>
                   <th>總數量</th>
                   <th>圖片</th>
+                  <th>備註</th>
+                  <th>賠償價</th>
                   <th>修改</th>
                   <th>刪除</th>
                   <th></th>
@@ -95,6 +97,8 @@
                   <td th:text="${tackle.dayPrice}"></td>
                   <td th:text="${tackle.max}"></td>
                   <td th:text="${tackle.picture}"></td>
+                  <td th:text="${tackle.notes}"></td>
+                  <td th:text="${tackle.damages}"></td>
                   <td>
                     <button type="button" class="btn btn-warning btn-icon-split btn-sm"
                             th:onclick="|updateTackle(${tackle.tackleId})|">

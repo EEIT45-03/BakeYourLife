@@ -32,7 +32,6 @@ public class TackleController {
             //設置給JSP使用
             model.addAttribute("tackles", rentalService.findAllTackle());
         }
-
         return "/admin/rental/Tackle";
     }
 
