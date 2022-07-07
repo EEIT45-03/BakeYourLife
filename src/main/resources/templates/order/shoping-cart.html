@@ -267,10 +267,8 @@ function getDataFormJosn(cart) {
         discountAmount = `<li>折扣 <span>-NT$${cart.discountAmount}</span></li>`;
     }else {
         discountAmount = '';
-        coupon = `                        <form>
-                            <input type="text" placeholder="輸入你的優惠卷代碼" id="coupon">
-                            <button class="site-btn" id="useCoupon">使用優惠卷</button>
-                        </form>`
+        coupon = `<input type="text" placeholder="輸入你的優惠卷代碼" id="coupon">
+                            <button class="site-btn" id="useCoupon">使用優惠卷</button>`
     }
 
 
