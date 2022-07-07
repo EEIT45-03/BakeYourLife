@@ -41,7 +41,7 @@ public class AdminRentalController {
                             @RequestParam(value = "rNo", required = false) String rNo,
                             @RequestParam(value = "user1", required = false) String user1,
                             Model model) {
-        model.addAttribute("users", userService.findAll());
+
 
         List<Rental> rentals = null;
 
@@ -80,19 +80,16 @@ public class AdminRentalController {
             rentals = rentalService.findAllRental();
         }
 
-        //設置給JSP使用
+        //設置給前端使用
         model.addAttribute("rentals", rentals);
-
         return "admin/rental/Rental";
     }
 
 
     @GetMapping("/CreateRental")
     public String viewCreateRental(Model model) {
-
-        List<User> users = userService.findAll();
-
         RentalRequest rentalRequest = rentalService.createRentalRequest();
+        List<User> users = userService.findAll();
 
         //表單綁定用
         model.addAttribute("users",users);
@@ -124,6 +121,7 @@ public class AdminRentalController {
             rentalRequest.setListType(rental.getType());
             rentalRequest.setUserId(rental.getUser().getUserId());
             rentalRequest.setTotal(rental.getTotal());
+            rentalRequest.setState(rental.getState());
 
             model.addAttribute("users",users);
             model.addAttribute("rentalRequest", rentalRequest);
@@ -144,6 +142,9 @@ public class AdminRentalController {
         }
         if(rentalRequest.getTotal() != null) {
             rentalDb.setTotal(rentalRequest.getTotal());
+        }
+        if(rentalRequest.getState() != null) {
+            rentalDb.setState(rentalRequest.getState());
         }
         rentalService.updateRental(rentalDb);
 
@@ -290,7 +291,12 @@ public class AdminRentalController {
         rentalService.createVenueList(FK_rentalId,venueListRequest);
         Rental rental = rentalService.findByRentalId(FK_rentalId);
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
+
         rentalService.updateRental(rental);
         return "redirect:./";
     }
@@ -359,11 +365,18 @@ public class AdminRentalController {
 
     @RequestMapping("/DeleteVenueList")
     public ResponseEntity<?> deleteVenueList(@RequestParam Integer venueListId) {
-        rentalService.deleteVenueList(venueListId);
         VenueList venueList = rentalService.findByVenueListId(venueListId);
         Rental rental = venueList.getRental();
+
+        rentalService.deleteVenueList(venueListId);
+
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
         rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -373,5 +386,5 @@ public class AdminRentalController {
 //		List<User> users = userService.findAll();
 //		m.addAttribute("users",users);
 //	}
-//
+
 }

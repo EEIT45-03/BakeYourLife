@@ -29,6 +29,26 @@
             </div>
         </div>
 
+
+        <!-- 價錢/時: -->
+        <div class="row mb-3">
+            <label for="hrPrice" class="col-sm-3 col-form-labels">價錢/時:</label>
+            <div class="col-sm-9">
+                <input th:field="*{hrPrice}" type="number" class="form-control"
+                       th:name="hrPrice" id="hrPrice" th:min="1" th:max="500" required="required"/>
+            </div>
+        </div>
+
+        <!-- 備註: -->
+        <div class="row mb-3">
+            <label for="venueNotes" class="col-sm-3 col-form-labels">備註:</label>
+            <div class="col-sm-9">
+            <input th:field="*{notes}" type="text" class="form-control"
+                      th:name="notes" id="venueNotes"/>
+
+            </div>
+        </div>
+
         <button type="submit" id="submit" class="btn btn-primary">修改</button>
         </form>
 </div>

@@ -20,25 +20,25 @@ $(document).ready(function () {
         order: [1, 'asc']
     });
 
-    $('#venueTable').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
-        },
-        responsive: {
-            details: {
-                type: 'column'
-            }
-        },
-        columnDefs: [{
-            className: 'dtr-control',
-            orderable: false,
-            targets: 0
-        }, {
-            className: 'dt-center',
-            targets: [1, 2, 3, 4, 5]
-        }],
-        order: [1, 'asc']
-    });
+    // $('#venueTable').DataTable({
+    //     language: {
+    //         url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+    //     },
+    //     responsive: {
+    //         details: {
+    //             type: 'column'
+    //         }
+    //     },
+    //     columnDefs: [{
+    //         className: 'dtr-control',
+    //         orderable: false,
+    //         targets: 0
+    //     }, {
+    //         className: 'dt-center',
+    //         targets: [1, 2, 3, 4, 5]
+    //     }],
+    //     order: [1, 'asc']
+    // });
 
 });
 
@@ -96,7 +96,7 @@ Swal.fire({
   title: '修改租借單',
   icon: 'info',
   html:data,
-    width: '40%',
+    // width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -158,7 +158,7 @@ Swal.fire({
   title: '修改器具清單',
   icon: 'info',
   html:data,
-    width: '40%',
+    // width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -177,7 +177,7 @@ function createTackleList(rentalId){
                 title: '新增器具清單',
                 icon: 'info',
                 html:data,
-                width: '40%',
+                // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -240,7 +240,7 @@ Swal.fire({
   title: '修改場地清單',
   icon: 'info',
   html:data,
-    width: '40%',
+    // width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -259,7 +259,7 @@ Swal.fire({
   title: '新增場地清單',
   icon: 'info',
   html:data,
-    width: '40%',
+    // width: '40%',
   showCloseButton: true,
   showCancelButton: false,
   showConfirmButton: false,
@@ -320,7 +320,7 @@ function updateVenue(venueId){
                 title: '修改場地',
                 icon: 'info',
                 html:data,
-                width: '40%',
+                // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -338,7 +338,7 @@ function createVenue(){
                 title: '新增場地',
                 icon: 'info',
                 html:  data,
-                width: '40%',
+                // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -400,7 +400,7 @@ function updateTackle(tackleId){
                 title: '修改器具',
                 icon: 'info',
                 html:data,
-                width: '40%',
+                // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -419,7 +419,7 @@ function createTackle(){
                 title: '新增器具',
                 icon: 'info',
                 html:data,
-                width: '40%',
+                // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,

@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.rental.controller;
 
-import eeit45.group3.bakeyourlife.rental.dto.VenueRequest;
 import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/admin/Venue")
-public class VenueController {
+public class AdminVenueController {
 
     @Autowired
     private RentalService rentalService;
@@ -54,17 +53,13 @@ public class VenueController {
 
     @GetMapping("/UpdateVenue")
     public String viewUpdateVenue(@RequestParam Integer venueId, Model model) {
-        VenueRequest venueRequest = new VenueRequest();
-        Venue venue = null;
+        Venue venue = new Venue();
         if(venueId != null){
             venue = rentalService.findByVenueId(venueId);
         }
         if(venue != null){
-            venueRequest.setVenueId(venue.getVenueId());
-            venueRequest.setVenueName(venue.getVenueName());
-            venueRequest.setPersonMax(venue.getPersonMax());
 
-            model.addAttribute("venueRequest",venueRequest);
+            model.addAttribute("venueRequest",venue);
             return "/admin/rental/UpdateVenue";
         }
         return null;
@@ -72,17 +67,22 @@ public class VenueController {
 
 
     @PostMapping("/UpdateVenue")
-    public String updateVenue(@RequestParam Integer venueId, @ModelAttribute("venueRequest") VenueRequest venueRequest) {
+    public String updateVenue(@RequestParam Integer venueId, @ModelAttribute("venueRequest") Venue venue) {
 
         Venue venueDb = rentalService.findByVenueId(venueId);
 
-        if(venueRequest.getVenueName() != null){
-            venueDb.setVenueName(venueRequest.getVenueName());
+        if(venue.getVenueName() != null){
+            venueDb.setVenueName(venue.getVenueName());
         }
-        if(venueRequest.getPersonMax() != null){
-            venueDb.setPersonMax(venueRequest.getPersonMax());
+        if(venue.getPersonMax() != null){
+            venueDb.setPersonMax(venue.getPersonMax());
         }
-
+        if(venue.getHrPrice() != null){
+            venueDb.setHrPrice(venue.getHrPrice());
+        }
+        if(venue.getNotes() != null){
+            venueDb.setNotes(venue.getNotes());
+        }
         rentalService.updateVenue(venueDb);
         return "redirect:./";
     }

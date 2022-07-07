@@ -32,6 +32,19 @@
                    required="required" />
         </div>
     </div>
+
+    <!-- 租借狀態: -->
+    <div class="row mb-3">
+        <label for="state" class="col-sm-3 col-form-labels">租借狀態:</label>
+        <div class="col-sm-9">
+            <select th:field="*{state}" type="text" class="form-control form-select mb-3"
+                    name="state" id="state" aria-label="Default select example">
+                <option th:value="未付款" th:text="未付款" selected></option>
+                <option th:value="已付款" th:text="已付款"></option>
+                <option th:value="已退單" th:text="已退單"></option>
+            </select>
+        </div>
+    </div>
     <button type="submit" class="btn btn-primary">修改租借單</button>
 </form>
 </div>

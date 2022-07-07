@@ -36,6 +36,7 @@ public class Rental implements Serializable {
     private User user;
 
     //下單日期
+    @Column(nullable = false)
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date rentalDate;
 
@@ -51,8 +52,8 @@ public class Rental implements Serializable {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental")
     private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
-    //消費狀態(待付款、已付款、未領取、已領取、未歸還、已歸還)
-    @Column(name = "state",columnDefinition = "varchar(10)")
+    //狀態(待付款、已付款、已退單、未領取、已領取、未歸還、已歸還)
+    @Column(name = "state", nullable = false, columnDefinition = "varchar(20)")
     private String state;
 
     //總價錢

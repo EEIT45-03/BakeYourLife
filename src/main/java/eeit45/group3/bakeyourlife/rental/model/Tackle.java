@@ -34,7 +34,7 @@ public class Tackle implements Serializable {
 	private Integer tackleId;
 	
 	//器具名稱
-	@Column(name = "tackleName",columnDefinition = "varchar(10) not null unique")
+	@Column(name = "tackleName",columnDefinition = "varchar(20) not null unique")
 	private String tackleName;
 
 	//器具型號

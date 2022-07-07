@@ -139,6 +139,8 @@ public class RentalServiceImpl implements RentalService{
 		rental.setUser(user);
 		rental.setType(rentalRequest.getListType());
 		rental.setTotal(rentalRequest.getTotal());
+		rental.setState(rentalRequest.getState());
+		rental.setRentalDate(new Date());
 		return rentalRepository.save(rental);
 	}
 	

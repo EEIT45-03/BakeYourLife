@@ -12,14 +12,14 @@
     </div>
 
 
-    <!-- 器具型號: -->
-    <div class="row mb-3">
-        <label for="productModel" class="col-sm-2 col-form-labels">器具型號:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" th:onblur="|checkTN()|"
-                   th:name="productModel" id="productModel" />
-        </div>
-    </div>
+<!--    &lt;!&ndash; 器具型號: &ndash;&gt;-->
+<!--    <div class="row mb-3">-->
+<!--        <label for="productModel" class="col-sm-2 col-form-labels">器具型號:</label>-->
+<!--        <div class="col-sm-10">-->
+<!--            <input type="text" class="form-control" th:onblur="|checkTN()|"-->
+<!--                   th:name="productModel" id="productModel" />-->
+<!--        </div>-->
+<!--    </div>-->
 
 
     <!-- 器具規格: -->
@@ -47,7 +47,7 @@
         <label for="damages" class="col-sm-2 col-form-labels"> 損毀價錢:</label>
         <div class="col-sm-10">
             <input type="number" class="form-control"
-                   th:name="damages" id="damages" required="required"/>
+                   th:name="damages" id="damages" th:min="1" th:max="10000" required="required"/>
         </div>
     </div>
 
@@ -57,11 +57,11 @@
         <label for="max" class="col-sm-2 col-form-labels"> 總數量:</label>
         <div class="col-sm-10">
             <input type="number" class="form-control"
-                   th:name="max" id="max" th:min="1" th:max="100" required="required" />
+                   th:name="max" id="max" th:min="1" th:max="200" required="required" />
         </div>
     </div>
 
-<!--    &lt;!&ndash; 圖片: &ndash;&gt;-->
+    <!-- 圖片: -->
 <!--    <div class="row mb-3">-->
 <!--        <label for="picturn" class="col-sm-2 col-form-labels"> 圖片:</label>-->
 <!--        <div class="col-sm-10">-->
@@ -71,12 +71,12 @@
 <!--    </div>-->
 
     <!-- 備註: -->
-    <div class="row mb-3">
-        <label for="tNote" class="col-sm-2 col-form-labels"> 備註:</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" th:name="tNote" id="tNote" ></textarea>
-        </div>
-    </div>
+<!--    <div class="row mb-3">-->
+<!--        <label for="tNote" class="col-sm-2 col-form-labels"> 備註:</label>-->
+<!--        <div class="col-sm-10">-->
+<!--            <textarea class="form-control" th:name="tNote" id="tNote" ></textarea>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <button type="submit" id="submit" class="btn btn-primary">建立</button>
 </form>

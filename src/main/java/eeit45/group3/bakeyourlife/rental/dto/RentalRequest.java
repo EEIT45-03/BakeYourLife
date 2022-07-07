@@ -15,6 +15,8 @@ public class RentalRequest {
 	
 	private Integer total ;
 
+	private String state;
+
 	private String[] venueListNo;	
 
 	private String[] tackleListNo;	
@@ -146,5 +148,13 @@ public class RentalRequest {
 
 	public void setPrice(Integer[] price) {
 		this.price = price;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 }
