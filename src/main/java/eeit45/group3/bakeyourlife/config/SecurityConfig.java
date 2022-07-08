@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class SecurityConfig   {
 		http
 		.authorizeHttpRequests()
 			//login頁面不需要認證
-			.antMatchers("/*","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
+			.antMatchers("/*","/webfonts/**","/SignUp","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
 //				.antMatchers("/admin/**").hasRole("ADMIN")
 //				.antMatchers("/user/**").hasRole("USER")
 //				.antMatchers("/XXXX/**").hasRole("FARMER")
@@ -51,7 +52,8 @@ public class SecurityConfig   {
 		//使用自己實作的userDetailsService
 		.userDetailsService(userDetailsService)
 		//綠界需要關csrf
-		.csrf().disable();
+		.csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 		return http.build();
 	}
 

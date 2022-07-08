@@ -142,6 +142,7 @@
                             <table class="table table-striped" id="commentTable">
                                 <thead>
                                 <tr>
+                                    <th></th>
                                     <th>評論編號</th>
                                     <th>評論者</th>
                                     <th>商品名稱</th>
@@ -153,6 +154,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="comment: ${productCommentList}">
+                                    <td></td>
                                     <td th:text="${comment.productCommentId}"></td>
                                     <td th:text="${comment.user.username}"></td>
                                     <td class="namelink">

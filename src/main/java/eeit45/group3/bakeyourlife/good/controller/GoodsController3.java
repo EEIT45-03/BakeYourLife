@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,9 +57,7 @@ public class GoodsController3 {
 
 	@PostMapping("/CreateGoods")
 	public String viewCreateGoods1(@ModelAttribute("Goods") Goods good){
-		for (int i = 0; i < 5; i++) {
-			System.out.println("Catch imfo");
-		}
+
 		MultipartFile picture = good.getProductImage();
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
 		String originalFilename =picture.getOriginalFilename();
@@ -147,8 +144,7 @@ public class GoodsController3 {
 			// 表示使用者並未挑選圖片
 			Goods goodDb = goodService.getGoods(id);
 			good.setImage(goodDb.getImage());
-//			Member original = memberService.get(id);
-//			member.setImage(original.getImage());
+
 		}else {
 
 
@@ -191,14 +187,14 @@ public class GoodsController3 {
 
 
 		String filename = goods.getFileName();
-		if (filename != null) {
-			if (filename.toLowerCase().endsWith("jfif")) {
-				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
-			} else {
-				mediaType = MediaType.valueOf(context.getMimeType(filename));
-				headers.setContentType(mediaType);
-			}
-		}
+//		if (filename != null) {
+//			if (filename.toLowerCase().endsWith("jfif")) {
+//				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
+//			} else {
+//				mediaType = MediaType.valueOf(context.getMimeType(filename));
+//				headers.setContentType(mediaType);
+//			}
+//		}
 		Blob blob = goods.getImage();
 
 		try {

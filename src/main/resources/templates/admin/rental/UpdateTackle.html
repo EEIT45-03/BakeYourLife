@@ -3,7 +3,7 @@
 
 
     <form th:action="@{UpdateTackle(tackleId=*{tackleId})}" method="post"
-          th:object="${tackleRequest}">
+          th:object="${tackle}">
 
         <!-- 器具ID: -->
         <p class="row mb-3">
@@ -15,8 +15,9 @@
         <div class="row mb-3">
             <label for="tackleName" class="col-sm-3 col-form-labels">器具名稱:</label>
             <div class="col-sm-9">
-                <input th:field="*{tackleName}" type="text" class="form-control"
+                <input th:field="*{tackleName}" type="text" class="form-control" th:onblur="|checkTN()|"
                        name="tackleName" id="tackleName" required="required"/>
+                <span class="show" id="s_tName"></span>
             </div>
         </div>
 
@@ -46,7 +47,7 @@
             <label for="dayPrice" class="col-sm-3 col-form-labels"> 價錢/天:</label>
             <div class="col-sm-9">
                 <input th:field="*{dayPrice}" type="number" class="form-control"
-                       name="dayPrice" id="dayPrice" th:min="50" required="required"/>
+                       name="dayPrice" id="dayPrice" th:min="50" th:max="500" required="required"/>
             </div>
         </div>
 
@@ -56,12 +57,12 @@
             <label for="max" class="col-sm-3 col-form-labels"> 總數量:</label>
             <div class="col-sm-9">
                 <input th:field="*{max}" type="number" class="form-control"
-                       name="max" id="max" th:min="1" required="required"/>
+                       name="max" id="max" th:min="1" th:max="100" required="required"/>
             </div>
         </div>
 
 
-        <button type="submit" class="btn btn-primary">修改</button>
+        <button type="submit" id="submit" class="btn btn-primary">修改</button>
 
         <form>
 </div>

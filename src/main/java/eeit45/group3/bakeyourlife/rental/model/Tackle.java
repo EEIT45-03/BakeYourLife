@@ -64,14 +64,13 @@ public class Tackle implements Serializable {
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer max, Set<TackleList> tackleList) {
+	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer max) {
 		this.tackleName = tackleName;
 		this.productModel = productModel;
 		this.specification = specification;
 		this.picture = picture;
 		this.dayPrice = dayPrice;
 		this.max = max;
-		this.tackleList = tackleList;
 	}
 
 	public Integer getTackleId() {

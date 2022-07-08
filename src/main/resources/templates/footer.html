@@ -81,3 +81,17 @@
 <script src="/js/og/owl.carousel.min.js"></script>
 <script src="/js/og/main.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    fetch('[[@{/Carts}]]')
+        .then(response => response.json())
+        .then(function (cart) {
+            let i = 0;
+            Object.values(cart.cart).forEach(val => {
+                console.log(i)
+                i++;
+            });
+            $('.cartCount').text(i);
+        });
+
+
+</script>

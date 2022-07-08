@@ -36,7 +36,6 @@ public class OrderItem implements Serializable {
 	
 	//單價，不存入資料庫(購物車用)，因為未串接商品，暫時使用
 	@Transient
-	@JsonIgnore
 	private Integer price;
 	
 	//數量 

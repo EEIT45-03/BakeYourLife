@@ -7,8 +7,9 @@
         <div class="col-sm-10">
 <!--            <input th:field="*{venueName}" type="text" class="form-control"-->
 <!--                   name="venueName" id="venueName" required="required"/>-->
-            <input type="text" class="form-control"
-                   th:name="venueName" id="venueName" required="required"/>
+            <input type="text" class="form-control" th:onkeyup="|checkVN()|"
+                   th:name="venueName" id="venueName" maxlength="5" required="required"/>
+            <span class="show" id="s_vName"></span>
         </div>
     </div>
 
@@ -19,9 +20,9 @@
 <!--            <input th:field="*{personMax}" type="number" class="form-control"-->
 <!--                   name="personMax" id="personMax" th:min="0" required="required"/>-->
             <input type="number" class="form-control"
-                   th:name="personMax" id="personMax" th:min="0" required="required"/>
+                   th:name="personMax" id="personMax" th:min="1" th:max="30" required="required"/>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">建立</button>
+    <button type="submit" id="submit" class="btn btn-primary">建立</button>
 </form>

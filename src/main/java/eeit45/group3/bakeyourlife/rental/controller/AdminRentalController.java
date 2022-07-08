@@ -183,6 +183,10 @@ public class AdminRentalController {
     public String createTackleList(@RequestParam Integer FK_rentalId, @ModelAttribute("tackleList") TackleListRequest tackleListRequest ) {
         rentalService.updateProduceNo(tackleListRequest.getTackleListNo());
         rentalService.createTackleList(FK_rentalId,tackleListRequest);
+        Rental rental = rentalService.findByRentalId(FK_rentalId);
+        Long sum = rentalService.findTackleListPriceSumByRental(rental);
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
         return "redirect:./";
     }
 
@@ -246,6 +250,10 @@ public class AdminRentalController {
             tackleListDb.setState(tackleListRequest.getState());
         }
         rentalService.updateTackleList(tackleListDb);
+        Long sum = rentalService.findTackleListPriceSumByRental(tackleListDb.getRental());
+        Rental rental = rentalService.findByRentalId(tackleListDb.getRental().getRentalId());
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
 
         return "redirect:./";
     }
@@ -254,6 +262,11 @@ public class AdminRentalController {
     @RequestMapping("/DeleteTackleList")
     public ResponseEntity<?> deleteTackleList(@RequestParam Integer tackleListId) {
         rentalService.deleteTackleList(tackleListId);
+        TackleList tackleList = rentalService.findByTackleListId(tackleListId);
+        Rental rental = tackleList.getRental();
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -267,7 +280,7 @@ public class AdminRentalController {
         }
         if(rental != null) {
             VenueListRequest venueListRequest = rentalService.createVenueListRequest(rental);
-            venues = rentalService.findAllVenue();
+            venues = rentalService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueList", venueListRequest);
             return "admin/rental/CreateVenueList";
@@ -277,8 +290,12 @@ public class AdminRentalController {
 
     @PostMapping("CreateVenueList")
     public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueListRequest venueListRequest ) {
-        rentalService.createVenueList(FK_rentalId,venueListRequest);
         rentalService.updateProduceNo(venueListRequest.getVenueListNo());
+        rentalService.createVenueList(FK_rentalId,venueListRequest);
+        Rental rental = rentalService.findByRentalId(FK_rentalId);
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
         return "redirect:./";
     }
 
@@ -301,7 +318,7 @@ public class AdminRentalController {
             venueListRequest.setVenue(venueList.getVenue());
             venueListRequest.setRental(venueList.getRental());
 
-            venues = rentalService.findAllVenue();
+            venues = rentalService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueListRequest", venueListRequest);
             return "admin/rental/UpdateVenueList";
@@ -315,8 +332,8 @@ public class AdminRentalController {
 
         VenueList venueListDb = rentalService.findByVenueListId(venueListId);
 
-        if(venueListRequest.getVenueId() != null) {
-            Venue venue = rentalService.findByVenueId(venueListRequest.getVenueId());
+        if(venueListRequest.getVenue().getVenueId() != null) {
+            Venue venue = rentalService.findByVenueId(venueListRequest.getVenue().getVenueId());
             venueListDb.setVenue(venue);
         }
         if(venueListRequest.getLendTime() != null) {
@@ -336,7 +353,10 @@ public class AdminRentalController {
         }
 
         rentalService.updateVenueList(venueListDb);
-
+        Rental rental = rentalService.findByRentalId(venueListDb.getRental().getRentalId());
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
         return "redirect:./";
     }
 
@@ -344,6 +364,11 @@ public class AdminRentalController {
     @RequestMapping("/DeleteVenueList")
     public ResponseEntity<?> deleteVenueList(@RequestParam Integer venueListId) {
         rentalService.deleteVenueList(venueListId);
+        VenueList venueList = rentalService.findByVenueListId(venueListId);
+        Rental rental = venueList.getRental();
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+        rental.setTotal(sum.intValue());
+        rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

@@ -160,7 +160,7 @@
                         <div class="modal-content">
                             <div  class="modal-header flex-column">
 
-                                <h2 class="modal-title w-100">詳細資料</h2>
+                                <h2 class="modal-title w-100">評價</h2>
                                     <div id="gd">
 
                                     </div>
@@ -217,9 +217,10 @@
                                         <th class="none">包裝材質</th>
                                         <th class="none">保存方式</th>
 
-<!--                                        <th>詳細資料</th>-->
+
                                         <th class="none">建檔日期</th>
                                         <th class="none">庫存數量:</th>
+<!--                                        <th>商品評價</th>-->
                                         <th>修改</th>
                                         <th>刪除</th>
 
@@ -232,6 +233,7 @@
                                             <td th:text="${good.id}">1</td>
                                             <td><a th:href="@{Picture(id=${good.id})}">
                                                 <img width='70' height='72' th:src="@{/admin/Goods/picture(id=${good.id})}">
+
                                             </a></td>
                                             <td th:text="${good.name}">2</td>
                                             <td th:text="${good.element}">3</td>
@@ -242,18 +244,17 @@
                                             <td th:text="${good.packagematerial}">7</td>
                                             <td th:text="${good.saveway}">8</td>
 
+
+                                            <td th:text="${#dates.format(good.admissionTime,'yyyy-MM-dd HH:mm')}">8</td>
+                                            <td th:text="${good.count}">8</td>
 <!--                                            <td> <button type="button"-->
 
 <!--                                                         class="btn btn-danger btn-icon-split btn-sm"-->
 <!--                                                         data-toggle="modal" data-target="#myModle1"-->
 <!--                                                         id="detail"-->
 <!--                                                         th:onclick="|values1(${good.id})|">-->
-<!--                                                &lt;!&ndash;                                                    <img src="${pageContext.request.contextPath}/img/777.jpeg" width="50" height="50" class="img">&ndash;&gt;-->
 <!--                                                <span>查看</span>-->
-<!--                                                &lt;!&ndash; <span class="text">刪除訂單</span> &ndash;&gt;-->
 <!--                                            </button></td>-->
-                                            <td th:text="${#dates.format(good.admissionTime,'yyyy-MM-dd HH:mm')}">8</td>
-                                            <td th:text="${good.count}">8</td>
 
                                             <td><a th:href="@{UpdateGoods(id=${good.id})}"
                                                    class="btn btn-warning btn-icon-split btn-sm">
@@ -328,17 +329,19 @@
                     if(data!=null){
 
                         $('#gd').html(
-                            // "Hello <b>world</b>!"
+
+                            "星星數(1-5):"+arr.stars+"<br>"+
+                            "買家評論:"+arr.evaluation+"<br>"
 
                             // "商品名稱:"+arr.name+"<br>"+
-                            "商品成分:"+arr.element+"<br>"+
-                            "產地:"+arr.origin+"<br>"+
+                            // "商品成分:"+arr.element+"<br>"+
+                            // "產地:"+arr.origin+"<br>"+
                             // "保存期限:"+arr.savetime+"<br>"+
                             // "價格:"+arr.packages+"<br>"+
-                            "包裝材質:"+arr.packagematerial+"<br>"+
-                            "保存方式:"+arr.saveway+"<br>"+
-                            "建立時間:"+arr.admissionTime+"<br>"+
-                            "庫存數量:"+arr.count+"<br>"
+                            // "包裝材質:"+arr.packagematerial+"<br>"+
+                            // "保存方式:"+arr.saveway+"<br>"+
+                            // "建立時間:"+arr.admissionTime+"<br>"+
+                            // "庫存數量:"+arr.count+"<br>"
                             // "上架狀態:"+arr.system
 
 
