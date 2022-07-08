@@ -65,5 +65,14 @@ public class FarmerProductSupplierController {
         return "farmerproduct/FarmerProductShopDetails";
     }
 
- 
+    @GetMapping("/FarmerProductSupplier/ShopGrid")
+    private String ShopGrid(Model model) {
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findAll();
+
+        model.addAttribute(farmerProductBeanList);
+
+        return "farmerproduct/FarmerProductShopGrid";
+    }
+
+
 }
