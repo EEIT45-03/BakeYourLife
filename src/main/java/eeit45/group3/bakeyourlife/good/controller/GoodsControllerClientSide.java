@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletContext;
 import java.util.List;
@@ -30,6 +31,13 @@ public class GoodsControllerClientSide {
 		List<Goods> goods = goodService.getAllGoods();
 		m.addAttribute("goods", goods);
 	return "admin/goods/GoodsClientSide";
+	}
+
+	@GetMapping(value = "/Picture")
+	public String picture(@RequestParam("id") int id, Model model){
+		Goods good = goodService.getGoods(id);
+		model.addAttribute("Goods",good);
+		return "admin/goods/BuyGoodsClientSide";
 	}
 
 }
