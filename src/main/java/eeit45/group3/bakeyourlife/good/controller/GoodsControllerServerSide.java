@@ -29,7 +29,7 @@ import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 
 @Controller
-@RequestMapping(path = "/admin/GoodsServerSide")
+@RequestMapping(path = "/admin/Goods")
 public class GoodsControllerServerSide {
 
 
@@ -46,13 +46,13 @@ public class GoodsControllerServerSide {
 	public String viewGoods(Model m) {
 		List<Goods> goods = goodService.getAllGoods();
 		m.addAttribute("goods", goods);
-		return "GoodsServerSide";
+		return "admin/goods/GoodsServerSide";
 	}
 
 	@GetMapping("/CreateGoods")
 	public String viewCreateGoods(Model m){
 		m.addAttribute("Goods",new Goods());
-		return "CreateGoodsServerSide";
+		return "admin/goods/CreateGoodsServerSide";
 	}
 
 	@PostMapping("/CreateGoods")
@@ -123,7 +123,7 @@ public class GoodsControllerServerSide {
 		Goods good = goodService.getGoods(id);
 		model.addAttribute("Goods",good);
 
-		return "UpdateGoodsServerSide";
+		return "admin/goods/UpdateGoodsServerSide";
 
 	}
 
@@ -131,7 +131,7 @@ public class GoodsControllerServerSide {
 	public String picture(@RequestParam("id") int id,Model model){
 		Goods good = goodService.getGoods(id);
 		model.addAttribute("Goods",good);
-		return "PictureServerSide";
+		return "admin/goods/PictureServerSide";
 	}
 
 	@PostMapping(value = "/UpdateGoods")

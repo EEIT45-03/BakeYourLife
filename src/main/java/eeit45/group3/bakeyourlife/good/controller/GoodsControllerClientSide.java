@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(path = "/GoodsClientSide")
+@RequestMapping(path = "/Goods1")
 public class GoodsControllerClientSide {
 
 	private GoodService goodService;
@@ -29,7 +29,7 @@ public class GoodsControllerClientSide {
 	public String redirect(Model m) {
 		List<Goods> goods = goodService.getAllGoods();
 		m.addAttribute("goods", goods);
-	return "GoodsClientSide";
+	return "admin/goods/GoodsClientSide";
 	}
 
 }
