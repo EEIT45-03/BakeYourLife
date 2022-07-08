@@ -46,11 +46,6 @@ public class TackleList implements Serializable {
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
-
-
-	//租借狀態
-	@Column(name = "state",columnDefinition = "varchar(10)")
-	private String state;
 	
 	//數量
 	@Column(name = "quantity",columnDefinition = "int not null")
@@ -77,12 +72,11 @@ public class TackleList implements Serializable {
 		this.rental = rental;
 	}
 
-	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, String state, Integer quantity, Integer price, Rental rental, Tackle tackle) {
+	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer quantity, Integer price, Rental rental, Tackle tackle) {
 		this.tackleListNo = tackleListNo;
 		this.lendDate = lendDate;
 		this.endDate = endDate;
 		this.returnDate = returnDate;
-		this.state = state;
 		this.quantity = quantity;
 		this.price = price;
 		this.rental = rental;
@@ -160,12 +154,5 @@ public class TackleList implements Serializable {
 	public void setTackle(Tackle tackle) {
 		this.tackle = tackle;
 	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 }

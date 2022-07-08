@@ -54,19 +54,19 @@
 
                             <!-- 租借單編號: -->
                             <div class="row mb-3">
-                                <label for="rentalNo" class="col-sm-2 col-form-labels">租借單編號:</label>
+                                <label for="mc_rNo" class="col-sm-2 col-form-labels">租借單編號:</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{rentalNo}" name="rentalNo" id="rentalNo" type="text" class="form-control"
+                                    <input th:field="*{rentalNo}" name="rentalNo" id="mc_rNo" type="text" class="form-control"
                                            required="required" th:readonly="true" />
                                 </div>
                             </div>
 
                             <!-- 會員: -->
                             <div class="row mb-3">
-                                <label for="userId" class="col-sm-2 col-form-labels">會員:</label>
+                                <label for="mc_uId" class="col-sm-2 col-form-labels">會員:</label>
                                 <div class="col-sm-10">
                                     <select th:field="*{user.userId}" type="text" class="form-control form-select mb-3" name="userId"
-                                                id="userId" aria-label="Default select example">
+                                                id="mc_uId" aria-label="Default select example">
                                         <option th:each="user1 : ${users}" th:value="${user1.userId}" th:text="${user1.username}"></option>
                                     </select>
                                 </div>
@@ -74,30 +74,30 @@
 
                             <!-- 租借類型: -->
                             <div class="row mb-3">
-                                <label for="listType" class="col-sm-2 col-form-labels">租借類型:</label>
+                                <label for="mc_type" class="col-sm-2 col-form-labels">租借類型:</label>
                                 <div class="col-sm-10">
                                     <select th:field="*{type}" type="text" class="form-control form-select mb-3"
-                                                 name="listType" id="listType" aria-label="Default select example" >
-                                        <option th:value="venue" th:text="場地"></option>
-                                        <option th:value="tackle" th:text="器具"></option>
+                                                 name="listType" id="mc_type" aria-label="Default select example" >
+                                        <option th:value="場地" th:text="場地"></option>
+                                        <option th:value="器具" th:text="器具"></option>
                                     </select>
                                 </div>
                             </div>
                             <!-- 租借單總金額: -->
                             <div class="row mb-3">
-                                <label for="total" class="col-sm-2 col-form-labels">總金額:</label>
+                                <label for="mc_tal" class="col-sm-2 col-form-labels">總金額:</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{total}" type="number" class="form-control" name="total"
-                                               id="total" th:min="0"  required="required" />
+                                               id="mc_tal" th:min="0"  required="required" />
                                 </div>
                             </div>
 
                             <!-- 租借狀態: -->
                             <div class="row mb-3">
-                                <label for="state" class="col-sm-2 col-form-labels">租借狀態:</label>
+                                <label for="mc_sta" class="col-sm-2 col-form-labels">租借狀態:</label>
                                 <div class="col-sm-10">
                                     <select th:field="*{state}" type="text" class="form-control form-select mb-3"
-                                            name="state" id="state" aria-label="Default select example">
+                                            name="state" id="mc_sta" aria-label="Default select example">
                                         <option th:value="未付款" th:text="未付款" selected></option>
                                         <option th:value="已付款" th:text="已付款"></option>
                                     </select>

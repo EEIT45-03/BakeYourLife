@@ -4,38 +4,29 @@
                th:object="${tackleListRequest}">
 
         <!-- 租借編號: -->
-<!--        <p class="row mb-3">-->
-<!--            <span class="col-sm-3">租借編號:</span> <span class="col-sm-9" th:text="*{rental.rentalNo}"></span>-->
-<!--        </p>-->
         <div class="row mb-3">
             <label for="rentalNo" class="col-sm-3 col-form-labels">租借編號:</label>
             <div class="col-sm-9">
                 <input th:field="*{rental.rentalNo}" type="text" class="form-control"
-                       name="rentalNo" id="rentalNo" required="required" readonly/>
+                       name="rentalNo" id="rentalNo" required="required" th:readonly="true"/>
             </div>
         </div>
 
         <!-- 租借類型: -->
-<!--        <p class="row mb-3">-->
-<!--            <span class="col-sm-3">租借類型:</span><span class="col-sm-9" th:text="*{rental.type}"></span>-->
-<!--        </p>-->
         <div class="row mb-3">
             <label for="listType" class="col-sm-3 col-form-labels">租借類型:</label>
             <div class="col-sm-9">
                 <input th:field="*{rental.type}" type="text" class="form-control"
-                       name="listType" id="listType" required="required" readonly/>
+                       name="listType" id="listType" required="required" th:readonly="true"/>
             </div>
         </div>
 
         <!-- 清單編號: -->
-<!--        <p class="row mb-3">-->
-<!--            <span class="col-sm-3">清單編號:</span><span class="col-sm-9" th:text="*{tackleListNo}"></span>-->
-<!--        </p>-->
         <div class="row mb-3">
             <label for="tackleListNo" class="col-sm-3 col-form-labels">清單編號:</label>
             <div class="col-sm-9">
                 <input th:field="*{tackleListNo}" type="text" class="form-control"
-                       name="tackleListNo" id="tackleListNo" required="required" readonly/>
+                       name="tackleListNo" id="tackleListNo" required="required" th:readonly="true"/>
             </div>
         </div>
 
@@ -47,20 +38,6 @@
                         type="text"  id="tackleId" aria-label="Default select example" >
                     <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
                             th:text="${tackle.tackleName}" ></option>
-                </select>
-            </div>
-        </div>
-
-        <!-- 租借狀態: -->
-        <div class="row mb-3">
-            <label for="state" class="col-sm-3 col-form-labels">租借狀態:</label>
-            <div class="col-sm-9" >
-                <select th:field="*{state}" class="form-control form-select mb-3" name="state"
-                        type="text" id="state" aria-label="Default select example" th:onchange="|getState()|">
-                    <option th:value="unrented" th:text="未出租" ></option>
-                    <option th:value="rented" th:text="已出租"></option>
-                    <option th:value="return" th:text="已歸還"></option>
-                    <option th:value="noReturn" th:text="未歸還"></option>
                 </select>
             </div>
         </div>

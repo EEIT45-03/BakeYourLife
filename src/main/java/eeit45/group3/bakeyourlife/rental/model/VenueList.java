@@ -45,17 +45,15 @@ public class VenueList implements Serializable {
 	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
 	private Venue venue;
 
-	//出租時間
-	@Column(name = "lendTime", nullable = false)
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date lendTime;
+	//出租日期
+	@Column(name = "rentalDate", nullable = false)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date rentalDate;
 
-	//結束時間
-	@Column(name = "endTime", nullable = false)
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date endTime;
+	//出租時段
+	@Column(name = "period", nullable = false)
+	private String period;
 
 	//食材提供
 	@Column(name = "ingredients",columnDefinition = "varchar(5) not null")
@@ -82,11 +80,11 @@ public class VenueList implements Serializable {
 		this.rental = rental;
 	}
 
-	public VenueList(String venueListNo, Venue venue, Date lendTime, Date endTime, String ingredients, Integer person, Integer price, Rental rental) {
+	public VenueList(String venueListNo, Venue venue, Date rentalDate, String period, String ingredients, Integer person, Integer price, Rental rental) {
 		this.venueListNo = venueListNo;
 		this.venue = venue;
-		this.lendTime = lendTime;
-		this.endTime = endTime;
+		this.rentalDate = rentalDate;
+		this.period = period;
 		this.ingredients = ingredients;
 		this.person = person;
 		this.price = price;
@@ -117,20 +115,20 @@ public class VenueList implements Serializable {
 		this.venue = venue;
 	}
 
-	public Date getLendTime() {
-		return lendTime;
+	public Date getRentalDate() {
+		return rentalDate;
 	}
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
+	public void setRentalDate(Date rentalDate) {
+		this.rentalDate = rentalDate;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public String getPeriod() {
+		return period;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
 	public String getIngredients() {

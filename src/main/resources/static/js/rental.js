@@ -427,7 +427,7 @@ function createTackle(){
             })
         });
 }
-
+/*
 
 //器材名稱輸入檢查
 function checkTN() {
@@ -618,3 +618,5 @@ function getState() {
         document.getElementById('rD').style.display="none";
     }
 }
+
+ */
