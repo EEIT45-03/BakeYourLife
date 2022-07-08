@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Controller
 @RequestMapping(path = "/admin/Goods")
@@ -59,24 +60,31 @@ public class GoodsControllerServerSide {
 	@PostMapping("/CreateGoods")
 	public String viewCreateGoods1(@ModelAttribute("Goods") Goods good){
 
-		MultipartFile picture = good.getProductImage();
-		String link = ImgurService.updateByMultipartFile(picture).getLink();
+		MultipartFile[] productImage = good.getProductImage();
+//		good.setImageUrl("");
+		for(MultipartFile cmf:productImage){
+		String link = ImgurService.updateByMultipartFile(cmf).getLink();
+		if(good.getImageUrl() == null || "".equals(good.getImageUrl())){
 		good.setImageUrl(link);
+		}else {
+		good.setImageUrl(good.getImageUrl() + "," + link);
+		}
+		}
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
-		String originalFilename =picture.getOriginalFilename();
-		if (originalFilename.length() >0 && originalFilename.lastIndexOf(".")> -1 ) {
-			good.setFileName(originalFilename);
-		}
-		if (picture != null && !picture.isEmpty()) {
-			try {
-				byte[] b = picture.getBytes();
-				Blob blob = new SerialBlob(b);
-				good.setImage(blob);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}
+//		String originalFilename =picture.getOriginalFilename();
+//		if (originalFilename.length() >0 && originalFilename.lastIndexOf(".")> -1 ) {
+//			good.setFileName(originalFilename);
+//		}
+//		if (picture != null && !picture.isEmpty()) {
+//			try {
+//				byte[] b = picture.getBytes();
+//				Blob blob = new SerialBlob(b);
+//				good.setImage(blob);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//			}
+//		}
 		Timestamp adminTime = new Timestamp(System.currentTimeMillis());
 		good.setAdmissionTime(adminTime);
 		goodService.save(good);
@@ -143,7 +151,9 @@ public class GoodsControllerServerSide {
 		good.setId(id);
 
 
-		MultipartFile picture = good.getProductImage();
+
+		MultipartFile[] productImage = good.getProductImage();
+		MultipartFile picture = productImage[0];
 		if (picture.getSize() == 0) {
 			// 表示使用者並未挑選圖片
 			Goods goodDb = goodService.getGoods(id);
@@ -151,8 +161,18 @@ public class GoodsControllerServerSide {
 //			good.setImage(goodDb.getImage());
 
 		}else {
-		String link = ImgurService.updateByMultipartFile(picture).getLink();
-		good.setImageUrl(link);
+//		String link = ImgurService.updateByMultipartFile(picture).getLink();
+//		good.setImageUrl(link);
+//			MultipartFile[] productImage = good.getProductImage();
+//		good.setImageUrl("");
+			for(MultipartFile cmf:productImage){
+				String link = ImgurService.updateByMultipartFile(cmf).getLink();
+				if(good.getImageUrl() == null || "".equals(good.getImageUrl())){
+					good.setImageUrl(link);
+				}else {
+					good.setImageUrl(good.getImageUrl() + "," + link);
+				}
+			}
 
 
 			// 建立Blob物件，交由 Hibernate 寫入資料庫

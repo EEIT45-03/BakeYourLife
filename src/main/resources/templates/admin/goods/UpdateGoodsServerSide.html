@@ -150,7 +150,7 @@
 <!--                                    <img id="cs" width='60' height='72' th:src="@{/admin/Goods/picture(id=*{id})}" class="">-->
                                     <img id="cs" width='60' height='72' th:src="*{imageUrl}" class="">
                                     <input th:field="*{productImage}" type="file" class="form-control" name="picture"
-                                                id="picture"/>
+                                           accept="image/png, image/jpeg, image/jpg" multiple="multiple" id="picture"/>
                                 </div>
                             </div>
 

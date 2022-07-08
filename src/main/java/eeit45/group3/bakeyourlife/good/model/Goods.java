@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table(name="Member_GoodsTable3")
@@ -31,18 +32,22 @@ public class Goods implements CartItem {
 
 	String imageUrl;
 
+
 	Timestamp admissionTime;  //Get Time that's moment .
 	@Transient
-	MultipartFile productImage;
+//	MultipartFile productImage;
 
+	MultipartFile[] productImage;
 	String count;//數量
 
 	String system;//上架狀態
 
+	public String[] getImageUrlArray() {
+		return imageUrl.split(",");
+	}
 	public String getImageUrl() {
 		return imageUrl;
 	}
-
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
@@ -73,7 +78,7 @@ public class Goods implements CartItem {
 
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
 				 String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
-				 MultipartFile productImage, String count, String system, String describe, String stars,
+				 CommonsMultipartFile[] productImage, String count, String system, String describe, String stars,
 				 String evaluation,String imageUrl) {
 		super();
 		this.id = id;
@@ -173,10 +178,10 @@ public class Goods implements CartItem {
 	public void setAdmissionTime(Timestamp admissionTime) {
 		this.admissionTime = admissionTime;
 	}
-	public MultipartFile getProductImage() {
+	public MultipartFile[] getProductImage() {
 		return productImage;
 	}
-	public void setProductImage(MultipartFile productImage) {
+	public void setProductImage(MultipartFile[] productImage) {
 		this.productImage = productImage;
 	}
 	public String getCount() {
