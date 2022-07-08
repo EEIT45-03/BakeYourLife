@@ -149,6 +149,7 @@
                         <td>清單ID:</td>
                         <td>清單編號:</td>
                         <td>租借器具:</td>
+                        <td>租借狀態:</td>
                         <td>出租時間:</td>
                         <td>結束時間:</td>
                         <td>歸還時間:</td>
@@ -161,6 +162,7 @@
                         <td th:text="${tackleList.tackleListId}"></td>
                         <td th:text="${tackleList.tackleListNo}"></td>
                         <td th:text="${tackleList.tackle.tackleName}"></td>
+                        <td th:text="${tackleList.state}"></td>
                         <td th:text="${#dates.format(tackleList.lendDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${#dates.format(tackleList.endDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${#dates.format(tackleList.returnDate, 'yyyy/MM/dd')}"></td>
@@ -196,7 +198,7 @@
                         <td>租借場地:</td>
                         <td>出租時間:</td>
                         <td>結束時間:</td>
-                        <td>食材提供:</td>
+<!--                        <td>食材提供:</td>-->
                         <td>人數:</td>
                         <td>小計:</td>
                         <th>修改</th>
@@ -208,7 +210,7 @@
                         <td th:text="${venueList.venue.venueName}"></td>
                         <td th:text="${#dates.format(venueList.lendTime, 'yyyy/MM/dd HH:mm')}"></td>
                         <td th:text="${#dates.format(venueList.endTime, 'yyyy/MM/dd HH:mm')}"></td>
-                        <td th:text="${venueList.ingredients}"></td>
+<!--                        <td th:text="${venueList.ingredients}"></td>-->
                         <td th:text="${venueList.person}"></td>
                         <td th:text="${venueList.price}"></td>
                         <td>

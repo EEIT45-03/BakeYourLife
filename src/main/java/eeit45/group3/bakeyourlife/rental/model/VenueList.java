@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -47,11 +48,13 @@ public class VenueList implements Serializable {
 	//出租時間
 	@Column(name = "lendTime", nullable = false)
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date lendTime;
 
 	//結束時間
 	@Column(name = "endTime", nullable = false)
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date endTime;
 
 	//食材提供
@@ -73,6 +76,10 @@ public class VenueList implements Serializable {
 
 	public VenueList() {
 
+	}
+
+	public VenueList(Rental rental) {
+		this.rental = rental;
 	}
 
 	public VenueList(String venueListNo, Venue venue, Date lendTime, Date endTime, String ingredients, Integer person, Integer price, Rental rental) {

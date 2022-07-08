@@ -43,6 +43,9 @@ public interface RentalService {
 
 	public List<Rental> findAllByDateBetween(String lDate, String eDate);
 
+	//依租借單編號查詢租借單
+	public Rental findByRentalNo(String rentalNo);
+
 		
 	//新增租借單
 	public Rental createRental(Rental rental);
@@ -51,10 +54,12 @@ public interface RentalService {
 	//更新租借單
 	public Rental updateRental(Rental rental);
 
+	public Rental updateRental(Integer id, Rental rental);
+
 	public void deleteRental(Integer rentalId);
 
 	//建請租借單請求資料
-	public RentalRequest createRentalRequest();
+	public Rental createRentalRequest();
 		
 
 	/*場地租借清單 DAO
@@ -86,7 +91,7 @@ public interface RentalService {
 	public void deleteVenueList(Integer venueListId);
 
 	//建請場地清單請求資料
-	public VenueListRequest createVenueListRequest(Rental rental);
+	public VenueList createVenueListRequest(Rental rental);
 
 
 		
@@ -149,7 +154,7 @@ public interface RentalService {
 	public void deleteTackleList(Integer tackleListId);
 
 	//建立器具清單請求資料
-	public TackleListRequest createTackleListRequest(Rental rental);
+	public TackleList createTackleListRequest(Rental rental);
 
 	/*器具 DAO
 		----------------------------------------------------------------*/		

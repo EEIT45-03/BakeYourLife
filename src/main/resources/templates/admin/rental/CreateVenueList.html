@@ -24,7 +24,7 @@
   <div class="row mb-3">
     <label for="venueId" class="col-sm-2 col-form-labels">租借場地:</label>
     <div class="col-sm-10" >
-      <select th:field="*{venueId}" type="text" class="form-control form-select mb-3" name="venueId"
+      <select th:field="*{venue.venueId}" type="text" class="form-control form-select mb-3" name="venueId"
               id="venueId" aria-label="Default select example" th:onchange="|checkVId()|">
         <option value="">請選擇</option>
         <option th:each="venue : ${venues}" th:value="${venue.venueId}" th:text="${venue.venueName}"></option>
@@ -63,7 +63,7 @@
   </div>
 
   <!-- 食材提供: -->
-  <div class="row mb-3">
+  <div class="row mb-3" style="display: none">
     <label for="ingredients" class="col-sm-2 col-form-labels">食材提供:</label>
     <div class="col-sm-10" >
       <select th:field="*{ingredients}" type="text" class="form-control form-select mb-3" name="ingredients"

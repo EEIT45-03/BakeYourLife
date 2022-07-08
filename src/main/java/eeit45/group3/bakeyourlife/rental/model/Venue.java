@@ -44,6 +44,10 @@ public class Venue implements Serializable {
 	@Column(name = "hrPrice",columnDefinition = "int not null")
 	private Integer hrPrice;
 
+	//圖片
+	@Column(name = "picture")
+	private byte[] picture;
+
 	//備註
 	@Column
 	private String notes;
@@ -63,10 +67,11 @@ public class Venue implements Serializable {
 		this.personMax = personMax;
 	}
 
-	public Venue(String venueName, Integer personMax, Integer hrPrice, String notes) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice, byte[] picture, String notes) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
+		this.picture = picture;
 		this.notes = notes;
 	}
 
@@ -108,6 +113,14 @@ public class Venue implements Serializable {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 
 	public Set<VenueList> getVenueList() {

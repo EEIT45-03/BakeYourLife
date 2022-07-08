@@ -489,6 +489,7 @@ function checkVLT() {
     var now = Date.now();
     var date = new Date(now);
     date.setDate(date.getDate()+1);
+    date.setTime(0);
 
     if (lTime > date) {
         document.getElementById("s_lTime").innerHTML = "<i class='fa-solid fa-check'></i>";

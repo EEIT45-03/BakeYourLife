@@ -37,9 +37,9 @@ public class Tackle implements Serializable {
 	@Column(name = "tackleName",columnDefinition = "varchar(20) not null unique")
 	private String tackleName;
 
-	//器具型號
-	@Column(name = "productModel",columnDefinition = "varchar(max)")
-	private String productModel;
+//	//器具型號
+//	@Column(name = "productModel",columnDefinition = "varchar(max)")
+//	private String productModel;
 
 	//器具規格
 	@Column(name = "specification",columnDefinition = "varchar(max)")
@@ -72,18 +72,18 @@ public class Tackle implements Serializable {
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer max) {
+	public Tackle(String tackleName, String productModel, /*String specification,*/ byte[] picture, Integer dayPrice, Integer max) {
 		this.tackleName = tackleName;
-		this.productModel = productModel;
+//		this.productModel = productModel;
 		this.specification = specification;
 		this.picture = picture;
 		this.dayPrice = dayPrice;
 		this.max = max;
 	}
 
-	public Tackle(String tackleName, String productModel, String specification, byte[] picture, Integer dayPrice, Integer damages, Integer max, String notes) {
+	public Tackle(String tackleName, String productModel, /*String specification,*/ byte[] picture, Integer dayPrice, Integer damages, Integer max, String notes) {
 		this.tackleName = tackleName;
-		this.productModel = productModel;
+//		this.productModel = productModel;
 		this.specification = specification;
 		this.picture = picture;
 		this.dayPrice = dayPrice;
@@ -108,13 +108,13 @@ public class Tackle implements Serializable {
 		this.tackleName = tackleName;
 	}
 
-	public String getProductModel() {
-		return productModel;
-	}
-
-	public void setProductModel(String productModel) {
-		this.productModel = productModel;
-	}
+//	public String getProductModel() {
+//		return productModel;
+//	}
+//
+//	public void setProductModel(String productModel) {
+//		this.productModel = productModel;
+//	}
 
 	public String getSpecification() {
 		return specification;

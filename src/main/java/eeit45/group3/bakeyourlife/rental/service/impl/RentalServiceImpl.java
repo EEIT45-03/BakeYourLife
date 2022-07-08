@@ -123,10 +123,20 @@ public class RentalServiceImpl implements RentalService{
 		return rentalRepository.findAllByDateBetween(lDate, eDate);
 	}
 
+	//依租借單編號查詢租借單
+	public Rental findByRentalNo(String rentalNo){
+		return rentalRepository.findByRentalNo(rentalNo);
+	}
+
 	//新增租借單
 	@Override
 	@Transactional
 	public Rental createRental(Rental rental) {
+		if(rental.getUser().getUserId()!=null){
+			User user = userService.findByUserId(rental.getUser().getUserId());
+			rental.setUser(user);
+			rental.setRentalDate(new Date());
+		}
 		return rentalRepository.save(rental);
 	}
 
@@ -151,6 +161,22 @@ public class RentalServiceImpl implements RentalService{
 	public Rental updateRental(Rental rental) {
 		return rentalRepository.save(rental);
 	}
+	@Override
+	@Transactional
+	public Rental updateRental(Integer id, Rental rental) {
+		Rental rentalDb = findByRentalId(id);
+		if(rental.getUser().getUserId()!=null){
+			User user = userService.findByUserId(rental.getUser().getUserId());
+			rentalDb.setUser(user);
+		}
+		if(rental.getTotal()!=null){
+			rentalDb.setTotal(rental.getTotal());
+		}
+		if(rental.getState()!=null){
+			rentalDb.setState(rental.getState());
+		}
+		return rentalRepository.save(rental);
+	}
 
 	//刪除租借單
 	@Override
@@ -162,7 +188,7 @@ public class RentalServiceImpl implements RentalService{
 
 	//建立租借單請求資料
 	@Override
-	public RentalRequest createRentalRequest() {
+	public Rental createRentalRequest() {
 		ProduceNo produceNo = produceNoRepository.findByName("rental");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String newDate = sdf.format(new Date());
@@ -185,10 +211,10 @@ public class RentalServiceImpl implements RentalService{
 
 		String rentalNo = produceNo.getDate() + String.format("%07d", produceNo.getNum());
 
-		RentalRequest rentalRequest = new RentalRequest();
-		rentalRequest.setRentalNo(rentalNo);
-		rentalRequest.setTotal(0);
-		return rentalRequest;
+		Rental rental = new Rental();
+		rental.setRentalNo(rentalNo);
+		rental.setTotal(0);
+		return rental;
 	}
 
 
@@ -268,7 +294,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
-	public VenueListRequest createVenueListRequest(Rental rental) {
+	public VenueList createVenueListRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("VenueList");
 
@@ -291,11 +317,11 @@ public class RentalServiceImpl implements RentalService{
 		}
 		String no =  "V" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
 
-		VenueListRequest venueListRequest = new VenueListRequest();
-		venueListRequest.setVenueListNo(no);
-		venueListRequest.setPrice(0);
-		venueListRequest.setRental(rental);
-		return venueListRequest;
+		VenueList venueList = new VenueList();
+		venueList.setVenueListNo(no);
+		venueList.setPrice(0);
+		venueList.setRental(rental);
+		return venueList;
 	}
 
 	/*教室 DAO
@@ -427,7 +453,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
-	public TackleListRequest createTackleListRequest(Rental rental) {
+	public TackleList createTackleListRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("TackleList");
 
@@ -450,11 +476,11 @@ public class RentalServiceImpl implements RentalService{
 		}
 		String no =  "T" + produceNo.getDate() + String.format("%03d", produceNo.getNum());
 
-		TackleListRequest tackleListRequest = new TackleListRequest();
-		tackleListRequest.setTackleListNo(no);
-		tackleListRequest.setPrice(0);
-		tackleListRequest.setRental(rental);
-		return tackleListRequest;
+		TackleList tackleList = new TackleList();
+		tackleList.setTackleListNo(no);
+		tackleList.setPrice(0);
+		tackleList.setRental(rental);
+		return tackleList;
 
 	}
 

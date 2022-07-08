@@ -4,25 +4,46 @@
                th:object="${tackleListRequest}">
 
         <!-- 租借編號: -->
-        <p class="row mb-3">
-            <span class="col-sm-3">租借編號:</span> <span class="col-sm-9" th:text="*{rental.rentalNo}"></span>
-        </p>
+<!--        <p class="row mb-3">-->
+<!--            <span class="col-sm-3">租借編號:</span> <span class="col-sm-9" th:text="*{rental.rentalNo}"></span>-->
+<!--        </p>-->
+        <div class="row mb-3">
+            <label for="rentalNo" class="col-sm-3 col-form-labels">租借編號:</label>
+            <div class="col-sm-9">
+                <input th:field="*{rental.rentalNo}" type="text" class="form-control"
+                       name="rentalNo" id="rentalNo" required="required" readonly/>
+            </div>
+        </div>
 
         <!-- 租借類型: -->
-        <p class="row mb-3">
-            <span class="col-sm-3">租借類型:</span><span class="col-sm-9" th:text="*{rental.type}"></span>
-        </p>
+<!--        <p class="row mb-3">-->
+<!--            <span class="col-sm-3">租借類型:</span><span class="col-sm-9" th:text="*{rental.type}"></span>-->
+<!--        </p>-->
+        <div class="row mb-3">
+            <label for="listType" class="col-sm-3 col-form-labels">租借類型:</label>
+            <div class="col-sm-9">
+                <input th:field="*{rental.type}" type="text" class="form-control"
+                       name="listType" id="listType" required="required" readonly/>
+            </div>
+        </div>
 
         <!-- 清單編號: -->
-        <p class="row mb-3">
-            <span class="col-sm-3">清單編號:</span><span class="col-sm-9" th:text="*{tackleListNo}"></span>
-        </p>
+<!--        <p class="row mb-3">-->
+<!--            <span class="col-sm-3">清單編號:</span><span class="col-sm-9" th:text="*{tackleListNo}"></span>-->
+<!--        </p>-->
+        <div class="row mb-3">
+            <label for="tackleListNo" class="col-sm-3 col-form-labels">清單編號:</label>
+            <div class="col-sm-9">
+                <input th:field="*{tackleListNo}" type="text" class="form-control"
+                       name="tackleListNo" id="tackleListNo" required="required" readonly/>
+            </div>
+        </div>
 
         <!-- 租借器具: -->
         <div class="row mb-3">
             <label for="tackleId" class="col-sm-3 col-form-labels">租借器具:</label>
             <div class="col-sm-9" >
-                <select th:field="*{tackleId}" class="form-control form-select mb-3" name="tackleId"
+                <select th:field="*{tackle.tackleId}" class="form-control form-select mb-3" name="tackleId"
                         type="text"  id="tackleId" aria-label="Default select example" >
                     <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
                             th:text="${tackle.tackleName}" ></option>

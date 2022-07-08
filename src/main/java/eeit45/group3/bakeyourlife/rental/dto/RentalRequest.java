@@ -15,6 +15,7 @@ public class RentalRequest {
 	
 	private Integer total ;
 
+	private Date rentalDate;
 	private String state;
 
 	private String[] venueListNo;	
@@ -156,5 +157,13 @@ public class RentalRequest {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Date getRentalDate() {
+		return rentalDate;
+	}
+
+	public void setRentalDate(Date rentalDate) {
+		this.rentalDate = rentalDate;
 	}
 }

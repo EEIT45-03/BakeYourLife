@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -38,6 +39,7 @@ public class Rental implements Serializable {
     //下單日期
     @Column(nullable = false)
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date rentalDate;
 
     //租借類別
@@ -52,7 +54,7 @@ public class Rental implements Serializable {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental")
     private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
-    //狀態(待付款、已付款、已退單、未領取、已領取、未歸還、已歸還)
+    //狀態(待付款、已付款、已退單)
     @Column(name = "state", nullable = false, columnDefinition = "varchar(20)")
     private String state;
 
@@ -62,8 +64,19 @@ public class Rental implements Serializable {
 
     //遲歸還補款
     @Transient
-    @Column(name = "replenishment", columnDefinition = "int")
     private Integer replenishment;
+
+    //遲歸還補款
+    @Transient
+    private Date lendDate;
+
+    //遲歸還補款
+    @Transient
+    private Date endDate;
+
+    //遲歸還補款
+    @Transient
+    private Date returnDate;
 
     public Rental() {
     }
@@ -168,5 +181,29 @@ public class Rental implements Serializable {
 
     public void setReplenishment(Integer replenishment) {
         this.replenishment = replenishment;
+    }
+
+    public Date getLendDate() {
+        return lendDate;
+    }
+
+    public void setLendDate(Date lendDate) {
+        this.lendDate = lendDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 }

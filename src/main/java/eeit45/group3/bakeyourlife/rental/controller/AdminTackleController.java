@@ -71,9 +71,9 @@ public class AdminTackleController {
         if(tackleRequest.getTackleName() != null ){
             tackleDb.setTackleName(tackleRequest.getTackleName());
         }
-        if(tackleRequest.getProductModel() != null){
-            tackleDb.setProductModel(tackleRequest.getProductModel());
-        }
+//        if(tackleRequest.getProductModel() != null){
+//            tackleDb.setProductModel(tackleRequest.getProductModel());
+//        }
         if(tackleRequest.getSpecification() != null){
             tackleDb.setSpecification(tackleRequest.getSpecification());
         }
