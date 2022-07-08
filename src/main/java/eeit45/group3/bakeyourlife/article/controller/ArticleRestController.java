@@ -79,7 +79,8 @@ public class ArticleRestController {
 //        } catch(Exception e) {
 //            e.printStackTrace();
 //        }
-        m.setMessageImage(messageImage);
+        m.setImageUrl(ImgurService.updateByMultipartFile(messageImage).getLink());
+        //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(messageImage).getLink());
         Message createMessage = messageService.insert(m);
         return ResponseEntity.status(HttpStatus.CREATED).body(createMessage);

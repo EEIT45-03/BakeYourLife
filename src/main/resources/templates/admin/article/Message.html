@@ -209,7 +209,7 @@
                                         </td>
                                         <td th:text="${ message.message}"></td>
                                         <td th:text="${#dates.format(message.dateTime, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-                                    <img width="50" height="50" style="display:block; margin:auto;" th:src="|data:image;base64,${message.base64Message}|"/>
+                                    <img width="50" height="50" style="display:block; margin:auto;" th:src="${message.imageUrl}"/>
                                         <td><button type="button"
                                                     class="btn btn-danger"
                                                     th:onclick="|archiveFunction(${message.messageId})|" id="btn">刪除留言</button></td>

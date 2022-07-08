@@ -116,10 +116,6 @@ public class ArticleController {
 		articleservice.insert(articleInfo);
 		return "redirect:./";
 	}
-	@GetMapping("/uploadStatus")
-	public String uploadStatus() {
-		return "uploadStatus";
-	}
 
 	@GetMapping("/UpdateArticle")
 	public String viewUpdate(@RequestParam(required = false) Integer postid,Model model) {

@@ -22,25 +22,27 @@ public class Message implements Serializable {
 
     private Date dateTime;
 
-    @Lob
-    private byte[] image;
+    //    @Lob
+//    private byte[] image;
+    private String imageUrl;
     @Transient
     private MultipartFile messageImage;
-    @Transient
-    private String base64Message;
+//    @Transient
+//    private String base64Message;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="postid")
+    @JoinColumn(name = "postid")
     private Article article;
-    public Message(Integer messageId,String userName , String message, Date dateTime, byte[] image, MultipartFile messageImage,
+
+    public Message(Integer messageId, String userName, String message, Date dateTime, byte[] image, MultipartFile messageImage,
                    String base64Message) {
         this.messageId = messageId;
         this.userName = userName;
         this.message = message;
         this.dateTime = dateTime;
-        this.image = image;
+        //this.image = image;
         this.messageImage = messageImage;
-        this.base64Message = base64Message;
+        //this.base64Message = base64Message;
     }
 
     public Message() {
@@ -76,16 +78,25 @@ public class Message implements Serializable {
     }
 
     public void setDateTime(Date dateTime) {
-        this.dateTime =  dateTime;;
+        this.dateTime = dateTime;
+        ;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
 
     public MultipartFile getMessageImage() {
         return messageImage;
@@ -95,12 +106,13 @@ public class Message implements Serializable {
         this.messageImage = messageImage;
     }
 
-    public String getBase64Message() {
-        return base64Message;
     }
-
-    public void setBase64Message(String base64Message) {
-        this.base64Message = base64Message;
-    }
-}
+//    public String getBase64Message() {
+//        return base64Message;
+//    }
+//
+//    public void setBase64Message(String base64Message) {
+//        this.base64Message = base64Message;
+//    }
+//}
 

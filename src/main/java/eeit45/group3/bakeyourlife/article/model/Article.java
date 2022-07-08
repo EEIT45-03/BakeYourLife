@@ -61,8 +61,16 @@ public class Article implements Serializable {
 	public Article() {
 		super();
 	}
-	
-	public Article(Integer postid,String title,String type,Date date,String content,byte[] picture,MultipartFile articleImage,String base64,Integer counter) {
+
+	public Set<Message> getMessageList() {
+		return MessageList;
+	}
+
+	public void setMessageList(Set<Message> messageList) {
+		MessageList = messageList;
+	}
+
+	public Article(Integer postid, String title, String type, Date date, String content, byte[] picture, MultipartFile articleImage, String base64, Integer counter) {
 		super();
 		this.postid = postid;
 		this.title = title;

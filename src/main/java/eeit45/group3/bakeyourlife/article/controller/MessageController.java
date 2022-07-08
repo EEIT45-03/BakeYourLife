@@ -5,6 +5,7 @@ import eeit45.group3.bakeyourlife.article.model.Message;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
 import eeit45.group3.bakeyourlife.article.service.MessageService;
 import eeit45.group3.bakeyourlife.article.validator.ArticleValidator;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -76,15 +77,17 @@ public class MessageController {
         }
 
 
-        articleInfo.setMessageImage(file);
+//        articleInfo.setMessageImage(file);
         try{
-            byte[] image = Base64.encodeBase64(articleInfo.getMessageImage().getBytes());
-            String result = new String(image);
-            System.out.println(result);
-            articleInfo.setImage(image);
+//            byte[] image = Base64.encodeBase64(articleInfo.getMessageImage().getBytes());
+//            String result = new String(image);
+//            System.out.println(result);
+//            articleInfo.setImage(image);
+        articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
         } catch(Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
+
 
         messageService.insert(articleInfo);
         return "redirect:./";
@@ -96,8 +99,8 @@ public class MessageController {
 
 
         Message message = messageService.messageOne(messageId).orElse(null);
-        String encoded64 = new String( message.getImage());
-        message.setBase64Message(encoded64);
+//        String encoded64 = new String( message.getImage());
+//        message.setBase64Message(encoded64);
         model.addAttribute("article", message);
         return "admin/article/UpdateMessage";
     }
@@ -110,19 +113,19 @@ public class MessageController {
 
 
 
-
-        articleInfo.setMessageImage(file);
-        try{
-            byte[] image = Base64.encodeBase64(articleInfo.getMessageImage().getBytes());
-            String result = new String(image);
-            System.out.println(result);
-            articleInfo.setImage(image);
+//
+//        articleInfo.setMessageImage(file);
+       try{
+//            byte[] image = Base64.encodeBase64(articleInfo.getMessageImage().getBytes());
+//            String result = new String(image);
+//            System.out.println(result);
+//            articleInfo.setImage(image);
+        articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
         } catch(Exception e) {
             e.printStackTrace();
         }
 
         //Article upArticle = new Article(postid,title,type,date,content, articleInfo.getPicture(),file,base64,0);
-
         messageService.update(articleInfo);
         //Integer counter = 0;
     }
