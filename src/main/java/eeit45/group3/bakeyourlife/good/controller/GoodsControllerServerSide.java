@@ -29,14 +29,14 @@ import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 
 @Controller
-@RequestMapping(path = "/admin/Goods")
-public class GoodsController3 {
+@RequestMapping(path = "/admin/GoodsServerSide")
+public class GoodsControllerServerSide {
 
 
 	private GoodService goodService;
 	private ServletContext context;
 	@Autowired
-	public GoodsController3(GoodService goodService, ServletContext context) {
+	public GoodsControllerServerSide(GoodService goodService, ServletContext context) {
 		super();
 		this.goodService = goodService;
 		this.context = context;
@@ -46,13 +46,13 @@ public class GoodsController3 {
 	public String viewGoods(Model m) {
 		List<Goods> goods = goodService.getAllGoods();
 		m.addAttribute("goods", goods);
-		return "admin/goods/Goods";
+		return "GoodsServerSide";
 	}
 
 	@GetMapping("/CreateGoods")
 	public String viewCreateGoods(Model m){
 		m.addAttribute("Goods",new Goods());
-		return "admin/goods/CreateGoods";
+		return "CreateGoodsServerSide";
 	}
 
 	@PostMapping("/CreateGoods")
@@ -123,7 +123,7 @@ public class GoodsController3 {
 		Goods good = goodService.getGoods(id);
 		model.addAttribute("Goods",good);
 
-		return "admin/goods/UpdateGoods";
+		return "UpdateGoodsServerSide";
 
 	}
 
@@ -131,7 +131,7 @@ public class GoodsController3 {
 	public String picture(@RequestParam("id") int id,Model model){
 		Goods good = goodService.getGoods(id);
 		model.addAttribute("Goods",good);
-		return "admin/goods/Picture";
+		return "PictureServerSide";
 	}
 
 	@PostMapping(value = "/UpdateGoods")

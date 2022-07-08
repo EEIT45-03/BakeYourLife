@@ -13,13 +13,13 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(path = "/Goods1")
-public class GoodsController2 {
+@RequestMapping(path = "/GoodsClientSide")
+public class GoodsControllerClientSide {
 
 	private GoodService goodService;
 	private ServletContext context;
 	@Autowired
-	public GoodsController2(GoodService goodService, ServletContext context) {
+	public GoodsControllerClientSide(GoodService goodService, ServletContext context) {
 		super();
 		this.goodService = goodService;
 		this.context = context;
@@ -29,7 +29,7 @@ public class GoodsController2 {
 	public String redirect(Model m) {
 		List<Goods> goods = goodService.getAllGoods();
 		m.addAttribute("goods", goods);
-	return "admin/goods/Goods1";
+	return "GoodsClientSide";
 	}
 
 }
