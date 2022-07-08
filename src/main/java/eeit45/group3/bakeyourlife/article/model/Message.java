@@ -76,7 +76,7 @@ public class Message implements Serializable {
     }
 
     public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+        this.dateTime =  dateTime;;
     }
 
     public byte[] getImage() {

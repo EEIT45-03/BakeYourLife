@@ -7,13 +7,19 @@ import eeit45.group3.bakeyourlife.article.service.MessageService;
 import eeit45.group3.bakeyourlife.article.validator.ArticleValidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -83,4 +89,63 @@ public class MessageController {
         messageService.insert(articleInfo);
         return "redirect:./";
     }
+
+    @GetMapping("/UpdateMessage")
+    public String viewUpdate(@RequestParam(required = false) Integer messageId,Model model) {
+        //表單綁定用
+
+
+        Message message = messageService.messageOne(messageId).orElse(null);
+        String encoded64 = new String( message.getImage());
+        message.setBase64Message(encoded64);
+        model.addAttribute("article", message);
+        return "admin/article/UpdateMessage";
+    }
+
+    @PostMapping("/UpdateMessage")
+    public String processUpdate(@ModelAttribute ("message") Message articleInfo,
+                                @RequestParam(value = "articleImage", required = false) MultipartFile file,
+                                Model model)  throws IOException {{
+
+
+
+
+
+        articleInfo.setMessageImage(file);
+        try{
+            byte[] image = Base64.encodeBase64(articleInfo.getMessageImage().getBytes());
+            String result = new String(image);
+            System.out.println(result);
+            articleInfo.setImage(image);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        //Article upArticle = new Article(postid,title,type,date,content, articleInfo.getPicture(),file,base64,0);
+
+        messageService.update(articleInfo);
+        //Integer counter = 0;
+    }
+
+        return "redirect:./";
+
+    }
+
+    @PostMapping("/DeleteMessage")
+    public String processDelete(@RequestParam("messageId") Integer messageId){
+        messageService.delete(messageId);
+        return "redirect:./";
+        //ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        // java.sql.Date
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat2.setLenient(false);
+        CustomDateEditor ce2 = new CustomDateEditor(dateFormat2, true);
+        binder.registerCustomEditor(java.sql.Date.class, ce2);
+    }
 }
+

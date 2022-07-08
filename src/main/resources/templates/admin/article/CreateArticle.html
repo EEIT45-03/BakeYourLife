@@ -116,6 +116,9 @@
                                          <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>	
                                          <div class="row mb-3">照片上傳
                                          <input type="file" name="articleImage" value="" id="image" th:field="*{articleImage}">
+                                             <div th:if="${message}">
+                                                 <h2 th:text="${message}"/>
+                                             </div>
                                          </div> 
                                          <INPUT class="btn btn-primary" NAME="INSERT" TYPE="SUBMIT" VALUE="新增貼文">
                                          <button type="button" class="btn btn-secondary" id="correctInput">一鍵輸入</button>
