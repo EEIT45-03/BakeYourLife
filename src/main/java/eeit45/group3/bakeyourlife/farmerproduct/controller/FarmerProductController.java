@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class FarmerProductController {
 
     FarmerProductService farmerProductService;
 
+
     @Autowired
     public FarmerProductController(FarmerProductService farmerProductService) {
         this.farmerProductService = farmerProductService;
@@ -33,27 +35,18 @@ public class FarmerProductController {
     }
 
     @PostMapping("/FarmerProducts")
-    public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody FarmerProductBean farmerProductBean) {
+    public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody @Valid FarmerProductBean farmerProductBean) {
 
-        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
+        List<String> base64List = farmerProductBean.getBase64();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
-        if (dataUrls != null && dataUrls.size() > 0) {
-
-            if (dataUrls.get(0).length() < 30 && dataUrls.get(0).length() > 0) {
-                String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
+        if (base64List != null && base64List.size() > 0) {
+            for (String base64 : base64List) {
                 FarmerProductPic farmerProductPic = new FarmerProductPic();
-                farmerProductPic.setFarmerProductBean(farmerProductBean);
-                farmerProductPic.setPictureDataUrl(dataUrl);
-                farmerProductPicList.add(farmerProductPic);
-            } else {
+                if (base64 != null && base64.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    farmerProductPic.setPictureLink(ImgurService.updateByBase64(base64).getLink());
+                    farmerProductPicList.add(farmerProductPic);
 
-                for (String dataUrl : dataUrls) {
-                    FarmerProductPic farmerProductPic = new FarmerProductPic();
-                    if (dataUrl != null && dataUrl.length() > 0) {
-                        farmerProductPic.setFarmerProductBean(farmerProductBean);
-                        farmerProductPic.setPictureDataUrl(dataUrl);
-                        farmerProductPicList.add(farmerProductPic);
-                    }
                 }
             }
         }
@@ -64,7 +57,6 @@ public class FarmerProductController {
         farmerProductService.insert(farmerProductBean);
 
 
-//        farmerProductPicService.insertAll(farmerProductPicList);
         return ResponseEntity.status(HttpStatus.CREATED).body(farmerProductBean);
     }
 
@@ -72,25 +64,21 @@ public class FarmerProductController {
     private ResponseEntity<FarmerProductBean> updateFarmerProduct(@PathVariable Integer id,
                                                                   @RequestBody @Valid FarmerProductBean farmerProductBean) {
 
-        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
+        List<String> base64List = farmerProductBean.getBase64();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
-        if (dataUrls != null && dataUrls.size() > 0) {
-
-            if (dataUrls.get(0).length() < 30 && dataUrls.get(0).length() > 0) {
-                String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
+        if (base64List != null && base64List.size() > 0) {
+            for (String base64 : base64List) {
                 FarmerProductPic farmerProductPic = new FarmerProductPic();
-                farmerProductPic.setFarmerProductBean(farmerProductBean);
-                farmerProductPic.setPictureDataUrl(dataUrl);
-                farmerProductPicList.add(farmerProductPic);
-            } else {
-
-                for (String dataUrl : dataUrls) {
-                    FarmerProductPic farmerProductPic = new FarmerProductPic();
-                    if (dataUrl != null && dataUrl.length() > 0) {
-                        farmerProductPic.setFarmerProductBean(farmerProductBean);
-                        farmerProductPic.setPictureDataUrl(dataUrl);
-                        farmerProductPicList.add(farmerProductPic);
+                if (base64 != null && base64.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    System.out.println(base64.substring(0, 4));
+                    if (base64.substring(0, 4).equals("http")) {
+                        farmerProductPic.setPictureLink(base64);
+                    } else {
+                        farmerProductPic.setPictureLink(ImgurService.updateByBase64(base64).getLink());
                     }
+                    farmerProductPicList.add(farmerProductPic);
+
                 }
             }
         }

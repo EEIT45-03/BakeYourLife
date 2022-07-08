@@ -257,15 +257,15 @@
 
                             <div class="imgUp" id="imgdiv" th:each="FarmerProductPic: *{farmerProductPicList}">
                                 <img id="img" class="imagePreview"
-                                     th:src="${FarmerProductPic.pictureDataUrl}"><br>
+                                     th:src="${FarmerProductPic.pictureLink}"><br>
                                 <label class="btn btn-primary imgbtn">
                                     選擇圖片
                                     <input type="file" class="uploadFile"
                                            accept="image/png,image/gif,image/jpg,image/jpeg"
                                            id="farmerProductPic" value=""
                                            style="width: 0px;height: 0px;overflow: hidden;">
-                                    <input type="hidden" name="pictureDataUrl"
-                                           id="pictureDataUrl" th:value="${FarmerProductPic.pictureDataUrl}">
+                                    <input type="hidden" name="base64"
+                                           id="base64" th:value="${FarmerProductPic.pictureLink}">
                                 </label><i class="fa fa-times del"></i>
                             </div>
 

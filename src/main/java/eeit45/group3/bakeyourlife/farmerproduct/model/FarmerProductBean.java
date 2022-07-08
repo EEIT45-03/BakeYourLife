@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "FarmerProduct")
@@ -18,14 +22,21 @@ public class FarmerProductBean implements Serializable, CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer farmerProductId; // 小農商品Id
+    @NotBlank(message = "類型不可為空")
     private String type;// 產品類型
+    @NotBlank(message = "名稱不可為空")
     private String name;// 名稱
+    @NotNull(message = "價格不可為空")
     private Integer price;// 價格
+    @NotNull(message = "數量不可為空")
     private Integer quantity;// 數量
+    @NotBlank(message = "保存方式不可為空")
     private String storage;// 保存方式
+    @NotBlank(message = "內容物不可為空")
     private String contents;// 內容物
+    @NotBlank(message = "商品介紹不可為空")
     @Column(columnDefinition = "nvarchar(600)")
-    private String description;// 描述
+    private String description;// 商品介紹
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date launchedTime;// 上架時間
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -39,7 +50,7 @@ public class FarmerProductBean implements Serializable, CartItem {
     private List<FarmerProductPic> farmerProductPicList;
 
     @Transient
-    private List<String> pictureDataUrl;
+    private List<String> base64;
 
     @OneToMany(mappedBy = "farmerProductBean", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ProductComment> productCommentList;
@@ -54,7 +65,7 @@ public class FarmerProductBean implements Serializable, CartItem {
 
     }
 
-    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> pictureDataUrl, List<ProductComment> productCommentList) {
+    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> base64, List<ProductComment> productCommentList) {
         this.farmerProductId = farmerProductId;
         this.type = type;
         this.name = name;
@@ -68,7 +79,7 @@ public class FarmerProductBean implements Serializable, CartItem {
         this.violationTime = violationTime;
         this.state = state;
         this.farmerProductPicList = farmerProductPicList;
-        this.pictureDataUrl = pictureDataUrl;
+        this.base64 = base64;
         this.productCommentList = productCommentList;
     }
 
@@ -176,12 +187,12 @@ public class FarmerProductBean implements Serializable, CartItem {
         this.farmerProductPicList = farmerProductPicList;
     }
 
-    public List<String> getPictureDataUrl() {
-        return pictureDataUrl;
+    public List<String> getBase64() {
+        return base64;
     }
 
-    public void setPictureDataUrl(List<String> pictureDataUrl) {
-        this.pictureDataUrl = pictureDataUrl;
+    public void setBase64(List<String> base64) {
+        this.base64 = base64;
     }
 
     public List<ProductComment> getProductCommentList() {

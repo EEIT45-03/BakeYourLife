@@ -75,6 +75,7 @@ $(document).ready(function () {
 
     function readURL(input) {
         let dataUrl = null;
+        let base64 = "";
         if (!window.FileReader) {
             Swal.fire({
                 icon: 'error',
@@ -92,15 +93,14 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
                 dataUrl = e.target.result;
-
+                base64 = dataUrl.split(",")[1];
                 input.closest(".imgUp").find("img").attr('src', dataUrl);
-
-                input.next().val(dataUrl)
+                input.next().val(base64)
 
             }
-
             reader.readAsDataURL(input[0].files[0]);
             imgAdd();
+
 
         }
 
@@ -113,7 +113,7 @@ $(document).ready(function () {
 
     function imgAdd() {
 
-        if ($(".imgUp").length < 5) {
+        if ($(".imgUp").length < 3) {
             $(".imgAdd")
                 .before(`<div class=" imgUp" id="imgdiv" >
 											<img id="img" class="imagePreview"  src="/img/logo4.png"><br>
@@ -123,12 +123,12 @@ $(document).ready(function () {
 													accept="image/png,image/gif,image/jpg,image/jpeg"
 													 id="farmerProductPic" value=""
 													style="width: 0px;height: 0px;overflow: hidden;">
-												<input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
+												<input type="hidden" name="base64" id="base64" value="">
 											</label><i class="fa fa-times del"></i>
 										</div>`);
 
         }
-        if ($(".imgUp").length == 5) {
+        if ($(".imgUp").length == 3) {
             $(".imgAdd").css("display", "none")
         }
 
@@ -167,6 +167,14 @@ function sendcreate() {
     var jsonString = JSON.stringify(getFarmerProduct());
     console.log(jsonString);
     if (check()) {
+        Swal.fire({
+            title: '資料上傳中!',
+            html: '請稍後...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        });
         xhr.onreadystatechange = function () {
             //建立成功，狀態碼會是201
             if (xhr.readyState === 4 && xhr.status === 201) {
@@ -206,13 +214,21 @@ function sendupdate(farmerProductId) {
     var jsonString = JSON.stringify(getFarmerProduct());
     console.log(jsonString);
     if (check()) {
+        Swal.fire({
+            title: '資料上傳中!',
+            html: '請稍後...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        });
         xhr.onreadystatechange = function () {
             //修改成功，狀態碼會是200
             if (xhr.readyState === 4 && xhr.status === 200) {
                 Swal.fire(
                     '修改成功!',
                     ':D',
-                    'success'
+                    'success',
                 ).then((result) => {
                     if (result.isConfirmed) {
                         location = "./";
@@ -254,9 +270,9 @@ function getFarmerProduct() {
     let launchedTime = $.trim($("#launchedTime").val());
     let suspendTime = $.trim($("#suspendTime").val());
     let violationTime = $.trim($("#violationTime").val());
-    let dataUrlArray = new Array();
-    $("input[name=pictureDataUrl]").each(function () {
-        dataUrlArray.push($(this).val());
+    let base64Array = new Array();
+    $("input[name=base64]").each(function () {
+        base64Array.push($(this).val());
     });
 
     let FarmerProduct = {
@@ -271,7 +287,7 @@ function getFarmerProduct() {
         "launchedTime": launchedTime,
         "suspendTime": suspendTime,
         "violationTime": violationTime,
-        "pictureDataUrl": dataUrlArray
+        "base64": base64Array
     }
     return FarmerProduct;
 }
