@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
 
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -59,6 +60,8 @@ public class GoodsControllerServerSide {
 	public String viewCreateGoods1(@ModelAttribute("Goods") Goods good){
 
 		MultipartFile picture = good.getProductImage();
+		String link = ImgurService.updateByMultipartFile(picture).getLink();
+		good.setImageUrl(link);
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
 		String originalFilename =picture.getOriginalFilename();
 		if (originalFilename.length() >0 && originalFilename.lastIndexOf(".")> -1 ) {
@@ -139,13 +142,17 @@ public class GoodsControllerServerSide {
 								  @ModelAttribute("Goods") Goods good){
 		good.setId(id);
 
+
 		MultipartFile picture = good.getProductImage();
 		if (picture.getSize() == 0) {
 			// 表示使用者並未挑選圖片
 			Goods goodDb = goodService.getGoods(id);
-			good.setImage(goodDb.getImage());
+			good.setImageUrl(goodDb.getImageUrl());
+//			good.setImage(goodDb.getImage());
 
 		}else {
+		String link = ImgurService.updateByMultipartFile(picture).getLink();
+		good.setImageUrl(link);
 
 
 			// 建立Blob物件，交由 Hibernate 寫入資料庫

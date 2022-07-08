@@ -147,7 +147,8 @@
                             <div class="row mb-3">
                                 <label  for="origin" class="col-sm-2 col-form-labels">商品圖片:</label>
                                 <div class="col-sm-10">
-                                    <img id="cs" width='60' height='72' th:src="@{/admin/Goods/picture(id=*{id})}" class="">
+<!--                                    <img id="cs" width='60' height='72' th:src="@{/admin/Goods/picture(id=*{id})}" class="">-->
+                                    <img id="cs" width='60' height='72' th:src="*{imageUrl}" class="">
                                     <input th:field="*{productImage}" type="file" class="form-control" name="picture"
                                                 id="picture"/>
                                 </div>

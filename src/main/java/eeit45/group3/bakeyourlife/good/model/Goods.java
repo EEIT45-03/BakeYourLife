@@ -29,6 +29,8 @@ public class Goods implements CartItem {
 	Blob image;
 	String fileName;
 
+	String imageUrl;
+
 	Timestamp admissionTime;  //Get Time that's moment .
 	@Transient
 	MultipartFile productImage;
@@ -36,6 +38,14 @@ public class Goods implements CartItem {
 	String count;//數量
 
 	String system;//上架狀態
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	@Column(columnDefinition = "nvarchar(max)")
 	String describe;//描述
@@ -63,7 +73,8 @@ public class Goods implements CartItem {
 
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
 				 String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
-				 MultipartFile productImage, String count, String system, String describe, String stars, String evaluation) {
+				 MultipartFile productImage, String count, String system, String describe, String stars,
+				 String evaluation,String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -82,6 +93,7 @@ public class Goods implements CartItem {
 		this.describe = describe;
 		this.stars = stars;
 		this.evaluation = evaluation;
+		this.imageUrl = imageUrl;
 	}
 	public Goods() {
 		super();

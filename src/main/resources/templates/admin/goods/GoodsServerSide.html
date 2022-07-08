@@ -240,7 +240,8 @@
                                             <td></td>
                                             <td th:text="${good.id}">1</td>
                                             <td><a th:href="@{Picture(id=${good.id})}">
-                                                <img width='70' height='72' th:src="@{/admin/Goods/picture(id=${good.id})}">
+<!--                                                <img width='70' height='72' th:src="@{/admin/Goods/picture(id=${good.id})}">-->
+                                                <img width='70' height='72' th:src="${good.imageUrl}">
 
                                             </a></td>
                                             <td th:text="${good.name}">2</td>
