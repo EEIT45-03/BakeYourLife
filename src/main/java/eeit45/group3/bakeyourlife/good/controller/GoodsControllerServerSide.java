@@ -176,20 +176,20 @@ public class GoodsControllerServerSide {
 
 
 			// 建立Blob物件，交由 Hibernate 寫入資料庫
-			String originalFilename =picture.getOriginalFilename();
-			if (originalFilename.length() >0 && originalFilename.lastIndexOf(".")> -1 ) {
-				good.setFileName(originalFilename);
-			}
-			if (picture != null && !picture.isEmpty()) {
-				try {
-					byte[] b = picture.getBytes();
-					Blob blob = new SerialBlob(b);
-					good.setImage(blob);
-				} catch (Exception e) {
-					e.printStackTrace();
-					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-				}
-			}
+//			String originalFilename =picture.getOriginalFilename();
+//			if (originalFilename.length() >0 && originalFilename.lastIndexOf(".")> -1 ) {
+//				good.setFileName(originalFilename);
+//			}
+//			if (picture != null && !picture.isEmpty()) {
+//				try {
+//					byte[] b = picture.getBytes();
+//					Blob blob = new SerialBlob(b);
+//					good.setImage(blob);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//				}
+//			}
 		}
 		Timestamp adminTime = new Timestamp(System.currentTimeMillis());
 		good.setAdmissionTime(adminTime);
@@ -199,45 +199,45 @@ public class GoodsControllerServerSide {
 	}
 
 	//取照片
-	@GetMapping("/picture")
-	public ResponseEntity<byte[]> getPicture(@RequestParam("id") Integer id) {
-		byte[] body = null;
-		ResponseEntity<byte[]> re = null;
-		MediaType mediaType = null;
-		HttpHeaders headers = new HttpHeaders();
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-
-		Goods goods = goodService.getGoods(id);
-		if (goods == null) {
-			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-		}
-
-
-		String filename = goods.getFileName();
-//		if (filename != null) {
-//			if (filename.toLowerCase().endsWith("jfif")) {
-//				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
-//			} else {
-//				mediaType = MediaType.valueOf(context.getMimeType(filename));
-//				headers.setContentType(mediaType);
-//			}
+//	@GetMapping("/picture")
+//	public ResponseEntity<byte[]> getPicture(@RequestParam("id") Integer id) {
+//		byte[] body = null;
+//		ResponseEntity<byte[]> re = null;
+//		MediaType mediaType = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//
+//		Goods goods = goodService.getGoods(id);
+//		if (goods == null) {
+//			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 //		}
-		Blob blob = goods.getImage();
-
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			InputStream is = blob.getBinaryStream();
-			byte[] b = new byte[81920];
-			int len = 0;
-			while ((len = is.read(b)) != -1) {
-				baos.write(b, 0, len);
-			}
-			headers.setContentType(mediaType);
-			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return re;
-	}
+//
+//
+//		String filename = goods.getFileName();
+////		if (filename != null) {
+////			if (filename.toLowerCase().endsWith("jfif")) {
+////				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
+////			} else {
+////				mediaType = MediaType.valueOf(context.getMimeType(filename));
+////				headers.setContentType(mediaType);
+////			}
+////		}
+//		Blob blob = goods.getImage();
+//
+//		try {
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			InputStream is = blob.getBinaryStream();
+//			byte[] b = new byte[81920];
+//			int len = 0;
+//			while ((len = is.read(b)) != -1) {
+//				baos.write(b, 0, len);
+//			}
+//			headers.setContentType(mediaType);
+//			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//			re = new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.OK);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return re;
+//	}
 }

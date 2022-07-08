@@ -26,9 +26,9 @@ public class Goods implements CartItem {
 
 	String packagematerial;//包裝材質
 	String saveway;//保存方式
-	@JsonIgnore//++
-	Blob image;
-	String fileName;
+//	@JsonIgnore++
+//	Blob image;
+//	String fileName;
 
 	String imageUrl;
 
@@ -77,7 +77,7 @@ public class Goods implements CartItem {
 	}
 
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
-				 String packagematerial, String saveway, Blob image, String fileName, Timestamp admissionTime,
+				 String packagematerial, String saveway, Timestamp admissionTime,
 				 CommonsMultipartFile[] productImage, String count, String system, String describe, String stars,
 				 String evaluation,String imageUrl) {
 		super();
@@ -89,8 +89,8 @@ public class Goods implements CartItem {
 		this.packages = packages;
 		this.packagematerial = packagematerial;
 		this.saveway = saveway;
-		this.image = image;
-		this.fileName = fileName;
+//		this.image = image;
+//		this.fileName = fileName;
 		this.admissionTime = admissionTime;
 		this.productImage = productImage;
 		this.count = count;
@@ -160,18 +160,18 @@ public class Goods implements CartItem {
 	public void setSaveway(String saveway) {
 		this.saveway = saveway;
 	}
-	public Blob getImage() {
-		return image;
-	}
-	public void setImage(Blob image) {
-		this.image = image;
-	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+//	public Blob getImage() {
+//		return image;
+//	}
+//	public void setImage(Blob image) {
+//		this.image = image;
+//	}
+//	public String getFileName() {
+//		return fileName;
+//	}
+//	public void setFileName(String fileName) {
+//		this.fileName = fileName;
+//	}
 	public Timestamp getAdmissionTime() {
 		return admissionTime;
 	}
