@@ -148,7 +148,9 @@
                                 <label  for="origin" class="col-sm-2 col-form-labels">商品圖片:</label>
                                 <div class="col-sm-10">
 <!--                                    <img id="cs" width='60' height='72' th:src="@{/admin/Goods/picture(id=*{id})}" class="">-->
-                                    <img id="cs" width='60' height='72' th:src="*{imageUrl}" class="">
+<!--                                    <img id="cs" width='60' height='72' th:src="*{imageUrl}" class="">-->
+                                    <img th:each="img:${Goods.imageUrlArray}" width='70' height='72' th:src="${img}">
+                                    <div  id="formFile"></div>
                                     <input th:field="*{productImage}" type="file" class="form-control" name="picture"
                                            accept="image/png, image/jpeg, image/jpg" multiple="multiple" id="picture"/>
                                 </div>
@@ -243,24 +245,36 @@
         else{alert("價格不得為負數。")};
         e.value=""
     }
-    $(document).ready(function(){
-        $("body").on("change", "#picture", function(e){
-            var file = e.target.files[0];
-            var mediabase64data;
-            getBase64(file).then(
-                mediabase64data => $('#cs').attr('src', mediabase64data)
-            );
-        });
-    })
+    // $(document).ready(function(){
+    //     $("body").on("change", "#picture", function(e){
+    //         var file = e.target.files[0];
+    //         var mediabase64data;
+    //         getBase64(file).then(
+    //             mediabase64data => $('#cs').attr('src', mediabase64data)
+    //         );
+    //     });
+    // })
+    //
+    // function getBase64(file) {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
+    $('#picture').on('change', function () {
+        var picture = document.getElementById("picture");
+        var number = picture.files.length;
+        document.getElementById("formFile").innerHTML = "更新:"
+        for (i = 0; i < number; i++) {
+            var urls = URL.createObjectURL(event.target.files[i]);
+            document.getElementById("formFile").innerHTML +=
+                '<span class="col-12 mb-3"> <img height="72" width="70" class="rounded mb-3" src="' + urls + '" /> </span>';
 
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
+
+        }
+    })
     function checkName(e){
         var name = e.value;
         let search = new URLSearchParams(window.location.search);
