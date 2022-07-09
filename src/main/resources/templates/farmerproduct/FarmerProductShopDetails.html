@@ -202,12 +202,12 @@
                      class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="img product__details__pic__item--large"
-                             th:src="*{farmerProductPicList[0].pictureDataUrl}" alt="">
+                             th:src="*{farmerProductPicList[0].pictureLink}" alt="">
                     </div>
                     <div class=" product__details__pic__slider owl-carousel">
                         <img class="img smallimg" th:each="FarmerProductPic : *{farmerProductPicList}"
-                             th:data-imgbigurl="${FarmerProductPic.pictureDataUrl}"
-                             th:src="${FarmerProductPic.pictureDataUrl}" alt="">
+                             th:data-imgbigurl="${FarmerProductPic.pictureLink}"
+                             th:src="${FarmerProductPic.pictureLink}" alt="">
 
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                         <i class="fa fa-star-half-o"></i>
                         <span>(18 reviews)</span>
                     </div>
-                    <div class="product__details__price" th:text="|$*{price}|"></div>
+                    <div class="product__details__price" th:text="|NT$*{price}|"></div>
                     <!--                    <p th:text="*{contents}">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac-->
                     <!--                        diam sit amet quam-->
                     <!--                        vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet-->
