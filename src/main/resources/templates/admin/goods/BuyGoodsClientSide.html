@@ -47,9 +47,8 @@
                              width='400' height='500' th:src="${Goods.imageUrl}" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        th:each
-                        <img th:data-imgbigurl="${Goods.imageUrl}"
-                             th:src="${Goods.imageUrl}" alt="">
+                        <img width="100" height="100" th:each="img:${Goods.imageUrlArray}"
+                             th:data-imgbigurl="${img}" th:src="${img}" alt="">
 <!--                        <img data-imgbigurl="/img/product/details/product-details-3.jpg"-->
 <!--                             src="/img/product/details/thumb-2.jpg" alt="">-->
 <!--                        <img data-imgbigurl="/img/product/details/product-details-5.jpg"-->
