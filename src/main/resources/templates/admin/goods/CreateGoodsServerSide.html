@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>建立商品</title>
+
+    <div th:replace="/admin/css.html"></div>
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="../Goods/" class="btn btn-primary btn-icon-split btn-sm">
+							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回商品管理</span>
+                    </a>
+
+
+
+                </p>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">新增商品</h6>
+                    </div>
+                    <div class="card-body">
+                        <form  action="" id="form" method="post" th:object="${Goods}"  enctype="multipart/form-data">
+                            <!-- 會員編號: -->
+                            <div class="row mb-3">
+                                <label  for="name" class="col-sm-2 col-form-labels">商品名稱:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{name}" type="text" class="form-control" name="name" onblur="checkName(this)"
+                                                id="name" placeholder="請輸入商品名稱" required="required" />
+                                </div>
+                            </div>
+                            <!-- 地址: -->
+                            <div class="row mb-3">
+                                <label  for="element" class="col-sm-2 col-form-labels">成分:</label>
+                                <div class="col-sm-10">
+                                    <input  th:field="*{element}" type="text" class="form-control" name="element"
+                                                 id="element" placeholder="請輸入商品成分" required="required"/>
+                                </div>
+                            </div>
+                            <!-- 訂單類型: -->
+                            <div class="row mb-3">
+                                <label  for="origin" class="col-sm-2 col-form-labels">產地:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{origin}" type="text" class="form-control" name="origin"
+                                                id="origin" placeholder="請輸入商品產地" required="required"/>
+                                </div>
+                            </div>
+
+                            <!-- 運費: -->
+                            <div class="row mb-3">
+                                <label  for="savetime" class="col-sm-2 col-form-labels">保存期限:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{savetime}" type="text" class="form-control" name="savetime" onblur="checkdate(this)"
+                                                id="savetime" placeholder="請輸入保存期限" required="required"/>
+                                </div>
+                            </div>
+                            <!-- 總金額: -->
+                            <div class="row mb-3">
+                                <label  for="packages" class="col-sm-2 col-form-labels">價格(元):</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{packages}" type="text" class="form-control" name="packages" onblur="checkprice(this)"
+                                                id="packages"  placeholder="請輸入商品價格" required="required"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label  for="count" class="col-sm-2 col-form-labels">數量:</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{count}" type="text" class="form-control" name="count" onblur="checkprice(this)"
+                                           id="count"  placeholder="請輸入商品數量" required="required"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="picture" class="col-sm-2 col-form-labels">圖片:</label>
+                                <div class="col-sm-10">
+                                    <img id="cs0" width='60' height='72'  class="">
+                                    <input th:field="*{productImage}" type="file" class="form-control" name="goodImage" onblur=""
+                                                id="picture" accept="image/png, image/jpeg, image/jpg" multiple="multiple"/>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label  for="system" class="col-sm-2 col-form-labels">狀態:</label>
+                                <div class="col-sm-10">
+                                    <select th:field="*{system}" class="form-control form-select mb-3" name="system" id="system"
+                                            aria-label="Default select example">
+                                        <!-- 問一下 --> <option value="上架中" >上架中</option>
+                                         <option value="已下架" >已下架</option>
+                                         <option value="待上架" >待上架</option>
+                                     </select>
+                                 </div>
+                             </div>
+
+                             <div class="row mb-3">
+                                 <label  for="packagematerial" class="col-sm-2 col-form-labels">商品包裝材質:</label>
+                                 <div class="col-sm-10">
+                                     <select th:field="*{packagematerial}" class="form-control form-select mb-3" name="packagematerial" id="packagematerial"
+                                                  aria-label="Default select example">
+                                         <!-- 問一下  --> <option value="原裝利樂包" >原裝利樂包</option>
+                                         <option value="透明夾鏈立袋" >透明夾鏈立袋</option>
+                                         <option value="保溫錫箔紙" >保溫錫箔紙</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="row mb-3">
+                                 <label  for="saveway" class="col-sm-2 col-form-labels">商品保存方式:</label>
+                                 <div class="col-sm-10">
+                                     <select th:field="*{saveway}" class="form-control form-select mb-3" name="saveway" id="saveway"
+                                                  aria-label="Default select example">
+                                         <!-- 問一下 --> <option value="常溫" >常溫</option>
+                                         <option value="冷藏" >冷藏</option>
+                                         <option value="冷凍" >冷凍</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="row mb-3">
+                                 <label  for="describe" class="col-sm-2 col-form-labels">商品描述:</label>
+                                 <div class="col-sm-10">
+                                     <input th:field="*{describe}" type="text" class="form-control" name="describe"
+                                            id="describe"  placeholder="請輸入商品描述" required="required"/>
+                                 </div>
+                             </div>
+
+<!--                            <div class="row mb-3">-->
+<!--                                <label  for="count" class="col-sm-2 col-form-labels">買家評論:</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input th:field="*{evaluation}" type="text" class="form-control" name="describe"-->
+<!--                                           id="evaluation"  placeholder="請輸入商品描述" required="required"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label  for="count" class="col-sm-2 col-form-labels">星星數量:</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input th:field="*{stars}" type="text" class="form-control" name="count" onblur="checkprice(this)"-->
+<!--                                           id="stars"  placeholder="請輸入商品數量" required="required"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+
+                             <button type="submit" class="btn btn-primary">建立商品</button>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+             <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="/admin/javascript.html"></div>
+<script>
+    function checkdate(e) {
+        var date = e.value
+        var reg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
+        if(reg.test(date))return
+        else{alert("日期格式錯誤。須為YYYY-MM-DD")}
+        e.value=""
+    }
+
+    function checkprice(e){
+        var price = e.value;
+        if(price>=0)return;
+        else{alert("價格不得為負數。")};
+        e.value=""
+    }
+
+    function checkName(e){
+        var name = e.value
+        $.ajax({
+            type: "POST",
+            url: "./CheckGoods",
+            data: "name="+name,
+            success: function(data){
+                console.log(data);
+                if(data==true){
+                    alert("商品名稱已存在");
+                    e.value = '';}else{
+                }
+                return;
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $("body").on("change", "#picture", function(e){
+            var file = e.target.files[0];
+            var mediabase64data;
+            getBase64(file).then(
+                mediabase64data => $('#cs0').attr('src', mediabase64data),
+            );
+        });
+    })
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+</script>
+</body>
+</html>
