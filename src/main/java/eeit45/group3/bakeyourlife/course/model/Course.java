@@ -1,8 +1,7 @@
 package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eeit45.group3.bakeyourlife.rental.model.Rental;
-import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

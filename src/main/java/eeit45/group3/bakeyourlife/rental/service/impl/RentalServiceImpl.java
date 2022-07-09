@@ -1,10 +1,20 @@
 package eeit45.group3.bakeyourlife.rental.service.impl;
 
-import eeit45.group3.bakeyourlife.rental.dao.*;
-import eeit45.group3.bakeyourlife.rental.model.*;
+import eeit45.group3.bakeyourlife.rental.dao.ProduceNoRepository;
+import eeit45.group3.bakeyourlife.rental.dao.RentalRepository;
+import eeit45.group3.bakeyourlife.rental.dao.TackleListRepository;
+import eeit45.group3.bakeyourlife.rental.dao.VenueListRepository;
+import eeit45.group3.bakeyourlife.rental.model.ProduceNo;
+import eeit45.group3.bakeyourlife.rental.model.Rental;
+import eeit45.group3.bakeyourlife.rental.model.TackleList;
+import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,35 +30,31 @@ public class RentalServiceImpl implements RentalService{
 
 	UserService userService;
 
+	TackleService tackleService;
+
+	VenueService venueService;
+
 	RentalRepository rentalRepository;
 
 	VenueListRepository venueListRepository;
 
 	TackleListRepository tackleListRepository;
 
-	VenueRepository venueRepository;
-
-	TackleRepository tackleRepository;
-
 	ProduceNoRepository produceNoRepository;
 
 	@Autowired
-	public RentalServiceImpl(TackleRepository tackleRepository,
-							 UserService userService,
-							 RentalRepository rentalRepository,
-							 VenueListRepository venueListRepository,
-							 TackleListRepository tackleListRepository,
-							 VenueRepository venueRepository,
-							 ProduceNoRepository produceNoRepository) {
-
+	public RentalServiceImpl(UserService userService, TackleService tackleService, VenueService venueService, RentalRepository rentalRepository, VenueListRepository venueListRepository, TackleListRepository tackleListRepository, ProduceNoRepository produceNoRepository) {
 		this.userService = userService;
+		this.tackleService = tackleService;
+		this.venueService = venueService;
 		this.rentalRepository = rentalRepository;
 		this.venueListRepository = venueListRepository;
 		this.tackleListRepository = tackleListRepository;
-		this.venueRepository = venueRepository;
-		this.tackleRepository = tackleRepository;
 		this.produceNoRepository = produceNoRepository;
 	}
+
+
+
 
 
 /*租借單 DAO
@@ -238,7 +244,7 @@ public class RentalServiceImpl implements RentalService{
 			venueList.setRental(rental);
 		}
 		if(venueList.getVenue().getVenueId() != null){
-			Venue venue = findByVenueId(venueList.getVenue().getVenueId());
+			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
 			venueList.setVenue(venue);
 		}
 		return venueListRepository.save(venueList);
@@ -261,7 +267,7 @@ public class RentalServiceImpl implements RentalService{
 			venueListDb.setRental(rental);
 		}
 		if(venueList.getVenue().getVenueId()!=null){
-			Venue venue = findByVenueId(venueList.getVenue().getVenueId());
+			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
 			venueListDb.setVenue(venue);
 		}
 //		if(venueList.getLendTime()!=null){
@@ -323,54 +329,7 @@ public class RentalServiceImpl implements RentalService{
 	/*教室 DAO
 	----------------------------------------------------------------*/		
 	
-	//查詢全部的教室
-	@Override
-	public List<Venue> findAllVenue() {
-		return venueRepository.findAll();
-	}
 
-	//查詢全部的教室,依教室名稱遞增排列
-	@Override
-	public List<Venue> findByOrderByVenueNameAsc() {
-		return venueRepository.findByOrderByVenueNameAsc();
-	}
-
-	//查詢全部的教室名稱
-	public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
-
-	//依教室ID查詢教室
-	@Override
-	public Venue findByVenueId(Integer venueId) {
-		return venueRepository.findById(venueId).orElse(null);
-	}
-
-	//依教室名稱查詢教室	
-	@Override
-	public Venue findByVenueName(String venueName) {
-		return venueRepository.findByVenueName(venueName);
-	}
-
-	//新增教室
-	@Override
-	@Transactional
-	public Venue createVenue(Venue venue) {
-		return venueRepository.save(venue);
-	}
-
-
-	//更新教室	
-	@Override
-	@Transactional
-	public Venue updateVenue(Venue venue) {
-		return venueRepository.save(venue);
-	}
-
-	//刪除教室	
-	@Override
-	@Transactional
-	public void deleteVenue(Integer venueId) {
-		venueRepository.deleteById(venueId);
-	}
 	
 	
 	/*器具租借清單 DAO
@@ -425,7 +384,7 @@ public class RentalServiceImpl implements RentalService{
 			tackleList.setRental(rental);
 		}
 		if(tackleList.getTackle().getTackleId() != null){
-			Tackle tackle = findByTackleId(tackleList.getTackle().getTackleId());
+			Tackle tackle = tackleService.findByTackleId(tackleList.getTackle().getTackleId());
 			tackleList.setTackle(tackle);
 		}
 			return tackleListRepository.save(tackleList);
@@ -481,52 +440,7 @@ public class RentalServiceImpl implements RentalService{
 	/*器具 DAO
 	----------------------------------------------------------------*/		
 	
-	//查詢全部的器具
-	@Override
-	public List<Tackle> findAllTackle() {
-		return tackleRepository.findAll();
-	}
 
-
-	//查詢全部的器具名稱
-	@Override
-	public List<String> findAllTackleName(){
-		return tackleRepository.findAllTackleName();
-	}
-
-	//依器具ID查詢器具
-	@Override
-	public Tackle findByTackleId(Integer tackleId) {
-		return tackleRepository.findById(tackleId).orElse(null);
-	}
-
-	//依器具名稱查詢器具
-	@Override
-	public Tackle findByTackleName(String tackleName) {
-		return tackleRepository.findByTackleName(tackleName);
-	}
-	
-	//新增器具	
-	@Override
-	@Transactional
-	public Tackle createTackle(Tackle tackle) {
-		return tackleRepository.save(tackle);
-	}
-
-	//更新器具
-	@Override
-	@Transactional
-	public Tackle updateTackle(Tackle tackle) {
-		return tackleRepository.save(tackle);
-	}
-
-
-	//刪除器具	
-	@Override
-	@Transactional
-	public void deleteTackle(Integer tackleId) {
-		tackleRepository.deleteById(tackleId);
-	}
 	
 	
 	

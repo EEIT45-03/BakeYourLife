@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.rental.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 

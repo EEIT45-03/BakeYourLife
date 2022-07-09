@@ -66,15 +66,15 @@ public class Rental implements Serializable {
     @Transient
     private Integer replenishment;
 
-    //遲歸還補款
+    //器具出租日期
     @Transient
     private Date lendDate;
 
-    //遲歸還補款
+    //器具出租結束日期
     @Transient
     private Date endDate;
 
-    //遲歸還補款
+    //器具歸還日期
     @Transient
     private Date returnDate;
 

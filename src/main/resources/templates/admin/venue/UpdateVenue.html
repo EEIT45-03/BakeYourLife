@@ -1,0 +1,55 @@
+<div class="card-body">
+
+
+
+    <form th:action="@{UpdateVenue(venueId=*{venueId})}" method="post"
+          th:object="${venueRequest}">
+
+        <!-- 場地ID: -->
+        <p class="row mb-3">
+            <span class="col-sm-3">場地ID:</span><span class="col-sm-9" th:text="*{venueId}"></span>
+        </p>
+
+        <!-- 場地名稱: -->
+        <div class="row mb-3">
+            <label for="vName" class="col-sm-3 col-form-labels">場地名稱:</label>
+            <div class="col-sm-9" >
+                <input th:field="*{venueName}" type="text" class="form-control" th:onkeyup="|checkVN()|"
+                       name="venueName" id="vName" maxlength="5" required="required" />
+                <span class="show" id="s_vName"></span>
+            </div>
+        </div>
+
+        <!-- 人數上限: -->
+        <div class="row mb-3">
+            <label for="pMax" class="col-sm-3 col-form-labels">人數上限:</label>
+            <div class="col-sm-9">
+                <input th:field="*{personMax}" type="number" class="form-control"
+                       name="personMax" id="pMax" th:min="1" th:max="30" required="required" />
+            </div>
+        </div>
+
+
+        <!-- 價錢/時: -->
+        <div class="row mb-3">
+            <label for="hPri" class="col-sm-3 col-form-labels">價錢/時:</label>
+            <div class="col-sm-9">
+                <input th:field="*{hrPrice}" type="number" class="form-control"
+                       th:name="hrPrice" id="hPri" th:min="1" th:max="500" required="required"/>
+            </div>
+        </div>
+
+        <!-- 備註: -->
+        <div class="row mb-3">
+            <label for="vNotes" class="col-sm-3 col-form-labels">備註:</label>
+            <div class="col-sm-9">
+                <textarea th:field="*{notes}" class="form-control" th:name="notes"
+                          id="vNotes" value="" placeholder="備註" maxlength="100"
+                          required></textarea>
+
+            </div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-primary">修改</button>
+        </form>
+</div>

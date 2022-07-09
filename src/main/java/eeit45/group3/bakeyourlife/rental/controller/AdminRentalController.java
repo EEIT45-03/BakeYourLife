@@ -3,8 +3,12 @@ package eeit45.group3.bakeyourlife.rental.controller;
 
 import eeit45.group3.bakeyourlife.rental.model.*;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +25,25 @@ public class AdminRentalController {
 
     private RentalService rentalService;
 
+    private VenueService venueService;
+
+    private TackleService tackleService;
+
     private UserService userService;
 
 
     /*================================租借單=========================================*/
 
     @Autowired
-    public AdminRentalController(RentalService rentalService, UserService userService) {
+    public AdminRentalController(RentalService rentalService, VenueService venueService, TackleService tackleService, UserService userService) {
         this.rentalService = rentalService;
+        this.venueService = venueService;
+        this.tackleService = tackleService;
         this.userService = userService;
     }
+
+
+
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "listType", required = false) String listType,
@@ -77,6 +90,7 @@ public class AdminRentalController {
         }
 
         //設置給前端使用
+        model.addAttribute("users", userService.findAll());
         model.addAttribute("rentals", rentals);
         return "admin/rental/Rental";
     }
@@ -145,7 +159,7 @@ public class AdminRentalController {
         }
         if(rental != null) {
             TackleList tackleList = rentalService.createTackleListNoRequest(rental);
-            tackles = rentalService.findAllTackle();
+            tackles = tackleService.findAllTackle();
             model.addAttribute("tackles",tackles);
             model.addAttribute("tackleList", tackleList);
             return "admin/rental/CreateTackleList";
@@ -181,7 +195,7 @@ public class AdminRentalController {
         }
         if(tackleList != null) {
 
-            List<Tackle> tackles = rentalService.findAllTackle();
+            List<Tackle> tackles = tackleService.findAllTackle();
             model.addAttribute("tackles",tackles);
             model.addAttribute("tackleListRequest", tackleList);
             return "admin/rental/UpdateTackleList";
@@ -237,7 +251,7 @@ public class AdminRentalController {
         }
         if(rental != null) {
             VenueList venueList = rentalService.createVenueListNoRequest(rental);
-            List<Venue> venues = rentalService.findByOrderByVenueNameAsc();
+            List<Venue> venues = venueService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueList", venueList);
             return "admin/rental/CreateVenueList";
@@ -270,7 +284,7 @@ public class AdminRentalController {
             venueList = rentalService.findByVenueListId(venueListId);
         }
         if(venueList != null) {
-            venues = rentalService.findByOrderByVenueNameAsc();
+            venues = venueService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueListRequest", venueList);
             return "admin/rental/UpdateVenueList";

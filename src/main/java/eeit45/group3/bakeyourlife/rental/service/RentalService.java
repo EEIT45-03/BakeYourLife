@@ -2,9 +2,9 @@ package eeit45.group3.bakeyourlife.rental.service;
 
 import java.util.List;
 
-import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.model.*;
-import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 
 
 public interface RentalService {
@@ -90,31 +90,7 @@ public interface RentalService {
 	/*教室 DAO
 		----------------------------------------------------------------*/		
 		
-	//查詢全部的教室
-	public List<Venue>  findAllVenue();
 
-	//查詢全部的教室,依教室名稱遞增排列
-	public List<Venue> findByOrderByVenueNameAsc();
-
-	//查詢全部的教室名稱
-	public List<String> findAllVenueName();
-
-		
-	//依教室ID查詢教室
-	public Venue findByVenueId(Integer venueId);
-		
-	//依教室名稱查詢教室
-	public Venue findByVenueName(String venueName);
-		
-	//新增教室
-	public Venue createVenue(Venue venue);
-//	public boolean createVenue(VenueRequest venueRequest);
-		
-	//更新教室
-	public Venue updateVenue(Venue venue);
-		
-	//刪除教室
-	public void deleteVenue(Integer venueId);
 
 		
 	/*器具租借清單 DAO
@@ -151,25 +127,7 @@ public interface RentalService {
 	/*器具 DAO
 		----------------------------------------------------------------*/		
 		
-	//查詢全部的器具
-	public List<Tackle> findAllTackle();
-	//查詢全部的器具名稱
-	public List<String> findAllTackleName();
-		
-	//依器具ID查詢器具
-	public Tackle findByTackleId(Integer tackleId);
-		
-	//依器具名稱查詢器具
-	public Tackle findByTackleName(String tackleName);
-		
-	//新增器具
-	public Tackle createTackle(Tackle tackle);
-		
-	//更新器具
-	public Tackle updateTackle(Tackle tackle);
-		
-	//刪除器具
-	public void deleteTackle(Integer tackleId);
+
 		
 		
 	/*自動產生編號 DAO

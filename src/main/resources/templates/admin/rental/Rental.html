@@ -52,9 +52,9 @@
           <label for="rNo" class="row-cols-1 col-form-labels">租借單編號:</label>
           <input th:name="rNo" id="rNo" class="form-control" maxlength="15" />
 
-          <label for="user1" class="row-cols-1 col-form-labels">會員:</label>
+          <label for="user" class="row-cols-1 col-form-labels">會員:</label>
           <select type="text" class="form-control form-select mb-sm-1"
-                  th:name="user1" id="user" aria-label="Default select example">
+                  th:name="user" id="user" aria-label="Default select example">
             <option value="">請選擇</option>
             <option th:each="user1 : ${users}" th:text="${user1.username}" th:value="${user1.userId}"></option>
           </select>
@@ -63,8 +63,8 @@
           <select type="text" class="form-control form-select mb-sm-1"
                   th:name="listType" id="listType" aria-label="Default select example">
             <option value="">請選擇</option>
-            <option th:value="venue" th:text="場地"></option>
-            <option th:value="tackle" th:text="器具"></option>
+            <option th:value="場地" th:text="場地"></option>
+            <option th:value="器具" th:text="器具"></option>
           </select>
 
           <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
