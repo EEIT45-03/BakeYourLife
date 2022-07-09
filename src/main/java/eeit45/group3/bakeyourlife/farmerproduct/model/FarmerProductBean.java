@@ -56,11 +56,6 @@ public class FarmerProductBean implements Serializable, CartItem {
     private List<ProductComment> productCommentList;
 
 
-//	@Column(columnDefinition = "nvarchar(MAX)")
-//	private String pictureDataUrl;// 圖片的dataurl
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "type_id", nullable = false)
-
     public FarmerProductBean() {
 
     }

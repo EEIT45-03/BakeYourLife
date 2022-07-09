@@ -28,9 +28,9 @@ public class FarmerProductController {
     }
 
     @GetMapping("/FarmerProducts")
-    public ResponseEntity<List<FarmerProductBean>> viewIndex(Model model) {
+    public ResponseEntity<List<FarmerProductBean>> viewIndex() {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
-        model.addAttribute("farmerProductBeans", farmerProductBeans);
+//        model.addAttribute("farmerProductBeans", farmerProductBeans);
         return ResponseEntity.status(HttpStatus.OK).body(farmerProductBeans);
     }
 
