@@ -19,12 +19,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
 
-    Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable);
+    List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
 
     Optional<Order> findByOrderNo(String orderNo);
 
     List<Order> findAllByCoupon(Coupon coupon);
 
-    Page<Order> findAllByUser(User user, Pageable pageable);
+    List<Order> findAllByUser(User user);
 
 }

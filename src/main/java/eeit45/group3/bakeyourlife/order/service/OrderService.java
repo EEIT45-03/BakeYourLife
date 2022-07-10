@@ -19,7 +19,7 @@ public interface OrderService {
 
     List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
 
-    Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable);
+    List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
 
 
     List<Order> findAllByCouponCode(String code);
@@ -32,9 +32,9 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-    Page<Order> findAllByUser(User user, Pageable pageable);
+    List<Order> findAllByUser(User user);
 
-    Page<Order> findAllByUserId(Integer userId, Pageable pageable);
+    List<Order> findAllByUserId(Integer userId);
 
 
 

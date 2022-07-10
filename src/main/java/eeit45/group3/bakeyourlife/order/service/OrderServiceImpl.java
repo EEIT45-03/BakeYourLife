@@ -68,8 +68,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable) {
-		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user,pageable);
+	public List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user) {
+		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user);
 	}
 
 	@Override
@@ -82,20 +82,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<Order> findAllByUser(User user, Pageable pageable) {
+	public List<Order> findAllByUser(User user) {
 		if(user == null){
 			return null;
 		}
-		return orderRepository.findAllByUser(user,pageable);
+		return orderRepository.findAllByUser(user);
 	}
 
 	@Override
-	public Page<Order> findAllByUserId(Integer userId, Pageable pageable) {
+	public List<Order> findAllByUserId(Integer userId) {
 		User user = userService.findByUserId(userId);
 		if(user == null){
 			return null;
 		}
-		return orderRepository.findAllByUser(user,pageable);
+		return orderRepository.findAllByUser(user);
 	}
 
 	@Override
