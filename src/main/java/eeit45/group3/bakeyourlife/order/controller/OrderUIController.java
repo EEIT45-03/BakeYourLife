@@ -76,6 +76,11 @@ public class OrderUIController {
 		return "order/CheckOut";
 	}
 
+	@GetMapping("/admin/Order/sale")
+	public String viewAdminSale(Model model) {
+		return "admin/order/Chart";
+	}
+
 	@ModelAttribute
 	public Cart cart(@ModelAttribute Cart cart) {
 		if (cart == null) {
