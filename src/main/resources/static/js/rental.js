@@ -20,27 +20,26 @@ $(document).ready(function () {
         order: [1, 'asc']
     });
 
-    // $('#venueTable').DataTable({
-    //     language: {
-    //         url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
-    //     },
-    //     responsive: {
-    //         details: {
-    //             type: 'column'
-    //         }
-    //     },
-    //     columnDefs: [{
-    //         className: 'dtr-control',
-    //         orderable: false,
-    //         targets: 0
-    //     }, {
-    //         className: 'dt-center',
-    //         targets: [1, 2, 3, 4, 5]
-    //     }],
-    //     order: [1, 'asc']
-    // });
-
+    $("body").on("change", "#image", function(e){
+        var file = e.target.files[0];
+        var mediabase64data;
+        getBase64(file).then(
+            mediabase64data => $('#images').attr('src', mediabase64data)
+        );
+    });
 });
+
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+
+
+};
 
 /*==========================================================================================================================*/
 //刪除租借單

@@ -3,7 +3,7 @@
 
 
     <form th:action="@{UpdateTackle(tackleId=*{tackleId})}" method="post"
-          th:object="${tackleRequest}">
+          th:object="${tackleRequest}"  enctype="multipart/form-data">
 
         <!-- 器具ID: -->
         <div class="row mb-3">
@@ -64,24 +64,27 @@
             </div>
         </div>
 
-            <!-- 圖片: -->
-        <!--    <div class="row mb-3">-->
-        <!--        <label for="picturn" class="col-sm-2 col-form-labels"> 圖片:</label>-->
-        <!--        <div class="col-sm-10">-->
-        <!--            <input th:field="*{picturn}" type="file" class="form-control"-->
-        <!--                   name="picturn" id="picturn"/>-->
-        <!--        </div>-->
-        <!--    </div>-->
+        <!-- 圖片: -->
+        <div class="row mb-3">
+            <label for="image" class="col-sm-3 col-form-labels"> 圖片:</label>
+            <div class="col-sm-9">
+                <input th:field="*{tackleImage}" type="file" th:name="tackleImage" value="上傳" id="image" />
+            </div>
+        </div>
+        <!-- 圖片顯示 -->
+        <div class="row mb-3">
+            <img id="images" th:src="*{picture}" width="200" height="200" style="margin:auto"/>
+        </div>
 
         <!-- 備註: -->
-            <div class="row mb-3">
-                <label for="tNote" class="col-sm-3 col-form-labels"> 備註:</label>
-                <div class="col-sm-9">
-                    <textarea th:field="*{notes}" class="form-control" th:name="notes" id="tNote" ></textarea>
-                </div>
-            </div>
+<!--            <div class="row mb-3">-->
+<!--                <label for="tNote" class="col-sm-3 col-form-labels"> 備註:</label>-->
+<!--                <div class="col-sm-9">-->
+<!--                    <textarea th:field="*{notes}" class="form-control" th:name="notes" id="tNote" ></textarea>-->
+<!--                </div>-->
+<!--            </div>-->
 
         <button type="submit" id="submit" class="btn btn-primary">修改</button>
 
-        <form>
+        </form>
 </div>

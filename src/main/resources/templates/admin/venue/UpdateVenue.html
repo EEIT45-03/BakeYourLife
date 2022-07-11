@@ -39,6 +39,18 @@
             </div>
         </div>
 
+        <!-- 圖片: -->
+        <div class="row mb-3">
+            <label for="image" class="col-sm-3 col-form-labels"> 圖片:</label>
+            <div class="col-sm-9">
+                <input th:field="*{venueImage}" type="file" th:name="venueImage" value="上傳" id="image" />
+            </div>
+        </div>
+        <!-- 圖片顯示 -->
+        <div class="row mb-3">
+            <img id="images" th:src="*{picture}" style="margin:auto; width: 200px; height: 200px"/>
+        </div>
+
         <!-- 備註: -->
         <div class="row mb-3">
             <label for="vNotes" class="col-sm-3 col-form-labels">備註:</label>

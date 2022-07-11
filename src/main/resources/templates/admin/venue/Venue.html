@@ -75,6 +75,7 @@
                                         <th>場地名稱</th>
                                         <th>人數上限</th>
                                         <th>價錢/時</th>
+                                        <th>圖片</th>
                                         <th>備註</th>
                                         <th>修改</th>
                                         <th>刪除</th>
@@ -87,6 +88,7 @@
                                         <td th:text="${venue.venueName}"></td>
                                         <td th:text="${venue.personMax}"></td>
                                         <td th:text="${venue.hrPrice}"></td>
+                                        <td><img th:src="${venue.picture}"></td>
                                         <td th:text="${venue.notes}"></td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-icon-split btn-sm"

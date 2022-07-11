@@ -8,7 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 
 @Controller
@@ -42,7 +46,14 @@ public class AdminTackleController {
     }
 
     @PostMapping("/CreateTackle")
-    public String createTackle(@ModelAttribute("tackle") Tackle tackle ) {
+    public String createTackle(@ModelAttribute("tackle") Tackle tackle,
+                               @RequestParam(value = "tackleImage", required = false) MultipartFile file,
+                              BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return  "/admin/tackle/Tackle";
+        }
+
+        tackle.setPicture(updateByMultipartFile(file).getLink());
         tackleService.createTackle(tackle);
         return "redirect:./";
     }
@@ -63,7 +74,15 @@ public class AdminTackleController {
 
 
     @PostMapping("/UpdateTackle")
-    public String updateTackle(@RequestParam Integer tackleId, @ModelAttribute("tackleRequest") Tackle tackle) {
+    public String updateTackle(@RequestParam Integer tackleId,
+                               @ModelAttribute("tackleRequest") Tackle tackle,
+                               @RequestParam(value = "tackleImage", required = false) MultipartFile file,
+                               BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return  "/admin/tackle/Tackle";
+        }
+
+        tackle.setPicture(updateByMultipartFile(file).getLink());
         tackleService.updateTackle(tackle);
         return "redirect:./";
     }

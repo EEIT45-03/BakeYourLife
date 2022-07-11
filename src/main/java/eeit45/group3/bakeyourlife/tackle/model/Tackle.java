@@ -1,21 +1,13 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 @Entity
@@ -66,6 +58,9 @@ public class Tackle implements Serializable {
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
 	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
+	@Transient
+	private MultipartFile tackleImage;
+
 	public Tackle() {
 	}
 
@@ -77,7 +72,7 @@ public class Tackle implements Serializable {
 		this.max = max;
 	}
 
-	public Tackle(String tackleName, String productModel, String picture, Integer dayPrice, Integer damages, Integer max, String notes) {
+	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, MultipartFile tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
 		this.picture = picture;
@@ -85,6 +80,7 @@ public class Tackle implements Serializable {
 		this.damages = damages;
 		this.max = max;
 		this.notes = notes;
+		this.tackleImage = tackleImage;
 	}
 
 	public Integer getTackleId() {
@@ -165,5 +161,13 @@ public class Tackle implements Serializable {
 
 	public void setTackleList(Set<TackleList> tackleList) {
 		this.tackleList = tackleList;
+	}
+
+	public MultipartFile getTackleImage() {
+		return tackleImage;
+	}
+
+	public void setTackleImage(MultipartFile tackleImage) {
+		this.tackleImage = tackleImage;
 	}
 }

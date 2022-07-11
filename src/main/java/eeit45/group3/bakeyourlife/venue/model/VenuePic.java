@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.model;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,9 @@ public class VenuePic implements Serializable {
 
     @Column(name = "picture", nullable = false, unique = true)
     private String picture;
+
+    @Transient
+    private MultipartFile venueImage;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="FK_venueId", referencedColumnName = "venueId", nullable = false)
