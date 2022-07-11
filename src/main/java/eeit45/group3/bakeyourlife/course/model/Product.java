@@ -15,9 +15,10 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String summary;
+
 	private String description;
 	private Integer price;
-	@Lob
 	private String image;
 	@Transient
 	private MultipartFile file;
@@ -28,14 +29,63 @@ public class Product {
 	public Product(){
 	}
 
-	public Product(Long id, String name, String description, Integer price, String image, MultipartFile file, Set<Course> courseSet) {
+	public Product(Long id, String name, String summary, String description, Integer price, String image, MultipartFile file, Set<Course> courseSet) {
 		this.id = id;
 		this.name = name;
+		this.summary = summary;
 		this.description = description;
 		this.price = price;
 		this.image = image;
 		this.file = file;
 		this.courseSet = courseSet;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public MultipartFile getFile() {
@@ -44,37 +94,6 @@ public class Product {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
-	}
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Integer getPrice() {
-		return price;
-	}
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public Set<Course> getCourseSet() {
@@ -90,6 +109,7 @@ public class Product {
 		return "Product{" +
 				"id=" + id +
 				", name='" + name + '\'' +
+				", summary='" + summary + '\'' +
 				", description='" + description + '\'' +
 				", price=" + price +
 				", image='" + image + '\'' +
