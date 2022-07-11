@@ -13,8 +13,6 @@ import java.util.Map;
 public class ImgurService {
 
 
-
-
     private static final String clientId = "de8285861c5e235";
 
     //use RestTemplate update Imgur
@@ -43,7 +41,26 @@ public class ImgurService {
         return image;
     }
 
-
+    public static Image updateByBase64(String base64) {
+        String url = "https://api.imgur.com/3/image";
+        String response = null;
+        Image image = null;
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Client-ID " + clientId);
+            HttpEntity<Object> entity = new HttpEntity<>(base64, headers);
+            response = restTemplate.postForObject(url, entity, String.class);
+            Map map = objectMapper.readValue(response, Map.class);
+            Map data = (Map) map.get("data");
+            image = new Image();
+            image.setId((String) data.get("id"));
+            image.setLink((String) data.get("link"));
+            image.setDeletehash((String) data.get("deletehash"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return image;
+    }
 
 
     //刪除圖片
