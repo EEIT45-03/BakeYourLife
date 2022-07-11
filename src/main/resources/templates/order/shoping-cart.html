@@ -201,14 +201,14 @@ function remove(id) {
             .then(function (data) {
                 Swal.fire({
                     title: '優惠卷使用成功',
-                    text: "",
+                    html: "注意優惠卷有最低消費金額限制<br>未達消費金額時，折扣將不會生效!!",
                     icon: 'success',
                 })
                 getDataFormJosn(data)
             }).catch(function(err) {
             Swal.fire({
                 title: '錯誤',
-                text: "輸入錯誤的優惠卷或已過期",
+                text: "輸入錯誤的優惠卷、不在使用期間中或已達使用上限",
                 icon: 'warning',
             })
         });

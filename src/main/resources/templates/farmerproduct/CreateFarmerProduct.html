@@ -167,120 +167,122 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">新增小農商品</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" th:object="${farmerProductBean}">
 
 
-                            <form action="CreateFarmerProduct" method="post" th:object="${farmerProductBean}">
+                            <!--                            <form action="CreateFarmerProduct" method="post" >-->
 
-                                <!--商品類型: -->
-                                <div class="row mb-3">
-                                    <label for="type" class="col-sm-2 col-form-labels">商品類型:</label>
-                                    <div class="col-sm-4">
-                                        <select th:field="*{type}" name="type" class="form-control" id="type" required>
-                                            <option value="" selected hidden>請選擇商品類型</option>
-                                            <option value="蔬菜類">蔬菜類</option>
-                                            <option value="水果類">水果類</option>
-                                            <option value="牛奶類">牛奶類</option>
-                                            <option value="茶葉類">茶葉類</option>
-                                            <option value="咖啡豆類">咖啡豆類</option>
-                                        </select>
-                                    </div>
-
-                                    <div id="typeError" class="col-sm-5" style="color:#f15e5e"></div>
-
+                            <!--商品類型: -->
+                            <div class="row mb-3">
+                                <label for="type" class="col-sm-2 col-form-labels">商品類型:</label>
+                                <div class="col-sm-4">
+                                    <select th:field="*{type}" name="type" class="form-control" id="type" required>
+                                        <option value="" selected hidden>請選擇商品類型</option>
+                                        <option value="蔬菜類">蔬菜類</option>
+                                        <option value="水果類">水果類</option>
+                                        <option value="牛奶類">牛奶類</option>
+                                        <option value="茶葉類">茶葉類</option>
+                                        <option value="咖啡豆類">咖啡豆類</option>
+                                    </select>
                                 </div>
 
-                                <!-- 商品名稱: -->
-                                <div class="row mb-3">
-                                    <label for="name" class="col-sm-2 col-form-labels">商品名稱:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" th:field="*{name}" name="name" id="name"
-                                               maxlength="30" value="" placeholder="請輸入商品名稱" required>
-                                    </div>
+                                <div id="typeError" class="col-sm-5" style="color:#f15e5e"></div>
 
-                                    <span id="nameSize"> 0/30 </span>
-                                    <div id="nameError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
 
+                            <!-- 商品名稱: -->
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-2 col-form-labels">商品名稱:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" th:field="*{name}" name="name" id="name"
+                                           maxlength="30" value="" placeholder="請輸入商品名稱" required>
                                 </div>
 
-                                <!-- 價格: -->
-                                <div class="row mb-3 ">
-                                    <label for="price" class="col-sm-2 col-form-labels">價格:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control"
-                                               oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
-                                               min="0" max="99999" name="price" th:field="*{price}" id="price"
-                                               placeholder="請輸入價格" required>
-                                    </div>
-                                    <span id="priceSize"> 0/5 </span>
-                                    <div id="priceError" class="col-sm-5" style="color:#f15e5e"></div>
+                                <span id="nameSize"> 0/30 </span>
+                                <div id="nameError" class="col-sm-5" style="color:#f15e5e"></div>
+
+                            </div>
+
+                            <!-- 價格: -->
+                            <div class="row mb-3 ">
+                                <label for="price" class="col-sm-2 col-form-labels">價格:</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control"
+                                           oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+                                           min="0" max="99999" name="price" th:field="*{price}" id="price"
+                                           placeholder="請輸入價格" required>
                                 </div>
-                                <!--數量:-->
-                                <div class="row mb-3">
-                                    <label for="quantity" class="col-sm-2 col-form-labels">數量:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" class="form-control"
-                                               oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
-                                               min="0" max="99999" name="quantity" th:field="*{quantity}" id="quantity"
-                                               placeholder="請輸入數量" required>
-                                    </div>
-                                    <span id="quaSize"> 0/5 </span>
-                                    <div id="quaError" class="col-sm-5" style="color:#f15e5e"></div>
+                                <span id="priceSize"> 0/5 </span>
+                                <div id="priceError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--數量:-->
+                            <div class="row mb-3">
+                                <label for="quantity" class="col-sm-2 col-form-labels">數量:</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control"
+                                           oninput="value=value.replace(/[^\d]/g,'');if(value>99999)value=99999;if(value.length>5)value=value.slice(0,5);if(value<0)value=0;"
+                                           min="0" max="99999" name="quantity" th:field="*{quantity}" id="quantity"
+                                           placeholder="請輸入數量" required>
                                 </div>
-                                <!--保存方式: -->
-                                <div class="row mb-3">
-                                    <label for="storage" class="col-sm-2 col-form-labels">保存方式:</label>
-                                    <div class="col-sm-4">
-                                        <select th:field="*{storage}" name="storage" class="form-control" id="storage"
-                                                required>
-                                            <option value="" selected hidden>請選擇保存方式</option>
-                                            <option value="冰箱冷藏">冰箱冷藏</option>
-                                            <option value="冰箱冷凍">冰箱冷凍</option>
-                                            <option value="放置陰涼處">放於陰涼處</option>
-                                        </select>
-                                    </div>
-                                    <div id="stoError" class="col-sm-5" style="color:#f15e5e"></div>
+                                <span id="quaSize"> 0/5 </span>
+                                <div id="quaError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--保存方式: -->
+                            <div class="row mb-3">
+                                <label for="storage" class="col-sm-2 col-form-labels">保存方式:</label>
+                                <div class="col-sm-4">
+                                    <select th:field="*{storage}" name="storage" class="form-control" id="storage"
+                                            required>
+                                        <option value="" selected hidden>請選擇保存方式</option>
+                                        <option value="冰箱冷藏">冰箱冷藏</option>
+                                        <option value="冰箱冷凍">冰箱冷凍</option>
+                                        <option value="放置陰涼處">放於陰涼處</option>
+                                    </select>
                                 </div>
-                                <!--內容物:-->
-                                <div class="row mb-3">
-                                    <label for="content" class="col-sm-2 col-form-labels">內容物:</label>
-                                    <div class="col-sm-4">
+                                <div id="stoError" class="col-sm-5" style="color:#f15e5e"></div>
+                            </div>
+                            <!--內容物:-->
+                            <div class="row mb-3">
+                                <label for="content" class="col-sm-2 col-form-labels">內容物:</label>
+                                <div class="col-sm-4">
 										<textarea class="form-control" th:field="*{contents}" name="contents"
                                                   id="contents" value="" placeholder="請輸入內容物" maxlength="100"
                                                   required></textarea>
 
-                                    </div>
-                                    <span id="conSize"> 0/100 </span>
-                                    <div id="conError" class="col-sm-5" style="color:#f15e5e"></div>
-
                                 </div>
+                                <span id="conSize"> 0/100 </span>
+                                <div id="conError" class="col-sm-5" style="color:#f15e5e"></div>
+
+                            </div>
 
 
-                                <!--商品介紹:-->
-                                <div class="row mb-3">
-                                    <label for="description" class="col-sm-2 col-form-labels">商品介紹:</label>
-                                    <div class="col-sm-4">
+                            <!--商品介紹:-->
+                            <div class="row mb-3">
+                                <label for="description" class="col-sm-2 col-form-labels">商品介紹:</label>
+                                <div class="col-sm-4">
 										<textarea class="form-control" th:field="*{description}" name="description"
                                                   id="description" value="" placeholder="請輸入商品介紹" maxlength="500"
                                                   required></textarea>
-                                    </div>
-
-                                    <span id="desSize"> 0/500 </span>
-                                    <div id="desError" class="col-sm-5" style="color:#f15e5e"></div>
-
-
                                 </div>
-                                <div class="row mb-3">
-                                    <span class="col-sm-2 col-form-labels">商品圖片:</span>
+
+                                <span id="desSize"> 0/500 </span>
+                                <div id="desError" class="col-sm-5" style="color:#f15e5e"></div>
 
 
-                                    <i class="fa fa-plus imgAdd"></i>
-                                </div>
-                                <input type="hidden" name="state" id="state" value="0">
+                            </div>
+                            <div class="row mb-3">
+                                <span class="col-sm-2 col-form-labels">商品圖片:</span>
 
-                                <button type="submit" class="btn btn-primary" id="sendData">確認新增</button>
-                                <button type="button" class="btn btn-info" id="inputData">一鍵輸入</button>
-                            </form>
+
+                                <i class="fa fa-plus imgAdd"></i>
+                            </div>
+                            <input type="hidden" name="state" id="state" value="0">
+
+                            <button class="btn btn-primary"
+                                    onclick="sendcreate()">確認新增
+                            </button>
+                            <button type="button" class="btn btn-info" id="inputData">一鍵輸入</button>
+                            <!--                            </form>-->
                         </div>
                     </div>
                 </div>
