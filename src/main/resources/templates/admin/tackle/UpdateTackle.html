@@ -3,11 +3,11 @@
 
 
     <form th:action="@{UpdateTackle(tackleId=*{tackleId})}" method="post"
-          th:object="${tackleRequest}"  enctype="multipart/form-data">
+          th:object="${tackleRequest}" enctype="multipart/form-data">
 
         <!-- 器具ID: -->
         <div class="row mb-3">
-            <label for="tId" class="col-sm-3 col-form-labels">器具名稱:</label>
+            <label for="tId" class="col-sm-3 col-form-labels">器具ID:</label>
             <div class="col-sm-9">
                 <input th:field="*{tackleId}" type="text" class="form-control"
                        name="tackleId" id="tId" th:readonly="true"/>

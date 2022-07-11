@@ -9,9 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Controller
 @RequestMapping(path = "/admin/Venue")
@@ -47,7 +51,14 @@ public class AdminVenueController {
     }
 
     @PostMapping("/CreateVenue")
-    public String createVenue(@ModelAttribute("venue") Venue venue ) {
+    public String createVenue(@ModelAttribute("venue") Venue venue,
+                              @RequestParam(value = "venueImage", required = false) MultipartFile file,
+                              BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return "/admin/venue/Venue";
+        }
+        venue.setPicture(updateByMultipartFile(file).getLink());
         venueService.createVenue(venue);
         return "redirect:./";
     }
@@ -70,23 +81,16 @@ public class AdminVenueController {
 
 
     @PostMapping("/UpdateVenue")
-    public String updateVenue(@RequestParam Integer venueId, @ModelAttribute("venueRequest") Venue venue) {
+    public String updateVenue(@RequestParam Integer venueId,
+                              @ModelAttribute("venueRequest") Venue venue,
+                              @RequestParam(value = "venueImage", required = false) MultipartFile file,
+                              BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return  "/admin/venue/Venue";
+        }
 
-        Venue venueDb = venueService.findByVenueId(venueId);
-
-        if(venue.getVenueName() != null){
-            venueDb.setVenueName(venue.getVenueName());
-        }
-        if(venue.getPersonMax() != null){
-            venueDb.setPersonMax(venue.getPersonMax());
-        }
-        if(venue.getHrPrice() != null){
-            venueDb.setHrPrice(venue.getHrPrice());
-        }
-        if(venue.getNotes() != null){
-            venueDb.setNotes(venue.getNotes());
-        }
-        venueService.updateVenue(venueDb);
+        venue.setPicture(updateByMultipartFile(file).getLink());
+        venueService.updateVenue(venue);
         return "redirect:./";
     }
 

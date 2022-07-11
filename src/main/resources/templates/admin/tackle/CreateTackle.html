@@ -3,8 +3,8 @@
 
     <!-- 器具名稱: -->
     <div class="row mb-3">
-        <label for="tName" class="col-sm-2 col-form-labels">器具名稱:</label>
-        <div class="col-sm-10">
+        <label for="tName" class="col-sm-3 col-form-labels">器具名稱:</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control"
                    th:name="tackleName" id="tName" required="required"/>
             <span class="show" id="s_tName"></span>
@@ -13,8 +13,8 @@
 
     <!-- 器具規格: -->
     <div class="row mb-3">
-        <label for="spe" class="col-sm-2 col-form-labels">器具規格:</label>
-        <div class="col-sm-10">
+        <label for="spe" class="col-sm-3 col-form-labels">器具規格:</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control"
                    th:name="specification" id="spe" />
         </div>
@@ -23,8 +23,8 @@
 
     <!-- 價錢/1天: -->
     <div class="row mb-3">
-        <label for="daPri" class="col-sm-2 col-form-labels"> 價錢/天:</label>
-        <div class="col-sm-10">
+        <label for="daPri" class="col-sm-3 col-form-labels"> 價錢/天:</label>
+        <div class="col-sm-9">
             <input type="number" class="form-control"
                    th:name="dayPrice" id="daPri" th:min="10" th:max="500" required="required"/>
         </div>
@@ -33,8 +33,8 @@
 
     <!-- 損毀價錢: -->
     <div class="row mb-3">
-        <label for="dam" class="col-sm-2 col-form-labels"> 損毀價錢:</label>
-        <div class="col-sm-10">
+        <label for="dam" class="col-sm-3 col-form-labels"> 損毀價錢:</label>
+        <div class="col-sm-9">
             <input type="number" class="form-control"
                    th:name="damages" id="dam" th:min="1" th:max="10000" required="required"/>
         </div>
@@ -43,8 +43,8 @@
 
     <!-- 總數量: -->
     <div class="row mb-3">
-        <label for="max" class="col-sm-2 col-form-labels"> 總數量:</label>
-        <div class="col-sm-10">
+        <label for="max" class="col-sm-3 col-form-labels"> 總數量:</label>
+        <div class="col-sm-9">
             <input type="number" class="form-control"
                    th:name="max" id="max" th:min="1" th:max="200" required="required" />
         </div>
@@ -52,9 +52,10 @@
 
     <!-- 圖片: -->
     <div class="row mb-3">
-        <label for="image" class="col-sm-2 col-form-labels"> 圖片:</label>
-        <div class="col-sm-10">
-            <input type="file" th:name="tackleImage" value="上傳" id="image" />
+        <label for="image" class="col-sm-3 col-form-labels"> 圖片:</label>
+        <div class="col-sm-9">
+            <input type="file" th:name="tackleImage" value="上傳" id="image"
+                   accept="image/png, image/jpeg, image/jpg"/>
         </div>
     </div>
     <!-- 圖片顯示 -->

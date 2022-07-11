@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.venue.model;
 
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,13 +38,16 @@ public class Venue implements Serializable {
 	@Column(name = "hrPrice",columnDefinition = "int not null")
 	private Integer hrPrice;
 
-	//圖片
-	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
-	private Set<VenuePic> pictures = new LinkedHashSet<VenuePic>();
+	//圖片路徑
+	@Column(name = "picture")
+	private String picture;
 
 	//備註
 	@Column
 	private String notes;
+
+	@Transient
+	MultipartFile venueImage;
 
 
 	//對應場地清單
@@ -55,16 +59,14 @@ public class Venue implements Serializable {
 	}
 
 
-//	public Venue(String venueName, Integer personMax) {
-//		this.venueName = venueName;
-//		this.personMax = personMax;
-//	}
-
-	public Venue(String venueName, Integer personMax, Integer hrPrice, String notes) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice, String picture, String notes, MultipartFile venueImage, Set<VenueList> venueList) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
+		this.picture = picture;
 		this.notes = notes;
+		this.venueImage = venueImage;
+		this.venueList = venueList;
 	}
 
 	public Integer getVenueId() {
@@ -107,12 +109,12 @@ public class Venue implements Serializable {
 		this.notes = notes;
 	}
 
-	public Set<VenuePic> getPictures() {
-		return pictures;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setPictures(Set<VenuePic> pictures) {
-		this.pictures = pictures;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public Set<VenueList> getVenueList() {
@@ -121,6 +123,14 @@ public class Venue implements Serializable {
 
 	public void setVenueList(Set<VenueList> venueList) {
 		this.venueList = venueList;
+	}
+
+	public MultipartFile getVenueImage() {
+		return venueImage;
+	}
+
+	public void setVenueImage(MultipartFile venueImage) {
+		this.venueImage = venueImage;
 	}
 }
 

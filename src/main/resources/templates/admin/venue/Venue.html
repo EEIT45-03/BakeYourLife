@@ -13,6 +13,13 @@
     <title>場地管理</title>
 
     <div th:replace="/admin/css.html"></div>
+
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -76,7 +83,7 @@
                                         <th>人數上限</th>
                                         <th>價錢/時</th>
                                         <th>圖片</th>
-                                        <th>備註</th>
+                                        <th style="width: 30%">備註</th>
                                         <th>修改</th>
                                         <th>刪除</th>
                                     </tr>
@@ -135,7 +142,7 @@
 
 
 <!-- 訂單頁面 -->
-<script th:src="@{/js/rental.js}"></script>
+<script th:src="@{/js/venue.js}"></script>
 
 
 </body>

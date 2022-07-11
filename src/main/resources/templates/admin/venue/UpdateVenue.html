@@ -3,12 +3,16 @@
 
 
     <form th:action="@{UpdateVenue(venueId=*{venueId})}" method="post"
-          th:object="${venueRequest}">
+          th:object="${venueRequest}" enctype="multipart/form-data">
 
         <!-- 場地ID: -->
-        <p class="row mb-3">
-            <span class="col-sm-3">場地ID:</span><span class="col-sm-9" th:text="*{venueId}"></span>
-        </p>
+        <div class="row mb-3">
+            <label for="vId" class="col-sm-3 col-form-labels">場地ID:</label>
+            <div class="col-sm-9">
+                <input th:field="*{venueId}" type="text" class="form-control"
+                       name="venueId" id="vId" th:readonly="true"/>
+            </div>
+        </div>
 
         <!-- 場地名稱: -->
         <div class="row mb-3">

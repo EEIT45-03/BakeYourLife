@@ -328,10 +328,5 @@ public class AdminRentalController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//	@ModelAttribute
-//	public void resource(Model m){
-//		List<User> users = userService.findAll();
-//		m.addAttribute("users",users);
-//	}
 
 }
