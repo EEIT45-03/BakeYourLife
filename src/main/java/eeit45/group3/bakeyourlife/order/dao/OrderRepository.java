@@ -23,6 +23,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
 
+    List<Order> findAllByOrderStatus(OrderStatus orderStatus);
+
     Optional<Order> findByOrderNo(String orderNo);
 
     List<Order> findAllByCoupon(Coupon coupon);
@@ -35,6 +37,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT CONVERT(char(7), o.order_date, 111) AS 'label', sum(o.total_price) AS 'value' FROM orders o WHERE o.order_status != '已退款' AND o.order_status != '已取消' GROUP BY CONVERT(char(7), o.order_date, 111)")
     List<ProductSaleAmount> findMonthSaleAmount();
+
+    @Query(nativeQuery = true, value = "SELECT sum(o.total_price) AS 'value' FROM orders o WHERE o.order_status != '已退款' AND o.order_status != '已取消' AND year(o.order_date) = YEAR(GETDATE())")
+    Integer findYearSaleAmount();
 
 
 

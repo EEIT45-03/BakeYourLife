@@ -27,8 +27,8 @@ public class ChartController {
         for (ProductSaleAmount productSaleAmount : productSaleAmountList) {
             chart.addData(productSaleAmount);
         }
-        System.out.println(chart.getLabels());
-        System.out.println(chart.getData());
+//        System.out.println(chart.getLabels());
+//        System.out.println(chart.getData());
         return chart;
     }
 
@@ -39,8 +39,8 @@ public class ChartController {
         for (ProductSaleAmount productSaleAmount : productSaleAmountList) {
            chart.addData(productSaleAmount);
         }
-        System.out.println(chart.getLabels());
-        System.out.println(chart.getData());
+//        System.out.println(chart.getLabels());
+//        System.out.println(chart.getData());
         return chart;
     }
 }

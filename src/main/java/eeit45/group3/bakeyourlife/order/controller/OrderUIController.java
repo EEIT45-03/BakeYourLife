@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.good.model.Goods;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Cart;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -78,6 +79,15 @@ public class OrderUIController {
 
 	@GetMapping("/admin/Order/sale")
 	public String viewAdminSale(Model model) {
+		Long count = orderService.count();
+		List<Order> cancelled = orderService.findAllByOrderStatus(OrderStatus.CANCELLED);
+		List<Order> refunded = orderService.findAllByOrderStatus(OrderStatus.REFUNDED);
+		model.addAttribute("count", count);
+		double cancelledPercent = (double)cancelled.size()/count;
+		model.addAttribute("cancelled", (int)(cancelledPercent*100));
+		double refundedPercent = (double)refunded.size()/count;
+		model.addAttribute("refunded", (int)(refundedPercent*100));
+		model.addAttribute("year",orderService.findYearSaleAmount());
 		return "admin/order/Chart";
 	}
 

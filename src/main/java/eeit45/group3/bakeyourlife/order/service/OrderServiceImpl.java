@@ -73,12 +73,27 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public List<Order> findAllByOrderStatus(OrderStatus orderStatus) {
+		return orderRepository.findAllByOrderStatus(orderStatus);
+	}
+
+	@Override
 	public List<Order> findAllByCouponCode(String code) {
 		Coupon coupon = couponService.findById(code).orElse(null);
 		if(coupon != null){
 			return orderRepository.findAllByCoupon(coupon);
 		}
 		return null;
+	}
+
+	@Override
+	public Long count() {
+		return orderRepository.count();
+	}
+
+	@Override
+	public Integer findYearSaleAmount() {
+		return orderRepository.findYearSaleAmount();
 	}
 
 	@Override

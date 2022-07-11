@@ -21,8 +21,14 @@ public interface OrderService {
 
     List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
 
+    List<Order> findAllByOrderStatus(OrderStatus orderStatus);
+
 
     List<Order> findAllByCouponCode(String code);
+
+    Long count();
+
+    Integer findYearSaleAmount();
 
     /*
      * 用商品名稱找訂單
