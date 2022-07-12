@@ -12,7 +12,7 @@
 
 <title>BakeYourLife</title>
 
-	<div th:replace="/admin/css.html"></div>
+	<div th:replace="admin/css.html"></div>
 <script type="text/javascript"> 
 function del(){ 
 if(!confirm("確認要刪除？")){ 
@@ -83,7 +83,7 @@ window.event.returnValue = false;
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		<div th:replace="/admin/sidebar.html"></div>
+		<div th:replace="admin/sidebar.html"></div>
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -91,7 +91,7 @@ window.event.returnValue = false;
 			<!-- Main Content -->
 			<div id="content">
 
-				<div th:replace="/admin/header.html"></div>
+				<div th:replace="admin/header.html"></div>
 
 
 				<!-- Begin Page Content -->
@@ -206,7 +206,7 @@ window.event.returnValue = false;
 			<!-- End of Main Content -->
 
 
-			<div th:replace="/admin/footer.html"></div>
+			<div th:replace="admin/footer.html"></div>
 
 
 		</div>
@@ -216,7 +216,7 @@ window.event.returnValue = false;
 	<!-- End of Page Wrapper -->
 
 
-	<div th:replace="/admin/javascript.html"></div>
+	<div th:replace="admin/javascript.html"></div>
 <script>
 function archiveFunction(postid) {   
     Swal.fire({
