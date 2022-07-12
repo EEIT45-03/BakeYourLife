@@ -66,6 +66,7 @@ public class ShoppingCartController {
     @GetMapping("/Carts/Add")
     public ResponseEntity<Cart> cartAdd(@RequestParam Integer itemId,
                           @RequestParam String type,
+                          @RequestParam Integer qty,
                           @ModelAttribute Cart cart) {
         CartItem cartItem = null;
         switch (type) {
@@ -78,7 +79,7 @@ public class ShoppingCartController {
         }
 
         if (cartItem != null) {
-            cart.addItem(cartItem);
+            cart.addItem(cartItem,qty);
         }
 //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
