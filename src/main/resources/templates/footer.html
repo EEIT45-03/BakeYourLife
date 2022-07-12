@@ -90,11 +90,33 @@
         .then(function (cart) {
             let i = 0;
             Object.values(cart.cart).forEach(val => {
-                console.log(i)
+                // console.log(i)
                 i++;
             });
             $('.cartCount').text(i);
         });
+
+    function add(type,id){
+        let qty = $('.quantity input').val();
+        if(qty===undefined){
+            qty = 1;
+        }
+        fetch('[[@{/Carts/Add}]]?type='+type+'&itemId='+id+'&qty='+qty)
+            .then(response => response.json())
+            .then(function (cart) {
+                let i = 0;
+                Object.values(cart.cart).forEach(val => {
+                    console.log(i)
+                    i++;
+                });
+                $('.cartCount').text(i);
+                Swal.fire(
+                    '成功加入購物車',
+                    '',
+                    'success'
+                )
+            });
+    }
 
 
 </script>
