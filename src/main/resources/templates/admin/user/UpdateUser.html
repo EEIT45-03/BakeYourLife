@@ -46,9 +46,9 @@
                 <h1 class="h3 mb-4 text-gray-800"></h1>
 
                 <p class="mb-4">
-                    <a href="../" class="btn btn-primary btn-icon-split btn-sm">
+                    <a href="./" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
-						</span> <span class="text">返回管理員管理</span>
+						</span> <span class="text">返回會員管理</span>
                     </a>
                 </p>
 
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                             <!-- 照片: -->
-                            <img id="previewImage" width="200" height="200" th:src="${farmer.imageUrl}" style="display:block; margin:auto;"/>
+                            <img id="previewImage" width="200" height="200" th:src="@{/admin/User/picture(userId=*{userId})}" style="display:block; margin:auto;"/>
                             <div class="row mb-3">
                                 <label for="userImage" class="col-sm-2 col-form-labels">照片:</label>
                                 <div class="col-sm-10">
@@ -154,7 +154,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary" id="submit">修改小農廠商資料</button>
+                            <button type="submit" class="btn btn-primary" id="submit">修改會員資料</button>
                         </form>
                     </div>
                 </div>

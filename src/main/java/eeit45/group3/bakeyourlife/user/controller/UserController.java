@@ -27,7 +27,7 @@ import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
 
 @Controller
-@RequestMapping(path = "/admin/Admin")
+@RequestMapping(path = "/admin/User")
 public class UserController {
 
     UserService userService;
@@ -45,17 +45,17 @@ public class UserController {
     public String viewIndex(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "admin/user/Admin";
+        return "admin/user/User";
     }
 
-    @GetMapping("CreateAdmin")
+    @GetMapping("CreateUser")
     public String viewCreateUser(Model model) {
         model.addAttribute("user",new User());
 
-        return "admin/user/CreateAdmin";
+        return "admin/user/CreateUser";
     }
 
-    @PostMapping("CreateAdmin")
+    @PostMapping("CreateUser")
     public String createUser(User user) {
 
         SerialBlob blob = null;
@@ -83,32 +83,7 @@ public class UserController {
         return "redirect:./";
     }
 
-//    @PostMapping("SignUp")
-//    public String SignUp(User user) {
-//
-//        SerialBlob blob = null;
-//        try {
-//            MultipartFile productImage = user.getProductImage();
-//            InputStream is = productImage.getInputStream();
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            byte[] b = new byte[8192];
-//            int len = 0;
-//            while ((len = is.read(b)) != -1) {
-//                baos.write(b, 0, len);
-//            }
-//            blob = new SerialBlob(baos.toByteArray());
-//            user.setFileName(productImage.getOriginalFilename());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//        }
-//        user.setUserImage(blob);
-////        ----------------------------------------------------------
-//        Timestamp ts = new Timestamp(System.currentTimeMillis());
-//        user.setRegisterTime(ts);
-//        userService.save(user);
-//        return "redirect:login";
-//    }
+
 //get照片
     @GetMapping("/picture")
     public ResponseEntity<byte[]> getPicture(@RequestParam("userId") Integer userId) {
@@ -152,16 +127,16 @@ public class UserController {
         return re;
     }
 
-    @GetMapping("/UpdateAdmin")
+    @GetMapping("/UpdateUser")
     public String viewUpdateUser(@RequestParam("userId") Integer userId, Model model) {
         User user = userService.findByUserId(userId);
         model.addAttribute("user",user);
 
-        return "admin/user/UpdateAdmin";
+        return "admin/user/UpdateUser";
 
     }
 
-    @PostMapping("/UpdateAdmin")
+    @PostMapping("/UpdateUser")
     public String updateUser(@RequestParam("userId")Integer userId, User user) {
 
         SerialBlob blob = null;
