@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.user.controller;
 
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,23 +33,28 @@ public class UserControllerFront {
     @PostMapping("SignUp")
     public String SignUp(User user) {
 
-        SerialBlob blob = null;
-        try {
-            MultipartFile productImage = user.getProductImage();
-            InputStream is = productImage.getInputStream();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] b = new byte[8192];
-            int len = 0;
-            while ((len = is.read(b)) != -1) {
-                baos.write(b, 0, len);
-            }
-            blob = new SerialBlob(baos.toByteArray());
-            user.setFileName(productImage.getOriginalFilename());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//        SerialBlob blob = null;
+//        try {
+//            MultipartFile productImage = user.getProductImage();
+//            InputStream is = productImage.getInputStream();
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            byte[] b = new byte[8192];
+//            int len = 0;
+//            while ((len = is.read(b)) != -1) {
+//                baos.write(b, 0, len);
+//            }
+//            blob = new SerialBlob(baos.toByteArray());
+//            user.setFileName(productImage.getOriginalFilename());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//        }
+//        user.setUserImage(blob);
+        MultipartFile productImage = user.getProductImage();
+        String link = ImgurService.updateByMultipartFile(productImage).getLink();
+        if(productImage != null){
+            user.setImageUrl(link);
         }
-        user.setUserImage(blob);
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);

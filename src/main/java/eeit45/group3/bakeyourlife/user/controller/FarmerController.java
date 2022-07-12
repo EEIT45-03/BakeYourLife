@@ -18,6 +18,7 @@ import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.security.Principal;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -116,9 +117,11 @@ public class FarmerController {
         farmerService.updateFarmer(farmer);
             return "redirect:./";
     }
+
     @RequestMapping("DeleteFarmer")
     public String deleteUser(@RequestParam Integer farmerId) {
         farmerService.deleteByFarmerId(farmerId);
+
         return "redirect:./";
 
     }
