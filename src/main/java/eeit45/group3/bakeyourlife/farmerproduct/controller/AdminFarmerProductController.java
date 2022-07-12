@@ -27,8 +27,8 @@ public class AdminFarmerProductController {
 
     @GetMapping("/admin/FarmerProduct/Chart")
     public String viewChart(Model model) {
-        List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
-        model.addAttribute("farmerProductBeans", farmerProductBeans);
+        Long count = farmerProductService.count();
+        model.addAttribute("count", count);
         return "admin/farmerproduct/AdminFarmerProductChart";
     }
 
