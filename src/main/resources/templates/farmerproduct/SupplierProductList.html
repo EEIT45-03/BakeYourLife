@@ -120,18 +120,7 @@
             <!-- Begin Page Content -->
             <!--            <div class="container-fluid">-->
             <div class="row">
-                <div class="col-lg-2 col-md-3 ">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item ">
-                            <h4>小農廠商</h4>
-                            <ul>
-                                <li><a href="#">小農廠商資料</a></li>
-                                <li><a href="#">小農商品清單</a></li>
-                                <li><a href="#">小農訂單紀錄</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="farmerproduct/SupplierSidebar.html"></div>
                 <!-- Page Heading -->
                 <!--                <h1 class="h3 mb-2 text-gray-800">模擬前台 小農廠商</h1>-->
 
@@ -210,7 +199,7 @@
 
                                         </td>
                                         <td class="namelink">
-                                            <a th:href="@{ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                            <a th:href="|/FarmerProductSupplier/ShopDetails/${bean.farmerProductId}|"
                                                th:text="${bean.name}">
 
                                             </a>

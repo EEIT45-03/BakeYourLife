@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農商品</title>
 
-    <div th:replace="css.html"></div>
+    <div th:replace="/css.html"></div>
     <style>
         a {
             cursor: pointer;
@@ -17,12 +17,11 @@
 
     </style>
 
-
 </head>
 
 <body>
-<div th:replace="header.html"></div>
-<div th:replace="menu.html"></div>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
 
 
 <!-- Breadcrumb Section Begin -->
@@ -52,6 +51,7 @@
                     <div class="sidebar__item">
                         <h4>商品類型</h4>
                         <ul>
+                            <li><a th:onclick='showByType("全部")'>全部</a></li>
                             <li><a th:onclick='showByType("蔬菜類")'>蔬菜類</a></li>
                             <li><a th:onclick='showByType("水果類")'>水果類</a></li>
                             <li><a th:onclick='showByType("牛奶類")'>牛奶類</a></li>
@@ -365,7 +365,7 @@
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#" th:onclick="|add('F',${bean.farmerProductId})|"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
@@ -390,7 +390,7 @@
 </section>
 <!-- Product Section End -->
 
-<div th:replace="footer.html"></div>
+<div th:replace="/footer.html"></div>
 
 <script>
 
