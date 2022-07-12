@@ -282,9 +282,14 @@
                             return `<button type="button" class="btn btn-danger btn-sm mr-3" onclick="cancelAlert('${data}')">
 <span class="icon text-gray-50"> <i class="fa-solid fa-ban"></i> 取消訂單 </span> </button>`;
                         }else
-                        if (orderStatus === '待出貨') {
+                        if (orderStatus === '待出貨' ) {
+                            if(row.refundReason ==null){
                             return `<button type="button" class="btn btn-danger btn-sm mr-3" onclick="refundAlert('${data}')">
 <span class="icon text-danger-50"> <i class="fa-solid fa-sack-dollar"></i> 提出退款 </span> </button>`;
+                            }else{
+                                return `<button type="button" class="btn btn-danger btn-sm mr-3" onclick="refundAlert('${data}')" disabled>
+<span class="icon text-danger-50"> <i class="fa-solid fa-sack-dollar"></i> 退款被拒絕 </span> </button>`;
+                            }
                         }else
                         if (orderStatus === '待收貨') {
                             return `<button type="button" class="btn btn-success btn-sm mr-3" onclick="receiveAlert('${data}')">
