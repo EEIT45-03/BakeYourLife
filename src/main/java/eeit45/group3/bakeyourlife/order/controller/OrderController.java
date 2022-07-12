@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -146,14 +143,15 @@ public class OrderController {
 
 	}
 
-	@PostMapping("/Order/{orderNo}/Refund")
-	public ResponseEntity<Order> refund(@PathVariable String orderNo){
+	@PostMapping("/Order/{orderNo}/Refund/{reason}")
+	public ResponseEntity<Order> refund(@PathVariable String orderNo
+	, @PathVariable Integer reason){
 
 		Order order = orderService.findByOrderNo(orderNo).orElse(null);
 		if(order == null){
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"訂單編號不存在");
 		}
-		Order cancel = orderService.refund(order.getOrderId());
+		Order cancel = orderService.refund(order.getOrderId(), reason);
 
 		return ResponseEntity.status(HttpStatus.OK).body(cancel);
 
