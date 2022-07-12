@@ -365,11 +365,11 @@
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" th:onclick="|add('F',${bean.farmerProductId})|"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a th:href="@{ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                <h6><a th:href="@{ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
                                        th:text="${bean.name}"></a>
                                 </h6>
                                 <h5 th:text="|NT$${bean.price}|"></h5>
