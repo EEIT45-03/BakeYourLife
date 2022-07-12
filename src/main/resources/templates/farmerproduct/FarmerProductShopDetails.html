@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農商品</title>
 
-    <div th:replace="/css.html"></div>
+    <div th:replace="css.html"></div>
     <style>
         .img {
             border-radius: 5px;
@@ -171,8 +171,8 @@
 </head>
 
 <body>
-<div th:replace="/header.html"></div>
-<div th:replace="/menu.html"></div>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">加入購物車</a>
+                    <a href="#" class="primary-btn"  th:onclick="|add('F',*{farmerProductId})|">加入購物車</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>庫存</b> <span th:text="*{quantity}"></span></li>
@@ -452,7 +452,7 @@
 </section>
 <!-- Related Product Section End -->
 
-<div th:replace="/footer.html"></div>
+<div th:replace="footer.html"></div>
 
 <script>
 

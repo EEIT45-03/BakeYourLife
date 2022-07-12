@@ -27,11 +27,10 @@ public class FarmerProductController {
         this.farmerProductService = farmerProductService;
     }
 
-    @GetMapping("/FarmerProducts")
-    public ResponseEntity<List<FarmerProductBean>> viewIndex() {
-        List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
-//        model.addAttribute("farmerProductBeans", farmerProductBeans);
-        return ResponseEntity.status(HttpStatus.OK).body(farmerProductBeans);
+    @GetMapping("/FarmerProducts/{type}")
+    public ResponseEntity<List<FarmerProductBean>> findByType(@PathVariable String type) {
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByTypeAndStateOrderByLaunchedTimeDesc(type);
+        return ResponseEntity.status(HttpStatus.OK).body(farmerProductBeanList);
     }
 
     @PostMapping("/FarmerProducts")

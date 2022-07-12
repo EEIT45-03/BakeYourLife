@@ -67,7 +67,7 @@ public class FarmerProductSupplierController {
 
     @GetMapping("/FarmerProductSupplier/ShopGrid")
     private String ShopGrid(Model model) {
-        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findAll();
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateOrderByLaunchedTimeDesc(0);
 
         model.addAttribute(farmerProductBeanList);
 

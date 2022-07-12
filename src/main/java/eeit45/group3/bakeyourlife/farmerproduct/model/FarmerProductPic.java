@@ -1,10 +1,13 @@
 package eeit45.group3.bakeyourlife.farmerproduct.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "FarmerProductPic")
+@JsonIgnoreProperties("farmerProductBean")
 public class FarmerProductPic implements Serializable {
 
     @Id

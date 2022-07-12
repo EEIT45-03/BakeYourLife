@@ -68,11 +68,14 @@ public class Cart {
 
 
 
-    public void addItem(CartItem cartItem){
+    public void addItem(CartItem cartItem, Integer qty) {
         OrderItem orderItem;
+        if(qty==null) {
+            qty = 1;
+        }
         if(cart.containsKey(cartItem.getCartNo())){
             orderItem = cart.get(cartItem.getCartNo());
-            orderItem.setQty(orderItem.getQty()+1);
+            orderItem.setQty(orderItem.getQty()+qty);
             orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
         }else {
             orderItem = new OrderItem();
@@ -80,7 +83,7 @@ public class Cart {
             orderItem.setProductType(cartItem.getCartType());
             orderItem.setPrice(cartItem.getCartPrice());
             orderItem.setProductName(cartItem.getCartName());
-            orderItem.setQty(1);
+            orderItem.setQty(qty);
             orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
         }
         cart.put(cartItem.getCartNo(),orderItem);
@@ -92,7 +95,7 @@ public class Cart {
 
     public void updataItem(CartItem cartItem,Integer qty){
         if(!cart.containsKey(cartItem.getCartNo())){
-            addItem(cartItem);
+            addItem(cartItem,qty);
         }else {
         OrderItem orderItem = cart.get(cartItem.getCartNo());
         orderItem.setQty(qty);
