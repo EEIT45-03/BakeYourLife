@@ -52,6 +52,7 @@ public class UserControllerFront {
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
+        user.setAuthority("ROLE_USER");
         userService.save(user);
         return "redirect:login";
     }

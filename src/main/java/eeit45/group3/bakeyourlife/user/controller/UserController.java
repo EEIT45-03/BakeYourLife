@@ -78,36 +78,12 @@ public class UserController {
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
+        user.setAuthority("ROLE_ADMIN");
         userService.save(user);
         return "redirect:./";
     }
 
-    @PostMapping("SignUp")
-    public String SignUp(User user) {
 
-        SerialBlob blob = null;
-        try {
-            MultipartFile productImage = user.getProductImage();
-            InputStream is = productImage.getInputStream();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] b = new byte[8192];
-            int len = 0;
-            while ((len = is.read(b)) != -1) {
-                baos.write(b, 0, len);
-            }
-            blob = new SerialBlob(baos.toByteArray());
-            user.setFileName(productImage.getOriginalFilename());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-        }
-        user.setUserImage(blob);
-//        ----------------------------------------------------------
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        user.setRegisterTime(ts);
-        userService.save(user);
-        return "redirect:login";
-    }
 //get照片
     @GetMapping("/picture")
     public ResponseEntity<byte[]> getPicture(@RequestParam("userId") Integer userId) {
@@ -206,10 +182,10 @@ public class UserController {
         return false;
     }
 
-    @GetMapping("/logUser")
-    public ResponseEntity<?> getAuth(Principal principal) {
-        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
-    }
+//    @GetMapping("/logUser")
+//    public ResponseEntity<?> getAuth(Principal principal) {
+//        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
+//    }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
         // java.util.Date

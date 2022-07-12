@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">加入購物車</a>
+                    <a href="#" class="primary-btn"  th:onclick="|add('F',*{farmerProductId})|">加入購物車</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>庫存</b> <span th:text="*{quantity}"></span></li>

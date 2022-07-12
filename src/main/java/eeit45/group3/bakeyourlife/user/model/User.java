@@ -17,6 +17,8 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String username;
 	private String password;
+
+	private String authority;
 	private String fullName;
 	private String email;
 	private String phone;
@@ -34,13 +36,15 @@ public class User implements Serializable {
 	MultipartFile productImage;
 
 
+
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, String fullName, String email, String phone, String birth, String gender, String address) {
+	public User(String username, String password, String authority,String fullName, String email, String phone, String birth, String gender, String address) {
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
@@ -49,12 +53,13 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	public User(Integer userId, String username, String password, String fullName, String email, String phone,
+	public User(Integer userId, String username, String password, String authority,String fullName, String email, String phone,
 				String birth, String gender, String address, String fileName, Blob userImage, Timestamp registerTime, MultipartFile productImage) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
@@ -69,11 +74,12 @@ public class User implements Serializable {
 
 	}
 
-	public User(String username, String password, String fullName, String email, String phone, String birth,
+	public User(String username, String password, String authority,String fullName, String email, String phone, String birth,
 			String gender, String address, String fileName, Blob userImage,Timestamp registerTime,MultipartFile productImage) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
@@ -88,6 +94,13 @@ public class User implements Serializable {
 
 	}
 
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 
 	public Integer getUserId() {
 		return userId;
