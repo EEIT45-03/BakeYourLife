@@ -3,11 +3,13 @@ package eeit45.group3.bakeyourlife.course.service;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 //import eeit45.group3.bakeyourlife.course.model.CourseType;
+import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 //import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 
 
+import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
@@ -26,24 +28,19 @@ public class CourseServiceImpl implements CourseService {
 
 	RentalService rentalService;
 
-	CourseTypeRepository courseTypeRepository;
+	CourseTimeRepository courseTimeRepository;
 
 	@Autowired
-	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, CourseTypeRepository courseTypeRepository) {
+	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, CourseTimeRepository courseTimeRepository) {
 		this.courseRepository = courseRepository;
 		this.rentalService = rentalService;
-		this.courseTypeRepository = courseTypeRepository;
+		this.courseTimeRepository = courseTimeRepository;
 	}
 	//--------Course課程-----------
 	@Override
 	public List<Course> findAll() {
 		return courseRepository.findAll();
 	}
-
-//	@Override
-//	public List<Course> findAllByType(Integer courseId) {
-////		return courseRepository.findAllByType(courseId);
-//	}
 
 	@Override
 	public Optional<Course> findById(Integer openCourse) {
@@ -66,7 +63,6 @@ public class CourseServiceImpl implements CourseService {
 			throw new RuntimeException("沒有找到要更新的課程");
 		}
 		courseRepository.save(course);
-
 	}
 
 	@Transactional
@@ -77,31 +73,35 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
-	//--------CourseType課程代號-----------
+	//--------CourseTime課程代號-----------
 	@Override
-	public List<CourseType> findAllCt() {
-		return courseTypeRepository.findAll();
+	public List<CourseTime> findAllCtime() {
+		return courseTimeRepository.findAll();
 	}
 
 	@Override
-	public Optional<CourseType> findByCtId(Integer courseId) {
-		return courseTypeRepository.findById(courseId);
+	public Optional<CourseTime> findByCtId(Integer ctimeId) {
+		return courseTimeRepository.findById(ctimeId);
 	}
 
 	@Override
-	public void deleteByCtId(Integer courseId) {courseTypeRepository.deleteById(courseId);}
+	@Transactional
+	public void deleteByCtId(Integer ctimeId) {courseTimeRepository.deleteById(ctimeId);}
 
 	@Override
-	public void updateCourseType(CourseType courseType) {
+	@Transactional
+	public void updateCourseTime(CourseTime courseTime) {
 
-		CourseType courseTypeDb = courseTypeRepository.findById(courseType.getCourseId()).orElse(null);
-		if(courseTypeDb == null){
+		CourseTime courseTimeDb = courseTimeRepository.findById(courseTime.getCtimeId()).orElse(null);
+		if(courseTimeDb == null){
 			throw new RuntimeException("沒有找到要更新的課程代碼");
-		}courseTypeRepository.save(courseType);
+		}courseTimeRepository.save(courseTime);
 	}
 
 	@Override
-	public void createCourseType(CourseType courseType) { courseTypeRepository.save(courseType);	}
+	@Transactional
+	public void createCourseTime(CourseTime courseTime) { courseTimeRepository.save(courseTime);	}
+
 
 
 
