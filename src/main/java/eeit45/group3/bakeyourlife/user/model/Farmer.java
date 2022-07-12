@@ -22,8 +22,6 @@ public class Farmer implements Serializable {
     private String phone;
     private String address;
 
-    private String fileName;
-    private Blob farmerImage;
     private Timestamp registerTime;
     @Transient
     MultipartFile productImage;
@@ -33,7 +31,7 @@ public class Farmer implements Serializable {
     public Farmer() {
     }
 
-    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, String fileName, Blob farmerImage, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
+    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
         this.farmerId = farmerId;
         this.username = username;
         this.password = password;
@@ -43,15 +41,13 @@ public class Farmer implements Serializable {
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.fileName = fileName;
-        this.farmerImage = farmerImage;
         this.registerTime = registerTime;
         this.productImage = productImage;
         this.imageUrl = imageUrl;
 
     }
 
-    public Farmer(String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, String fileName, Blob farmerImage, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
+    public Farmer(String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
         this.username = username;
         this.password = password;
         this.authority = authority;
@@ -60,8 +56,6 @@ public class Farmer implements Serializable {
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.fileName = fileName;
-        this.farmerImage = farmerImage;
         this.registerTime = registerTime;
         this.productImage = productImage;
         this.imageUrl = imageUrl;
@@ -146,22 +140,6 @@ public class Farmer implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public Blob getFarmerImage() {
-        return farmerImage;
-    }
-
-    public void setFarmerImage(Blob farmerImage) {
-        this.farmerImage = farmerImage;
     }
 
     public Timestamp getRegisterTime() {

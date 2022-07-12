@@ -218,7 +218,7 @@
                                     <td></td>
                                     <td th:text="${user.userId}"></td>
                                     <td>
-                                        <img width='70' height='72' th:src="@{/admin/User/picture(userId=${user.userId})}">
+                                        <img width='70' height='72' th:src="${user.imageUrl}">
                                     </td>
                                     <td th:text="${user.fullName}"></td>
                                     <td th:text="${user.email}"></td>

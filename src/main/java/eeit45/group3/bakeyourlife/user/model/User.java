@@ -25,15 +25,12 @@ public class User implements Serializable {
 	private String birth;
 	private String gender;
 	private String address;
-
-	private String fileName;
-
-	private Blob userImage;
-
 	private Timestamp registerTime;
 
 	@Transient
 	MultipartFile productImage;
+
+	private String imageUrl;
 
 
 
@@ -54,7 +51,7 @@ public class User implements Serializable {
 	}
 
 	public User(Integer userId, String username, String password, String authority,String fullName, String email, String phone,
-				String birth, String gender, String address, String fileName, Blob userImage, Timestamp registerTime, MultipartFile productImage) {
+				String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -66,16 +63,15 @@ public class User implements Serializable {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
-		this.fileName = fileName;
-		this.userImage = userImage;
 		this.registerTime = registerTime;
 		this.productImage = productImage;
+		this.imageUrl = imageUrl;
 
 
 	}
 
 	public User(String username, String password, String authority,String fullName, String email, String phone, String birth,
-			String gender, String address, String fileName, Blob userImage,Timestamp registerTime,MultipartFile productImage) {
+			String gender, String address,Timestamp registerTime,MultipartFile productImage,String imageUrl) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -86,12 +82,20 @@ public class User implements Serializable {
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
-		this.fileName = fileName;
-		this.userImage = userImage;
 		this.registerTime = registerTime;
 		this.productImage = productImage;
+		this.imageUrl = imageUrl;
 
 
+
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getAuthority() {
@@ -173,21 +177,7 @@ public class User implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	public String getFileName() {
-		return fileName;
-	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public Blob getUserImage() {
-		return userImage;
-	}
-
-	public void setUserImage(Blob userImage) {
-		this.userImage = userImage;
-	}
 	public Timestamp getRegisterTime() {
 		return registerTime;
 	}
