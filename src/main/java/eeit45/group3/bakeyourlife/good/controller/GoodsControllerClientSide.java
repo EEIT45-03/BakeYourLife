@@ -44,55 +44,55 @@ public class GoodsControllerClientSide {
 	public String flour(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%麵粉%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideByFlour";
+		return "good/GoodsClientSideByFlour";
 	}
 
 	@GetMapping("chocolate")
 	public String chocolate(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%巧克力%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideByChocolate";
+		return "good/GoodsClientSideByChocolate";
 	}
 
 	@GetMapping("dairy")
 	public String dairy(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%乳%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideByDairy";
+		return "good/GoodsClientSideByDairy";
 	}
 
 	@GetMapping("salt")
 	public String salt(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%鹽%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideBySalt";
+		return "good/GoodsClientSideBySalt";
 	}
 
 	@GetMapping("buckeye")
 	public String buckeye(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%果%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideByBuckeye";
+		return "good/GoodsClientSideByBuckeye";
 	}
 
 	@GetMapping("jam")
 	public String jam(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%醬%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideByJam";
+		return "good/GoodsClientSideByJam";
 	}
 
 	@GetMapping("spice")
 	public String spice(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%香料%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideBySpice";
+		return "good/GoodsClientSideBySpice";
 	}
 
 	@GetMapping("sugar")
 	public String sugar(Model model){
 		List<Goods> goods = goodService.getAllByNameLike("%糖%");
 		model.addAttribute("Goods",goods);
-		return "admin/goods/GoodsClientSideBySugar";
+		return "good/GoodsClientSideBySugar";
 	}
 }
