@@ -1,0 +1,57 @@
+
+
+<form th:action="@{CreateCourseTime(FK_courseId=*{course.openCourse})}" method="post" th:object="${courseTime}">
+
+
+
+  <!-- 課程開課編號: -->
+  <div class="row mb-3">
+    <label for="openCourse" class="col-sm-2 col-form-labels">課程開課編號:</label>
+    <div class="col-sm-10">
+      <input th:field="*{course.openCourse}" type="text" class="form-control"
+             name="openCourse" id="openCourse" th:readonly="true"/>
+    </div>
+  </div>
+
+  <!-- 日期編號: -->
+  <div class="row mb-3">
+    <label for="ctimeNo" class="col-sm-2 col-form-labels">日期編號:</label>
+    <div class="col-sm-10">
+      <input th:field="*{ctimeNo}" type="text" class="form-control"
+                  name="ctimeNo" id="ctimeNo" placeholder="請輸入清單編號"
+                  required="required" />
+    </div>
+  </div>
+
+  <!-- 開課時間: -->
+  <div class="row mb-3">
+    <label for="ctimeStartDate" class="col-sm-2 col-form-labels">開課時間:</label>
+    <div class="col-sm-10">
+      <input th:field="*{ctimeStartDate}" type="datetime-local" class="form-control"
+                  name="ctimeStartDate" id="ctimeStartDate" required="required"/>
+      <span class="show" id="s_lDate"></span>
+    </div>
+  </div>
+
+  <!-- 結束時間: -->
+  <div class="row mb-3">
+    <label for="ctimeEndDate" class="col-sm-2 col-form-labels">結束時間:</label>
+    <div class="col-sm-10">
+      <input th:field="*{ctimeEndDate}" type="datetime-local" class="form-control"
+             name="ctimeEndDate" id="ctimeEndDate" required="required"/>
+      <span class="show" id="s_eDate"></span>
+    </div>
+  </div>
+
+  <!-- 備註: -->
+  <div class="row mb-3">
+    <label for="ctimeNote" class="col-sm-2 col-form-labels">備註:</label>
+    <div class="col-sm-10">
+      <input th:field="*{ctimeNote}" type="text" class="form-control"
+             name="ctimeNote" id="ctimeNote" placeholder="請輸入備註"/>
+    </div>
+  </div>
+
+  <button type="submit" id="submit_List" class="btn btn-primary">建立清單</button>
+
+</form>

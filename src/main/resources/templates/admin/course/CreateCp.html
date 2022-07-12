@@ -68,9 +68,6 @@
                                            placeholder="課程名稱">
                                 </div>
                             </div>
-
-
-
                             <!-- Price -->
                             <div class="row mb-3">
                                 <label for="price" class="col-sm-2 col-form-labels">課程金額:</label>
@@ -80,17 +77,26 @@
                                 </div>
                             </div>
 
+                            <!-- Summary -->
+                            <div class="row mb-3">
+                                <label for="summary" class="col-sm-2 col-form-labels">課程說明:</label>
+                                <div class="col-sm-10">
+                                    <textarea th:field="*{summary}" class="form-control mb-4" id="summary" name="summary"
+                                              placeholder="課程簡介">
+                                    </textarea>
+                                </div>
+                            </div>
 
                             <!-- Description -->
                             <div class="row mb-3">
-                                <label for="desc" class="col-sm-2 col-form-labels">課程說明:</label>
+                                <label for="desc" class="col-sm-2 col-form-labels">課程簡介:</label>
                                 <div class="col-sm-10">
                                     <textarea th:field="*{description}" class="form-control mb-4" id="desc" name="desc"
                                               placeholder="課程說明">
                                     </textarea>
                                 </div>
                             </div>
-                            <!-- Description -->
+                            <!-- Picture -->
                             <div class="custom-file mb-4">
 
                                 <label  class="col-sm-2 col-form-labels">圖片:</label>
@@ -112,6 +118,7 @@
 
                             <!-- Sign in button -->
                             <button class="btn btn-secondary" type="submit">新增課程</button>
+                            <button type="button" class="btn btn-secondary" id="InputCourseProduct">一鍵輸入</button>
                         </form>
                     </div>
                 </div>

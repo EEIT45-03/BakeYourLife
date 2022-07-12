@@ -18,22 +18,13 @@ public class ProductService {
 	@Autowired
 	private ProductRepositry productRepo;
 	
-	public void  saveProductToDB(MultipartFile file,String name,String description
-			,int price)
+	public void  saveProductToDB(String image,String name,String description, String summary,int price)
 	{
 		Product p = new Product();
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
-			System.out.println("not a a valid file");
-		}
-		try {
-			p.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		p.setImage(image);
 		p.setDescription(description);
-		
+		p.setSummary(summary);
         p.setName(name);
         p.setPrice(price);
         
