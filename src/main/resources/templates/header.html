@@ -105,9 +105,10 @@
             <li><a href="#">小農廠商</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}" sec:authentication="name"></a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">小農廠商資料</a></li>
-                    <li><a href="#">小農商品清單</a></li>
-                    <li><a href="#">小農訂單紀錄</a></li>
+                    <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
+                    <li><a href="#">廠商資料</a></li>
+                    <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
+                    <li><a href="#">訂單紀錄</a></li>
                 </ul>
             </li>
             <li><a href="./contact.html">Contact</a></li>
@@ -240,9 +241,10 @@
                         <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}"
                                                                  sec:authentication="name"></a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">小農廠商資料</a></li>
-                                <li><a href="#">小農商品清單</a></li>
-                                <li><a href="#">小農訂單紀錄</a></li>
+                                <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
+                                <li><a href="#">廠商資料</a></li>
+                                <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
+                                <li><a href="#">訂單紀錄</a></li>
                             </ul>
                         </li>
                         <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>

@@ -18,6 +18,9 @@ public interface FarmerProductService {
 
     FarmerProductBean findByFarmerProductId(Integer farmerProductId);
 
+    Long count();
+
+
     void insert(FarmerProductBean farmerProductBean);
 
     void update(FarmerProductBean farmerProductBean);
