@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <div th:replace="/css.html"></div>
+
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>麵粉</h2>
+<!--                    <div class="breadcrumb__option">-->
+<!--                        <a href="./index.html">Home</a>-->
+<!--                        <span>Shop</span>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>精選材料</h4>
+                        <ul>
+                            <li><a th:href="@{/Goods1/}">商品總覽</a></li>
+                            <li><a th:href="@{flour}">麵粉</a></li>
+                            <li><a th:href="@{chocolate}">巧克力</a></li>
+                            <li><a th:href="@{dairy}">乳製品</a></li>
+                            <li><a th:href="@{salt}">頂級鹽品</a></li>
+                            <li><a th:href="@{buckeye}">堅果乾</a></li>
+                            <li><a th:href="@{jam}">抹醬</a></li>
+                            <li><a th:href="@{spice}">嚴選香料</a></li>
+                            <li><a th:href="@{sugar}">彩糖</a></li>
+<!--                            <li><a href="#">甜甜圈</a></li>-->
+<!--                            <li><a href="#">甜點</a></li>-->
+                        </ul>
+                    </div>
+                    <!--                    <div class="sidebar__item">-->
+                    <!--                        <h4>Price</h4>-->
+                    <!--                        <div class="price-range-wrap">-->
+                    <!--                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"-->
+                    <!--                                 data-min="10" data-max="540">-->
+                    <!--                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>-->
+                    <!--                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>-->
+                    <!--                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="range-slider">-->
+                    <!--                                <div class="price-input">-->
+                    <!--                                    <input type="text" id="minamount">-->
+                    <!--                                    <input type="text" id="maxamount">-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="sidebar__item sidebar__item__color&#45;&#45;option">-->
+                    <!--                        <h4>Colors</h4>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;white">-->
+                    <!--                            <label for="white">-->
+                    <!--                                White-->
+                    <!--                                <input type="radio" id="white">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;gray">-->
+                    <!--                            <label for="gray">-->
+                    <!--                                Gray-->
+                    <!--                                <input type="radio" id="gray">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;red">-->
+                    <!--                            <label for="red">-->
+                    <!--                                Red-->
+                    <!--                                <input type="radio" id="red">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;black">-->
+                    <!--                            <label for="black">-->
+                    <!--                                Black-->
+                    <!--                                <input type="radio" id="black">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;blue">-->
+                    <!--                            <label for="blue">-->
+                    <!--                                Blue-->
+                    <!--                                <input type="radio" id="blue">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__color sidebar__item__color&#45;&#45;green">-->
+                    <!--                            <label for="green">-->
+                    <!--                                Green-->
+                    <!--                                <input type="radio" id="green">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="sidebar__item">-->
+                    <!--                        <h4>Popular Size</h4>-->
+                    <!--                        <div class="sidebar__item__size">-->
+                    <!--                            <label for="large">-->
+                    <!--                                Large-->
+                    <!--                                <input type="radio" id="large">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__size">-->
+                    <!--                            <label for="medium">-->
+                    <!--                                Medium-->
+                    <!--                                <input type="radio" id="medium">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__size">-->
+                    <!--                            <label for="small">-->
+                    <!--                                Small-->
+                    <!--                                <input type="radio" id="small">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="sidebar__item__size">-->
+                    <!--                            <label for="tiny">-->
+                    <!--                                Tiny-->
+                    <!--                                <input type="radio" id="tiny">-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="sidebar__item">
+                        <div class="latest-product__text">
+                            <h4>Latest Products</h4>
+                            <div class="latest-product__slider owl-carousel">
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-1.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-2.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-3.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-1.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-2.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/img/latest-product/lp-3.jpg" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>Crab Pool Security</h6>
+                                            <span>$30.00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                <div class="product__discount">
+                    <div class="section-title product__discount__title">
+                        <h2>商品</h2>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row">
+
+                    <!--                    <tr th:each="good: ${goods}">-->
+                    <!--                        <td><a th:href="@{Picture(id=${good.id})}">-->
+                    <!--                            <img width='180' height='180' th:src="@{/admin/Goods/picture(id=${good.id})}">-->
+                    <!--                        </a></td>-->
+                    <!--                    </tr>-->
+
+                    <tr th:each="good: ${Goods}">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="">
+                                <div class="">
+                                    <a th:href="@{Picture(id=${good.id})}">
+                                        <img height='200' width="250" th:src="${good.imageUrl}">
+                                    </a>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6 th:text="|商品名稱:${good.name}|"></h6>
+                                    <h5 th:text="|NT.${good.packages}|"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+
+
+                </div>
+                <div class="product__pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+
+<div th:replace="/footer.html"></div>
+
+
+
+</body>
+
+</html>

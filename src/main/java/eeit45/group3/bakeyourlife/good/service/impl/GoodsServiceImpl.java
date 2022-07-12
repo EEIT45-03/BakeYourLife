@@ -37,6 +37,17 @@ public class GoodsServiceImpl implements GoodService {
     }
 
     @Override
+    public List<Goods> getAllBySystem(String system) {
+        return goodsRepository.findAllBySystem(system);
+    }
+
+    @Override
+    public List<Goods> getAllByNameLike(String name) {
+        return goodsRepository.findAllByNameLike(name);
+    }
+
+
+    @Override
     public Goods getGoods(int pk) {
         return goodsRepository.findGoodsById(pk);
     }

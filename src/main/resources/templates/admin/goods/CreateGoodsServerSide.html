@@ -104,7 +104,7 @@
 <!--                                    <img id="cs0" width='60' height='72'  class="">-->
                                     <div id="formFile"></div>
                                     <input th:field="*{productImage}" type="file" class="form-control" name="goodImage" onblur=""
-                                                id="picture" accept="image/png, image/jpeg, image/jpg" multiple="multiple"/>
+                                           required="required" id="picture" accept="image/png, image/jpeg, image/jpg" multiple="multiple"/>
                                 </div>
                             </div>
 
@@ -167,6 +167,7 @@
 
 
                              <button type="submit" class="btn btn-primary">建立商品</button>
+                            <button type="button" class="btn btn-primary" onclick="inputGood()">一鍵輸入</button>
                          </form>
                      </div>
                  </div>
@@ -253,6 +254,24 @@
 
         }
     })
+
+    function inputGood() {
+        $("#name").val("北海道優質麵粉")
+        $("#element").val("小麥粉")
+        $("#origin").val("日本")
+        $("#savetime").val("2022-06-05")
+        $("#packages").val("59")
+        $("#count").val("50")
+        $("#describe").val("以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成" +
+            "麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香" +
+            "料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡" +
+            "麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵" +
+            "包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有" +
+            "些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製" +
+            "作工藝不盡相同，它們都被稱為麵包。")
+
+
+    }
 
 </script>
 </body>

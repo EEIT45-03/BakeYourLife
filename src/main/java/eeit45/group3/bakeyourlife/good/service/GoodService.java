@@ -13,6 +13,9 @@ public interface GoodService {
 	void save(Goods good);
 
 	List<Goods> getAllGoods();
+	List<Goods> getAllBySystem(String system);
+
+	List<Goods> getAllByNameLike(String name);
 
 	Goods getGoods(int pk);
 

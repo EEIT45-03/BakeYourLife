@@ -28,7 +28,7 @@ public class GoodsControllerClientSide {
 
 	@GetMapping("/")
 	public String redirect(Model m) {
-		List<Goods> goods = goodService.getAllGoods();
+		List<Goods> goods = goodService.getAllBySystem("上架中");
 		m.addAttribute("goods", goods);
 	return "admin/goods/GoodsClientSide";
 	}
@@ -40,4 +40,59 @@ public class GoodsControllerClientSide {
 		return "admin/goods/BuyGoodsClientSide";
 	}
 
+	@GetMapping("flour")
+	public String flour(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%麵粉%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideByFlour";
+	}
+
+	@GetMapping("chocolate")
+	public String chocolate(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%巧克力%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideByChocolate";
+	}
+
+	@GetMapping("dairy")
+	public String dairy(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%乳%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideByDairy";
+	}
+
+	@GetMapping("salt")
+	public String salt(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%鹽%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideBySalt";
+	}
+
+	@GetMapping("buckeye")
+	public String buckeye(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%果%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideByBuckeye";
+	}
+
+	@GetMapping("jam")
+	public String jam(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%醬%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideByJam";
+	}
+
+	@GetMapping("spice")
+	public String spice(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%香料%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideBySpice";
+	}
+
+	@GetMapping("sugar")
+	public String sugar(Model model){
+		List<Goods> goods = goodService.getAllByNameLike("%糖%");
+		model.addAttribute("Goods",goods);
+		return "admin/goods/GoodsClientSideBySugar";
+	}
 }
