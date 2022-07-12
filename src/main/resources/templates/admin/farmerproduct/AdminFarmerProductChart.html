@@ -1,0 +1,224 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>小農商品管理</title>
+    <div th:replace="admin/css.html"></div>
+
+
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <!--                <div class="col-lg-10 chartblock">-->
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">分析表</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            年度銷售額
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                        ></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            商品總數
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                        ></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-fw fa-carrot fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            訂單總數
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                        ></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-cart-shopping fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Content Row -->
+
+                <div class="row">
+
+                    <!-- Pie Chart -->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">商品類型圓餅圖</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myPieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">銷售趨勢</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--                </div>-->
+
+
+            </div>
+
+
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+<script th:src="@{/js/chart.min.js}"></script>
+<script>
+    $(document).ready(function () {
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.color = '#858796';
+
+        fetch('[[@{/FarmerProductSupplier/typeAmount}]]')
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                const dataPie = {
+                    labels: res.labels,
+                    datasets: [{
+                        label: '商品銷售圓餅圖',
+                        data: res.data,
+                        backgroundColor: [
+                            'rgb(131, 56, 236)',
+                            'rgb(58, 134, 255)',
+                            'rgb(255, 107, 53)',
+                            'rgb(247, 197, 159)',
+                            'rgb(171, 225, 136)',
+                            'rgb(203, 212, 194)',
+                            'rgb(189, 180, 191)',
+                            'rgb(116, 164, 188)',
+                            'rgb(49, 233, 129)',
+                        ],
+                        hoverOffset: 4
+                    }]
+                };
+
+                const ctxMyPieChart = $('#myPieChart');
+                const myPieChart = new Chart(ctxMyPieChart, {
+                    type: 'pie',
+                    data: dataPie,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            autoPadding: true
+                        },
+                        locale: 'zh-TW',
+                    },
+                });
+
+            });
+
+    });
+</script>
+
+
+</body>
+
+</html>
