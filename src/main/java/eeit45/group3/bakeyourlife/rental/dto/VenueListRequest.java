@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.rental.dto;
 
 import java.util.Date;
 
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import eeit45.group3.bakeyourlife.rental.model.*;

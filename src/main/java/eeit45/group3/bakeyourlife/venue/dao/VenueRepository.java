@@ -1,6 +1,6 @@
-package eeit45.group3.bakeyourlife.rental.dao;
+package eeit45.group3.bakeyourlife.venue.dao;
 
-import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
