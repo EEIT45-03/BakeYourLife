@@ -27,7 +27,7 @@ import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
 
 @Controller
-@RequestMapping(path = "/admin/User")
+@RequestMapping(path = "/admin/Admin")
 public class UserController {
 
     UserService userService;
@@ -45,14 +45,14 @@ public class UserController {
     public String viewIndex(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "admin/user/User";
+        return "admin/user/Admin";
     }
 
     @GetMapping("CreateAdmin")
     public String viewCreateUser(Model model) {
         model.addAttribute("user",new User());
 
-        return "admin/user/CreateUser";
+        return "admin/user/CreateAdmin";
     }
 
     @PostMapping("CreateAdmin")
@@ -152,16 +152,16 @@ public class UserController {
         return re;
     }
 
-    @GetMapping("/UpdateUser")
+    @GetMapping("/UpdateAdmin")
     public String viewUpdateUser(@RequestParam("userId") Integer userId, Model model) {
         User user = userService.findByUserId(userId);
         model.addAttribute("user",user);
 
-        return "admin/user/UpdateUser";
+        return "admin/user/UpdateAdmin";
 
     }
 
-    @PostMapping("/UpdateUser")
+    @PostMapping("/UpdateAdmin")
     public String updateUser(@RequestParam("userId")Integer userId, User user) {
 
         SerialBlob blob = null;
@@ -207,10 +207,10 @@ public class UserController {
         return false;
     }
 
-    @GetMapping("/logUser")
-    public ResponseEntity<?> getAuth(Principal principal) {
-        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
-    }
+//    @GetMapping("/logUser")
+//    public ResponseEntity<?> getAuth(Principal principal) {
+//        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
+//    }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
         // java.util.Date
