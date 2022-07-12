@@ -66,13 +66,6 @@ INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name
 INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (200,30,80,NULL,'https://i.imgur.com/4P4hQAU.png','SN4889','打蛋器', 2);
 INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (100,25,100,NULL,'https://i.imgur.com/9Mi01IL.png','CakeLand','矽膠刮刀', 3);
 
---新增器具
-INSERT INTO tackle ( [day_price], [max], [picture], [product_model], [specification], [tackle_name]) VALUES ( 50, 20, NULL, N'', N'', N'打蛋機')
-INSERT INTO tackle ( [day_price], [max], [picture], [product_model], [specification], [tackle_name]) VALUES ( 50, 50, NULL, N'', N'', N'吐司模具')
-INSERT INTO tackle ( [day_price], [max], [picture], [product_model], [specification], [tackle_name]) VALUES ( 50, 60, NULL, N'', N'', N'麵包刀')
-
-
-
 --新增訂單資料
 INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-07-06T22:35:24.6900000' AS DateTime2), N'202207062235245', N'完成', CAST(N'2022-07-06T22:35:57.5750000' AS DateTime2), 0, CAST(N'2022-07-06T22:42:52.8590000' AS DateTime2), 100, 899, N'111111111111', NULL, 1)
 INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-06-06T22:36:13.6490000' AS DateTime2), N'202207062236137', N'退款審核中', CAST(N'2022-07-06T22:36:33.0420000' AS DateTime2), 1, CAST(N'2022-07-06T22:42:56.1490000' AS DateTime2), 100, 899, N'', NULL, 1,'等太久')
