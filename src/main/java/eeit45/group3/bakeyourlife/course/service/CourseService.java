@@ -3,8 +3,6 @@ package eeit45.group3.bakeyourlife.course.service;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
-import eeit45.group3.bakeyourlife.course.model.CourseType;
-//import eeit45.group3.bakeyourlife.course.model.CourseType;
 
 import java.util.List;
 import java.util.Optional;

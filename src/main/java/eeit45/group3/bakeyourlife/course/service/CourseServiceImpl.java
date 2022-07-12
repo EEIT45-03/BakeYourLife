@@ -4,13 +4,11 @@ package eeit45.group3.bakeyourlife.course.service;
 import eeit45.group3.bakeyourlife.course.model.Course;
 //import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
-import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 //import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
-import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
