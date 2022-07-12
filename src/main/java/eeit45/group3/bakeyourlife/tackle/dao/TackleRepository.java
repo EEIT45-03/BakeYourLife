@@ -10,6 +10,10 @@ public interface TackleRepository extends JpaRepository<Tackle, Integer> {
 
     public Tackle findByTackleName(String tackleName);
 
+    public List<Tackle> findByTackleSort(String sort);
+
+    public List<Tackle> findByTackleNameAndTackleSort(String tackleName, String sort);
+
     @Query("SELECT t.tackleName FROM Tackle t")
     public List<String> findAllTackleName();
 

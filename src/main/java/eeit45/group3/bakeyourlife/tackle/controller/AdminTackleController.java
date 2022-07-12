@@ -24,13 +24,22 @@ public class AdminTackleController {
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "tName", required = false) String tackleName,
+                            @RequestParam(value = "tSort", required = false) String sort,
                             Model model) {
         model.addAttribute("tackleNames", tackleService.findAllTackleName());
+        model.addAttribute("sorts", tackleService.findAllTackleSort());
 
-        if(tackleName!=null && tackleName.length()>0){
+
+        if ((tackleName!=null && tackleName.length()>0) && (sort==null || sort.length()<0)){
             //設置給JSP使用
             model.addAttribute("tackles", tackleService.findByTackleName(tackleName));
-        } else{
+        } else if ((sort!=null && sort.length()>0) && (tackleName==null || tackleName.length()<0)){
+            //設置給JSP使用
+            model.addAttribute("tackles", tackleService.findAllByTackleSort(sort));
+        } else if((tackleName!=null && tackleName.length()>0) && (sort!=null && sort.length()>0)) {
+            //設置給JSP使用
+            model.addAttribute("tackles", tackleService.findAllByTackleNameAndTackleSort(tackleName, sort));
+        } else {
             //設置給JSP使用
             model.addAttribute("tackles", tackleService.findAllTackle());
         }
@@ -40,7 +49,7 @@ public class AdminTackleController {
 
     @GetMapping("/CreateTackle")
     public String viewCreateTackle(Model model) {
-
+        model.addAttribute("sorts", tackleService.findAllTackleSort());
         model.addAttribute("tackle",new Tackle());
         return "/admin/tackle/CreateTackle";
     }
@@ -60,6 +69,7 @@ public class AdminTackleController {
 
     @GetMapping("/UpdateTackle")
     public String viewUpdateTackle(@RequestParam Integer tackleId, Model model) {
+        model.addAttribute("sorts", tackleService.findAllTackleSort());
         Tackle tackle = null;
         if(tackleId != null){
             tackle = tackleService.findByTackleId(tackleId);

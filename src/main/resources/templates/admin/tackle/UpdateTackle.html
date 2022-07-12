@@ -64,11 +64,24 @@
             </div>
         </div>
 
+        <!-- 種類: -->
+        <div class="row mb-3">
+            <label for="max" class="col-sm-3 col-form-labels"> 器具種類:</label>
+            <div class="col-sm-9">
+                <select th:field="*{tackleSort.tackleSortId}" type="text" class="form-control form-select mb-sm-1"
+                        id="tSort" aria-label="Default select example">
+                    <option value="">全部</option>
+                    <option th:each="sort : ${sorts}" th:value="${sort.tackleSortId}" th:text="${sort.sort}"></option>
+                </select>
+            </div>
+        </div>
+
         <!-- 圖片: -->
         <div class="row mb-3">
             <label for="image" class="col-sm-3 col-form-labels"> 圖片:</label>
             <div class="col-sm-9">
-                <input th:field="*{tackleImage}" type="file" th:name="tackleImage" value="上傳" id="image" />
+                <input th:field="*{tackleImage}" type="file" th:name="tackleImage" value="上傳" id="image"
+                       accept="image/png, image/jpeg, image/jpg"/>
             </div>
         </div>
         <!-- 圖片顯示 -->
@@ -77,12 +90,12 @@
         </div>
 
         <!-- 備註: -->
-<!--            <div class="row mb-3">-->
-<!--                <label for="tNote" class="col-sm-3 col-form-labels"> 備註:</label>-->
-<!--                <div class="col-sm-9">-->
-<!--                    <textarea th:field="*{notes}" class="form-control" th:name="notes" id="tNote" ></textarea>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="row mb-3">
+                <label for="tNote" class="col-sm-3 col-form-labels"> 備註:</label>
+                <div class="col-sm-9">
+                    <textarea th:field="*{notes}" class="form-control" th:name="notes" id="tNote" ></textarea>
+                </div>
+            </div>
 
         <button type="submit" id="submit" class="btn btn-primary">修改</button>
 

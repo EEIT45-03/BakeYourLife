@@ -58,21 +58,36 @@ public class Tackle implements Serializable {
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
 	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
+	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name="FK_sortId", referencedColumnName = "tackleSortId", nullable = false)
+	private TackleSort tackleSort;
+
 	@Transient
 	private MultipartFile tackleImage;
 
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String productModel, String picture, Integer dayPrice, Integer max) {
-		this.tackleName = tackleName;
-		this.specification = specification;
-		this.picture = picture;
-		this.dayPrice = dayPrice;
-		this.max = max;
-	}
+//	public Tackle(String tackleName, String productModel, String picture, Integer dayPrice, Integer max) {
+//		this.tackleName = tackleName;
+//		this.specification = specification;
+//		this.picture = picture;
+//		this.dayPrice = dayPrice;
+//		this.max = max;
+//	}
+//
+//	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, MultipartFile tackleImage) {
+//		this.tackleName = tackleName;
+//		this.specification = specification;
+//		this.picture = picture;
+//		this.dayPrice = dayPrice;
+//		this.damages = damages;
+//		this.max = max;
+//		this.notes = notes;
+//		this.tackleImage = tackleImage;
+//	}
 
-	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, MultipartFile tackleImage) {
+	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, TackleSort tackleSort, MultipartFile tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
 		this.picture = picture;
@@ -80,6 +95,7 @@ public class Tackle implements Serializable {
 		this.damages = damages;
 		this.max = max;
 		this.notes = notes;
+		this.tackleSort = tackleSort;
 		this.tackleImage = tackleImage;
 	}
 
@@ -169,5 +185,13 @@ public class Tackle implements Serializable {
 
 	public void setTackleImage(MultipartFile tackleImage) {
 		this.tackleImage = tackleImage;
+	}
+
+	public TackleSort getTackleSort() {
+		return tackleSort;
+	}
+
+	public void setTackleSort(TackleSort tackleSort) {
+		this.tackleSort = tackleSort;
 	}
 }
