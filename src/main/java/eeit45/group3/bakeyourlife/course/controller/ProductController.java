@@ -61,27 +61,6 @@ public class ProductController {
     	productService.deleteProductById(id);
     	return "redirect:/admin/Course/listProducts";
     }
-    
-    @PostMapping("/changeName")
-    public String changePname(@RequestParam("id") Long id,
-    		@RequestParam("newPname") String name)
-    {
-    	productService.chageProductName(id, name);
-    	return "redirect:/admin/Course/listProducts";
-    }
-    @PostMapping("/changeDescription")
-    public String changeDescription(@RequestParam("id") Long id ,
-    		@RequestParam("newDescription") String description)
-    {
-    	productService.changeProductDescription(id, description);
-    	return "redirect:/admin/course/listProducts";
-    }
-    
-    @PostMapping("/changePrice")
-    public String changePrice(@RequestParam("id") Long id ,
-    		@RequestParam("newPrice") int price)
-    {
-    	productService.changeProductPrice(id, price);
-    	return "redirect:/admin/course/listProducts";
-    }
+
+
 }

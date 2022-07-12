@@ -73,7 +73,7 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
-	//--------CourseType課程代號-----------
+	//--------CourseTime課程代號-----------
 	@Override
 	public List<CourseTime> findAllCtime() {
 		return courseTimeRepository.findAll();
@@ -85,9 +85,11 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteByCtId(Integer ctimeId) {courseTimeRepository.deleteById(ctimeId);}
 
 	@Override
+	@Transactional
 	public void updateCourseTime(CourseTime courseTime) {
 
 		CourseTime courseTimeDb = courseTimeRepository.findById(courseTime.getCtimeId()).orElse(null);
@@ -97,6 +99,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+	@Transactional
 	public void createCourseTime(CourseTime courseTime) { courseTimeRepository.save(courseTime);	}
 
 

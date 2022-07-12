@@ -1,16 +1,11 @@
 package eeit45.group3.bakeyourlife.course.service;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.repository.ProductRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 
 
 @Service
@@ -38,6 +33,15 @@ public class ProductService {
     {
     	productRepo.deleteById(id);
     }
+
+	public Product selectProductById(Long id)
+	{
+		Product p = new Product();
+		p = productRepo.findById(id).get();
+
+		return p;
+	}
+
     public void chageProductName(Long id ,String name)
     {
     	Product p = new Product();
