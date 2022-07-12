@@ -50,7 +50,7 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800"></h1>
         <p class="mb-4">
-          <a href="../User/" class="btn btn-primary btn-icon-split btn-sm">
+          <a href="../Admin/" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
 						</span> <span class="text">返回會員清單</span>
           </a>
@@ -83,10 +83,6 @@
                 <div class="col-sm-10">
                   <input th:field="*{password}" type="password" class="form-control" minlength="6"
                          name="password" id="password" placeholder="請輸入密碼,必須至少 8 個字元含有大小寫英文字母且至少一個數字" required>
-                  <!--                  <input name="changepassword" id="viewpassword" type="radio"-->
-                  <!--                         value="viewpassword" onclick="typeChanger()"/>顯示密碼 <input-->
-                  <!--                        name="changepassword" id="hidepassword" type="radio"-->
-                  <!--                        value="hidepassword" onclick="changeBack()"/>隱藏密碼-->
                   <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼
                   <span class="show" id="s_password"></span>
                 </div>
@@ -150,16 +146,6 @@
                          id="address" placeholder="請輸入詳細地址" required>
                 </div>
               </div>
-              <!--              &lt;!&ndash; 照片: &ndash;&gt;-->
-              <!--              <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>-->
-              <!--              <div class="row mb-3">-->
-              <!--                <label for="userImage" class="col-sm-2 col-form-labels">照片:</label>-->
-              <!--                <div class="col-sm-10">-->
-              <!--                  <input type="file" class="form-control" name="userImage"-->
-              <!--                         id="userImage" >-->
-              <!--                </div>-->
-              <!--              </div>-->
-
               <!-- 照片: -->
               <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>
               <div class="row mb-3">
@@ -169,8 +155,6 @@
                          id="productImage" >
                 </div>
               </div>
-
-
               <button type="submit" class="btn btn-primary" id="submit">新增會員</button>
             </form>
           </div>
