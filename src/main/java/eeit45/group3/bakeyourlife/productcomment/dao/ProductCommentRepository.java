@@ -1,9 +1,7 @@
-package eeit45.group3.bakeyourlife.farmerproduct.dao;
+package eeit45.group3.bakeyourlife.productcomment.dao;
 
-import eeit45.group3.bakeyourlife.farmerproduct.model.ProductComment;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 public interface ProductCommentRepository extends JpaRepository<ProductComment, Integer> {
     ProductComment findByProductCommentId(Integer productCommentId);

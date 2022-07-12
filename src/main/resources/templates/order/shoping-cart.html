@@ -9,13 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>購物車</title>
 
-    <div th:replace="/css.html"></div>
+    <div th:replace="css.html"></div>
 
 </head>
 
 <body onload="getCartDate()">
-<div th:replace="/header.html"></div>
-<div th:replace="/menu.html"></div>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
 
 
 <!-- Breadcrumb Section Begin -->
@@ -121,7 +121,7 @@
 </section>
 <!-- Shoping Cart Section End -->
 
-<div th:replace="/footer.html"></div>
+<div th:replace="footer.html"></div>
 
 <script>
 
@@ -201,14 +201,14 @@ function remove(id) {
             .then(function (data) {
                 Swal.fire({
                     title: '優惠卷使用成功',
-                    text: "",
+                    html: "注意優惠卷有最低消費金額限制<br>未達消費金額時，折扣將不會生效!!",
                     icon: 'success',
                 })
                 getDataFormJosn(data)
             }).catch(function(err) {
             Swal.fire({
                 title: '錯誤',
-                text: "輸入錯誤的優惠卷或已過期",
+                text: "輸入錯誤的優惠卷、不在使用期間中或已達使用上限",
                 icon: 'warning',
             })
         });

@@ -14,18 +14,18 @@
             <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
             <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a></li>
         </ul>
-<!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
+        <!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
     </div>
     <div class="humberger__menu__widget">
-<!--        <div class="header__top__right__language">-->
-<!--            <img src="/img/language.png" alt="">-->
-<!--            <div>English</div>-->
-<!--            <span class="arrow_carrot-down"></span>-->
-<!--            <ul>-->
-<!--                <li><a href="#">Spanis</a></li>-->
-<!--                <li><a href="#">English</a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
+        <!--        <div class="header__top__right__language">-->
+        <!--            <img src="/img/language.png" alt="">-->
+        <!--            <div>English</div>-->
+        <!--            <span class="arrow_carrot-down"></span>-->
+        <!--            <ul>-->
+        <!--                <li><a href="#">Spanis</a></li>-->
+        <!--                <li><a href="#">English</a></li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
         <div sec:authorize="!isAuthenticated()">
             <div class="header__top__right__auth">
                 <ul>
@@ -52,6 +52,8 @@
             </li>
             <li><a href="#">商品</a>
                 <ul class="header__menu__dropdown">
+                    <li><a href="#">一般商品</a></li>
+                    <li><a th:href="@{/FarmerProductSupplier/ShopGrid}">小農商品</a></li>
                     <li><a th:href="@{/Goods1/}">一般商品</a></li>
                     <li><a href="#">小農商品</a></li>
                     <li><a href="#">待新增</a></li>
@@ -75,14 +77,14 @@
                 </ul>
             </li>
 
-<!--            <li><a href="#">Pages</a>-->
-<!--                <ul class="header__menu__dropdown">-->
-<!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
-<!--                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
-<!--                    <li><a href="./checkout.html">Check Out</a></li>-->
-<!--                    <li><a href="./blog-details.html">Blog Details</a></li>-->
-<!--                </ul>-->
-<!--            </li>-->
+            <!--            <li><a href="#">Pages</a>-->
+            <!--                <ul class="header__menu__dropdown">-->
+            <!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
+            <!--                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
+            <!--                    <li><a href="./checkout.html">Check Out</a></li>-->
+            <!--                    <li><a href="./blog-details.html">Blog Details</a></li>-->
+            <!--                </ul>-->
+            <!--            </li>-->
             <li><a href="#">好文討論區</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="#">討論區選單A</a></li>
@@ -97,13 +99,13 @@
                     <li><a href="/user/profile">個人資料</a></li>
                     <li><a href="/user/profile">喜愛清單</a></li>
                     <li><a href="/user/order">購買清單</a></li>
-                    <li><a href="./checkout.html">我的優惠卷</a></li>
+<!--                    <li><a href="./checkout.html">我的優惠卷</a></li>-->
                     <li><a href="./blog-details.html">我的課程</a></li>
                     <li><a href="./blog-details.html">我的租借</a></li>
                 </ul>
             </li>
             <li><a href="#">小農廠商</a></li>
-            <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}" sec:authentication="name"></a>
                 <ul class="header__menu__dropdown">
                     <li><a href="#">小農廠商資料</a></li>
                     <li><a href="#">小農商品清單</a></li>
@@ -120,15 +122,15 @@
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
-<!--        <a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--        <a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--        <a href="#"><i class="fa fa-linkedin"></i></a>-->
-<!--        <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
+        <!--        <a href="#"><i class="fa fa-facebook"></i></a>-->
+        <!--        <a href="#"><i class="fa fa-twitter"></i></a>-->
+        <!--        <a href="#"><i class="fa fa-linkedin"></i></a>-->
+        <!--        <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
     </div>
     <div class="humberger__menu__contact">
         <ul>
             <li><i class="fa fa-envelope"></i> bakeyourlife@gmail.com</li>
-            <li>公告 </li>
+            <li>公告</li>
         </ul>
     </div>
 </div>
@@ -149,18 +151,18 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="header__top__right">
-<!--                        <div sec:authorize="isAuthenticated()">-->
-<!--                            <a href="/logout"><i class="fa fa-user"></i> Logout</a>-->
-<!--                        </div>-->
+                        <!--                        <div sec:authorize="isAuthenticated()">-->
+                        <!--                            <a href="/logout"><i class="fa fa-user"></i> Logout</a>-->
+                        <!--                        </div>-->
                         <div class="header__top__right__auth">
 
-                        <div sec:authorize="!isAuthenticated()">
-                            <ul>
-                                <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
-                                <li><a href="/SignUp">註冊</a></li>
-                            </ul>
-                        </div>
-                        <div sec:authorize="isAuthenticated()">
+                            <div sec:authorize="!isAuthenticated()">
+                                <ul>
+                                    <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
+                                    <li><a href="/SignUp">註冊</a></li>
+                                </ul>
+                            </div>
+                            <div sec:authorize="isAuthenticated()">
                                 <a href="/logout"><i class="fa fa-user"></i> 登出</a>
                             </div>
                         </div>
@@ -190,7 +192,7 @@
                         <li><a href="./shop-grid.html">商品</a>
                             <ul class="header__menu__dropdown">
                                 <li><a th:href="@{/Goods1/}">一般商品</a></li>
-                                <li><a href="#">小農商品</a></li>
+                                <li><a th:href="@{/FarmerProductSupplier/ShopGrid}">小農商品</a></li>
                                 <li><a href="#">待新增</a></li>
                                 <li><a href="#">待新增</a></li>
                             </ul>
@@ -211,14 +213,14 @@
                                 <li><a href="#">租借選單D</a></li>
                             </ul>
                         </li>
-<!--                        <li><a href="#">Pages</a>-->
-<!--                            <ul class="header__menu__dropdown">-->
-<!--                                <li><a href="./shop-details.html">Shop Details</a></li>-->
-<!--                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
-<!--                                <li><a href="./checkout.html">Check Out</a></li>-->
-<!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
+                        <!--                        <li><a href="#">Pages</a>-->
+                        <!--                            <ul class="header__menu__dropdown">-->
+                        <!--                                <li><a href="./shop-details.html">Shop Details</a></li>-->
+                        <!--                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
+                        <!--                                <li><a href="./checkout.html">Check Out</a></li>-->
+                        <!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </li>-->
                         <li><a href="#">好文討論區</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">討論區選單A</a></li>
@@ -232,12 +234,12 @@
                                 <li><a href="/user/profile">個人資料</a></li>
                                 <li><a href="/user/profile">喜愛清單</a></li>
                                 <li><a href="/user/order">購買清單</a></li>
-                                <li><a href="./checkout.html">我的優惠卷</a></li>
+<!--                                <li><a href="./checkout.html">我的優惠卷</a></li>-->
                                 <li><a href="./blog-details.html">我的課程</a></li>
                                 <li><a href="./blog-details.html">我的租借</a></li>
                             </ul>
                         </li>
-                        <li sec:authorize="isAuthenticated()"><a href="/FarmerProductSupplier/"
+                        <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}"
                                                                  sec:authentication="name"></a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">小農廠商資料</a></li>
@@ -257,9 +259,10 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
-                        <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a></li>
+                        <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a>
+                        </li>
                     </ul>
-<!--                    <div class="header__cart__price">item: <span>訂單價錢</span></div>-->
+                    <!--                    <div class="header__cart__price">item: <span>訂單價錢</span></div>-->
                 </div>
             </div>
         </div>

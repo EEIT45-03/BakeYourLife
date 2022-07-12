@@ -66,6 +66,7 @@ public class ShoppingCartController {
     @GetMapping("/Carts/Add")
     public ResponseEntity<Cart> cartAdd(@RequestParam Integer itemId,
                           @RequestParam String type,
+                          @RequestParam Integer qty,
                           @ModelAttribute Cart cart) {
         CartItem cartItem = null;
         switch (type) {
@@ -78,7 +79,7 @@ public class ShoppingCartController {
         }
 
         if (cartItem != null) {
-            cart.addItem(cartItem);
+            cart.addItem(cartItem,qty);
         }
 //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
@@ -199,16 +200,11 @@ public class ShoppingCartController {
                             Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
         Date now = new Date();
-        if(coupon == null || !now.after(coupon.getStartDate()) || !now.before(coupon.getEndDate())) {
+        if(coupon == null || !"進行中".equals(coupon.getState()) || !(coupon.getMaxQuantity()>coupon.getUsedQuantity())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        if (coupon != null) {
-//            if(cart.getTotal() < coupon.getMinimum()){
-//                model.addAttribute("error","最低消費為"+coupon.getMinimum()+"元");
-//            }
-            cart.setCoupon(coupon);
-        }
-//        return "order/CartBody";
+        cart.setCoupon(coupon);
+        //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 

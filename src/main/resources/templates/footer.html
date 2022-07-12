@@ -81,17 +81,42 @@
 <script src="/js/og/owl.carousel.min.js"></script>
 <script src="/js/og/main.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/r-2.2.9/datatables.min.js"></script>
+
 <script>
     fetch('[[@{/Carts}]]')
         .then(response => response.json())
         .then(function (cart) {
             let i = 0;
             Object.values(cart.cart).forEach(val => {
-                console.log(i)
+                // console.log(i)
                 i++;
             });
             $('.cartCount').text(i);
         });
+
+    function add(type,id){
+        let qty = $('.quantity input').val();
+        if(qty===undefined){
+            qty = 1;
+        }
+        fetch('[[@{/Carts/Add}]]?type='+type+'&itemId='+id+'&qty='+qty)
+            .then(response => response.json())
+            .then(function (cart) {
+                let i = 0;
+                Object.values(cart.cart).forEach(val => {
+                    console.log(i)
+                    i++;
+                });
+                $('.cartCount').text(i);
+                Swal.fire(
+                    '成功加入購物車',
+                    '',
+                    'success'
+                )
+            });
+    }
 
 
 </script>

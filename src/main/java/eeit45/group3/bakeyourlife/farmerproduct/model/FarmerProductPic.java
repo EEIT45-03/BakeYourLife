@@ -1,10 +1,13 @@
 package eeit45.group3.bakeyourlife.farmerproduct.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "FarmerProductPic")
+@JsonIgnoreProperties("farmerProductBean")
 public class FarmerProductPic implements Serializable {
 
     @Id
@@ -15,16 +18,20 @@ public class FarmerProductPic implements Serializable {
     @JoinColumn(name = "farmer_product_id")
     private FarmerProductBean farmerProductBean;
 
-    @Column(columnDefinition = "nvarchar(MAX)")
-    private String pictureDataUrl;// 圖片的dataurl
+    //    @Column(columnDefinition = "nvarchar(MAX)")
+//    private String pictureDataUrl;// 圖片的dataurl
+
+    private String pictureLink;// 圖片的連結
+
+//    private String pictureDeleteHash;//刪除碼
 
     public FarmerProductPic() {
     }
 
-    public FarmerProductPic(Integer picId, FarmerProductBean farmerProductBean, String pictureDataUrl) {
+    public FarmerProductPic(Integer picId, FarmerProductBean farmerProductBean, String pictureLink) {
         this.picId = picId;
         this.farmerProductBean = farmerProductBean;
-        this.pictureDataUrl = pictureDataUrl;
+        this.pictureLink = pictureLink;
     }
 
     public Integer getPicId() {
@@ -43,11 +50,11 @@ public class FarmerProductPic implements Serializable {
         this.farmerProductBean = farmerProductBean;
     }
 
-    public String getPictureDataUrl() {
-        return pictureDataUrl;
+    public String getPictureLink() {
+        return pictureLink;
     }
 
-    public void setPictureDataUrl(String pictureDataUrl) {
-        this.pictureDataUrl = pictureDataUrl;
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
     }
 }

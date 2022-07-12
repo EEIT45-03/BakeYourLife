@@ -1,51 +1,111 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
-import java.text.SimpleDateFormat;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
-import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
-
 @Controller
-@RequestMapping(path = "/admin/FarmerProduct")
 public class FarmerProductController {
 
     FarmerProductService farmerProductService;
+
 
     @Autowired
     public FarmerProductController(FarmerProductService farmerProductService) {
         this.farmerProductService = farmerProductService;
     }
 
-    @GetMapping("/")
-    public String viewIndex(Model model) {
-        List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
-        model.addAttribute("farmerProductBeans", farmerProductBeans);
-        return "admin/farmerproduct/FarmerProduct";
+    @GetMapping("/FarmerProducts/{type}")
+    public ResponseEntity<List<FarmerProductBean>> findByType(@PathVariable String type) {
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByTypeAndStateOrderByLaunchedTimeDesc(type);
+        return ResponseEntity.status(HttpStatus.OK).body(farmerProductBeanList);
     }
 
-    @RequestMapping("UpdateFarmerProductState")
-    private String updateFarmerProductState(@RequestParam Integer farmerProductId, @RequestParam Integer state) {
+    @PostMapping("/FarmerProducts")
+    public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody @Valid FarmerProductBean farmerProductBean) {
+
+        List<String> base64List = farmerProductBean.getBase64();
+        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+        if (base64List != null && base64List.size() > 0) {
+            for (String base64 : base64List) {
+                FarmerProductPic farmerProductPic = new FarmerProductPic();
+                if (base64 != null && base64.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    farmerProductPic.setPictureLink(ImgurService.updateByBase64(base64).getLink());
+                    farmerProductPicList.add(farmerProductPic);
+
+                }
+            }
+        }
+
+        Date date = new Date();
+        farmerProductBean.setLaunchedTime(date);
+        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+        farmerProductService.insert(farmerProductBean);
+
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(farmerProductBean);
+    }
+
+    @PutMapping("/FarmerProducts/{id}")
+    private ResponseEntity<FarmerProductBean> updateFarmerProduct(@PathVariable Integer id,
+                                                                  @RequestBody @Valid FarmerProductBean farmerProductBean) {
+
+        List<String> base64List = farmerProductBean.getBase64();
+        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
+        if (base64List != null && base64List.size() > 0) {
+            for (String base64 : base64List) {
+                FarmerProductPic farmerProductPic = new FarmerProductPic();
+                if (base64 != null && base64.length() > 0) {
+                    farmerProductPic.setFarmerProductBean(farmerProductBean);
+                    System.out.println(base64.substring(0, 4));
+                    if (base64.substring(0, 4).equals("http")) {
+                        farmerProductPic.setPictureLink(base64);
+                    } else {
+                        farmerProductPic.setPictureLink(ImgurService.updateByBase64(base64).getLink());
+                    }
+                    farmerProductPicList.add(farmerProductPic);
+
+                }
+            }
+        }
+
+        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+        farmerProductBean.setFarmerProductId(id);
+
+
+        FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(id);
+        if (farmerProductBeanDb != null) {
+            farmerProductService.update(farmerProductBean);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(farmerProductBean);
+    }
+
+    @DeleteMapping("/FarmerProducts/{id}")
+    private ResponseEntity<?> deleteFarmerProduct(@PathVariable Integer id) {
+        farmerProductService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @PutMapping("/FarmerProducts/{id}/{state}")
+    private ResponseEntity<?> updateFarmerProductState(@PathVariable Integer id, @PathVariable Integer state) {
         FarmerProductBean farmerProductBean = null;
-        if (farmerProductId != null) {
-            farmerProductBean = farmerProductService.findByFarmerProductId(farmerProductId);
+        if (id != null) {
+            farmerProductBean = farmerProductService.findByFarmerProductId(id);
         }
         farmerProductBean.setState(state);
         Date date = new Date();
@@ -64,73 +124,8 @@ public class FarmerProductController {
         }
 
         farmerProductService.update(farmerProductBean);
-        return "redirect:./";
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/UpdateFarmerProduct")
-    private String viewUpdateFarmerProduct(@RequestParam Integer farmerProductId, Model model) {
-
-        FarmerProductBean farmerProductBean = null;
-
-        if (farmerProductId != null) {
-            farmerProductBean = farmerProductService.findByFarmerProductId(farmerProductId);
-        }
-
-        model.addAttribute(farmerProductBean);
-
-        return "admin/farmerproduct/UpdateFarmerProduct";
-
-    }
-
-    @PostMapping("UpdateFarmerProduct")
-    private String updateFarmerProduct(@RequestParam Integer farmerProductId,
-                                       @ModelAttribute FarmerProductBean farmerProductBean) {
-
-        List<String> dataUrls = farmerProductBean.getPictureDataUrl();
-        List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
-        if (dataUrls != null && dataUrls.size() > 0) {
-
-            if (dataUrls.get(0).length() < 30 && dataUrls.get(0).length() > 0) {
-                String dataUrl = dataUrls.get(0) + "," + dataUrls.get(1);
-                FarmerProductPic farmerProductPic = new FarmerProductPic();
-                farmerProductPic.setFarmerProductBean(farmerProductBean);
-                farmerProductPic.setPictureDataUrl(dataUrl);
-                farmerProductPicList.add(farmerProductPic);
-            } else {
-
-                for (String dataUrl : dataUrls) {
-                    FarmerProductPic farmerProductPic = new FarmerProductPic();
-                    if (dataUrl != null && dataUrl.length() > 0) {
-                        farmerProductPic.setFarmerProductBean(farmerProductBean);
-                        farmerProductPic.setPictureDataUrl(dataUrl);
-                        farmerProductPicList.add(farmerProductPic);
-                    }
-                }
-            }
-        }
-
-        farmerProductBean.setFarmerProductPicList(farmerProductPicList);
-
-
-        FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(farmerProductId);
-        if (farmerProductBeanDb != null) {
-            farmerProductService.update(farmerProductBean);
-        }
-
-        return "redirect:./";
-    }
-
-    @RequestMapping("DeleteFarmerProduct")
-    private String deleteFarmerProduct(@RequestParam Integer farmerProductId) {
-        farmerProductService.delete(farmerProductId);
-        return "redirect:./";
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        sdf.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
 
 }

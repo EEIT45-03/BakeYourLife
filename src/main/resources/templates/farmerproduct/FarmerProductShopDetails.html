@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農商品</title>
 
-    <div th:replace="/css.html"></div>
+    <div th:replace="css.html"></div>
     <style>
         .img {
             border-radius: 5px;
@@ -171,8 +171,8 @@
 </head>
 
 <body>
-<div th:replace="/header.html"></div>
-<div th:replace="/menu.html"></div>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
@@ -202,12 +202,12 @@
                      class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="img product__details__pic__item--large"
-                             th:src="*{farmerProductPicList[0].pictureDataUrl}" alt="">
+                             th:src="*{farmerProductPicList[0].pictureLink}" alt="">
                     </div>
                     <div class=" product__details__pic__slider owl-carousel">
                         <img class="img smallimg" th:each="FarmerProductPic : *{farmerProductPicList}"
-                             th:data-imgbigurl="${FarmerProductPic.pictureDataUrl}"
-                             th:src="${FarmerProductPic.pictureDataUrl}" alt="">
+                             th:data-imgbigurl="${FarmerProductPic.pictureLink}"
+                             th:src="${FarmerProductPic.pictureLink}" alt="">
 
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                         <i class="fa fa-star-half-o"></i>
                         <span>(18 reviews)</span>
                     </div>
-                    <div class="product__details__price" th:text="|$*{price}|"></div>
+                    <div class="product__details__price" th:text="|NT$*{price}|"></div>
                     <!--                    <p th:text="*{contents}">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac-->
                     <!--                        diam sit amet quam-->
                     <!--                        vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet-->
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">加入購物車</a>
+                    <a href="#" class="primary-btn"  th:onclick="|add('F',*{farmerProductId})|">加入購物車</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>庫存</b> <span th:text="*{quantity}"></span></li>
@@ -452,7 +452,7 @@
 </section>
 <!-- Related Product Section End -->
 
-<div th:replace="/footer.html"></div>
+<div th:replace="footer.html"></div>
 
 <script>
 

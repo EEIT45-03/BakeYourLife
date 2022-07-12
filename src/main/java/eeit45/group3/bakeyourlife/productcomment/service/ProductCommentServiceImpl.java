@@ -1,8 +1,8 @@
-package eeit45.group3.bakeyourlife.farmerproduct.service;
+package eeit45.group3.bakeyourlife.productcomment.service;
 
 
-import eeit45.group3.bakeyourlife.farmerproduct.dao.ProductCommentRepository;
-import eeit45.group3.bakeyourlife.farmerproduct.model.ProductComment;
+import eeit45.group3.bakeyourlife.productcomment.dao.ProductCommentRepository;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

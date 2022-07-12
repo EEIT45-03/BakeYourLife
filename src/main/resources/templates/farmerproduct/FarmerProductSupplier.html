@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農廠商</title>
-    <div th:replace="/admin/css.html"></div>
-    <div th:replace="/css.html"></div>
+    <div th:replace="admin/css.html"></div>
+    <div th:replace="css.html"></div>
 
 
     <style>
@@ -84,8 +84,8 @@
 </head>
 <!--<body id="page-top">-->
 <body id="page-top">
-<div th:replace="/header.html"></div>
-<div th:replace="/menu.html"></div>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
@@ -108,7 +108,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <!--    <div th:replace="/sidebar.html"></div>-->
+    <!--    <div th:replace="sidebar.html"></div>-->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -186,7 +186,7 @@
                                                     <div class="carousel-item"
                                                          th:each="FarmerProductPic: ${bean.farmerProductPicList}">
                                                         <img class="d-block w-100 img"
-                                                             th:src="${FarmerProductPic.pictureDataUrl}">
+                                                             th:src="${FarmerProductPic.pictureLink}">
                                                     </div>
                                                 </div>
                                                 <a class="carousel-control-prev"
@@ -298,9 +298,9 @@
 
 </div>
 <!-- End of Page Wrapper -->
-<div th:replace="/footer.html"></div>
+<div th:replace="footer.html"></div>
 
-<div th:replace="/admin/javascript.html"></div>
+<div th:replace="admin/javascript.html"></div>
 <!-- Page level custom scripts -->
 
 

@@ -75,6 +75,7 @@ $(document).ready(function () {
 
     function readURL(input) {
         let dataUrl = null;
+        let base64 = "";
         if (!window.FileReader) {
             Swal.fire({
                 icon: 'error',
@@ -92,15 +93,14 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
                 dataUrl = e.target.result;
-
+                base64 = dataUrl.split(",")[1];
                 input.closest(".imgUp").find("img").attr('src', dataUrl);
-
-                input.next().val(dataUrl)
+                input.next().val(base64)
 
             }
-
             reader.readAsDataURL(input[0].files[0]);
             imgAdd();
+
 
         }
 
@@ -113,7 +113,7 @@ $(document).ready(function () {
 
     function imgAdd() {
 
-        if ($(".imgUp").length < 5) {
+        if ($(".imgUp").length < 3) {
             $(".imgAdd")
                 .before(`<div class=" imgUp" id="imgdiv" >
 											<img id="img" class="imagePreview"  src="/img/logo4.png"><br>
@@ -123,12 +123,12 @@ $(document).ready(function () {
 													accept="image/png,image/gif,image/jpg,image/jpeg"
 													 id="farmerProductPic" value=""
 													style="width: 0px;height: 0px;overflow: hidden;">
-												<input type="hidden" name="pictureDataUrl" id="pictureDataUrl" value="">
+												<input type="hidden" name="base64" id="base64" value="">
 											</label><i class="fa fa-times del"></i>
 										</div>`);
 
         }
-        if ($(".imgUp").length == 5) {
+        if ($(".imgUp").length == 3) {
             $(".imgAdd").css("display", "none")
         }
 
@@ -158,18 +158,173 @@ $(document).ready(function () {
     })
 
 
-    $("#sendData").on("click", function () {
+});
 
-        $("#name").val($.trim($("#name").val()));
-        $("#price").val($.trim($("#price").val()));
-        $("#quantity").val($.trim($("#quantity").val()));
-        $("#contents").val($.trim($("#contents").val()));
-        $("#description").val($.trim($("#description").val()));
+// ====================新增========================
 
+function sendcreate() {
+    var xhr = new XMLHttpRequest();
+    var jsonString = JSON.stringify(getFarmerProduct());
+    console.log(jsonString);
+    if (check()) {
+        Swal.fire({
+            title: '資料上傳中!',
+            html: '請稍後...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        });
+        xhr.onreadystatechange = function () {
+            //建立成功，狀態碼會是201
+            if (xhr.readyState === 4 && xhr.status === 201) {
+                Swal.fire(
+                    '新增成功!',
+                    ':D',
+                    'success'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        location = "./";
+                    }
+                })
+            } else if (xhr.status === 400) {
+                Swal.fire(
+                    '新增失敗!',
+                    json.message,
+                    'error'
+                )
+            }
+        }
+        xhr.open("POST", '/FarmerProducts', true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(jsonString);
+    } else {
+        Swal.fire(
+            '有欄位未填寫',
+            '請填寫完整，謝謝!!',
+            'error'
+        )
+    }
+
+}
+
+// ===================修改========================
+function sendupdate(farmerProductId) {
+    var xhr = new XMLHttpRequest();
+    var jsonString = JSON.stringify(getFarmerProduct());
+    console.log(jsonString);
+    if (check()) {
+        Swal.fire({
+            title: '資料上傳中!',
+            html: '請稍後...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        });
+        xhr.onreadystatechange = function () {
+            //修改成功，狀態碼會是200
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                Swal.fire(
+                    '修改成功!',
+                    ':D',
+                    'success',
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        location = "./";
+                    }
+                })
+            } else if (xhr.status === 400) {
+                Swal.fire(
+                    '修改失敗!',
+                    json.message,
+                    'error'
+                )
+            }
+        }
+        xhr.open("PUT", '/FarmerProducts/' + farmerProductId, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(jsonString);
+    } else {
+        Swal.fire(
+            '有欄位未填寫',
+            '請填寫完整，謝謝!!',
+            'error'
+        )
+    }
+
+}
+
+
+function getFarmerProduct() {
+
+
+    let type = $("#type").val();
+    let name = $.trim($("#name").val());
+    let price = $.trim($("#price").val());
+    let quantity = $.trim($("#quantity").val());
+    let storage = $.trim($("#storage").val());
+    let contents = $.trim($("#contents").val());
+    let description = $.trim($("#description").val());
+    let state = $.trim($("#state").val());
+    let launchedTime = $.trim($("#launchedTime").val());
+    let suspendTime = $.trim($("#suspendTime").val());
+    let violationTime = $.trim($("#violationTime").val());
+    let base64Array = new Array();
+    $("input[name=base64]").each(function () {
+        base64Array.push($(this).val());
     });
 
+    let FarmerProduct = {
+        "type": type,
+        "name": name,
+        "price": price,
+        "quantity": quantity,
+        "storage": storage,
+        "contents": contents,
+        "description": description,
+        "state": state,
+        "launchedTime": launchedTime,
+        "suspendTime": suspendTime,
+        "violationTime": violationTime,
+        "base64": base64Array
+    }
+    return FarmerProduct;
+}
 
-});
+function check() {
+    let type = $("#type").val();
+    let name = $.trim($("#name").val());
+    let price = $.trim($("#price").val());
+    let quantity = $.trim($("#quantity").val());
+    let storage = $.trim($("#storage").val());
+    let contents = $.trim($("#contents").val());
+    let description = $.trim($("#description").val());
+    if (type === '') {
+        return false;
+    }
+    if (name === '') {
+        return false;
+    }
+    if (price === '') {
+        return false;
+    }
+    if (quantity === '') {
+        return false;
+    }
+    if (storage === '') {
+        return false;
+    }
+    if (contents === '') {
+        return false;
+    }
+    if (description === '') {
+        return false;
+    }
+    return true;
+}
+
+
 
 
 

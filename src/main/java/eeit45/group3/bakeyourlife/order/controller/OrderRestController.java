@@ -46,9 +46,8 @@ public class OrderRestController {
 
 	//查詢全部或指定日期區間
 	@GetMapping("/Orders")
-	public ResponseEntity<Page<Order>> getOrders(
+	public ResponseEntity<List<Order>> getOrders(
 			@RequestParam(required = false) String orderStatus,
-			@RequestParam(required = false) Integer page,
 			Principal principal) {
 		if(principal==null){
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -56,23 +55,14 @@ public class OrderRestController {
 		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
 		OrderStatus status = null;
 		User user = userService.findByUsername(principal.getName());
-		if(page==null){
-			//如果不指定頁數，預設第一頁
-			page = 1;
-		}
 		if(!"".equals(orderStatus)){
 			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
 		}
-		Page<Order> orders = null;
-		Pageable pageable = PageRequest.of(page-1, 2);
+		List<Order> orders = null;
 		if(user!=null && status != null){
-			/*第一個為頁數，從0開始!!!!!
-			* 第二個為一頁幾個
-			* */
-
-			orders = orderService.findAllByOrderStatusAndUser(status,user,pageable);
+			orders = orderService.findAllByOrderStatusAndUser(status,user);
 		}else {
-			orders = orderService.findAllByUser(user,pageable);
+			orders = orderService.findAllByUser(user);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
