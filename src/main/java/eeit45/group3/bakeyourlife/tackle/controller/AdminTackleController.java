@@ -30,15 +30,15 @@ public class AdminTackleController {
         model.addAttribute("sorts", tackleService.findAllTackleSort());
 
 
-        if ((tackleName!=null && tackleName.length()>0) && (sort==null || sort.length()<0)){
-            //設置給JSP使用
-            model.addAttribute("tackles", tackleService.findByTackleName(tackleName));
-        } else if ((sort!=null && sort.length()>0) && (tackleName==null || tackleName.length()<0)){
-            //設置給JSP使用
-            model.addAttribute("tackles", tackleService.findAllByTackleSort(sort));
-        } else if((tackleName!=null && tackleName.length()>0) && (sort!=null && sort.length()>0)) {
+        if ((tackleName!=null && tackleName.length()>0) && (sort!=null && sort.length()>0)){
             //設置給JSP使用
             model.addAttribute("tackles", tackleService.findAllByTackleNameAndTackleSort(tackleName, sort));
+        } else if ((sort!=null && sort.length()>0)){
+            //設置給JSP使用
+            model.addAttribute("tackles", tackleService.findAllByTackleSort(sort));
+        } else if(tackleName!=null && tackleName.length()>0) {
+            //設置給JSP使用
+            model.addAttribute("tackles", tackleService.findByTackleName(tackleName));
         } else {
             //設置給JSP使用
             model.addAttribute("tackles", tackleService.findAllTackle());

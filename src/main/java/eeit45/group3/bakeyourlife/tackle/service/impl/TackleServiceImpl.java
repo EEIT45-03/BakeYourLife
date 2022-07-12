@@ -42,12 +42,15 @@ public class TackleServiceImpl implements TackleService {
 
     //依種類查詢全部的器具
     public List<Tackle> findAllByTackleSort(String sort){
-        return  tackleRepository.findByTackleSort(sort);
+        TackleSort sortDb = tackleSortRepository.findBySort(sort);
+
+        return  tackleRepository.findByTackleSort(sortDb);
     }
 
     //依種類查詢全部的器具
     public List<Tackle> findAllByTackleNameAndTackleSort(String tackleName, String sort){
-        return tackleRepository.findByTackleNameAndTackleSort(tackleName,sort);
+        TackleSort sortDb = tackleSortRepository.findBySort(sort);
+        return tackleRepository.findByTackleNameAndTackleSort(tackleName,sortDb);
     }
 
     //依器具ID查詢器具
