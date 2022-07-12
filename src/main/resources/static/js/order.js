@@ -153,6 +153,11 @@ function refundingAlert(orderNo) {
                     method: "POST"
                 }).then(
                 Swal.fire('退款請求已同意', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
             )
         } else if (result.isDenied) {
             fetch(baseUrl + 'reject',
@@ -160,6 +165,11 @@ function refundingAlert(orderNo) {
                     method: "POST"
                 }).then(
                 Swal.fire('退款請求已拒絕', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
             )
         }
     })
