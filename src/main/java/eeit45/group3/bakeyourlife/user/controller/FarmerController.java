@@ -1,12 +1,10 @@
 package eeit45.group3.bakeyourlife.user.controller;
 
 import eeit45.group3.bakeyourlife.user.model.Farmer;
-import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -14,12 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.security.Principal;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,12 +23,10 @@ import java.util.List;
 public class FarmerController {
 
     FarmerService farmerService;
-    private ServletContext context;
 
     @Autowired
-    public FarmerController(FarmerService farmerService, ServletContext context) {
+    public FarmerController(FarmerService farmerService) {
         this.farmerService = farmerService;
-        this.context = context;
     }
 
     @GetMapping("/")
@@ -55,12 +45,15 @@ public class FarmerController {
 
     @PostMapping("CreateFarmer")
     public String CreateFarmer(Farmer farmer) {
-            MultipartFile productImage = farmer.getProductImage();
+        MultipartFile productImage = farmer.getProductImage();
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            farmer.setImageUrl(pic);
+        }else {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
-            if(productImage != null){
-                farmer.setImageUrl(link);
-            }
-//        ----------------------------------------------------------
+            farmer.setImageUrl(link);
+        }
+//        --------------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         farmer.setRegisterTime(ts);
         farmer.setAuthority("ROLE_FARMER");
@@ -82,29 +75,6 @@ public class FarmerController {
     @PostMapping("/UpdateFarmer")
     public String updateUser(@RequestParam("farmerId")Integer farmerId, Farmer farmer) {
 
-//        SerialBlob blob = null;
-//        try {
-//            MultipartFile productImage = farmer.getProductImage();
-//            if (productImage.getSize() == 0) {
-//                // 表示使用者並未挑選圖片
-//                Farmer farmer1 = farmerService.findByFarmerId(farmerId);
-//                farmer.setFarmerImage(farmer1.getFarmerImage());
-//            }else if (productImage.getSize() > 0){
-//                InputStream is = productImage.getInputStream();
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                byte[] b = new byte[8192];
-//                int len = 0;
-//                while ((len = is.read(b)) != -1) {
-//                    baos.write(b, 0, len);
-//                }
-//                blob = new SerialBlob(baos.toByteArray());
-//                farmer.setFileName(productImage.getOriginalFilename());
-//                farmer.setFarmerImage(blob);
-//            }
-//            // -------------------------------------------------
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         Farmer farmerDB = farmerService.findByFarmerId(farmerId);
         MultipartFile productImage = farmer.getProductImage();
         if(productImage.getSize() == 0){
@@ -114,6 +84,7 @@ public class FarmerController {
             farmer.setImageUrl(link);
         }
         farmer.setRegisterTime(farmerDB.getRegisterTime());
+        farmer.setAuthority(farmerDB.getAuthority());
         farmerService.updateFarmer(farmer);
             return "redirect:./";
     }
@@ -128,10 +99,12 @@ public class FarmerController {
     @PostMapping(value = "/CheckFarmer", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean CheckFarmer(@RequestParam String username) {
         Farmer farmer = farmerService.findByUsername(username);
-        if (farmer == null) {
-            return true;
-        }
-        return false;
+        return farmer == null;
+//        if (farmer == null) {
+//            return true;
+//        }
+//        return false;
+//    }
     }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {

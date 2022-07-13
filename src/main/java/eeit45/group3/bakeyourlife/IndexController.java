@@ -25,6 +25,8 @@ public class IndexController {
     public String redirect(HttpServletRequest request){
         if(request.isUserInRole("ROLE_ADMIN")){
             return "redirect:/admin";
+        } else if (request.isUserInRole("ROLE_FARMER")) {
+            return "redirect:/FarmerProductSupplier/";
         }
         return "redirect:/";
     }

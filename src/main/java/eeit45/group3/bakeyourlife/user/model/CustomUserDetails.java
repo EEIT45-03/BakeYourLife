@@ -13,6 +13,9 @@ public class CustomUserDetails implements UserDetails{
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private Farmer farmer;
+	  String farmerName;
+	  String fullName;
 
 	public CustomUserDetails(User user) {
 		this.user = user;
@@ -21,6 +24,12 @@ public class CustomUserDetails implements UserDetails{
 	public CustomUserDetails() {
 	}
 
+	public CustomUserDetails(User user, Farmer farmer, String farmerName, String fullName) {
+		this.user = user;
+		this.farmer = farmer;
+		this.farmerName = farmerName;
+		this.fullName = fullName;
+	}
 	@Override
 	public String getPassword() {
 		return this.user.getPassword();
@@ -37,10 +46,6 @@ public class CustomUserDetails implements UserDetails{
 		return true;
 	}
 	
-
-
-
-
 	@Override
 	public boolean isAccountNonLocked() {
 //		return this.user.isAccountNonLocked();
@@ -72,6 +77,17 @@ public class CustomUserDetails implements UserDetails{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Farmer getFarmer() {
+		return farmer;
 	}
+
+	public String getFarmerName() {
+		return this.farmer.getFarmerName();
+	}
+
+	public String getFullName() {
+		return this.user.getFullName();
+	}
+}
 

@@ -61,6 +61,15 @@
 
                         <form id="form" action="" method="post" th:object="${user}" enctype="multipart/form-data">
 
+                            <!-- 小農廠商頭像: -->
+                            <img  ID="previewImage" width="200" height="200" th:src="${user.imageUrl}" style=" margin:auto;"/>
+                            <div class="row mb-3">
+                                <label for="userImage" class="col-sm-2 col-form-labels">會員頭像:</label>
+                                <div class="col-sm-10">
+                                    <input type="file" th:field="*{productImage}" class="form-control" name="userImage"
+                                           id="userImage" >
+                                </div>
+                            </div>
                             <!-- 會員帳號: -->
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-labels">帳號:</label>
@@ -143,18 +152,18 @@
                                            id="address"  required>
                                 </div>
                             </div>
-                            <!-- 照片: -->
-                            <img id="previewImage" width="200" height="200" th:src="@{/admin/User/picture(userId=*{userId})}" style="display:block; margin:auto;"/>
-                            <div class="row mb-3">
-                                <label for="userImage" class="col-sm-2 col-form-labels">照片:</label>
-                                <div class="col-sm-10">
-                                    <input type="file" th:field="*{productImage}" class="form-control" name="userImage"
-                                           id="userImage" >
-                                </div>
-                            </div>
+<!--                            &lt;!&ndash; 照片: &ndash;&gt;-->
+<!--                            <img id="previewImage" width="200" height="200" th:src="@{/admin/User/picture(userId=*{userId})}" style="display:block; margin:auto;"/>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label for="userImage" class="col-sm-2 col-form-labels">照片:</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input type="file" th:field="*{productImage}" class="form-control" name="userImage"-->
+<!--                                           id="userImage" >-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <button type="submit" class="btn btn-primary" id="submit">修改會員資料</button>
+                            <button type="submit" class="btn btn-primary" id="submit">修改資料</button>
                         </form>
                     </div>
                 </div>

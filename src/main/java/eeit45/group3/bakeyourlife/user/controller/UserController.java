@@ -1,20 +1,14 @@
 package eeit45.group3.bakeyourlife.user.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.security.Principal;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -25,21 +19,16 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.sql.rowset.serial.SerialBlob;
-
 @Controller
 @RequestMapping(path = "/admin/User")
 public class UserController {
 
     UserService userService;
-    private ServletContext context;
 
     @Autowired
-    public UserController(UserService userService,ServletContext context) {
+    public UserController(UserService userService) {
 
         this.userService = userService;
-        this.context = context;
 
     }
 
@@ -60,10 +49,16 @@ public class UserController {
     @PostMapping("CreateUser")
     public String createUser(User user) {
         MultipartFile productImage = user.getProductImage();
+        if(productImage.getSize() == 0){
+        String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            user.setImageUrl(pic);
+        }else {
         String link = ImgurService.updateByMultipartFile(productImage).getLink();
-        if(productImage != null){
             user.setImageUrl(link);
         }
+//        --------------------------------------------------------------
+        String fullname = user.getFullName();
+        user.setFullName("管理員-"+fullname);
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
@@ -75,7 +70,7 @@ public class UserController {
     @GetMapping("/UpdateUser")
     public String viewUpdateUser(@RequestParam("userId") Integer userId, Model model) {
         User user = userService.findByUserId(userId);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         return "admin/user/UpdateUser";
 
@@ -93,6 +88,7 @@ public class UserController {
             user.setImageUrl(link);
         }
         user.setRegisterTime(userDB.getRegisterTime());
+        user.setAuthority(userDB.getAuthority());
         userService.updateUser(user);
         return "redirect:./";
     }
@@ -107,16 +103,9 @@ public class UserController {
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
         User user = userService.findByUsername(username);
-        if (user == null) {
-            return true;
-        }
-        return false;
+        return user == null;
     }
 
-//    @GetMapping("/logUser")
-//    public ResponseEntity<?> getAuth(Principal principal) {
-//        return ResponseEntity.status(HttpStatus.OK).body(principal.getName());
-//    }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
         // java.util.Date
