@@ -17,7 +17,7 @@ public class Register implements Serializable {
     private static final long serialVersionUID = 1L;
     //報名編號
     @Id
-    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 10 , initialValue = 8800 )
+    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 8803 )
     @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ReSeq")
     private Integer registerId;
 
@@ -26,6 +26,7 @@ public class Register implements Serializable {
     private User user;
 
     private Integer attendance;
+    private Integer totalPrice;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerDate;
@@ -36,9 +37,11 @@ public class Register implements Serializable {
     @JoinColumn(name="FK_opCourse", referencedColumnName = "openCourse", nullable = false)
     private Course course;
 
-    public Register(Integer registerId, User user, Date registerDate, Integer state, Course course) {
+    public Register(Integer registerId, User user, Integer attendance, Integer totalPrice, Date registerDate, Integer state, Course course) {
         this.registerId = registerId;
         this.user = user;
+        this.attendance = attendance;
+        this.totalPrice = totalPrice;
         this.registerDate = registerDate;
         this.state = state;
         this.course = course;
@@ -103,12 +106,21 @@ public class Register implements Serializable {
         this.attendance = attendance;
     }
 
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         return "Register{" +
                 "registerId=" + registerId +
                 ", user=" + user +
                 ", attendance=" + attendance +
+                ", totalPrice=" + totalPrice +
                 ", registerDate=" + registerDate +
                 ", state=" + state +
                 ", course=" + course +

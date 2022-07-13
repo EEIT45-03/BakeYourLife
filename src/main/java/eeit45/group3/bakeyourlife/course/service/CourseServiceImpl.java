@@ -11,15 +11,16 @@ import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.RegisterRepository;
-import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -136,21 +137,25 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	@Transactional
-	public void updateRegister(Register register) {
-		Register registerDb = registerRepository.findById(register.getRegisterId()).orElse(null);
-		if(registerDb == null){
-			throw new RuntimeException("沒有找到要更新的報名表");
-		}registerRepository.save(register);
+	public Register updateRegister(Register register) {
+		return registerRepository.save(register);
 	}
+	public Register updateRegister(Integer registerId){
+		Register registerDb = registerRepository.findById(registerId).orElse(null);
+		registerDb.getUser().getUserId();
+		registerDb.getCourse().getOpenCourse();
 
+		return updateRegister(registerDb);
+	};
 	@Override
 	@Transactional
 	public void createRegister(Register register) {
-
+		//User & Course 是FK
 		User user = userService.findByUserId(register.getUser().getUserId());
 		register.setUser(user);
 		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
 		register.setCourse(course);
+		register.setRegisterDate(new Date());
 		registerRepository.save(register);
 	}
 

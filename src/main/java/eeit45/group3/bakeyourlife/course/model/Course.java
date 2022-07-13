@@ -22,8 +22,16 @@ public class Course implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//開課編號
 	@Id
-	@SequenceGenerator( name = "CoSeq", sequenceName = "open_course", allocationSize = 10 , initialValue = 1000 )
-	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "CoSeq")
+//	@SequenceGenerator( name = "CoSeq", sequenceName = "open_course", allocationSize = 10 , initialValue = 1000 )
+	@TableGenerator(
+			name =  "coseq",
+			table = "co_sequence",
+			pkColumnName = "op_course_pk",
+			valueColumnName = "open_course",
+			allocationSize = 1,
+			initialValue = 1002
+	)
+	@GeneratedValue( strategy = GenerationType.TABLE, generator = "coseq")
 	private Integer openCourse;
 
 	@ManyToOne(cascade = CascadeType.PERSIST )

@@ -57,48 +57,45 @@
                                     <th></th>
                                     <th>報名編號</th>
                                     <th>課程代碼</th>
-                                    <th>會員編號</th>
-                                    <th>會員名稱</th>
+                                    <th>會員</th>
                                     <th class="none">報名時間</th>
                                     <th>報名人數</th>
+                                    <th>總金額</th>
                                     <th>報名狀態</th>
                                     <th>修改</th>
                                     <th>刪除</th>
-                                    <th class="none"></th>
-
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <tr th:each="register: ${registers}">
-                                    <td></td>
-                                    <td th:text="${register.registerId}"></td>
-                                    <td th:text="${register.course.openCourse}"></td>
-                                    <td th:text="${register.user.userId}"></td>
-                                    <td th:text="${register.user.username}"></td>
-                                    <td th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd HH:mm')}"></td>
-                                    <td th:text="${register.attendance}"></td>
-                                    <td th:text="${register.state }"></td>
-                                    <td>
-                                        <a      href="admin/Course/UpdateCourse"
-                                                th:href="@{/admin/Course/UpdateRegister/{id}(id=${register.registerId})}"
-                                                class="btn btn-warning btn-icon-split btn-sm"> <span
-                                                class="icon text-white-50"> <i
-                                                class="fas fa-exclamation-triangle"></i>
-													</span> <span class="text">修改</span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button type="button"
-                                                class="btn btn-danger btn-icon-split btn-sm"
-                                                data-toggle="modal" data-target="#deleteButton"
-                                                th:onclick="|deleteRegisterAlert(${register.registerId})|">
-														<span class="icon text-white-50"> <i
-                                                                class="fas fa-trash"></i>
-														</span> <span class="text">刪除</span>
-                                        </button>
-                                    </td>
-                                    <td></td>
+                                    <tr th:each="register: ${registers}">
+                                        <td></td>
+                                        <td th:text="${register.registerId}"></td>
+                                        <td th:text="${register.course.openCourse}"></td>
+                                        <td th:text="|${register.user.userId}: ${register.user.username}|"></td>
+                                        <td th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                        <td th:text="${register.attendance}"></td>
+                                        <td th:text="${register.totalPrice}"></td>
+                                        <td th:text="${register.state }"></td>
+                                        <td>
+                                            <a      th:onclick="|updateRegister(${register.registerId})|"
+                                                    class="btn btn-warning btn-icon-split btn-sm"> <span
+                                                    class="icon text-white-50"> <i
+                                                    class="fas fa-exclamation-triangle"></i>
+                                                        </span> <span class="text">修改</span>
+                                            </a>
+<!--        th:href="admin/Course/UpdateCourse"                                     -->
+                                        </td>
+                                        <td>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-icon-split btn-sm"
+                                                    data-toggle="modal" data-target="#deleteButton"
+                                                    th:onclick="|deleteRegisterAlert(${register.registerId})|">
+                                                            <span class="icon text-white-50"> <i
+                                                                    class="fas fa-trash"></i>
+                                                            </span> <span class="text">刪除</span>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

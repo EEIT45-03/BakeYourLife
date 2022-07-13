@@ -280,7 +280,6 @@ function CreateRegister(){
 
 			Swal.fire({
 				title: '新增報名',
-				icon: 'info',
 				html:data,
 				width: '40%',
 				showCloseButton: true,
@@ -290,6 +289,25 @@ function CreateRegister(){
 			})
 		});
 }
+//跳出修改報名表
+function updateRegister(registerId){
+	Swal.showLoading()
+	fetch('./UpdateRegister?registerId='+registerId)
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '修改報名表',
+				html:data,
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+
+		});
+}
+
 //跳出新增課程時間清單
 function CreateCourseTime(ctimeId){
 	Swal.showLoading()
@@ -352,7 +370,7 @@ function deleteCourseTime(ctimeId) {
 //跳出修改場地清單
 function updateCourseTime(ctimeId){
 	Swal.showLoading()
-	fetch('./UpdateVenueList?venueListId=' + ctimeId)
+	fetch('./UpdateCourseTime?ctimeId=' + ctimeId)
 		.then(response => response.text())
 		.then(function(data){
 

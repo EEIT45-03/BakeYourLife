@@ -135,14 +135,14 @@ public class AdminCourseController {
 		return "redirect:./Register";
 	}
 
-	@GetMapping("/UpdateRegister/{registerId}")
-	public String viewUpdateUpdateRegister(@PathVariable Integer registerId, Model model) {
+	@GetMapping("/UpdateRegister")
+	public String viewUpdateUpdateRegister(@RequestParam Integer registerId, Model model) {
 		Register register = courseService.findByRegisterId(registerId).orElse(null);
 		model.addAttribute("register", register);
-		return "admin/course/UpdateCourse";
+		return "admin/course/UpdateCregister";
 	}
 
-	@PostMapping("/UpdateRegister/{registerId}")
+	@PostMapping("/UpdateRegister")
 	public String updateUpdateRegister(Register register) {
 		courseService.updateRegister(register);
 		return "redirect:../";

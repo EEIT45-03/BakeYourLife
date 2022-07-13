@@ -125,14 +125,16 @@ INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total,
 --新增課程資料
 SET IDENTITY_INSERT [dbo].[course_prodcut] ON
 INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (1, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/hunDTmc.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (2, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/2UnR7Lm.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (3, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/Fd0KQoL.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
+INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (2, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/2UnR7Lm.jpg', N'乙級麵包烘焙假日班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
+INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (3, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/Fd0KQoL.jpg', N'乙級蛋糕烘焙晚上班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
 SET IDENTITY_INSERT [dbo].[course_prodcut] OFF
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1000, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'Teacher1', 1, 1)
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1001, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'Teacher1', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1000, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'TeacherChen', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1001, 0, CAST(N'2022-08-26T01:00:00.0000000' AS DateTime2), 12, N'', CAST(N'2022-08-23T01:00:00.0000000' AS DateTime2), N'TeacherLin', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1002, 0, CAST(N'2022-08-27T01:00:00.0000000' AS DateTime2), 15, N'', CAST(N'2022-08-24T01:00:00.0000000' AS DateTime2), N'TeacherWang', 2, 1)
 SET IDENTITY_INSERT [dbo].[course_time] ON
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (1, CAST(N'2022-08-16T00:00:00.0000000' AS DateTime2), N'10001', N'', CAST(N'2022-08-16T10:00:00.0000000' AS DateTime2), 1000)
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (2, CAST(N'2022-08-17T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-17T10:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (1, CAST(N'2022-08-29T10:00:00.0000000' AS DateTime2), N'10001', N'', CAST(N'2022-08-29T12:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (2, CAST(N'2022-08-30T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-30T12:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (3, CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1000)
 SET IDENTITY_INSERT [dbo].[course_time] OFF
 --新增報名資料
 INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (8801, 1, CAST(N'2022-01-01T11:00:00.0000000' AS DateTime2), 1, 1000, 1)
