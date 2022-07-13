@@ -5,10 +5,13 @@ import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
+import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
+import eeit45.group3.bakeyourlife.utils.Image;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -141,11 +144,16 @@ public class AdminCourseController {
 		model.addAttribute("register", register);
 		return "admin/course/UpdateCregister";
 	}
-
-	@PostMapping("/UpdateRegister")
-	public String updateUpdateRegister(Register register) {
-		courseService.updateRegister(register);
-		return "redirect:../";
+//	@PostMapping("/UpdateRegister")
+//	public String updateUpdateRegister(Register register) {
+//		courseService.updateRegister(register);
+//		return "redirect:../";
+//	}
+	@PostMapping(value = "/UpdateRegister")
+	public String saveProduct(@ModelAttribute Register register	)
+	{
+	courseService.updateRegister(register.getRegisterId(),register.getAttendance(), register.getState(), register.getTotalPrice());
+	return "redirect:./Register";
 	}
 
 }

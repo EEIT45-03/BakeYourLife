@@ -48,8 +48,7 @@ public interface CourseService {
 		Optional<Register> findByRegisterId(Integer registerId);
 		void deleteByRegisterId(Integer registerId);
 
-		Register updateRegister(Register register);
-	    Register updateRegister(Integer registerId);
+	    void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice);
 		void createRegister(Register register);
 
 

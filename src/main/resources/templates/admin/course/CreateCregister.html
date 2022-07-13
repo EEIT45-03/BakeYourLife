@@ -54,8 +54,15 @@
   <div class="row mb-3">
     <label for="state" class="col-sm-2 col-form-labels">狀態:</label>
     <div class="col-sm-10">
-      <input th:field="*{state}" type="text" class="form-control"
-             name="state" id="state" placeholder="請輸入狀態"/>
+      <select th:field="*{state}" type="text" class="form-control"
+              name="state" id="state">
+        <option th:value="0" th:text="報名完成" selected></option>
+        <option th:value="1" th:text="取消報名"></option>
+        <option th:value="2" th:text="審核中"></option>
+        <option th:value="3" th:text="審核通過"></option>
+        <option th:value="4" th:text="課程結束"></option>
+        <option th:value="5" th:text="已評價"></option>
+      </select>
     </div>
   </div>
 

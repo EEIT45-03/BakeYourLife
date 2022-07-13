@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,7 +29,8 @@ public class Register implements Serializable {
     private Integer attendance;
     private Integer totalPrice;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerDate;
 
     private Integer state;// 狀態 0報名成功 1使用者取消報名 2管理者取消課程 3課程完成

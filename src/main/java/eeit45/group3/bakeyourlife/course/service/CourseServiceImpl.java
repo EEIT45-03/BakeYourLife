@@ -137,16 +137,26 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	@Transactional
-	public Register updateRegister(Register register) {
-		return registerRepository.save(register);
-	}
-	public Register updateRegister(Integer registerId){
+	public void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice) {
 		Register registerDb = registerRepository.findById(registerId).orElse(null);
-		registerDb.getUser().getUserId();
-		registerDb.getCourse().getOpenCourse();
+		registerDb.setAttendance(attendance);
+		registerDb.setState(state);
+		registerDb.setTotalPrice(totalPrice);
+		registerRepository.save(registerDb);
+	}
 
-		return updateRegister(registerDb);
-	};
+	//	@Override
+//	@Transactional
+//	public Register updateRegister(Register register) {
+//		return registerRepository.save(register);
+//	}
+//	public Register updateRegister(Integer registerId){
+//		Register registerDb = registerRepository.findById(registerId).orElse(null);
+////		registerDb.getUser().getUserId();
+////		registerDb.getCourse().getOpenCourse();
+//
+//		return updateRegister(registerDb);
+//	};
 	@Override
 	@Transactional
 	public void createRegister(Register register) {

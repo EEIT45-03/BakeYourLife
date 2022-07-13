@@ -1,8 +1,8 @@
 <div class="card-body">
 
-<form th:action="@{UpdateRegister(registerId=*{registerId})}" method="post" th:object="${register}">
+<form th:action="@{./UpdateRegister(registerId=*{registerId})}" method="post" th:object="${register}">
 
-    <!-- 報名編號: -->
+    <!-- 報名編號: @{UpdateRegister(registerId=*{registerId})}-->
     <div class="row mb-3">
         <label for="registerId" class="col-sm-3 col-form-labels">報名編號:</label>
         <div class="col-sm-9">
@@ -15,7 +15,7 @@
     <div class="row mb-3">
         <label for="userName" class="col-sm-3 col-form-labels">會員名稱:</label>
         <div class="col-sm-9">
-            <input th:field="*{user.userName}" type="text" class="form-control" name="userName"
+            <input th:field="*{user.username}" type="text" class="form-control" name="userName"
                    id="userName" th:readonly="true" />
         </div>
     </div>
@@ -34,7 +34,7 @@
         <label for="mu_rDate" class="col-sm-3 col-form-labels">報名日期:</label>
         <div class="col-sm-9">
             <input th:field="*{registerDate}" type="text" class="form-control" name="rentalDate"
-                   id="mu_rDate" th:value="*{#dates.format(rentalDate, 'yyyy/MM/dd HH:mm:ss')}"
+                   id="mu_rDate" th:value="*{#dates.format(registerDate, 'yyyy/MM/dd HH:mm:ss')}"
                    th:readonly="true" />
         </div>
     </div>
