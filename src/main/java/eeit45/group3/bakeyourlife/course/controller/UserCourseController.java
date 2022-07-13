@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.course.controller;
 import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
+import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
@@ -48,6 +49,12 @@ public class UserCourseController {
         model.addAttribute("product", product);
         return "course/CourseDetails";
 
+    }
+
+    @GetMapping(path = "/Course/CreateRegister")
+    public String viewCreateRegister(Model model) {
+        model.addAttribute("register", new Register());
+        return "course/CourseCheckOut";
     }
 
 }

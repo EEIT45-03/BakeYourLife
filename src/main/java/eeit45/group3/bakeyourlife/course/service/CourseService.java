@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.course.service;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
+import eeit45.group3.bakeyourlife.course.model.Register;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +40,16 @@ public interface CourseService {
 
 		//建立課程
 		void createCourseTime(CourseTime courseTime);
+
+		//-----Register--------
+		List<Register> findAllRegister();
+		List<Register> findRegisterByUser();
+
+		Optional<Register> findByRegisterId(Integer registerId);
+		void deleteByRegisterId(Integer registerId);
+
+		void updateRegister(Register register);
+		void createRegister(Register register);
+
 
 }

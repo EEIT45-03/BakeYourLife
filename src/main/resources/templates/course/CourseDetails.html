@@ -197,15 +197,6 @@
 <section class="product-details spad">
     <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">
     <div class="container" >
-        <!--先測可不可以找到他th:object="${product}"-->
-<!--        <td>[[*{product.id}]]</td>-->
-<!--        <th scope="row"><img alt="" th:src="*{{product.image}}" style="width: 100px;height: 100px;"></th>-->
-<!--        <td>[[*{product.name}]]</td>-->
-<!--        <td>[[*{product.summary}]]</td>-->
-<!--        <td>[[*{product.description}]]</td>-->
-<!--        <td>NT$[[*{product.price}]]</td>-->
-        <!--先測可不可以找到他-->
-
         <div class="row">
             <div class="col-lg-6 col-md-6">
 <!--                <div th:if="${not #lists.isEmpty(farmerProductBean.farmerProductPicList)}"-->
@@ -248,7 +239,7 @@
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
-                    <a href="#" class="primary-btn"  th:onclick="|add('F',*{product.id})|">點我報名</a>
+                    <a href="#openCourse" class="primary-btn" >點我報名</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
 <!--                        <li><b>庫存</b> <span th:text="*{quantity}"></span></li>-->
@@ -355,7 +346,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title related__product__title">
+                <div class="section-title related__product__title" id="openCourse">
                     <h2>開課時段</h2>
                 </div>
             </div>
@@ -401,7 +392,7 @@
                                             <p th:text="*{course.teacher}"></p>
                                         </td>
                                         <td class="shoping__cart__total">
-                                            <span class="icon_book"></span>
+                                            <span class="icon_book" th:onclick="|add('F',*{product.id})|"></span>
                                         </td>
 <!--                                    </tr>-->
                                 </tr>

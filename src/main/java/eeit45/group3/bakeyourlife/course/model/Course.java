@@ -66,7 +66,9 @@ public class Course implements Serializable{
 	@Column(name = "note",columnDefinition = "nvarchar(MAX)")
 	private String note;
 
-
+	//課程報名
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "course")
+	private Set<Register> registers = new LinkedHashSet<Register>();
 	
 	public Course() {
 
@@ -78,6 +80,14 @@ public class Course implements Serializable{
 
 	public void setVenue(Venue venue) {
 		this.venue = venue;
+	}
+
+	public Set<Register> getRegisters() {
+		return registers;
+	}
+
+	public void setRegisters(Set<Register> registers) {
+		this.registers = registers;
 	}
 
 	public Integer getClVenueId() {
@@ -100,6 +110,21 @@ public class Course implements Serializable{
 		this.clVenueId = clVenueId;
 		this.venue = new Venue();
 		this.setRoomId(clVenueId);
+	}
+
+	public Course(Integer openCourse, Product cProduct, Integer hours, Date startDate, Date endDate, Venue venue, Set<CourseTime> courseTimes, Integer clVenueId, Integer applicants, String teacher, String note, Set<Register> registers) {
+		this.openCourse = openCourse;
+		this.cProduct = cProduct;
+		this.hours = hours;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.venue = venue;
+		this.courseTimes = courseTimes;
+		this.clVenueId = clVenueId;
+		this.applicants = applicants;
+		this.teacher = teacher;
+		this.note = note;
+		this.registers = registers;
 	}
 
 	public Course(Integer openCourse, Product cProduct, Integer hours, Date startDate, Date endDate, Venue venue, Set<CourseTime> courseTimes, Integer clVenueId, Integer applicants, String teacher, String note) {
@@ -210,6 +235,7 @@ public class Course implements Serializable{
 				", applicants=" + applicants +
 				", teacher='" + teacher + '\'' +
 				", note='" + note + '\'' +
+				", registers=" + registers +
 				'}';
 	}
 }

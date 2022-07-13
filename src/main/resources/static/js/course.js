@@ -48,8 +48,6 @@ function checkForm() {
             return checkResult;
         }
 
-
-   // return checkResult;
 }
 
 $('#InputCourseProduct').click(function () {
@@ -169,7 +167,26 @@ $(document).ready(function() {
 		order: [ 1, 'asc' ],
 	} );
 });
+$(document).ready(function() {
+	$('#registerTable').DataTable( {
+		language: {
+			url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+		},
+		responsive: {
+			details: {
+				type: 'column'
+			}
+		},
+		columnDefs: [{
+			className: 'dtr-control',
+			orderable: false,
+			targets: 0,
+		}],
+		order: [ 1, 'asc' ],
+	} );
+});
 
+//刪除開課資料
 function deleteCourseAlert(openCourse) {
 	Swal.fire({
 		title: '請問是否要刪除此筆開課資料?',
@@ -212,6 +229,67 @@ function deleteCourseAlert(openCourse) {
 	})
 }
 
+//刪除報名資料
+function deleteRegisterAlert(registerId) {
+	Swal.fire({
+		title: '請問是否要刪除此筆報名資料?',
+		text: "",
+		icon: 'warning',
+		showCancelButton: true,
+		cancelButtonText: '取消',
+		confirmButtonColor: '#ff0000',
+		cancelButtonColor: '#3085d6',
+		confirmButtonText: '刪除'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "POST",
+				url: './DeleteRegister?registerId=' + registerId,
+				success: function (msg) {
+					Swal.fire(
+						'已刪除!',
+						'報名資料已成功刪除!',
+						'success'
+					).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+				},
+				error: function (msg) {
+					// console.log(msg.status)
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤',
+						text: 'HTTP 狀態碼為 ' + msg.status,
+						footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+					})
+				}
+			});
+
+
+		}
+	})
+}
+//跳出新增報名
+function CreateRegister(){
+	Swal.showLoading()
+	fetch('./CreateRegister')
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '新增報名',
+				icon: 'info',
+				html:data,
+				width: '40%',
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+		});
+}
 //跳出新增課程時間清單
 function CreateCourseTime(ctimeId){
 	Swal.showLoading()

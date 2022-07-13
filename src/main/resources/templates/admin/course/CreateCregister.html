@@ -1,0 +1,63 @@
+
+
+<form th:action="@{CreateRegister}" method="post" th:object="${register}">
+
+  <!-- 課程開課編號: -->
+<!--  <div class="row mb-3">-->
+<!--    <label for="openCourse" class="col-sm-2 col-form-labels">課程開課編號:</label>-->
+<!--    <div class="col-sm-10">-->
+<!--      <input th:field="*{registerId}" type="text" class="form-control"-->
+<!--             name="openCourse" id="openCourse" th:readonly="true"/>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- 使用者: -->
+  <div class="row mb-3">
+    <label for="ctimeNo" class="col-sm-2 col-form-labels">使用者:</label>
+    <div class="col-sm-10">
+      <input th:field="*{user.userId}" type="text" class="form-control"
+                  name="ctimeNo" id="ctimeNo" placeholder="請輸入使用者編號"
+                  required="required" />
+    </div>
+  </div>
+
+  <!-- 報名時間: -->
+  <div class="row mb-3">
+    <label for="registerDate" class="col-sm-2 col-form-labels">報名時間:</label>
+    <div class="col-sm-10">
+      <input th:field="*{registerDate}" type="datetime-local" class="form-control"
+                  name="registerDate" id="registerDate" required="required"/>
+      <span class="show" id="s_lDate"></span>
+    </div>
+  </div>
+
+  <!-- 人數: -->
+  <div class="row mb-3">
+    <label for="attendance" class="col-sm-2 col-form-labels">參加總人數:</label>
+    <div class="col-sm-10">
+      <input th:field="*{attendance}" type="text" class="form-control"
+             name="attendance" id="attendance" placeholder="請輸入參加人數"/>
+    </div>
+  </div>
+
+  <!-- 狀態: -->
+  <div class="row mb-3">
+    <label for="state" class="col-sm-2 col-form-labels">狀態:</label>
+    <div class="col-sm-10">
+      <input th:field="*{state}" type="text" class="form-control"
+             name="state" id="state" placeholder="請輸入狀態"/>
+    </div>
+  </div>
+
+  <!-- 課程開課編號: -->
+  <div class="row mb-3">
+    <label for="course" class="col-sm-2 col-form-labels">課程開課編號:</label>
+    <div class="col-sm-10">
+      <input th:field="*{course.openCourse}" type="text" class="form-control"
+             name="course" id="course" placeholder="請輸入課程開課編號"/>
+    </div>
+  </div>
+
+  <button type="submit" id="submit_List" class="btn btn-primary">建立清單</button>
+
+</form>
