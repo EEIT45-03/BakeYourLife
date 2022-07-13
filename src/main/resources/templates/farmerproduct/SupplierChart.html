@@ -56,7 +56,7 @@
             <!-- Begin Page Content -->
             <div class="row">
                 <div th:replace="farmerproduct/SupplierSidebar.html"></div>
-
+                <input type="hidden" id="userId" th:value="${user.userId}">
                 <!-- Page Heading -->
                 <div class="col-lg-10 chartblock">
 
@@ -97,7 +97,7 @@
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 商品總數
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${count}"
                                             ></div>
                                         </div>
                                         <div class="col-auto">
@@ -198,8 +198,8 @@
         // Set new default font family and font color to mimic Bootstrap's default styling
         Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.color = '#858796';
-
-        fetch('[[@{/FarmerProductSupplier/typeAmount}]]')
+        let id =$("#userId").val();
+        fetch('[[@{/FarmerProductSupplier/typeAmountByFarmerId/}]]'+id)
             .then(response => response.json())
             .then(res => {
                 console.log(res);

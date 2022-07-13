@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,12 @@ import java.util.List;
 public class FarmerProductController {
 
     FarmerProductService farmerProductService;
-
+    UserService userService;
 
     @Autowired
-    public FarmerProductController(FarmerProductService farmerProductService) {
+    public FarmerProductController(FarmerProductService farmerProductService, UserService userService) {
         this.farmerProductService = farmerProductService;
+        this.userService = userService;
     }
 
     @GetMapping("/FarmerProducts/{type}")
@@ -58,6 +60,9 @@ public class FarmerProductController {
         Date date = new Date();
         farmerProductBean.setLaunchedTime(date);
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+
+        farmerProductBean.setUser(userService.findByUserId(farmerProductBean.getUserId()));
+
         farmerProductService.insert(farmerProductBean);
 
 
@@ -89,6 +94,7 @@ public class FarmerProductController {
 
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);
         farmerProductBean.setFarmerProductId(id);
+        farmerProductBean.setUser(userService.findByUserId(farmerProductBean.getUserId()));
 
 
         FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(id);

@@ -322,6 +322,7 @@
                                    value="">
                             <input type="hidden" th:field="*{violationTime}" name="violationTime" id="violationTime"
                                    value="">
+                            <input type="hidden" name="userId" id="userId" th:value="*{user.userId}">
 
                             <button class="btn btn-primary"
                                     th:onclick="|sendupdate(*{farmerProductId})|">確認修改

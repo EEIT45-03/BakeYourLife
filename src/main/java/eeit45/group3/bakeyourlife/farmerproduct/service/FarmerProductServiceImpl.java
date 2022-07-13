@@ -24,6 +24,11 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public List<FarmerProductBean> findByUserId(Integer userId) {
+        return farmerProductRepository.findByUserUserId(userId);
+    }
+
+    @Override
     public List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state) {
         return farmerProductRepository.findByStateOrderByLaunchedTimeDesc(state);
     }
@@ -41,6 +46,11 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     @Override
     public Long count() {
         return farmerProductRepository.count();
+    }
+
+    @Override
+    public Long countByFarmerId(Integer id) {
+        return farmerProductRepository.countByUserUserId(id);
     }
 
     @Override

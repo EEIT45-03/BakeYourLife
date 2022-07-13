@@ -2,14 +2,14 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -18,35 +18,57 @@ public class FarmerProductSupplierController {
 
     FarmerProductService farmerProductService;
 
+    UserService userService;
+
     @Autowired
-    public FarmerProductSupplierController(FarmerProductService farmerProductService) {
+    public FarmerProductSupplierController(FarmerProductService farmerProductService, UserService userService) {
         this.farmerProductService = farmerProductService;
+        this.userService = userService;
     }
+
 
     @GetMapping("/")
-    public String viewChart() {
-
-        return "farmerproduct/SupplierChart";
+    public String viewChart(Principal principal, Model model) {
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            model.addAttribute("user", user);
+            Long count = farmerProductService.countByFarmerId(user.getUserId());
+            model.addAttribute("count", count);
+            return "farmerproduct/SupplierChart";
+        }
+        return "redirect:/login";
     }
 
 
-    @GetMapping("/SupplierProductList")
-    public String viewProductList(Model model) {
-        List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
+    @GetMapping("SupplierProductList")
+    public String viewProductList(Model model, Principal principal) {
 
-        model.addAttribute("farmerProductBeans", farmerProductBeans);
-//        return "admin/farmerproduct/FarmerProductSupplier";
-        return "farmerproduct/SupplierProductList";
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            model.addAttribute("user", user);
+            List<FarmerProductBean> farmerProductBeans = farmerProductService.findByUserId(user.getUserId());
+            model.addAttribute("farmerProductBeans", farmerProductBeans);
+            return "farmerproduct/SupplierProductList";
+        }
+        return "redirect:/login";
+
     }
 
-    @GetMapping("/SupplierProductList/CreateFarmerProduct")
-    public String viewCreateFarmerProduct(Model model) {
-        model.addAttribute("farmerProductBean", new FarmerProductBean());
-        return "farmerproduct/CreateFarmerProduct";
+    @GetMapping("SupplierProductList/CreateFarmerProduct")
+    public String viewCreateFarmerProduct(Model model, Principal principal) {
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            model.addAttribute("user", user);
+            model.addAttribute("farmerProductBean", new FarmerProductBean());
+            return "farmerproduct/CreateFarmerProduct";
+
+        }
+        return "redirect:/login";
+
     }
 
 
-    @GetMapping("/SupplierProductList/UpdateFarmerProduct")
+    @GetMapping("SupplierProductList/UpdateFarmerProduct")
     private String viewUpdateFarmerProduct(@RequestParam Integer farmerProductId, Model model) {
 
         FarmerProductBean farmerProductBean = null;
@@ -59,28 +81,6 @@ public class FarmerProductSupplierController {
 
         return "farmerproduct/UpdateFarmerProduct";
 
-    }
-
-    @GetMapping("/ShopDetails/{id}")
-    private String ShopDetails(@PathVariable Integer id, Model model) {
-        FarmerProductBean farmerProductBean = null;
-
-        if (id != null) {
-            farmerProductBean = farmerProductService.findByFarmerProductId(id);
-        }
-
-        model.addAttribute(farmerProductBean);
-
-        return "farmerproduct/FarmerProductShopDetails";
-    }
-
-    @GetMapping("/ShopGrid")
-    private String ShopGrid(Model model) {
-        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateOrderByLaunchedTimeDesc(0);
-
-        model.addAttribute(farmerProductBeanList);
-
-        return "farmerproduct/FarmerProductShopGrid";
     }
 
 

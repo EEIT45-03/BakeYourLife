@@ -116,7 +116,7 @@ $(document).ready(function () {
         if ($(".imgUp").length < 3) {
             $(".imgAdd")
                 .before(`<div class=" imgUp" id="imgdiv" >
-											<img id="img" class="imagePreview"  src="/img/logo4.png"><br>
+											<img id="img" class="imagePreview"  src="/img/logo6.png"><br>
 											<label class="btn btn-primary imgbtn">
 												選擇圖片
 												<input type="file" class="uploadFile"
@@ -259,6 +259,7 @@ function sendupdate(farmerProductId) {
 function getFarmerProduct() {
 
 
+    let userId = $("#userId").val();
     let type = $("#type").val();
     let name = $.trim($("#name").val());
     let price = $.trim($("#price").val());
@@ -276,6 +277,7 @@ function getFarmerProduct() {
     });
 
     let FarmerProduct = {
+        "userId": userId,
         "type": type,
         "name": name,
         "price": price,

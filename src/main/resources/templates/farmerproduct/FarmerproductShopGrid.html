@@ -334,15 +334,15 @@
                 <!--              右邊下面的排序那排開始-->
                 <div class="filter__item">
                     <div class="row">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="filter__sort">
-                                <span>排序</span>
-                                <select>
-                                    <option value="0">新到舊</option>
-                                    <option value="1">舊到新</option>
-                                </select>
-                            </div>
-                        </div>
+                        <!--                        <div class="col-lg-4 col-md-5">-->
+                        <!--                            <div class="filter__sort">-->
+                        <!--                                <span>排序</span>-->
+                        <!--                                <select id="sort">-->
+                        <!--                                    <option value="new">新到舊</option>-->
+                        <!--                                    <option value="old">舊到新</option>-->
+                        <!--                                </select>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found" id="countDiv">
                                 <h6>共 <span th:text="${farmerProductBeanList.size()}"></span>項商品</h6>
@@ -361,15 +361,17 @@
                     <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${farmerProductBeanList}">
                         <div class="product__item">
                             <div class="product__item__pic set-bg"
-                                 th:data-setbg="${not #lists.isEmpty(bean.farmerProductPicList)}?${bean.farmerProductPicList[0].pictureLink }:'/img/logo5.jpg'">
+                                 th:data-setbg="${not #lists.isEmpty(bean.farmerProductPicList)}?${bean.farmerProductPicList[0].pictureLink }:'/img/logo6.png'">
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#" th:onclick="|add('F',${bean.farmerProductId})|"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" th:onclick="|add('F',${bean.farmerProductId})|"><i
+                                            class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a th:href="@{ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
+                                <h6>
+                                    <a th:href="@{ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
                                        th:text="${bean.name}"></a>
                                 </h6>
                                 <h5 th:text="|NT$${bean.price}|"></h5>
@@ -394,6 +396,8 @@
 
 <script>
 
+
+    //類型
     function showByType(type) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {

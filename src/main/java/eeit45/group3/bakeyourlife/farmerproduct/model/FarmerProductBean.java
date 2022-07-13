@@ -10,18 +10,30 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "FarmerProduct")
+@JsonIgnoreProperties("user")
 public class FarmerProductBean implements Serializable, CartItem {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer farmerProductId; // 小農商品Id
+
+    //  暫時拿一般會員測試測試!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Transient
+    private Integer userId;
+    //---------------------------------------------------------------
     @NotBlank(message = "類型不可為空")
     private String type;// 產品類型
     @NotBlank(message = "名稱不可為空")
@@ -60,8 +72,10 @@ public class FarmerProductBean implements Serializable, CartItem {
 
     }
 
-    public FarmerProductBean(Integer farmerProductId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> base64, List<ProductComment> productCommentList) {
+    public FarmerProductBean(Integer farmerProductId, User user, Integer userId, String type, String name, Integer price, Integer quantity, String storage, String contents, String description, Date launchedTime, Date suspendTime, Date violationTime, Integer state, List<FarmerProductPic> farmerProductPicList, List<String> base64, List<ProductComment> productCommentList) {
         this.farmerProductId = farmerProductId;
+        this.user = user;
+        this.userId = userId;
         this.type = type;
         this.name = name;
         this.price = price;
@@ -78,12 +92,28 @@ public class FarmerProductBean implements Serializable, CartItem {
         this.productCommentList = productCommentList;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public Integer getFarmerProductId() {
         return farmerProductId;
     }
 
     public void setFarmerProductId(Integer farmerProductId) {
         this.farmerProductId = farmerProductId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getType() {
