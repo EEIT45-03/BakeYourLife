@@ -1,7 +1,9 @@
 package eeit45.group3.bakeyourlife.venue.service.impl;
 
 import eeit45.group3.bakeyourlife.venue.dao.VenueRepository;
+import eeit45.group3.bakeyourlife.venue.dao.VenueSortRepository;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,60 +17,89 @@ public class VenueSerivceImpl implements VenueService {
 
     private VenueRepository venueRepository;
 
+    private VenueSortRepository venueSortRepository;
 
     @Autowired
-    public VenueSerivceImpl(VenueRepository venueRepository) {
+    public VenueSerivceImpl(VenueRepository venueRepository, VenueSortRepository venueSortRepository) {
         this.venueRepository = venueRepository;
+        this.venueSortRepository = venueSortRepository;
     }
 
-    //查詢全部的教室
+    //查詢全部的場地
     @Override
     public List<Venue> findAllVenue() {
         return venueRepository.findAll();
     }
 
-    //查詢全部的教室,依教室名稱遞增排列
+    //查詢全部的場地,依場地名稱遞增排列
     @Override
     public List<Venue> findByOrderByVenueNameAsc() {
         return venueRepository.findByOrderByVenueNameAsc();
     }
 
-    //查詢全部的教室名稱
+    //查詢全部的場地名稱
     public List<String> findAllVenueName(){return venueRepository.findAllVenueName();}
 
-    //依教室ID查詢教室
+    //依種類查詢全部的場地
+    public List<Venue> findAllByVenueSort(String sort){
+        VenueSort sortDb = venueSortRepository.findBySort(sort);
+        return venueRepository.findByVenueSort(sortDb);
+    }
+
+    //依種類與名稱查詢全部的場地
+    public List<Venue> findAllByVenueNameAndVenueSort(String venueName, String sort){
+        VenueSort sortDb = venueSortRepository.findBySort(sort);
+        return venueRepository.findAllByVenueNameAndVenueSort(venueName,sortDb);
+    }
+
+    //依場地ID查詢場地
     @Override
     public Venue findByVenueId(Integer venueId) {
         return venueRepository.findById(venueId).orElse(null);
     }
 
-    //依教室名稱查詢教室
+    //依場地名稱查詢場地
     @Override
     public Venue findByVenueName(String venueName) {
         return venueRepository.findByVenueName(venueName);
     }
 
-    //新增教室
+    //新增場地
     @Override
     @Transactional
     public Venue createVenue(Venue venue) {
-
+        VenueSort sortDb = venueSortRepository.findBySort(venue.getVenueSort().getSort());
+        venue.setVenueSort(sortDb);
         return venueRepository.save(venue);
     }
 
 
-    //更新教室
+    //更新場地
     @Override
     @Transactional
     public Venue updateVenue(Venue venue) {
+        VenueSort sortDb = venueSortRepository.findBySort(venue.getVenueSort().getSort());
+        venue.setVenueSort(sortDb);
         return venueRepository.save(venue);
     }
 
-    //刪除教室
+    //刪除場地
     @Override
     @Transactional
     public void deleteVenue(Integer venueId) {
         venueRepository.deleteById(venueId);
+    }
+
+    //查詢全部場地種類
+    @Override
+    @Transactional
+    public List<VenueSort> findAllVenueSort() {
+       return venueSortRepository.findAll();
+    }
+
+    @Override
+    public List<Venue> findByVenueTopThree() {
+        return venueRepository.findByVenueTopThree();
     }
 
     @Override

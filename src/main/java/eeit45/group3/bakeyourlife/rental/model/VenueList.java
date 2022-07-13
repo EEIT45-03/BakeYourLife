@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,6 +41,7 @@ public class VenueList implements Serializable {
 	private String venueListNo;
 	
 	//租借場地
+	@JsonBackReference
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
 	private Venue venue;
@@ -67,6 +69,7 @@ public class VenueList implements Serializable {
 	private Integer price;
 	
 	//租借單
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.PERSIST )
 	@JoinColumn(name="FK_rentalId", referencedColumnName = "rentalId", nullable = false)
 	private Rental rental;

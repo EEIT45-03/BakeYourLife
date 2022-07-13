@@ -44,86 +44,32 @@
             <div class="sidebar">
                 <div class="sidebar__item">
                     <h4>場地</h4>
-                    <ul>
-                        <li><a href="#">個人烘培場</a></li>
-                        <li><a href="#">小家庭烘培場</a></li>
-                        <li><a href="#">大家庭烘培場</a></li>
-                        <li><a href="#">一般烘培場</a></li>
+                    <ul id="ul_vSort">
+
                     </ul>
                     <br>
                     <br>
                     <h4>器材</h4>
-                    <ul>
-                        <li><a href="#">烘培電器</a></li>
-                        <li><a href="#">烘培模具</a></li>
-                        <li><a href="#">食品測量工具</a></li>
-                        <li><a href="#">其他</a></li>
+                    <ul id="ul_tSort">
+
                     </ul>
                 </div>
 
                 <div class="sidebar__item">
+
                     <div class="latest-product__text">
                         <h4>熱門</h4>
+
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>個人烘培場B201</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>個人烘培場B202</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>小家庭烘培場B301</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
+                            <div class="latest-prdouct__slider__item" id="hot_v">
+
+
                             </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>烤箱</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>模具</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>打蛋機</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
+                            <div class="latest-prdouct__slider__item" id="hot_t">
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -146,7 +92,7 @@
                             <div class="product__item__text">
                                 <div class="product__item__pic set-bg" th:data-setbg="${venue.picture}"></div>
                                 <h6><a href="#" th:text="${venue.venueName}"></a></h6>
-                                <h5 th:text="|$${venue.hrPrice}/天|"></h5>
+                                <h5 th:text="|${venue.hrPrice}/天|"></h5>
                             </div>
                         </div>
                     </div>
@@ -176,7 +122,7 @@
                             <div class="product__item__text">
                                 <div class="product__item__pic set-bg" th:data-setbg="${tackle.picture}"></div>
                                 <h6><a href="#" th:text="${tackle.tackleName}"></a></h6>
-                                <h5 th:text="|$${tackle.dayPrice}/天|"></h5>
+                                <h5 th:text="|${tackle.dayPrice}/天|"></h5>
                             </div>
                         </div>
                     </div>
@@ -196,10 +142,94 @@
 </div>
 </section>
 <!-- Rental Section End -->
-
-
 <div th:replace="/footer.html"></div>
 
+<div th:replace="/admin/javascript.html"></div>
+
+<script>
+    getVenueSort();
+    getTackleSort();
+    getVenueTopThree()
+    $(document).ready(function () {
+        $('body').on('change', function () {
+            getVenueSort();
+            getTackleSort();
+            getVenueTopThree();
+        })
+    });
+
+    function getVenueSort(){
+        fetch('/VenueSorts')
+            .then(response => response.json())
+            .then(data => {
+                let ul_vSort = "";
+                for(let sort of data){
+                    ul_vSort = ul_vSort + "<li><a href='/Venue?venueSortId="+ sort.venueSortId + "'>" + sort.sort + "</a></li>";
+                }
+
+                $('#ul_vSort').append(ul_vSort);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
+
+    function getTackleSort(){
+        fetch('/TackleSorts')
+            .then(response => response.json())
+            .then(data => {
+                let ul_tSort = "";
+                for(let sort of data){
+                    ul_tSort = ul_tSort + "<li><a href='/Tackle?tackleSortId="+ sort.tackleSortId + "'>" + sort.sort + "</a></li>";
+                }
+                $('#ul_tSort').append(ul_tSort);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
+
+    function getVenueTopThree(){
+        fetch('/TopThree/Venue')
+            .then(response => response.json())
+            .then(data => {
+                let hot_v = "";
+                for(let venue of data){
+                    hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
+                                        "<div class='latest-product__item__pic'>"+
+                                            "<img src='" + venue.picture + "' alt=''>"+
+                                        "</div>"+
+                                        "<div class='latest-product__item__text'>"+
+                                            "<h6>" + venue.venueName + "</h6>"+
+                                            "<h6>" + venue.venueSort.sort + "</h6>"+
+                                            "<span>$"+ venue.hrPrice +"/時</span>"+
+                                        "</div>"+
+                                    "</a>";
+                }
+                console.log(hot_v)
+                $('#hot_v').append(hot_v);
+
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
+
+</script>
 </body>
 
 </html>
+//let vsort = fetch('/VenueSort')
+//     .then((response) => {
+//        return response.json()
+//        console.log(response)
+//     })
+
+
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714001', '2022-07-12', '08:00-12:00', 1, 200, 'Y', 2, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714002', '2022-07-16', '08:00-12:00', 1, 200, 'N', 4, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714003', '2022-07-20', '12:00-16:00', 1, 200, 'Y', 4, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714004', '2022-07-20', '08:00-20:00', 1, 600, 'N', 7, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714005', '2022-07-18', '08:00-20:00', 1, 600, 'Y', 7, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714006', '2022-07-21', '08:00-12:00', 1, 200, 'N', 3, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714007', '2022-07-26', '08:00-16:00', 1, 400, 'N', 2, 1)-->

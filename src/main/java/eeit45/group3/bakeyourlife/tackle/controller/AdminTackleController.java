@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.tackle.controller;
 
-import eeit45.group3.bakeyourlife.rental.dto.TackleRequest;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import org.springframework.beans.factory.annotation.Autowired;
