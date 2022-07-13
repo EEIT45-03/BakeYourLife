@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
+
+    public Rental findByRentalNo(String rentalNo);
     public List<Rental> findAllByType(String type);
 
     public List<Rental> findAllByRentalNoStartingWith(String rentalNo);

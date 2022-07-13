@@ -1,11 +1,14 @@
 package eeit45.group3.bakeyourlife.course.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
+import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.model.Rental;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

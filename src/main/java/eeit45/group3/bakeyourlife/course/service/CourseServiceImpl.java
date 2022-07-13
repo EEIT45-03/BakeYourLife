@@ -15,6 +15,7 @@ import eeit45.group3.bakeyourlife.rental.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,20 +31,20 @@ public class CourseServiceImpl implements CourseService {
 
 	RentalService rentalService;
 	UserService userService;
+	VenueService venueService;
 
 	CourseTimeRepository courseTimeRepository;
 	RegisterRepository registerRepository;
 
-	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
+	@Autowired
+	public CourseServiceImpl(CourseRepository courseRepository, VenueService venueService,RentalService rentalService, UserService userService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
 		this.courseRepository = courseRepository;
 		this.rentalService = rentalService;
 		this.userService = userService;
+		this.venueService = venueService;
 		this.courseTimeRepository = courseTimeRepository;
 		this.registerRepository = registerRepository;
 	}
-
-	@Autowired
-
 
 	//--------Course課程-----------
 	@Override
@@ -76,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Transactional
 	public void createCourse(Course course) {
-		Venue venue = rentalService.findByVenueId(course.getRoomId());
+		Venue venue = venueService.findByVenueId(course.getRoomId());
 		course.setRoom(venue);
 		courseRepository.save(course);
 

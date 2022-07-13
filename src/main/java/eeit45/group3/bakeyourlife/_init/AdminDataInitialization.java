@@ -1,6 +1,6 @@
 //package eeit45.group3.bakeyourlife._init;
 //
-//import eeit45.group3.bakeyourlife.rental.model.Venue;
+//import eeit45.group3.bakeyourlife.venue.model.Venue;
 //import eeit45.group3.bakeyourlife.rental.service.RentalService;
 //import eeit45.group3.bakeyourlife.user.model.User;
 //import eeit45.group3.bakeyourlife.user.service.UserService;
