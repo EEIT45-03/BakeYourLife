@@ -7,7 +7,7 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href=href="/"><img src="/img/logo3.png" alt=""></a>
+        <a href=href="/"><img src="/img/logo7.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
@@ -60,18 +60,18 @@
             </li>
             <li><a href="#">課程</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">課程選單A</a></li>
+                    <li><a th:href="@{/Course}">課程總覽</a></li>
                     <li><a href="#">課程選單B</a></li>
                     <li><a href="#">課程選單C</a></li>
                     <li><a href="#">課程選單D</a></li>
                 </ul>
             </li>
-            <li><a href="#">器材場地租借</a>
+            <li><a href="#">租借</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">租借選單A</a></li>
-                    <li><a href="#">租借選單B</a></li>
-                    <li><a href="#">租借選單C</a></li>
-                    <li><a href="#">租借選單D</a></li>
+                    <li><a href="#">場地租借</a></li>
+                    <li><a href="/Venue/">場地介紹</a></li>
+                    <li><a href="#">器材租借</a></li>
+                    <li><a href="#">器材介紹</a></li>
                 </ul>
             </li>
 
@@ -97,7 +97,7 @@
                     <li><a href="/user/profile">個人資料</a></li>
                     <li><a href="/user/profile">喜愛清單</a></li>
                     <li><a href="/user/order">購買清單</a></li>
-                    <li><a href="./checkout.html">我的優惠卷</a></li>
+<!--                    <li><a href="./checkout.html">我的優惠卷</a></li>-->
                     <li><a href="./blog-details.html">我的課程</a></li>
                     <li><a href="./blog-details.html">我的租借</a></li>
                 </ul>
@@ -105,9 +105,10 @@
             <li><a href="#">小農廠商</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}" sec:authentication="name"></a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">小農廠商資料</a></li>
-                    <li><a href="#">小農商品清單</a></li>
-                    <li><a href="#">小農訂單紀錄</a></li>
+                    <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
+                    <li><a href="#">廠商資料</a></li>
+                    <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
+                    <li><a href="#">訂單紀錄</a></li>
                 </ul>
             </li>
             <li><a href="./contact.html">Contact</a></li>
@@ -173,7 +174,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="/"><img src="/img/logo3.png" alt=""></a>
+                    <a href="/"><img src="/img/logo8.png" style="border-radius: 8px" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -197,18 +198,18 @@
                         </li>
                         <li><a href="#">課程</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">課程選單A</a></li>
+                                <li><a th:href="@{/Course}">課程總覽</a></li>
                                 <li><a href="#">課程選單B</a></li>
                                 <li><a href="#">課程選單C</a></li>
                                 <li><a href="#">課程選單D</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">器材場地租借</a>
+                        <li><a href="#">租借</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">租借選單A</a></li>
-                                <li><a href="#">租借選單B</a></li>
-                                <li><a href="#">租借選單C</a></li>
-                                <li><a href="#">租借選單D</a></li>
+                                <li><a href="#">場地租借</a></li>
+                                <li><a href="/Venue/">場地介紹</a></li>
+                                <li><a href="#">器材租借</a></li>
+                                <li><a href="#">器材介紹</a></li>
                             </ul>
                         </li>
                         <!--                        <li><a href="#">Pages</a>-->
@@ -232,7 +233,7 @@
                                 <li><a href="/user/profile">個人資料</a></li>
                                 <li><a href="/user/profile">喜愛清單</a></li>
                                 <li><a href="/user/order">購買清單</a></li>
-                                <li><a href="./checkout.html">我的優惠卷</a></li>
+<!--                                <li><a href="./checkout.html">我的優惠卷</a></li>-->
                                 <li><a href="./blog-details.html">我的課程</a></li>
                                 <li><a href="./blog-details.html">我的租借</a></li>
                             </ul>
@@ -240,9 +241,10 @@
                         <li sec:authorize="isAuthenticated()"><a th:href="@{/FarmerProductSupplier/}"
                                                                  sec:authentication="name"></a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">小農廠商資料</a></li>
-                                <li><a href="#">小農商品清單</a></li>
-                                <li><a href="#">小農訂單紀錄</a></li>
+                                <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
+                                <li><a href="#">廠商資料</a></li>
+                                <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
+                                <li><a href="#">訂單紀錄</a></li>
                             </ul>
                         </li>
                         <li sec:authorize="isAuthenticated()"><a href="/user" sec:authentication="name"></a>

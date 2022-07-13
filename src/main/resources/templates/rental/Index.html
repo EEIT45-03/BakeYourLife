@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>租借首頁</title>
+
+    <div th:replace="/css.html"></div>
+
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Hero Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>租借首頁</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">首頁</a>
+                        <span>租借</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Rental Section Begin -->
+<section class="product spad">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-5">
+            <div class="sidebar">
+                <div class="sidebar__item">
+                    <h4>場地</h4>
+                    <ul>
+                        <li><a href="#">個人烘培場</a></li>
+                        <li><a href="#">小家庭烘培場</a></li>
+                        <li><a href="#">大家庭烘培場</a></li>
+                        <li><a href="#">一般烘培場</a></li>
+                    </ul>
+                    <br>
+                    <br>
+                    <h4>器材</h4>
+                    <ul>
+                        <li><a href="#">烘培電器</a></li>
+                        <li><a href="#">烘培模具</a></li>
+                        <li><a href="#">食品測量工具</a></li>
+                        <li><a href="#">其他</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar__item">
+                    <div class="latest-product__text">
+                        <h4>熱門</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>個人烘培場B201</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>個人烘培場B202</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>小家庭烘培場B301</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>烤箱</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>模具</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>打蛋機</h6>
+                                        <span>$30.00</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-7">
+            <div class="product__discount">
+                <div class="section-title product__discount__title">
+                    <h2>場地</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6" th:each="venue : ${venues}">
+                        <div class="product__item">
+<!--                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">-->
+<!--                                <ul class="product__item__pic__hover">-->
+<!--                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
+<!--                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+<!--                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+                            <div class="product__item__text">
+                                <div class="product__item__pic set-bg" th:data-setbg="${venue.picture}"></div>
+                                <h6><a href="#" th:text="${venue.venueName}"></a></h6>
+                                <h5 th:text="|$${venue.hrPrice}/天|"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product__discount">
+                <div class="section-title product__discount__title">
+                    <h2>器材</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6" th:each="tackle : ${tackles}">
+                        <div class="product__item">
+                            <!--                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">-->
+                            <!--                                <ul class="product__item__pic__hover">-->
+                            <!--                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
+                            <!--                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+                            <!--                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
+                            <!--                                </ul>-->
+                            <!--                            </div>-->
+                            <div class="product__item__text">
+                                <div class="product__item__pic set-bg" th:data-setbg="${tackle.picture}"></div>
+                                <h6><a href="#" th:text="${tackle.tackleName}"></a></h6>
+                                <h5 th:text="|$${tackle.dayPrice}/天|"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+
+            </div>
+
+
+    </div>
+</div>
+</section>
+<!-- Rental Section End -->
+
+
+<div th:replace="/footer.html"></div>
+
+</body>
+
+</html>

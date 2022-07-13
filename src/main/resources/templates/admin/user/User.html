@@ -12,7 +12,7 @@
     <title>會員管理</title>
 
     <!--  modal  -->
-    <div th:replace="/admin/css.html"></div>
+    <div th:replace="admin/css.html"></div>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -118,7 +118,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <div th:replace="/admin/sidebar.html"></div>
+    <div th:replace="admin/sidebar.html"></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -126,7 +126,7 @@
         <!-- Main Content -->
         <div id="content">
 
-            <div th:replace="/admin/header.html"></div>
+            <div th:replace="admin/header.html"></div>
 
 
             <div id="myModal" class="modal fade">
@@ -162,14 +162,14 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">會員管理</h1>
+                <h1 class="h3 mb-4 text-gray-800">會員</h1>
                 <p class="mb-4">
                     <a href="CreateUser" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
 						</span> <span class="text">新增會員</span>
                     </a>
                     <a href="/" class="btn btn-primary btn-icon-split btn-sm">
-							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
+							<span class="icon text-white-50"> <i class="fas fa-fw fa-tachometer-alt"></i>
 						</span> <span class="text">回前台首頁</span>
                     </a>
 
@@ -218,7 +218,7 @@
                                     <td></td>
                                     <td th:text="${user.userId}"></td>
                                     <td>
-                                        <img width='70' height='72' th:src="@{/admin/User/picture(userId=${user.userId})}">
+                                        <img width='70' height='72' th:src="${user.imageUrl}">
                                     </td>
                                     <td th:text="${user.fullName}"></td>
                                     <td th:text="${user.email}"></td>
@@ -262,7 +262,7 @@
         <!-- End of Main Content -->
 
 
-        <div th:replace="/admin/footer.html"></div>
+        <div th:replace="admin/footer.html"></div>
 
 
     </div>
@@ -272,7 +272,7 @@
 <!-- End of Page Wrapper -->
 
 
-<div th:replace="/admin/javascript.html"></div>
+<div th:replace="admin/javascript.html"></div>
 
 <script>
     //刪除訂單傳值

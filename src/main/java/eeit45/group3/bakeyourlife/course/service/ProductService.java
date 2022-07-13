@@ -1,16 +1,11 @@
 package eeit45.group3.bakeyourlife.course.service;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.repository.ProductRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 
 
 @Service
@@ -18,22 +13,13 @@ public class ProductService {
 	@Autowired
 	private ProductRepositry productRepo;
 	
-	public void  saveProductToDB(MultipartFile file,String name,String description
-			,int price)
+	public void  saveProductToDB(String image,String name,String description, String summary,int price)
 	{
 		Product p = new Product();
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains(".."))
-		{
-			System.out.println("not a a valid file");
-		}
-		try {
-			p.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		p.setImage(image);
 		p.setDescription(description);
-		
+		p.setSummary(summary);
         p.setName(name);
         p.setPrice(price);
         
@@ -47,6 +33,15 @@ public class ProductService {
     {
     	productRepo.deleteById(id);
     }
+
+	public Product selectProductById(Long id)
+	{
+		Product p = new Product();
+		p = productRepo.findById(id).get();
+
+		return p;
+	}
+
     public void chageProductName(Long id ,String name)
     {
     	Product p = new Product();

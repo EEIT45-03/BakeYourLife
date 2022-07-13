@@ -11,7 +11,7 @@
 
     <title>課程管理</title>
 
-    <div th:replace="/admin/css.html"></div>
+    <div th:replace="admin/css.html"></div>
 </head>
 
 <body id="page-top">
@@ -19,7 +19,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <div th:replace="/admin/sidebar.html"></div>
+    <div th:replace="admin/sidebar.html"></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -27,7 +27,7 @@
         <!-- Main Content -->
         <div id="content">
 
-            <div th:replace="/admin/header.html"></div>
+            <div th:replace="admin/header.html"></div>
 
 
             <!-- Begin Page Content -->
@@ -63,13 +63,14 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th scope="col">課程代號</th>
-                                    <th scope="col">課程封面</th>
-                                    <th scope="col">課程名稱</th>
-                                    <th scope="col">課程資訊</th>
-                                    <th scope="col">課程價格</th>
-                                    <th scope="col">刪除課程</th>
-
+                                    <th >課程代號</th>
+                                    <th >課程封面</th>
+                                    <th >課程名稱</th>
+                                    <th >課程簡介</th>
+                                    <th >課程資訊</th>
+                                    <th >課程價格</th>
+                                    <th >刪除課程</th>
+<!--                                    scope="col"-->
                                 </tr>
                                 </thead>
 
@@ -77,8 +78,9 @@
                                 <tr th:each="product : ${products}">
                                     <td></td>
                                     <td>[[*{product.id}]]</td>
-                                    <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height: 100px;"></th>
+                                    <th scope="row"><img alt="" th:src="*{{product.image}}" style="width: 100px;height: 100px;"></th>
                                     <td>[[*{product.name}]]</td>
+                                    <td>[[*{product.summary}]]</td>
                                     <td>[[*{product.description}]]</td>
                                     <td>NT$[[*{product.price}]]</td>
                                     <td><a th:href="@{'deleteProd/{id}'(id=${product.id})}"
@@ -101,7 +103,7 @@
         <!-- End of Main Content -->
 
 
-        <div th:replace="/admin/footer.html"></div>
+        <div th:replace="admin/footer.html"></div>
 
 
     </div>
@@ -112,7 +114,7 @@
 
 
 
-<div th:replace="/admin/javascript.html"></div>
+<div th:replace="admin/javascript.html"></div>
 <script th:src="@{/js/course.js}"></script>
 </body>
 </html>

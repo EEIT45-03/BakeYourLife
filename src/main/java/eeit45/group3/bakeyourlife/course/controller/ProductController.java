@@ -6,6 +6,8 @@ import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.repository.ProductRepositry;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
+import eeit45.group3.bakeyourlife.utils.Image;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,14 +45,13 @@ public class ProductController {
 
 	@RequestMapping(value = "/addP", method = RequestMethod.POST)
     public String saveProduct(
-//			@RequestParam("file") MultipartFile file,
-//    		@RequestParam("pname") String name,
-//    		@RequestParam("price") Integer price,
-//    		@RequestParam("desc") String desc
 			@ModelAttribute Product product
 	)
     {
-    	productService.saveProductToDB(product.getFile(), product.getName(), product.getDescription(), product.getPrice());
+		Image image = ImgurService.updateByMultipartFile(product.getFile());
+		image.getLink();
+		System.out.println("圖片連結: " + image.getLink());
+		productService.saveProductToDB(image.getLink(), product.getName(), product.getDescription(), product.getSummary(), product.getPrice());
     	return "redirect:./listProducts";
     }
     
@@ -60,27 +61,6 @@ public class ProductController {
     	productService.deleteProductById(id);
     	return "redirect:/admin/Course/listProducts";
     }
-    
-    @PostMapping("/changeName")
-    public String changePname(@RequestParam("id") Long id,
-    		@RequestParam("newPname") String name)
-    {
-    	productService.chageProductName(id, name);
-    	return "redirect:/admin/Course/listProducts";
-    }
-    @PostMapping("/changeDescription")
-    public String changeDescription(@RequestParam("id") Long id ,
-    		@RequestParam("newDescription") String description)
-    {
-    	productService.changeProductDescription(id, description);
-    	return "redirect:/admin/course/listProducts";
-    }
-    
-    @PostMapping("/changePrice")
-    public String changePrice(@RequestParam("id") Long id ,
-    		@RequestParam("newPrice") int price)
-    {
-    	productService.changeProductPrice(id, price);
-    	return "redirect:/admin/course/listProducts";
-    }
+
+
 }
