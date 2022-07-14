@@ -4,34 +4,69 @@
            th:object="${rentalRequest}">
 
     <!-- 租借編號: -->
-    <p class="row mb-3">
-        <span class="col-sm-3">租借編號:</span> <span class="col-sm-9" th:text="*{rentalNo}"></span>
-    </p>
+    <div class="row mb-3">
+        <label for="mu_rNo" class="col-sm-3 col-form-labels">租借編號:</label>
+        <div class="col-sm-9">
+            <input th:field="*{rentalNo}" type="text" class="form-control" name="rentalNo"
+                   id="mu_rNo" th:readonly="true" />
+        </div>
+    </div>
 
     <!-- 租借類型: -->
-    <p class="row mb-3">
-        <span class="col-sm-3">租借類型:</span><span class="col-sm-9" th:text="*{listType}"></span>
-    </p>
+    <div class="row mb-3">
+        <label for="mu_type" class="col-sm-3 col-form-labels">租借類型:</label>
+        <div class="col-sm-9">
+            <input th:field="*{type}" type="text" class="form-control" name="type"
+                   id="mu_type" th:readonly="true" />
+        </div>
+    </div>
+
+    <!-- 下單日期: -->
+    <div class="row mb-3">
+        <label for="mu_rDate" class="col-sm-3 col-form-labels">下單日期:</label>
+        <div class="col-sm-9">
+            <input th:field="*{rentalDate}" type="text" class="form-control" name="rentalDate"
+                   id="mu_rDate" th:value="*{#dates.format(rentalDate, 'yyyy/MM/dd HH:mm:ss')}"
+                   th:readonly="true" />
+        </div>
+    </div>
 
     <!-- 會員: -->
     <div class="row mb-3">
-        <label for="userId" class="col-sm-3 col-form-labels">會員:</label>
+        <label for="mu_uId" class="col-sm-3 col-form-labels">會員:</label>
         <div class="col-sm-9">
-            <select th:field="*{userId}" type="text" class="form-control form-select mb-3" name="userId"
-                    id="userId" aria-label="Default select example">
+            <select th:field="*{user.userId}" type="text" class="form-control form-select mb-3" name="userId"
+                    id="mu_uId" aria-label="Default select example">
                 <option th:each="user1 : ${users}" th:value="${user1.userId}" th:text="${user1.username}"></option>
             </select>
         </div>
     </div>
 
+    <!-- 租借狀態: -->
+    <div class="row mb-3">
+        <label for="mu_sta" class="col-sm-3 col-form-labels">租借狀態:</label>
+        <div class="col-sm-9">
+            <select th:field="*{state}" type="text" class="form-control form-select mb-3"
+                    name="state" id="mu_sta" aria-label="Default select example">
+                <option th:value="未付款" th:text="未付款" selected></option>
+                <option th:value="已付款" th:text="已付款"></option>
+                <option th:value="已退單" th:text="已退單"></option>
+                <option th:value="已歸還" th:text="已歸還"></option>
+                <option th:value="未歸還" th:text="未歸還"></option>
+            </select>
+        </div>
+    </div>
+
+
     <!-- 總金額: -->
     <div class="row mb-3">
-        <label for="total" class="col-sm-3 col-form-labels">總金額:</label>
+        <label for="mu_tal" class="col-sm-3 col-form-labels">總金額:</label>
         <div class="col-sm-9">
-            <input th:field="*{total}" type="number" class="form-control" name="total" id="total" min="0"
+            <input th:field="*{total}" type="number" class="form-control" name="total" id="mu_tal" min="0"
                    required="required" />
         </div>
     </div>
+
     <button type="submit" class="btn btn-primary">修改租借單</button>
 </form>
 </div>

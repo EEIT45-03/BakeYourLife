@@ -13,6 +13,13 @@
   <title>器具管理</title>
 
   <div th:replace="admin/css.html"></div>
+
+  <style>
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -56,11 +63,17 @@
           </div>
 
           <form action="" class="form-inline">
-            <label for="tName" class="row-cols-1 col-form-labels">教室名稱:</label>
+            <label for="tName" class="row-cols-1 col-form-labels">器具名稱:</label>
             <select type="text" class="form-control form-select mb-sm-1"
                     th:name="tName" id="tName" aria-label="Default select example">
               <option value="">全部</option>
               <option th:each="tackleName : ${tackleNames}" th:text="${tackleName}"></option>
+            </select>
+            <label for="tSort" class="row-cols-1 col-form-labels">器具種類:</label>
+            <select type="text" class="form-control form-select mb-sm-1"
+                    th:name="tSort" id="tSort" aria-label="Default select example">
+              <option value="">全部</option>
+              <option th:each="sort : ${sorts}" th:text="${sort.sort}"></option>
             </select>
             <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
           </form>
@@ -75,14 +88,15 @@
                   <th></th>
                   <th>器具ID</th>
                   <th>器具名稱</th>
-                  <th>器具型號</th>
+                  <th>器具種類</th>
                   <th>器具規格</th>
                   <th>價錢/1天</th>
                   <th>總數量</th>
                   <th>圖片</th>
+                  <th>備註</th>
+                  <th>賠償價</th>
                   <th>修改</th>
                   <th>刪除</th>
-                  <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,11 +104,13 @@
                   <td></td>
                   <td th:text="${tackle.tackleId}"></td>
                   <td th:text="${tackle.tackleName}"></td>
-                  <td th:text="${tackle.productModel}"></td>
+                  <td th:text="${tackle.tackleSort.sort}"></td>
                   <td th:text="${tackle.specification}"></td>
                   <td th:text="${tackle.dayPrice}"></td>
                   <td th:text="${tackle.max}"></td>
-                  <td th:text="${tackle.picture}"></td>
+                  <td><img th:src="${tackle.picture}"></td>
+                  <td th:text="${tackle.notes}"></td>
+                  <td th:text="${tackle.damages}"></td>
                   <td>
                     <button type="button" class="btn btn-warning btn-icon-split btn-sm"
                             th:onclick="|updateTackle(${tackle.tackleId})|">
@@ -111,7 +127,6 @@
                                               </span>
                     </button>
                   </td>
-                  <td></td>
                 </tr>
                 </tbody>
               </table>
@@ -141,7 +156,7 @@
 
 
 <!-- 訂單頁面 -->
-<script th:src="@{/js/rental.js}"></script>
+<script th:src="@{/js/tackle.js}"></script>
 
 
 </body>

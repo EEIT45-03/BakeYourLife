@@ -39,6 +39,11 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public Long count() {
+        return farmerProductRepository.count();
+    }
+
+    @Override
     @Transactional
     public void insert(FarmerProductBean farmerProductBean) {
         farmerProductRepository.save(farmerProductBean);

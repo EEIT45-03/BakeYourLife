@@ -137,9 +137,10 @@ function getCoupon(result) {
 
 
 
-function refundingAlert(orderNo) {
+function refundingAlert(orderNo,refundReason) {
     Swal.fire({
         title: '請問是否要通過此訂單的退款請求',
+        text: "退款原因: "+refundReason,
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: '通過',
@@ -177,16 +178,22 @@ function refundingAlert(orderNo) {
 
 function refundAlert(orderNo) {
     Swal.fire({
-        title: '請問是否要提出此訂單的退款請求',
+        title: '請選擇退款原因，並提出退款請求',
+        input: 'select',
+        inputOptions: {
+            '0': '等太久',
+            '1': '我不想買了',
+            '2': '買錯東西',
+        },
         showCancelButton: true,
         confirmButtonText: '提出',
         cancelButtonText: '放棄',
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Refund',
+            fetch('http://localhost:8080/Order/' + orderNo + '/Refund/'+result.value,
                 {
-                    method: "POST"
+                    method: "POST",
                 }).then(
                 Swal.fire('退款請求已提出', '', 'success')
                     .then((result) => {

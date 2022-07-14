@@ -1,13 +1,14 @@
 
 package eeit45.group3.bakeyourlife.rental.controller;
 
-import eeit45.group3.bakeyourlife.rental.dto.RentalRequest;
-import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
-import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.*;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -25,23 +25,32 @@ public class AdminRentalController {
 
     private RentalService rentalService;
 
+    private VenueService venueService;
+
+    private TackleService tackleService;
+
     private UserService userService;
 
 
     /*================================租借單=========================================*/
 
     @Autowired
-    public AdminRentalController(RentalService rentalService, UserService userService) {
+    public AdminRentalController(RentalService rentalService, VenueService venueService, TackleService tackleService, UserService userService) {
         this.rentalService = rentalService;
+        this.venueService = venueService;
+        this.tackleService = tackleService;
         this.userService = userService;
     }
+
+
+
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "listType", required = false) String listType,
                             @RequestParam(value = "rNo", required = false) String rNo,
                             @RequestParam(value = "user1", required = false) String user1,
                             Model model) {
-        model.addAttribute("users", userService.findAll());
+
 
         List<Rental> rentals = null;
 
@@ -80,53 +89,43 @@ public class AdminRentalController {
             rentals = rentalService.findAllRental();
         }
 
-        //設置給JSP使用
+        //設置給前端使用
+        model.addAttribute("users", userService.findAll());
         model.addAttribute("rentals", rentals);
-
         return "admin/rental/Rental";
     }
 
 
     @GetMapping("/CreateRental")
     public String viewCreateRental(Model model) {
-
+        Rental rental = rentalService.createRentalNoRequest();
         List<User> users = userService.findAll();
-
-        RentalRequest rentalRequest = rentalService.createRentalRequest();
 
         //表單綁定用
         model.addAttribute("users",users);
-        model.addAttribute("rental",rentalRequest);
+        model.addAttribute("rental",rental);
         return "admin/rental/CreateRental";
     }
 
     @PostMapping("CreateRental")
-    public String createRental(@ModelAttribute("rental") RentalRequest rentalRequest ) {
-        rentalService.updateProduceNo(rentalRequest.getRentalNo());
-        rentalService.createRental(rentalRequest);
+    public String createRental(@ModelAttribute("rental") Rental rental ) {
+        rentalService.updateProduceNo(rental.getRentalNo());
+        rentalService.createRental(rental);
         return "redirect:./";
     }
 
 
     @GetMapping("/UpdateRental")
     public String viewUpdateRental(@RequestParam Integer rentalId, Model model) {
-        RentalRequest rentalRequest = new RentalRequest();
         Rental rental = null;
         List<User> users = userService.findAll();
-
 
         if(rentalId != null) {
             rental = rentalService.findByRentalId(rentalId);
         }
         if(rental != null) {
-            rentalRequest.setRentalId(rentalId);
-            rentalRequest.setRentalNo(rental.getRentalNo());
-            rentalRequest.setListType(rental.getType());
-            rentalRequest.setUserId(rental.getUser().getUserId());
-            rentalRequest.setTotal(rental.getTotal());
-
             model.addAttribute("users",users);
-            model.addAttribute("rentalRequest", rentalRequest);
+            model.addAttribute("rentalRequest", rental);
             return "admin/rental/UpdateRental";
         }
         return null;
@@ -134,22 +133,11 @@ public class AdminRentalController {
 
 
     @PostMapping("/UpdateRental")
-    public String updateRental(@RequestParam Integer rentalId, @ModelAttribute("rentalRequest") RentalRequest rentalRequest) {
+    public String updateRental(@RequestParam Integer rentalId, @ModelAttribute("rentalRequest") Rental rental) {
 
-        Rental rentalDb = rentalService.findByRentalId(rentalId);
-
-        if(rentalRequest.getUserId() != null) {
-            User user = userService.findByUserId(rentalRequest.getUserId());
-            rentalDb.setUser(user);
-        }
-        if(rentalRequest.getTotal() != null) {
-            rentalDb.setTotal(rentalRequest.getTotal());
-        }
-        rentalService.updateRental(rentalDb);
-
+        rentalService.updateRental(rental);
         return "redirect:./";
     }
-
 
     @RequestMapping("/DeleteRental")
     public ResponseEntity<?> deleteRental(@RequestParam Integer rentalId) {
@@ -170,22 +158,28 @@ public class AdminRentalController {
             rental = rentalService.findByRentalId(FK_rentalId);
         }
         if(rental != null) {
-            TackleListRequest tackleListRequest = rentalService.createTackleListRequest(rental);
-            tackles = rentalService.findAllTackle();
+            TackleList tackleList = rentalService.createTackleListNoRequest(rental);
+            tackles = tackleService.findAllTackle();
             model.addAttribute("tackles",tackles);
-            model.addAttribute("tackleList", tackleListRequest);
+            model.addAttribute("tackleList", tackleList);
             return "admin/rental/CreateTackleList";
         }
         return null;
     }
 
     @PostMapping("CreateTackleList")
-    public String createTackleList(@RequestParam Integer FK_rentalId, @ModelAttribute("tackleList") TackleListRequest tackleListRequest ) {
-        rentalService.updateProduceNo(tackleListRequest.getTackleListNo());
-        rentalService.createTackleList(FK_rentalId,tackleListRequest);
+    public String createTackleList(@RequestParam Integer FK_rentalId, @ModelAttribute("tackleList") TackleList tackleList ) {
         Rental rental = rentalService.findByRentalId(FK_rentalId);
+
+        rentalService.updateProduceNo(tackleList.getTackleListNo());
+        rentalService.createTackleList(FK_rentalId, tackleList);
+
         Long sum = rentalService.findTackleListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        }else{
+            rental.setTotal(0);
+        }
         rentalService.updateRental(rental);
         return "redirect:./";
     }
@@ -193,29 +187,17 @@ public class AdminRentalController {
 
     @GetMapping("/UpdateTackleList")
     public String viewUpdateTackleList(@RequestParam Integer tackleListId, Model model) {
-        TackleListRequest tackleListRequest = new TackleListRequest();
 
-        List<Tackle> tackles = null;
         TackleList tackleList = null;
 
         if(tackleListId != null) {
             tackleList = rentalService.findByTackleListId(tackleListId);
         }
         if(tackleList != null) {
-            tackleListRequest.setTackleListId(tackleList.getTackleListId());
-            tackleListRequest.setTackleListNo(tackleList.getTackleListNo());
-            tackleListRequest.setLendDate(tackleList.getLendDate());
-            tackleListRequest.setEndDate(tackleList.getEndDate());
-            tackleListRequest.setReturnDate(tackleList.getReturnDate());
-            tackleListRequest.setQuantity(tackleList.getQuantity());
-            tackleListRequest.setPrice(tackleList.getPrice());
-            tackleListRequest.setState(tackleList.getState());
-            tackleListRequest.setTackleId(tackleList.getTackle().getTackleId());
-            tackleListRequest.setRental(tackleList.getRental());
 
-            tackles = rentalService.findAllTackle();
+            List<Tackle> tackles = tackleService.findAllTackle();
             model.addAttribute("tackles",tackles);
-            model.addAttribute("tackleListRequest", tackleListRequest);
+            model.addAttribute("tackleListRequest", tackleList);
             return "admin/rental/UpdateTackleList";
         }
         return null;
@@ -223,36 +205,18 @@ public class AdminRentalController {
 
 
     @PostMapping("/UpdateTackleList")
-    public String updateTackleList(@RequestParam Integer tackleListId, @ModelAttribute("rentalRequest") TackleListRequest tackleListRequest) {
+    public String updateTackleList(@RequestParam Integer tackleListId, @ModelAttribute("rentalRequest") TackleList tackleList) {
+        Rental rental = rentalService.findByRentalNo(tackleList.getRental().getRentalNo());
+        tackleList.setRental(rental);
 
-        TackleList tackleListDb = rentalService.findByTackleListId(tackleListId);
+        rentalService.updateTackleList(tackleList);
 
-        if(tackleListRequest.getTackleId() != null) {
-            Tackle tackle = rentalService.findByTackleId(tackleListRequest.getTackleId());
-            tackleListDb.setTackle(tackle);
+        Long sum = rentalService.findTackleListPriceSumByRental(rental);
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        }else{
+            rental.setTotal(0);
         }
-        if(tackleListRequest.getLendDate() != null) {
-            tackleListDb.setLendDate(tackleListRequest.getLendDate());
-        }
-        if(tackleListRequest.getEndDate() != null) {
-            tackleListDb.setEndDate(tackleListRequest.getEndDate());
-        }
-        if(tackleListRequest.getReturnDate() != null) {
-            tackleListDb.setReturnDate(tackleListRequest.getReturnDate());
-        }
-        if(tackleListRequest.getQuantity() != null) {
-            tackleListDb.setQuantity(tackleListRequest.getQuantity());
-        }
-        if(tackleListRequest.getPrice() != null) {
-            tackleListDb.setPrice(tackleListRequest.getPrice());
-        }
-        if(tackleListRequest.getState() != null) {
-            tackleListDb.setState(tackleListRequest.getState());
-        }
-        rentalService.updateTackleList(tackleListDb);
-        Long sum = rentalService.findTackleListPriceSumByRental(tackleListDb.getRental());
-        Rental rental = rentalService.findByRentalId(tackleListDb.getRental().getRentalId());
-        rental.setTotal(sum.intValue());
         rentalService.updateRental(rental);
 
         return "redirect:./";
@@ -261,11 +225,18 @@ public class AdminRentalController {
 
     @RequestMapping("/DeleteTackleList")
     public ResponseEntity<?> deleteTackleList(@RequestParam Integer tackleListId) {
-        rentalService.deleteTackleList(tackleListId);
         TackleList tackleList = rentalService.findByTackleListId(tackleListId);
         Rental rental = tackleList.getRental();
-        Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+
+        rentalService.deleteTackleList(tackleListId);
+
+        Long sum = rentalService.findTackleListPriceSumByRental(rental);
+        if(sum != null) {
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
+
         rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -274,53 +245,48 @@ public class AdminRentalController {
     @GetMapping("/CreateVenueList")
     public String viewCreateVenueList(@RequestParam Integer FK_rentalId, Model model) {
         Rental rental = null;
-        List<Venue> venues = null;
+
         if(FK_rentalId != null) {
             rental = rentalService.findByRentalId(FK_rentalId);
         }
         if(rental != null) {
-            VenueListRequest venueListRequest = rentalService.createVenueListRequest(rental);
-            venues = rentalService.findByOrderByVenueNameAsc();
+            VenueList venueList = rentalService.createVenueListNoRequest(rental);
+            List<Venue> venues = venueService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
-            model.addAttribute("venueList", venueListRequest);
+            model.addAttribute("venueList", venueList);
             return "admin/rental/CreateVenueList";
         }
         return null;
     }
 
     @PostMapping("CreateVenueList")
-    public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueListRequest venueListRequest ) {
-        rentalService.updateProduceNo(venueListRequest.getVenueListNo());
-        rentalService.createVenueList(FK_rentalId,venueListRequest);
+    public String createVenueList(@RequestParam Integer FK_rentalId, @ModelAttribute("venueList") VenueList venueList ) {
+        rentalService.updateProduceNo(venueList.getVenueListNo());
         Rental rental = rentalService.findByRentalId(FK_rentalId);
+        venueList.setRental(rental);
+        rentalService.createVenueList(FK_rentalId,venueList);
+
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
         rentalService.updateRental(rental);
         return "redirect:./";
     }
 
     @GetMapping("/UpdateVenueList")
     public String viewUpdateVenueList(@RequestParam Integer venueListId, Model model) {
-        VenueListRequest venueListRequest = new VenueListRequest();
         List<Venue> venues = null;
         VenueList venueList = null;
         if(venueListId != null) {
             venueList = rentalService.findByVenueListId(venueListId);
         }
         if(venueList != null) {
-            venueListRequest.setVenueListId(venueList.getVenueListId());
-            venueListRequest.setVenueListNo(venueList.getVenueListNo());
-            venueListRequest.setLendTime(venueList.getLendTime());
-            venueListRequest.setEndTime(venueList.getEndTime());
-            venueListRequest.setIngredients(venueList.getIngredients());
-            venueListRequest.setPerson(venueList.getPerson());
-            venueListRequest.setPrice(venueList.getPrice());
-            venueListRequest.setVenue(venueList.getVenue());
-            venueListRequest.setRental(venueList.getRental());
-
-            venues = rentalService.findByOrderByVenueNameAsc();
+            venues = venueService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
-            model.addAttribute("venueListRequest", venueListRequest);
+            model.addAttribute("venueListRequest", venueList);
             return "admin/rental/UpdateVenueList";
         }
         return null;
@@ -328,34 +294,17 @@ public class AdminRentalController {
 
 
     @PostMapping("/UpdateVenueList")
-    public String updateVenueList(@RequestParam Integer venueListId, @ModelAttribute("venueListRequest") VenueListRequest venueListRequest) {
+    public String updateVenueList(@RequestParam Integer venueListId, @ModelAttribute("venueListRequest") VenueList venueList) {
+        Rental rental = rentalService.findByRentalNo(venueList.getRental().getRentalNo());
+        venueList.setRental(rental);
+        rentalService.updateVenueList(venueList);
 
-        VenueList venueListDb = rentalService.findByVenueListId(venueListId);
-
-        if(venueListRequest.getVenue().getVenueId() != null) {
-            Venue venue = rentalService.findByVenueId(venueListRequest.getVenue().getVenueId());
-            venueListDb.setVenue(venue);
-        }
-        if(venueListRequest.getLendTime() != null) {
-            venueListDb.setLendTime(venueListRequest.getLendTime());
-        }
-        if(venueListRequest.getEndTime() != null) {
-            venueListDb.setEndTime(venueListRequest.getEndTime());
-        }
-        if(venueListRequest.getIngredients() != null) {
-            venueListDb.setIngredients(venueListRequest.getIngredients());
-        }
-        if(venueListRequest.getPerson() != null) {
-            venueListDb.setPerson(venueListRequest.getPerson());
-        }
-        if(venueListRequest.getPrice() != null) {
-            venueListDb.setPrice(venueListRequest.getPrice());
-        }
-
-        rentalService.updateVenueList(venueListDb);
-        Rental rental = rentalService.findByRentalId(venueListDb.getRental().getRentalId());
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
         rentalService.updateRental(rental);
         return "redirect:./";
     }
@@ -363,19 +312,21 @@ public class AdminRentalController {
 
     @RequestMapping("/DeleteVenueList")
     public ResponseEntity<?> deleteVenueList(@RequestParam Integer venueListId) {
-        rentalService.deleteVenueList(venueListId);
         VenueList venueList = rentalService.findByVenueListId(venueListId);
         Rental rental = venueList.getRental();
+
+        rentalService.deleteVenueList(venueListId);
+
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
-        rental.setTotal(sum.intValue());
+
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
         rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//	@ModelAttribute
-//	public void resource(Model m){
-//		List<User> users = userService.findAll();
-//		m.addAttribute("users",users);
-//	}
-//
+
 }

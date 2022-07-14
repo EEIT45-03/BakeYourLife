@@ -46,6 +46,8 @@
 						</span> <span class="text">查詢課程種類</span>
                     </a>
 
+
+
                 </p>
 
                 <!-- DataTales Example -->
@@ -63,15 +65,17 @@
                                     <th>課程代碼</th>
                                     <th>課程名稱</th>
                                     <th class="none">課程時數</th>
-                                    <th>開課日期</th>
-                                    <th>結束日期</th>
+                                    <th>報名開始</th>
+                                    <th>報名結束</th>
                                     <th class="none">教室</th>
                                     <th class="none">人數上限</th>
                                     <th class="none">報名人數</th>
                                     <th class="none">老師</th>
                                     <th class="none">備註</th>
+                                    <th>新增時段</th>
                                     <th>修改</th>
                                     <th>刪除</th>
+                                    <th class="none"></th>
                                 </tr>
                                 </thead>
 
@@ -99,8 +103,19 @@
                                     <!--                                        <td th:text="${course.registerMax }"></td>-->
                                     <td th:text="${course.teacher }"></td>
                                     <td th:text="${course.note }"></td>
+                                    <!-- 測試 -->
                                     <td>
-                                        <!--                                                href="./UpdateCourse?openCourse=${course.openCourse}"-->
+                                        <button type="button"
+                                                class="btn btn-warning btn-icon-split btn-sm"
+                                                th:onclick="|CreateCourseTime(${course.openCourse})|">
+                                                <span class="icon text-white-50">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                    <td>
+
+
                                         <a
 
                                                 href="admin/Course/UpdateCourse"
@@ -124,7 +139,44 @@
 														</span> <span class="text">刪除課程</span>
                                         </button>
                                     </td>
+                                    <!--時間-->
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <th>時間ID:</th>
+                                                <th>上課時間:</th>
+                                                <th>結束時間:</th>
+                                                <th>備註:</th>
+                                                <th>修改</th>
+                                                <th>刪除</th>
+                                            </tr>
+                                            <tr th:each="courseTime : ${course.courseTimes}">
+                                                <td th:text="${courseTime.ctimeNo}"></td>
+                                                <td th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                                <td th:text="${#dates.format(courseTime.ctimeEndDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                                <td th:text="${courseTime.ctimeNote}"></td>
 
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-warning btn-icon-split btn-sm"
+                                                            th:onclick="|updateCourseTime(${courseTime.ctimeId})|">
+                                                    <span class="icon text-white-50">
+                                                      <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-warning btn-icon-split btn-sm"
+                                                            th:onclick="|deleteCourseTime(${courseTime.ctimeId})|">
+                                                    <span class="icon text-white-50">
+                                                      <i class="fas fa-trash"></i>
+                                                    </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
                                 </tr>
                                 <!--                                </tr>-->
                                 </tbody>

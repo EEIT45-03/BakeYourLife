@@ -36,7 +36,7 @@ public class SecurityConfig   {
 			.antMatchers("/*","/webfonts/**","/SignUp","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
 //				.antMatchers("/admin/**").hasRole("ADMIN")
 //				.antMatchers("/user/**").hasRole("USER")
-//				.antMatchers("/XXXX/**").hasRole("FARMER")
+//				.antMatchers("/FarmerProductSupplier/**").hasRole("FARMER")
 			//其他都要認證
 			.anyRequest().authenticated()
 		.and()

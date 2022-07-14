@@ -73,6 +73,8 @@ public class Order implements Serializable {
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
+    private String refundReason;
+
     //運費
     private Integer shippingFee;
 
@@ -104,6 +106,14 @@ public class Order implements Serializable {
         } else {
             return "";
         }
+    }
+
+    public String getRefundReason() {
+        return refundReason;
+    }
+
+    public void setRefundReason(String refundReason) {
+        this.refundReason = refundReason;
     }
 
     public Integer getDiscountAmount() {

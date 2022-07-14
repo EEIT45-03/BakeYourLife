@@ -29,7 +29,12 @@ public class FarmerProductController {
 
     @GetMapping("/FarmerProducts/{type}")
     public ResponseEntity<List<FarmerProductBean>> findByType(@PathVariable String type) {
-        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByTypeAndStateOrderByLaunchedTimeDesc(type);
+        List<FarmerProductBean> farmerProductBeanList = null;
+        if ("全部".equals(type)) {
+            farmerProductBeanList = farmerProductService.findByStateOrderByLaunchedTimeDesc(0);
+        } else {
+            farmerProductBeanList = farmerProductService.findByTypeAndStateOrderByLaunchedTimeDesc(type);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(farmerProductBeanList);
     }
 
