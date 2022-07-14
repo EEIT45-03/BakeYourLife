@@ -46,7 +46,7 @@
         <h1 class="h3 mb-4 text-gray-800"></h1>
 
         <p class="mb-4">
-          <a href="../" class="btn btn-primary btn-icon-split btn-sm">
+          <a href="./" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
 						</span> <span class="text">返回小農廠商管理</span>
           </a>
@@ -61,6 +61,15 @@
 
             <form id="form" action="" method="post" th:object="${farmer}" enctype="multipart/form-data">
 
+              <!-- 小農廠商頭像: -->
+              <img  ID="previewImage" width="200" height="200" th:src="${farmer.imageUrl}" style=" margin:auto;"/>
+              <div class="row mb-3">
+                <label for="farmerImage" class="col-sm-2 col-form-labels">小農廠商頭像:</label>
+                <div class="col-sm-10">
+                  <input type="file" th:field="*{productImage}" class="form-control" name="farmerImage"
+                         id="farmerImage" >
+                </div>
+              </div>
               <!-- 小農廠商帳號: -->
               <div class="row mb-3">
                 <label  class="col-sm-2 col-form-labels">帳號:</label>
@@ -130,15 +139,15 @@
                             required></textarea>
                 </div>
               </div>
-              <!-- 小農廠商頭像: -->
-              <img id="previewImage" width="200" height="200" th:src="${farmer.imageUrl}" style="display:block; margin:auto;"/>
-              <div class="row mb-3">
-                <label for="farmerImage" class="col-sm-2 col-form-labels">小農廠商頭像:</label>
-                <div class="col-sm-10">
-                  <input type="file" th:field="*{productImage}" class="form-control" name="farmerImage"
-                         id="farmerImage" >
-                </div>
-              </div>
+<!--              &lt;!&ndash; 小農廠商頭像: &ndash;&gt;-->
+<!--              <img  width="200" height="200" th:src="${farmer.imageUrl}" style=" margin:auto;"/>-->
+<!--              <div class="row mb-3">-->
+<!--                <label for="farmerImage" class="col-sm-2 col-form-labels">小農廠商頭像:</label>-->
+<!--                <div class="col-sm-10">-->
+<!--                  <input type="file" th:field="*{productImage}" class="form-control" name="farmerImage"-->
+<!--                         id="farmerImage" >-->
+<!--                </div>-->
+<!--              </div>-->
 
 
               <button type="submit" class="btn btn-primary" id="submit">修改會員資料</button>

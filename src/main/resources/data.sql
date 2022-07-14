@@ -84,7 +84,7 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 
 
 --新增會員資料
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison919@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN')
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison919@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg')
 
 --新增場地
 INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'A201',30,'https://i.imgur.com/ZjKfu38.jpg',NULL);
