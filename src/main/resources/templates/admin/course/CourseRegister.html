@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>課程管理</title>
+
+    <div th:replace="admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">課程報名管理</h1>
+                <p class="mb-4">
+<!--                    th:onclick="|deleteRegisterAlert(${register.registerId})|"-->
+                    <a th:onclick="|CreateRegister()|" class="btn btn-primary btn-icon-split btn-sm"/>
+<!--                    <a href="./CreateRegister" class="btn btn-primary btn-icon-split btn-sm"/>-->
+                    <span class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">建立報名</span>
+                    </a>
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">課程資訊</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="registerTable">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>報名編號</th>
+                                    <th>課程代碼</th>
+                                    <th>會員</th>
+                                    <th class="none">報名時間</th>
+                                    <th>報名人數</th>
+                                    <th>總金額</th>
+                                    <th>報名狀態</th>
+                                    <th>修改</th>
+                                    <th>刪除</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="register: ${registers}">
+                                        <td></td>
+                                        <td th:text="${register.registerId}"></td>
+                                        <td th:text="${register.course.openCourse}"></td>
+                                        <td th:text="|${register.user.userId}: ${register.user.username}|"></td>
+                                        <td th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd HH:mm')}"></td>
+                                        <td th:text="${register.attendance}"></td>
+                                        <td th:text="${register.totalPrice}"></td>
+                                        <td th:text="${register.state }"></td>
+                                        <td>
+                                            <a      th:onclick="|updateRegister(${register.registerId})|"
+                                                    class="btn btn-warning btn-icon-split btn-sm"> <span
+                                                    class="icon text-white-50"> <i
+                                                    class="fas fa-exclamation-triangle"></i>
+                                                        </span> <span class="text">修改</span>
+                                            </a>
+<!--        th:href="admin/Course/UpdateCourse"                                     -->
+                                        </td>
+                                        <td>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-icon-split btn-sm"
+                                                    data-toggle="modal" data-target="#deleteButton"
+                                                    th:onclick="|deleteRegisterAlert(${register.registerId})|">
+                                                            <span class="icon text-white-50"> <i
+                                                                    class="fas fa-trash"></i>
+                                                            </span> <span class="text">刪除</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <div th:replace="admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<div th:replace="admin/javascript.html"></div>
+<script th:src="@{/js/course.js}"></script>
+</body>
+</html>
+
+

@@ -3,6 +3,8 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.service.FarmerService;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +22,12 @@ import java.util.List;
 public class FarmerProductController {
 
     FarmerProductService farmerProductService;
-
+    FarmerService farmerService;
 
     @Autowired
-    public FarmerProductController(FarmerProductService farmerProductService) {
+    public FarmerProductController(FarmerProductService farmerProductService, FarmerService farmerService) {
         this.farmerProductService = farmerProductService;
+        this.farmerService = farmerService;
     }
 
     @GetMapping("/FarmerProducts/{type}")
@@ -53,11 +56,19 @@ public class FarmerProductController {
 
                 }
             }
+        } else {
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureLink("https://i.imgur.com/fWtT2ZK.png");
+            farmerProductPicList.add(farmerProductPic);
         }
 
         Date date = new Date();
         farmerProductBean.setLaunchedTime(date);
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);
+
+        farmerProductBean.setFarmer(farmerService.findByFarmerId(farmerProductBean.getFarmerId()));
+
         farmerProductService.insert(farmerProductBean);
 
 
@@ -85,10 +96,16 @@ public class FarmerProductController {
 
                 }
             }
+        } else {
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureLink("https://i.imgur.com/fWtT2ZK.png");
+            farmerProductPicList.add(farmerProductPic);
         }
 
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);
         farmerProductBean.setFarmerProductId(id);
+        farmerProductBean.setFarmer(farmerService.findByFarmerId(farmerProductBean.getFarmerId()));
 
 
         FarmerProductBean farmerProductBeanDb = farmerProductService.findByFarmerProductId(id);

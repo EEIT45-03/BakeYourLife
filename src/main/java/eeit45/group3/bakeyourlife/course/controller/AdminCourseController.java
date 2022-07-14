@@ -5,9 +5,13 @@ import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
+import eeit45.group3.bakeyourlife.course.model.Product;
+import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
+import eeit45.group3.bakeyourlife.utils.Image;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +20,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.synth.SynthTabbedPaneUI;
+
 
 @Controller
 @RequestMapping(path = "/admin/Course")
-public class OpenCourseController {
+public class AdminCourseController {
 
 	@Autowired
 	private CourseService courseService;
@@ -28,15 +34,12 @@ public class OpenCourseController {
 	public String viewIndex(Model model) {
 
 		List<Course> courses = courseService.findAll();
-
-		//設置給jsp使用
 		model.addAttribute("courses", courses);
 		return "admin/course/Course";
 	}
 
 	@GetMapping("/CreateCourse")
 	public String viewCreateCourse(Model model) {
-		//表單綁定用
 		model.addAttribute("course", new Course());
 		return "admin/course/CreateCourse";
 	}
@@ -65,7 +68,7 @@ public class OpenCourseController {
 	}
 
 	@PostMapping("/UpdateCourse/{openCourse}")
-	public String updateOrder(Course course) {
+	public String updateCourse(Course course) {
 		courseService.updateCourse(course);
 		return "redirect:../";
 	}
@@ -106,6 +109,51 @@ public class OpenCourseController {
 	public ResponseEntity<?> deleteCtime(@RequestParam Integer ctimeId) {
 		courseService.deleteByCtId(ctimeId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+
+	//--------Register Controller-------------------------------------------------------------------
+	@GetMapping("/Register")
+	public String viewRegisterIndex(Model model) {
+
+		List<Register> registers = courseService.findAllRegister();
+		model.addAttribute("registers", registers);
+		return "admin/course/CourseRegister";
+	}
+
+	@RequestMapping("DeleteRegister")
+	public ResponseEntity<?> deleteRegisterById(@RequestParam Integer registerId) {
+		courseService.deleteByRegisterId(registerId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+
+	@GetMapping("/CreateRegister")
+	public String viewCreateRegister(Model model) {
+		model.addAttribute("register", new Register());
+		return "admin/course/CreateCregister";
+	}
+
+	@PostMapping("/CreateRegister")
+	public String createRegister(@ModelAttribute("register") Register register, BindingResult result) {
+		courseService.createRegister(register);
+		return "redirect:./Register";
+	}
+
+	@GetMapping("/UpdateRegister")
+	public String viewUpdateUpdateRegister(@RequestParam Integer registerId, Model model) {
+		Register register = courseService.findByRegisterId(registerId).orElse(null);
+		model.addAttribute("register", register);
+		return "admin/course/UpdateCregister";
+	}
+//	@PostMapping("/UpdateRegister")
+//	public String updateUpdateRegister(Register register) {
+//		courseService.updateRegister(register);
+//		return "redirect:../";
+//	}
+	@PostMapping(value = "/UpdateRegister")
+	public String saveProduct(@ModelAttribute Register register	)
+	{
+	courseService.updateRegister(register.getRegisterId(),register.getAttendance(), register.getState(), register.getTotalPrice());
+	return "redirect:./Register";
 	}
 
 }

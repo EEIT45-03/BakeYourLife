@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農廠商</title>
-    <div th:replace="admin/css.html"></div>
     <div th:replace="css.html"></div>
 
 
@@ -93,7 +92,7 @@
             padding-top: 50px;
         }
 
-        body {
+        .card-body {
             color: #858796;
             font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
@@ -139,18 +138,7 @@
 
             <!-- Begin Page Content -->
             <div class="row">
-                <div class="col-lg-2 col-md-3 ">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item ">
-                            <h4>Categories</h4>
-                            <ul>
-                                <li><a href="#">資訊設定</a></li>
-                                <li><a href="#">管理商品</a></li>
-                                <li><a href="#">管理訂單</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="farmerproduct/SupplierSidebar.html"></div>
 
 
                 <!-- Page Heading -->
@@ -322,6 +310,7 @@
                                    value="">
                             <input type="hidden" th:field="*{violationTime}" name="violationTime" id="violationTime"
                                    value="">
+                            <span sec:authentication="principal.id" style="display: none" id="farmerId"></span>
 
                             <button class="btn btn-primary"
                                     th:onclick="|sendupdate(*{farmerProductId})|">確認修改
@@ -344,7 +333,6 @@
 <!-- End of Page Wrapper -->
 <div th:replace="footer.html"></div>
 
-<div th:replace="admin/javascript.html"></div>
 <!-- Page level custom scripts -->
 
 

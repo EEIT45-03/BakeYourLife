@@ -146,7 +146,7 @@
             </div>
             <div class="modal-footer justify-content-center">
               <form action="DeleteFarmer">
-                <input type="hidden" name="userId" id="dateId" value=""/> <input
+                <input type="hidden" name="farmerId" id="dateId" value=""/> <input
                       type="submit" class="btn btn-danger" value="刪除">
               </form>
               <button type="button" class="btn btn-secondary"
@@ -194,6 +194,7 @@
                   <th class="none">廠商簡介:</th>
                   <th class="none">廠商帳號:</th>
                   <th class="none">廠商密碼:</th>
+                  <th class="none">帳號權限:</th>
                   <th class="none">創立時間:</th>
                   <th class="none">動作:</th>
                 </tr>
@@ -224,6 +225,7 @@
                   <td th:text="${farmer.farmerInfo}"></td>
                   <td th:text="${farmer.username}"></td>
                   <td th:text="${farmer.password}"></td>
+                  <td th:text="${farmer.authority}"></td>
                   <td th:text="${farmer.registerTime}"></td>
                   <td><a th:href="@{UpdateFarmer(farmerId=${farmer.farmerId})}" class="btn btn-warning btn-icon-split btn-sm"> <span
                           class="icon text-white-50"> <i

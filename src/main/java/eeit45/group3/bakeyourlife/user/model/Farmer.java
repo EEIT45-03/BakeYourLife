@@ -1,11 +1,14 @@
 package eeit45.group3.bakeyourlife.user.model;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.util.List;
+
 @Entity
 @Table(name = "Farmers")
 public class Farmer implements Serializable {
@@ -26,12 +29,15 @@ public class Farmer implements Serializable {
     @Transient
     MultipartFile productImage;
 
-    private  String imageUrl;
+    private String imageUrl;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "farmer", cascade = CascadeType.ALL)
+    private List<FarmerProductBean> farmerProductBeanList;
 
     public Farmer() {
     }
 
-    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
+    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl) {
         this.farmerId = farmerId;
         this.username = username;
         this.password = password;
@@ -47,7 +53,7 @@ public class Farmer implements Serializable {
 
     }
 
-    public Farmer(String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
+    public Farmer(String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl) {
         this.username = username;
         this.password = password;
         this.authority = authority;
@@ -60,6 +66,30 @@ public class Farmer implements Serializable {
         this.productImage = productImage;
         this.imageUrl = imageUrl;
 
+    }
+
+    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl, List<FarmerProductBean> farmerProductBeanList) {
+        this.farmerId = farmerId;
+        this.username = username;
+        this.password = password;
+        this.authority = authority;
+        this.farmerName = farmerName;
+        this.farmerInfo = farmerInfo;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.registerTime = registerTime;
+        this.productImage = productImage;
+        this.imageUrl = imageUrl;
+        this.farmerProductBeanList = farmerProductBeanList;
+    }
+
+    public List<FarmerProductBean> getFarmerProductBeanList() {
+        return farmerProductBeanList;
+    }
+
+    public void setFarmerProductBeanList(List<FarmerProductBean> farmerProductBeanList) {
+        this.farmerProductBeanList = farmerProductBeanList;
     }
 
     public String getImageUrl() {

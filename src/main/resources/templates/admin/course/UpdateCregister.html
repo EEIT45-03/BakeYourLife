@@ -1,0 +1,80 @@
+<div class="card-body">
+
+<form th:action="@{./UpdateRegister(registerId=*{registerId})}" method="post" th:object="${register}">
+
+    <!-- 報名編號: @{UpdateRegister(registerId=*{registerId})}-->
+    <div class="row mb-3">
+        <label for="registerId" class="col-sm-3 col-form-labels">報名編號:</label>
+        <div class="col-sm-9">
+            <input th:field="*{registerId}" type="text" class="form-control" name="registerId"
+                   id="registerId" th:readonly="true" />
+        </div>
+    </div>
+
+    <!-- 會員名稱: -->
+    <div class="row mb-3">
+        <label for="userName" class="col-sm-3 col-form-labels">會員名稱:</label>
+        <div class="col-sm-9">
+            <input th:field="*{user.username}" type="text" class="form-control" name="userName"
+                   id="userName" th:readonly="true" />
+        </div>
+    </div>
+
+    <!-- 課程編號: -->
+    <div class="row mb-3">
+        <label for="openCourse" class="col-sm-3 col-form-labels">課程編號:</label>
+        <div class="col-sm-9">
+            <input th:field="*{course.openCourse}" type="text" class="form-control" name="openCourse"
+                   id="openCourse" th:readonly="true" />
+        </div>
+    </div>
+
+    <!-- 報名日期: -->
+    <div class="row mb-3">
+        <label for="mu_rDate" class="col-sm-3 col-form-labels">報名日期:</label>
+        <div class="col-sm-9">
+            <input th:field="*{registerDate}" type="text" class="form-control" name="rentalDate"
+                   id="mu_rDate" th:value="*{#dates.format(registerDate, 'yyyy/MM/dd HH:mm:ss')}"
+                   th:readonly="true" />
+        </div>
+    </div>
+
+    <!-- 租借狀態: -->
+    <div class="row mb-3">
+        <label for="mu_sta" class="col-sm-3 col-form-labels">報名狀態:</label>
+        <div class="col-sm-9">
+            <select th:field="*{state}" type="text" class="form-control form-select mb-3"
+                    name="state" id="mu_sta" aria-label="Default select example">
+                <option th:value="0" th:text="報名完成" selected></option>
+                <option th:value="1" th:text="取消報名"></option>
+                <option th:value="2" th:text="審核中"></option>
+                <option th:value="3" th:text="審核通過"></option>
+                <option th:value="4" th:text="課程結束"></option>
+                <option th:value="5" th:text="已評價"></option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 報名人數: -->
+    <div class="row mb-3">
+        <label for="attendance" class="col-sm-3 col-form-labels">報名人數:</label>
+        <div class="col-sm-9">
+            <input th:field="*{attendance}" type="number" class="form-control" name="attendance" id="attendance" min="0"
+                   required="required" />
+        </div>
+    </div>
+
+    <!-- 總金額: -->
+    <div class="row mb-3">
+        <label for="totalPrice" class="col-sm-3 col-form-labels">總金額:</label>
+        <div class="col-sm-9">
+            <input th:field="*{totalPrice}" type="number" class="form-control" name="totalPrice" id="totalPrice" min="0"
+                   required="required" />
+        </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">修改租借單</button>
+</form>
+</div>
