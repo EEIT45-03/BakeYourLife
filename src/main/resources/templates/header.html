@@ -11,7 +11,7 @@
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
+<!--            <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
             <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a></li>
         </ul>
         <!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
@@ -27,51 +27,111 @@
         <!--            </ul>-->
         <!--        </div>-->
         <div sec:authorize="!isAuthenticated()">
-            <div class="header__top__right__auth">
-                <ul>
-                    <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
-                    <li><a href="/SignUp">註冊</a></li>
-                </ul>
-            </div>
+            <ul>
+                <li><a href="/login"><i class="fa-solid fa-user"></i>登入</a></li>
+                <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
+            </ul>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            <div class="header__top__right__auth">
-                <a href="/logout"><i class="fa fa-user"></i> 登出</a>
-            </div>
-        </div>
-
-
+<!--        <div sec:authorize="isAuthenticated()">-->
+<!--            <div class="header__top__right__auth">-->
+<!--                <a href="/logout"><i class="fa fa-user"></i> 登出</a>-->
+<!--            </div>-->
+<!--        </div>-->
         <!-- 右上會員資訊 -->
-        <li sec:authorize="isAuthenticated()" class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false"><!-- Douglas McGee -->
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="principal.fullName">Admin</span>
+        <ul>
+            <li sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"><!-- Douglas McGee -->
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 "
+                          sec:authentication="principal.fullName"></span>
 
-                <img class="img-profile rounded-circle"
-                     th:src="${#authentication.principal.imageUrl}" width="80" height="80">
-            </a>
-            <!-- 點擊右上會員圖標，彈出選單  -->
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" th:href="@{/admin/}">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    管理者中心
+                    <img class="img-profile rounded-circle"
+                         th:src="${#authentication.principal.imageUrl}" width="50" height="50" >
+
                 </a>
-                <!--                    <a class="dropdown-item" href="#">-->
-                <!--                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
-                <!--                        Settings-->
-                <!--                    </a>-->
-                <!--                    <a class="dropdown-item" href="#">-->
-                <!--                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
-                <!--                        Activity Log-->
-                <!--                    </a>-->
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/logout">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    登出
-                </a>
-            </div>
-        </li>
+                <!-- 點擊右上會員圖標，彈出選單  -->
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="userDropdown">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-user"></i>
+                        管理者後台
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                       th:href="@{/FarmerProductSupplier/}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        小農管理中心
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                       th:href="@{/FarmerProductSupplier/}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        小農管理中心
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                       th:href="@{/FarmerProductSupplier/}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        小農管理中心
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                       th:href="@{/FarmerProductSupplier/}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        小農管理中心
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-user"></i>
+                        個人資料
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-heart"></i>
+                        喜愛清單
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        購買清單
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-school"></i>
+                        我的課程
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-table"></i>
+                        我的租借
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                       th:href="@{/admin/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-table"></i>
+                        我的文章
+                    </a>
+                    <!--                                                        <a class="dropdown-item" href="#">-->
+                    <!--                                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                    <!--                                                            Settings-->
+                    <!--                                                        </a>-->
+                    <!--                                                        <a class="dropdown-item" href="#">-->
+                    <!--                                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                    <!--                                                            Activity Log-->
+                    <!--                                                        </a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/logout">
+                        <!--                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        登出
+                    </a>
+                </div>
+            </li>
+        </ul>
 
 
     </div>
@@ -126,7 +186,7 @@
                     <li><a href="#">討論區選單D</a></li>
                 </ul>
             </li>
-            <li><a href="./contact.html">Contact</a></li>
+<!--            <li><a href="./contact.html">Contact</a></li>-->
             <li sec:authorize="hasRole('ROLE_USER')"><a href="/user" sec:authentication="name"></a>
                 <ul class="header__menu__dropdown">
                     <li><a href="/user/profile">個人資料</a></li>
@@ -147,11 +207,11 @@
                     <li><a href="#">訂單紀錄</a></li>
                 </ul>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>
-                <ul class="header__menu__dropdown">
-                    <li><a th:href="@{/admin/}">後台首頁</a></li>
-                </ul>
-            </li>
+<!--            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
+<!--                <ul class="header__menu__dropdown">-->
+<!--                    <li><a th:href="@{/admin/}">後台首頁</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -192,8 +252,8 @@
 
                             <div sec:authorize="!isAuthenticated()">
                                 <ul>
-                                    <li><a href="/login"><i class="fa fa-user"></i> 登入</a></li>
-                                    <li><a href="/SignUp">註冊</a></li>
+                                    <li><a href="/login"><i class="fa-solid fa-user"></i> 登入</a></li>
+                                    <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
                                 </ul>
                             </div>
                             <!--                            <div sec:authorize="isAuthenticated()">-->
@@ -217,8 +277,9 @@
                                          aria-labelledby="userDropdown">
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item"
                                            th:href="@{/admin/}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            管理者中心
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-user"></i>
+                                            管理者後台
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/}">
@@ -239,6 +300,36 @@
                                            th:href="@{/FarmerProductSupplier/}">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             小農管理中心
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/admin/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-user"></i>
+                                            個人資料
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/admin/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-heart"></i>
+                                            喜愛清單
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/admin/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            購買清單
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/admin/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-school"></i>
+                                            我的課程
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/admin/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-table"></i>
+                                            我的租借
                                         </a>
                                         <!--                                                        <a class="dropdown-item" href="#">-->
                                         <!--                                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
@@ -250,7 +341,8 @@
                                         <!--                                                        </a>-->
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="/logout">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+<!--                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-right-from-bracket"></i>
                                             登出
                                         </a>
                                     </div>
@@ -341,18 +433,18 @@
                                 <li><a href="#">訂單紀錄</a></li>
                             </ul>
                         </li>
-                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>
-                            <ul class="header__menu__dropdown">
-                                <li><a th:href="@{/admin/}">後台首頁</a></li>
-                            </ul>
-                        </li>
+<!--                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
+<!--                            <ul class="header__menu__dropdown">-->
+<!--                                <li><a th:href="@{/admin/}">後台首頁</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-2">
                 <div class="header__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
+<!--                        <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
                         <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a>
                         </li>
                     </ul>
