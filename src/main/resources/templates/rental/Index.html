@@ -55,53 +55,38 @@
                     </ul>
                 </div>
 
-                <div class="sidebar__item">
+<!--                <div class="sidebar__item">-->
+<!---->
+<!--                    <div class="latest-product__text">-->
+<!--                        <h4>熱門</h4>-->
 
-                    <div class="latest-product__text">
-                        <h4>熱門</h4>
-
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item" id="hot_v">
+<!--                        <div class="latest-product__slider owl-carousel">-->
+<!--                            <div class="latest-prdouct__slider__item" id="hot_v">-->
 
 
-                            </div>
-                            <div class="latest-prdouct__slider__item" id="hot_t">
+<!--                            </div>-->
+<!--                            <div class="latest-prdouct__slider__item">-->
 
-                            </div>
-                        </div>
+<!--                            </div>-->
+<!--                        </div>-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
-        <div class="col-lg-9 col-md-7">
+        <div class="col-lg-9 col-md-7" id="find_div">
             <div class="product__discount">
                 <div class="section-title product__discount__title">
                     <h2>場地</h2>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6" th:each="venue : ${venues}">
-                        <div class="product__item">
-<!--                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">-->
-<!--                                <ul class="product__item__pic__hover">-->
-<!--                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
-<!--                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
-<!--                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-                            <div class="product__item__text">
-                                <div class="product__item__pic set-bg" th:data-setbg="${venue.picture}"></div>
-                                <h6><a href="#" th:text="${venue.venueName}"></a></h6>
-                                <h5 th:text="|${venue.hrPrice}/天|"></h5>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="vDiv">
+
                 </div>
-                <div class="product__pagination">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                <div class="product__pagination" id="vSel">
+<!--                    <a href="">1</a>-->
+<!--                    <a href="#">2</a>-->
+<!--                    <a href="#">3</a>-->
+<!--                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>-->
                 </div>
             </div>
 
@@ -109,29 +94,14 @@
                 <div class="section-title product__discount__title">
                     <h2>器材</h2>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6" th:each="tackle : ${tackles}">
-                        <div class="product__item">
-                            <!--                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">-->
-                            <!--                                <ul class="product__item__pic__hover">-->
-                            <!--                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
-                            <!--                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
-                            <!--                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
-                            <!--                                </ul>-->
-                            <!--                            </div>-->
-                            <div class="product__item__text">
-                                <div class="product__item__pic set-bg" th:data-setbg="${tackle.picture}"></div>
-                                <h6><a href="#" th:text="${tackle.tackleName}"></a></h6>
-                                <h5 th:text="|${tackle.dayPrice}/天|"></h5>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="tDiv">
+
                 </div>
-                <div class="product__pagination">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                <div class="product__pagination" id="tSel">
+<!--                    <a href="#">1</a>-->
+<!--                    <a href="#">2</a>-->
+<!--                    <a href="#">3</a>-->
+<!--                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>-->
                 </div>
             </div>
 
@@ -147,73 +117,286 @@
 <div th:replace="/admin/javascript.html"></div>
 
 <script>
-    getVenueSort();
-    getTackleSort();
-    getVenueTopThree()
     $(document).ready(function () {
-        $('body').on('change', function () {
-            getVenueSort();
-            getTackleSort();
-            getVenueTopThree();
-        })
-    });
-
-    function getVenueSort(){
         fetch('/VenueSorts')
             .then(response => response.json())
             .then(data => {
                 let ul_vSort = "";
                 for(let sort of data){
-                    ul_vSort = ul_vSort + "<li><a href='/Venue?venueSortId="+ sort.venueSortId + "'>" + sort.sort + "</a></li>";
+                    ul_vSort = ul_vSort + "<li><a onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
                 }
 
                 $('#ul_vSort').append(ul_vSort);
+
+
             })
             .catch((error) => {
                 console.log('Error:'+(error))
             })
-    }
 
-    function getTackleSort(){
         fetch('/TackleSorts')
             .then(response => response.json())
             .then(data => {
                 let ul_tSort = "";
                 for(let sort of data){
-                    ul_tSort = ul_tSort + "<li><a href='/Tackle?tackleSortId="+ sort.tackleSortId + "'>" + sort.sort + "</a></li>";
+                    ul_tSort = ul_tSort + "<li><a onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
                 }
                 $('#ul_tSort').append(ul_tSort);
             })
             .catch((error) => {
                 console.log('Error:'+(error))
             })
-    }
 
-    function getVenueTopThree(){
-        fetch('/TopThree/Venue')
+        // fetch('/TopThree/Venue')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let hot_v = "";
+        //             for(let venue of data){
+        //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
+        //                                     "<div class='latest-product__item__pic'>"+
+        //                                         "<img src='" + venue.picture + "' alt=''>"+
+        //                                     "</div>"+
+        //                                     "<div class='latest-product__item__text'>"+
+        //                                         "<h6>" + venue.venueName + "</h6>"+
+        //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
+        //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
+        //                                     "</div>"+
+        //                                 "</a>";
+        //             }
+        //             console.log(hot_v)
+        //             $('#hot_v').append(hot_v);
+        //
+        //         })
+        //         .catch((error) => {
+        //             console.log('Error:'+(error))
+        //         })
+
+
+        fetch('/Venues')
             .then(response => response.json())
             .then(data => {
-                let hot_v = "";
-                for(let venue of data){
-                    hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
-                                        "<div class='latest-product__item__pic'>"+
-                                            "<img src='" + venue.picture + "' alt=''>"+
-                                        "</div>"+
-                                        "<div class='latest-product__item__text'>"+
-                                            "<h6>" + venue.venueName + "</h6>"+
-                                            "<h6>" + venue.venueSort.sort + "</h6>"+
-                                            "<span>$"+ venue.hrPrice +"/時</span>"+
-                                        "</div>"+
-                                    "</a>";
+                let vDiv = "";
+                for(let i=0 ; i<3 ; i++){
+                    vDiv = vDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                                        " <div class='product__item'>" +
+                                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "'>" +
+                                            " </div>"+
+                                            " <div class='product__item__text'>"+
+                                                " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
+                                                " <h5>$" + data[i].hrPrice + "/時</h5>"+
+                                            " </div>"+
+                                        " </div>"+
+                                    " </div>";
                 }
-                console.log(hot_v)
-                $('#hot_v').append(hot_v);
+                $('#vDiv').append(vDiv);
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+
+                let long = Object.keys(data).length;
+                long = Math.ceil(long/3);
+
+                let vSel = "";
+
+                for( let i=1 ; i<=long ; i++){
+
+                    vSel = vSel + "<a onclick='getVenuePackage(" + i + ")'>" + i + "</a>";
+                }
+
+
+                $('#vSel').append(vSel);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+        fetch('/Tackles')
+            .then(response => response.json())
+            .then(data => {
+                let tDiv = "";
+                for(let i=0 ; i<3 ; i++){
+                    tDiv = tDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>"+
+                        " <div class='product__item__text'>"+
+                        " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+
+                        " <h5>$" + data[i].dayPrice + "/天</h5>"+
+                        " </div>"+
+                        " </div>"+
+                        " </div>";
+                }
+                $('#tDiv').append(tDiv);
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+
+                let long = Object.keys(data).length;
+                long = Math.ceil(long/3);
+
+                let tSel = "";
+
+                for( let i=1 ; i<=long ; i++){
+
+                    tSel = tSel + "<a onclick='getTacklePackage(" + i + ")'>" + i + "</a>";
+                }
+
+
+                $('#tSel').append(tSel);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+    });
+
+
+    //分頁查詢場地
+    function getVenuePackage(no){
+        var vMax = (3*no)-1;
+        var vMin = vMax-2;
+        fetch('/Venues')
+            .then(response => response.json())
+            .then(data => {
+                let vDiv = "";
+                for(let i=vMin ; i<=vMax ; i++){
+                    if(data[i]) {
+                        vDiv = vDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
+                            " <h5>$" + data[i].hrPrice + "/時</h5>" +
+                            " </div>" +
+                            " </div>" +
+                            " </div>";
+                    } else{
+                        continue;
+                    }
+                }
+                $('#vDiv').html(vDiv);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    };
+
+    //分頁查詢器具
+    function getTacklePackage(no){
+        var tMax = (3*no)-1;
+        var tMin = tMax-2;
+        fetch('/Tackles')
+            .then(response => response.json())
+            .then(data => {
+                let tDiv = "";
+                for(let i=tMin ; i<=tMax ; i++){
+                    if(data[i]) {
+                        tDiv = tDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                            " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                            " </div>" +
+                            " </div>" +
+                            " </div>";
+                    } else {
+                        continue;
+                    }
+                    $('#tDiv').html(tDiv);
+                }
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
 
             })
             .catch((error) => {
                 console.log('Error:'+(error))
             })
+    };
+
+    //依種類查詢場地
+
+    function getVenueBySort(sort){
+        fetch('/Venues/'+sort)
+            .then(response => response.json())
+            .then(data => {
+
+                $('#find_div').html();
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
     }
+
+
+    // function getVenueSort(){
+    //     fetch('/VenueSorts')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let ul_vSort = "";
+    //             for(let sort of data){
+    //                 ul_vSort = ul_vSort + "<li><a href='/Venue?venueSortId="+ sort.venueSortId + "'>" + sort.sort + "</a></li>";
+    //             }
+    //
+    //             $('#ul_vSort').append(ul_vSort);
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
+
+    // function getTackleSort(){
+    //     fetch('/TackleSorts')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let ul_tSort = "";
+    //             for(let sort of data){
+    //                 ul_tSort = ul_tSort + "<li><a href='/Tackle?tackleSortId="+ sort.tackleSortId + "'>" + sort.sort + "</a></li>";
+    //             }
+    //             $('#ul_tSort').append(ul_tSort);
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
+
+    // function getVenueTopThree(){
+    //     fetch('/TopThree/Venue')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let hot_v = "";
+    //             for(let venue of data){
+    //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
+    //                                     "<div class='latest-product__item__pic'>"+
+    //                                         "<img src='" + venue.picture + "' alt=''>"+
+    //                                     "</div>"+
+    //                                     "<div class='latest-product__item__text'>"+
+    //                                         "<h6>" + venue.venueName + "</h6>"+
+    //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
+    //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
+    //                                     "</div>"+
+    //                                 "</a>";
+    //             }
+    //             console.log(hot_v)
+    //             $('#hot_v').append(hot_v);
+    //
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
 
 </script>
 </body>
