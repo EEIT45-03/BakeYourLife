@@ -19,7 +19,7 @@ public interface GoodService {
 
 	Goods getGoods(int pk);
 
-	void deleteGoods(int ipk);
+	void deleteGoods(Integer id);
 
 	void updateGoods(Goods mb);
 }

@@ -54,8 +54,8 @@ public class GoodsServiceImpl implements GoodService {
 
     @Override
     @Transactional
-    public void deleteGoods(int ipk) {
-         goodsRepository.deleteById(ipk);
+    public void deleteGoods(Integer id) {
+         goodsRepository.deleteById(id);
     }
 
     @Override

@@ -180,7 +180,7 @@
 <!--                                </div>-->
 <!--                            </div>-->
 
-                            <button type="submit" class="btn btn-primary">修改商品</button>
+                            <button type="submit" onclick="updatetGoods()" class="btn btn-primary">修改商品</button>
                             <button type="button" class="btn btn-primary" onclick="inputGood()">一鍵輸入</button>
                         </form>
                     </div>
@@ -231,6 +231,14 @@
     //
     // }
 
+    function updatetGoods(){
+        Swal.fire({
+            title:'修改成功!',
+            icon:'success',
+            showConfirmButton:false,
+            timer:1500
+        })
+    }
 
     function checkdate(e) {
         var date = e.value
