@@ -17,30 +17,31 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String username;
 	private String password;
+
+	private String authority;
 	private String fullName;
 	private String email;
 	private String phone;
 	private String birth;
 	private String gender;
 	private String address;
-
-	private String fileName;
-
-	private Blob userImage;
-
 	private Timestamp registerTime;
 
 	@Transient
 	MultipartFile productImage;
+
+	private String imageUrl;
+
 
 
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, String fullName, String email, String phone, String birth, String gender, String address) {
+	public User(String username, String password, String authority,String fullName, String email, String phone, String birth, String gender, String address) {
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
@@ -49,45 +50,61 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	public User(Integer userId, String username, String password, String fullName, String email, String phone,
-				String birth, String gender, String address, String fileName, Blob userImage, Timestamp registerTime, MultipartFile productImage) {
+	public User(Integer userId, String username, String password, String authority,String fullName, String email, String phone,
+				String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage,String imageUrl) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
-		this.fileName = fileName;
-		this.userImage = userImage;
 		this.registerTime = registerTime;
 		this.productImage = productImage;
+		this.imageUrl = imageUrl;
 
 
 	}
 
-	public User(String username, String password, String fullName, String email, String phone, String birth,
-			String gender, String address, String fileName, Blob userImage,Timestamp registerTime,MultipartFile productImage) {
+	public User(String username, String password, String authority,String fullName, String email, String phone, String birth,
+			String gender, String address,Timestamp registerTime,MultipartFile productImage,String imageUrl) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.authority = authority;
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
-		this.fileName = fileName;
-		this.userImage = userImage;
 		this.registerTime = registerTime;
 		this.productImage = productImage;
+		this.imageUrl = imageUrl;
+
 
 
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -160,21 +177,7 @@ public class User implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	public String getFileName() {
-		return fileName;
-	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public Blob getUserImage() {
-		return userImage;
-	}
-
-	public void setUserImage(Blob userImage) {
-		this.userImage = userImage;
-	}
 	public Timestamp getRegisterTime() {
 		return registerTime;
 	}

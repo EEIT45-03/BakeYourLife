@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>小農商品管理</title>
-    <div th:replace="/admin/css.html"></div>
+    <div th:replace="admin/css.html"></div>
 
     <style>
 
@@ -65,7 +65,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <div th:replace="/admin/sidebar.html"></div>
+    <div th:replace="admin/sidebar.html"></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -73,7 +73,7 @@
         <!-- Main Content -->
         <div id="content">
 
-            <div th:replace="/admin/header.html"></div>
+            <div th:replace="admin/header.html"></div>
 
 
             <!-- Begin Page Content -->
@@ -129,7 +129,7 @@
                                                 <div class="carousel-item"
                                                      th:each="FarmerProductPic: ${bean.farmerProductPicList}">
                                                     <img class="d-block w-100 img"
-                                                         th:src="${FarmerProductPic.pictureDataUrl}">
+                                                         th:src="${FarmerProductPic.pictureLink}">
                                                 </div>
                                             </div>
                                             <a class="carousel-control-prev"
@@ -150,8 +150,9 @@
                                              src="/img/logo4.png">
                                     </td>
                                     <td class="namelink">
-                                        <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                        <a th:href="|/FarmerProductSupplier/ShopDetails/${bean.farmerProductId}|"
                                            th:text="${bean.name}" target=" _blank">
+                                            
                                         </a>
                                     </td>
                                     <td th:text="|NT$ ${bean.price}|"></td>
@@ -239,7 +240,7 @@
         <!-- End of Main Content -->
 
 
-        <div th:replace="/admin/footer.html"></div>
+        <div th:replace="admin/footer.html"></div>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -248,7 +249,7 @@
 <!-- End of Page Wrapper -->
 
 
-<div th:replace="/admin/javascript.html"></div>
+<div th:replace="admin/javascript.html"></div>
 <!-- Page level custom scripts -->
 
 

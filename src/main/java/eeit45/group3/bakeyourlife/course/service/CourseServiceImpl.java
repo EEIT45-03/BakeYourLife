@@ -3,14 +3,17 @@ package eeit45.group3.bakeyourlife.course.service;
 
 import eeit45.group3.bakeyourlife.course.model.Course;
 //import eeit45.group3.bakeyourlife.course.model.CourseType;
+import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 //import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 
 
+import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
-import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,26 +27,21 @@ public class CourseServiceImpl implements CourseService {
 
 	CourseRepository courseRepository;
 
-	RentalService rentalService;
+	VenueService venueService;
 
-	CourseTypeRepository courseTypeRepository;
+	CourseTimeRepository courseTimeRepository;
 
 	@Autowired
-	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, CourseTypeRepository courseTypeRepository) {
+	public CourseServiceImpl(CourseRepository courseRepository, VenueService venueService, CourseTimeRepository courseTimeRepository) {
 		this.courseRepository = courseRepository;
-		this.rentalService = rentalService;
-		this.courseTypeRepository = courseTypeRepository;
+		this.venueService = venueService;
+		this.courseTimeRepository = courseTimeRepository;
 	}
 	//--------Course課程-----------
 	@Override
 	public List<Course> findAll() {
 		return courseRepository.findAll();
 	}
-
-//	@Override
-//	public List<Course> findAllByType(Integer courseId) {
-////		return courseRepository.findAllByType(courseId);
-//	}
 
 	@Override
 	public Optional<Course> findById(Integer openCourse) {
@@ -66,42 +64,45 @@ public class CourseServiceImpl implements CourseService {
 			throw new RuntimeException("沒有找到要更新的課程");
 		}
 		courseRepository.save(course);
-
 	}
 
 	@Transactional
 	public void createCourse(Course course) {
-		Venue venue = rentalService.findByVenueId(course.getRoomId());
+		Venue venue = venueService.findByVenueId(course.getRoomId());
 		course.setRoom(venue);
 		courseRepository.save(course);
 
 	}
 
-	//--------CourseType課程代號-----------
+	//--------CourseTime課程代號-----------
 	@Override
-	public List<CourseType> findAllCt() {
-		return courseTypeRepository.findAll();
+	public List<CourseTime> findAllCtime() {
+		return courseTimeRepository.findAll();
 	}
 
 	@Override
-	public Optional<CourseType> findByCtId(Integer courseId) {
-		return courseTypeRepository.findById(courseId);
+	public Optional<CourseTime> findByCtId(Integer ctimeId) {
+		return courseTimeRepository.findById(ctimeId);
 	}
 
 	@Override
-	public void deleteByCtId(Integer courseId) {courseTypeRepository.deleteById(courseId);}
+	@Transactional
+	public void deleteByCtId(Integer ctimeId) {courseTimeRepository.deleteById(ctimeId);}
 
 	@Override
-	public void updateCourseType(CourseType courseType) {
+	@Transactional
+	public void updateCourseTime(CourseTime courseTime) {
 
-		CourseType courseTypeDb = courseTypeRepository.findById(courseType.getCourseId()).orElse(null);
-		if(courseTypeDb == null){
+		CourseTime courseTimeDb = courseTimeRepository.findById(courseTime.getCtimeId()).orElse(null);
+		if(courseTimeDb == null){
 			throw new RuntimeException("沒有找到要更新的課程代碼");
-		}courseTypeRepository.save(courseType);
+		}courseTimeRepository.save(courseTime);
 	}
 
 	@Override
-	public void createCourseType(CourseType courseType) { courseTypeRepository.save(courseType);	}
+	@Transactional
+	public void createCourseTime(CourseTime courseTime) { courseTimeRepository.save(courseTime);	}
+
 
 
 

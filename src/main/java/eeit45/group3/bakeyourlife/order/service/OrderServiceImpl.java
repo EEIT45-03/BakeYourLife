@@ -68,8 +68,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable) {
-		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user,pageable);
+	public List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user) {
+		return orderRepository.findAllByOrderStatusAndUser(orderStatus,user);
+	}
+
+	@Override
+	public List<Order> findAllByOrderStatus(OrderStatus orderStatus) {
+		return orderRepository.findAllByOrderStatus(orderStatus);
 	}
 
 	@Override
@@ -82,20 +87,30 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<Order> findAllByUser(User user, Pageable pageable) {
-		if(user == null){
-			return null;
-		}
-		return orderRepository.findAllByUser(user,pageable);
+	public Long count() {
+		return orderRepository.count();
 	}
 
 	@Override
-	public Page<Order> findAllByUserId(Integer userId, Pageable pageable) {
+	public Integer findYearSaleAmount() {
+		return orderRepository.findYearSaleAmount();
+	}
+
+	@Override
+	public List<Order> findAllByUser(User user) {
+		if(user == null){
+			return null;
+		}
+		return orderRepository.findAllByUser(user);
+	}
+
+	@Override
+	public List<Order> findAllByUserId(Integer userId) {
 		User user = userService.findByUserId(userId);
 		if(user == null){
 			return null;
 		}
-		return orderRepository.findAllByUser(user,pageable);
+		return orderRepository.findAllByUser(user);
 	}
 
 	@Override
@@ -172,9 +187,22 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public Order refund(Integer orderId) {
+	public Order refund(Integer orderId,Integer refundReason) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		assert order != null;
 		System.out.println("訂單號：" + orderId + " 嘗試提出退款");
+		switch (refundReason) {
+			case 0:
+
+				order.setRefundReason("等太久");
+				break;
+			case 1:
+				order.setRefundReason("我不想買了");
+				break;
+			case 2:
+				order.setRefundReason("買錯東西");
+				break;
+		}
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.REFUND).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
 			System.out.println("訂單號：" + orderId + " 提出退款失敗，狀態異常");

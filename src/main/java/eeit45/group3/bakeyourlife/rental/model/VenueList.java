@@ -12,9 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -42,16 +43,16 @@ public class VenueList implements Serializable {
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
 	private Venue venue;
-	
-	//出租時間
-	@Column(name = "lendTime", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date lendTime;
 
-	//結束時間
-	@Column(name = "endTime", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date endTime;
+	//出租日期
+	@Column(name = "rentalDate", nullable = false)
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date rentalDate;
+
+	//出租時段
+	@Column(name = "period", nullable = false)
+	private String period;
 
 	//食材提供
 	@Column(name = "ingredients",columnDefinition = "varchar(5) not null")
@@ -74,11 +75,15 @@ public class VenueList implements Serializable {
 
 	}
 
-	public VenueList(String venueListNo, Venue venue, Date lendTime, Date endTime, String ingredients, Integer person, Integer price, Rental rental) {
+	public VenueList(Rental rental) {
+		this.rental = rental;
+	}
+
+	public VenueList(String venueListNo, Venue venue, Date rentalDate, String period, String ingredients, Integer person, Integer price, Rental rental) {
 		this.venueListNo = venueListNo;
 		this.venue = venue;
-		this.lendTime = lendTime;
-		this.endTime = endTime;
+		this.rentalDate = rentalDate;
+		this.period = period;
 		this.ingredients = ingredients;
 		this.person = person;
 		this.price = price;
@@ -109,20 +114,20 @@ public class VenueList implements Serializable {
 		this.venue = venue;
 	}
 
-	public Date getLendTime() {
-		return lendTime;
+	public Date getRentalDate() {
+		return rentalDate;
 	}
 
-	public void setLendTime(Date lendTime) {
-		this.lendTime = lendTime;
+	public void setRentalDate(Date rentalDate) {
+		this.rentalDate = rentalDate;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public String getPeriod() {
+		return period;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
 	public String getIngredients() {

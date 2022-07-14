@@ -19,10 +19,16 @@ public interface OrderService {
 
     List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
 
-    Page<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user, Pageable pageable);
+    List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
+
+    List<Order> findAllByOrderStatus(OrderStatus orderStatus);
 
 
     List<Order> findAllByCouponCode(String code);
+
+    Long count();
+
+    Integer findYearSaleAmount();
 
     /*
      * 用商品名稱找訂單
@@ -32,9 +38,9 @@ public interface OrderService {
     //List<Order> findAllByItemName(String itemName);
 
     //用使用者ID查詢所有訂單
-    Page<Order> findAllByUser(User user, Pageable pageable);
+    List<Order> findAllByUser(User user);
 
-    Page<Order> findAllByUserId(Integer userId, Pageable pageable);
+    List<Order> findAllByUserId(Integer userId);
 
 
 
@@ -69,7 +75,7 @@ public interface OrderService {
     Order cancel(Integer orderId);
 
     //訂單提出退款
-    Order refund(Integer orderId);
+    Order refund(Integer orderId,Integer refundReason);
 
     //訂單退款同意
     Order accept(Integer orderId);

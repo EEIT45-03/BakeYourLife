@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.farmerproduct.service;
 
 import eeit45.group3.bakeyourlife.farmerproduct.dao.FarmerProductRepository;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,23 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state) {
+        return farmerProductRepository.findByStateOrderByLaunchedTimeDesc(state);
+    }
+
+    @Override
+    public List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type) {
+        return farmerProductRepository.findByTypeAndStateOrderByLaunchedTimeDesc(type, 0);
+    }
+
+    @Override
     public FarmerProductBean findByFarmerProductId(Integer farmerProductId) {
         return farmerProductRepository.findByFarmerProductId(farmerProductId);
+    }
+
+    @Override
+    public Long count() {
+        return farmerProductRepository.count();
     }
 
     @Override

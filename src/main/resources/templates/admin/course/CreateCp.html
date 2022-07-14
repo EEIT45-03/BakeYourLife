@@ -20,14 +20,14 @@
         /*    padding-top: 100mm;*/
         /*}*/
     </style>
-    <div th:replace="/admin/css.html"></div>
+    <div th:replace="admin/css.html"></div>
 </head>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <div th:replace="/admin/sidebar.html"></div>
+    <div th:replace="admin/sidebar.html"></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -35,7 +35,7 @@
         <!-- Main Content -->
         <div id="content">
 
-            <div th:replace="/admin/header.html"></div>
+            <div th:replace="admin/header.html"></div>
 
 
             <!-- Begin Page Content -->
@@ -68,9 +68,6 @@
                                            placeholder="課程名稱">
                                 </div>
                             </div>
-
-
-
                             <!-- Price -->
                             <div class="row mb-3">
                                 <label for="price" class="col-sm-2 col-form-labels">課程金額:</label>
@@ -80,17 +77,26 @@
                                 </div>
                             </div>
 
+                            <!-- Summary -->
+                            <div class="row mb-3">
+                                <label for="summary" class="col-sm-2 col-form-labels">課程說明:</label>
+                                <div class="col-sm-10">
+                                    <textarea th:field="*{summary}" class="form-control mb-4" id="summary" name="summary"
+                                              placeholder="課程簡介">
+                                    </textarea>
+                                </div>
+                            </div>
 
                             <!-- Description -->
                             <div class="row mb-3">
-                                <label for="desc" class="col-sm-2 col-form-labels">課程說明:</label>
+                                <label for="desc" class="col-sm-2 col-form-labels">課程簡介:</label>
                                 <div class="col-sm-10">
                                     <textarea th:field="*{description}" class="form-control mb-4" id="desc" name="desc"
                                               placeholder="課程說明">
                                     </textarea>
                                 </div>
                             </div>
-                            <!-- Description -->
+                            <!-- Picture -->
                             <div class="custom-file mb-4">
 
                                 <label  class="col-sm-2 col-form-labels">圖片:</label>
@@ -112,20 +118,21 @@
 
                             <!-- Sign in button -->
                             <button class="btn btn-secondary" type="submit">新增課程</button>
+                            <button type="button" class="btn btn-secondary" id="InputCourseProduct">一鍵輸入</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End of Main Content -->
-        <div th:replace="/admin/footer.html"></div>
+        <div th:replace="admin/footer.html"></div>
     </div>
     <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
 
-<div th:replace="/admin/javascript.html"></div>
+<div th:replace="admin/javascript.html"></div>
 <script th:src="@{/js/course.js}"></script>
 //這是讓上傳檔案可以有文字
 <script th:src="@{https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js}"></script>

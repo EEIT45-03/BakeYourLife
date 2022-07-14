@@ -861,6 +861,7 @@ ol {
 }
 
 .featured__item__pic {
+    border-radius: 5px;
     height: 270px;
     position: relative;
     overflow: hidden;
@@ -994,6 +995,7 @@ ol {
 }
 
 .latest-product__item__pic {
+    border-radius: 5px;
     float: left;
     margin-right: 26px;
 }
@@ -1284,6 +1286,7 @@ ol {
 }
 
 .product__discount__item__pic {
+    border-radius: 20px;
     height: 270px;
     position: relative;
     overflow: hidden;
@@ -1538,6 +1541,7 @@ ol {
 }
 
 .product__item__pic {
+    border-radius: 20px;
     height: 270px;
     position: relative;
     overflow: hidden;
@@ -1915,8 +1919,8 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-	width:450px;
-	text-align: left;
+    width: 450px;
+    text-align: left;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item img {

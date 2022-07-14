@@ -13,14 +13,27 @@ public class CustomUserDetails implements UserDetails{
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private Farmer farmer;
+	  String farmerName;
+	  String fullName;
 
 	public CustomUserDetails(User user) {
 		this.user = user;
 	}
 
+	public CustomUserDetails(Farmer farmer) {
+		this.farmer = farmer;
+	}
+
 	public CustomUserDetails() {
 	}
 
+	public CustomUserDetails(User user, Farmer farmer, String farmerName, String fullName) {
+		this.user = user;
+		this.farmer = farmer;
+		this.farmerName = farmerName;
+		this.fullName = fullName;
+	}
 	@Override
 	public String getPassword() {
 		return this.user.getPassword();
@@ -37,10 +50,6 @@ public class CustomUserDetails implements UserDetails{
 		return true;
 	}
 	
-
-
-
-
 	@Override
 	public boolean isAccountNonLocked() {
 //		return this.user.isAccountNonLocked();
@@ -61,8 +70,8 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		return AuthorityUtils.createAuthorityList(user.getRole());
-		return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+		return AuthorityUtils.createAuthorityList(user.getAuthority());
+//		return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 	}
 
 	public User getUser() {
@@ -72,6 +81,27 @@ public class CustomUserDetails implements UserDetails{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Farmer getFarmer() {
+		return farmer;
 	}
+
+	public String getFarmerName() {
+		return this.farmer.getFarmerName();
+	}
+
+	public String getFullName() {
+		return this.user.getFullName();
+	}
+
+	public String getImageUrl() {
+		String imageUrl = null;
+		if (this.user != null) {
+			imageUrl = this.user.getImageUrl();
+		} else if (this.farmer != null) {
+			imageUrl = this.farmer.getImageUrl();
+		}
+		return imageUrl;
+	}
+}
 
