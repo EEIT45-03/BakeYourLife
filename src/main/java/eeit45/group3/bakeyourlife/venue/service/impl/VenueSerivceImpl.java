@@ -102,6 +102,13 @@ public class VenueSerivceImpl implements VenueService {
         return venueRepository.findByVenueTopThree();
     }
 
+
+    @Override
+    public List<Venue> findAllByVenueSort(Integer venueSortId) {
+        VenueSort venueSort = venueSortRepository.findById(venueSortId).orElse(null);
+        return venueRepository.findAllByVenueSort(venueSort);
+    }
+
     @Override
     public boolean checkVenue(Venue venue) {
 //        boolean check = false;

@@ -23,6 +23,8 @@ public interface VenueRepository extends JpaRepository<Venue, Integer> {
 
     public List<Venue> findAllByVenueNameAndVenueSort(String venueName, VenueSort venueSort);
 
+    public List<Venue> findAllByVenueSort(VenueSort venueSort);
+
     @Query(value = "SELECT v.*  FROM venue v " +
             "INNER JOIN (SELECT TOP (3) fk_venue_id, COUNT(fk_venue_id) sum FROM venue_list " +
             "GROUP BY fk_venue_id) vl on v.venue_id = vl.fk_venue_id " +

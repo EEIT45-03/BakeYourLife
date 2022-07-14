@@ -45,6 +45,9 @@ public interface VenueService {
     //查詢全部的場地種類
     public List<VenueSort> findAllVenueSort();
 
+    //依種類查詢全部的場地
+    public List<Venue> findAllByVenueSort(Integer venueSortId);
+
     //查詢TOP3場地
     public List<Venue> findByVenueTopThree();
 

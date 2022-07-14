@@ -31,17 +31,9 @@ public class RentalUIController {
         this.tackleService = tackleService;
     }
 
-    @GetMapping("/VenueSorts")
-    public ResponseEntity<List<VenueSort>> getVenueSorts() {
-        List<VenueSort> venueSorts = venueService.findAllVenueSort();
-        return ResponseEntity.status(HttpStatus.OK).body(venueSorts);
-    }
 
-    @GetMapping("/TackleSorts")
-    public ResponseEntity<List<TackleSort>> getTackleSorts() {
-        List<TackleSort> tackleSorts = tackleService.findAllTackleSort();
-        return ResponseEntity.status(HttpStatus.OK).body(tackleSorts);
-    }
+
+
 
     @GetMapping("/TopThree/Venue")
     public ResponseEntity<List<Venue>> getVenueTopThree() {

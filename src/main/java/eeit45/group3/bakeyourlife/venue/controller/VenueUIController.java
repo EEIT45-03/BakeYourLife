@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.controller;
 
 import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,16 +23,21 @@ public class VenueUIController {
         this.venueService = venueService;
     }
 
+    @GetMapping("/VenueSorts")
+    public ResponseEntity<List<VenueSort>> getVenueSorts() {
+        List<VenueSort> venueSorts = venueService.findAllVenueSort();
+        return ResponseEntity.status(HttpStatus.OK).body(venueSorts);
+    }
+
     @GetMapping("/Venues")
     public ResponseEntity<List<Venue>> getVenues() {
         List<Venue> venues = venueService.findAllVenue();
         return ResponseEntity.status(HttpStatus.OK).body(venues);
     }
 
-//    @GetMapping("/Venues/{package}")
-//    public ResponseEntity<List<Venue>> getVenues1(@PathVariable Integer packageNo) {
-//
-//        List<Venue> venues = venueService.findAllVenue();
-//        return ResponseEntity.status(HttpStatus.OK).body(venues);
-//    }
+    @GetMapping("/Venues/{sortId}")
+    public ResponseEntity<List<Venue>> getVenuesBySort(@PathVariable Integer sortId) {
+        List<Venue> venues = venueService.findAllByVenueSort(sortId);
+        return ResponseEntity.status(HttpStatus.OK).body(venues);
+    }
 }

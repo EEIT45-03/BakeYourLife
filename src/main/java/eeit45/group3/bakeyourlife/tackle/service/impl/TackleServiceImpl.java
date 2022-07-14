@@ -126,5 +126,9 @@ public class TackleServiceImpl implements TackleService {
         tackleSortRepository.deleteById(tackleSortId);
     }
 
-
+    @Override
+    public List<Tackle> findAllByTackleSort(Integer tackleSortId) {
+        TackleSort tackleSort = tackleSortRepository.findById(tackleSortId).orElse(null);
+        return tackleRepository.findAllByTackleSort(tackleSort);
+    }
 }

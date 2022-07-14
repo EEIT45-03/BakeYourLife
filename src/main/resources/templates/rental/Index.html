@@ -333,14 +333,86 @@
             .then(response => response.json())
             .then(data => {
 
-                $('#find_div').html();
+                let long = Object.keys(data).length;
+
+
+                let find_div = '<div class="product__discount">'+
+                                    '<div class="section-title product__discount__title">' +
+                                        ' <h2>場地</h2>' +
+                                    '</div>' +
+                                    '<div class="row">';
+                for(let i=0 ; i<long ; i++ ){
+                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>" +
+                        " <div class='product__item__text'>" +
+                        " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
+                        " <h5>$" + data[i].hrPrice + "/時</h5>" +
+                        " </div>" +
+                        " </div>" +
+                        " </div>";
+                }
+
+
+                find_div = find_div + '</div>' +
+                                    '</div>';
+
+                $('#find_div').html(find_div);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
             })
             .catch((error) => {
                 console.log('Error:'+(error))
             })
     }
 
+    //依種類查詢器具
 
+    function getTackleBySort(sort){
+        fetch('/Tackles/'+sort)
+            .then(response => response.json())
+            .then(data => {
+
+                let long = Object.keys(data).length;
+
+
+                let find_div = '<div class="product__discount">'+
+                    '<div class="section-title product__discount__title">' +
+                    ' <h2>器具</h2>' +
+                    '</div>' +
+                    '<div class="row">';
+                for(let i=0 ; i<long ; i++ ){
+                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>" +
+                        " <div class='product__item__text'>" +
+                        " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                        " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                        " </div>" +
+                        " </div>" +
+                        " </div>";
+                }
+
+
+                find_div = find_div + '</div>' +
+                    '</div>';
+
+                $('#find_div').html(find_div);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
     // function getVenueSort(){
     //     fetch('/VenueSorts')
     //         .then(response => response.json())
