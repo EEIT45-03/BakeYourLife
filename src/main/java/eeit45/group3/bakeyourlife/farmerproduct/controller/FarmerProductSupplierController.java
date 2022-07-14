@@ -61,7 +61,6 @@ public class FarmerProductSupplierController {
 
         if (principal != null) {
             Farmer farmer = farmerService.findByUsername(principal.getName());
-            model.addAttribute("farmer", farmer);
             List<FarmerProductBean> farmerProductBeans = farmerProductService.findByFarmerId(farmer.getFarmerId());
             model.addAttribute("farmerProductBeans", farmerProductBeans);
             return "farmerproduct/SupplierProductList";
@@ -73,8 +72,6 @@ public class FarmerProductSupplierController {
     @GetMapping("SupplierProductList/CreateFarmerProduct")
     public String viewCreateFarmerProduct(Model model, Principal principal) {
         if (principal != null) {
-            Farmer farmer = farmerService.findByUsername(principal.getName());
-            model.addAttribute("farmer", farmer);
             model.addAttribute("farmerProductBean", new FarmerProductBean());
             return "farmerproduct/CreateFarmerProduct";
 

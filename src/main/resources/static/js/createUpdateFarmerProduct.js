@@ -259,7 +259,7 @@ function sendupdate(farmerProductId) {
 function getFarmerProduct() {
 
 
-    let farmerId = $("#farmerId").val();
+    let farmerId = $("#farmerId").text();
     let type = $("#type").val();
     let name = $.trim($("#name").val());
     let price = $.trim($("#price").val());

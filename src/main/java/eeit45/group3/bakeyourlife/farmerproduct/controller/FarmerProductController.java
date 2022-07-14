@@ -56,6 +56,11 @@ public class FarmerProductController {
 
                 }
             }
+        } else {
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureLink("https://i.imgur.com/fWtT2ZK.png");
+            farmerProductPicList.add(farmerProductPic);
         }
 
         Date date = new Date();
@@ -91,6 +96,11 @@ public class FarmerProductController {
 
                 }
             }
+        } else {
+            FarmerProductPic farmerProductPic = new FarmerProductPic();
+            farmerProductPic.setFarmerProductBean(farmerProductBean);
+            farmerProductPic.setPictureLink("https://i.imgur.com/fWtT2ZK.png");
+            farmerProductPicList.add(farmerProductPic);
         }
 
         farmerProductBean.setFarmerProductPicList(farmerProductPicList);

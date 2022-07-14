@@ -271,7 +271,7 @@
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
                                aria-selected="false">商品評價</a>
                         </li>
-                        
+
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -382,6 +382,7 @@
 
     $(document).ready(function () {
         let type = $("#type").text()
+        console.log(type)
         var xhr = new XMLHttpRequest();
         xhr.open("GET", '[[@{/FarmerProducts/}]]' + type, true);
         xhr.send();

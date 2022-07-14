@@ -3,6 +3,8 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +19,12 @@ import java.util.List;
 public class FarmerProductShopController {
 
     FarmerProductService farmerProductService;
-
+    FarmerService farmerService;
 
     @Autowired
-    public FarmerProductShopController(FarmerProductService farmerProductService) {
+    public FarmerProductShopController(FarmerProductService farmerProductService, FarmerService farmerService) {
         this.farmerProductService = farmerProductService;
+        this.farmerService = farmerService;
     }
 
     @GetMapping("/ShopDetails/{id}")
@@ -40,8 +43,11 @@ public class FarmerProductShopController {
     @GetMapping("/ShopGrid")
     private String ShopGrid(Model model) {
         List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateOrderByLaunchedTimeDesc(0);
-
         model.addAttribute(farmerProductBeanList);
+
+        List<Farmer> farmerList = farmerService.findAll();
+
+        model.addAttribute(farmerList);
 
         return "farmerproduct/FarmerProductShopGrid";
     }

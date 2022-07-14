@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農廠商</title>
-    <div th:replace="admin/css.html"></div>
     <div th:replace="css.html"></div>
 
 
@@ -93,7 +92,7 @@
             padding-top: 50px;
         }
 
-        body {
+        .card-body {
             color: #858796;
             font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
@@ -266,7 +265,7 @@
                                 <i class="fa fa-plus imgAdd"></i>
                             </div>
                             <input type="hidden" name="state" id="state" value="0">
-                            <input type="hidden" name="farmerId" id="farmerId" th:value="${farmer.farmerId}">
+                            <span sec:authentication="principal.id" style="display: none" id="farmerId"></span>
 
                             <button class="btn btn-primary"
                                     onclick="sendcreate()">確認新增
@@ -289,7 +288,7 @@
 <!-- End of Page Wrapper -->
 <div th:replace="footer.html"></div>
 
-<div th:replace="admin/javascript.html"></div>
+<!--<div th:replace="admin/javascript.html"></div>-->
 <!-- Page level custom scripts -->
 
 
