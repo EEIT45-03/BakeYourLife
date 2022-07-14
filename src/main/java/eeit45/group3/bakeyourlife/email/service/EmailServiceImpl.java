@@ -1,11 +1,9 @@
 package eeit45.group3.bakeyourlife.email.service;
 
-import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -41,18 +39,31 @@ public class EmailServiceImpl implements EmailService {
         javaMailSender.send(message);
     }
 
-    public String sendMailByThymeleaf(User user) throws MessagingException {
+    /**
+     * 寄信件
+     * @param to 收件者
+     * @param subject 主旨
+     * @param text 內容
+     * @param templateName emails資料夾下的模板名稱
+     * @throws MessagingException
+     */
+    @Override
+    public void sendMailByThymeleaf(
+            String to,//收件者
+            String subject,//主旨
+            String text, //內容
+            String templateName//模板名稱
+    ) throws MessagingException {
         Context context = new Context();
-        context.setVariable("user", user);
+        context.setVariable("text", text);
 
-        String process = templateEngine.process("emails/welcome", context);
+        String process = templateEngine.process("emails/"+templateName, context);
         javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-        helper.setSubject("Welcome " + user.getFullName());
+        helper.setSubject(subject);
         helper.setText(process, true);
-        helper.setTo(user.getEmail());
+        helper.setTo(to);
         javaMailSender.send(mimeMessage);
-        return "Sent";
 
 }
 
