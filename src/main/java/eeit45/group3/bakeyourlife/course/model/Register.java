@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -33,7 +34,8 @@ public class Register implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerDate;
 
-    private Integer state;// 狀態 0報名成功 1使用者取消報名 2管理者取消課程 3課程完成
+
+    private Integer state = 0;// 狀態 0報名成功 1使用者取消報名 2管理者取消課程 3課程完成
 
     @ManyToOne
     @JoinColumn(name="FK_opCourse", referencedColumnName = "openCourse", nullable = false)

@@ -7,14 +7,18 @@ import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,10 +26,12 @@ public class UserCourseController {
 
     private CourseService courseService;
     private ProductService productService;
+    private UserService userService;
     @Autowired
-    public UserCourseController(CourseService courseService, ProductService productService) {
+    public UserCourseController(CourseService courseService, ProductService productService, UserService userService) {
         this.courseService = courseService;
         this.productService = productService;
+        this.userService = userService;
     }
 
     @GetMapping("/Course")
@@ -48,13 +54,35 @@ public class UserCourseController {
         }
         model.addAttribute("product", product);
         return "course/CourseDetails";
-
     }
 
     @GetMapping(path = "/Course/CreateRegister")
     public String viewCreateRegister(Model model) {
         model.addAttribute("register", new Register());
-        return "course/CourseCheckOut";
+        return "course/CourseRegister";
     }
+    @PostMapping("/Course/CreateRegister")
+    public String createRegister(@ModelAttribute("register") Register register, BindingResult result) {
+        courseService.createRegister(register);
+        return "redirect:./";
+    }
+
+    @GetMapping(path = "/Course/CreateRegisterWithId")
+    public String viewCreateRegisterWithId(@RequestParam("id") Integer openCourse, Model model,
+                                           Authentication authentication) {
+        Course course = courseService.findById(openCourse).orElse(null);
+        User user = userService.getUser(authentication);
+        model.addAttribute("user",user);
+        model.addAttribute("course",course);
+        model.addAttribute("register", new Register());
+        return "course/CourseRegisterWithId";
+    }
+    @PostMapping("/Course/CreateRegisterWithId")
+    public String createRegisterWithId(@ModelAttribute("register") Register register, BindingResult result) {
+        courseService.createRegister(register);
+        return "redirect:./";
+    }
+
+
 
 }

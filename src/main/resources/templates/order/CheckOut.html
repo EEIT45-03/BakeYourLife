@@ -62,27 +62,28 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-<!--                                    <tr th:each="item:${cart.cart.values()}">-->
-<!--                                        <td class="shoping__cart__item product-name">-->
-<!--                                            &lt;!&ndash;                                <img src="/img/cart/cart-1.jpg" alt="">&ndash;&gt;-->
-<!--                                            <h5 th:text="${item.productName}">Vegetable’s Package</h5>-->
-<!--                                        </td>-->
-<!--                                        <td class="product-type">烘培材料</td>-->
-<!--                                        <td class="shoping__cart__quantity product-qty" th:text="${item.qty}">-->
+                                    <tr th:each="item:${cart.cart.values()}">
+                                        <td class="shoping__cart__item product-name">
+                                            <!--                                <img src="/img/cart/cart-1.jpg" alt="">-->
+                                            <h5 th:text="${item.productName}">Vegetable’s Package</h5>
+                                        </td>
+                                        <td class="product-type">烘培材料</td>
+                                        <td class="shoping__cart__quantity product-qty" th:text="${item.qty}">
 
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__total product-subTotal"-->
-<!--                                            th:text="|NT$${item.subTotal}|">-->
-<!--                                            NT$55-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
+                                        </td>
+                                        <td class="shoping__cart__total product-subTotal"
+                                            th:text="|NT$${item.subTotal}|">
+                                            NT$55
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                                 <div class="checkout__order__subtotal">商品小計 <span >XXXX</span></div>
-<!--                                                            <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>-->
-<!--                                                            <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>-->
-<!--                                                            <div class="checkout__order__total" th:if="${cart.coupon}">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>-->
-<!--                                                            <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total - cart.discountAmount}|">$750.99</span></div>-->
+                                                            <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>
+                                                            <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>
+                                                            <div class="checkout__order__total" th:if="${cart.coupon}">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>
+                                                            <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total - cart.discountAmount}|">$750.99</span></div>
+
                             </div>
                             <!--                            <h4>你的訂單</h4>-->
                             <!--                            <div class="checkout__order__products">商品 <span>小計</span></div>-->
