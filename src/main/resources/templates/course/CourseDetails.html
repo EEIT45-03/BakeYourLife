@@ -14,11 +14,9 @@
         .img {
             border-radius: 5px;
             object-fit: cover;
-
         }
 
         .product__details__pic__item--large {
-
             max-height: 500px;
         }
 
@@ -87,85 +85,6 @@
             display: block;
         }
 
-
-        #comments {
-            box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
-            background-color: #FFFFFF;
-        }
-
-        #comments form {
-            margin-bottom: 30px;
-        }
-
-        #comments .btn {
-            margin-top: 7px;
-        }
-
-        #comments form fieldset {
-            clear: both;
-        }
-
-        #comments form textarea {
-            height: 100px;
-        }
-
-        #comments .media {
-            border-top: 1px dashed #DDDDDD;
-            padding: 20px 0;
-            margin: 0;
-        }
-
-        #comments .media > .pull-left {
-            margin-right: 20px;
-        }
-
-        #comments .media img {
-            max-width: 100px;
-        }
-
-        #comments .media h4 {
-            margin: 0 0 10px;
-        }
-
-        #comments .media h4 span {
-            font-size: 14px;
-            float: right;
-            color: #999999;
-        }
-
-        #comments .media p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-
-        #comments .media-detail {
-            margin: 0;
-        }
-
-        #comments .media-detail li {
-            color: #AAAAAA;
-            font-size: 12px;
-            padding-right: 10px;
-            font-weight: 600;
-        }
-
-        #comments .media-detail a:hover {
-            text-decoration: underline;
-        }
-
-        #comments .media-detail li:last-child {
-            padding-right: 0;
-        }
-
-        #comments .media-detail li i {
-            color: #666666;
-            font-size: 15px;
-            margin-right: 10px;
-        }
-
-        .star {
-            color: #ffbf00;
-        }
     </style>
 
 </head>
@@ -197,15 +116,6 @@
 <section class="product-details spad">
     <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">
     <div class="container" >
-        <!--先測可不可以找到他th:object="${product}"-->
-<!--        <td>[[*{product.id}]]</td>-->
-<!--        <th scope="row"><img alt="" th:src="*{{product.image}}" style="width: 100px;height: 100px;"></th>-->
-<!--        <td>[[*{product.name}]]</td>-->
-<!--        <td>[[*{product.summary}]]</td>-->
-<!--        <td>[[*{product.description}]]</td>-->
-<!--        <td>NT$[[*{product.price}]]</td>-->
-        <!--先測可不可以找到他-->
-
         <div class="row">
             <div class="col-lg-6 col-md-6">
 <!--                <div th:if="${not #lists.isEmpty(farmerProductBean.farmerProductPicList)}"-->
@@ -248,7 +158,7 @@
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
-                    <a href="#" class="primary-btn"  th:onclick="|add('F',*{product.id})|">點我報名</a>
+                    <a href="#openCourse" class="primary-btn" >點我選擇時段</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
 <!--                        <li><b>庫存</b> <span th:text="*{quantity}"></span></li>-->
@@ -355,7 +265,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title related__product__title">
+                <div class="section-title related__product__title" id="openCourse">
                     <h2>開課時段</h2>
                 </div>
             </div>
@@ -383,6 +293,8 @@
 <!--                                    <tr>-->
                                         <td class="shoping__cart__item">
                                             <img th:src="*{{product.image}}" alt="" style="height: 100px; border-radius: 10px">
+                                            <h5 th:text="*{course.openCourse}"></h5>
+                                            <h5>&ensp; | &ensp;</h5>
                                             <h5 th:text="*{product.name}"></h5>
                                         </td>
                                         <td class="shoping__cart__price">
@@ -401,7 +313,7 @@
                                             <p th:text="*{course.teacher}"></p>
                                         </td>
                                         <td class="shoping__cart__total">
-                                            <span class="icon_book"></span>
+                                            <a class="icon_book" th:href="@{CreateRegisterWithId(id=${course.openCourse})}"></a>
                                         </td>
 <!--                                    </tr>-->
                                 </tr>
@@ -417,24 +329,7 @@
         </section>
         <!-- Shoping Cart Section End -->
 
-        <!--這是一格-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-3 col-md-4 col-sm-6">-->
-<!--                <div class="product__item">-->
-<!--                    <div class="product__item__pic set-bg" data-setbg="/img/product/product-1.jpg">-->
-<!--                        <ul class="product__item__pic__hover">-->
-<!--                            <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
-<!--                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
-<!--                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <div class="product__item__text">-->
-<!--                        <h6><a href="#">Crab Pool Security</a></h6>-->
-<!--                        <h5>$30.00</h5>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-            <!--這是一格-->
+
 
         </div>
     </div>

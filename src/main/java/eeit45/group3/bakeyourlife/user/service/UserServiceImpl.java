@@ -3,7 +3,9 @@ package eeit45.group3.bakeyourlife.user.service;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.user.dao.UserRepository;
+import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,12 @@ public class UserServiceImpl implements UserService {
         // 加密密碼
         user.setPassword(encoder.encode(user.getPassword()));
         return repository.save(user);
+    }
+
+    @Override
+    public User getUser(Authentication authentication){
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        return userDetails.getUser();
     }
 
     @Override
