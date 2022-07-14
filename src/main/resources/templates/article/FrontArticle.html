@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <div th:replace="/css.html"></div>
+    <style>
+        .wrapper{
+            width: 800px;
+            height: 400px;
+            background-color: black;
+            margin: 0 auto;
+            position: relative;
+        }
+        .slide-imgs{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            display: flex;
+            width: 4000px;
+            /* left: -800px; */
+
+        }
+        .slide-imgs li{
+            width: 800px;
+            height: 400px;
+        }
+        .slide-imgs li img{
+            width: 100%;
+            height: 100%;
+            /*控制元素內容填入大小比例*/
+            object-fit: cover;
+        }
+        .pages{
+            position: absolute;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            bottom: 10px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+        }
+        .pages li{
+            border: 1px solid white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .pages-arrow{
+            position: absolute;
+            z-index: 1;
+            font-size: 36px;
+            width: 40px;
+            height: 100%;
+            color: white;
+            display: flex;
+            /* 次軸對齊 */
+            align-items: center;
+            opacity: 6;
+            cursor: pointer;
+        }
+        .right{
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/blog/details/img1">
+<!--    <img src="/img/blog/details/img4.png" alt="...">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12 text-center">-->
+<!--                <div class="breadcrumb__text">-->
+<!--                    <h2>Blog</h2>-->
+<!--                    <div class="breadcrumb__option">-->
+<!--                        <a href="./index.html">Home</a>-->
+<!--                        <span>Blog</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="container">
+        <div class="wrapper">
+            <a class="pages-arrow" id="slidePre"></a><i class="fa-solid fa-arrow-left"></i>
+            <a class="pages-arrow right" id="slideNext"></a><i class="fa-solid fa-arrow-right"></i>
+            <ul class="slide-imgs">
+                <li><img src="/img/blog/details/IMG_6351.JPG" alt=""></li>
+                <li><img src="/img/blog/details/lemon.jpg" alt=""></li>
+                <li><img src="/img/blog/details/IMG_6279.JPG" alt=""></li>
+                <li><img src="/img/blog/details/madeleine.jpg" alt=""></li>
+                <li><img src="/img/blog/details/lemontart4.jpg" alt=""></li>
+
+            </ul>
+            <ul class="pages" id="pages">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Blog Section Begin -->
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                        <form th:action="@{/FrontArticle/SelectArticle}" method="get" enctype="multipart/form-data">
+                            <input name="title" type="text" placeholder="搜尋標題">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>文章分類</h4>
+
+                        <div class="form-group">
+                            <label for="type"></label>
+                            <select name="type" class="form-control" id="typeSelect">
+                                <option value= null label="請選擇分類">請選擇分類</option>
+                                <option value="活動資訊">活動資訊</option>
+                                <option value="課程資訊">課程資訊</option>
+                                <option value="食譜討論">食譜討論</option>
+                            </select>
+
+                        </div>
+<!--                        <ul>-->
+<!--                            <li><a href="@{/SelectArticle(title=${article.title})}">活動資訊</a></li>-->
+<!--                            <li><a href="#">課程資訊</a></li>-->
+<!--                            <li><a href="#">食譜討論</a></li>-->
+<!--                        </ul>-->
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>最新貼文</h4>
+                        <form action="/" method="get" th:each="article: ${articleDate}">
+                        <div class="blog__sidebar__recent">
+                            <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic" style="width: 100px;
+                              height: 100px;">
+                                    <img th:src="${article.imageUrl}" alt="" style="width: 100%;
+                              height: 100%;margin:auto; padding: 3px;" >
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6 th:text="${ article.title}"></h6>
+                                    <span th:text="${ article.date}"></span>
+                                </div>
+                            </a>
+
+                        </div>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Search By</h4>
+                        <div class="blog__sidebar__item__tags">
+                            <a href="#">Apple</a>
+                            <a href="#">Beauty</a>
+                            <a href="#">Vegetables</a>
+                            <a href="#">Fruit</a>
+                            <a href="#">Healthy Food</a>
+                            <a href="#">Lifestyle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-8 col-md-7" id="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6"  th:each="article: ${articles}">
+                        <div class="blog__item">
+                            <div class="blog__item__pic" style="width: 200px;
+                              height: 180px;">
+                                <img th:src="${article.imageUrl}" style="display:block; margin:auto; border-radius:10px;width:100%; height:100%;">
+                            </div>
+                            <div class="blog__item__text">
+                                <span></span>
+                                <ul>
+                                    <li><i class="fa fa-calendar-o" th:text="${ article.date}"></i></li>
+                                    <li><i class="fa fa-eye" th:text="${ article.counter}"></i></li>
+<!--                                   <i class="fa-solid fa-book-open-cover"></i>fa fa-comment-o-->
+                                </ul>
+                                <h5><a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" th:text="${ article.title}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;">
+                                </a></h5>
+                                <p th:text="${ article.type}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;"></p>
+                                <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__btn">觀看文章 <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="row" id="container"></div>-->
+
+
+                    <div class="modal fade" id="InsertArticle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">新增文章</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/ArticleAdd"  method="post" enctype="multipart/form-data" id="form">
+                                        <div class="form-group">
+
+                                            <label for="title">標題:</label>
+                                            <input type="text" name="title" class="form-control"  id="title">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="type">文章分類:</label>
+                                            <select name="type" class="form-control" id="type">
+                                                <option value= null label="請選擇分類">請選擇分類</option>
+                                                <option value="活動資訊">活動資訊</option>
+                                                <option value="課程資訊">課程資訊</option>
+                                                <option value="食譜討論">食譜討論</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">發文日期:</label>
+                                            <input type="date" name="date" id="date">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>內文:</label>
+                                            <textarea name="content" class="form-control"  id="content" cols="30"
+                                                      rows="10"></textarea> <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <img width="100" height="100" style="display:block; margin:auto;" id="previewImage"/>
+                                            <label for="articleImage">上傳圖片</label>
+                                            <input type="file" name="articleImage" class="form-control-file" id="articleImage">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="correctInput">一鍵輸入</button>
+                                    <button  class="btn btn-outline-warning" id="testadd">送出文章</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="product__pagination blog__pagination">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertArticle" input style="float:right">
+                            新增文章
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+
+
+<div th:replace="/footer.html"></div>
+
+
+
+</body>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script>
+    var editor; //要先定義
+    $('#correctInput').click(function () {
+
+        $('#title').val('烘焙小百科:烘焙材料該怎麼保存？')
+        $('#type').val('食譜討論')
+        $('#type').niceSelect('update')
+        $('#date').val('2022-07-07')
+        //$('#content').val('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。')
+        editor.setData('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。除此之外，像是抹茶粉、可可粉、芝士粉、杏仁粉、奶粉等等，可以簡單地成為烘焙風味粉，旨在提高產品的風味，讓口感更加豐富另外常見的，還有糯米粉、粘米粉、玉米澱粉、馬鈴薯澱粉、木薯粉等等。上述眾多粉類的保存，都需要放置在避光、陰涼且乾燥的環境中密封保存另外由於這些粉類的強吸附力，應避免與氣味強烈的食材同放和遠離地面減少污染，防止霉變。然後像是一些不太常用的粉類，或者到了夏天特別炎熱的時候，一定要用保鮮盒密封起來放進冰箱冷藏，可以有效保存好這些粉類。');
+    })  //ckEditor要加setData才能使用JS一鍵輸入
+
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+            window.editor = editor;//一鍵輸入要加
+            editor = editor;//一鍵輸入要加
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+
+    $(document).ready(function(){
+        $("body").on("change", "#articleImage", function(e){
+            var file = e.target.files[0];
+            var mediabase64data;
+            getBase64(file).then(
+                mediabase64data => $('#previewImage').attr('src', mediabase64data)
+            );
+        });
+    })
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    $('#testadd').click(function (event) {
+        event.preventDefault();
+        add();
+    })
+
+    function add() {
+        const editorData = editor.getData(); //ckEditor要加getData，Ajax傳輸才能取到值
+        var formData = new FormData($('#form')[0]);
+        formData.append('content',editorData)   //append要用是附加傳資料
+        //console.log(formData)
+        $.ajax({
+            url: "[[@{/ArticleAdd}]]",
+            data: formData,
+            type: "post",
+            cache: false, // 不需要cache
+            processData: false, // jQuery預設會把data轉為query String, 所以要停用
+            contentType: false,
+            enctype: 'multipart/form-data',
+            // dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                // loadData();
+                // console.log(111111)
+                $('#InsertArticle').modal('hide');
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    var selectElement = document.getElementById('typeSelect');
+    var xhr2 = new XMLHttpRequest();
+    var companyData = [];
+    selectElement.onchange = function(){
+        xhr2.onreadystatechange = function() {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                displayPageBooks(xhr2.responseText);
+            }
+        }
+        //使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
+        var articleType = selectElement.options[ selectElement.selectedIndex ].value;
+        // 定義open方法
+        xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
+        // 送出請求
+        xhr2.send();
+
+        function displayPageBooks(article){
+            $('#container').html('')
+            //debugger
+            //console.log(article)
+            var mapData = JSON.parse(article);
+            var content = "<table class='s1'>";
+            content += "<tbody>"+"<tr>"+
+                "<th>發文ID</th>"+
+                "<th>標題</th>"+
+                "<th>觀看次數</th>"+
+                "<th>發文時間</th>"+
+                // "<th>內文</th>"+
+                // "<th>觀看次數</th>"+
+                "<th>照片</th>"+
+                "</tr> ";
+           // var forTable = document.querySelector('.blog__item');
+            //var div = document.getElementById('container');
+            // The parent <div>.
+            // document.getElementById('container').innerHTML('');
+            // var content ="";
+             for(var i=0; i < mapData.length; i++){
+                //forTable.innerHTML +=
+                content +=
+                //forTable.textContent +=
+                // "<tr><td >" + mapData[i].postid + "</td>" +
+                //     "<td>" + mapData[i].title + "</td>" +
+                //     "<td>" + mapData[i].counter + "</td>" +
+                //     "<td>" + mapData[i].date + "</td>" +
+                //     //"<td>" +"<img  width='100' height='100' src=\""+ mapData[i].imageUrl +"\"> " +
+                //     "</td></tr>" + "</tbody>"
+
+                 +'<div className="col-lg-8 col-md-7" id="container">'+
+                    '<div className="row">'+'<div className="col-lg-6 col-md-6 col-sm-6" th:each="article: ${articles}">'+
+                    '<div className="blog__item">'+'<div className="blog__item__pic">'+"<img style='display:block; margin:auto; border-radius:10px;width:250px; height:250px;' th:src=\""+ mapData[i].imageUrl +"\"> "+
+                    '</div>'+'<div className="blog__item__text">'+' <ul>\n' +
+                    "                            <li><i className='fa fa-calendar-o' th:text=\""+mapData[i].date+ "\"></i></li>\n" +
+                    "                            <li><i className='fa fa-eye' th:text=\""+mapData[i].counter+ "\"></i></li>\n" +
+                    "                        </ul>"+"<h5><a th:href='@{/FrontArticle/ArticleDetail(postid=\""+mapData[i].postid+ "\n" +
+                    "                               th:text=\""+mapData[i].title+ "\">\n" +
+                    "                        </a></h5>"+"<p th:text=\""+mapData[i].type+ "\"></p>"+"<a th:href='@{/FrontArticle/ArticleDetail(postid=\""+mapData[i].postid+ "\n" +
+                    "                           className='blog__btn'>觀看文章 <span className='arrow_right'></span></a>"+" </div>"+" </div>"+" </div>"
+             }
+
+           content += "</table>";
+            var div = document.getElementById('container');
+            // var divs = document.getElementById("somedivS");
+            div.innerHTML = content;
+            //$("#container").html(content);
+            // detail.innerHTML = companyName.substring(0,2) + "出版社目前共有" + BookType + "種書籍";
+        }
+    }
+
+
+
+    let index=0
+    let slideMove=0
+    $(function(){
+        $('#pages li').on('mouseenter',function(){
+            // $('.slide-imgs').css('left','-800px')
+            index=$(this).index()
+            console.log(index)
+            slideMove=0-index*800
+            $('.slide-imgs').css('left',slideMove)
+            $(this).css('background','white')
+                .siblings().css('background','transparent')
+        })
+        let pagesli=$('.pages li').length
+        $('#slideNext').on('click',function(){
+            index++
+            if(index>=pagesli){
+                index=0
+            }
+            //    slideMove=0-index*800
+            //    $('.slide-imgs').css('left',slideMove)
+            //    $('#pages li').eq(index).css('background','white')
+            //    .siblings().css('background','transparent')
+            moveImg()
+        })
+        $('#slidePrev').on('click',function(){
+            index--
+            if(index<0){
+                index=pagesli-1
+            }
+            moveImg()
+
+        })
+        function moveImg(){
+            slideMove=0-index*800
+            $('.slide-imgs').css('left',slideMove)
+            $('#pages li').eq(index).css('background','white')
+                .siblings().css('background','transparent')
+        }
+    })
+</script>
+
+</html>

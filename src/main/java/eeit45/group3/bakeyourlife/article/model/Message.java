@@ -1,6 +1,8 @@
 package eeit45.group3.bakeyourlife.article.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -34,6 +36,18 @@ public class Message implements Serializable {
     @JoinColumn(name = "postid")
     private Article article;
 
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "userId")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Message(Integer messageId, String userName, String message, Date dateTime, byte[] image, MultipartFile messageImage,
                    String base64Message) {
         this.messageId = messageId;
@@ -47,6 +61,14 @@ public class Message implements Serializable {
 
     public Message() {
 
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public Integer getMessageId() {

@@ -15,14 +15,14 @@
     <div th:replace="/admin/css.html"></div>
     <script type="text/javascript">
 
-        function submitStyle1() {
-            const photo = document.getElementById("InputImage").files[0];
-            const formData = new FormData();
-
-            formData.append("messageImage", photo);
-            fetch('[[@{/MessageAdd}]]', {method: "POST", body: formData});
-
-        }
+        // function submitStyle1() {
+        //     const photo = document.getElementById("InputImage").files[0];
+        //     const formData = new FormData();
+        //
+        //     formData.append("messageImage", photo);
+        //     fetch('[[@{/MessageAdd}]]', {method: "POST", body: formData});
+        //
+        // }
 
     function del(){
             if(!confirm("確認要刪除？")){
@@ -110,39 +110,21 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-4 text-gray-800">留言管理</h1>
                 <p class="mb-4">
-                    最新貼文資訊
-                    <br>
-                    <br>
-                    <a href="CreateMessage"
-                       class="btn btn-primary btn-icon-split btn-sm"> <span
-                            class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">新增留言</span>
-                    </a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#InsertMessage">
+                        新增留言
+                    </button>
+<!--                    <a href="CreateMessage"-->
+<!--                       class="btn btn-primary btn-icon-split btn-sm"> <span-->
+<!--                            class="icon text-white-50"> <i class="fas fa-plus"></i>-->
+<!--						</span> <span class="text">新增留言</span>-->
+<!--                    </a>-->
                 </p>
 
-
-                <!-- 						<form action="Art" method="post" class="row float-right"> 						 -->
-                <!--                         <span>查詢標題:</span><br><input type="text" class="form-control" name="title" id="title" style="width:100px; height:30px;"> -->
-                <!--                        <input type="submit" name="confirm" value="搜尋" class="btn btn-primary btn-icon-split btn-sm" style="width:80px; height:30px;"> -->
-                <!--                        </form> -->
-                <table class="for-table">
-
-                    <label for="type" class="col-sm-2 col-form-labels">文章分類:</label>
-                    <select name="type" aria-label="Default select example" id="type">
-                        <option th:value="-1" label="請選擇分類">請選擇分類</option>
-                        <option th:value="活動資訊">活動資訊</option>
-                        <option th:value="課程資訊">課程資訊</option>
-                        <option th:value="食譜討論">食譜討論</option>
-                    </select>
-                    <tbody></tbody>
-                </table>
                 <div id='container'></div>
                 <br><br>
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#InsertMessage">
-                            新增留言
-                        </button>
+
 
                         <!-- Modal -->
                         <div class="modal fade" id="InsertMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -168,13 +150,10 @@
                                             <label for="InputImage">上傳圖片</label>
                                             <input type="file" name="messageImage" class="form-control-file" id="InputImage">
                                         </div>
-
-                                        <button  class="btn btn-primary" id="testadd" onclick="submitStyle1()">Submit</button>
+                                        <button  class="btn btn-primary" id="testadd" onclick="submitStyle1()">送出留言</button>
                                     </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -195,8 +174,9 @@
 
                                         <th>留言ID</th>
                                         <th>留言名稱</th>
-                                        <th>訊息</th>
+                                        <th>內容</th>
                                         <th>留言時間</th>
+                                        <th>圖片</th>
                                         <th>刪除</th>
                                     </tr>
                                     </thead>
@@ -208,8 +188,8 @@
                                         <td th:text="${ message.userName}">
                                         </td>
                                         <td th:text="${ message.message}"></td>
-                                        <td th:text="${#dates.format(message.dateTime, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-                                    <img width="50" height="50" style="display:block; margin:auto;" th:src="${message.imageUrl}"/>
+                                        <td th:text="${#dates.format(message.dateTime, 'yyyy/MM/dd HH:mm:sss')}">2022/06/15 00:00</td>
+                                    <td><img width="50" height="50" style="display:block; margin:auto; border-radius: 50%;" th:src="${message.imageUrl}"/></td>
                                         <td><button type="button"
                                                     class="btn btn-danger"
                                                     th:onclick="|archiveFunction(${message.messageId})|" id="btn">刪除留言</button></td>
@@ -245,7 +225,7 @@
 
 <div th:replace="/admin/javascript.html"></div>
 <script>
-    function archiveFunction(postid) {
+    function archiveFunction(messageId) {
         Swal.fire({
             title: '確定要刪除嗎?',
             text: "刪除後無法復原!",
@@ -257,7 +237,7 @@
             confirmButtonText: '刪除'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post( "./DeleteArticle?postid=" +postid, function( data ) {
+                $.post( "./DeleteMessage?messageId=" +messageId, function( data ) {
                     location.reload();
                 });
             }
@@ -379,11 +359,11 @@
         // if (res == false) {
         //     return false;
         // }
-        let base641
-        getBase64($('#InputImage')[0].files[0]).then(base64 => {
-            console.log(base64)
-            base641 = base64;
-        });
+        // let base641
+        // getBase64($('#InputImage')[0].files[0]).then(base64 => {
+        //     console.log(base64)
+        //     base641 = base64;
+        // });
         // var obj = {
         //     userName: $('#InputName').val(),
         //     message: $('#InputMessage').val(),
@@ -395,8 +375,6 @@
         //     method:"POST",
         //     body:formData
         // }).then()
-
-
 
 
         $('#testadd').click(function (event) {
@@ -427,16 +405,17 @@
                 }
             });
         }
-
-        function getBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
     }
+
+        // function getBase64(file) {
+        //     return new Promise((resolve, reject) => {
+        //         const reader = new FileReader();
+        //         reader.readAsDataURL(file);
+        //         reader.onload = () => resolve(reader.result);
+        //         reader.onerror = error => reject(error);
+        //     });
+        // }
+
 </script>
 </body>
 

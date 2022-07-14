@@ -2,9 +2,7 @@ package eeit45.group3.bakeyourlife.article.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +10,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 //@NamedQuery(
@@ -40,6 +40,7 @@ public class Article implements Serializable {
 	//@Column(name="date")
 	@Valid
 	@NotNull(message = "日期不可為空")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@Valid
 	@NotBlank(message = "內容欄不可為空")
@@ -55,20 +56,35 @@ public class Article implements Serializable {
 //	private String base64;
 	private Integer counter;
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@OneToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name = "userId")
+	@JsonIgnore
+	private User user;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
-	private Set<Message> MessageList = new LinkedHashSet<>();
-	
+	private List<Message> messageList;
+
+	public List<Message> getMessageList() {
+		return messageList;
+	}
+
+	public void setMessageList(List<Message> messageList) {
+		messageList = messageList;
+	}
+
 	public Article() {
 		super();
 	}
 
-	public Set<Message> getMessageList() {
-		return MessageList;
-	}
 
-	public void setMessageList(Set<Message> messageList) {
-		MessageList = messageList;
-	}
 
 	public Article(Integer postid, String title, String type, Date date, String content, byte[] picture, MultipartFile articleImage, String base64, Integer counter) {
 		super();

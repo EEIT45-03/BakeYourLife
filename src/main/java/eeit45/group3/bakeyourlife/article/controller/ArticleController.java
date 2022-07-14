@@ -50,7 +50,7 @@ public class ArticleController {
 	//發文id}
 	//AAA/{id}/CCC
 	@GetMapping(path = "/QueryArticle")
-	public String processQuery(@RequestParam(required = false) Integer postid,@RequestParam(required = false) Integer messageId,
+	public String processQuery(@RequestParam(required = false) Integer postid,
 							   Model model) throws IOException {
 		Article article = articleservice.selectOne(postid).orElse(null);
 		//Message message = messageService.messageOne(messageId).orElse(null);
