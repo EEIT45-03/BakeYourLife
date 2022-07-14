@@ -150,8 +150,9 @@
                                              src="/img/logo4.png">
                                     </td>
                                     <td class="namelink">
-                                        <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${bean.farmerProductId})}"
+                                        <a th:href="|/FarmerProductShop/ShopDetails/${bean.farmerProductId}|"
                                            th:text="${bean.name}" target=" _blank">
+
                                         </a>
                                     </td>
                                     <td th:text="|NT$ ${bean.price}|"></td>

@@ -25,8 +25,15 @@ public class AdminFarmerProductController {
         this.farmerProductService = farmerProductService;
     }
 
+    @GetMapping("/admin/FarmerProduct/Chart")
+    public String viewChart(Model model) {
+        Long count = farmerProductService.count();
+        model.addAttribute("count", count);
+        return "admin/farmerproduct/AdminFarmerProductChart";
+    }
+
     @GetMapping("/admin/FarmerProduct")
-    public String viewIndex(Model model) {
+    public String viewProductList(Model model) {
         List<FarmerProductBean> farmerProductBeans = farmerProductService.findAll();
         model.addAttribute("farmerProductBeans", farmerProductBeans);
         return "admin/farmerproduct/FarmerProduct";

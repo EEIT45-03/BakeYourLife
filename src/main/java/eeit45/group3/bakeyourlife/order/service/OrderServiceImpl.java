@@ -187,9 +187,21 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public Order refund(Integer orderId) {
+	public Order refund(Integer orderId,Integer refundReason) {
 		Order order = orderRepository.findById(orderId).orElse(null);
+		assert order != null;
 		System.out.println("訂單號：" + orderId + " 嘗試提出退款");
+		switch (refundReason) {
+			case 0:
+				order.setRefundReason("等太久");
+				break;
+			case 1:
+				order.setRefundReason("我不想買了");
+				break;
+			case 2:
+				order.setRefundReason("買錯東西");
+				break;
+		}
 		Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.REFUND).setHeader("order", order).build());
 		if (sendEvent(message, order)) {
 			System.out.println("訂單號：" + orderId + " 提出退款失敗，狀態異常");
@@ -228,16 +240,16 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.deleteById(orderId);
 	}
 
-	@Override
-	@Transactional
-	public void updateOrder(Order order) {
-		Order orderDb = orderRepository.findById(order.getOrderId()).orElse(null);
-		if(orderDb == null){
-			throw new RuntimeException("沒有找到要更新的訂單");
-		}
-		order.getOrderItemList().forEach(ot -> ot.setOrder(order));
-		orderRepository.save(order);
-	}
+//	@Override
+//	@Transactional
+//	public void updateOrder(Order order) {
+//		Order orderDb = orderRepository.findById(order.getOrderId()).orElse(null);
+//		if(orderDb == null){
+//			throw new RuntimeException("沒有找到要更新的訂單");
+//		}
+//		order.getOrderItemList().forEach(ot -> ot.setOrder(order));
+//		orderRepository.save(order);
+//	}
 	
 	@Override
 	@Transactional

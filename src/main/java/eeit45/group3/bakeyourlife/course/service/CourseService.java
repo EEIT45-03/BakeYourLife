@@ -2,8 +2,8 @@ package eeit45.group3.bakeyourlife.course.service;
 
 
 import eeit45.group3.bakeyourlife.course.model.Course;
-import eeit45.group3.bakeyourlife.course.model.CourseType;
-//import eeit45.group3.bakeyourlife.course.model.CourseType;
+import eeit45.group3.bakeyourlife.course.model.CourseTime;
+import eeit45.group3.bakeyourlife.course.model.Register;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,25 +21,35 @@ public interface CourseService {
 		//用開課編號刪除課程
 		void deleteById(Integer openCourse);
 		//更新課程
-		void updateCourse(Course Course);
+		void updateCourse(Course course);
 		
 		//建立課程
-		void createCourse(Course Course);
+		void createCourse(Course course);
 
-		//--------CourseType課程代號-----------
+		//--------CourseTime課程代號-----------
 
 		//查詢所有開課資料
-		List<CourseType> findAllCt();
-		//查詢所有課程類型
-	//		List<Course> findAllByType(Integer courseId);
+		List<CourseTime> findAllCtime();
+
 		//用PK找
-		Optional<CourseType> findByCtId(Integer courseId);
+		Optional<CourseTime> findByCtId(Integer ctimeId);
 		//用開課編號刪除課程
 		void deleteByCtId(Integer courseId);
 		//更新課程
-		void updateCourseType(CourseType courseType);
+		void updateCourseTime(CourseTime courseTime);
 
 		//建立課程
-		void createCourseType(CourseType courseType);
+		void createCourseTime(CourseTime courseTime);
+
+		//-----Register--------
+		List<Register> findAllRegister();
+		List<Register> findRegisterByUser();
+
+		Optional<Register> findByRegisterId(Integer registerId);
+		void deleteByRegisterId(Integer registerId);
+
+	    void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice);
+		void createRegister(Register register);
+
 
 }

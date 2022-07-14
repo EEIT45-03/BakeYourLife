@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface MessageService {
     List<Message> findMessageAll();
 
-    Optional<Message> messageOne(Integer messageId);
+     Optional<Message> messageOne(Integer messageId);
 
     Message insert(Message newArticle);
 

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>場地管理</title>
+
+    <div th:replace="admin/css.html"></div>
+
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="admin/header.html"></div>
+
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">場地管理</h1>
+                <p class="mb-4">
+                    <button type="button"
+                            class="btn btn-warning btn-icon-split btn-sm"
+                            th:onclick="|createVenue()|">
+                      <span
+                              class="icon text-white-50"> <i class="fas fa-plus"></i>
+						</span> <span class="text">新增場地</span>
+                    </button>
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">場地資訊</h6>
+                    </div>
+
+                    <form action="" class="form-inline">
+                        <label for="vName" class="row-cols-1 col-form-labels">教室名稱:</label>
+                        <select type="text" class="form-control form-select mb-sm-1"
+                                th:name="vName" id="vName" aria-label="Default select example">
+                            <option value="">全部</option>
+                            <option th:each="venueName : ${venueNames}" th:text="${venueName}"></option>
+                        </select>
+                        <label for="vSort" class="row-cols-1 col-form-labels">場地種類:</label>
+                        <select type="text" class="form-control form-select mb-sm-1"
+                                th:name="vSort" id="vSort" aria-label="Default select example">
+                            <option value="">全部</option>
+                            <option th:each="sort : ${sorts}" th:value="${sort.sort}" th:text="${sort.sort}"></option>
+                        </select>
+                        <input type="submit" value="查詢" class="btn btn-primary my-1 mx-3">
+                    </form>
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-striped" id="venueTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>場地ID</th>
+                                        <th>場地名稱</th>
+                                        <th>器具種類</th>
+                                        <th>人數上限</th>
+                                        <th>價錢/時</th>
+                                        <th>圖片</th>
+                                        <th style="width: 30%">備註</th>
+                                        <th>修改</th>
+                                        <th>刪除</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="venue: ${venues}">
+                                        <td></td>
+                                        <td th:text="${venue.venueId}"></td>
+                                        <td th:text="${venue.venueName}"></td>
+                                        <td th:text="${venue.venueSort.sort}"></td>
+                                        <td th:text="${venue.personMax}"></td>
+                                        <td th:text="${venue.hrPrice}"></td>
+                                        <td><img th:src="${venue.picture}"></td>
+                                        <td th:text="${venue.notes}"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-icon-split btn-sm"
+                                                    th:onclick="|updateVenue(${venue.venueId})|">
+                                              <span class="icon text-white-50">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                              </span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-icon-split btn-sm"
+                                                    th:onclick="|deleteVenue(${venue.venueId})|">
+                                              <span class="icon text-white-50">
+                                                <i class="fas fa-trash"></i>
+                                              </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+        <div th:replace="admin/footer.html"></div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+
+
+<!-- 訂單頁面 -->
+<script th:src="@{/js/venue.js}"></script>
+
+
+</body>
+
+</html>

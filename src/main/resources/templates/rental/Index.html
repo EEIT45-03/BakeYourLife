@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>租借首頁</title>
+
+    <div th:replace="/css.html"></div>
+
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Hero Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>租借首頁</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">首頁</a>
+                        <span>租借</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Rental Section Begin -->
+<section class="product spad">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-5">
+            <div class="sidebar">
+                <div class="sidebar__item">
+                    <h4>場地</h4>
+                    <ul id="ul_vSort">
+
+                    </ul>
+                    <br>
+                    <br>
+                    <h4>器材</h4>
+                    <ul id="ul_tSort">
+
+                    </ul>
+                </div>
+
+<!--                <div class="sidebar__item">-->
+<!---->
+<!--                    <div class="latest-product__text">-->
+<!--                        <h4>熱門</h4>-->
+
+<!--                        <div class="latest-product__slider owl-carousel">-->
+<!--                            <div class="latest-prdouct__slider__item" id="hot_v">-->
+
+
+<!--                            </div>-->
+<!--                            <div class="latest-prdouct__slider__item">-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-7" id="find_div">
+            <div class="product__discount">
+                <div class="section-title product__discount__title">
+                    <h2>場地</h2>
+                </div>
+                <div class="row" id="vDiv">
+
+                </div>
+                <div class="product__pagination" id="vSel">
+<!--                    <a href="">1</a>-->
+<!--                    <a href="#">2</a>-->
+<!--                    <a href="#">3</a>-->
+<!--                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>-->
+                </div>
+            </div>
+
+            <div class="product__discount">
+                <div class="section-title product__discount__title">
+                    <h2>器材</h2>
+                </div>
+                <div class="row" id="tDiv">
+
+                </div>
+                <div class="product__pagination" id="tSel">
+<!--                    <a href="#">1</a>-->
+<!--                    <a href="#">2</a>-->
+<!--                    <a href="#">3</a>-->
+<!--                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>-->
+                </div>
+            </div>
+
+            </div>
+
+
+    </div>
+</div>
+</section>
+<!-- Rental Section End -->
+<div th:replace="/footer.html"></div>
+
+<div th:replace="/admin/javascript.html"></div>
+
+<script>
+    $(document).ready(function () {
+        fetch('/VenueSorts')
+            .then(response => response.json())
+            .then(data => {
+                let ul_vSort = "";
+                for(let sort of data){
+                    ul_vSort = ul_vSort + "<li><a onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
+                }
+
+                $('#ul_vSort').append(ul_vSort);
+
+
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+        fetch('/TackleSorts')
+            .then(response => response.json())
+            .then(data => {
+                let ul_tSort = "";
+                for(let sort of data){
+                    ul_tSort = ul_tSort + "<li><a onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
+                }
+                $('#ul_tSort').append(ul_tSort);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+        // fetch('/TopThree/Venue')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let hot_v = "";
+        //             for(let venue of data){
+        //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
+        //                                     "<div class='latest-product__item__pic'>"+
+        //                                         "<img src='" + venue.picture + "' alt=''>"+
+        //                                     "</div>"+
+        //                                     "<div class='latest-product__item__text'>"+
+        //                                         "<h6>" + venue.venueName + "</h6>"+
+        //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
+        //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
+        //                                     "</div>"+
+        //                                 "</a>";
+        //             }
+        //             console.log(hot_v)
+        //             $('#hot_v').append(hot_v);
+        //
+        //         })
+        //         .catch((error) => {
+        //             console.log('Error:'+(error))
+        //         })
+
+
+        fetch('/Venues')
+            .then(response => response.json())
+            .then(data => {
+                let vDiv = "";
+                for(let i=0 ; i<3 ; i++){
+                    vDiv = vDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                                        " <div class='product__item'>" +
+                                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "'>" +
+                                            " </div>"+
+                                            " <div class='product__item__text'>"+
+                                                " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
+                                                " <h5>$" + data[i].hrPrice + "/時</h5>"+
+                                            " </div>"+
+                                        " </div>"+
+                                    " </div>";
+                }
+                $('#vDiv').append(vDiv);
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+
+                let long = Object.keys(data).length;
+                long = Math.ceil(long/3);
+
+                let vSel = "";
+
+                for( let i=1 ; i<=long ; i++){
+
+                    vSel = vSel + "<a onclick='getVenuePackage(" + i + ")'>" + i + "</a>";
+                }
+
+
+                $('#vSel').append(vSel);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+        fetch('/Tackles')
+            .then(response => response.json())
+            .then(data => {
+                let tDiv = "";
+                for(let i=0 ; i<3 ; i++){
+                    tDiv = tDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>"+
+                        " <div class='product__item__text'>"+
+                        " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+
+                        " <h5>$" + data[i].dayPrice + "/天</h5>"+
+                        " </div>"+
+                        " </div>"+
+                        " </div>";
+                }
+                $('#tDiv').append(tDiv);
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+
+                let long = Object.keys(data).length;
+                long = Math.ceil(long/3);
+
+                let tSel = "";
+
+                for( let i=1 ; i<=long ; i++){
+
+                    tSel = tSel + "<a onclick='getTacklePackage(" + i + ")'>" + i + "</a>";
+                }
+
+
+                $('#tSel').append(tSel);
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+
+    });
+
+
+    //分頁查詢場地
+    function getVenuePackage(no){
+        var vMax = (3*no)-1;
+        var vMin = vMax-2;
+        fetch('/Venues')
+            .then(response => response.json())
+            .then(data => {
+                let vDiv = "";
+                for(let i=vMin ; i<=vMax ; i++){
+                    if(data[i]) {
+                        vDiv = vDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
+                            " <h5>$" + data[i].hrPrice + "/時</h5>" +
+                            " </div>" +
+                            " </div>" +
+                            " </div>";
+                    } else{
+                        continue;
+                    }
+                }
+                $('#vDiv').html(vDiv);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    };
+
+    //分頁查詢器具
+    function getTacklePackage(no){
+        var tMax = (3*no)-1;
+        var tMin = tMax-2;
+        fetch('/Tackles')
+            .then(response => response.json())
+            .then(data => {
+                let tDiv = "";
+                for(let i=tMin ; i<=tMax ; i++){
+                    if(data[i]) {
+                        tDiv = tDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                            " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                            " </div>" +
+                            " </div>" +
+                            " </div>";
+                    } else {
+                        continue;
+                    }
+                    $('#tDiv').html(tDiv);
+                }
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    };
+
+    //依種類查詢場地
+
+    function getVenueBySort(sort){
+        fetch('/Venues/'+sort)
+            .then(response => response.json())
+            .then(data => {
+
+                let long = Object.keys(data).length;
+
+
+                let find_div = '<div class="product__discount">'+
+                                    '<div class="section-title product__discount__title">' +
+                                        ' <h2>場地</h2>' +
+                                    '</div>' +
+                                    '<div class="row">';
+                for(let i=0 ; i<long ; i++ ){
+                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>" +
+                        " <div class='product__item__text'>" +
+                        " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
+                        " <h5>$" + data[i].hrPrice + "/時</h5>" +
+                        " </div>" +
+                        " </div>" +
+                        " </div>";
+                }
+
+
+                find_div = find_div + '</div>' +
+                                    '</div>';
+
+                $('#find_div').html(find_div);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
+
+    //依種類查詢器具
+
+    function getTackleBySort(sort){
+        fetch('/Tackles/'+sort)
+            .then(response => response.json())
+            .then(data => {
+
+                let long = Object.keys(data).length;
+
+
+                let find_div = '<div class="product__discount">'+
+                    '<div class="section-title product__discount__title">' +
+                    ' <h2>器具</h2>' +
+                    '</div>' +
+                    '<div class="row">';
+                for(let i=0 ; i<long ; i++ ){
+                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        " <div class='product__item'>" +
+                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                        " </div>" +
+                        " <div class='product__item__text'>" +
+                        " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                        " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                        " </div>" +
+                        " </div>" +
+                        " </div>";
+                }
+
+
+                find_div = find_div + '</div>' +
+                    '</div>';
+
+                $('#find_div').html(find_div);
+
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
+                });
+            })
+            .catch((error) => {
+                console.log('Error:'+(error))
+            })
+    }
+    // function getVenueSort(){
+    //     fetch('/VenueSorts')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let ul_vSort = "";
+    //             for(let sort of data){
+    //                 ul_vSort = ul_vSort + "<li><a href='/Venue?venueSortId="+ sort.venueSortId + "'>" + sort.sort + "</a></li>";
+    //             }
+    //
+    //             $('#ul_vSort').append(ul_vSort);
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
+
+    // function getTackleSort(){
+    //     fetch('/TackleSorts')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let ul_tSort = "";
+    //             for(let sort of data){
+    //                 ul_tSort = ul_tSort + "<li><a href='/Tackle?tackleSortId="+ sort.tackleSortId + "'>" + sort.sort + "</a></li>";
+    //             }
+    //             $('#ul_tSort').append(ul_tSort);
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
+
+    // function getVenueTopThree(){
+    //     fetch('/TopThree/Venue')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let hot_v = "";
+    //             for(let venue of data){
+    //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
+    //                                     "<div class='latest-product__item__pic'>"+
+    //                                         "<img src='" + venue.picture + "' alt=''>"+
+    //                                     "</div>"+
+    //                                     "<div class='latest-product__item__text'>"+
+    //                                         "<h6>" + venue.venueName + "</h6>"+
+    //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
+    //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
+    //                                     "</div>"+
+    //                                 "</a>";
+    //             }
+    //             console.log(hot_v)
+    //             $('#hot_v').append(hot_v);
+    //
+    //         })
+    //         .catch((error) => {
+    //             console.log('Error:'+(error))
+    //         })
+    // }
+
+</script>
+</body>
+
+</html>
+//let vsort = fetch('/VenueSort')
+//     .then((response) => {
+//        return response.json()
+//        console.log(response)
+//     })
+
+
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714001', '2022-07-12', '08:00-12:00', 1, 200, 'Y', 2, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714002', '2022-07-16', '08:00-12:00', 1, 200, 'N', 4, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714003', '2022-07-20', '12:00-16:00', 1, 200, 'Y', 4, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714004', '2022-07-20', '08:00-20:00', 1, 600, 'N', 7, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714005', '2022-07-18', '08:00-20:00', 1, 600, 'Y', 7, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714006', '2022-07-21', '08:00-12:00', 1, 200, 'N', 3, 1)-->
+<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714007', '2022-07-26', '08:00-16:00', 1, 400, 'N', 2, 1)-->

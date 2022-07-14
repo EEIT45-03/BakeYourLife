@@ -48,17 +48,22 @@ function checkForm() {
             return checkResult;
         }
 
-
-   // return checkResult;
 }
 
+$('#InputCourseProduct').click(function () {
+
+	$('#name').val('丙級西點烘焙下午班')
+	$('#price').val('14000')
+	$('#summary').val('烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
+	$('#desc').val('單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)' )
+})
 
 $('#wrongInput').click(function () {
     
     $('#cProduct').val('1')
 	$('#hours').val('60')
-    $('#startDate').val('2022-05-22  01:00')
-    $('#endDate').val('2022-05-20 01:00')
+    $('#startDate').val('2022-08-22 01:00')
+    $('#endDate').val('2022-08-20 01:00')
     $('#venue').val('1')
 	$('#applicants').val('0')
     $('#teacher').val('Teacher1')
@@ -66,17 +71,16 @@ $('#wrongInput').click(function () {
 })
 
 $('#correctInput').click(function () {
-    
-    $('#cProduct').val('1')
-	$('#hours').val('60')
-    $('#startDate').val('2022-05-10 01:00')
-    $('#endDate').val('2022-05-20 01:00')
-    $('#venue').val('1')
-	$('#applicants').val('0')
-    $('#teacher').val('Teacher2')
-    $('#note').val('本期新增馬卡龍製作')
-})
 
+	$('#cProduct').val('1')
+	$('#hours').val('60')
+	$('#startDate').val('2022-08-22 01:00')
+	$('#endDate').val('2022-08-25 01:00')
+	$('#venue').val('1')
+	$('#applicants').val('0')
+	$('#teacher').val('Teacher1')
+	$('#note').val('')
+})
 
 //課程
 function courseIdAlert(id){
@@ -163,7 +167,26 @@ $(document).ready(function() {
 		order: [ 1, 'asc' ],
 	} );
 });
+$(document).ready(function() {
+	$('#registerTable').DataTable( {
+		language: {
+			url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
+		},
+		responsive: {
+			details: {
+				type: 'column'
+			}
+		},
+		columnDefs: [{
+			className: 'dtr-control',
+			orderable: false,
+			targets: 0,
+		}],
+		order: [ 1, 'asc' ],
+	} );
+});
 
+//刪除開課資料
 function deleteCourseAlert(openCourse) {
 	Swal.fire({
 		title: '請問是否要刪除此筆開課資料?',
@@ -206,5 +229,161 @@ function deleteCourseAlert(openCourse) {
 	})
 }
 
+//刪除報名資料
+function deleteRegisterAlert(registerId) {
+	Swal.fire({
+		title: '請問是否要刪除此筆報名資料?',
+		text: "",
+		icon: 'warning',
+		showCancelButton: true,
+		cancelButtonText: '取消',
+		confirmButtonColor: '#ff0000',
+		cancelButtonColor: '#3085d6',
+		confirmButtonText: '刪除'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "POST",
+				url: './DeleteRegister?registerId=' + registerId,
+				success: function (msg) {
+					Swal.fire(
+						'已刪除!',
+						'報名資料已成功刪除!',
+						'success'
+					).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+				},
+				error: function (msg) {
+					// console.log(msg.status)
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤',
+						text: 'HTTP 狀態碼為 ' + msg.status,
+						footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+					})
+				}
+			});
 
+
+		}
+	})
+}
+//跳出新增報名
+function CreateRegister(){
+	Swal.showLoading()
+	fetch('./CreateRegister')
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '新增報名',
+				html:data,
+				width: '40%',
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+		});
+}
+//跳出修改報名表
+function updateRegister(registerId){
+	Swal.showLoading()
+	fetch('./UpdateRegister?registerId='+registerId)
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '修改報名表',
+				html:data,
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+
+		});
+}
+
+//跳出新增課程時間清單
+function CreateCourseTime(ctimeId){
+	Swal.showLoading()
+	fetch('./CreateCourseTime?FK_opCourseId=' + ctimeId)
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '新增場地清單',
+				icon: 'info',
+				html:data,
+				width: '40%',
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+		});
+}
+
+//刪除場地清單
+function deleteCourseTime(ctimeId) {
+	Swal.fire({
+		title: '請問是否要刪除此清單?',
+		icon: 'warning',
+		showCancelButton: true,
+		cancelButtonText: '取消',
+		confirmButtonColor: '#d33',
+		cancelButtonColor: '#3085d6',
+		confirmButtonText: '刪除'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "POST",
+				url: './DeleteCourseTime?ctimeId=' + ctimeId,
+				success: function (msg) {
+					Swal.fire(
+						'已刪除!',
+						'清單已成功刪除!',
+						'success'
+					).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+				},
+				error: function (msg) {
+					// console.log(msg.status)
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤',
+						text: 'HTTP 狀態碼為 ' + msg.status,
+						footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+					})
+				}
+			});
+		}
+	})
+}
+//跳出修改場地清單
+function updateCourseTime(ctimeId){
+	Swal.showLoading()
+	fetch('./UpdateCourseTime?ctimeId=' + ctimeId)
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '修改場地清單',
+				icon: 'info',
+				html:data,
+				width: '40%',
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+		});
+}
 

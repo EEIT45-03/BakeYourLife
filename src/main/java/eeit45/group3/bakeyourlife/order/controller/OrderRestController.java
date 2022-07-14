@@ -1,40 +1,27 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
-import java.security.Principal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusConverter;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
-
-import javax.persistence.Convert;
 
 @RestController
 public class OrderRestController {
@@ -45,16 +32,17 @@ public class OrderRestController {
 	private UserService userService;
 
 	//查詢全部或指定日期區間
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/Orders")
 	public ResponseEntity<List<Order>> getOrders(
 			@RequestParam(required = false) String orderStatus,
-			Principal principal) {
-		if(principal==null){
+			Authentication authentication) {
+		if(authentication==null){
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
 		OrderStatus status = null;
-		User user = userService.findByUsername(principal.getName());
+		User user = userService.getCurrentUser(authentication);
 		if(!"".equals(orderStatus)){
 			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
 		}

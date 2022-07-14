@@ -75,7 +75,7 @@ public interface OrderService {
     Order cancel(Integer orderId);
 
     //訂單提出退款
-    Order refund(Integer orderId);
+    Order refund(Integer orderId,Integer refundReason);
 
     //訂單退款同意
     Order accept(Integer orderId);
@@ -87,7 +87,7 @@ public interface OrderService {
     void deleteOrder(Integer orderId);
 
     //更新訂單
-    void updateOrder(Order order);
+//    void updateOrder(Order order);
 //		void updateOrder(OrderRequest orderRequest);
 
     //建立訂單

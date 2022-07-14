@@ -13,9 +13,15 @@ public class CustomUserDetails implements UserDetails{
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private Farmer farmer;
+
 
 	public CustomUserDetails(User user) {
 		this.user = user;
+	}
+
+	public CustomUserDetails(Farmer farmer) {
+		this.farmer = farmer;
 	}
 
 	public CustomUserDetails() {
@@ -23,12 +29,25 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return this.user.getPassword();
+		String password = null;
+		if (this.user != null) {
+			password = this.user.getPassword();
+		} else if (this.farmer != null) {
+			password = this.farmer.getPassword();
+		}
+		return password;
 	}
 	
 	@Override
 	public String getUsername() {
-		return this.user.getUsername();
+
+		String username = null;
+		if (this.user != null) {
+			username = this.user.getUsername();
+		} else if (this.farmer != null) {
+			username = this.farmer.getUsername();
+		}
+		return username;
 	}
 	
 	@Override
@@ -37,10 +56,6 @@ public class CustomUserDetails implements UserDetails{
 		return true;
 	}
 	
-
-
-
-
 	@Override
 	public boolean isAccountNonLocked() {
 //		return this.user.isAccountNonLocked();
@@ -61,8 +76,16 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		return AuthorityUtils.createAuthorityList(user.getRole());
-		return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+
+		String authority = null;
+		if (this.user != null) {
+			authority = this.user.getAuthority();
+		} else if (this.farmer != null) {
+			authority = this.farmer.getAuthority();
+		}
+		return AuthorityUtils.createAuthorityList(authority);
+//		return AuthorityUtils.createAuthorityList(user.getAuthority());
+//		return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 	}
 
 	public User getUser() {
@@ -72,6 +95,41 @@ public class CustomUserDetails implements UserDetails{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Farmer getFarmer() {
+		return farmer;
 	}
+
+	public void setFarmer(Farmer farmer) {
+		this.farmer = farmer;
+	}
+
+	public String getImageUrl() {
+		String imageUrl = null;
+		if (this.user != null) {
+			imageUrl = this.user.getImageUrl();
+		} else if (this.farmer != null) {
+			imageUrl = this.farmer.getImageUrl();
+		}
+		return imageUrl;
+	}
+	public String getFullName() {
+		String fullname = null;
+		if (this.user != null) {
+			fullname = this.user.getFullName();
+		} else if (this.farmer != null) {
+			fullname = this.farmer.getFarmerName();
+		}
+		return fullname;
+	}
+	public Integer getId() {
+		Integer id = null;
+		if (this.user != null) {
+			id = this.user.getUserId();
+		} else if (this.farmer != null) {
+			id = this.farmer.getFarmerId();
+		}
+		return id;
+	}
+}
 

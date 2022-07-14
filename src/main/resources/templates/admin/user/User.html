@@ -136,13 +136,13 @@
                             <div class="icon-box">
                                 <i class="material-icons">&#xE5CD;</i>
                             </div>
-                            <h4 class="modal-title w-100">請確認是否要刪除此會員?</h4>
+                            <h4 class="modal-title w-100">請確認是否要刪除此帳號?</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                     aria-hidden="true">&times;
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>如果刪除，會員資料將會永久消失!</p>
+                            <p>如果刪除，帳號資料將會永久消失!</p>
                         </div>
                         <div class="modal-footer justify-content-center">
                             <form action="DeleteUser">
@@ -162,17 +162,12 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">會員管理</h1>
+                <h1 class="h3 mb-4 text-gray-800">會員</h1>
                 <p class="mb-4">
                     <a href="CreateUser" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">新增會員</span>
+						</span> <span class="text">新增管理員</span>
                     </a>
-                    <a href="/" class="btn btn-primary btn-icon-split btn-sm">
-							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">回前台首頁</span>
-                    </a>
-
 
                 </p>
                 <!-- DataTales Example -->
@@ -197,6 +192,7 @@
 
                                     <th class="none">帳號:</th>
                                     <th class="none">密碼:</th>
+                                    <th class="none">帳號權限:</th>
                                     <th class="none">創立時間:</th>
                                     <th class="none">動作:</th>
                                 </tr>
@@ -218,7 +214,7 @@
                                     <td></td>
                                     <td th:text="${user.userId}"></td>
                                     <td>
-                                        <img width='70' height='72' th:src="@{/admin/User/picture(userId=${user.userId})}">
+                                        <img width='70' height='72' th:src="${user.imageUrl}">
                                     </td>
                                     <td th:text="${user.fullName}"></td>
                                     <td th:text="${user.email}"></td>
@@ -228,6 +224,7 @@
                                     <td th:text="${user.address}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.password}"></td>
+                                    <td th:text="${user.authority}"></td>
                                     <td th:text="${user.registerTime}"></td>
                                     <td><a th:href="@{UpdateUser(userId=${user.userId})}" class="btn btn-warning btn-icon-split btn-sm"> <span
                                             class="icon text-white-50"> <i

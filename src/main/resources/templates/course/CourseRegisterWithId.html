@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>報名</title>
+
+    <div th:replace="css.html"></div>
+
+</head>
+
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>課程報名</h2>
+                    <div class="breadcrumb__option">
+<!--                        <a href="/">首頁</a>-->
+                        <span>Register Course</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <!-- <div class="row">
+            <div class="col-lg-12">
+                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                </h6>
+            </div>
+        </div> -->
+        <div class="checkout__form">
+            <h4>課程報名表</h4>
+            <form th:action="@{CreateRegister}" method="post" th:object="${register}">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+<!--                                    <label for="userId" >使用者:</label>-->
+                                    <p>會員ID<span>*</span></p>
+                                    <p th:text="${user.userId}"></p>
+
+                                        <input  type="text" th:field="*{user.userId}"
+                                               name="userId" id="userId" placeholder="請輸入使用者編號"
+                                               required="required" />
+<!--                                        th:field="*{user.userId}"-->
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>會員姓名<span>*</span></p>
+                                    <input th:field="*{user.username}" type="text"
+                                           name="username" id="username" placeholder="請輸入使用者編號" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>課程<span>*</span></p>
+                            <p th:text="${course.openCourse}"></p>
+                            <input th:field="*{course.openCourse}" type="text" class="checkout__input__add"
+                                   name="openCourse" id="openCourse" placeholder="請輸入課程開課編號"/>
+                            <input th:field="*{course.startDate}" type="text" class="checkout__input__add"
+                                   name="course" id="course" placeholder="請輸入課程開課日期"/>
+                            <input type="text" placeholder="課程金額" class="checkout__input__add">
+                        </div>
+                        <div class="checkout__input">
+                            <p>參加總人數<span>*</span></p>
+                            <input th:field="*{attendance}" type="text" class="form-control"
+                                   name="attendance" id="attendance" placeholder="請輸入參加人數"/>
+                        </div>
+
+                        <div class="checkout__input__checkbox">
+                            <label for="acc">
+                                點此同意免責聲明
+                                <input type="checkbox" id="acc" required="required">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <p>本公司相當重視隱私權的保護。關於您的會員及其資料，將依本服務「隱私權保護政策」保護與規範。</br>
+                            您已了解並同意當您使用本服務時，本公司依據「隱私權保護政策」之規範進行資料的蒐集與利用。</p>
+                    </div>
+
+                    <!--This is sideBar-->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>課程訂單</h4>
+                            <div class="checkout__order__products">課程類別 <span>總計</span></div>
+                            <ul>
+                                <li>Vegetable’s Package <span>$100</span></li>
+                            </ul>
+                            <div class="checkout__order__subtotal">人數 <span>
+                                    <em id='peopleResult'></em>
+                                </span>
+                            </div>
+                            <div class="checkout__order__total">總計 <span>$500</span></div>
+                            <button type="submit" class="site-btn">送出報名</button>
+                        </div>
+                    </div>
+                    <!--This is end of sideBar -->
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+<div th:replace="footer.html"></div>
+<script>
+    document.getElementById('attendance').onblur = function(){
+        var people = parseInt(document.getElementById('attendance').value);
+        document.getElementById('peopleResult').textContent = people;
+    }
+</script>
+
+</body>
+
+</html>

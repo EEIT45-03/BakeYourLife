@@ -1,0 +1,71 @@
+<form th:action="@{CreateVenue}" method="post" th:object="${venue}" enctype="multipart/form-data">
+
+
+    <!-- 場地名稱: -->
+    <div class="row mb-3">
+        <label for="vName" class="col-sm-3 col-form-labels">場地名稱:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" th:onkeyup="|checkVN()|"
+                   th:name="venueName" id="vName" maxlength="5" required="required"/>
+            <span class="show" id="s_vName"></span>
+        </div>
+    </div>
+
+    <!-- 人數上限: -->
+    <div class="row mb-3">
+        <label for="pMax" class="col-sm-3 col-form-labels">人數上限:</label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control"
+                   th:name="personMax" id="pMax" th:min="1" th:max="30"
+                   required="required"/>
+        </div>
+    </div>
+
+    <!-- 價錢/時: -->
+    <div class="row mb-3">
+        <label for="hPri" class="col-sm-3 col-form-labels">價錢/時:</label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control"
+                   th:name="hrPrice" id="hPri" th:min="1" th:max="500"
+                   required="required"/>
+        </div>
+    </div>
+
+    <!-- 種類: -->
+    <div class="row mb-3">
+        <label for="vSort" class="col-sm-3 col-form-labels"> 場地種類:</label>
+        <div class="col-sm-9">
+            <select th:field="*{venueSort.sort}" type="text" class="form-control form-select mb-sm-1"
+                    id="vSort" aria-label="Default select example">
+                <option value="">全部</option>
+                <option th:each="sort : ${sorts}" th:value="${sort.sort}" th:text="${sort.sort}"></option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 圖片: -->
+    <div class="row mb-3">
+        <label for="image" class="col-sm-3 col-form-labels">圖片:</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control" th:name="venueImage"
+                   id="image" accept="image/png, image/jpeg, image/jpg"/>
+        </div>
+    </div>
+    <!-- 圖片顯示 -->
+    <div class="row mb-3">
+        <img id="images" width="200" height="200" style="margin:auto"/>
+    </div>
+
+    <!-- 備註: -->
+    <div class="row mb-3">
+        <label for="vNotes" class="col-sm-3 col-form-labels">備註:</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" th:name="notes"
+                      id="vNotes" value="" placeholder="備註" maxlength="100"
+                      required></textarea>
+        </div>
+    </div>
+
+    <button type="submit" id="submit" class="btn btn-primary">建立</button>
+</form>
+

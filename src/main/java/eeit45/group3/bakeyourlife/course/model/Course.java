@@ -1,13 +1,16 @@
 package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
-import eeit45.group3.bakeyourlife.rental.model.Venue;
+import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Course")
@@ -19,8 +22,16 @@ public class Course implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//開課編號
 	@Id
-	@SequenceGenerator( name = "CoSeq", sequenceName = "open_course", allocationSize = 10 , initialValue = 1000 )
-	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "CoSeq")
+//	@SequenceGenerator( name = "CoSeq", sequenceName = "open_course", allocationSize = 10 , initialValue = 1000 )
+	@TableGenerator(
+			name =  "coseq",
+			table = "co_sequence",
+			pkColumnName = "op_course_pk",
+			valueColumnName = "open_course",
+			allocationSize = 1,
+			initialValue = 1002
+	)
+	@GeneratedValue( strategy = GenerationType.TABLE, generator = "coseq")
 	private Integer openCourse;
 
 	@ManyToOne(cascade = CascadeType.PERSIST )
@@ -44,6 +55,10 @@ public class Course implements Serializable{
 	@OneToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name = "FK_venueId", nullable = false)
 	private Venue venue;
+	//課程時段
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "course")
+	private Set<CourseTime> courseTimes = new LinkedHashSet<CourseTime>();
+
 	//教室id
 	@Transient
 	private Integer clVenueId;
@@ -59,7 +74,9 @@ public class Course implements Serializable{
 	@Column(name = "note",columnDefinition = "nvarchar(MAX)")
 	private String note;
 
-
+	//課程報名
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "course")
+	private Set<Register> registers = new LinkedHashSet<Register>();
 	
 	public Course() {
 
@@ -71,6 +88,14 @@ public class Course implements Serializable{
 
 	public void setVenue(Venue venue) {
 		this.venue = venue;
+	}
+
+	public Set<Register> getRegisters() {
+		return registers;
+	}
+
+	public void setRegisters(Set<Register> registers) {
+		this.registers = registers;
 	}
 
 	public Integer getClVenueId() {
@@ -95,17 +120,33 @@ public class Course implements Serializable{
 		this.setRoomId(clVenueId);
 	}
 
-	public Course(Integer openCourse, Integer hours, Date startDate, Date endDate, Venue venue, Integer clVenueId, Integer applicants, String teacher, String note, Product cProduct) {
+	public Course(Integer openCourse, Product cProduct, Integer hours, Date startDate, Date endDate, Venue venue, Set<CourseTime> courseTimes, Integer clVenueId, Integer applicants, String teacher, String note, Set<Register> registers) {
 		this.openCourse = openCourse;
+		this.cProduct = cProduct;
 		this.hours = hours;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.venue = venue;
+		this.courseTimes = courseTimes;
 		this.clVenueId = clVenueId;
 		this.applicants = applicants;
 		this.teacher = teacher;
 		this.note = note;
+		this.registers = registers;
+	}
+
+	public Course(Integer openCourse, Product cProduct, Integer hours, Date startDate, Date endDate, Venue venue, Set<CourseTime> courseTimes, Integer clVenueId, Integer applicants, String teacher, String note) {
+		this.openCourse = openCourse;
 		this.cProduct = cProduct;
+		this.hours = hours;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.venue = venue;
+		this.courseTimes = courseTimes;
+		this.clVenueId = clVenueId;
+		this.applicants = applicants;
+		this.teacher = teacher;
+		this.note = note;
 	}
 
 	public Integer getOpenCourse() {
@@ -180,6 +221,14 @@ public class Course implements Serializable{
 		this.cProduct = cProduct;
 	}
 
+	public Set<CourseTime> getCourseTimes() {
+		return courseTimes;
+	}
+
+	public void setCourseTimes(Set<CourseTime> courseTimes) {
+		this.courseTimes = courseTimes;
+	}
+
 	@Override
 	public String toString() {
 		return "Course{" +
@@ -189,10 +238,12 @@ public class Course implements Serializable{
 				", startDate=" + startDate +
 				", endDate=" + endDate +
 				", venue=" + venue +
+				", courseTimes=" + courseTimes +
 				", clVenueId=" + clVenueId +
 				", applicants=" + applicants +
 				", teacher='" + teacher + '\'' +
 				", note='" + note + '\'' +
+				", registers=" + registers +
 				'}';
 	}
 }
