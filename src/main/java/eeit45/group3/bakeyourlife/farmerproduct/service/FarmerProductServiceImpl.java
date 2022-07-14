@@ -24,8 +24,8 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
-    public List<FarmerProductBean> findByUserId(Integer userId) {
-        return farmerProductRepository.findByUserUserId(userId);
+    public List<FarmerProductBean> findByFarmerId(Integer farmerId) {
+        return farmerProductRepository.findByFarmerFarmerId(farmerId);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class FarmerProductServiceImpl implements FarmerProductService {
 
     @Override
     public Long countByFarmerId(Integer id) {
-        return farmerProductRepository.countByUserUserId(id);
+        return farmerProductRepository.countByFarmerFarmerId(id);
     }
 
     @Override

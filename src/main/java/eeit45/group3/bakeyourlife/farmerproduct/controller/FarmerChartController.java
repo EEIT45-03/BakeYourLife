@@ -34,7 +34,7 @@ public class FarmerChartController {
     @GetMapping("/FarmerProductSupplier/typeAmountByFarmerId/{id}")
     public FarmerProductChart findTypeAmountByFarmerId(@PathVariable Integer id) {
         FarmerProductChart farmerProductChart = new FarmerProductChart();
-        List<TypeAmount> typeAmountList = farmerProductRepository.findTypeAmountByUserId(id);
+        List<TypeAmount> typeAmountList = farmerProductRepository.findTypeAmountByFarmerId(id);
         for (TypeAmount data : typeAmountList) {
             farmerProductChart.addData(data);
         }

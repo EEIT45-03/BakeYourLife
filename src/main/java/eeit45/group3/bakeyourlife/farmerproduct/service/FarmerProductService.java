@@ -11,7 +11,7 @@ public interface FarmerProductService {
 
     List<FarmerProductBean> findAll();
 
-    List<FarmerProductBean> findByUserId(Integer userId);
+    List<FarmerProductBean> findByFarmerId(Integer farmerId);
 
     List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state);
 

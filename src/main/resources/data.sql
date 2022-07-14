@@ -1,5 +1,9 @@
+--新增小農廠商資料
+SET
+IDENTITY_INSERT [dbo].[farmers] ON
 
-
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (1, N'320桃園市中壢區新生路二段421號', N'ROLE_FARMER', N'ddfoew133@gmail.com', N'123', N'聖德小農', N'https://i.imgur.com/xZPc9iL.jpg', N'$2a$10$/8NjHp7kfnUPJhqjh3isaOXMrYTGIq89dmDoF4XvO5hY2gifSSxZu', N'0998765432', CAST(N'2022-07-14T10:16:40.5780000' AS DateTime2), N'a123456')
+SET IDENTITY_INSERT [dbo].[farmers] OFF
 
 --新增小農商品資料
 SET IDENTITY_INSERT [dbo].[farmer_product] ON
@@ -47,57 +51,74 @@ INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_t
 
 --新增場地
 INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'A201',30,'https://i.imgur.com/ZjKfu38.jpg',NULL);
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'A202',30,'https://i.imgur.com/4KAEu5T.jpg',NULL);
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'A203',30,'https://i.imgur.com/WTCSrKe.jpg',NULL);
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (10,'B201',30,'https://i.imgur.com/ecdjZkm.jpg',NULL);
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (12,'B202',30,'https://i.imgur.com/i0z2ejz.jpg',NULL);
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'B203',30,'https://i.imgur.com/RjYjbA5.jpg',NULL);
+INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
+VALUES (15, 'A202', 30, 'https://i.imgur.com/4KAEu5T.jpg', NULL);
+INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
+VALUES (15, 'A203', 30, 'https://i.imgur.com/WTCSrKe.jpg', NULL);
+INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
+VALUES (10, 'B201', 30, 'https://i.imgur.com/ecdjZkm.jpg', NULL);
+INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
+VALUES (12, 'B202', 30, 'https://i.imgur.com/i0z2ejz.jpg', NULL);
+INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
+VALUES (15, 'B203', 30, 'https://i.imgur.com/RjYjbA5.jpg', NULL);
 
 
 --新增器具類別
-INSERT INTO tackle_sort(sort) VALUES('烤箱');
-INSERT INTO tackle_sort(sort) VALUES('攪拌器');
-INSERT INTO tackle_sort(sort) VALUES('刮刀');
+INSERT INTO tackle_sort(sort)
+VALUES ('烤箱');
+INSERT INTO tackle_sort(sort)
+VALUES ('攪拌器');
+INSERT INTO tackle_sort(sort)
+VALUES ('刮刀');
 
 --新增器具
-INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (1200,50,50,NULL,'https://i.imgur.com/S3DqPbq.png','PANASONIC NBH3200','32L電烤箱', 1);
-INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (1500,50,50,NULL,'https://i.imgur.com/3KpunET.png','PANASONIC NB-H3801','38L電烤箱', 1);
-INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (500,50,50,NULL,'https://i.imgur.com/J2wbBdf.png','PANASONIC MX-SS2','手持式攪拌棒', 2);
-INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (200,30,80,NULL,'https://i.imgur.com/4P4hQAU.png','SN4889','打蛋器', 2);
-INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (100,25,100,NULL,'https://i.imgur.com/9Mi01IL.png','CakeLand','矽膠刮刀', 3);
+INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
+VALUES (1200, 50, 50, NULL, 'https://i.imgur.com/S3DqPbq.png', 'PANASONIC NBH3200', '32L電烤箱', 1);
+INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
+VALUES (1500, 50, 50, NULL, 'https://i.imgur.com/3KpunET.png', 'PANASONIC NB-H3801', '38L電烤箱', 1);
+INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
+VALUES (500, 50, 50, NULL, 'https://i.imgur.com/J2wbBdf.png', 'PANASONIC MX-SS2', '手持式攪拌棒', 2);
+INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
+VALUES (200, 30, 80, NULL, 'https://i.imgur.com/4P4hQAU.png', 'SN4889', '打蛋器', 2);
+INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
+VALUES (100, 25, 100, NULL, 'https://i.imgur.com/9Mi01IL.png', 'CakeLand', '矽膠刮刀', 3);
 
 --新增訂單資料
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-07-06T22:35:24.6900000' AS DateTime2), N'202207062235245', N'完成', CAST(N'2022-07-06T22:35:57.5750000' AS DateTime2), 0, CAST(N'2022-07-06T22:42:52.8590000' AS DateTime2), 100, 899, N'111111111111', NULL, 1)
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-06-06T22:36:13.6490000' AS DateTime2), N'202207062236137', N'退款審核中', CAST(N'2022-07-06T22:36:33.0420000' AS DateTime2), 1, CAST(N'2022-07-06T22:42:56.1490000' AS DateTime2), 100, 899, N'', NULL, 1,'等太久')
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-05-06T22:37:36.7950000' AS DateTime2), N'202207062237369', N'退款審核中', CAST(N'2022-07-06T22:38:01.3090000' AS DateTime2), 0, NULL, 100, 1698, NULL, NULL, 1,'我不想買了')
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-04-06T22:38:22.6500000' AS DateTime2), N'202207062238220', N'待出貨', CAST(N'2022-07-06T22:38:34.1380000' AS DateTime2), 1, CAST(N'2022-07-06T22:43:00.0770000' AS DateTime2), 100, 2497, N'', NULL, 1)
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-03-06T22:38:54.8850000' AS DateTime2), N'202207062238548', N'待付款', NULL, 0, NULL, 100, 899, NULL, NULL, 1)
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-02-06T22:39:13.2840000' AS DateTime2), N'202207062239134', N'待出貨', CAST(N'2022-07-06T22:39:22.9590000' AS DateTime2), 1, CAST(N'2022-07-06T22:43:03.0060000' AS DateTime2), 100, 899, N'', NULL, 1)
-INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-01-06T22:40:25.7620000' AS DateTime2), N'202207062240251', N'待出貨', CAST(N'2022-07-06T22:40:46.1170000' AS DateTime2), 0, CAST(N'2022-07-06T22:43:08.5550000' AS DateTime2), 100, 899, N'', NULL, 1)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 1)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 2)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 2, 1598, 3)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 3, 2397, 4)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 5)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 6)
-INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 7)
-
-SET IDENTITY_INSERT [dbo].[course_prodcut] ON
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (1, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/hunDTmc.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (2, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/2UnR7Lm.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (3, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/Fd0KQoL.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-SET IDENTITY_INSERT [dbo].[course_prodcut] OFF
-
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1000, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'Teacher1', 1, 1)
-
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1001, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'Teacher1', 1, 1)
-
-SET IDENTITY_INSERT [dbo].[course_time] ON
-
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (1, CAST(N'2022-08-16T00:00:00.0000000' AS DateTime2), N'10001', N'', CAST(N'2022-08-16T10:00:00.0000000' AS DateTime2), 1000)
-
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (2, CAST(N'2022-08-17T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-17T10:00:00.0000000' AS DateTime2), 1000)
-
-SET IDENTITY_INSERT [dbo].[course_time] OFF
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST(N'2022-07-06T22:35:24.6900000' AS DateTime2), N'202207062235245', N'完成',
+        CAST(N'2022-07-06T22:35:57.5750000' AS DateTime2), 0, CAST(N'2022-07-06T22:42:52.8590000' AS DateTime2), 100,
+        899, N'111111111111', NULL, 1)
+    INSERT
+INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee,
+             total_price, tracking_number, code, user_id, refund_reason)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-06-06T22:36:13.6490000' AS DateTime2), N'202207062236137', N'退款審核中', CAST (N'2022-07-06T22:36:33.0420000' AS DateTime2), 1, CAST (N'2022-07-06T22:42:56.1490000' AS DateTime2), 100, 899, N'', NULL, 1, '等太久')
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id, refund_reason)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-05-06T22:37:36.7950000' AS DateTime2), N'202207062237369', N'退款審核中', CAST (N'2022-07-06T22:38:01.3090000' AS DateTime2), 0, NULL, 100, 1698, NULL, NULL, 1, '我不想買了')
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-04-06T22:38:22.6500000' AS DateTime2), N'202207062238220', N'待出貨', CAST (N'2022-07-06T22:38:34.1380000' AS DateTime2), 1, CAST (N'2022-07-06T22:43:00.0770000' AS DateTime2), 100, 2497, N'', NULL, 1)
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-03-06T22:38:54.8850000' AS DateTime2), N'202207062238548', N'待付款', NULL, 0, NULL, 100, 899, NULL, NULL, 1)
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-02-06T22:39:13.2840000' AS DateTime2), N'202207062239134', N'待出貨', CAST (N'2022-07-06T22:39:22.9590000' AS DateTime2), 1, CAST (N'2022-07-06T22:43:03.0060000' AS DateTime2), 100, 899, N'', NULL, 1)
+INSERT INTO orders (address, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date,
+                    shipping_fee, total_price, tracking_number, code, user_id)
+VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, CAST (N'2022-01-06T22:40:25.7620000' AS DateTime2), N'202207062240251', N'待出貨', CAST (N'2022-07-06T22:40:46.1170000' AS DateTime2), 0, CAST (N'2022-07-06T22:43:08.5550000' AS DateTime2), 100, 899, N'', NULL, 1)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 1)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 2)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 2, 1598, 3)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 3, 2397, 4)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 5)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 6)
+INSERT INTO order_item (product_name, product_no, product_type, qty, sub_total, order_id)
+VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 7)

@@ -18,15 +18,15 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type, Integer state);
 
 
-    List<FarmerProductBean> findByUserUserId(Integer userId);
+    List<FarmerProductBean> findByFarmerFarmerId(Integer farmerId);
 
 
-    Long countByUserUserId(Integer userId);
+    Long countByFarmerFarmerId(Integer farmerId);
 
     @Query(nativeQuery = true, value = "Select type, count(type) AS 'value' from farmer_product group by type")
     List<TypeAmount> findTypeAmount();
 
-    @Query(nativeQuery = true, value = "Select type, count(type) AS 'value' from farmer_product WHERE user_id =? group by type")
-    List<TypeAmount> findTypeAmountByUserId(Integer userId);
+    @Query(nativeQuery = true, value = "Select type, count(type) AS 'value' from farmer_product WHERE farmer_id =? group by type")
+    List<TypeAmount> findTypeAmountByFarmerId(Integer farmerId);
 
 }

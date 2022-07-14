@@ -33,8 +33,6 @@ public class User implements Serializable {
     MultipartFile productImage;
 
     private String imageUrl;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<FarmerProductBean> farmerProductBeanList;
 
 
     public User() {
@@ -92,31 +90,7 @@ public class User implements Serializable {
 
     }
 
-    public User(Integer userId, String username, String password, String authority, String fullName, String email, String phone, String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl, List<FarmerProductBean> farmerProductBeanList) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.authority = authority;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.birth = birth;
-        this.gender = gender;
-        this.address = address;
-        this.registerTime = registerTime;
-        this.productImage = productImage;
-        this.imageUrl = imageUrl;
-        this.farmerProductBeanList = farmerProductBeanList;
-    }
-
-    public List<FarmerProductBean> getFarmerProductBeanList() {
-        return farmerProductBeanList;
-    }
-
-    public void setFarmerProductBeanList(List<FarmerProductBean> farmerProductBeanList) {
-        this.farmerProductBeanList = farmerProductBeanList;
-    }
-
+ 
     public String getImageUrl() {
         return imageUrl;
     }

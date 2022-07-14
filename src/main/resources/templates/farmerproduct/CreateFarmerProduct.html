@@ -139,18 +139,7 @@
 
             <!-- Begin Page Content -->
             <div class="row">
-                <div class="col-lg-2 col-md-3 ">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item ">
-                            <h4>Categories</h4>
-                            <ul>
-                                <li><a href="#">資訊設定</a></li>
-                                <li><a href="#">管理商品</a></li>
-                                <li><a href="#">管理訂單</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="farmerproduct/SupplierSidebar.html"></div>
 
                 <!-- Page Heading -->
                 <div class="col-lg-10 product-list">
@@ -277,7 +266,7 @@
                                 <i class="fa fa-plus imgAdd"></i>
                             </div>
                             <input type="hidden" name="state" id="state" value="0">
-                            <input type="hidden" name="userId" id="userId" th:value="${user.userId}">
+                            <input type="hidden" name="farmerId" id="farmerId" th:value="${farmer.farmerId}">
 
                             <button class="btn btn-primary"
                                     onclick="sendcreate()">確認新增
