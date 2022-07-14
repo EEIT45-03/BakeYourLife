@@ -30,9 +30,10 @@ public class Message implements Serializable {
     private String base64Message;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="postid")
+    @JoinColumn(name = "postid")
     private Article article;
-    public Message(Integer messageId,String userName , String message, Date dateTime, byte[] image, MultipartFile messageImage,
+    
+    public Message(Integer messageId, String userName, String message, Date dateTime, byte[] image, MultipartFile messageImage,
                    String base64Message) {
         this.messageId = messageId;
         this.userName = userName;

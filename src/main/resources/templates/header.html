@@ -148,7 +148,7 @@
             <li><a href="#">商品</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="#">一般商品</a></li>
-                    <li><a th:href="@{/FarmerProductSupplier/ShopGrid}">小農商品</a></li>
+                    <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
                     <li><a href="#">待新增</a></li>
                     <li><a href="#">待新增</a></li>
                 </ul>
@@ -199,7 +199,7 @@
             </li>
             <li><a href="#">小農廠商</a></li>
             <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"
-                                                          sec:authentication="name"></a>
+                                                          sec:authentication="principal.fullName"></a>
                 <ul class="header__menu__dropdown">
                     <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
                     <li><a href="#">廠商資料</a></li>
@@ -268,7 +268,7 @@
                                               sec:authentication="principal.fullName"></span>
 
                                         <img class="img-profile rounded-circle"
-                                             th:src="${#authentication.principal.imageUrl}" width="50" height="50" >
+                                             th:src="${#authentication.principal.imageUrl}" width="50" height="50">
 
                                     </a>
                                     <!-- 點擊右上會員圖標，彈出選單  -->
@@ -287,19 +287,19 @@
                                             小農管理中心
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
-                                           th:href="@{/FarmerProductSupplier/}">
+                                           th:href="@{/FarmerProductSupplier/UpdateSupplier}">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            小農管理中心
+                                            廠商資料
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                                           th:href="@{/FarmerProductSupplier/SupplierProductList/}">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            商品清單
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/}">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            小農管理中心
-                                        </a>
-                                        <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
-                                           th:href="@{/FarmerProductSupplier/}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            小農管理中心
+                                            訂單紀錄
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/admin/}">
@@ -377,7 +377,7 @@
                         <li><a href="./shop-grid.html">商品</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">一般商品</a></li>
-                                <li><a th:href="@{/FarmerProductSupplier/ShopGrid}">小農商品</a></li>
+                                <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
                                 <li><a href="#">待新增</a></li>
                                 <li><a href="#">待新增</a></li>
                             </ul>
@@ -425,7 +425,7 @@
                             </ul>
                         </li>
                         <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"
-                                                                      sec:authentication="name"></a>
+                                                                      sec:authentication="principal.fullName"></a>
                             <ul class="header__menu__dropdown">
                                 <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
                                 <li><a href="#">廠商資料</a></li>
