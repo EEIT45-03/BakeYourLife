@@ -9,9 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.security.Principal;
 import java.sql.Timestamp;
 
 @Controller
@@ -25,34 +23,20 @@ public class UserControllerFront {
     }
 
     @GetMapping("SignUp")
-    public String viewSignUp(Model model) {
+    public String viewSignUp(Model model ) {
         model.addAttribute("user", new User());
+
 
         return "SignUp";
     }
     @PostMapping("SignUp")
     public String SignUp(User user) {
-
-//        SerialBlob blob = null;
-//        try {
-//            MultipartFile productImage = user.getProductImage();
-//            InputStream is = productImage.getInputStream();
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            byte[] b = new byte[8192];
-//            int len = 0;
-//            while ((len = is.read(b)) != -1) {
-//                baos.write(b, 0, len);
-//            }
-//            blob = new SerialBlob(baos.toByteArray());
-//            user.setFileName(productImage.getOriginalFilename());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//        }
-//        user.setUserImage(blob);
         MultipartFile productImage = user.getProductImage();
-        String link = ImgurService.updateByMultipartFile(productImage).getLink();
-        if(productImage != null){
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            user.setImageUrl(pic);
+        }else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
 //        ----------------------------------------------------------
