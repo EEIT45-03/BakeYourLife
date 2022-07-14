@@ -1,6 +1,6 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
-import eeit45.group3.bakeyourlife.rental.model.TackleList;
+import eeit45.group3.bakeyourlife.rental.model.TackleBag;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,51 +16,52 @@ import java.util.Set;
 public class Tackle implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	//器具ID (PK)
 	@Id
 	@Column(name = "tackleId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer tackleId;
-	
+
 	//器具名稱
-	@Column(name = "tackleName",columnDefinition = "varchar(20) not null unique")
+	@Column(name = "tackleName", columnDefinition = "varchar(20) not null unique")
 	private String tackleName;
 
 	//器具規格
-	@Column(name = "specification",columnDefinition = "varchar(max)")
+	@Column(name = "specification", columnDefinition = "varchar(max)")
 	private String specification;
 
 	//圖片路徑
 	@Column(name = "picture")
 	private String picture;
-	
+
 	//價錢/天
-	@Column(name = "dayPrice",columnDefinition = "int not null")
+	@Column(name = "dayPrice", columnDefinition = "int not null")
 	private Integer dayPrice;
 
 	//損壞賠償
-	@Column(name = "damages",columnDefinition = "int not null")
+	@Column(name = "damages", columnDefinition = "int not null")
 	private Integer damages;
-	
+
 	//總數量
-	@Column(name = "max",columnDefinition = "int not null")
+	@Column(name = "max", columnDefinition = "int not null")
 	private Integer max;
 
 	//備註
 	@Column
 	private String notes;
-	
-	//對應器具清單
-	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
-	private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
+
+	//對應器具包
+
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "tackle")
+	private Set<TackleBag> tackleBags = new LinkedHashSet<TackleBag>();
 
 	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name="FK_sortId", referencedColumnName = "tackleSortId", nullable = false)
-	private TackleSort tackleSort;
+	@JoinColumn(name = "FK_sortId", referencedColumnName = "tackleSortId", nullable = false)
+	private TackleSort tackleSort ;
 
 	@Transient
 	private MultipartFile tackleImage;
@@ -68,26 +69,7 @@ public class Tackle implements Serializable {
 	public Tackle() {
 	}
 
-//	public Tackle(String tackleName, String productModel, String picture, Integer dayPrice, Integer max) {
-//		this.tackleName = tackleName;
-//		this.specification = specification;
-//		this.picture = picture;
-//		this.dayPrice = dayPrice;
-//		this.max = max;
-//	}
-//
-//	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, MultipartFile tackleImage) {
-//		this.tackleName = tackleName;
-//		this.specification = specification;
-//		this.picture = picture;
-//		this.dayPrice = dayPrice;
-//		this.damages = damages;
-//		this.max = max;
-//		this.notes = notes;
-//		this.tackleImage = tackleImage;
-//	}
-
-	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, TackleSort tackleSort, MultipartFile tackleImage) {
+	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
 		this.picture = picture;
@@ -95,6 +77,7 @@ public class Tackle implements Serializable {
 		this.damages = damages;
 		this.max = max;
 		this.notes = notes;
+		this.tackleBags = tackleBags;
 		this.tackleSort = tackleSort;
 		this.tackleImage = tackleImage;
 	}
@@ -114,14 +97,6 @@ public class Tackle implements Serializable {
 	public void setTackleName(String tackleName) {
 		this.tackleName = tackleName;
 	}
-
-//	public String getProductModel() {
-//		return productModel;
-//	}
-//
-//	public void setProductModel(String productModel) {
-//		this.productModel = productModel;
-//	}
 
 	public String getSpecification() {
 		return specification;
@@ -171,20 +146,12 @@ public class Tackle implements Serializable {
 		this.notes = notes;
 	}
 
-	public Set<TackleList> getTackleList() {
-		return tackleList;
+	public Set<TackleBag> getTackleBags() {
+		return tackleBags;
 	}
 
-	public void setTackleList(Set<TackleList> tackleList) {
-		this.tackleList = tackleList;
-	}
-
-	public MultipartFile getTackleImage() {
-		return tackleImage;
-	}
-
-	public void setTackleImage(MultipartFile tackleImage) {
-		this.tackleImage = tackleImage;
+	public void setTackleBags(Set<TackleBag> tackleBags) {
+		this.tackleBags = tackleBags;
 	}
 
 	public TackleSort getTackleSort() {
@@ -193,5 +160,13 @@ public class Tackle implements Serializable {
 
 	public void setTackleSort(TackleSort tackleSort) {
 		this.tackleSort = tackleSort;
+	}
+
+	public MultipartFile getTackleImage() {
+		return tackleImage;
+	}
+
+	public void setTackleImage(MultipartFile tackleImage) {
+		this.tackleImage = tackleImage;
 	}
 }

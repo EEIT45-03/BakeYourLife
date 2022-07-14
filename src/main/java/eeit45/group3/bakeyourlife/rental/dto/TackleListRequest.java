@@ -8,40 +8,28 @@ import eeit45.group3.bakeyourlife.rental.model.Rental;
 
 public class TackleListRequest {
 
-	private Integer tackleListId;
+
 	private String tackleListNo;
-	
-	private Integer tackleId;
+
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date lendDate;
 
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date returnDate;
 	
-	private Integer quantity;
-	
-	private Integer price;
-
+	private Integer total;
 
 	private String state;
 
 	private Rental rental;
+
+	private Integer[] tackleIds;
+
+	private Integer[] quantitys;
+
+	private Integer[] prices;
 	
 	public TackleListRequest() {
-	}
-
-	public Integer getTackleListId() {
-		return tackleListId;
-	}
-
-	public void setTackleListId(Integer tackleListId) {
-		this.tackleListId = tackleListId;
-	}
-
-	public TackleListRequest(Rental rental) {
-		this.rental = rental;
 	}
 
 	public String getTackleListNo() {
@@ -50,14 +38,6 @@ public class TackleListRequest {
 
 	public void setTackleListNo(String tackleListNo) {
 		this.tackleListNo = tackleListNo;
-	}
-
-	public Integer getTackleId() {
-		return tackleId;
-	}
-
-	public void setTackleId(Integer tackleId) {
-		this.tackleId = tackleId;
 	}
 
 	public Date getLendDate() {
@@ -76,28 +56,12 @@ public class TackleListRequest {
 		this.endDate = endDate;
 	}
 
-	public Date getReturnDate() {
-		return returnDate;
+	public Integer getTotal() {
+		return total;
 	}
 
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 	public String getState() {
@@ -114,5 +78,29 @@ public class TackleListRequest {
 
 	public void setRental(Rental rental) {
 		this.rental = rental;
+	}
+
+	public Integer[] getTackleIds() {
+		return tackleIds;
+	}
+
+	public void setTackleIds(Integer[] tackleIds) {
+		this.tackleIds = tackleIds;
+	}
+
+	public Integer[] getQuantitys() {
+		return quantitys;
+	}
+
+	public void setQuantitys(Integer[] quantitys) {
+		this.quantitys = quantitys;
+	}
+
+	public Integer[] getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Integer[] prices) {
+		this.prices = prices;
 	}
 }

@@ -49,29 +49,41 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 --新增會員資料
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison919@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg')
 
---新增場地
-INSERT INTO venue(person_max,venue_name,hr_price,picture,notes) VALUES (15,'A201',30,'https://i.imgur.com/ZjKfu38.jpg',NULL);
-INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
-VALUES (15, 'A202', 30, 'https://i.imgur.com/4KAEu5T.jpg', NULL);
-INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
-VALUES (15, 'A203', 30, 'https://i.imgur.com/WTCSrKe.jpg', NULL);
-INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
-VALUES (10, 'B201', 30, 'https://i.imgur.com/ecdjZkm.jpg', NULL);
-INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
-VALUES (12, 'B202', 30, 'https://i.imgur.com/i0z2ejz.jpg', NULL);
-INSERT INTO venue(person_max, venue_name, hr_price, picture, notes)
-VALUES (15, 'B203', 30, 'https://i.imgur.com/RjYjbA5.jpg', NULL);
-
 
 --新增器具類別
-INSERT INTO tackle_sort(sort)
-VALUES ('烤箱');
-INSERT INTO tackle_sort(sort)
-VALUES ('攪拌器');
-INSERT INTO tackle_sort(sort)
-VALUES ('刮刀');
+INSERT INTO tackle_sort(sort) VALUES('烤箱');
+INSERT INTO tackle_sort(sort) VALUES('攪拌器');
+INSERT INTO tackle_sort(sort) VALUES('刮刀');
 
 --新增器具
+INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (1200,50,50,NULL,'https://i.imgur.com/S3DqPbq.png','PANASONIC NBH3200','32L電烤箱', 1);
+INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (1500,50,50,NULL,'https://i.imgur.com/3KpunET.png','PANASONIC NB-H3801','38L電烤箱', 1);
+INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (500,50,50,NULL,'https://i.imgur.com/J2wbBdf.png','PANASONIC MX-SS2','手持式攪拌棒', 2);
+INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (200,30,80,NULL,'https://i.imgur.com/4P4hQAU.png','SN4889','打蛋器', 2);
+INSERT INTO tackle(damages,day_price,max,notes,picture,specification,tackle_name, fk_sort_id) VALUES (100,25,100,NULL,'https://i.imgur.com/9Mi01IL.png','CakeLand','矽膠刮刀', 3);
+
+
+--新增場地類別
+INSERT INTO venue_sort(sort) VALUES('課用烘培室');
+INSERT INTO venue_sort(sort) VALUES('獨立烘培室');
+INSERT INTO venue_sort(sort) VALUES('小型烘培室');
+INSERT INTO venue_sort(sort) VALUES('大型烘培室');
+
+
+--新增場地
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (2,'A201',30,'https://i.imgur.com/ZjKfu38.jpg',NULL,2);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (2,'A202',30,'https://i.imgur.com/4KAEu5T.jpg',NULL,2);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (2,'A203',30,'https://i.imgur.com/WTCSrKe.jpg',NULL,2);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (2,'A204',30,'https://i.imgur.com/WTCSrKe.jpg',NULL,2);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (2,'A205',30,'https://i.imgur.com/WTCSrKe.jpg',NULL,2);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (5,'B201',30,'https://i.imgur.com/ecdjZkm.jpg',NULL,3);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (5,'B202',30,'https://i.imgur.com/i0z2ejz.jpg',NULL,3);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (5,'B203',30,'https://i.imgur.com/RjYjbA5.jpg',NULL,3);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (15,'B301',30,'https://i.imgur.com/RjYjbA5.jpg',NULL,4);
+INSERT INTO venue(person_max,venue_name,hr_price,picture,notes,fk_sort_id) VALUES (15,'B401',30,'https://i.imgur.com/RjYjbA5.jpg',NULL,4);
+
+
+
 INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)
 VALUES (1200, 50, 50, NULL, 'https://i.imgur.com/S3DqPbq.png', 'PANASONIC NBH3200', '32L電烤箱', 1);
 INSERT INTO tackle(damages, day_price, max, notes, picture, specification, tackle_name, fk_sort_id)

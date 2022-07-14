@@ -15,16 +15,6 @@
     <p></p>
   </div>
 
-  <!-- 租借類型: -->
-  <div class="row mb-3">
-    <label for="tlc_type" class="col-sm-3 col-form-labels">租借類型:</label>
-    <div class="col-sm-9">
-      <input th:field="*{rental.type}" type="text" class="form-control"
-             name="listType" id="tlc_type" th:readonly="true"/>
-      <span class="show"></span>
-    </div>
-  </div>
-
   <!-- 清單編號: -->
   <div class="row mb-3">
     <label for="tlc_tLNo" class="col-sm-3 col-form-labels">清單編號:</label>
@@ -33,19 +23,6 @@
                   name="tackleListNo" id="tlc_tLNo" placeholder="請輸入清單編號"
                   required="required" th:readonly="true"/>
       <span class="show"></span>
-    </div>
-  </div>
-
-  <!-- 租借器具: -->
-  <div class="row mb-3">
-    <label for="tlc_tId" class="col-sm-3 col-form-labels">租借器具:</label>
-    <div class="col-sm-9" >
-      <select th:field="*{tackle.tackleId}" type="text" class="form-control form-select mb-3" name="tackleId"
-              id="tlc_tId" aria-label="Default select example" th:onchange="|checkTId()|">
-        <option value="" selected>請選擇</option>
-        <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}" th:text="${tackle.tackleName}"></option>
-      </select>
-      <span class="show" id="s_tlc_tId"></span>
     </div>
   </div>
 
@@ -69,35 +46,69 @@
     </div>
   </div>
 
-  <!-- 歸還時間: -->
-<!--  <div class="row mb-3" id="rD">-->
-<!--    <label for="tlc_rDate" class="col-sm-3 col-form-labels">歸還時間:</label>-->
-<!--    <div class="col-sm-9">-->
-<!--      <input th:field="*{returnDate}" type="date" class="form-control" th:onchange="|checkTRD()|"-->
-<!--                  name="returnDate" id="tlc_rDate"/>-->
-<!--      <span class="show" id="s_tlc_rDate"></span>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <!-- 數量: -->
+  <!-- 合計: -->
   <div class="row mb-3">
-    <label for="tlc_qua" class="col-sm-3 col-form-labels">數量:</label>
+    <label for="tlc_pri" class="col-sm-3 col-form-labels">合計:</label>
     <div class="col-sm-9">
-      <input th:field="*{quantity}" type="number" class="form-control"
-                  name="quantity" id="tlc_qua" th:min="1" required="required"/>
-      <span class="show" id="s_tlc_qua"></span>
+      <input th:field="*{total}" type="number" class="form-control"
+                  name="total" id="tlc_pri" th:min="0" required="required"/>
+      <span class="show" id="s_tlc_pri"></span>
     </div>
   </div>
-  <!-- 小計: -->
+
+  <!-- 租借狀態: -->
   <div class="row mb-3">
-    <label for="tlc_pri" class="col-sm-3 col-form-labels">小計:</label>
+    <label for="tlc_sta" class="col-sm-3 col-form-labels">租借狀態:</label>
     <div class="col-sm-9">
-      <input th:field="*{price}" type="number" class="form-control"
-                  name="price" id="tlc_pri" th:min="0" required="required"/>
-      <span class="show" id="s_tlc_pri"></span>
+      <select th:field="*{state}" type="text" class="form-control form-select mb-3"
+              name="state" id="tlc_sta" aria-label="Default select example">
+        <option th:value="未借出" th:text="未借出" selected></option>
+        <option th:value="已借出" th:text="已借出"></option>
+      </select>
+    </div>
+    <!--                                <div class="col-sm-5"></div>-->
+  </div>
+
+  <!-- 器具包: -->
+  <div class="card">
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>器具</th>
+          <th>數量</th>
+          <th>小計</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th>
+          <select th:field="*{tackleIds}" class="form-control form-select mb-3"
+                  name="tackles" type="text"  aria-label="Default select example" >
+            <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
+                    th:text="${tackle.tackleName}" ></option>
+          </select>
+        </th>
+        <th>
+          <input th:field="*{quantitys}" type="number" class="form-control"
+                   name="quantitys" th:min="0" required="required"/>
+        </th>
+        <th>
+          <input th:field="*{prices}" type="number" class="form-control"
+                 name="prices" th:min="0" required="required"/>
+        </th>
+        <tr>
+          <td><button type="button" id="bag_btn" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+          </button></td>
+        </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 
   <button type="submit" id="submit" class="btn btn-primary">建立清單</button>
 
 </form>
+<script th:src="@{/js/rental.js}"></script>
