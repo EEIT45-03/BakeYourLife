@@ -34,8 +34,14 @@ public class GoodsControllerClientSide {
 	}
 
 	@GetMapping(value = "/Picture")
-	public String picture(@RequestParam("id") int id, Model model){
+	public String picture(@RequestParam("id") int id,
+						  @RequestParam("name") String name,
+						  Model model){
+		char lastChar = name.charAt(name.length() - 1);
+		String lastString = String.valueOf(lastChar);
 		Goods good = goodService.getGoods(id);
+		List<Goods> goods = goodService.getAllByNameLike("%"+lastString+"%");
+		model.addAttribute("Goods1",goods);
 		model.addAttribute("Goods",good);
 		return "admin/goods/BuyGoodsClientSide";
 	}
