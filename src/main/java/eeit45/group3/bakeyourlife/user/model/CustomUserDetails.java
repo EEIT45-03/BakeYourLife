@@ -21,6 +21,10 @@ public class CustomUserDetails implements UserDetails{
 		this.user = user;
 	}
 
+	public CustomUserDetails(Farmer farmer) {
+		this.farmer = farmer;
+	}
+
 	public CustomUserDetails() {
 	}
 
@@ -88,6 +92,16 @@ public class CustomUserDetails implements UserDetails{
 
 	public String getFullName() {
 		return this.user.getFullName();
+	}
+
+	public String getImageUrl() {
+		String imageUrl = null;
+		if (this.user != null) {
+			imageUrl = this.user.getImageUrl();
+		} else if (this.farmer != null) {
+			imageUrl = this.farmer.getImageUrl();
+		}
+		return imageUrl;
 	}
 }
 

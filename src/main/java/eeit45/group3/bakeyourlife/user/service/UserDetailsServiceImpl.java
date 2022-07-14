@@ -26,48 +26,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails userDetails;
-		boolean disabled = false;
-		boolean accountExpired = false;
-		boolean credentialsExpired = false;
-		boolean accountLocked = false;
+	public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		CustomUserDetails userDetails;
 		//使用者是否存在
 		User user = userService.findByUsername(username);
 		Farmer farmer = farmerService.findByUsername(username);
-//		User user1= userService.findByPhone(username);
-//		User user2= userService.findByEmail(username);
 		if (user == null && farmer == null ) {
 			throw new UsernameNotFoundException("使用者名稱:" + username + "不存在");
 		} else if (user != null ) {
-
-//			userDetails = new CustomUserDetails(user);
-			userDetails = org.springframework.security.core.userdetails.User.builder()
-					.username(username)
-					.password(user.getPassword())
-					.disabled(disabled)
-					.accountExpired(accountExpired)
-					.credentialsExpired(credentialsExpired)
-					.accountLocked(accountLocked)
-					.authorities(user.getAuthority())
-					//roles會自動加ROLE_
-//					.roles("ADMIN")
-					.build();
-
+			userDetails = new CustomUserDetails(user);
 			return userDetails;
 		}else {
-			userDetails = org.springframework.security.core.userdetails.User.builder()
-					.username(username)
-					.password(farmer.getPassword())
-					.disabled(disabled)
-					.accountExpired(accountExpired)
-					.credentialsExpired(credentialsExpired)
-					.accountLocked(accountLocked)
-				.authorities(farmer.getAuthority())
-					//roles會自動加ROLE_
-//					.roles("USER")
-					.build();
-
+			userDetails = new CustomUserDetails(farmer);
 			return userDetails;
 		}
 
