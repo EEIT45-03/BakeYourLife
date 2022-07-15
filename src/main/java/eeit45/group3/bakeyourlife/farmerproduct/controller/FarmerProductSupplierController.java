@@ -33,6 +33,7 @@ public class FarmerProductSupplierController {
     public String viewChart(Principal principal, Model model) {
         if (principal != null) {
             Farmer farmer = farmerService.findByUsername(principal.getName());
+            System.out.println(principal.getName());
             if (farmer.getFarmerId() != null) {
                 model.addAttribute("farmer", farmer);
                 Long count = farmerProductService.countByFarmerId(farmer.getFarmerId());
