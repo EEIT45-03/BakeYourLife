@@ -22,4 +22,8 @@ public interface GoodService {
 	void deleteGoods(Integer id);
 
 	void updateGoods(Goods mb);
+
+	List<Goods> findBySystemOrderByAdmissionTimeDesc(String system);
+
+	List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial);
 }

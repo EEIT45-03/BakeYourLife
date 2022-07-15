@@ -63,4 +63,14 @@ public class GoodsServiceImpl implements GoodService {
     public void updateGoods(Goods mb) {
          goodsRepository.save(mb);
     }
+
+    @Override
+    public List<Goods> findBySystemOrderByAdmissionTimeDesc(String system) {
+        return goodsRepository.findBySystemOrderByAdmissionTimeDesc(system);
+    }
+
+    @Override
+    public List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial) {
+        return goodsRepository.findByPackagematerialAndSystemOrderByAdmissionTimeDesc(Packagematerial,"上架中");
+    }
 }

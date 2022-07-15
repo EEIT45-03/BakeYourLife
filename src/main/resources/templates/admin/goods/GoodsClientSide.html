@@ -45,17 +45,25 @@
                     <div class="sidebar__item">
                         <h4>精選材料</h4>
                         <ul>
-                            <li><a th:href="@{/Goods1/}">商品總覽</a></li>
-                            <li><a th:href="@{flour}">麵粉</a></li>
-                            <li><a th:href="@{chocolate}">巧克力</a></li>
-                            <li><a th:href="@{dairy}">乳製品</a></li>
-                            <li><a th:href="@{salt}">頂級鹽品</a></li>
-                            <li><a th:href="@{buckeye}">堅果乾</a></li>
-                            <li><a th:href="@{jam}">抹醬</a></li>
-                            <li><a th:href="@{spice}">嚴選香料</a></li>
-                            <li><a th:href="@{sugar}">彩糖</a></li>
-<!--                              <li><a href="#">甜甜圈</a></li>-->
-<!--                               <li><a href="#">甜點</a></li>-->
+<!--                            <li><a th:href="@{/Goods1/}">商品總覽</a></li>-->
+<!--                            <li><a th:href="@{flour}">麵粉</a></li>-->
+<!--                            <li><a th:href="@{chocolate}">巧克力</a></li>-->
+<!--                            <li><a th:href="@{dairy}">乳製品</a></li>-->
+<!--                            <li><a th:href="@{salt}">頂級鹽品</a></li>-->
+<!--                            <li><a th:href="@{buckeye}">堅果乾</a></li>-->
+<!--                            <li><a th:href="@{jam}">抹醬</a></li>-->
+<!--                            <li><a th:href="@{spice}">嚴選香料</a></li>-->
+<!--                            <li><a th:href="@{sugar}">彩糖</a></li>-->
+                            <li><a th:onclick='showByType("商品總覽")'>商品總覽</a></li>
+                            <li><a th:onclick='showByType("麵粉")'>麵粉</a></li>
+                            <li><a th:onclick='showByType("巧克力")'>巧克力</a></li>
+                            <li><a th:onclick='showByType("乳製品")'>乳製品</a></li>
+                            <li><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
+                            <li><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
+                            <li><a th:onclick='showByType("抹醬")'>抹醬</a></li>
+                            <li><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
+                            <li><a th:onclick='showByType("彩糖")'>彩糖</a></li>
+
                         </ul>
                     </div>
 <!--                    <div class="sidebar__item">-->
@@ -221,30 +229,51 @@
 
                 <div class="row">
 
-<!--                    <tr th:each="good: ${goods}">-->
-<!--                        <td><a th:href="@{Picture(id=${good.id})}">-->
-<!--                            <img width='180' height='180' th:src="@{/admin/Goods/picture(id=${good.id})}">-->
-<!--                        </a></td>-->
-<!--                    </tr>-->
 
-                    <tr th:each="good: ${goods}">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="">
-                            <div class="">
-                                <a th:href="@{Picture(id=${good.id},name=${good.name})}">
-                                    <img height='200' width="250" th:src="${good.imageUrl}">
-                                </a>
-                            </div>
-                            <div class="product__item__text">
-                                <h6 th:text="|商品名稱:${good.name}|"></h6>
-                                <h5 th:text="|NT.${good.packages}|"></h5>
-                            </div>
+<!--                    <tr th:each="good: ${goods}">-->
+<!--                    <div class="col-lg-4 col-md-6 col-sm-6">-->
+<!--                        <div class="">-->
+<!--                            <div class="">-->
+<!--                                <a th:href="@{Picture(id=${good.id},name=${good.name})}">-->
+<!--                                    <img height='200' width="250" th:src="${good.imageUrl}">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="product__item__text">-->
+<!--                                <h6 th:text="|商品名稱:${good.name}|"></h6>-->
+<!--                                <h5 th:text="|NT.${good.packages}|"></h5>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    </tr>-->
+                    <div class="col-lg-4 col-md-4">
+                        <div class="filter__found" id="countDiv">
+                            <h6>共 <span th:text="${goods.size()}"></span>項商品</h6>
                         </div>
                     </div>
-                    </tr>
-
-
+            </div>
+            <!--              右邊下面的商品開始-->
+            <div class="row" id="productContent">
+                <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg"
+                             th:data-setbg="${bean.imageUrl}" >
+                            <ul class="product__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="#"></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a
+                                   th:text="${bean.name}"></a>
+                            </h6>
+                            <h5 th:text="|NT$${bean.packages}|"></h5>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+<!--                </div>-->
                 <div class="product__pagination">
                     <a href="#">1</a>
                     <a href="#">2</a>
@@ -259,7 +288,47 @@
 
 <div th:replace="footer.html"></div>
 
+<Script>
+    function showByType(type) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let result = JSON.parse(xhr.responseText);
+                let data = ``;
+                for (let i = 0; i < result.length; i++) {
+                    data += `<div class="col-lg-4 col-md-6 col-sm-6" >
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" style="background-image: url('${result[i].imageUrl}')">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+                </div>
+                    <div class="product__item__text">
+                        <h6><a href="ShopDetails?farmerProductId=${result[i].id}">${result[i].name}</a>
+                        </h6>
+                        <h5 >NT$${result[i].packages}</h5>
+                    </div>
+                </div>
+                </div>`
+                }
+                $("#productContent").html(data);
+                $("#countDiv").html(`<h6>共 <span>${result.length}</span>項商品</h6>`)
+            } else if (xhr.status === 400) {
+                Swal.fire(
+                    '錯誤!',
+                    json.message,
+                    'error'
+                )
+            }
+        }
+        xhr.open("GET", '[[@{/Goods1/GoodsProducts/}]]' + type, true);
+        xhr.send();
 
+
+    }
+</Script>
 
 </body>
 

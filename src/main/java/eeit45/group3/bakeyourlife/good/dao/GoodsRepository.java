@@ -15,5 +15,7 @@ public interface GoodsRepository extends JpaRepository<Goods,Integer> {
 
     List<Goods> findAllByNameLike(String name);
 
+   List<Goods> findBySystemOrderByAdmissionTimeDesc(String system);
 
+   List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial,String system);
 }
