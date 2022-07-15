@@ -7,12 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
 
     public List<VenueList> findAllByRental(Rental rental);
 
+//    Long findPriceSumByRental(Rental rental);
+
     @Query("SELECT SUM(vl.price) FROM VenueList vl " +
             "WHERE vl.rental = :r ")
     public Long findPriceSumByRental(@Param("r") Rental rental);
+
+
 }

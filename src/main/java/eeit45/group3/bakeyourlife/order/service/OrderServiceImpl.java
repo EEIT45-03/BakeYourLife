@@ -193,7 +193,6 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("訂單號：" + orderId + " 嘗試提出退款");
 		switch (refundReason) {
 			case 0:
-
 				order.setRefundReason("等太久");
 				break;
 			case 1:
@@ -241,16 +240,16 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.deleteById(orderId);
 	}
 
-	@Override
-	@Transactional
-	public void updateOrder(Order order) {
-		Order orderDb = orderRepository.findById(order.getOrderId()).orElse(null);
-		if(orderDb == null){
-			throw new RuntimeException("沒有找到要更新的訂單");
-		}
-		order.getOrderItemList().forEach(ot -> ot.setOrder(order));
-		orderRepository.save(order);
-	}
+//	@Override
+//	@Transactional
+//	public void updateOrder(Order order) {
+//		Order orderDb = orderRepository.findById(order.getOrderId()).orElse(null);
+//		if(orderDb == null){
+//			throw new RuntimeException("沒有找到要更新的訂單");
+//		}
+//		order.getOrderItemList().forEach(ot -> ot.setOrder(order));
+//		orderRepository.save(order);
+//	}
 	
 	@Override
 	@Transactional

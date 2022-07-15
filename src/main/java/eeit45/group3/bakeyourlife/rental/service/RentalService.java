@@ -1,19 +1,21 @@
 package eeit45.group3.bakeyourlife.rental.service;
 
-import java.util.List;
+import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.model.ProduceNo;
+import eeit45.group3.bakeyourlife.rental.model.Rental;
+import eeit45.group3.bakeyourlife.rental.model.TackleList;
+import eeit45.group3.bakeyourlife.rental.model.VenueList;
 
-import eeit45.group3.bakeyourlife.rental.model.*;
-import eeit45.group3.bakeyourlife.venue.model.Venue;
-import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import java.util.List;
 
 
 public interface RentalService {
 	/*租借單 DAO
-	----------------------------------------------------------------*/	
-		
+	----------------------------------------------------------------*/
+
 	//查詢全部的租借單
 	public List<Rental> findAllRental();
-		
+
 	//依租借單ID查詢租借單
 	public Rental findByRentalId(Integer rentalId);
 
@@ -38,14 +40,14 @@ public interface RentalService {
 	//依租借單編號查詢租借單
 	public Rental findByRentalNo(String rentalNo);
 
-		
+
 	//新增租借單
 	public Rental createRental(Rental rental);
 //	public Rental createRental(RentalRequest rentalRequest);
-		
+
 	//更新租借單
 	public Rental updateRental(Rental rental);
-	public Rental updateRental(Integer rentalId);
+//	public Rental updateRental(Integer rentalId);
 
 //	public Rental updateRental(Integer id, Rental rental);
 
@@ -53,83 +55,83 @@ public interface RentalService {
 
 	//建請租借單請求資料
 	public Rental createRentalNoRequest();
-		
+
 
 	/*場地租借清單 DAO
-		----------------------------------------------------------------*/		
-		
+		----------------------------------------------------------------*/
+
 	//查詢全部的場地租借清單
 	public List<VenueList> findAllVenueList();
-			
+
 	//依清單ID查詢場地租借清單
 	public VenueList findByVenueListId(Integer venueListId);
-		
+
 	//依租借單ID查詢場地租借清單
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId);
 
 	//查詢租借單場地租借總金額
 	public Long findVenueListPriceSumByRental(Rental rental);
-		
+
 	//依租借時間查詢場地
 //	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime);
-		
+
 	//新增場地租借清單
 	public VenueList createVenueList(VenueList venueList);
 
-	public VenueList createVenueList(Integer fk_rentalId, VenueList venueList);
+//	public VenueList createVenueList(Integer fk_rentalId, VenueList venueList);
 	//更新場地租借清單
 	public VenueList updateVenueList(VenueList venueList);
-			
+
 	//刪除場地租借清單
 	public void deleteVenueList(Integer venueListId);
 
 	//建請場地清單請求資料
 	public VenueList createVenueListNoRequest(Rental rental);
 
-		
+
 	/*教室 DAO
-		----------------------------------------------------------------*/		
-		
+		----------------------------------------------------------------*/
 
 
-		
+
+
 	/*器具租借清單 DAO
 		----------------------------------------------------------------*/
-		
+
 	//查詢全部的器具租借清單
 	public List<TackleList> findAllTackleList();
-			
+
 	//依清單ID查詢器具租借清單
 	public TackleList findByTackleListId(Integer tackleListId);
-		
+
 	//依租借單ID查詢器具租借清單
 	public List<TackleList> findTackleListByFK_RentalId(Integer FK_RentalId);
 
 	//查詢租借單器具租借總金額
-	public Long findTackleListPriceSumByRental(Rental rental);
-		
+//	public Long findTackleListPriceSumByRental(Rental rental);
+
 	//依租借時間查詢器具
 //	public Long findDateBetweenByFK_TackleId(Integer FK_tackleId, Date lendTime, Date returnTime);
-		
+
 	//新增器具租借清單
 	public TackleList createTackleList(TackleList tackleList);
-	public TackleList createTackleList(Integer rentalId, TackleList tackleList);
-		
+	public TackleList createTackleList(TackleListRequest tackleListRequest);
+
 	//更新器具租借清單
 	public TackleList updateTackleList(TackleList tackleList);
-			
+
 	//刪除器具租借清單
 	public void deleteTackleList(Integer tackleListId);
 
 	//建立器具清單請求資料
-	public TackleList createTackleListNoRequest(Rental rental);
+	public TackleListRequest createTackleListNoRequest(Rental rental);
 
 	/*器具 DAO
-		----------------------------------------------------------------*/		
-		
+		----------------------------------------------------------------*/
 
-		
-		
+
+
+
 	/*自動產生編號 DAO
 	----------------------------------------------------------------*/
 
@@ -149,7 +151,7 @@ public interface RentalService {
 	//刪除編號
 	public void deleteProduceNo(Integer id);
 
-		
+
 
 
 }

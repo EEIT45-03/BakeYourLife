@@ -43,6 +43,18 @@
             </div>
         </div>
 
+        <!-- 種類: -->
+        <div class="row mb-3">
+            <label for="vSort" class="col-sm-3 col-form-labels"> 場地種類:</label>
+            <div class="col-sm-9">
+                <select th:field="*{venueSort.sort}" type="text" class="form-control form-select mb-sm-1"
+                        id="vSort" aria-label="Default select example">
+                    <option value="">全部</option>
+                    <option th:each="sort : ${sorts}" th:value="${sort.sort}" th:text="${sort.sort}"></option>
+                </select>
+            </div>
+        </div>
+
         <!-- 圖片: -->
         <div class="row mb-3">
             <label for="image" class="col-sm-3 col-form-labels"> 圖片:</label>

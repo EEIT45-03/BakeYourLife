@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>新增留言</title>
+
+    <div th:replace="/admin/css.html"></div>
+    <style >
+        .error {
+            color: red;
+            font-size: 10pt;
+            font-weight:bold;
+        }
+    </style>
+    <script>
+        //  function check_select(form){
+        //      if(date.value == ""){
+        //          alert("請輸入日期");
+        //          return false;
+        //      }else{
+        //          return true;
+        //      }
+        //      }
+
+    </script>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="/admin/sidebar.html"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="/admin/header.html"></div>
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800"></h1>
+                <p class="mb-4">
+                    <a href="./" class="btn btn-primary btn-icon-split btn-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-undo"></i>
+                                    </span>
+                        <span class="text">返回選單</span>
+                    </a>
+
+
+
+                </p>
+                <div th:if="${error}" class="alert alert-danger" role="alert"></div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">新增留言</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" action="CreateMessage" method="post" th:object="${message}" >
+                            <!-- 發文ID: -->
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-2 col-form-labels">留言ID:</label>
+                                <div class="col-sm-10">
+
+                                </div>
+                            </div>
+                            <!-- 標題: -->
+                            <div class="row mb-3">
+                                <label for="userName" class="col-sm-2 col-form-labels">留言名稱:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{userName}" name="userName" id="userName">
+                                    <span th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}"
+                                    >Title Error</span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <lable for="message" class="col-sm-2 col-form-labels" >留言:</lable>
+                                <textarea name="message" th:field="*{message}"  id="ckeditor" cols="80"
+                                          rows="10"></textarea> <br>
+                                <span th:if="${#fields.hasErrors('message')}" th:errors="*{message}" th:errorclass="error">Content Error</span>
+                                <br>
+                            </div>
+                            <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>
+                            <div class="row mb-3">照片上傳
+                                <input type="file" name="messageImage" value="" id="image" th:field="*{messageImage}">
+                            </div>
+                            <INPUT class="btn btn-primary" NAME="INSERT" TYPE="SUBMIT" VALUE="新增留言">
+                            <button type="button" class="btn btn-secondary" id="correctInput">一鍵輸入</button>
+
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+
+        <div th:replace="/admin/footer.html"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<div th:replace="/admin/javascript.html"></div>
+<!--CKEditor編輯器-->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<!--CKEditor編輯器-->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    var editor;
+    $('#correctInput').click(function () {
+
+        $('#title').val('烘焙小百科:烘焙材料該怎麼保存？')
+        $('#type').val('食譜討論')
+        $('#date').val('2022-07-07')
+        // $('#ckeditor').val('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。')
+        editor.setData('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。除此之外，像是抹茶粉、可可粉、芝士粉、杏仁粉、奶粉等等，可以簡單地成為烘焙風味粉，旨在提高產品的風味，讓口感更加豐富另外常見的，還有糯米粉、粘米粉、玉米澱粉、馬鈴薯澱粉、木薯粉等等。上述眾多粉類的保存，都需要放置在避光、陰涼且乾燥的環境中密封保存另外由於這些粉類的強吸附力，應避免與氣味強烈的食材同放和遠離地面減少污染，防止霉變。然後像是一些不太常用的粉類，或者到了夏天特別炎熱的時候，一定要用保鮮盒密封起來放進冰箱冷藏，可以有效保存好這些粉類。');
+    })
+
+    ClassicEditor
+        .create( document.querySelector( '#ckeditor' ) )
+        .then( editor => {
+            console.log( editor );
+            window.editor = editor;
+            editor = editor;
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+
+    $(document).ready(function(){
+        $("body").on("change", "#image", function(e){
+            var file = e.target.files[0];
+            var mediabase64data;
+            getBase64(file).then(
+                mediabase64data => $('#previewImage').attr('src', mediabase64data)
+            );
+        });
+    })
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+
+
+</script>
+</body>
+
+</html>

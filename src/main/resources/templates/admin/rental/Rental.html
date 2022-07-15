@@ -148,24 +148,22 @@
                       <tr>
                         <td>清單ID:</td>
                         <td>清單編號:</td>
-                        <td>租借器具:</td>
                         <td>出租時間:</td>
                         <td>結束時間:</td>
                         <td>歸還時間:</td>
-                        <td>數量:</td>
-                        <td>小計:</td>
+                        <td>合計:</td>
+                        <td>狀態:</td>
                         <th>修改</th>
                         <th>刪除</th>
                       </tr>
                       <tr th:each="tackleList : ${rental.tackleList}">
                         <td th:text="${tackleList.tackleListId}"></td>
                         <td th:text="${tackleList.tackleListNo}"></td>
-                        <td th:text="${tackleList.tackle.tackleName}"></td>
                         <td th:text="${#dates.format(tackleList.lendDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${#dates.format(tackleList.endDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${#dates.format(tackleList.returnDate, 'yyyy/MM/dd')}"></td>
-                        <td th:text="${tackleList.quantity}"></td>
-                        <td th:text="${tackleList.price}"></td>
+                        <td th:text="${tackleList.total}"></td>
+                        <td th:text="${tackleList.state}"></td>
                         <td>
                           <button type="button"
                                   class="btn btn-warning btn-icon-split btn-sm"
@@ -206,7 +204,7 @@
                         <td th:text="${venueList.venueListId}"></td>
                         <td th:text="${venueList.venueListNo}"></td>
                         <td th:text="${venueList.venue.venueName}"></td>
-                        <td th:text="${#dates.format(venueList.rentalDate, 'yyyy/MM/dd HH:mm')}"></td>
+                        <td th:text="${#dates.format(venueList.rentalDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${venueList.period}"></td>
                         <td th:text="${venueList.ingredients}"></td>
                         <td th:text="${venueList.person}"></td>
@@ -263,7 +261,9 @@
 
 <!-- 訂單頁面 -->
 <script th:src="@{/js/rental.js}"></script>
+<script>
 
+</script>
 </body>
 
 </html>
