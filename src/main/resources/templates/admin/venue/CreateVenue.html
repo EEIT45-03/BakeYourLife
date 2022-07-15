@@ -47,8 +47,8 @@
     <div class="row mb-3">
         <label for="image" class="col-sm-3 col-form-labels">圖片:</label>
         <div class="col-sm-9">
-            <input type="file" class="form-control" th:name="venueImage"
-                   id="image" accept="image/png, image/jpeg, image/jpg"/>
+            <input th:field="*{venueImage}" type="file" class="form-control" name="venueImage"
+                   id="image" accept="image/png, image/jpeg, image/jpg" multiple="multiple"/>
         </div>
     </div>
     <!-- 圖片顯示 -->

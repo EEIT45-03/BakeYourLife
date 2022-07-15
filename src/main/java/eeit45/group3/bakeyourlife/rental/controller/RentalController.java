@@ -5,7 +5,9 @@ import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -29,4 +31,20 @@ public class RentalController {
     public String viewIndex(){
         return "/rental/Index";
     }
+
+    @GetMapping("/Commodity/Venue/{id}")
+    public String viewVenueCommodity(@PathVariable Integer id,
+                                Model model) {
+        model.addAttribute("venueBean", venueService.findByVenueId(id));
+        return "rental/VenueCommodity";
+    }
+
+    @GetMapping("/Commodity/Tackle/{id}")
+    public String viewTackleCommodity(@PathVariable Integer id,
+                                     Model model) {
+        model.addAttribute("tackleBean", tackleService.findByTackleId(id));
+        return "rental/TackleCommodity";
+    }
+
+
 }

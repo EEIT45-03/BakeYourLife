@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.venue.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,42 +8,43 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "VenuePic")
+@Table(name = "VenuePicList")
 @Component
-public class VenuePic implements Serializable {
+public class VenuePicList implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "pictureId")
+    @Column(name = "picListId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pivId;
+    private Integer Id;
 
     @Column(name = "picture", nullable = false, unique = true)
     private String picture;
 
-    @Transient
-    private MultipartFile venueImage;
+//    @Transient
+//    private MultipartFile venueImage;
 
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="FK_venueId", referencedColumnName = "venueId", nullable = false)
     private Venue venue;
 
-    public VenuePic(String picture, Venue venue) {
+    public VenuePicList(String picture, Venue venue) {
         this.picture = picture;
         this.venue = venue;
     }
 
-    public VenuePic() {
+    public VenuePicList() {
 
     }
 
-    public Integer getPivId() {
-        return pivId;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setPivId(Integer pivId) {
-        this.pivId = pivId;
+    public void setId(Integer pivId) {
+        this.Id = pivId;
     }
 
     public String getPicture() {

@@ -114,8 +114,7 @@
 <!-- Rental Section End -->
 <div th:replace="/footer.html"></div>
 
-<div th:replace="/admin/javascript.html"></div>
-
+<!--<div th:replace="/admin/javascript.html"></div>-->
 <script>
     $(document).ready(function () {
         fetch('/VenueSorts')
@@ -147,30 +146,6 @@
                 console.log('Error:'+(error))
             })
 
-        // fetch('/TopThree/Venue')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let hot_v = "";
-        //             for(let venue of data){
-        //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
-        //                                     "<div class='latest-product__item__pic'>"+
-        //                                         "<img src='" + venue.picture + "' alt=''>"+
-        //                                     "</div>"+
-        //                                     "<div class='latest-product__item__text'>"+
-        //                                         "<h6>" + venue.venueName + "</h6>"+
-        //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
-        //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
-        //                                     "</div>"+
-        //                                 "</a>";
-        //             }
-        //             console.log(hot_v)
-        //             $('#hot_v').append(hot_v);
-        //
-        //         })
-        //         .catch((error) => {
-        //             console.log('Error:'+(error))
-        //         })
-
 
         fetch('/Venues')
             .then(response => response.json())
@@ -178,15 +153,17 @@
                 let vDiv = "";
                 for(let i=0 ; i<3 ; i++){
                     vDiv = vDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
-                                        " <div class='product__item'>" +
-                                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "'>" +
-                                            " </div>"+
-                                            " <div class='product__item__text'>"+
-                                                " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
-                                                " <h5>$" + data[i].hrPrice + "/時</h5>"+
-                                            " </div>"+
-                                        " </div>"+
-                                    " </div>";
+                            " <div class='product__item'>" +
+                                "<a href='/Rental/Commodity/Venue/" + data[i].venueId+ "'>" +
+                                    " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "'>" +
+                                    " </div>"+
+                                    " <div class='product__item__text'>"+
+                                        " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
+                                        " <h5>$" + data[i].hrPrice + "/時</h5>"+
+                                    " </div>"+
+                                " </a>" +
+                            "</div>"+
+                        " </div>";
                 }
                 $('#vDiv').append(vDiv);
                 $('.set-bg').each(function () {
@@ -217,14 +194,16 @@
                 let tDiv = "";
                 for(let i=0 ; i<3 ; i++){
                     tDiv = tDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
-                        " <div class='product__item'>" +
-                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
-                        " </div>"+
-                        " <div class='product__item__text'>"+
-                        " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+
-                        " <h5>$" + data[i].dayPrice + "/天</h5>"+
-                        " </div>"+
-                        " </div>"+
+                            " <div class='product__item'>" +
+                                "<a href='/Rental/Commodity/Tackle/" + data[i].tackleId+ "'>" +
+                                    " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                                    " </div>"+
+                                    " <div class='product__item__text'>"+
+                                        " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+
+                                        " <h5>$" + data[i].dayPrice + "/天</h5>"+
+                                    " </div>"+
+                                " </a>"+
+                            " </div>"+
                         " </div>";
                 }
                 $('#tDiv').append(tDiv);
@@ -337,10 +316,10 @@
 
 
                 let find_div = '<div class="product__discount">'+
-                                    '<div class="section-title product__discount__title">' +
-                                        ' <h2>場地</h2>' +
-                                    '</div>' +
-                                    '<div class="row">';
+                    '<div class="section-title product__discount__title">' +
+                    ' <h2>場地</h2>' +
+                    '</div>' +
+                    '<div class="row">';
                 for(let i=0 ; i<long ; i++ ){
                     find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
                         " <div class='product__item'>" +
@@ -356,7 +335,7 @@
 
 
                 find_div = find_div + '</div>' +
-                                    '</div>';
+                    '</div>';
 
                 $('#find_div').html(find_div);
 
@@ -413,72 +392,10 @@
                 console.log('Error:'+(error))
             })
     }
-    // function getVenueSort(){
-    //     fetch('/VenueSorts')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             let ul_vSort = "";
-    //             for(let sort of data){
-    //                 ul_vSort = ul_vSort + "<li><a href='/Venue?venueSortId="+ sort.venueSortId + "'>" + sort.sort + "</a></li>";
-    //             }
-    //
-    //             $('#ul_vSort').append(ul_vSort);
-    //         })
-    //         .catch((error) => {
-    //             console.log('Error:'+(error))
-    //         })
-    // }
-
-    // function getTackleSort(){
-    //     fetch('/TackleSorts')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             let ul_tSort = "";
-    //             for(let sort of data){
-    //                 ul_tSort = ul_tSort + "<li><a href='/Tackle?tackleSortId="+ sort.tackleSortId + "'>" + sort.sort + "</a></li>";
-    //             }
-    //             $('#ul_tSort').append(ul_tSort);
-    //         })
-    //         .catch((error) => {
-    //             console.log('Error:'+(error))
-    //         })
-    // }
-
-    // function getVenueTopThree(){
-    //     fetch('/TopThree/Venue')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             let hot_v = "";
-    //             for(let venue of data){
-    //                 hot_v = hot_v + "<a href='/Venue?venueSortId="+ venue.venueSortId + "' class='latest-product__item'>"+
-    //                                     "<div class='latest-product__item__pic'>"+
-    //                                         "<img src='" + venue.picture + "' alt=''>"+
-    //                                     "</div>"+
-    //                                     "<div class='latest-product__item__text'>"+
-    //                                         "<h6>" + venue.venueName + "</h6>"+
-    //                                         "<h6>" + venue.venueSort.sort + "</h6>"+
-    //                                         "<span>$"+ venue.hrPrice +"/時</span>"+
-    //                                     "</div>"+
-    //                                 "</a>";
-    //             }
-    //             console.log(hot_v)
-    //             $('#hot_v').append(hot_v);
-    //
-    //         })
-    //         .catch((error) => {
-    //             console.log('Error:'+(error))
-    //         })
-    // }
-
 </script>
 </body>
 
 </html>
-//let vsort = fetch('/VenueSort')
-//     .then((response) => {
-//        return response.json()
-//        console.log(response)
-//     })
 
 
 <!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714001', '2022-07-12', '08:00-12:00', 1, 200, 'Y', 2, 1)-->

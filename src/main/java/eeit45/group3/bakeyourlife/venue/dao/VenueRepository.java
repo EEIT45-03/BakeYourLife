@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.venue.dao;
 
-import eeit45.group3.bakeyourlife.venue.dto.VenueTop3;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import org.springframework.data.jpa.repository.JpaRepository;

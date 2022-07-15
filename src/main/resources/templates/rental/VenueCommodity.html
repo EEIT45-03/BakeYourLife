@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小農商品</title>
+
+    <div th:replace="css.html"></div>
+    <style>
+        .img {
+            border-radius: 5px;
+            object-fit: cover;
+
+        }
+
+        .product__details__pic__item--large {
+
+            max-height: 500px;
+        }
+
+        .smallimg .owl-item {
+            object-fit: cover;
+            width: 125px;
+            height: 100px;
+        }
+
+        .userimg {
+            width: 120px;
+            height: 90px;
+        }
+
+        body {
+            margin-top: 20px;
+        }
+
+        .content-item {
+            padding: 30px 0;
+            background-color: #FFFFFF;
+        }
+
+        .content-item.grey {
+            background-color: #F0F0F0;
+            padding: 50px 0;
+            height: 100%;
+        }
+
+        .content-item h2 {
+            font-weight: 700;
+            font-size: 35px;
+            line-height: 45px;
+            text-transform: uppercase;
+            margin: 20px 0;
+        }
+
+        .content-item h3 {
+            font-weight: 400;
+            font-size: 20px;
+            color: #555555;
+            margin: 10px 0 15px;
+            padding: 0;
+        }
+
+        .content-headline {
+            height: 1px;
+            text-align: center;
+            margin: 20px 0 70px;
+        }
+
+        .content-headline h2 {
+            background-color: #FFFFFF;
+            display: inline-block;
+            margin: -20px auto 0;
+            padding: 0 20px;
+        }
+
+        .grey .content-headline h2 {
+            background-color: #F0F0F0;
+        }
+
+        .content-headline h3 {
+            font-size: 14px;
+            color: #AAAAAA;
+            display: block;
+        }
+
+
+        #comments {
+            box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+            background-color: #FFFFFF;
+        }
+
+        #comments form {
+            margin-bottom: 30px;
+        }
+
+        #comments .btn {
+            margin-top: 7px;
+        }
+
+        #comments form fieldset {
+            clear: both;
+        }
+
+        #comments form textarea {
+            height: 100px;
+        }
+
+        #comments .media {
+            border-top: 1px dashed #DDDDDD;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        #comments .media > .pull-left {
+            margin-right: 20px;
+        }
+
+        #comments .media img {
+            max-width: 100px;
+        }
+
+        #comments .media h4 {
+            margin: 0 0 10px;
+        }
+
+        #comments .media h4 span {
+            font-size: 14px;
+            float: right;
+            color: #999999;
+        }
+
+        #comments .media p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        #comments .media-detail {
+            margin: 0;
+        }
+
+        #comments .media-detail li {
+            color: #AAAAAA;
+            font-size: 12px;
+            padding-right: 10px;
+            font-weight: 600;
+        }
+
+        #comments .media-detail a:hover {
+            text-decoration: underline;
+        }
+
+        #comments .media-detail li:last-child {
+            padding-right: 0;
+        }
+
+        #comments .media-detail li i {
+            color: #666666;
+            font-size: 15px;
+            margin-right: 10px;
+        }
+
+        .star {
+            color: #ffbf00;
+        }
+
+        .product__details__tab {
+            padding-top: 30px;
+        }
+
+        .blog__details__content {
+            border: solid 1px #b4b9bd;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .product__details__text ul {
+            margin-top: 15px;
+            padding-top: 15px;
+        }
+
+        .farmer {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>租借場地</h2>
+                    <div class="breadcrumb__option">
+                        <!--                        <a href="./index.html">Home</a>-->
+                        <!--                        <a href="./index.html">Vegetables</a>-->
+                        <!--                        <span>Vegetable’s Package</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container" th:object="${venueBean}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 imgBlock">
+                <div th:if="${not #strings.isEmpty(venueBean.picture)}"
+                     class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="img product__details__pic__item--large"
+                             th:src="*{picture}" alt="">
+                    </div>
+<!--                    <div class=" product__details__pic__slider owl-carousel">-->
+<!--                        <img class="img smallimg" th:each="FarmerProductPic : *{farmerProductPicList}"-->
+<!--                             th:data-imgbigurl="${FarmerProductPic.pictureLink}"-->
+<!--                             th:src="${FarmerProductPic.pictureLink}" alt="">-->
+
+<!--                    </div>-->
+                </div>
+<!--                <div th:unless="${not #lists.isEmpty(farmerProductBean.farmerProductPicList)}"-->
+<!--                     class="product__details__pic">-->
+<!--                    <div class="product__details__pic__item">-->
+<!--                        <img class="img product__details__pic__item&#45;&#45;large"-->
+<!--                             src="/img/logo6.png" alt="">-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+<!--            <div class="col-lg-6 col-md-6">-->
+<!--                <div class="product__details__text">-->
+                    <h3 th:text="*{venueName}"></h3>
+<!--                    <div class="product__details__rating">-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star-half-o"></i>-->
+<!--                        <span>(18 reviews)</span>-->
+<!--                    </div>-->
+                    <div class="product__details__price" th:text="|NT$*{hrPrice}|"></div>
+
+<!--                    <div class="product__details__quantity">-->
+<!--                        <div class="quantity">-->
+<!--                            <div class="pro-qty">-->
+<!--                                <input type="text" value="1">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <a href="#" class="primary-btn" th:onclick="|add('F',*{farmerProductId})|">加入購物車</a>-->
+<!--                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
+<!--                    <ul>-->
+<!--                        <li><b>庫存</b> <span th:text="*{quantity}"></span></li>-->
+<!--                        <li><b>內容物</b> <span th:text="*{contents}"></span></li>-->
+<!--                        <li><b>類型</b> <span id="type" th:text="*{type}"></span></li>-->
+
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;            廠商資料&ndash;&gt;-->
+<!--                <div class="blog__details__content ">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-lg-5 farmer">-->
+<!--                            <div class="blog__details__author">-->
+<!--                                <div class="blog__details__author__pic">-->
+<!--                                    <img th:src="*{farmer.imageUrl}" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="blog__details__author__text">-->
+<!--                                    <h6 th:text="*{farmer.farmerName}">Michael Scofield</h6>-->
+<!--                                    <span>小農廠商</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-7 farmer">-->
+<!--                            <div class="blog__details__widget">-->
+<!--                                <ul>-->
+<!--                                    <li><span><i class="fa-solid fa-envelope"></i></span>-->
+<!--                                        <a th:text="*{farmer.email}"></a></li>-->
+<!--                                    <li><span><i class="fa-solid fa-map-location-dot"></i></span>-->
+<!--                                        <a th:text="*{farmer.address}"></a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+
+
+<!--            <div class="col-lg-12">-->
+<!--                <div class="product__details__tab">-->
+<!--                    <ul class="nav nav-tabs" role="tablist">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"-->
+<!--                               aria-selected="true">商品介紹</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"-->
+<!--                               aria-selected="false">商品評價</a>-->
+<!--                        </li>-->
+
+<!--                    </ul>-->
+<!--                    <div class="tab-content">-->
+<!--                        <div class="tab-pane active" id="tabs-1" role="tabpanel">-->
+<!--                            <div class="product__details__tab__desc">-->
+<!--                                <h6>商品介紹</h6>-->
+<!--                                <p th:utext="${#strings.replace(#strings.escapeXml(farmerProductBean.description),'&#10;','&lt;br&gt;')}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tab-pane" id="tabs-2" role="tabpanel">-->
+<!--                            <div class="product__details__tab__desc">-->
+<!--                                <h6>商品評價</h6>-->
+
+<!--                                <section class="content-item" id="comments">-->
+<!--                                    <div class="container">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-sm-8">-->
+<!--                                                &lt;!&ndash; COMMENT 1 - START &ndash;&gt;-->
+<!--                                                <div class="media" th:each="comment :*{productCommentList}">-->
+<!--                                                    <a class="pull-left" href="#">-->
+<!--                                                        <img class="img userimg media-object"-->
+<!--                                                             src="/img/undraw_profile.svg"-->
+<!--                                                             alt=""></a>-->
+<!--                                                    <div class="media-body">-->
+<!--                                                        <h4 class="media-heading" th:text="${comment.user.username}">-->
+<!--                                                            John Doe</h4>-->
+<!--                                                        <span th:switch="${comment.star}" class="star">-->
+<!--                                                               <span th:case="1">-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                               </span>-->
+<!--                                                            <span th:case="2">-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                               </span>-->
+<!--                                                            <span th:case=3>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                               </span>-->
+<!--                                                            <span th:case="4">-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                               </span>-->
+<!--                                                            <span th:case="5">-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                                  <i class="fa-solid fa-star"></i>-->
+<!--                                                               </span>-->
+<!--                                                        </span>-->
+                                                        <!--                                                        <p th:text="${comment.commentContent}"></p>-->
+<!--                                                        <p th:utext="${#strings.replace(#strings.escapeXml(comment.commentContent),'&#10;','&lt;br&gt;')}"></p>-->
+
+
+<!--                                                        <ul class="list-unstyled list-inline media-detail pull-left">-->
+<!--                                                            <li><i class="fa fa-calendar"></i>-->
+<!--                                                                <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>-->
+<!--                                                            </li>-->
+
+<!--                                                        </ul>-->
+<!--                                                        &lt;!&ndash;                                                        <ul class="list-unstyled list-inline media-detail pull-right">&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;                                                            <li class=""><a href="">Like</a></li>&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;                                                            <li class=""><a href="">Reply</a></li>&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;                                                        </ul>&ndash;&gt;-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                &lt;!&ndash; COMMENT 1 - END &ndash;&gt;-->
+
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </section>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<!-- Related Product Section Begin -->
+<!--&lt;!&ndash;<section class="related-product">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-lg-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="section-title related__product__title">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h2>推薦商品</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="row" id="productContent">&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</section>&ndash;&gt;-->
+<!--&lt;!&ndash; Related Product Section End &ndash;&gt;-->
+
+<div th:replace="footer.html"></div>
+
+<!--<script>-->
+
+<!--    // $(document).ready(function () {-->
+<!--    //     let type = $("#type").text()-->
+<!--    //     console.log(type)-->
+<!--    //     var xhr = new XMLHttpRequest();-->
+<!--    //     xhr.open("GET", '[[@{/FarmerProducts/}]]' + type, true);-->
+<!--    //     xhr.send();-->
+<!--    //     xhr.onreadystatechange = function () {-->
+<!--    //         if (xhr.readyState === 4 && xhr.status === 200) {-->
+<!--    //             let result = JSON.parse(xhr.responseText);-->
+<!--    //             let data = ``;-->
+<!--    //             for (let i = 0; i < result.length; i++) {-->
+<!--    //                 data += `<div class="col-lg-3 col-md-4 col-sm-6" >-->
+<!--    //                     <div class="product__item">-->
+<!--    //                         <div class="product__item__pic set-bg" style="background-image: url('${result[i].farmerProductPicList[0].pictureLink}')">-->
+<!--    //                             <ul class="product__item__pic__hover">-->
+<!--    //                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
+<!--    //                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+<!--    //                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
+<!--    //                             </ul>-->
+<!--    //                         </div>-->
+<!--    //                         <div class="product__item__text">-->
+<!--    //                             <h6><a href="/FarmerProductShop/ShopDetails/${result[i].farmerProductId}">${result[i].name}</a>-->
+<!--    //                             </h6>-->
+<!--    //                             <h5 >NT$${result[i].price}</h5>-->
+<!--    //                         </div>-->
+<!--    //                     </div>-->
+<!--    //                 </div>`-->
+<!--    //             }-->
+<!--    //             $("#productContent").html(data);-->
+<!--    //         } else if (xhr.status === 400) {-->
+<!--    //             Swal.fire(-->
+<!--    //                 '錯誤!',-->
+<!--    //                 json.message,-->
+<!--    //                 'error'-->
+<!--    //             )-->
+<!--    //         }-->
+<!--    //     }-->
+<!--    //-->
+<!--    //-->
+<!--    // });-->
+
+
+<!--</script>-->
+
+
+</body>
+
+</html>
