@@ -20,6 +20,33 @@ $(document).ready(function () {
         order: [1, 'asc']
     })
 
+
+    $('#bag_btn').click(function(){
+        console.log('123')
+        let content=`<tr>
+                <td>
+                <select th:field="*{tackleIds}" class="form-control form-select mb-3"
+                  name="tackles" type="text"  aria-label="Default select example" >
+            <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
+                    th:text="${tackle.tackleName}" ></option>
+          </select>
+            </td>
+            <td>
+                 <input th:field="*{quantitys}" type="number" class="form-control"
+                   name="quantitys" th:min="0" required="required"/>
+            </td>
+            <td>
+                <input th:field="*{prices}" type="number" class="form-control"
+                 name="prices" th:min="0" required="required"/>
+            </td>
+            <td><button class="del btn btn-danger"><i class="fas fa-minus"></i>	</button></td>
+        </tr>`
+        if($('tr').length<=10){
+            $('tbody').append(content)
+        }
+    })
+});
+
 //     $("body").on("change", "#image", function(e){
 //         var file = e.target.files[0];
 //         var mediabase64data;
@@ -27,7 +54,6 @@ $(document).ready(function () {
 //             mediabase64data => $('#images').attr('src', mediabase64data)
 //         );
 //     });
-});
 
 // function getBase64(file) {
 //     return new Promise((resolve, reject) => {

@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.tackle.service;
 
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.model.TackleSort;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 
 import java.util.List;
 
@@ -47,4 +48,7 @@ public interface TackleService {
 
     //刪除器具類別
     public void deleteTackleSort(Integer tackleSortId);
+
+    //依種類查詢全部的場地
+    public List<Tackle> findAllByTackleSort(Integer tackleSortId);
 }

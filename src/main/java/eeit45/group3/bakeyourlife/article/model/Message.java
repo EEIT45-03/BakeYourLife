@@ -1,6 +1,8 @@
 package eeit45.group3.bakeyourlife.article.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -22,30 +24,51 @@ public class Message implements Serializable {
 
     private Date dateTime;
 
-    @Lob
-    private byte[] image;
+    //    @Lob
+//    private byte[] image;
+    private String imageUrl;
     @Transient
     private MultipartFile messageImage;
-    @Transient
-    private String base64Message;
+//    @Transient
+//    private String base64Message;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postid")
     private Article article;
-    
+
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "userId")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Message(Integer messageId, String userName, String message, Date dateTime, byte[] image, MultipartFile messageImage,
                    String base64Message) {
         this.messageId = messageId;
         this.userName = userName;
         this.message = message;
         this.dateTime = dateTime;
-        this.image = image;
+        //this.image = image;
         this.messageImage = messageImage;
-        this.base64Message = base64Message;
+        //this.base64Message = base64Message;
     }
 
     public Message() {
 
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public Integer getMessageId() {
@@ -78,15 +101,24 @@ public class Message implements Serializable {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
+        ;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
 
     public MultipartFile getMessageImage() {
         return messageImage;
@@ -96,12 +128,13 @@ public class Message implements Serializable {
         this.messageImage = messageImage;
     }
 
-    public String getBase64Message() {
-        return base64Message;
     }
-
-    public void setBase64Message(String base64Message) {
-        this.base64Message = base64Message;
-    }
-}
+//    public String getBase64Message() {
+//        return base64Message;
+//    }
+//
+//    public void setBase64Message(String base64Message) {
+//        this.base64Message = base64Message;
+//    }
+//}
 

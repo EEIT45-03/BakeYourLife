@@ -3,16 +3,14 @@ package eeit45.group3.bakeyourlife.user.service;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Repository;
 
 import eeit45.group3.bakeyourlife.user.model.User;
-import org.springframework.stereotype.Service;
 
 
 public interface UserService {
 
     User save(User user);
-    User getUser(Authentication authentication);
+    User getCurrentUser(Authentication authentication);
 
     List<User> findAll();
 

@@ -1,13 +1,10 @@
 package eeit45.group3.bakeyourlife.course.controller;
 
-import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
-import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -71,7 +66,7 @@ public class UserCourseController {
     public String viewCreateRegisterWithId(@RequestParam("id") Integer openCourse, Model model,
                                            Authentication authentication) {
         Course course = courseService.findById(openCourse).orElse(null);
-        User user = userService.getUser(authentication);
+        User user = userService.getCurrentUser(authentication);
         model.addAttribute("user",user);
         model.addAttribute("course",course);
         model.addAttribute("register", new Register());

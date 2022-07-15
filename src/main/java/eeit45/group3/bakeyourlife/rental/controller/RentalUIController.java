@@ -2,16 +2,22 @@ package eeit45.group3.bakeyourlife.rental.controller;
 
 
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+//import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.tackle.model.TackleSort;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.venue.dto.VenueTop3;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
-@RequestMapping(path = "/Rental")
 public class RentalUIController {
 
     RentalService rentalService;
@@ -25,10 +31,14 @@ public class RentalUIController {
         this.tackleService = tackleService;
     }
 
-    @GetMapping(path = "/")
-    public String viewIndex(Model model){
-        model.addAttribute("venues", venueService.findAllVenue());
-        model.addAttribute("tackles", tackleService.findAllTackle());
-        return "rental/Index";
+
+
+
+
+    @GetMapping("/TopThree/Venue")
+    public ResponseEntity<List<Venue>> getVenueTopThree() {
+        List<Venue> venues = venueService.findByVenueTopThree();
+        return ResponseEntity.status(HttpStatus.OK).body(venues);
     }
+
 }

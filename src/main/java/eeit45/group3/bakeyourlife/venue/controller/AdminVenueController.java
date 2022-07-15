@@ -1,8 +1,6 @@
 package eeit45.group3.bakeyourlife.venue.controller;
 
-import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
-import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
@@ -27,25 +23,33 @@ public class AdminVenueController {
 
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "vName", required = false) String venueName,
+                            @RequestParam(value = "vSort", required = false) String sort,
                             Model model) {
-        List<String> venueNames = venueService.findAllVenueName();
-        model.addAttribute("venueNames", venueNames);
+        model.addAttribute("venueNames", venueService.findAllVenueName());
+        model.addAttribute("sorts", venueService.findAllVenueSort());
 
-
-        if( venueName != null && venueName.length()>0){
+        if ((venueName!=null && venueName.length()>0) && (sort!=null && sort.length()>0)){
+            //設置給JSP使用
+            model.addAttribute("venues", venueService.findAllByVenueNameAndVenueSort(venueName, sort));
+        } else if ((sort!=null && sort.length()>0)){
+            //設置給JSP使用
+            model.addAttribute("venues", venueService.findAllByVenueSort(sort));
+        } else if(venueName!=null && venueName.length()>0) {
+            //設置給JSP使用
             model.addAttribute("venues", venueService.findByVenueName(venueName));
-        } else{
+        } else {
+            //設置給JSP使用
             model.addAttribute("venues", venueService.findAllVenue());
         }
-        //設置給JSP使用
 
+        //設置給JSP使用
         return "/admin/venue/Venue";
     }
 
 
     @GetMapping("/CreateVenue")
     public String viewCreateVenue(Model model) {
-
+        model.addAttribute("sorts", venueService.findAllVenueSort());
         model.addAttribute("venue",new Venue());
         return "/admin/venue/CreateVenue";
     }
@@ -67,7 +71,8 @@ public class AdminVenueController {
 
     @GetMapping("/UpdateVenue")
     public String viewUpdateVenue(@RequestParam Integer venueId, Model model) {
-        Venue venue = new Venue();
+        model.addAttribute("sorts", venueService.findAllVenueSort());
+        Venue venue = null;
         if(venueId != null){
             venue = venueService.findByVenueId(venueId);
         }

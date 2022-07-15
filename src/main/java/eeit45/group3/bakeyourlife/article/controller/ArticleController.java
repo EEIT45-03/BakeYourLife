@@ -9,6 +9,7 @@ import java.util.List;
 import eeit45.group3.bakeyourlife.article.model.Message;
 import eeit45.group3.bakeyourlife.article.service.MessageService;
 import eeit45.group3.bakeyourlife.article.validator.ArticleValidator;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -45,10 +47,17 @@ public class ArticleController {
 		return "admin/article/Article";
 	}
 
+
+	@GetMapping(path = "/ArticleChart")
+	private String processSelectChart() {
+
+
+		return "admin/article/ArticleChart";
+	}
 	//發文id}
 	//AAA/{id}/CCC
 	@GetMapping(path = "/QueryArticle")
-	public String processQuery(@RequestParam(required = false) Integer postid,@RequestParam(required = false) Integer messageId,
+	public String processQuery(@RequestParam(required = false) Integer postid,
 							   Model model) throws IOException {
 		Article article = articleservice.selectOne(postid).orElse(null);
 		//Message message = messageService.messageOne(messageId).orElse(null);
@@ -57,8 +66,8 @@ public class ArticleController {
 		articleservice.update(article);
 
 
-		String encoded64 = new String(article.getPicture());
-		article.setBase64(encoded64);
+//		String encoded64 = new String(article.getPicture());
+//		article.setBase64(encoded64);
 		model.addAttribute("article", article);
 		//model.addAttribute("message", message);
 		return "admin/article/ShowArticle";
@@ -86,14 +95,11 @@ public class ArticleController {
 	@PostMapping(path = "/CreateArticle")
 	public String processInsert(@Valid @ModelAttribute("article") Article articleInfo,
 								BindingResult bindingResult,
-								@RequestParam(value = "articleImage", required = false) MultipartFile file
+								@RequestParam(value = "articleImage", required = false) MultipartFile file,
+								RedirectAttributes redirectAttributes
 	) {
 
-//	List<ObjectError> list0 = bindingResult.getAllErrors();
-//	for (ObjectError error : list0) {
-//		System.out.println("有錯誤：" + error);
-//	}
-		//ModelAndView model = new ModelAndView("customerDone");
+
 		if (bindingResult.hasErrors()) {
 			//model = new ModelAndView("customerCreate");
 			//return model;
@@ -102,24 +108,14 @@ public class ArticleController {
 
 
 
-
-		ArticleValidator validator = new 	ArticleValidator();
-		validator.validate(articleInfo,bindingResult);
-		if (bindingResult.hasErrors()) {
-//	  List<ObjectError> list = bindingResult.getAllErrors();
-//	  for(ObjectError error : list) {
-//			System.out.println("有錯誤：" + error);
-//	  }
-			return "admin/article/CreateArticle";
-		}
-
 		articleInfo.setCounter(0);
 		articleInfo.setArticleImage(file);
 		try{
-			byte[] image = Base64.encodeBase64(articleInfo.getArticleImage().getBytes());
-			String result = new String(image);
-			System.out.println(result);
-			articleInfo.setPicture(image);
+//			byte[] image = Base64.encodeBase64(articleInfo.getArticleImage().getBytes());
+//			String result = new String(image);
+//			System.out.println(result);
+//			articleInfo.setPicture(image);
+			articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -128,16 +124,14 @@ public class ArticleController {
 		return "redirect:./";
 	}
 
-
-
 	@GetMapping("/UpdateArticle")
 	public String viewUpdate(@RequestParam(required = false) Integer postid,Model model) {
 		//表單綁定用
 
 
 		Article listone = articleservice.selectOne(postid).orElse(null);
-		String encoded64 = new String(listone.getPicture());
-		listone.setBase64(encoded64);
+//		String encoded64 = new String(listone.getPicture());
+//		listone.setBase64(encoded64);
 		model.addAttribute("article", listone);
 		return "admin/article/UpdateArticle";
 	}
@@ -153,10 +147,11 @@ public class ArticleController {
 
 		articleInfo.setArticleImage(file);
 		try{
-			byte[] image = Base64.encodeBase64(articleInfo.getArticleImage().getBytes());
-			String result = new String(image);
-			System.out.println(result);
-			articleInfo.setPicture(image);
+//			byte[] image = Base64.encodeBase64(articleInfo.getArticleImage().getBytes());
+//			String result = new String(image);
+//			System.out.println(result);
+//			articleInfo.setPicture(image);
+			articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

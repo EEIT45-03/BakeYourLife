@@ -73,6 +73,9 @@ public class Order implements Serializable {
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
+    //是否已評價
+    private Boolean isReview;
+
     private String refundReason;
 
     //運費
@@ -99,6 +102,14 @@ public class Order implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItemList = new LinkedHashSet<>();
 
+
+    public Boolean getReview() {
+        return isReview;
+    }
+
+    public void setReview(Boolean review) {
+        isReview = review;
+    }
 
     public String getCode() {
         if (coupon != null) {
