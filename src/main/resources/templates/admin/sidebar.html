@@ -46,10 +46,23 @@
     </li>
 
     <!-- Nav Item - 商品管理 -->
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link" th:href="@{/admin/Goods/}">-->
+<!--            <i class="fas fa-fw fa-gift"></i>-->
+<!--            <span>商品管理</span></a>-->
+<!--    </li>-->
     <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/Goods/}">
-            <i class="fas fa-fw fa-gift"></i>
-            <span>商品管理</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGoods"
+           aria-expanded="false" aria-controls="collapseUser">
+            <i class="fas fa-fw fa-user"></i>
+            <span>商品管理</span>
+        </a>
+        <div id="collapseGoods" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Goods/Chart}">商品分析表</a>
+                <a class="collapse-item" th:href="@{/admin/Goods/}">商品管理</a>
+            </div>
+        </div>
     </li>
     <!-- Nav Item -小農廠商(模擬前台) -->
     <!--    <li class="nav-item">-->

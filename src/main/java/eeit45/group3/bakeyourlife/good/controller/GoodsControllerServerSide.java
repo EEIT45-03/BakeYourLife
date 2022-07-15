@@ -46,6 +46,13 @@ public class GoodsControllerServerSide {
 		return "admin/goods/GoodsServerSide";
 	}
 
+	@GetMapping(path = "/Chart")
+	private String processSelectChart() {
+
+
+		return "admin/goods/GoodsChart";
+	}
+
 	@GetMapping("/CreateGoods")
 	public String viewCreateGoods(Model m){
 		m.addAttribute("Goods",new Goods());
