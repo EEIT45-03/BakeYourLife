@@ -1,15 +1,19 @@
 package eeit45.group3.bakeyourlife.venue.controller;
 
-
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+
 
 @Controller
-@RequestMapping(path = "/Venue")
 public class VenueUIController {
 
     VenueService venueService;
@@ -19,9 +23,21 @@ public class VenueUIController {
         this.venueService = venueService;
     }
 
-    @GetMapping("/")
-    public String viewIndex(Model model){
-        model.addAttribute("venues", venueService.findAllVenue());
-        return "venue/Introduction";
+    @GetMapping("/VenueSorts")
+    public ResponseEntity<List<VenueSort>> getVenueSorts() {
+        List<VenueSort> venueSorts = venueService.findAllVenueSort();
+        return ResponseEntity.status(HttpStatus.OK).body(venueSorts);
+    }
+
+    @GetMapping("/Venues")
+    public ResponseEntity<List<Venue>> getVenues() {
+        List<Venue> venues = venueService.findAllVenue();
+        return ResponseEntity.status(HttpStatus.OK).body(venues);
+    }
+
+    @GetMapping("/Venues/{sortId}")
+    public ResponseEntity<List<Venue>> getVenuesBySort(@PathVariable Integer sortId) {
+        List<Venue> venues = venueService.findAllByVenueSort(sortId);
+        return ResponseEntity.status(HttpStatus.OK).body(venues);
     }
 }

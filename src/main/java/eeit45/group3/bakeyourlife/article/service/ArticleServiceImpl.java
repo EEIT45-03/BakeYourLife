@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.article.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,20 +42,23 @@ public class ArticleServiceImpl implements ArticleService {
 		    return repository.findByTitle(title);
 	        }
 
-	@Override
-	public List<Article> findAllByTypeContaining(String type) {
+	      @Override
+	      public List<Article> findAllByTypeContaining(String type) {
 		return repository.findAllByTypeContaining(type);
 	}
 
+	      public List<Article>findLatestDate(Date date){
+		      return repository.findLatestDate(date);
+		  }
 
 	@Override
 			public Article insert(Article newArticle) {
-
 				return repository.save(newArticle);
 			}
 
 			@Override
 			public Article update(Article upArticle) {
+				//Article article = repository.findById(upArticle.getPostid()).orElse(null);
 				return repository.save(upArticle);
 			}
 
@@ -62,7 +66,12 @@ public class ArticleServiceImpl implements ArticleService {
 			public void delete(Integer postid) {
             repository.deleteById(postid);
 			}
-		};
+	}
+
+//	       public Article findById(Integer postid) {
+//		return repository.findById(postid);
+//	}
+//		};
 
 
 

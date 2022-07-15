@@ -274,16 +274,10 @@
                                                 <!-- <span class="text">修改訂單</span> -->
                                             </a></td>
                                             <td>
-                                                <button type="button"
-
-                                                        class="btn btn-danger btn-icon-split btn-sm"
-                                                        data-toggle="modal" data-target="#myModle"
-                                                        th:onclick="|values(${good.id})|">
-<!--                                                    <img src="${pageContext.request.contextPath}/img/777.jpeg" width="50" height="50" class="img">-->
-                                                    <span class="icon text-white-50"> <i
-                                                            class="fas fa-trash"></i>
-														</span>
-<!--                                                     <span class="text">刪除訂單</span> -->
+                                                <button type="button" class="btn btn-danger btn-icon-split btn-sm"
+                                                        th:onclick="|deleteGoods(${good.id})|">
+                                    <span class="icon text-white-50"> <i class="fas fa-trash"></i>
+                                    </span> <span class="text">刪除</span>
                                                 </button>
                                             </td>
 
@@ -367,33 +361,7 @@
                 }
             });
         }
-        // var h3APP=document.querySelectorAll(".img")
-        // console.log(h3All)
-        // $('.img').on('mouseenter',function(){
-        //     $(this).attr('src','${pageContext.request.contextPath}/img/888.jpg')
-        // }).on('mouseleave',function(){
-        //     $(this).attr('src','${pageContext.request.contextPath}/img/777.jpeg')
-        // })
-        // var h3All=document.querySelectorAll(".img1")
-        // $('.img1').on('mouseenter',function(){
-        //     $(this).attr('src','${pageContext.request.contextPath}/img/555.jpg')
-        // }).on('mouseleave',function(){
-        //     $(this).attr('src','${pageContext.request.contextPath}/img/777.jpeg')
-        // })
-        /*for(let i=0; i<h3All.lenght; i++){
-        h3All[i].addEventListener("mouseover",function(){
-        h3All[i].img.src="${pageContext.request.contextPath}/img/888.jpg"
-        })
-        }   失敗*/
-        /*var img= document.getElementById("img2");
-        img.addEventListener("mouseover",function(){
-            img.src="${pageContext.request.contextPath}/img/888.jpg"
-        })
-        var img = document.getElementById("img2");
-        img.addEventListener("mouseout",function(){
-            img.src="${pageContext.request.contextPath}/img/777.jpeg"
-        })*/
-        //
+
         $(document).ready(function() {
             $('#oredrTable').DataTable( {
                 language: {
@@ -412,6 +380,47 @@
                 order: [ 1, 'asc' ]
             } );
         });
+
+        function deleteGoods(id) {
+            Swal.fire({
+                title: '確認刪除此商品?',
+                text: "如果刪除，將會永久消失!",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#f15e5e',
+                cancelButtonColor: '#ADADAD',
+                confirmButtonText: '刪除'
+            })
+                .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: '/admin/Goods/GoodsServerSide/' + id,
+                        success: function (msg) {
+                            Swal.fire(
+                                '已刪除!',
+                                '已成功刪除!',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        },
+                        error: function (msg) {
+                            // console.log(msg.status)
+                            Swal.fire({
+                                icon: 'error',
+                                title: '發生錯誤',
+                                text: 'HTTP 狀態碼為 ' + msg.status,
+                                footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                            })
+                        }
+                    });
+                }
+            })
+        }
 
     </script>
 

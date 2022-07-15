@@ -17,6 +17,7 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -24,7 +25,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -141,8 +141,8 @@ public class ShoppingCartController {
                                            @RequestParam PayType payType,
                                            HttpServletRequest request,
                                            SessionStatus status,
-                                           Principal principal) {
-        if(principal==null){
+                                           Authentication authentication) {
+        if(authentication==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
@@ -165,7 +165,7 @@ public class ShoppingCartController {
 
 
 //			User user = (User) request.getSession().getAttribute("user");
-            User user = userService.findByUsername(principal.getName());
+            User user = userService.getCurrentUser(authentication);
 
 
             order.setUser(user);

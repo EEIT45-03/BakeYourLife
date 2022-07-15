@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 @Entity
@@ -47,41 +49,41 @@ public class TackleList implements Serializable {
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
-	
-	//數量
-	@Column(name = "quantity",columnDefinition = "int not null")
-	private Integer quantity;
-	
-	//小計
-	@Column(name = "price",columnDefinition = "int not null")
-	private Integer price;
+
+	//合計
+	@Column(name = "total",columnDefinition = "int not null")
+	private Integer total;
+
+	//狀態(未借出、已借出、已歸還、遲歸還)
+	@Column(name = "state", nullable = false, columnDefinition = "varchar(20)")
+	private String state;
+
+	//器具包
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "tackleList")
+	private Set<TackleBag> tackleBags = new LinkedHashSet<TackleBag>();
 
 	//租借單
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="FK_rentalId", referencedColumnName = "rentalId", nullable = false)
 	private Rental rental;
 
-	//租借器具
-	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name="FK_tackleId", referencedColumnName = "tackleId", nullable = false)
-	private Tackle tackle;
+
 
 	public TackleList() {
 	}
 
-	public TackleList(Rental rental) {
-		this.rental = rental;
-	}
-
-	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer quantity, Integer price, Rental rental, Tackle tackle) {
+	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer total, String state, Set<TackleBag> tackleBags, Rental rental) {
 		this.tackleListNo = tackleListNo;
 		this.lendDate = lendDate;
 		this.endDate = endDate;
 		this.returnDate = returnDate;
-		this.quantity = quantity;
-		this.price = price;
+		this.total = total;
+		this.state = state;
+		this.tackleBags = tackleBags;
 		this.rental = rental;
-		this.tackle = tackle;
+	}
+
+	public TackleList(Rental rental) {
+		this.rental = rental;
 	}
 
 	public Integer getTackleListId() {
@@ -124,20 +126,12 @@ public class TackleList implements Serializable {
 		this.returnDate = returnDate;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Set<TackleBag> getTackleBags() {
+		return tackleBags;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setTackleBags(Set<TackleBag> tackleBags) {
+		this.tackleBags = tackleBags;
 	}
 
 	public Rental getRental() {
@@ -148,12 +142,20 @@ public class TackleList implements Serializable {
 		this.rental = rental;
 	}
 
-	public Tackle getTackle() {
-		return tackle;
+	public Integer getTotal() {
+		return total;
 	}
 
-	public void setTackle(Tackle tackle) {
-		this.tackle = tackle;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
-	
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 }
