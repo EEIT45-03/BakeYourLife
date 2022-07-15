@@ -280,11 +280,11 @@
                         <div class="col-lg-6">
                             <div class="blog__details__author">
                                 <div class="blog__details__author__pic">
-                                    <img src="/img/blog/details/details-author.jpg" alt="">
+                                    <img th:src="${article.user.imageUrl}" alt="">
                                 </div>
                                 <div class="blog__details__author__text">
-                                    <h6>Michael Scofield</h6>
-                                    <span>Admin</span>
+                                    <h6 th:text="${article.user.fullName}">Michael Scofield</h6>
+                                    <span th:text="${article.user.username}">Admin</span>
                                 </div>
                             </div>
                         </div>

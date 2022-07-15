@@ -63,7 +63,7 @@ public class ArticleRestController {
     @PostMapping(value = "/ArticleAdd")
     public ResponseEntity<Article> insert(@Valid
             @RequestParam String title,
-                                          Principal principal, Authentication authentication,
+                                          Authentication authentication,
                                           @RequestParam String type,
                                           @RequestParam java.sql.Date date,
                                           @RequestParam String content,
@@ -76,7 +76,7 @@ public class ArticleRestController {
 //        }
         //User userName = userService.findByUsername(principal.getName());
         ///User userid = userService.findByUserId(userId);
-        //User user = userService.
+        User user = userService.getCurrentUser(authentication);
         Article m = new Article();
         m.setTitle(title);
         m.setType(type);
@@ -85,6 +85,7 @@ public class ArticleRestController {
         m.setCounter(0);
         //m.setUser(userid);
         //m.setUser(userName);
+        m.setUser(user);
         m.setImageUrl(ImgurService.updateByMultipartFile(articleImage).getLink());
         //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(articleImage).getLink());
