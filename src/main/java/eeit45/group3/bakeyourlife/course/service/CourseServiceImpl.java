@@ -9,6 +9,7 @@ import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.RegisterRepository;
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,15 +32,18 @@ public class CourseServiceImpl implements CourseService {
 	RentalService rentalService;
 	UserService userService;
 	VenueService venueService;
+	EmailService emailService;
 	CourseTimeRepository courseTimeRepository;
 	RegisterRepository registerRepository;
 
+
 	@Autowired
-	public CourseServiceImpl(CourseRepository courseRepository, VenueService venueService,RentalService rentalService, UserService userService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
+	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
 		this.courseRepository = courseRepository;
 		this.rentalService = rentalService;
 		this.userService = userService;
 		this.venueService = venueService;
+		this.emailService = emailService;
 		this.courseTimeRepository = courseTimeRepository;
 		this.registerRepository = registerRepository;
 	}
@@ -170,5 +175,14 @@ public class CourseServiceImpl implements CourseService {
 			course.setApplicants(0);
 		}
 		courseRepository.save(course);
+		//寄email
+		String email = user.getEmail();
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println(email);
+		try {
+			emailService.sendMailByThymeleaf(email, "[Bake Your Life 烘焙材料網] 報名成功通知XXXX", "test","courseRegister");
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

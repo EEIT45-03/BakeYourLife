@@ -46,7 +46,6 @@ public interface CourseService {
 		//-----Register--------
 		List<Register> findAllRegister();
 		List<Register> findRegisterByUser(User user);
-
 		Optional<Register> findByRegisterId(Integer registerId);
 		void deleteByRegisterId(Integer registerId);
 

@@ -113,7 +113,7 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
-<section class="product-details spad">
+<section class="product-details">
 <!--    <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">-->
 <!--    -->
 <!--    </form>-->
@@ -126,7 +126,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title" id="openCourse">
-                    <h2>開課時段</h2>
+                    <h2>我的課程</h2>
                 </div>
             </div>
         </div>
@@ -140,41 +140,45 @@
                                 <thead>
                                 <tr>
                                     <th class="shoping__product">課程名稱</th>
-                                    <th>報名開始</th>
-                                    <th>報名結束</th>
                                     <th>上課日期</th>
-                                    <th>名額</th>
-                                    <th>老師</th>
-                                    <th>報名</th>
+                                    <th>報名日期</th>
+                                    <th>狀態</th>
+                                    <th>取消報名</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-<!--                                <tr th:each="course:${product.courseSet}">-->
-<!--                                        <td class="shoping__cart__item">-->
-<!--                                            <img th:src="*{{product.image}}" alt="" style="height: 100px; border-radius: 10px">-->
-<!--                                            <h5 th:text="*{course.openCourse}"></h5>-->
-<!--                                            <h5>&ensp; | &ensp;</h5>-->
-<!--                                            <h5 th:text="*{product.name}"></h5>-->
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__price">-->
-<!--                                            <p th:text="${#dates.format(course.startDate, 'yyyy/MM/dd')}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__price">-->
-<!--                                            <p th:text="${#dates.format(course.endDate, 'yyyy/MM/dd')}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__price">-->
-<!--                                            <p th:each="courseTime:${course.courseTimes}" th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>-->
-<!--                                        </td>-->
+                                <tr th:each="register:${userRegister}">
+                                        <td class="shoping__cart__item">
+                                            <img th:src="*{{register.course.cProduct.image}}" alt="" style="height: 100px; border-radius: 10px">
+                                            <h5 th:text="*{register.course.openCourse}"></h5>
+                                            <h5>&ensp; | &ensp;</h5>
+                                            <h5 th:text="*{register.course.cProduct.name}"></h5>
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                            <p th:each="courseTime:${register.course.courseTimes}" th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                            <p th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd')}"></p>
+                                        </td>
+                                        <td th:switch="${register.state}">
+                                            <div th:case="0" th:text="報名完成"/>
+                                            <div th:case="1" th:text="取消報名"/>
+                                            <div th:case="2" th:text="審核中"/>
+                                            <div th:case="3" th:text="審核通過"/>
+                                            <div th:case="4" th:text="課程結束"/>
+                                            <div th:case="5" th:text="已評價"/>
+                                        </td>
 <!--                                        <td class="shoping__cart__total">-->
 <!--                                            <p th:each="venues:${course.venue}" th:text="${venues.personMax}"></p>-->
 <!--                                        </td>-->
 <!--                                        <td class="shoping__cart__total">-->
 <!--                                            <p th:text="*{course.teacher}"></p>-->
 <!--                                        </td>-->
-<!--                                        <td class="shoping__cart__total">-->
-<!--                                            <a class="icon_book" th:href="@{CreateRegisterWithId(id=${course.openCourse})}"></a>-->
-<!--                                        </td>-->
-<!--                                </tr>-->
+                                        <td class="shoping__cart__total">
+                                            <a class="icon_briefcase_alt" ></a>
+<!--                                            th:href="@{CreateRegisterWithId(id=${course.openCourse})}"-->
+                                        </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
