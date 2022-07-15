@@ -135,6 +135,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
+	public Order review(Integer orderId,boolean isReview) {
+		Order order = orderRepository.findById(orderId).orElse(null);
+		if(order == null){
+			return null;
+		}
+		order.setReview(isReview);
+		orderRepository.save(order);
+		return order;
+	}
+
+	@Override
+	@Transactional
 	public Order pay(Integer orderId) {
 		Order order = orderRepository.findById(orderId).orElse(null);
 		order.setPayDate(new Date());

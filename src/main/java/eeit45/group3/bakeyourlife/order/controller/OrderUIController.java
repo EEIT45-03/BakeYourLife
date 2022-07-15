@@ -1,11 +1,14 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Cart;
+import eeit45.group3.bakeyourlife.order.model.OrderItemReview;
+import eeit45.group3.bakeyourlife.order.utils.ReviewListWrapper;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +88,53 @@ public class OrderUIController {
 		model.addAttribute("refunded", (int)(refundedPercent*100));
 		model.addAttribute("year",orderService.findYearSaleAmount());
 		return "admin/order/Chart";
+	}
+
+	@GetMapping("/user/order/reviews/{orderId}")
+	public String viewReviews(@PathVariable Integer orderId, Model model) {
+		Order order = orderService.findByOrderId(orderId).orElse(null);
+		ReviewListWrapper wrapper = new ReviewListWrapper();
+		ArrayList<OrderItemReview> reviews = new ArrayList<>();
+		if(order==null) {
+			return "redirect:/user/order";
+		}
+		order.getOrderItemList().forEach(orderItem -> {
+			OrderItemReview oir = new OrderItemReview();
+			oir.setProductNo(orderItem.getProductNo());
+			oir.setProductName(orderItem.getProductName());
+			reviews.add(oir);
+		});
+		wrapper.setReviews(reviews);
+		model.addAttribute("wrapper", wrapper);
+		return "order/Review";
+	}
+
+	@PostMapping("/user/order/reviews/{orderId}")
+	public String postReviews(@PathVariable Integer orderId,
+							  @ModelAttribute ReviewListWrapper wrapper) {
+		Order order = orderService.findByOrderId(orderId).orElse(null);
+		if(order==null) {
+			return "redirect:/user/order";
+		}
+		orderService.review(order.getOrderId(),true);
+
+		wrapper.getReviews().forEach(review -> {
+			//自己在最上面加需要的service
+			switch (review.getProductNo().charAt(0)){
+				case 'F':
+					//小農商品評價
+					System.out.println(review);
+					break;
+				case 'G':
+					//烘培商品評價
+					System.out.println(review);
+					break;
+			}
+		});
+
+
+
+		return "redirect:/user/order";
 	}
 
 	@ModelAttribute
