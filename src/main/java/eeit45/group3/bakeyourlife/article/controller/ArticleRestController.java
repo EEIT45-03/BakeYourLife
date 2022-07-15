@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -62,25 +63,28 @@ public class ArticleRestController {
     @PostMapping(value = "/ArticleAdd")
     public ResponseEntity<Article> insert(@Valid
             @RequestParam String title,
-            Principal principal,
-            @RequestParam String type,
-            @RequestParam java.sql.Date date,
-            @RequestParam String content,
-            @RequestParam ("articleImage")  MultipartFile articleImage) {
+                                          Principal principal, Authentication authentication,
+                                          @RequestParam String type,
+                                          @RequestParam java.sql.Date date,
+                                          @RequestParam String content,
+                                          @RequestParam ("articleImage")  MultipartFile articleImage) {
 
 //        if (bindingResult.hasErrors()) {
 //            //model = new ModelAndView("customerCreate");
 //            //return model;
 //            return ResponseEntity.ok("valid");
 //        }
-
+        //User userName = userService.findByUsername(principal.getName());
+        ///User userid = userService.findByUserId(userId);
+        //User user = userService.
         Article m = new Article();
         m.setTitle(title);
-        //User user = userService.findByUsername(principal.getName());
         m.setType(type);
         m.setDate(date);
         m.setContent(content);
         m.setCounter(0);
+        //m.setUser(userid);
+        //m.setUser(userName);
         m.setImageUrl(ImgurService.updateByMultipartFile(articleImage).getLink());
         //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(articleImage).getLink());

@@ -22,6 +22,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     @Query(nativeQuery = true,value = "Select type AS 'label',count(*) AS 'value' FROM ARTICLE GROUP BY type")
     List<ArticleCount> selectTypeCount();
 
-    @Query(nativeQuery = true,value = "Select type,counter FROM ARTICLE GROUP BY type,couter")
+    @Query(nativeQuery = true,value = "Select type AS 'label',AVG(counter) AS 'value' FROM ARTICLE GROUP BY type")
     List<ArticleCount> selectCounterByType();
 }

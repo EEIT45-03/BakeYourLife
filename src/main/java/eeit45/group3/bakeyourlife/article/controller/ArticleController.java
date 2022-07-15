@@ -49,7 +49,7 @@ public class ArticleController {
 
 
 	@GetMapping(path = "/ArticleChart")
-	private String processSelectChart(@RequestParam(required = false) Integer postid, Model m) {
+	private String processSelectChart() {
 
 
 		return "admin/article/ArticleChart";

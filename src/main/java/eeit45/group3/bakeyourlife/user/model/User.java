@@ -1,11 +1,14 @@
 package eeit45.group3.bakeyourlife.user.model;
 
+import eeit45.group3.bakeyourlife.article.model.Article;
+import eeit45.group3.bakeyourlife.article.model.Message;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -31,7 +34,6 @@ public class User implements Serializable {
 	MultipartFile productImage;
 
 	private String imageUrl;
-
 
 
 	public User() {
