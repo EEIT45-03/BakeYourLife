@@ -47,6 +47,13 @@ public class ArticleController {
 		return "admin/article/Article";
 	}
 
+
+	@GetMapping(path = "/ArticleChart")
+	private String processSelectChart() {
+
+
+		return "admin/article/ArticleChart";
+	}
 	//發文id}
 	//AAA/{id}/CCC
 	@GetMapping(path = "/QueryArticle")

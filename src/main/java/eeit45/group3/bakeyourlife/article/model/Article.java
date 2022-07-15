@@ -46,13 +46,13 @@ public class Article implements Serializable {
 	@NotBlank(message = "內容欄不可為空")
 	@Lob
 	private String content;
-//	@Lob
+	//	@Lob
 //	@JsonIgnore
 //	private byte[] picture;
 	private String imageUrl;
 	@Transient
 	private MultipartFile articleImage;
-//	@Transient
+	//	@Transient
 //	private String base64;
 	private Integer counter;
 
@@ -64,8 +64,8 @@ public class Article implements Serializable {
 		this.user = user;
 	}
 
-	@OneToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name = "userId")
+	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name = "FK_userId",referencedColumnName = "userId", nullable = false)
 	@JsonIgnore
 	private User user;
 

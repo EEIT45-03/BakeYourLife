@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>好文討論區</title>
 
     <div th:replace="/css.html"></div>
     <style>
@@ -186,8 +186,8 @@
             </div>
 
 
-            <div class="col-lg-8 col-md-7" id="container">
-                <div class="row">
+            <div class="col-lg-8 col-md-7">
+                <div class="row" id="container">
                     <div class="col-lg-6 col-md-6 col-sm-6"  th:each="article: ${articles}">
                         <div class="blog__item">
                             <div class="blog__item__pic" style="width: 200px;
@@ -372,62 +372,34 @@
                 displayPageBooks(xhr2.responseText);
             }
         }
-        //使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
         var articleType = selectElement.options[ selectElement.selectedIndex ].value;
-        // 定義open方法
+
         xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
-        // 送出請求
         xhr2.send();
 
         function displayPageBooks(article){
             $('#container').html('')
-            //debugger
-            //console.log(article)
             var mapData = JSON.parse(article);
-            var content = "<table class='s1'>";
-            content += "<tbody>"+"<tr>"+
-                "<th>發文ID</th>"+
-                "<th>標題</th>"+
-                "<th>觀看次數</th>"+
-                "<th>發文時間</th>"+
-                // "<th>內文</th>"+
-                // "<th>觀看次數</th>"+
-                "<th>照片</th>"+
-                "</tr> ";
-           // var forTable = document.querySelector('.blog__item');
-            //var div = document.getElementById('container');
-            // The parent <div>.
-            // document.getElementById('container').innerHTML('');
-            // var content ="";
+            let html = ''
              for(var i=0; i < mapData.length; i++){
-                //forTable.innerHTML +=
-                content +=
-                //forTable.textContent +=
-                // "<tr><td >" + mapData[i].postid + "</td>" +
-                //     "<td>" + mapData[i].title + "</td>" +
-                //     "<td>" + mapData[i].counter + "</td>" +
-                //     "<td>" + mapData[i].date + "</td>" +
-                //     //"<td>" +"<img  width='100' height='100' src=\""+ mapData[i].imageUrl +"\"> " +
-                //     "</td></tr>" + "</tbody>"
+                        const append = `
+                    <div class="col-lg-6 col-md-6 col-sm-6" >
+                    <div class="blog__item"><div class="blog__item__pic"><img style="display:block; margin:auto; border-radius:10px;width:250px; height:250px;" src=${mapData[i].imageUrl}>
+                     </div><div class="blog__item__text"><ul><li><i class="fa fa-calendar-o"></i>${mapData[i].date}</li><li><i class="fa fa-eye"></i>${mapData[i].counter}</li>
+                                            </ul><h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}">
+                                                   ${mapData[i].title}
+                                           </a></h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}"
+                                               class="blog__btn">觀看文章<span class="arrow_right"></span></a></div></div></div>`
 
-                 +'<div className="col-lg-8 col-md-7" id="container">'+
-                    '<div className="row">'+'<div className="col-lg-6 col-md-6 col-sm-6" th:each="article: ${articles}">'+
-                    '<div className="blog__item">'+'<div className="blog__item__pic">'+"<img style='display:block; margin:auto; border-radius:10px;width:250px; height:250px;' th:src=\""+ mapData[i].imageUrl +"\"> "+
-                    '</div>'+'<div className="blog__item__text">'+' <ul>\n' +
-                    "                            <li><i className='fa fa-calendar-o' th:text=\""+mapData[i].date+ "\"></i></li>\n" +
-                    "                            <li><i className='fa fa-eye' th:text=\""+mapData[i].counter+ "\"></i></li>\n" +
-                    "                        </ul>"+"<h5><a th:href='@{/FrontArticle/ArticleDetail(postid=\""+mapData[i].postid+ "\n" +
-                    "                               th:text=\""+mapData[i].title+ "\">\n" +
-                    "                        </a></h5>"+"<p th:text=\""+mapData[i].type+ "\"></p>"+"<a th:href='@{/FrontArticle/ArticleDetail(postid=\""+mapData[i].postid+ "\n" +
-                    "                           className='blog__btn'>觀看文章 <span className='arrow_right'></span></a>"+" </div>"+" </div>"+" </div>"
+
+                        html = html + append
              }
 
-           content += "</table>";
+
             var div = document.getElementById('container');
-            // var divs = document.getElementById("somedivS");
-            div.innerHTML = content;
+            div.innerHTML = html;
             //$("#container").html(content);
-            // detail.innerHTML = companyName.substring(0,2) + "出版社目前共有" + BookType + "種書籍";
+
         }
     }
 
