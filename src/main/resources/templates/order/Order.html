@@ -297,6 +297,16 @@
 <i class="fa-solid fa-sack-dollar"></i> 確認收貨
 </span>
 </button>`;
+                        }else if (orderStatus === '完成') {
+                            if(row.review === false){
+                            return `<a href="/user/order/reviews/${row.orderId}" class="btn btn-warning btn-sm mr-3">
+<span class="icon text-danger-50">
+<i class="fa-solid fa-comment"></i> 評價商品
+</span>
+</a>`;
+                            }else {
+                                return '已評價';
+                            }
                         }else{
                             return '';
                         }
