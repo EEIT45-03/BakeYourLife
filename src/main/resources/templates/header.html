@@ -11,7 +11,7 @@
     </div>
     <div class="humberger__menu__cart">
         <ul>
-<!--            <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
+            <!--            <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
             <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a></li>
         </ul>
         <!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
@@ -32,11 +32,11 @@
                 <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
             </ul>
         </div>
-<!--        <div sec:authorize="isAuthenticated()">-->
-<!--            <div class="header__top__right__auth">-->
-<!--                <a href="/logout"><i class="fa fa-user"></i> 登出</a>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div sec:authorize="isAuthenticated()">-->
+        <!--            <div class="header__top__right__auth">-->
+        <!--                <a href="/logout"><i class="fa fa-user"></i> 登出</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <!-- 右上會員資訊 -->
         <ul>
             <li sec:authorize="isAuthenticated()">
@@ -46,7 +46,7 @@
                           sec:authentication="principal.fullName"></span>
 
                     <img class="img-profile rounded-circle"
-                         th:src="${#authentication.principal.imageUrl}" width="50" height="50" >
+                         th:src="${#authentication.principal.imageUrl}" width="50" height="50">
 
                 </a>
                 <!-- 點擊右上會員圖標，彈出選單  -->
@@ -147,7 +147,7 @@
             </li>
             <li><a href="#">商品</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">一般商品</a></li>
+                    <li><a th:href="@{/Goods1/}">一般商品</a></li>
                     <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
 <!--                    <li><a href="#">待新增</a></li>-->
 <!--                    <li><a href="#">待新增</a></li>-->
@@ -163,22 +163,23 @@
             </li>
             <li><a href="#">租借</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">場地租借</a></li>
+                    <li><a href="/Rental/">點我租借</a></li>
                     <li><a href="/Venue/">場地介紹</a></li>
                     <li><a href="#">器材租借</a></li>
                     <li><a href="#">器材介紹</a></li>
                 </ul>
             </li>
 
-            <!--            <li><a href="#">Pages</a>-->
-            <!--                <ul class="header__menu__dropdown">-->
-            <!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
-            <!--                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
-            <!--                    <li><a href="./checkout.html">Check Out</a></li>-->
-            <!--                    <li><a href="./blog-details.html">Blog Details</a></li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
-            <li><a href="#">烘焙專欄</a>
+
+<!--            <li><a href="#">Pages</a>-->
+<!--                <ul class="header__menu__dropdown">-->
+<!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
+<!--                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
+<!--                    <li><a href="./checkout.html">Check Out</a></li>-->
+<!--                    <li><a href="./blog-details.html">Blog Details</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+            <li><a th:href="@{/FrontArticle}">烘焙專欄</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="#">烘焙專欄選單A</a></li>
                     <li><a href="#">烘焙專欄選單B</a></li>
@@ -279,43 +280,46 @@
                                          aria-labelledby="userDropdown">
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item"
                                            th:href="@{/admin/}">
-<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-user"></i>
                                             管理者後台
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            <i class="fas fa-cow fa-sm fa-fw mr-2 text-gray-400"></i>
                                             小農管理中心
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/UpdateSupplier}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            <i class="fas  fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>
                                             廠商資料
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/SupplierProductList/}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            <i class="fas fa-carrot fa-sm fa-fw mr-2 text-gray-400"></i>
                                             商品清單
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                                            th:href="@{/FarmerProductSupplier/}">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            <i class="fas fa-frog fa-sm fa-fw mr-2 text-gray-400"></i>
                                             訂單紀錄
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-user"></i>
                                             個人資料
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-heart"></i>
                                             喜愛清單
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+
                                            th:href="@{/#/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-cart-shopping "></i>
@@ -324,12 +328,14 @@
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-school"></i>
                                             我的課程
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-table"></i>
                                             我的租借
                                         </a>
@@ -349,7 +355,7 @@
                                         <!--                                                        </a>-->
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="/logout">
-<!--                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <!--                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-right-from-bracket"></i>
                                             登出
                                         </a>
@@ -384,7 +390,7 @@
                         </li>
                         <li><a href="./shop-grid.html">商品</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">一般商品</a></li>
+                                <li><a th:href="@{/Goods1/}">一般商品</a></li>
                                 <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
 <!--                                <li><a href="#">待新增</a></li>-->
 <!--                                <li><a href="#">待新增</a></li>-->
@@ -400,7 +406,7 @@
                         </li>
                         <li><a href="#">租借</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">場地租借</a></li>
+                                <li><a href="/Rental/">點我租借</a></li>
                                 <li><a href="/Venue/">場地介紹</a></li>
                                 <li><a href="#">器材租借</a></li>
                                 <li><a href="#">器材介紹</a></li>

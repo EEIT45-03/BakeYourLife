@@ -18,12 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import eeit45.group3.bakeyourlife.good.model.Goods;
@@ -91,10 +86,16 @@ public class GoodsControllerServerSide {
 		return "redirect:./";
 	}
 
-	@GetMapping("/DeleteGoods")//標籤有改
-	public String delete(@RequestParam("id") int ipk) {//標籤有改 為何抓的到ID
-		goodService.deleteGoods(ipk);
-		return "redirect:./";
+//	@GetMapping("/DeleteGoods")//標籤有改
+//	public String delete(@RequestParam("id") int ipk) {//標籤有改 為何抓的到ID
+//		goodService.deleteGoods(ipk);
+//		return "redirect:./";
+//	}
+
+	@DeleteMapping("/GoodsServerSide/{id}")
+	private ResponseEntity<?> deleteGoodsProduct(@PathVariable Integer id) {
+		goodService.deleteGoods(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	@PostMapping("/CheckGoods")

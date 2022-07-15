@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
@@ -47,14 +48,16 @@ public class Rental implements Serializable {
     private String type;
 
     //場地租借清單
+    @JsonManagedReference
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental", orphanRemoval = true)
     private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 
     //器具租借清單
+    @JsonManagedReference
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "rental")
     private Set<TackleList> tackleList = new LinkedHashSet<TackleList>();
 
-    //狀態(待付款、已付款、已退單)
+    //狀態(待付款、已付款、已退單，需補款)
     @Column(name = "state", nullable = false, columnDefinition = "varchar(20)")
     private String state;
 
@@ -62,22 +65,8 @@ public class Rental implements Serializable {
     @Column(name = "total", columnDefinition = "int")
     private Integer total;
 
-//    //遲歸還補款
-//    @Transient
-//    private Integer replenishment;
-
-//    //器具出租日期
-//    @Transient
-//    private Date lendDate;
-//
-//    //器具出租結束日期
-//    @Transient
-//    private Date endDate;
-
-//    //器具歸還日期
-//    @Transient
-//    private Date returnDate;
-
+    @Column(name = "replenishment", columnDefinition = "int")
+    private Integer replenishment;
     public Rental() {
     }
 
@@ -91,17 +80,6 @@ public class Rental implements Serializable {
         this.total = total;
     }
 
-//    public Rental(String rentalNo, User user, Date rentalDate, String type, Set<VenueList> venueList, Set<TackleList> tackleList, String state, Integer total, Integer replenishment) {
-//        this.rentalNo = rentalNo;
-//        this.user = user;
-//        this.rentalDate = rentalDate;
-//        this.type = type;
-//        this.venueList = venueList;
-//        this.tackleList = tackleList;
-//        this.state = state;
-//        this.total = total;
-//        this.replenishment = replenishment;
-//    }
 
     public Integer getRentalId() {
         return rentalId;
@@ -175,35 +153,11 @@ public class Rental implements Serializable {
         this.total = total;
     }
 
-//    public Integer getReplenishment() {
-//        return replenishment;
-//    }
-//
-//    public void setReplenishment(Integer replenishment) {
-//        this.replenishment = replenishment;
-//    }
-//
-//    public Date getLendDate() {
-//        return lendDate;
-//    }
-//
-//    public void setLendDate(Date lendDate) {
-//        this.lendDate = lendDate;
-//    }
-//
-//    public Date getEndDate() {
-//        return endDate;
-//    }
-//
-//    public void setEndDate(Date endDate) {
-//        this.endDate = endDate;
-//    }
-//
-//    public Date getReturnDate() {
-//        return returnDate;
-//    }
-//
-//    public void setReturnDate(Date returnDate) {
-//        this.returnDate = returnDate;
-//    }
+    public Integer getReplenishment() {
+        return replenishment;
+    }
+
+    public void setReplenishment(Integer replenishment) {
+        this.replenishment = replenishment;
+    }
 }

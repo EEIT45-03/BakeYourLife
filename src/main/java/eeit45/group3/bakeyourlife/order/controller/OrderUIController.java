@@ -1,28 +1,23 @@
 package eeit45.group3.bakeyourlife.order.controller;
 
-import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Cart;
-import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @SessionAttributes(value = {"cart"})
@@ -67,12 +62,13 @@ public class OrderUIController {
 	}
 
 	@GetMapping("CheckOut")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String viewCheckOut(@ModelAttribute("cart") Cart cart,
-							   Model model, Principal principal) {
-		if(principal==null){
+							   Model model, Authentication authentication) {
+		if(authentication==null){
 			return "redirect:/login";
 		}
-		User user = userService.findByUsername(principal.getName());
+		User user = userService.getCurrentUser(authentication);
 		model.addAttribute("address", user.getAddress());
 		return "order/CheckOut";
 	}

@@ -87,7 +87,7 @@ public interface OrderService {
     void deleteOrder(Integer orderId);
 
     //更新訂單
-    void updateOrder(Order order);
+//    void updateOrder(Order order);
 //		void updateOrder(OrderRequest orderRequest);
 
     //建立訂單

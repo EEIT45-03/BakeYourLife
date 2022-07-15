@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,27 +48,31 @@ public class Venue implements Serializable {
 	@Column
 	private String notes;
 
-	@Transient
-	MultipartFile venueImage;
-
+	@JsonManagedReference
+	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(name="FK_sortId", referencedColumnName = "venueSortId", nullable = false)
+	private VenueSort venueSort;
 
 	//對應場地清單
+	@JsonManagedReference
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
-	
-	
+
+	@Transient
+	private MultipartFile venueImage;
+
 	public Venue() {
 	}
 
 
-	public Venue(String venueName, Integer personMax, Integer hrPrice, String picture, String notes, MultipartFile venueImage, Set<VenueList> venueList) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice, String picture, String notes, VenueSort venueSort, MultipartFile venueImage) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
 		this.picture = picture;
 		this.notes = notes;
+		this.venueSort = venueSort;
 		this.venueImage = venueImage;
-		this.venueList = venueList;
 	}
 
 	public Integer getVenueId() {
@@ -132,5 +138,14 @@ public class Venue implements Serializable {
 	public void setVenueImage(MultipartFile venueImage) {
 		this.venueImage = venueImage;
 	}
+
+	public VenueSort getVenueSort() {
+		return venueSort;
+	}
+
+	public void setVenueSort(VenueSort venueSort) {
+		this.venueSort = venueSort;
+	}
+
 }
 
