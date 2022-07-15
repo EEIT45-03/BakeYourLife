@@ -16,7 +16,7 @@ class BakeYourLifeApplicationTests {
     @Test
     void contextLoads() throws MessagingException {
         //測試時輸入自己的email
-        emailService.sendMailByThymeleaf("xxxxxxx@gmail.com", "test", "test","welcome");
+        emailService.sendMailByThymeleaf("yi999897@gmail.com", "test", "test","welcome");
     }
 
 }

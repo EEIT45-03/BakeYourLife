@@ -70,19 +70,20 @@ public class UserCourseController {
         if(authentication == null){
             return "redirect:/login";
         } else{
-            User user = userService.getUser(authentication);
+            User user = userService.getCurrentUser(authentication);
+            Register register = new Register();
+            register.setCourse(course);
+            register.setUser(user);
             model.addAttribute("user",user);
             model.addAttribute("course",course);
-            model.addAttribute("register2", new Register());
+            model.addAttribute("register2", register);
             return "course/CourseRegisterWithId";
         }
     }
     @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.POST)
-    public String createRegisterWithId(@ModelAttribute("register") Register register, BindingResult result) {
+    public String createRegisterWithId(@ModelAttribute("register2") Register register, BindingResult result) {
         courseService.createRegisterWithId(register);
         return "redirect:./";
     }
-
-
 
 }

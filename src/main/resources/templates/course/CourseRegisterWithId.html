@@ -64,9 +64,8 @@
                                     <p>會員ID<span>*</span></p>
                                     <p th:field="${user.userId}" th:text="${user.userId}"></p>
 
-<!--                                        <input  type="text" th:field="*{user.userId}"-->
-<!--                                               name="userId" id="userId" placeholder="請輸入使用者編號"-->
-<!--                                               required="required" />-->
+                                        <input  type="hidden" th:field="*{user.userId}" th:text="${user.userId}"
+                                               name="userId" id="userId" />
 <!--                                        th:field="*{user.userId}"-->
                                 </div>
                             </div>
@@ -81,10 +80,10 @@
                         </div>
                         <div class="checkout__input">
                             <p>課程資訊<span></span></p>
+                                <input  type="hidden" th:field="*{course.openCourse}" th:text="*{course.openCourse}"
+                                        name="openCourse" id="openCourse" />
                                 <td th:field="${course.openCourse}" th:text="|開課編號: ${course.openCourse}|"></td></br>
                                 <td th:text="|開課時間: ${#dates.format(course.startDate, 'yyyy/MM/dd HH:mm')}|"></td></br>
-
-
                                 <td th:text="|課程名稱: ${course.cProduct.name}|"></td></br>
                                 <td th:text="|課程單價: ${'$'+course.cProduct.price}|"></td></br>
                         </div>
@@ -145,19 +144,13 @@
         }
         var coursePrice = [[${course.cProduct.price}]];
         var total = people * coursePrice;
-        document.getElementById('total').textContent = total;
-
+        if(total != null && !isNaN(total) && total != 0) {
+            document.getElementById('total').textContent = total;
+        } else{
+            document.getElementById('total').textContent = 0;
+        }
     }
-    //自動加總
-    // document.getElementById('attendance').onblur = function myFunction(){
-    // //     //選取輸入欄位的 DOM 並宣告變數名，用 value 帶出輸入欄的值。
-    //      var coursePrice = [[${course.cProduct.price}]];
-    //      parseInt(document.getElementById('coursePrice').value);
-    //     //再用一個變數儲存金額加總
-    //     var total = people * coursePrice;
-    //     //把總金額渲染至網頁上
-    //     document.getElementById('total').textContent = coursePrice;
-    // }
+
     //免責聲明要勾
     function errorMessage() {
         var error = document.getElementById("error")

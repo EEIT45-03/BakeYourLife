@@ -15,6 +15,7 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -151,17 +152,23 @@ public class CourseServiceImpl implements CourseService {
 		registerRepository.save(register);
 	}
 
-
 	@Override
 	@Transactional
 	public void createRegisterWithId(Register register) {
+		Course course = findById(register.getCourse().getOpenCourse()).orElse(null);
+		User user = userService.findByUserId(register.getUser().getUserId());
 		//User & Course 是FK
 //		User user = userService.findByUserId(register.getUser().getUserId());
 //		register.setUser(user);
 //		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
 //		register.setCourse(course);
 		Integer sum;
-		sum = register.getAttendance()*register.getCourse().getcProduct().getPrice();
+		sum = (register.getAttendance())*(course.getcProduct().getPrice());
+//		Authentication authentication;
+//		User user = userService.getCurrentUser(authentication);
+//		register.setUser(user);
+//		register.setCourse(register.getCourse());
+		register.setUser(user);
 		register.setTotalPrice(sum);
 		register.setRegisterDate(new Date());
 		registerRepository.save(register);
