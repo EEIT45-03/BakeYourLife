@@ -1,6 +1,8 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import eeit45.group3.bakeyourlife.rental.model.TackleBag;
+import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,8 +37,12 @@ public class Tackle implements Serializable {
 	private String specification;
 
 	//圖片路徑
-	@Column(name = "picture")
-	private String picture;
+//	@Column(name = "picture")
+//	private String picture;
+	@JsonManagedReference
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
+	private Set<TacklePicList> venuePicList = new LinkedHashSet<TacklePicList>();
+
 
 	//價錢/天
 	@Column(name = "dayPrice", columnDefinition = "int not null")
@@ -69,10 +75,10 @@ public class Tackle implements Serializable {
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile tackleImage) {
+	public Tackle(String tackleName, String specification, Set<TacklePicList> venuePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
-		this.picture = picture;
+		this.venuePicList = venuePicList;
 		this.dayPrice = dayPrice;
 		this.damages = damages;
 		this.max = max;
@@ -106,12 +112,12 @@ public class Tackle implements Serializable {
 		this.specification = specification;
 	}
 
-	public String getPicture() {
-		return picture;
+	public Set<TacklePicList> getVenuePicList() {
+		return venuePicList;
 	}
 
-	public void setPicture(String picture) {
-		this.picture = picture;
+	public void setVenuePicList(Set<TacklePicList> venuePicList) {
+		this.venuePicList = venuePicList;
 	}
 
 	public Integer getDayPrice() {

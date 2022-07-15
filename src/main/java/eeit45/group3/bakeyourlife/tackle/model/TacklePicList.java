@@ -1,20 +1,19 @@
-package eeit45.group3.bakeyourlife.venue.model;
+package eeit45.group3.bakeyourlife.tackle.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "VenuePicList")
+@Table(name = "TacklePicList")
 @Component
-public class VenuePicList implements Serializable {
+public class TacklePicList implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @javax.persistence.Id
     @Column(name = "picListId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
@@ -22,27 +21,25 @@ public class VenuePicList implements Serializable {
     @Column(name = "picture", nullable = false, unique = true)
     private String picture;
 
-
     @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name="FK_venueId", referencedColumnName = "venueId", nullable = false)
-    private Venue venue;
+    @JoinColumn(name="FK_tackleId", referencedColumnName = "tackleId", nullable = false)
+    private Tackle tackle;
 
-    public VenuePicList(String picture, Venue venue) {
-        this.picture = picture;
-        this.venue = venue;
+    public TacklePicList() {
     }
 
-    public VenuePicList() {
-
+    public TacklePicList(String picture, Tackle tackle) {
+        this.picture = picture;
+        this.tackle = tackle;
     }
 
     public Integer getId() {
         return Id;
     }
 
-    public void setId(Integer pivId) {
-        this.Id = pivId;
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public String getPicture() {
@@ -53,11 +50,11 @@ public class VenuePicList implements Serializable {
         this.picture = picture;
     }
 
-    public Venue getVenue() {
-        return venue;
+    public Tackle getTackle() {
+        return tackle;
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = venue;
+    public void setTackle(Tackle tackle) {
+        this.tackle = tackle;
     }
 }
