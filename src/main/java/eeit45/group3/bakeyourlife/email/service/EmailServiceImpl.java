@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.email.service;
 
+import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,11 +11,13 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import java.io.UnsupportedEncodingException;
 
 @Service("EmailService")
 public class EmailServiceImpl implements EmailService {
 
-    private final String FROM_EMAIL = "bakeyourlifemail@gmail.com";
+    private final String FROM_EMAIL = "Bake Your Life<bakeyourlifemail@gmail.com>";
 
     private final TemplateEngine templateEngine;
 
@@ -52,19 +56,27 @@ public class EmailServiceImpl implements EmailService {
             String to,//收件者
             String subject,//主旨
             String text, //內容
+            String head,
             String templateName//模板名稱
     ) throws MessagingException {
         Context context = new Context();
         context.setVariable("text", text);
+        context.setVariable("head", head);
+        User user = new User();
+        user.setFullName("測試用戶");
+        context.setVariable("user", user);
+
 
         String process = templateEngine.process("emails/"+templateName, context);
         javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(FROM_EMAIL);
+        helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(process, true);
-        helper.setTo(to);
         javaMailSender.send(mimeMessage);
 
 }
+
 
 }

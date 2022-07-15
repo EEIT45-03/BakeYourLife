@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.email.service;
 
+import eeit45.group3.bakeyourlife.order.model.Order;
+
 import javax.mail.MessagingException;
 
 public interface EmailService {
@@ -12,6 +14,8 @@ public interface EmailService {
             String to,//收件者
             String subject,//主旨
             String text, //內容
+            String head,
             String templateName//模板名稱
     ) throws MessagingException;
+
 }
