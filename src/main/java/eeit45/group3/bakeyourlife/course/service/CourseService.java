@@ -4,6 +4,7 @@ package eeit45.group3.bakeyourlife.course.service;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public interface CourseService {
 
 		//-----Register--------
 		List<Register> findAllRegister();
-		List<Register> findRegisterByUser();
+		List<Register> findRegisterByUser(User user);
 
 		Optional<Register> findByRegisterId(Integer registerId);
 		void deleteByRegisterId(Integer registerId);
@@ -52,5 +53,7 @@ public interface CourseService {
 	    void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice);
 		void createRegister(Register register);
 		void createRegisterWithId(Register register);
+
+//		void addAttendanceToOpCourse(Course course);
 
 }

@@ -36,7 +36,6 @@ public class UserCourseController {
 
     @GetMapping("/Course")
     public String viewIndex(Model model) {
-
         List<Product> products = productService.getAllProduct();
         model.addAttribute("products", products);
         return "course/courseIndex";
@@ -84,6 +83,13 @@ public class UserCourseController {
     public String createRegisterWithId(@ModelAttribute("register2") Register register, BindingResult result) {
         courseService.createRegisterWithId(register);
         return "redirect:./";
+    }
+
+    @GetMapping("/Course")
+    public String viewRegisterByUser(Model model) {
+        List<Product> products = productService.getAllProduct();
+        model.addAttribute("products", products);
+        return "course/courseIndex";
     }
 
 }

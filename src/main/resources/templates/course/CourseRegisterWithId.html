@@ -62,11 +62,11 @@
                                 <div class="checkout__input">
 <!--                                    <label for="userId" >使用者:</label>-->
                                     <p>會員ID<span>*</span></p>
-                                    <p th:field="${user.userId}" th:text="${user.userId}"></p>
+                                    <p th:text="${user.userId}"></p>
 
-                                        <input  type="hidden" th:field="*{user.userId}" th:text="${user.userId}"
+                                        <input type="hidden" th:field="*{user.userId}"
                                                name="userId" id="userId" />
-<!--                                        th:field="*{user.userId}"-->
+<!--                                th:attr="name=user.userId"        th:field="*{user.userId}"-->
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="checkout__input">
                             <p>課程資訊<span></span></p>
-                                <input  type="hidden" th:field="*{course.openCourse}" th:text="*{course.openCourse}"
+                                <input  type="hidden" th:field="*{course.openCourse}"
                                         name="openCourse" id="openCourse" />
                                 <td th:field="${course.openCourse}" th:text="|開課編號: ${course.openCourse}|"></td></br>
                                 <td th:text="|開課時間: ${#dates.format(course.startDate, 'yyyy/MM/dd HH:mm')}|"></td></br>

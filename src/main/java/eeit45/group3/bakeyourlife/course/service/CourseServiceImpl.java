@@ -115,8 +115,8 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Register> findRegisterByUser() {
-		return null;
+	public List<Register> findRegisterByUser(User user) {
+		return registerRepository.findByUser(user);
 	}
 
 	@Override
@@ -155,23 +155,20 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public void createRegisterWithId(Register register) {
-		Course course = findById(register.getCourse().getOpenCourse()).orElse(null);
+		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
 		User user = userService.findByUserId(register.getUser().getUserId());
-		//User & Course 是FK
-//		User user = userService.findByUserId(register.getUser().getUserId());
-//		register.setUser(user);
-//		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
-//		register.setCourse(course);
-		Integer sum;
-		sum = (register.getAttendance())*(course.getcProduct().getPrice());
-//		Authentication authentication;
-//		User user = userService.getCurrentUser(authentication);
-//		register.setUser(user);
-//		register.setCourse(register.getCourse());
+		Integer sum = (register.getAttendance())*(course.getcProduct().getPrice());
 		register.setUser(user);
 		register.setTotalPrice(sum);
 		register.setRegisterDate(new Date());
 		registerRepository.save(register);
+		//報名人數加入開課明細
+		Integer attSum = registerRepository.getSumAttendanceByCourse(course);
+		if(attSum != null){
+			course.setApplicants(attSum.intValue());
+		} else {
+			course.setApplicants(0);
+		}
+		courseRepository.save(course);
 	}
-
 }
