@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -44,7 +45,7 @@ public class Venue implements Serializable {
 
 	@JsonManagedReference
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
-	private Set<VenuePicList> venuePicList = new LinkedHashSet<VenuePicList>();
+	private List<VenuePicList> venuePicList ;
 
 	//備註
 	@Column
@@ -68,7 +69,7 @@ public class Venue implements Serializable {
 	public Venue() {
 	}
 
-	public Venue(String venueName, Integer personMax, Integer hrPrice, Set<VenuePicList> venuePicList, String notes, VenueSort venueSort, Set<VenueList> venueList, MultipartFile[] venueImage) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice, List<VenuePicList> venuePicList, String notes, VenueSort venueSort, Set<VenueList> venueList, MultipartFile[] venueImage) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
@@ -111,11 +112,11 @@ public class Venue implements Serializable {
 		this.hrPrice = hrPrice;
 	}
 
-	public Set<VenuePicList> getVenuePicList() {
+	public List<VenuePicList> getVenuePicList() {
 		return venuePicList;
 	}
 
-	public void setVenuePicList(Set<VenuePicList> venuePicList) {
+	public void setVenuePicList(List<VenuePicList> venuePicList) {
 		this.venuePicList = venuePicList;
 	}
 

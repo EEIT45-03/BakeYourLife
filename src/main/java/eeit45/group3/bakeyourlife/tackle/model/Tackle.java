@@ -2,13 +2,13 @@ package eeit45.group3.bakeyourlife.tackle.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import eeit45.group3.bakeyourlife.rental.model.TackleBag;
-import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -41,7 +41,7 @@ public class Tackle implements Serializable {
 //	private String picture;
 	@JsonManagedReference
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
-	private Set<TacklePicList> venuePicList = new LinkedHashSet<TacklePicList>();
+	private List<TacklePicList> tacklePicList ;
 
 
 	//價錢/天
@@ -70,15 +70,15 @@ public class Tackle implements Serializable {
 	private TackleSort tackleSort ;
 
 	@Transient
-	private MultipartFile tackleImage;
+	private MultipartFile[] tackleImage;
 
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String specification, Set<TacklePicList> venuePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile tackleImage) {
+	public Tackle(String tackleName, String specification, List<TacklePicList> tacklePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
-		this.venuePicList = venuePicList;
+		this.tacklePicList = tacklePicList;
 		this.dayPrice = dayPrice;
 		this.damages = damages;
 		this.max = max;
@@ -112,12 +112,12 @@ public class Tackle implements Serializable {
 		this.specification = specification;
 	}
 
-	public Set<TacklePicList> getVenuePicList() {
-		return venuePicList;
+	public List<TacklePicList> getTacklePicList() {
+		return tacklePicList;
 	}
 
-	public void setVenuePicList(Set<TacklePicList> venuePicList) {
-		this.venuePicList = venuePicList;
+	public void setTacklePicList(List<TacklePicList> venuePicList) {
+		this.tacklePicList = tacklePicList;
 	}
 
 	public Integer getDayPrice() {
@@ -168,11 +168,11 @@ public class Tackle implements Serializable {
 		this.tackleSort = tackleSort;
 	}
 
-	public MultipartFile getTackleImage() {
+	public MultipartFile[] getTackleImage() {
 		return tackleImage;
 	}
 
-	public void setTackleImage(MultipartFile tackleImage) {
+	public void setTackleImage(MultipartFile[] tackleImage) {
 		this.tackleImage = tackleImage;
 	}
 }

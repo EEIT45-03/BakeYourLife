@@ -20,7 +20,7 @@ $(document).ready(function () {
         order: [1, 'asc']
     });
 
-    $("body").on("change", "#image", function(e){
+    $("body").on("change", "#files", function(e){
         var file = e.target.files[0];
         var mediabase64data;
         getBase64(file).then(

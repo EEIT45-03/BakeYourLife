@@ -86,7 +86,9 @@
         </div>
         <!-- 圖片顯示 -->
         <div class="row mb-3">
-            <img id="images" th:src="*{picture}" width="200" height="200" style="margin:auto"/>
+            <p th:each="pic : *{TacklePicList}" >
+                <img id="images" th:src="${pic.picture}" style="margin:auto; width: 50px; height: 50px"/>
+            </p>
         </div>
 
         <!-- 備註: -->
