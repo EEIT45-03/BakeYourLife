@@ -80,39 +80,39 @@
                         小農管理中心
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                         <i class="fa-solid fa-user"></i>
                         個人資料
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                         <i class="fa-solid fa-heart"></i>
                         喜愛清單
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                         <i class="fa-solid fa-cart-shopping"></i>
                         購買清單
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                         <i class="fa-solid fa-school"></i>
                         我的課程
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                         <i class="fa-solid fa-table"></i>
                         我的租借
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/admin/}">
+                       th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
-                        <i class="fa-solid fa-table"></i>
+                        <i class="fa-solid fa-book"></i>
                         我的文章
                     </a>
                     <!--                                                        <a class="dropdown-item" href="#">-->
@@ -149,16 +149,16 @@
                 <ul class="header__menu__dropdown">
                     <li><a th:href="@{/Goods1/}">一般商品</a></li>
                     <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
-                    <li><a href="#">待新增</a></li>
-                    <li><a href="#">待新增</a></li>
+<!--                    <li><a href="#">待新增</a></li>-->
+<!--                    <li><a href="#">待新增</a></li>-->
                 </ul>
             </li>
             <li><a href="#">課程</a>
                 <ul class="header__menu__dropdown">
                     <li><a th:href="@{/Course}">課程總覽</a></li>
                     <li><a th:href="@{/Course/CreateRegister}">課程報名</a></li>
-                    <li><a href="#">課程選單C</a></li>
-                    <li><a href="#">課程選單D</a></li>
+<!--                    <li><a href="#">課程選單C</a></li>-->
+<!--                    <li><a href="#">課程選單D</a></li>-->
                 </ul>
             </li>
             <li><a href="#">租借</a>
@@ -170,6 +170,7 @@
                 </ul>
             </li>
 
+
 <!--            <li><a href="#">Pages</a>-->
 <!--                <ul class="header__menu__dropdown">-->
 <!--                    <li><a href="./shop-details.html">Shop Details</a></li>-->
@@ -178,40 +179,40 @@
 <!--                    <li><a href="./blog-details.html">Blog Details</a></li>-->
 <!--                </ul>-->
 <!--            </li>-->
-            <li><a th:href="@{/FrontArticle}">好文討論區</a>
+            <li><a th:href="@{/FrontArticle}">烘焙專欄</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="#">討論區選單A</a></li>
-                    <li><a href="#">討論區選單B</a></li>
-                    <li><a href="#">討論區選單C</a></li>
-                    <li><a href="#">討論區選單D</a></li>
+                    <li><a href="#">烘焙專欄選單A</a></li>
+                    <li><a href="#">烘焙專欄選單B</a></li>
+<!--                    <li><a href="#">討論區選單C</a></li>-->
+<!--                    <li><a href="#">討論區選單D</a></li>-->
                 </ul>
             </li>
-            <!--            <li><a href="./contact.html">Contact</a></li>-->
-            <li sec:authorize="hasRole('ROLE_USER')"><a href="/user" sec:authentication="name"></a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="/user/profile">個人資料</a></li>
-                    <li><a href="/user/profile">喜愛清單</a></li>
-                    <li><a href="/user/order">購買清單</a></li>
-                    <!--                    <li><a href="./checkout.html">我的優惠卷</a></li>-->
-                    <li><a href="./blog-details.html">我的課程</a></li>
-                    <li><a href="./blog-details.html">我的租借</a></li>
-                </ul>
-            </li>
-            <li><a href="#">小農廠商</a></li>
-            <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"
-                                                          sec:authentication="principal.fullName"></a>
-                <ul class="header__menu__dropdown">
-                    <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
-                    <li><a href="#">廠商資料</a></li>
-                    <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
-                    <li><a href="#">訂單紀錄</a></li>
-                </ul>
-            </li>
-            <!--            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
-            <!--                <ul class="header__menu__dropdown">-->
-            <!--                    <li><a th:href="@{/admin/}">後台首頁</a></li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
+<!--            <li><a href="./contact.html">Contact</a></li>-->
+<!--            <li sec:authorize="hasRole('ROLE_USER')"><a href="/user" sec:authentication="name"></a>-->
+<!--                <ul class="header__menu__dropdown">-->
+<!--                    <li><a href="/user/profile">個人資料</a></li>-->
+<!--                    <li><a href="/user/profile">喜愛清單</a></li>-->
+<!--                    <li><a href="/user/order">購買清單</a></li>-->
+<!--                    &lt;!&ndash;                    <li><a href="./checkout.html">我的優惠卷</a></li>&ndash;&gt;-->
+<!--                    <li><a href="./blog-details.html">我的課程</a></li>-->
+<!--                    <li><a href="./blog-details.html">我的租借</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--            <li><a href="#">小農廠商</a></li>-->
+<!--            <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"-->
+<!--                                                          sec:authentication="principal.fullName"></a>-->
+<!--                <ul class="header__menu__dropdown">-->
+<!--                    <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>-->
+<!--                    <li><a href="#">廠商資料</a></li>-->
+<!--                    <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>-->
+<!--                    <li><a href="#">訂單紀錄</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
+<!--                <ul class="header__menu__dropdown">-->
+<!--                    <li><a th:href="@{/admin/}">後台首頁</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -223,8 +224,9 @@
     </div>
     <div class="humberger__menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i> bakeyourlife@gmail.com</li>
-            <li>公告</li>
+            <li><i class="fa-solid fa-phone"></i> 0800-000-666</li><br>
+            <li><i class="fa fa-envelope"></i>bakeyourlife@gmail.com</li>
+            <li>跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告</li>
         </ul>
     </div>
 </div>
@@ -238,8 +240,9 @@
                 <div class="col-lg-6">
                     <div class="header__top__left">
                         <ul>
+                            <li><i class="fa-solid fa-phone"></i> 0800-000-666</li><br>
                             <li><i class="fa fa-envelope"></i> bakeyourlife@gmail.com</li>
-                            <li>公告</li>
+                            <li>跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告</li>
                         </ul>
                     </div>
                 </div>
@@ -302,34 +305,45 @@
                                             訂單紀錄
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/admin/}">
-                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                           th:href="@{/#/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-user"></i>
                                             個人資料
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/admin/}">
-                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                           th:href="@{/#/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-heart"></i>
                                             喜愛清單
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/admin/}">
-                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
-                                            <i class="fa-solid fa-cart-shopping"></i>
+
+                                           th:href="@{/#/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-cart-shopping "></i>
                                             購買清單
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/admin/}">
-                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                           th:href="@{/#/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-school"></i>
                                             我的課程
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/admin/}">
-                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                           th:href="@{/#/}">
+<!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                                             <i class="fa-solid fa-table"></i>
                                             我的租借
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+                                           th:href="@{/#/}">
+                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-book"></i>
+                                            我的文章
                                         </a>
                                         <!--                                                        <a class="dropdown-item" href="#">-->
                                         <!--                                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
@@ -378,16 +392,16 @@
                             <ul class="header__menu__dropdown">
                                 <li><a th:href="@{/Goods1/}">一般商品</a></li>
                                 <li><a th:href="@{/FarmerProductShop/ShopGrid}">小農商品</a></li>
-                                <li><a href="#">待新增</a></li>
-                                <li><a href="#">待新增</a></li>
+<!--                                <li><a href="#">待新增</a></li>-->
+<!--                                <li><a href="#">待新增</a></li>-->
                             </ul>
                         </li>
                         <li><a href="#">課程</a>
                             <ul class="header__menu__dropdown">
                                 <li><a th:href="@{/Course}">課程總覽</a></li>
                                 <li><a th:href="@{/Course/CreateRegister}">課程報名</a></li>
-                                <li><a href="#">課程選單C</a></li>
-                                <li><a href="#">課程選單D</a></li>
+<!--                                <li><a href="#">課程選單C</a></li>-->
+<!--                                <li><a href="#">課程選單D</a></li>-->
                             </ul>
                         </li>
                         <li><a href="#">租借</a>
@@ -398,60 +412,60 @@
                                 <li><a href="#">器材介紹</a></li>
                             </ul>
                         </li>
-<!--                        <li><a href="#">Pages</a>-->
-<!--                            <ul class="header__menu__dropdown">-->
-<!--                                <li><a href="./shop-details.html">Shop Details</a></li>-->
-<!--                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
-<!--                                <li><a href="./checkout.html">Check Out</a></li>-->
-<!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
-                        <li><a th:href="@{/FrontArticle}">好文討論區</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="#">討論區選單A</a></li>
-                                <li><a href="#">討論區選單B</a></li>
-                                <li><a href="#">討論區選單C</a></li>
-                                <li><a href="#">討論區選單D</a></li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasRole('ROLE_USER')"><a href="/user" sec:authentication="name"></a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="/user/profile">個人資料</a></li>
-                                <li><a href="/user/profile">喜愛清單</a></li>
-                                <li><a href="/user/order">購買清單</a></li>
-                                <!--                                <li><a href="./checkout.html">我的優惠卷</a></li>-->
-                                <li><a href="./blog-details.html">我的課程</a></li>
-                                <li><a href="./blog-details.html">我的租借</a></li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"
-                                                                      sec:authentication="principal.fullName"></a>
-                            <ul class="header__menu__dropdown">
-                                <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>
-                                <li><a href="#">廠商資料</a></li>
-                                <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>
-                                <li><a href="#">訂單紀錄</a></li>
-                            </ul>
-                        </li>
-                        <!--                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
+                        <!--                        <li><a href="#">Pages</a>-->
                         <!--                            <ul class="header__menu__dropdown">-->
-                        <!--                                <li><a th:href="@{/admin/}">後台首頁</a></li>-->
+                        <!--                                <li><a href="./shop-details.html">Shop Details</a></li>-->
+                        <!--                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>-->
+                        <!--                                <li><a href="./checkout.html">Check Out</a></li>-->
+                        <!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
                         <!--                            </ul>-->
                         <!--                        </li>-->
+                        <li><a href="#">烘焙專欄</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="#">烘焙專欄選單A</a></li>
+                                <li><a href="#">烘焙專欄選單B</a></li>
+<!--                                <li><a href="#">討論區選單C</a></li>-->
+<!--                                <li><a href="#">討論區選單D</a></li>-->
+                            </ul>
+                        </li>
+<!--                        <li sec:authorize="hasRole('ROLE_USER')"><a href="/user" sec:authentication="name"></a>-->
+<!--                            <ul class="header__menu__dropdown">-->
+<!--                                <li><a href="/user/profile">個人資料</a></li>-->
+<!--                                <li><a href="/user/profile">喜愛清單</a></li>-->
+<!--                                <li><a href="/user/order">購買清單</a></li>-->
+<!--                                &lt;!&ndash;                                <li><a href="./checkout.html">我的優惠卷</a></li>&ndash;&gt;-->
+<!--                                <li><a href="./blog-details.html">我的課程</a></li>-->
+<!--                                <li><a href="./blog-details.html">我的租借</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li sec:authorize="hasRole('ROLE_FARMER')"><a th:href="@{/FarmerProductSupplier/}"-->
+<!--                                                                      sec:authentication="principal.fullName"></a>-->
+<!--                            <ul class="header__menu__dropdown">-->
+<!--                                <li><a th:href="@{/FarmerProductSupplier/}">銷售分析</a></li>-->
+<!--                                <li><a href="#">廠商資料</a></li>-->
+<!--                                <li><a th:href="@{/FarmerProductSupplier/SupplierProductList/}">商品清單</a></li>-->
+<!--                                <li><a href="#">訂單紀錄</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/user" sec:authentication="name"></a>-->
+<!--                            <ul class="header__menu__dropdown">-->
+<!--                                <li><a th:href="@{/admin/}">後台首頁</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-2">
-                <div class="header__cart">
+<!--            <div class="col-lg-2">-->
+                <div class="header__cart" >
                     <ul>
-                        <!--                        <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
-                        <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a>
+<!--                        <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
+                        <li><a href="/Cart"><i class="fa-solid fa-cart-shopping "></i><span class="cartCount">10</span></a>
                         </li>
                     </ul>
                     <!--                    <div class="header__cart__price">item: <span>訂單價錢</span></div>-->
                 </div>
-            </div>
-        </div>
+
+<!--        </div>-->
         <div class="humberger__open">
             <i class="fa fa-bars"></i>
         </div>

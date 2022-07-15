@@ -80,7 +80,7 @@
         <hr>
         <div class="text-center">
             <button id="correctInput" class="site-btn">管理員登入，自動輸入</button>
-            <button class="site-btn">一般用戶登入，Comeing soon</button>
+            <button id="userInput" class="site-btn">一般用戶登入，自動輸入</button>
             <button id="farmerInput" class="site-btn">小農登入，自動輸入</button>
         </div>
         <hr>
@@ -117,6 +117,12 @@
 
         $('#username').val('a123456')
         $('#password').val('A123456a')
+
+    })
+    $('#userInput').click(function () {
+
+        $('#username').val('usertest1')
+        $('#password').val('asdASD123')
 
     })
 </script>
