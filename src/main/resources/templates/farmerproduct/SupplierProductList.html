@@ -7,13 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農廠商</title>
-    <div th:replace="admin/css.html"></div>
     <div th:replace="css.html"></div>
-
+    <link rel="stylesheet" href="/css/supplier.css" type="text/css">
 
     <style>
-
-
         .img {
             border-radius: 5px;
             object-fit: cover;
@@ -57,7 +54,7 @@
             padding-top: 50px;
         }
 
-        .table, body {
+        .table, .card-body {
             color: #858796;
             font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
@@ -67,19 +64,13 @@
         }
 
 
-        .page-item.active .page-link {
-            background-color: #7fad39;
-            border-color: #7fad39;
-        }
-
-        .text-primary {
-            color: #7fad39 !important;
-        }
-
         .namelink > a:hover {
-            color: #7fad39;
+            color: #486ce8;
         }
+
+
     </style>
+
 
 </head>
 <!--<body id="page-top">-->
@@ -195,11 +186,11 @@
                                             </div>
                                             <img th:unless="${not #lists.isEmpty(bean.farmerProductPicList)}"
                                                  class="d-block w-100 img"
-                                                 src="/img/logo4.png">
+                                                 src="/img/logo6.png">
 
                                         </td>
                                         <td class="namelink">
-                                            <a th:href="|/FarmerProductSupplier/ShopDetails/${bean.farmerProductId}|"
+                                            <a th:href="|/FarmerProductShop/ShopDetails/${bean.farmerProductId}|"
                                                th:text="${bean.name}">
 
                                             </a>
@@ -289,7 +280,6 @@
 <!-- End of Page Wrapper -->
 <div th:replace="footer.html"></div>
 
-<div th:replace="admin/javascript.html"></div>
 <!-- Page level custom scripts -->
 
 

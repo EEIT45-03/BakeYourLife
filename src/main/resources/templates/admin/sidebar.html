@@ -45,7 +45,7 @@
         </div>
     </li>
 
-        <!-- Nav Item - 商品管理 -->
+    <!-- Nav Item - 商品管理 -->
     <li class="nav-item">
         <a class="nav-link" th:href="@{/admin/Goods/}">
             <i class="fas fa-fw fa-gift"></i>
@@ -74,7 +74,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" th:href="@{/admin/FarmerProduct/Chart}">分析表</a>
                 <a class="collapse-item" th:href="@{/admin/FarmerProduct/}">小農商品管理</a>
-                <a class="collapse-item" th:href="@{/admin/ProductComment/}">小農評論管理</a>
+                <a class="collapse-item" th:href="@{/admin/ProductComment/}">評論管理</a>
             </div>
         </div>
     </li>
@@ -112,6 +112,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" th:href="@{/admin/Course/}">開課管理</a>
                 <a class="collapse-item" th:href="@{/admin/Course/listProducts}">課程類型管理</a>
+                <a class="collapse-item" th:href="@{/admin/Course/Register}">課程報名管理</a>
             </div>
         </div>
     </li>
@@ -131,6 +132,7 @@
         </a>
         <div id="collapseArticle" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Article/ArticleChart/}">文章分析</a>
                 <a class="collapse-item" th:href="@{/admin/Article/}">貼文管理</a>
                 <a class="collapse-item" th:href="@{/admin/Message/}">留言管理</a>
             </div>

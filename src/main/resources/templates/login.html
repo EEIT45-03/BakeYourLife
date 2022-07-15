@@ -76,20 +76,20 @@
 
         </form>
         <HR>
-            <a class="btn site-btn btn-user btn-block" href="/SignUp">註冊</a>
+        <a class="btn site-btn btn-user btn-block" href="/SignUp">註冊</a>
         <hr>
         <div class="text-center">
             <button id="correctInput" class="site-btn">管理員登入，自動輸入</button>
-            <button class="site-btn">一般用戶登入，Comeing soon</button>
-            <button class="site-btn">小農登入，Comeing soon</button>
+            <button id="userInput" class="site-btn">一般用戶登入，自動輸入</button>
+            <button id="farmerInput" class="site-btn">小農登入，自動輸入</button>
         </div>
         <hr>
-<!--        <div class="text-center">-->
-<!--            <a class="small" href="#">忘記密碼?</a>-->
-<!--        </div>-->
-<!--        <div class="text-center">-->
-<!--            <a class="small" href="#">建立帳戶!</a>-->
-<!--        </div>-->
+        <!--        <div class="text-center">-->
+        <!--            <a class="small" href="#">忘記密碼?</a>-->
+        <!--        </div>-->
+        <!--        <div class="text-center">-->
+        <!--            <a class="small" href="#">建立帳戶!</a>-->
+        <!--        </div>-->
     </div>
 </section>
 <!-- Checkout Section End -->
@@ -111,6 +111,18 @@
 
         $('#username').val('user')
         $('#password').val('user')
+
+    })
+    $('#farmerInput').click(function () {
+
+        $('#username').val('a123456')
+        $('#password').val('A123456a')
+
+    })
+    $('#userInput').click(function () {
+
+        $('#username').val('usertest1')
+        $('#password').val('asdASD123')
 
     })
 </script>
