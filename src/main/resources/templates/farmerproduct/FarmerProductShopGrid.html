@@ -54,12 +54,14 @@
         }
 
         .profile-card .profile-content:hover {
-            background-color: rgba(151, 239, 138, 0.7);
+            background-color: rgba(64, 115, 53, 0.8);
         }
 
         .profile-card .profile-content .title {
+            font-weight: bolder;
             font-size: 24px;
-            color: #333;
+            color: #fff;
+            text-shadow: black 0.1em 0.1em 0.2em;
             opacity: 0;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -77,7 +79,7 @@
             display: block;
             width: 50%;
             margin: 10px auto;
-            border-bottom: 2px solid #222;
+            border-bottom: 2px solid #fff;
         }
 
         .profile-card .profile-content .title > span {
@@ -108,20 +110,18 @@
             <div class="row">
 
                 <div class="product__discount__slider owl-carousel">
-
-                    <div class="col-lg-4 profile" th:each=" farmer:${farmerList}">
-                        <div class="profile-card">
-                            <div class="profile-img ">
-                                <img class="imgBlock" th:src="${farmer.imageUrl}">
-                            </div>
-                            <div class="profile-content">
-                                <h2 class="title">
-                                    前往賣場
-                                </h2>
+                    <a th:href="@{ShopGrid/{farmetId}(farmetId=${farmer.farmerId})}" th:each=" farmer:${farmerList}">
+                        <div class="col-lg-4 profile">
+                            <div class="profile-card">
+                                <div class="profile-img ">
+                                    <img class="imgBlock" th:src="${farmer.imageUrl}">
+                                </div>
+                                <div class="profile-content">
+                                    <h2 class="title"> 前往賣場 <i class="fa-solid fa-angles-right"></i></h2>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    </a>
 
                 </div>
             </div>

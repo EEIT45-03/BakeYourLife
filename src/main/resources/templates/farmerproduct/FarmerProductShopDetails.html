@@ -96,31 +96,33 @@
                     </ul>
                 </div>
                 <!--            廠商資料-->
-                <div class="blog__details__content ">
-                    <div class="row">
-                        <div class="col-lg-5 farmer">
-                            <div class="blog__details__author">
-                                <div class="blog__details__author__pic">
-                                    <img th:src="*{farmer.imageUrl}" alt="">
-                                </div>
-                                <div class="blog__details__author__text">
-                                    <h6 th:text="*{farmer.farmerName}">Michael Scofield</h6>
-                                    <span>小農廠商</span>
+                <a th:href="@{/FarmerProductShop/ShopGrid/{farmetId}(farmetId=*{farmer.farmerId})}">
+                    <div class="blog__details__content ">
+                        <div class="row">
+                            <div class="col-lg-5 farmer">
+                                <div class="blog__details__author">
+                                    <div class="blog__details__author__pic">
+                                        <img th:src="*{farmer.imageUrl}" alt="">
+                                    </div>
+                                    <div class="blog__details__author__text">
+                                        <h6 th:text="*{farmer.farmerName}"></h6>
+                                        <!--                                    <span>小農廠商</span>-->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-7 farmer">
-                            <div class="blog__details__widget">
-                                <ul>
-                                    <li><span><i class="fa-solid fa-envelope"></i></span>
-                                        <i th:text="*{farmer.email}"></i></li>
-                                    <li><span><i class="fa-solid fa-map-location-dot"></i></span>
-                                        <i th:text="*{farmer.address}"></i></li>
-                                </ul>
+                            <div class="col-lg-7 farmer">
+                                <div class="blog__details__widget">
+                                    <ul>
+                                        <li><span><i class="fa-solid fa-envelope"></i></span>
+                                            <i th:text="*{farmer.email}"></i></li>
+                                        <li><span><i class="fa-solid fa-map-location-dot"></i></span>
+                                            <i th:text="*{farmer.address}"></i></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
 

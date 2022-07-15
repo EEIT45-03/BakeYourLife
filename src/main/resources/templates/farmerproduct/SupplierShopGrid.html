@@ -18,6 +18,7 @@
             padding: 20px 20px;
             position: relative;
             border-radius: 20px;
+            box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
         }
 
         .gray-bg {
@@ -30,6 +31,7 @@
             width: 130px;
             height: 130px;
             margin-bottom: 10px;
+            box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
         }
 
         .about-list {
@@ -49,7 +51,8 @@
             padding: 22px 20px;
             background: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+            /*box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);*/
+            box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
         }
 
         .about-section .counter .count-data {
@@ -221,7 +224,7 @@
                             </div>
                             <div class="product__item__text">
                                 <h6>
-                                    <a th:href="@{ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
                                        th:text="${bean.name}"></a>
                                 </h6>
                                 <h5 th:text="|NT$${bean.price}|"></h5>
