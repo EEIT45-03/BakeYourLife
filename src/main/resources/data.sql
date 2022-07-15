@@ -129,6 +129,10 @@ INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total,
 INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'北海道優質麵粉', N'G1', N'烘培材料', 1, 59, 1)
 
 
+--新增優惠卷
+INSERT [dbo].[coupon] ([discriminator], [code], [end_date], [max_quantity], [minimum], [name], [start_date], [used_quantity], [deduct_amount], [discount]) VALUES (N'deduct', N'NEWUSER', CAST(N'2222-12-31T00:00:00.0000000' AS DateTime2), 999999, 500, N'新用戶優惠卷', CAST(N'2022-01-01T00:00:00.0000000' AS DateTime2), 0, 100, NULL)
+
+
 --新增課程資料
 SET IDENTITY_INSERT [dbo].[course_prodcut] ON
 INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (1, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/hunDTmc.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')

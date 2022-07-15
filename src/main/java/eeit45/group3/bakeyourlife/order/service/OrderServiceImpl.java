@@ -1,12 +1,8 @@
 package eeit45.group3.bakeyourlife.order.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
@@ -82,6 +78,14 @@ public class OrderServiceImpl implements OrderService {
 		Coupon coupon = couponService.findById(code).orElse(null);
 		if(coupon != null){
 			return orderRepository.findAllByCoupon(coupon);
+		}
+		return null;
+	}
+
+	@Override
+	public Order findByByCoupon(User user, Coupon coupon) {
+		if(coupon != null){
+			return orderRepository.findByCouponAndUser(coupon,user);
 		}
 		return null;
 	}

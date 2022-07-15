@@ -5,8 +5,6 @@ import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.utils.ProductSaleAmount;
 import eeit45.group3.bakeyourlife.user.model.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -28,6 +26,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     Optional<Order> findByOrderNo(String orderNo);
 
     List<Order> findAllByCoupon(Coupon coupon);
+
+    Order findByCouponAndUser(Coupon coupon, User user);
 
     List<Order> findAllByUser(User user);
 

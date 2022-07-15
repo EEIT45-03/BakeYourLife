@@ -25,6 +25,7 @@ public interface OrderService {
 
 
     List<Order> findAllByCouponCode(String code);
+    Order findByByCoupon(User user,Coupon coupon);
 
     Long count();
 
