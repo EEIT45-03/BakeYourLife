@@ -52,5 +52,15 @@ public class FarmerProductShopController {
         return "farmerproduct/FarmerProductShopGrid";
     }
 
+    @GetMapping("/ShopGrid/{id}")
+    private String SupplierShopGrid(Model model, @PathVariable Integer id) {
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByFarmerId(id);
+        model.addAttribute(farmerProductBeanList);
+        Farmer farmer = farmerService.findByFarmerId(id);
+        model.addAttribute(farmer);
+
+        return "farmerproduct/SupplierShopGrid";
+    }
+
 
 }
