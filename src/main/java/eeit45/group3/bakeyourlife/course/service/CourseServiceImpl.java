@@ -2,11 +2,9 @@ package eeit45.group3.bakeyourlife.course.service;
 
 
 import eeit45.group3.bakeyourlife.course.model.Course;
-//import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
-//import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
@@ -27,13 +25,10 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class CourseServiceImpl implements CourseService {
-
 	CourseRepository courseRepository;
-
 	RentalService rentalService;
 	UserService userService;
 	VenueService venueService;
-
 	CourseTimeRepository courseTimeRepository;
 	RegisterRepository registerRepository;
 
@@ -81,7 +76,6 @@ public class CourseServiceImpl implements CourseService {
 		Venue venue = venueService.findByVenueId(course.getRoomId());
 		course.setRoom(venue);
 		courseRepository.save(course);
-
 	}
 
 	//--------CourseTime課程代號-----------
@@ -145,18 +139,6 @@ public class CourseServiceImpl implements CourseService {
 		registerRepository.save(registerDb);
 	}
 
-	//	@Override
-//	@Transactional
-//	public Register updateRegister(Register register) {
-//		return registerRepository.save(register);
-//	}
-//	public Register updateRegister(Integer registerId){
-//		Register registerDb = registerRepository.findById(registerId).orElse(null);
-////		registerDb.getUser().getUserId();
-////		registerDb.getCourse().getOpenCourse();
-//
-//		return updateRegister(registerDb);
-//	};
 	@Override
 	@Transactional
 	public void createRegister(Register register) {
@@ -169,5 +151,20 @@ public class CourseServiceImpl implements CourseService {
 		registerRepository.save(register);
 	}
 
+
+	@Override
+	@Transactional
+	public void createRegisterWithId(Register register) {
+		//User & Course 是FK
+//		User user = userService.findByUserId(register.getUser().getUserId());
+//		register.setUser(user);
+//		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
+//		register.setCourse(course);
+		Integer sum;
+		sum = register.getAttendance()*register.getCourse().getcProduct().getPrice();
+		register.setTotalPrice(sum);
+		register.setRegisterDate(new Date());
+		registerRepository.save(register);
+	}
 
 }

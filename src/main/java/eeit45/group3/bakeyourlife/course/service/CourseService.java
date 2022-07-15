@@ -50,6 +50,7 @@ public interface CourseService {
 
 	    void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice);
 		void createRegister(Register register);
+		void createRegisterWithId(Register register);
 
 
 }

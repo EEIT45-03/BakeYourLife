@@ -41,11 +41,7 @@ public class UserCourseController {
         model.addAttribute("products", products);
         return "course/courseIndex";
     }
-//    @GetMapping("/Course/CourseDetails/{id}")
-//    public String selectByProductId(@PathVariable("id") Long id){
-//        productService.selectProductById(id);
-//        return"";
-//    }
+
     @GetMapping(path = "/Course/CourseDetails")
     public String selectByProductId(@RequestParam(required = false) Long id,Model model) {
         Product product = null;
@@ -67,19 +63,23 @@ public class UserCourseController {
         return "redirect:./";
     }
 
-    @GetMapping(path = "/Course/CreateRegisterWithId")
+    @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.GET)
     public String viewCreateRegisterWithId(@RequestParam("id") Integer openCourse, Model model,
                                            Authentication authentication) {
         Course course = courseService.findById(openCourse).orElse(null);
-        User user = userService.getUser(authentication);
-        model.addAttribute("user",user);
-        model.addAttribute("course",course);
-        model.addAttribute("register", new Register());
-        return "course/CourseRegisterWithId";
+        if(authentication == null){
+            return "redirect:/login";
+        } else{
+            User user = userService.getUser(authentication);
+            model.addAttribute("user",user);
+            model.addAttribute("course",course);
+            model.addAttribute("register2", new Register());
+            return "course/CourseRegisterWithId";
+        }
     }
-    @PostMapping("/Course/CreateRegisterWithId")
+    @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.POST)
     public String createRegisterWithId(@ModelAttribute("register") Register register, BindingResult result) {
-        courseService.createRegister(register);
+        courseService.createRegisterWithId(register);
         return "redirect:./";
     }
 
