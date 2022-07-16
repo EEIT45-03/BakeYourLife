@@ -26,8 +26,8 @@
                 <div class="breadcrumb__text">
                     <h2>租借首頁</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">首頁</a>
-                        <span>租借</span>
+                        <a>首頁</a>
+                        <span><a href="./">租借</a></span>
                     </div>
                 </div>
             </div>
@@ -116,12 +116,19 @@
 
 <!--<div th:replace="/admin/javascript.html"></div>-->
 <script>
+    const pic = '/img/logo6.png';
     $(document).ready(function () {
+
+//場地種類列表
         fetch('/VenueSorts')
             .then(response => response.json())
             .then(data => {
                 let ul_vSort = "";
+
                 for(let sort of data){
+                    if(sort.sort == "課用烘培室"){
+                        continue;
+                    }
                     ul_vSort = ul_vSort + "<li><a onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
                 }
 
@@ -132,7 +139,7 @@
             .catch((error) => {
                 console.log('Error:'+(error))
             })
-
+//器具種類列表
         fetch('/TackleSorts')
             .then(response => response.json())
             .then(data => {
@@ -146,28 +153,36 @@
                 console.log('Error:'+(error))
             })
 
-
-        fetch('/Venues')
+//場地資訊列表
+        fetch('/Venues/Not/1')
             .then(response => response.json())
             .then(data => {
                 let vDiv = "";
-                for(let i=0 ; i<3 ; i++){
-                    let picture = data[i].venuePicList[0].picture;
-                    if(picture==null ||picture.length <=0){
-                        picture = '/img/logo6.png';
+                let max = 4
+                for(let i=0 ; i<max ; i++){
+                    // if(data[i].venueSort.sort == '課用烘培室'){
+                    //     max++;
+                    //     continue;
+                    // }
+                    let picture;
+                    if(data[i].venuePicList[0] !== undefined){
+                        picture = data[i].venuePicList[0].picture;
+                    } else {
+                        picture =pic;
                     }
-                    vDiv = vDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                    vDiv = vDiv +   " <div class='col-lg-6 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
-                                "<a href='/Rental/Commodity/Venue/" + data[i].venueId+ "'>" +
-                                    " <div class='product__item__pic set-bg' data-setbg='"+picture +"'>" +
-                                    " </div>"+
+                                "<a href='/Rental/Introduce/Venue/" + data[i].venueId+ "'>"+
+                                    " <div class='product__item__pic set-bg' data-setbg='" + picture + "'>" +
+                                    " </div>" +
                                     " <div class='product__item__text'>"+
                                         " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
-                                        " <h5>$" + data[i].hrPrice + "/時</h5>"+
+                                        " <h5>$" + data[i].hrPrice + "/時</h5>" +
                                     " </div>"+
                                 " </a>" +
                             "</div>"+
                         " </div>";
+
                 }
                 $('#vDiv').append(vDiv);
                 $('.set-bg').each(function () {
@@ -176,7 +191,7 @@
                 });
 
                 let long = Object.keys(data).length;
-                long = Math.ceil(long/3);
+                long = Math.ceil(long/4);
 
                 let vSel = "";
 
@@ -192,48 +207,52 @@
                 console.log('Error:'+(error))
             })
 
+
+//器具資訊列表
         fetch('/Tackles')
             .then(response => response.json())
             .then(data => {
                 let tDiv = "";
-                for(let i=0 ; i<3 ; i++){
-                    let picture = data[i].tacklePicList[0].picture;
-                    if(picture==null ||picture.length <=0){
-                        picture = '/img/logo6.png';
+                for(let i=0 ; i<4 ; i++) {
+                    let picture = undefined;
+                    if(data[i].tacklePicList){
+                        if(data[i].tacklePicList[0].picture)
+                        picture = data[i].tacklePicList[0].picture;
+                    } else {
+                        picture = pic;
                     }
-                for(let i=0 ; i<3 ; i++){
-                    let picture = data[i].tacklePicList[0].picture;
-                    tDiv = tDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                        tDiv = tDiv + " <div class='col-lg-6 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
-                                "<a href='/Rental/Commodity/Tackle/" + data[i].tackleId+ "'>" +
-                                    " <div class='product__item__pic set-bg' data-setbg='"+picture+"'>" +
-                                    " </div>"+
-                                    " <div class='product__item__text'>"+
-                                        " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+
-                                        " <h5>$" + data[i].dayPrice + "/天</h5>"+
-                                    " </div>"+
-                                " </a>"+
-                            " </div>"+
-                        " </div>";
-                }
-                $('#tDiv').append(tDiv);
-                $('.set-bg').each(function () {
-                    var bg = $(this).data('setbg');
-                    $(this).css('background-image', 'url(' + bg + ')');
-                });
+                            "<a href='/Rental/Introduce/Tackle/" + data[i].tackleId + "'>" +
+                            " <div class='product__item__pic set-bg' data-setbg='" + picture + "'>" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                            " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                            " </div>" +
+                            " </a>" +
+                            " </div>" +
+                            " </div>";
+                    }
+                    $('#tDiv').append(tDiv);
+                    $('.set-bg').each(function () {
+                        var bg = $(this).data('setbg');
+                        $(this).css('background-image', 'url(' + bg + ')');
+                    });
 
-                let long = Object.keys(data).length;
-                long = Math.ceil(long/3);
+                    let long = Object.keys(data).length;
+                    long = Math.ceil(long/4);
 
-                let tSel = "";
+                    let tSel = "";
 
-                for( let i=1 ; i<=long ; i++){
+                    for( let i=1 ; i<=long ; i++){
 
-                    tSel = tSel + "<a onclick='getTacklePackage(" + i + ")'>" + i + "</a>";
-                }
+                        tSel = tSel + "<a onclick='getTacklePackage(" + i + ")'>" + i + "</a>";
+                    }
 
 
-                $('#tSel').append(tSel);
+                    $('#tSel').append(tSel);
+
             })
             .catch((error) => {
                 console.log('Error:'+(error))
@@ -244,18 +263,27 @@
 
     //分頁查詢場地
     function getVenuePackage(no){
-        var vMax = (3*no)-1;
-        var vMin = vMax-2;
-        fetch('/Venues')
+        var vMax = 4*no;
+        var vMin = (no-1)*4;
+        fetch('/Venues/Not/1')
             .then(response => response.json())
             .then(data => {
                 let vDiv = "";
-                for(let i=vMin ; i<=vMax ; i++){
-                    if(data[i]) {
-                        vDiv = vDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                for(let i=vMin ; i<vMax ; i++){
+                    // if(data[i].venueSort.sort == '課用烘培室'){
+                    //     vMax++;
+                    //     continue;
+                    // }
+                    if(data[i] != undefined ) {
+                        vDiv = vDiv + " <div class='col-lg-6 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
-                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
-                            " </div>" +
+                            "<a href='/Rental/Introduce/Venue/" + data[i].venueId + "'>" ;
+                        if (data[i].venuePicList[0] != undefined ) {
+                            vDiv = vDiv + " <div class='product__item__pic set-bg' data-setbg='" + data[i].venuePicList[0].picture + "' >";
+                        } else {
+                            vDiv = vDiv + " <div class='product__item__pic set-bg' data-setbg='" + pic + "' >";
+                        }
+                        vDiv = vDiv + " </div>" +
                             " <div class='product__item__text'>" +
                             " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
                             " <h5>$" + data[i].hrPrice + "/時</h5>" +
@@ -280,29 +308,39 @@
 
     //分頁查詢器具
     function getTacklePackage(no){
-        var tMax = (3*no)-1;
-        var tMin = tMax-2;
+        var tMax = 4*no;
+        var tMin = (no-1)*4;
+
         fetch('/Tackles')
             .then(response => response.json())
             .then(data => {
                 let tDiv = "";
-                for(let i=tMin ; i<=tMax ; i++){
-                    if(data[i]) {
-                        tDiv = tDiv + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
+                for(let i=tMin ; i<tMax ; i++){
+
+
+                    if(data[i] != undefined ) {
+                        tDiv = tDiv + " <div class='col-lg-6 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
-                            " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
-                            " </div>" +
+                            "<a href='/Rental/Introduce/Tackle/" + data[i].tackleId + "'>";
+                        if (data[i].tacklePicList[0].picture.length > 0) {
+                            tDiv = tDiv + " <div class='product__item__pic set-bg' data-setbg='" + data[i].tacklePicList[0].picture + "' >";
+                        } else {
+                            tDiv = tDiv + " <div class='product__item__pic set-bg' data-setbg='" + pic + "' >";
+                        }
+                        tDiv = tDiv + " </div>" +
                             " <div class='product__item__text'>" +
                             " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
                             " <h5>$" + data[i].dayPrice + "/天</h5>" +
                             " </div>" +
+                            " </a>" +
                             " </div>" +
                             " </div>";
-                    } else {
+                    }else{
                         continue;
                     }
-                    $('#tDiv').html(tDiv);
                 }
+                $('#tDiv').html(tDiv);
+
 
                 $('.set-bg').each(function () {
                     var bg = $(this).data('setbg');
@@ -330,19 +368,30 @@
                     ' <h2>場地</h2>' +
                     '</div>' +
                     '<div class="row">';
-                for(let i=0 ; i<long ; i++ ){
-                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
-                        " <div class='product__item'>" +
-                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
-                        " </div>" +
-                        " <div class='product__item__text'>" +
-                        " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
-                        " <h5>$" + data[i].hrPrice + "/時</h5>" +
-                        " </div>" +
-                        " </div>" +
-                        " </div>";
+                if(long > 0) {
+                    for (let i = 0; i < long; i++) {
+                        let picture;
+                        if(data[i].venuePicList[0] !== undefined){
+                            picture = data[i].venuePicList[0].picture;
+                        } else {
+                            picture =pic;
+                        }
+                        find_div = find_div + " <div class='col-lg-6 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            "<a href='/Rental/Introduce/Venue/" + data[i].venueId + "'>"+
+                            " <div class='product__item__pic set-bg' data-setbg='" + picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].venueSort.sort + " " + data[i].venueName + "</h6>" +
+                            " <h5>$" + data[i].hrPrice + "/時</h5>" +
+                            " </div>" +
+                            "</a>"+
+                            " </div>" +
+                            " </div>";
+                    }
+                } else {
+                    find_div = find_div + '<h4>目前無可租借場地</h4>';
                 }
-
 
                 find_div = find_div + '</div>' +
                     '</div>';
@@ -369,27 +418,38 @@
                 let long = Object.keys(data).length;
 
 
+
                 let find_div = '<div class="product__discount">'+
                     '<div class="section-title product__discount__title">' +
                     ' <h2>器具</h2>' +
                     '</div>' +
                     '<div class="row">';
-                for(let i=0 ; i<long ; i++ ){
-                    find_div = find_div + " <div class='col-lg-4 col-md-6 col-sm-6' >" +
-                        " <div class='product__item'>" +
-                        " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
-                        " </div>" +
-                        " <div class='product__item__text'>" +
-                        " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
-                        " <h5>$" + data[i].dayPrice + "/天</h5>" +
-                        " </div>" +
-                        " </div>" +
-                        " </div>";
+
+                if(long > 0) {
+                    for (let i = 0; i < long; i++) {
+                        let picture = data[i].tacklePicList[0].picture;
+                        if (picture == null || picture.length <= 0) {
+                            picture = pic;
+                        }
+                        find_div = find_div + " <div class='col-lg-6 col-md-6 col-sm-6' >" +
+                            " <div class='product__item'>" +
+                            "<a href='/Rental/Introduce/Tackle/" + data[i].tackleId + "'>"+
+                            " <div class='product__item__pic set-bg' data-setbg='" + picture + "' >" +
+                            " </div>" +
+                            " <div class='product__item__text'>" +
+                            " <h6>" + data[i].tackleSort.sort + " " + data[i].tackleName + "</h6>" +
+                            " <h5>$" + data[i].dayPrice + "/天</h5>" +
+                            " </div>" +
+                            "</a>"+
+                            " </div>" +
+                            " </div>";
+                    }
+                } else {
+                    find_div = find_div + '<h4>目前無此種類的器具可租借</h4>';
                 }
-
-
                 find_div = find_div + '</div>' +
                     '</div>';
+
 
                 $('#find_div').html(find_div);
 
@@ -406,12 +466,3 @@
 </body>
 
 </html>
-
-
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714001', '2022-07-12', '08:00-12:00', 1, 200, 'Y', 2, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714002', '2022-07-16', '08:00-12:00', 1, 200, 'N', 4, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714003', '2022-07-20', '12:00-16:00', 1, 200, 'Y', 4, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714004', '2022-07-20', '08:00-20:00', 1, 600, 'N', 7, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714005', '2022-07-18', '08:00-20:00', 1, 600, 'Y', 7, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714006', '2022-07-21', '08:00-12:00', 1, 200, 'N', 3, 1)-->
-<!--INSERT INTO venue_list (venue_list_no, rental_date, period, person, price, ingredients, fk_venue_id, fk_rental_id) VALUES ('V20220714007', '2022-07-26', '08:00-16:00', 1, 400, 'N', 2, 1)-->

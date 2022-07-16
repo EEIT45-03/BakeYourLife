@@ -40,4 +40,10 @@ public class VenueUIController {
         List<Venue> venues = venueService.findAllByVenueSort(sortId);
         return ResponseEntity.status(HttpStatus.OK).body(venues);
     }
+
+    @GetMapping("/Venues/Not/{sortId}")
+    public ResponseEntity<List<Venue>> getVenuesBySortNot(@PathVariable Integer sortId) {
+        List<Venue> venues = venueService.findAllByVenueSortNot(sortId);
+        return ResponseEntity.status(HttpStatus.OK).body(venues);
+    }
 }

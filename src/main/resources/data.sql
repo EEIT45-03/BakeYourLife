@@ -102,10 +102,10 @@ INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sor
 INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。材質：不鏽鋼。尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。商品重量：約500公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','握把底止滑打蛋盆23cm_CT4966','握把底止滑打蛋盆', 3);
 
 --新增器具圖片
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/nIQ7cWy.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/tb8W5J4.png',1);
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/32RgBtM.png',1);
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/xBpTAEm.png',1);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/tb8W5J4.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/nIQ7cWy.png',1);
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/hxevsGw.png',2);
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/uwkvD6G.png',2);
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/Qk8Pz8S.png',2);

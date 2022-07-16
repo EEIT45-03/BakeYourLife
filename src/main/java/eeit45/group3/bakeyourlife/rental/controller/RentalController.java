@@ -32,18 +32,18 @@ public class RentalController {
         return "/rental/Index";
     }
 
-    @GetMapping("/Commodity/Venue/{id}")
+    @GetMapping("/Introduce/Venue/{id}")
     public String viewVenueCommodity(@PathVariable Integer id,
                                 Model model) {
         model.addAttribute("venueBean", venueService.findByVenueId(id));
-        return "rental/VenueCommodity";
+        return "VenueIntroduce";
     }
 
-    @GetMapping("/Commodity/Tackle/{id}")
+    @GetMapping("/Introduce/Tackle/{id}")
     public String viewTackleCommodity(@PathVariable Integer id,
                                      Model model) {
         model.addAttribute("tackleBean", tackleService.findByTackleId(id));
-        return "rental/TackleCommodity";
+        return "TackleIntroduce";
     }
 
 

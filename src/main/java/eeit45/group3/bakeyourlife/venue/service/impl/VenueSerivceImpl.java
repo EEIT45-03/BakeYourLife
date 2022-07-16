@@ -119,6 +119,12 @@ public class VenueSerivceImpl implements VenueService {
     }
 
     @Override
+    public List<Venue> findAllByVenueSortNot(Integer venueSortId) {
+        VenueSort venueSort = venueSortRepository.findById(venueSortId).orElse(null);
+        return venueRepository.findByVenueSortNot(venueSort);
+    }
+
+    @Override
     @Transactional
     public boolean createVenuePicList(String venueName, MultipartFile[] file) {
         if(file!=null){
