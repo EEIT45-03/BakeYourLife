@@ -12,6 +12,9 @@ public interface UserService {
     User save(User user);
     User getCurrentUser(Authentication authentication);
 
+
+    void setCurrentUser(Authentication authentication, User user);
+
     List<User> findAll();
 
     User findByUserId(Integer userId);

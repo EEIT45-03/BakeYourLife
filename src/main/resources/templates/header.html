@@ -12,7 +12,7 @@
     <div class="humberger__menu__cart">
         <ul>
             <!--            <li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>-->
-            <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span class="cartCount">10</span></a></li>
+            <li><a href="/Cart"><i class="fa fa-shopping-cart"></i> <span class="cartCount">10</span></a></li>
         </ul>
         <!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
     </div>
@@ -61,51 +61,63 @@
                     </a>
                     <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                        th:href="@{/FarmerProductSupplier/}">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <i class="fas fa-cow fa-sm fa-fw mr-2 text-gray-400"></i>
                         小農管理中心
                     </a>
                     <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
-                       th:href="@{/FarmerProductSupplier/}">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        小農管理中心
+                       th:href="@{/FarmerProductSupplier/UpdateSupplier}">
+                        <i class="fas  fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>
+                        廠商資料
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
+                       th:href="@{/FarmerProductSupplier/SupplierProductList/}">
+                        <i class="fas fa-carrot fa-sm fa-fw mr-2 text-gray-400"></i>
+                        商品清單
                     </a>
                     <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
                        th:href="@{/FarmerProductSupplier/}">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        小農管理中心
-                    </a>
-                    <a sec:authorize="hasRole('ROLE_FARMER')" class="dropdown-item"
-                       th:href="@{/FarmerProductSupplier/}">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        小農管理中心
+                        <i class="fas fa-frog fa-sm fa-fw mr-2 text-gray-400"></i>
+                        訂單紀錄
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/#/}">
+                       th:href="@{/User/UserData/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                         <i class="fa-solid fa-user"></i>
-                        個人資料
+                        會員中心
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                        th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                         <i class="fa-solid fa-heart"></i>
                         喜愛清單
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                       th:href="@{/user/order}">
+
+                       th:href="@{/user/order/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
-                        <i class="fa-solid fa-cart-shopping"></i>
+                        <i class="fa-solid fa-cart-shopping "></i>
                         購買清單
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+
+                       th:href="@{/#/}">
+                        <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <i class="fa-solid fa-ticket "></i>
+                        我的優惠券
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                        th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                         <i class="fa-solid fa-school"></i>
                         我的課程
                     </a>
                     <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                        th:href="@{/#/}">
                         <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+
                         <i class="fa-solid fa-table"></i>
                         我的租借
                     </a>
@@ -305,11 +317,11 @@
                                             訂單紀錄
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/#/}">
+                                           th:href="@{/User/UserData/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
 
                                             <i class="fa-solid fa-user"></i>
-                                            個人資料
+                                            會員中心
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
@@ -320,10 +332,17 @@
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
 
-                                           th:href="@{/user/order}">
+                                           th:href="@{/user/order/}">
 <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-cart-shopping "></i>
                                             購買清單
+                                        </a>
+                                        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+
+                                           th:href="@{/#/}">
+                                            <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                                            <i class="fa-solid fa-ticket "></i>
+                                            我的優惠券
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
                                            th:href="@{/#/}">
