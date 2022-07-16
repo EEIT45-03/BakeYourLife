@@ -1,4 +1,10 @@
+/*分頁顏色*/
+.page-item.active .page-link {
+    background: #b08968;
+    border-color: #b08968;
+}
 
+/*sidebarIcon*/
 .faIcon {
     font-size: 1.5rem;
     padding-right: 15px;

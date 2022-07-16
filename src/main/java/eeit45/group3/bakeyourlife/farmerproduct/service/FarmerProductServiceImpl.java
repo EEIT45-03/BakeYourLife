@@ -34,8 +34,18 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public List<FarmerProductBean> findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(Integer farmerId) {
+        return farmerProductRepository.findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(0, farmerId);
+    }
+
+    @Override
     public List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type) {
         return farmerProductRepository.findByTypeAndStateOrderByLaunchedTimeDesc(type, 0);
+    }
+
+    @Override
+    public List<FarmerProductBean> findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(String type, Integer farmerId) {
+        return farmerProductRepository.findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(type, 0, farmerId);
     }
 
     @Override
@@ -51,6 +61,11 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     @Override
     public Long countByFarmerId(Integer id) {
         return farmerProductRepository.countByFarmerFarmerId(id);
+    }
+
+    @Override
+    public Integer saleAmountByFarmerId(Integer farmerId) {
+        return farmerProductRepository.saleAmountByFarmerId(farmerId);
     }
 
     @Override

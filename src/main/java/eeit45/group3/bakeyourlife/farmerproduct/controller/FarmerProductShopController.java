@@ -54,7 +54,7 @@ public class FarmerProductShopController {
 
     @GetMapping("/ShopGrid/{id}")
     private String SupplierShopGrid(Model model, @PathVariable Integer id) {
-        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByFarmerId(id);
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(id);
         model.addAttribute(farmerProductBeanList);
         Farmer farmer = farmerService.findByFarmerId(id);
         model.addAttribute(farmer);
