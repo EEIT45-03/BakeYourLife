@@ -47,7 +47,7 @@ public class SecurityConfig{
 			.loginPage("/login")
 				//1.successForwardUrl：請求轉發，轉發後瀏覽器的位址不會變，登入成功後不會跳轉到原來的位址。
 				//2.defaultSuccessUrl：302重定向，登入成功後會跳轉到原來的位址。
-				.defaultSuccessUrl("/default",true)
+				.defaultSuccessUrl("/default",false)
 		.and()
 			.httpBasic()
 		.and()
