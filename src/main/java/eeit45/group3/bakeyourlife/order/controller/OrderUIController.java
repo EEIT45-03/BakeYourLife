@@ -120,14 +120,17 @@ public class OrderUIController {
 
 		wrapper.getReviews().forEach(review -> {
 			//自己在最上面加需要的service
+			Integer id = Integer.parseInt(review.getProductNo().substring(1));
+			Integer star = review.getStar();
+			String comment = review.getCommentContent();
 			switch (review.getProductNo().charAt(0)){
 				case 'F':
 					//小農商品評價
-					System.out.println(review);
+					System.out.println("商品id:"+id+" star:"+star+" comment:"+comment);
 					break;
 				case 'G':
 					//烘培商品評價
-					System.out.println(review);
+					System.out.println("商品id:"+id+" star:"+star+" comment:"+comment);
 					break;
 			}
 		});

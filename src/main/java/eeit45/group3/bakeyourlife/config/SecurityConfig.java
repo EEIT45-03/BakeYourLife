@@ -37,7 +37,7 @@ public class SecurityConfig{
 			//login頁面不需要認證
 			.antMatchers("/*","/Course/**","/webfonts/**","/SignUp","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")
-//				.antMatchers("/user/**").hasRole("USER")
+				.antMatchers("/User/**").hasAnyRole("USER","ADMIN")
 				.antMatchers("/FarmerProductSupplier/**").hasAnyRole("FARMER","ADMIN")
 			//其他都要認證
 			.anyRequest().authenticated()
