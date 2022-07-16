@@ -54,9 +54,11 @@ public class GoodsControllerServerSide {
 	@GetMapping("/Chart")
 	public String viewGoods1(Model model) {
 		Long count = goodService.count();
-		Goods goods = goodService.max();
+		Goods goodsMax = goodService.max();
+		Goods goodsMin = goodService.min();
 		model.addAttribute("count", count);
-		model.addAttribute("max", goods);
+		model.addAttribute("max", goodsMax);
+		model.addAttribute("min", goodsMin);
 		return "admin/goods/GoodsChart";
 	}
 

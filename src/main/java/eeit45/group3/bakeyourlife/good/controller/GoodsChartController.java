@@ -41,5 +41,15 @@ public class GoodsChartController {
         return goodsChart;
     }
 
+    @GetMapping("/GoodsNameCount")
+    public GoodsChart findGoodsNameCount(){
+        GoodsChart goodsChart = new GoodsChart();
+        List<GoodsCount> goodsCountList = goodsRepository.findGoodsNameCount();
+        for (GoodsCount data : goodsCountList) {
+            goodsChart.addData(data);
+        }
+        return goodsChart;
+    }
+
 }
 

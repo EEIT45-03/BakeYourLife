@@ -29,9 +29,7 @@ public interface GoodService {
 
 	Long count();
 
-	Integer maxPrice();
-
-	Integer minPrice();
-
 	Goods max();
+
+	Goods min();
 }
