@@ -46,10 +46,15 @@ public class GoodsControllerServerSide {
 		return "admin/goods/GoodsServerSide";
 	}
 
-	@GetMapping(path = "/Chart")
-	private String processSelectChart() {
+//	@GetMapping(path = "/Chart")  不能重覆
+//	private String processSelectChart() {
+//		return "admin/goods/GoodsChart";
+//	}
 
-
+	@GetMapping("/Chart")
+	public String viewGoods1(Model model) {
+		Long count = goodService.count();
+		model.addAttribute("count", count);
 		return "admin/goods/GoodsChart";
 	}
 

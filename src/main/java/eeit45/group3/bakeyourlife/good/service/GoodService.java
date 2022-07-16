@@ -26,4 +26,6 @@ public interface GoodService {
 	List<Goods> findBySystemOrderByAdmissionTimeDesc(String system);
 
 	List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial);
+
+	Long count();
 }

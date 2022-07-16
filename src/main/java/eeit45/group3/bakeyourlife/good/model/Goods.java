@@ -24,7 +24,7 @@ public class Goods implements CartItem {
 	String savetime;//保存期限
 	String packages;//包裝價格
 
-	String packagematerial;//狀態
+	String packagematerial;//種類
 	String saveway;//保存方式
 //	@JsonIgnore++
 //	Blob image;
