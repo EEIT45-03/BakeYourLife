@@ -79,10 +79,10 @@
 
                                         <td th:switch="${register.state}">
                                             <div th:case="0" th:text="報名完成"/>
-                                            <div th:case="1" th:text="取消報名"/>
-                                            <div th:case="2" th:text="審核中"/>
-                                            <div th:case="3" th:text="審核通過"/>
-                                            <div th:case="4" th:text="課程結束"/>
+                                            <div th:case="1" th:text="審核中"/>
+                                            <div th:case="2" th:text="已取消"/>
+                                            <div th:case="3" th:text="不通過"/>
+                                            <div th:case="4" th:text="課程完成"/>
                                             <div th:case="5" th:text="已評價"/>
                                         </td>
                                         <td>

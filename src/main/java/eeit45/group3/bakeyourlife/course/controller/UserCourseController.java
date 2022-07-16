@@ -12,6 +12,8 @@ import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +89,7 @@ public class UserCourseController {
     @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.POST)
     public String createRegisterWithId(@ModelAttribute("register2") Register register, BindingResult result) throws MessagingException {
         courseService.createRegisterWithId(register);
-        return "redirect:./";
+        return "redirect:./UserRegister";
     }
     //查看報名
     @GetMapping("/Course/UserRegister")
@@ -100,5 +102,17 @@ public class UserCourseController {
             model.addAttribute("userRegister", userRegister);
             return "course/RegisterDetails";
     }
+    //取消報名
+    @PutMapping("/Course/{registerId}")
+    public ResponseEntity<Register> cancelRegister(@PathVariable Integer registerId) {
+        Register register = null;
+        if(registerId !=null) {
+          register =  courseService.findByRegisterId(registerId).orElse(null);
+        }
+        register.setState(1);//0報名成功 變成 1審核中
+        courseService.updateRegisterState(register);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 
 }

@@ -387,3 +387,4 @@ function updateCourseTime(ctimeId){
 		});
 }
 
+

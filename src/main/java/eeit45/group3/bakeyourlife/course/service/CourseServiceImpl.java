@@ -183,4 +183,31 @@ public class CourseServiceImpl implements CourseService {
 			throw new RuntimeException(e);
 		}
 	}
+
+//	@Override
+	@Transactional
+	public void updateRegisterState(Register register) {
+		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
+		User user = userService.findByUserId(register.getUser().getUserId());
+		Integer sum = (register.getAttendance())*(course.getcProduct().getPrice());
+		register.setUser(user);
+		register.setTotalPrice(sum);
+		register.setRegisterDate(new Date());
+		registerRepository.save(register);
+//		//報名人數加入開課明細
+//		Integer attSum = registerRepository.getSumAttendanceByCourse(course);
+//		if(attSum != null){
+//			course.setApplicants(attSum.intValue());
+//		} else {
+//			course.setApplicants(0);
+//		}
+//		courseRepository.save(course);
+//		//寄email
+//		String email = user.getEmail();
+//		try {
+//			emailService.sendRegisterMail(email, "[Bake Your Life 烘焙材料網] 報名成功通知",register,"courseRegister");
+//		} catch (MessagingException e) {
+//			throw new RuntimeException(e);
+//		}
+	}
 }

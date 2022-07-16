@@ -114,9 +114,9 @@
 
 <!-- Product Details Section Begin -->
 <section class="product-details">
-<!--    <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">-->
-<!--    -->
-<!--    </form>-->
+    <!--    <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">-->
+    <!--    -->
+    <!--    </form>-->
 </section>
 <!-- Product Details Section End -->
 
@@ -141,43 +141,61 @@
                                 <tr>
                                     <th class="shoping__product">課程名稱</th>
                                     <th>上課日期</th>
-                                    <th>報名日期</th>
+                                    <th>報名</th>
                                     <th>狀態</th>
                                     <th>取消報名</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="register:${userRegister}">
-                                        <td class="shoping__cart__item">
-                                            <img th:src="*{{register.course.cProduct.image}}" alt="" style="height: 100px; border-radius: 10px">
-                                            <h5 th:text="*{register.course.openCourse}"></h5>
-                                            <h5>&ensp; | &ensp;</h5>
-                                            <h5 th:text="*{register.course.cProduct.name}"></h5>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            <p th:each="courseTime:${register.course.courseTimes}" th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            <p th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd')}"></p>
-                                        </td>
-                                        <td th:switch="${register.state}">
-                                            <div th:case="0" th:text="報名完成"/>
-                                            <div th:case="1" th:text="取消報名"/>
-                                            <div th:case="2" th:text="審核中"/>
-                                            <div th:case="3" th:text="審核通過"/>
-                                            <div th:case="4" th:text="課程結束"/>
-                                            <div th:case="5" th:text="已評價"/>
-                                        </td>
-<!--                                        <td class="shoping__cart__total">-->
-<!--                                            <p th:each="venues:${course.venue}" th:text="${venues.personMax}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__total">-->
-<!--                                            <p th:text="*{course.teacher}"></p>-->
-<!--                                        </td>-->
-                                        <td class="shoping__cart__total">
-                                            <a class="icon_briefcase_alt" ></a>
-<!--                                            th:href="@{CreateRegisterWithId(id=${course.openCourse})}"-->
-                                        </td>
+                                    <td class="shoping__cart__item">
+                                        <img th:src="*{{register.course.cProduct.image}}" alt=""
+                                             style="height: 100px; border-radius: 10px">
+                                        <h5 th:text="*{register.course.openCourse}"></h5>
+                                        <h5>&ensp; | &ensp;</h5>
+                                        <h5 th:text="*{register.course.cProduct.name}"></h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        <p th:each="courseTime:${register.course.courseTimes}"
+                                           th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>
+                                    </td>
+                                    <td >
+                                        <p th:text="|編號:${register.registerId}|"></p>
+                                        <p th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd')}"></p>
+                                    </td>
+                                    <td class="shoping__cart__price" th:switch="${register.state}">
+                                        <div th:case="0" th:text="報名完成"/>
+                                        <div th:case="1" th:text="審核中"/>
+                                        <div th:case="2" th:text="已取消"/>
+                                        <div th:case="3" th:text="不通過"/>
+                                        <div th:case="4" th:text="課程完成"/>
+                                        <div th:case="5" th:text="已評價"/>
+                                    </td>
+                                    <!--                                        <td class="shoping__cart__total">-->
+                                    <!--                                            <p th:each="venues:${course.venue}" th:text="${venues.personMax}"></p>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="shoping__cart__total">-->
+                                    <!--                                            <p th:text="*{course.teacher}"></p>-->
+                                    <!--                                        </td>-->
+
+                                    <td class="shoping__cart__total">
+                                        <!-- FarmPd-->
+<!--                                            <span th:if="${bean.state}==1">-->
+<!--                                                <button type="button" class="btn btn-info btn-icon-split btn-sm"-->
+<!--                                                        data-toggle="modal" data-target="#myModal0"-->
+<!--                                                        th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">-->
+<!--                                                    <span class="icon text-white-50">-->
+<!--                                                        <i class="fa-solid fa-arrow-up"></i>-->
+<!--                                                    </span>-->
+<!--                                                    <span class="text">上架</span>-->
+<!--                                                </button>-->
+<!--                                            </span>-->
+                                        <!-- FarmPd -->
+                                        <span th:if="${register.state}==0">
+                                               <a class="icon_briefcase_alt" th:onclick="|updateState(${register.registerId},'確認取消報名?','')|"></a>
+
+                                        </span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -188,15 +206,54 @@
             </div>
         </section>
         <!-- Shoping Cart Section End -->
-        </div>
+    </div>
     </div>
 </section>
 <!-- Related Product Section End -->
 
 <div th:replace="footer.html"></div>
-
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 <script>
-
+    //取消報名
+    function updateState(registerId, title, text) {
+        Swal.fire({
+            title: `${title}`,
+            text: `${text}`,
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#f15e5e',
+            cancelButtonColor: '#ADADAD',
+            confirmButtonText: '確定'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "PUT",
+                    url: '/Course/' + registerId,
+                    success: function (msg) {
+                        Swal.fire(
+                            '成功',
+                            '',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+            }
+        })
+    }
 
 </script>
 
