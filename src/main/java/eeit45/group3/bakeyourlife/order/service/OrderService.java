@@ -61,9 +61,13 @@ public interface OrderService {
     //用訂單編號找訂單
     Optional<Order> findByOrderNo(String orderNo);
 
+    //評價
+    Order review(Integer orderId,boolean isReview);
 
     //發起支付
     Order pay(Integer orderId);
+
+
 
     //訂單發貨
     Order deliver(Integer orderId, String trackingNumber);

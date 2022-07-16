@@ -32,7 +32,7 @@ public class OrderRestController {
 	private UserService userService;
 
 	//查詢全部或指定日期區間
-	@PreAuthorize("hasRole('ROLE_USER')")
+//	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/Orders")
 	public ResponseEntity<List<Order>> getOrders(
 			@RequestParam(required = false) String orderStatus,
