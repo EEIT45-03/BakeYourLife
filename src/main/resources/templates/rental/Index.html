@@ -152,10 +152,14 @@
             .then(data => {
                 let vDiv = "";
                 for(let i=0 ; i<3 ; i++){
+                    let picture = data[i].venuePicList[0].picture;
+                    if(picture==null ||picture.length <=0){
+                        picture = '/img/logo6.png';
+                    }
                     vDiv = vDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
                                 "<a href='/Rental/Commodity/Venue/" + data[i].venueId+ "'>" +
-                                    " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "'>" +
+                                    " <div class='product__item__pic set-bg' data-setbg='"+picture +"'>" +
                                     " </div>"+
                                     " <div class='product__item__text'>"+
                                         " <h6>" + data[i].venueSort.sort +" "+ data[i].venueName + "</h6>"+
@@ -193,10 +197,16 @@
             .then(data => {
                 let tDiv = "";
                 for(let i=0 ; i<3 ; i++){
+                    let picture = data[i].tacklePicList[0].picture;
+                    if(picture==null ||picture.length <=0){
+                        picture = '/img/logo6.png';
+                    }
+                for(let i=0 ; i<3 ; i++){
+                    let picture = data[i].tacklePicList[0].picture;
                     tDiv = tDiv +   " <div class='col-lg-4 col-md-6 col-sm-6' >" +
                             " <div class='product__item'>" +
                                 "<a href='/Rental/Commodity/Tackle/" + data[i].tackleId+ "'>" +
-                                    " <div class='product__item__pic set-bg' data-setbg='" + data[i].picture + "' >" +
+                                    " <div class='product__item__pic set-bg' data-setbg='"+picture+"'>" +
                                     " </div>"+
                                     " <div class='product__item__text'>"+
                                         " <h6>" + data[i].tackleSort.sort +" "+ data[i].tackleName + "</h6>"+

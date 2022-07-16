@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class TacklePicList implements Serializable {
     @Column(name = "picture", nullable = false, unique = true)
     private String picture;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="FK_tackleId", referencedColumnName = "tackleId", nullable = false)
     private Tackle tackle;

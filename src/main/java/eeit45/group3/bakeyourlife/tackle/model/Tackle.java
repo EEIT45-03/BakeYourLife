@@ -29,7 +29,7 @@ public class Tackle implements Serializable {
 	private Integer tackleId;
 
 	//器具名稱
-	@Column(name = "tackleName", columnDefinition = "varchar(20) not null unique")
+	@Column(name = "tackleName", columnDefinition = "varchar(max) not null")
 	private String tackleName;
 
 	//器具規格
@@ -40,7 +40,7 @@ public class Tackle implements Serializable {
 //	@Column(name = "picture")
 //	private String picture;
 	@JsonManagedReference
-	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackle")
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "tackle")
 	private List<TacklePicList> tacklePicList ;
 
 
@@ -57,7 +57,7 @@ public class Tackle implements Serializable {
 	private Integer max;
 
 	//備註
-	@Column
+	@Column(name = "notes", columnDefinition = "varchar(max)")
 	private String notes;
 
 	//對應器具包
@@ -65,6 +65,7 @@ public class Tackle implements Serializable {
 	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "tackle")
 	private Set<TackleBag> tackleBags = new LinkedHashSet<TackleBag>();
 
+	@JsonManagedReference
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name = "FK_sortId", referencedColumnName = "tackleSortId", nullable = false)
 	private TackleSort tackleSort ;
@@ -73,6 +74,18 @@ public class Tackle implements Serializable {
 	private MultipartFile[] tackleImage;
 
 	public Tackle() {
+	}
+
+	public Tackle(String tackleName, String specification, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
+		this.tackleName = tackleName;
+		this.specification = specification;
+		this.dayPrice = dayPrice;
+		this.damages = damages;
+		this.max = max;
+		this.notes = notes;
+		this.tackleBags = tackleBags;
+		this.tackleSort = tackleSort;
+		this.tackleImage = tackleImage;
 	}
 
 	public Tackle(String tackleName, String specification, List<TacklePicList> tacklePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
