@@ -26,10 +26,12 @@
         <!--                <li><a href="#">English</a></li>-->
         <!--            </ul>-->
         <!--        </div>-->
-        <div sec:authorize="!isAuthenticated()">
+        <div sec:authorize="!isAuthenticated()" class="humberger__menu__nav mobile-menu">
             <ul>
-                <li><a href="/login"><i class="fa-solid fa-user"></i>登入</a></li>
-                <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
+                <li><a href="/SignUp"><i class="fa-solid fa-user-plus "></i>一般會員註冊</a>
+                <li><a href="/FarmerSignUp"><i class="fa-solid fa-user-plus "></i> 小農廠商註冊</a></li>
+                <li><a href="/login"><i class="fa-solid fa-user "></i> 登入</a></li>
+
             </ul>
         </div>
         <!--        <div sec:authorize="isAuthenticated()">-->
@@ -267,8 +269,8 @@
 
                             <div sec:authorize="!isAuthenticated()">
                                 <ul>
-                                    <li><a href="/login"><i class="fa-solid fa-user"></i> 登入</a></li>
-                                    <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
+                                    <li><a href="/SignUp"><i class="fa-solid fa-user-plus "></i>一般會員註冊</a><a href="/FarmerSignUp"><i class="fa-solid fa-user-plus "></i>小農廠商註冊</a></li>
+                                    <li><a href="/login"><i class="fa-solid fa-user "></i> 登入</a></li>
                                 </ul>
                             </div>
                             <!--                            <div sec:authorize="isAuthenticated()">-->

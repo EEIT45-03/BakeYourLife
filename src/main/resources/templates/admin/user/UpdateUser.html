@@ -83,13 +83,8 @@
                             <div class="row mb-3">
                                 <label for="password" class="col-sm-2 col-form-labels">密碼:</label>
                                 <div class="col-sm-10">
-                                    <input type="password" th:value="*{password}"  class="form-control" minlength="6"
-                                           id="password" name="password" required>
-                                    <!--                                    <input name="changepassword" id="viewpassword" type="radio"-->
-                                    <!--                                           value="viewpassword" onclick="typeChanger()"/>顯示密碼 -->
-                                    <!--                                    <input-->
-                                    <!--                                        name="changepassword" id="hidepassword" type="radio"-->
-                                    <!--                                        value="hidepassword" onclick="changeBack()"/>隱藏密碼-->
+                                    <input type="password" th:field="*{password}" class="form-control" minlength="6"
+                                           id="password" name="password" >
                                     <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼
                                     <span class="show" id="s_password"></span>
                                 </div>
@@ -218,30 +213,30 @@
     window.onload = function () {
 
         document.getElementById("form").onsubmit = function () {
-            return checkUserName(), checkPassword(), checkFullName(), checkEmail(), checkPhone();
+            return checkPassword(), checkFullName(), checkEmail(), checkPhone();
         }
-        document.getElementById("userName").onblur = checkUserName;
+        // document.getElementById("username").onblur = checkUserName;
         document.getElementById("password").onblur = checkPassword;
         document.getElementById("fullName").onblur = checkFullName;
         document.getElementById("email").onblur = checkEmail;
         document.getElementById("phone").onblur = checkPhone;
     }
 
-    function checkUserName() {
-
-        var userName = document.getElementById("userName").value;
-        var res = /^[a-zA-Z0-9]{6,}$/;
-        var flag1 = res.test(userName);
-        if (flag1) {
-            document.getElementById("s_userName").innerHTML = "<i class='fa-solid fa-check'>帳號格式正確</i>";
-            document.getElementById('submit').disabled = false;
-            return true;
-        } else {
-            document.getElementById("s_userName").innerHTML = "<p class='wrong'>帳號格式錯誤</p>";
-            document.getElementById('submit').disabled = true;
-            return false;
-        }
-    }
+    // function checkUserName() {
+    //
+    //     var username = document.getElementById("username").value;
+    //     var res = /^[a-zA-Z0-9]{6,}$/;
+    //     var flag1 = res.test(username);
+    //     if (flag1) {
+    //         document.getElementById("s_userName").innerHTML = "<i class='fa-solid fa-check'>帳號格式正確</i>";
+    //         document.getElementById('submit').disabled = false;
+    //         return true;
+    //     } else {
+    //         document.getElementById("s_userName").innerHTML = "<p class='wrong'>帳號格式錯誤</p>";
+    //         document.getElementById('submit').disabled = true;
+    //         return false;
+    //     }
+    // }
 
     function checkPassword() {
         var password = document.getElementById("password").value;
@@ -261,7 +256,7 @@
     //js驗證真實姓名，是用的unicode字元的來進行匹配
     function checkFullName() {
         var fullName = document.getElementById("fullName").value;
-        var res = /^[\u4e00-\u9fa5]{2,4}$/;
+        var res = /^[\u4e00-\u9fa5]{2,10}$/;
         var flag3 = res.test(fullName);
         if (flag3) {
             document.getElementById("s_fullName").innerHTML = "<i class='fa-solid fa-check'></i>";

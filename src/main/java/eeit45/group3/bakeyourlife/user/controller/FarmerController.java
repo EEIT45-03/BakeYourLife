@@ -1,7 +1,9 @@
 package eeit45.group3.bakeyourlife.user.controller;
 
 import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,10 +25,12 @@ import java.util.List;
 public class FarmerController {
 
     FarmerService farmerService;
+    UserService userService;
 
     @Autowired
-    public FarmerController(FarmerService farmerService) {
+    public FarmerController(FarmerService farmerService,UserService userService) {
         this.farmerService = farmerService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -98,13 +102,12 @@ public class FarmerController {
     }
     @PostMapping(value = "/CheckFarmer", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean CheckFarmer(@RequestParam String username) {
+        User user = userService.findByUsername(username);
         Farmer farmer = farmerService.findByUsername(username);
-        return farmer == null;
-//        if (farmer == null) {
-//            return true;
-//        }
-//        return false;
-//    }
+        if (user == null && farmer == null) {
+            return true;
+        }
+        return false;
     }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
