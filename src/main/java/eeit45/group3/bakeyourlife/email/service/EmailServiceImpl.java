@@ -1,5 +1,9 @@
 package eeit45.group3.bakeyourlife.email.service;
 
+import eeit45.group3.bakeyourlife.course.model.Course;
+import eeit45.group3.bakeyourlife.course.model.Register;
+import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
+import eeit45.group3.bakeyourlife.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -66,5 +70,23 @@ public class EmailServiceImpl implements EmailService {
         javaMailSender.send(mimeMessage);
 
 }
+    //報名課程Email
+    public void sendRegisterMail(
+            String to,//收件者
+            String subject,//主旨
+            Register register,//內容
+            String templateName//模板名稱
+    ) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("register", register);
+        String process = templateEngine.process("emails/"+templateName, context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        helper.setTo(to);
+        javaMailSender.send(mimeMessage);
+
+    }
 
 }

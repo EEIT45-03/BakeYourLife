@@ -177,10 +177,8 @@ public class CourseServiceImpl implements CourseService {
 		courseRepository.save(course);
 		//寄email
 		String email = user.getEmail();
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(email);
 		try {
-			emailService.sendMailByThymeleaf(email, "[Bake Your Life 烘焙材料網] 報名成功通知XXXX", "test","courseRegister");
+			emailService.sendRegisterMail(email, "[Bake Your Life 烘焙材料網] 報名成功通知",register,"courseRegister");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

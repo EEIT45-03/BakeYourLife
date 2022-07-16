@@ -87,7 +87,6 @@ public class UserCourseController {
     @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.POST)
     public String createRegisterWithId(@ModelAttribute("register2") Register register, BindingResult result) throws MessagingException {
         courseService.createRegisterWithId(register);
-        emailService.sendMailByThymeleaf("yi999897@gmail.com", "test", "test","welcome");
         return "redirect:./";
     }
     //查看報名

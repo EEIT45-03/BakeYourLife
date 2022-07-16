@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:th="http://www.thymeleaf.org">
-
+<head></head>
 
 <div th:replace="emails/part/head.html"></div>
 
@@ -72,7 +72,7 @@
                     <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 30px;font-family:'Lato',sans-serif;" align="left">
 
                       <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 140%; text-align: center;"><span style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">Please reset your password </span></p>
+                        <p style="font-size: 14px; line-height: 140%; text-align: center;"><span style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">課程報名成功 </span></p>
                       </div>
 
                     </td>
@@ -107,11 +107,17 @@
                     <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 40px 30px;font-family:'Lato',sans-serif;" align="left">
 
                       <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">Hello,</span></p>
-                        <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>
-                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;" th:text="${text}">We have sent you this email in response to your request to reset your password on company name.</span></p>
-<!--                        <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>-->
-<!--                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">To reset your password, please follow the link below: </span></p>-->
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;"></span></p></br>
+                        <p style="font-size: 14px; line-height: 140%;">親愛的學員您好,非常感謝您報名烘焙課程，報名資訊如下:</p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|課程編號: ${register.course.openCourse}|"></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名編號: ${register.registerId}|"></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名人數: ${register.attendance}|"></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名日期: ${#dates.format(register.registerDate, 'yyyy/MM/dd')}|"></span></p>
+                        <!--
+    <p style="font-size: 14px; line-height: 140%;">課程名稱:<span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="*{register.course.cProduct.name}"></span></p>-->
+<!--                        <p style="font-size: 14px; line-height: 140%;"><br>上課時間:-->
+<!--                          <span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:each="courseTime:${register.course.courseTimes}" th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></span>-->
+                        </p>
                       </div>
 
                     </td>
@@ -143,7 +149,7 @@
                     <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 40px 30px;font-family:'Lato',sans-serif;" align="left">
 
                       <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 140%;"><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">Please ignore this email if you did not request a password change.</span></em></span><br /><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">本信為自動回覆信件，請勿直接回覆。若有問題請洽 0800-000-666。或上官網查詢。</span></em></span><br /><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span></p>
                       </div>
 
                     </td>
