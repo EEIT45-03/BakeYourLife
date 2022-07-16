@@ -2,50 +2,76 @@ package eeit45.group3.bakeyourlife._init;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eeit45.group3.bakeyourlife.coupon.model.Coupon;
+import eeit45.group3.bakeyourlife.coupon.service.CouponService;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
+import eeit45.group3.bakeyourlife.order.constant.PayType;
+import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
+import eeit45.group3.bakeyourlife.order.model.Cart;
+import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
+import eeit45.group3.bakeyourlife.user.dao.UserRepository;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//@Component
+@Component
 public class DataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 
     //取消率
-    private final Double CANCELLED_RATE = 0.1;
+    private final Long CANCELLED_RATE = 5L;
     //退款率
-    private final Double REFUND_RATE = 0.1;
+    private final Long REFUND_RATE = 5L;
     //總訂單數
     private final Integer TOTAL_ORDER_NUMBER = 10000;
     //總用戶數
     private final Integer TOTAL_USER_NUMBER = 222;
 
-    private UserService userService;
-    private OrderService orderService;
+    private Integer couponUsedNumber = 0;
+
+    Coupon coupon;
+
+    List<FarmerProductBean> farmerProducts;
+
+    List<Goods> goods;
+    List<CartItem> cartItems;
+
+    Set<String> orderNos= new HashSet<>();
+
+    private CouponService couponService;
     private FarmerProductService farmerProductService;
     private GoodService goodService;
-    private PasswordEncoder encoder;
+    private PasswordEncoder encoder = new BCryptPasswordEncoder(4);
+    private UserRepository userRepository;
+    private OrderRepository orderRepository;
+
 
     @Autowired
-    public DataInitialization(UserService userService, OrderService orderService, FarmerProductService farmerProductService, GoodService goodService, PasswordEncoder encoder) {
-        this.userService = userService;
-        this.orderService = orderService;
+    public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService, UserRepository userRepository, OrderRepository orderRepository) {
+        this.couponService = couponService;
         this.farmerProductService = farmerProductService;
         this.goodService = goodService;
-        this.encoder = encoder;
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -53,39 +79,72 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Order> orders = new ArrayList<>();
         List<User> users = new ArrayList<>();
-
-
-        System.out.println("Initializing data...");
-        System.out.println(farmerProductService.findAll().size());
-        System.out.println(goodService.getAllGoods().size());
+        farmerProducts = farmerProductService.findAll();
+        goods = goodService.getAllGoods();
+        cartItems = new ArrayList<>();
+        cartItems.addAll(farmerProducts);
+        cartItems.addAll(goods);
+        coupon = couponService.findById("NEWUSER").orElse(null);
 
         //從resources/fakeUserData.json
         InputStream resourceAsStream = getClass().getResourceAsStream("/fakeUserData.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<FakeUserData> fakeUserData;
+        List<FakeUserData> fakeUserDatas;
         try {
-            fakeUserData = objectMapper.readValue(resourceAsStream, new TypeReference<List<FakeUserData>>(){});
+            fakeUserDatas = objectMapper.readValue(resourceAsStream, new TypeReference<List<FakeUserData>>(){});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         //現在-365天
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DATE, -365);
+        cal.set(2021, Calendar.JULY,25,0,0,0);
+//        cal.add(Calendar.DATE, -365);
         Date now = cal.getTime();
-        System.out.println(now);
+//        System.out.println(now);
 
         for(int i = 0;i<365;i++){
             cal.add(Calendar.DATE, 1);
             Date date = cal.getTime();
 //            System.out.println(date);
+            //每天產生3個會員
+            for (int j = 0;j<3;j++){
+            FakeUserData fakeUserData = fakeUserDatas.get(0);
+            fakeUserDatas.remove(fakeUserData);
+            User user = toUser(fakeUserData);
+            //隨機28800000(8H)~82800000(23H)
+            user.setRegisterTime(new Timestamp(date.getTime() + (long)(Math.random()*(82800000-28800000))));
+            users.add(user);
+            }
+
+
+            //產生訂單
+
+                users.forEach(user -> {
+                    //50%機率產生訂單
+                    if(Math.random()<0.3){
+                        long registerTime = user.getRegisterTime().getTime();
+                        //產生registerTime後的訂單，今天前的隨機時間
+                        long end = date.getTime()+86400000;
+                        //隨機registerTime~end隨機數字
+                        long orderDate = registerTime + (long)(Math.random()*(end+5-registerTime));
+                        Order order = genOrder(user, new Date(orderDate));
+                        orders.add(order);
+                    }
+                });
+
+
+
         }
 
 
 
+        orderRepository.saveAll(orders);
+        userRepository.saveAll(users);
 
-
+        coupon.setUsedQuantity(couponUsedNumber);
+        couponService.updateCoupon(coupon);
+        System.out.println("DataInitialization finished");
 
     }
 
@@ -110,6 +169,86 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         user.setGender(random==0?"男":"女");
         user.setBirth(genRandomDate());
         return user;
+    }
+
+    private Order genOrder(User user,Date date){
+//        //隨機1~100
+        long random = (int)(Math.random()*100);
+        Order order = genCart().getOrder();
+        order.setUser(user);
+        order.setOrderDate(date);
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        int end;
+		do {
+            end = (int) (Math.random()*10);
+            order.setOrderNo(df.format(date) + end);
+        }while (orderNos.contains(order.getOrderNo()));
+//		order.setOrderNo(df.format(date) + end);
+        orderNos.add(order.getOrderNo());
+        if(random<CANCELLED_RATE){
+            order.setOrderStatus(OrderStatus.CANCELLED);
+            order.setAddress(user.getAddress());
+            order.setReview(false);
+            order.setPayType(Math.random()<0.5? PayType.ECPAY:PayType.PAYPAL);
+        }else if(random>CANCELLED_RATE && random<CANCELLED_RATE+REFUND_RATE) {
+            order.setOrderStatus(OrderStatus.REFUNDED);
+            order.setAddress(user.getAddress());
+            order.setReview(false);
+            order.setPayType(Math.random() < 0.5 ? PayType.ECPAY : PayType.PAYPAL);
+            random = (long)(Math.random()*(86400000-300000))+300000;
+            order.setPayDate(new Timestamp(date.getTime()+random));
+            //0~2
+            random = (int)(Math.random()*3);
+            switch ((int) random) {
+                case 0:
+                    order.setRefundReason("等太久");
+                    break;
+                case 1:
+                    order.setRefundReason("我不想買了");
+                    break;
+                case 2:
+                    order.setRefundReason("買錯東西");
+                    break;
+            }
+        }else{
+        order.setOrderStatus(OrderStatus.FINISH);
+        order.setAddress(user.getAddress());
+        order.setReview(false);
+        order.setPayType(Math.random()<0.5? PayType.ECPAY:PayType.PAYPAL);
+        //隨機300000~86400000(1D)數字
+        random = (long)(Math.random()*(86400000-300000))+300000;
+        order.setPayDate(new Timestamp(date.getTime()+random));
+        random = (long)(Math.random()*(86400000*7-43200000))+random;
+        order.setShipDate(new Timestamp(date.getTime()+random));
+        }
+        return order;
+    }
+
+
+    private Cart genCart() {
+        //隨機1~5
+        int buyNum = (int) (Math.random() * 5)+1;
+        int productNum = cartItems.size();
+        Cart cart = new Cart();
+        //建立隨機商品及數量
+        for (int i = 0; i < buyNum; i++) {
+            //隨機1~productNum
+            int random = (int) (Math.random() * productNum);
+            CartItem cartItem = cartItems.get(random);
+            int qty = 1;
+            if(cartItem.getCartPrice()<500){
+                qty = (int) (Math.random() * 10);
+            }
+            cart.addItem(cartItem, qty);
+        }
+        //是否使用優惠券0、1
+        int random = (int)(Math.random()*2);
+        if(random==1){
+            cart.setCoupon(coupon);
+            couponUsedNumber++;
+        }
+
+        return cart;
     }
 
 

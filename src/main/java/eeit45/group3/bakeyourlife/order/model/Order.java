@@ -44,7 +44,7 @@ public class Order implements Serializable {
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "userId")
-    @JsonIgnore
+//    @JsonIgnore
     private User user;
 
     //收貨地址

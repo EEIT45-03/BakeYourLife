@@ -11,6 +11,8 @@ import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -119,7 +121,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findAll() {
-		return orderRepository.findAll();
+		return (List<Order>) orderRepository.findAll();
+	}
+
+	@Override
+	public DataTablesOutput<Order> findAll(DataTablesInput input) {
+		return orderRepository.findAll(input);
 	}
 
 	@Override

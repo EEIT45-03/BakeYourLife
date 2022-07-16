@@ -11,6 +11,8 @@ import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
@@ -47,6 +49,7 @@ public interface OrderService {
 
     //查詢所有訂單
     List<Order> findAll();
+    DataTablesOutput<Order> findAll(DataTablesInput input);
 
     Page<Order> findAll(Pageable pageable);
 

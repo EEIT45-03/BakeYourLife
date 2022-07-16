@@ -8,6 +8,8 @@ import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
 
+import javax.validation.Valid;
+
 @RestController
 public class OrderRestController {
 	
@@ -32,10 +36,11 @@ public class OrderRestController {
 	private UserService userService;
 
 	//查詢全部或指定日期區間
-//	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/Orders")
 	public ResponseEntity<List<Order>> getOrders(
 			@RequestParam(required = false) String orderStatus,
+
 			Authentication authentication) {
 		if(authentication==null){
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -43,16 +48,28 @@ public class OrderRestController {
 		OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
 		OrderStatus status = null;
 		User user = userService.getCurrentUser(authentication);
+		List<Order> orders = null;
+
+
 		if(!"".equals(orderStatus)){
 			status = orderStatusConverter.convertToEntityAttribute(orderStatus);
 		}
-		List<Order> orders = null;
 		if(user!=null && status != null){
 			orders = orderService.findAllByOrderStatusAndUser(status,user);
 		}else {
 			orders = orderService.findAllByUser(user);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
+	}
+
+	@PostMapping("/OrdersByDT")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public DataTablesOutput<Order> getOrdersByDataTables(@Valid @RequestBody DataTablesInput input){
+			System.out.println(input);
+			DataTablesOutput<Order> orders = null;
+			orders = orderService.findAll(input);
+			return orders;
+
 	}
 
 	
