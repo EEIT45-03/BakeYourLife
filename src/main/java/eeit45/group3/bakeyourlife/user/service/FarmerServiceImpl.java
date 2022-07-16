@@ -52,8 +52,8 @@ public class FarmerServiceImpl implements FarmerService{
 
     @Override
     public void updateFarmer(Farmer farmer) {
-        // 加密密碼
-        farmer.setPassword(encoder.encode(farmer.getPassword()));
+        // 修改的加密密碼改在controller
+//        farmer.setPassword(encoder.encode(farmer.getPassword()));
         farmerRepository.save(farmer);
 
     }

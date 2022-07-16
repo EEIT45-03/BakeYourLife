@@ -45,14 +45,14 @@ public class UserController {
         return "admin/user/User";
     }
 
-    @GetMapping("CreateUser")
+    @GetMapping("/CreateUser")
     public String viewCreateUser(Model model) {
         model.addAttribute("user",new User());
 
         return "admin/user/CreateUser";
     }
 
-    @PostMapping("CreateUser")
+    @PostMapping("/CreateUser")
     public String createUser(User user) {
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
@@ -64,7 +64,7 @@ public class UserController {
         }
 //        --------------------------------------------------------------
         String fullname = user.getFullName();
-        user.setFullName("管理員-"+fullname);
+        user.setFullName("管理員"+fullname);
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
@@ -86,6 +86,9 @@ public class UserController {
     public String updateUser(@RequestParam("userId")Integer userId, User user ) {
 
         User userDB = userService.findByUserId(userId);
+//        System.out.println("密碼:"+user.getPassword());
+//        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
+
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
             user.setImageUrl(userDB.getImageUrl());
@@ -93,13 +96,13 @@ public class UserController {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
-
-        if (user.getPassword() == null){
+//-------------------------------------------------------------------------------------------
+        if (user.getPassword().length() == 0){
             user.setPassword(userDB.getPassword());
         }else {
             user.setPassword(encoder.encode(user.getPassword()));
         }
-
+//-------------------------------------------------------------------------------------------
         user.setRegisterTime(userDB.getRegisterTime());
         user.setAuthority(userDB.getAuthority());
         userService.updateUser(user);
