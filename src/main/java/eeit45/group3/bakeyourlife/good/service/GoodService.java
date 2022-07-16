@@ -28,4 +28,10 @@ public interface GoodService {
 	List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial);
 
 	Long count();
+
+	Integer maxPrice();
+
+	Integer minPrice();
+
+	Goods max();
 }

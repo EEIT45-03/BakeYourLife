@@ -78,4 +78,19 @@ public class GoodsServiceImpl implements GoodService {
     public Long count() {
         return goodsRepository.count();
     }
+
+    @Override
+    public Integer maxPrice() {
+        return goodsRepository.maxPrice();
+    }
+
+    @Override
+    public Integer minPrice() {
+        return goodsRepository.minPrice();
+    }
+
+    @Override
+    public Goods max() {
+        return goodsRepository.max();
+    }
 }
