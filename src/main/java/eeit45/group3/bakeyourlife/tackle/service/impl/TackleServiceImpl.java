@@ -1,15 +1,22 @@
 package eeit45.group3.bakeyourlife.tackle.service.impl;
 
+import eeit45.group3.bakeyourlife.tackle.dao.TacklePicListRepository;
 import eeit45.group3.bakeyourlife.tackle.dao.TackleRepository;
 import eeit45.group3.bakeyourlife.tackle.dao.TackleSortRepository;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.tackle.model.TacklePicList;
 import eeit45.group3.bakeyourlife.tackle.model.TackleSort;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,13 +26,14 @@ public class TackleServiceImpl implements TackleService {
 
     private TackleSortRepository tackleSortRepository;
 
+    private TacklePicListRepository tacklePicListRepository;
+
     @Autowired
-    public TackleServiceImpl(TackleRepository tackleRepository, TackleSortRepository tackleSortRepository) {
+    public TackleServiceImpl(TackleRepository tackleRepository, TackleSortRepository tackleSortRepository, TacklePicListRepository tacklePicListRepository) {
         this.tackleRepository = tackleRepository;
         this.tackleSortRepository = tackleSortRepository;
+        this.tacklePicListRepository = tacklePicListRepository;
     }
-
-
 
     //查詢全部的器具
     @Override
@@ -80,10 +88,9 @@ public class TackleServiceImpl implements TackleService {
     public Tackle updateTackle(Tackle tackle) {
         TackleSort sort = tackleSortRepository.findById(tackle.getTackleSort().getTackleSortId()).orElse(null);
         tackle.setTackleSort(sort);
-        if(tackle.getPicture()==null){
-            Tackle tDb = findByTackleId(tackle.getTackleId());
-            tackle.setPicture(tDb.getPicture());
-        }
+
+
+
         return tackleRepository.save(tackle);
     }
 
@@ -130,5 +137,20 @@ public class TackleServiceImpl implements TackleService {
     public List<Tackle> findAllByTackleSort(Integer tackleSortId) {
         TackleSort tackleSort = tackleSortRepository.findById(tackleSortId).orElse(null);
         return tackleRepository.findAllByTackleSort(tackleSort);
+    }
+
+    public boolean createTacklePicList(String tackleName , MultipartFile[] file){
+        if(file!=null){
+            Tackle tackle = findByTackleName(tackleName);
+
+            for( int i=0 ; i<file.length ; i++ ){
+                TacklePicList tacklePicList = new TacklePicList();
+                tacklePicList.setTackle(tackle);
+                tacklePicList.setPicture(updateByMultipartFile(file[i]).getLink());
+                tacklePicListRepository.save(tacklePicList);
+            }
+            return true;
+        }
+        return false;
     }
 }

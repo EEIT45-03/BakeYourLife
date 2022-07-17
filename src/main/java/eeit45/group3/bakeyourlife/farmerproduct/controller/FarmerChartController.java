@@ -1,7 +1,7 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 
-import eeit45.group3.bakeyourlife.farmerproduct.dao.FarmerProductRepository;
+import eeit45.group3.bakeyourlife.farmerproduct.controller.dao.FarmerProductRepository;
 import eeit45.group3.bakeyourlife.farmerproduct.utils.FarmerProductChart;
 import eeit45.group3.bakeyourlife.farmerproduct.utils.TypeAmount;
 import org.springframework.beans.factory.annotation.Autowired;

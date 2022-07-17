@@ -1,7 +1,9 @@
 package eeit45.group3.bakeyourlife.venue.service;
 
 import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import eeit45.group3.bakeyourlife.venue.model.VenueSort;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -31,6 +33,8 @@ public interface VenueService {
     //新增場地
     public Venue createVenue(Venue venue);
 
+//    public Venue createVenue(Venue venue, MultipartFile[] file);
+
     //更新場地
     public Venue updateVenue(Venue venue);
 
@@ -48,8 +52,12 @@ public interface VenueService {
     //依種類查詢全部的場地
     public List<Venue> findAllByVenueSort(Integer venueSortId);
 
+    //查詢其一種類以外的場地
+    public List<Venue> findAllByVenueSortNot(Integer venueSortId);
+
     //查詢TOP3場地
     public List<Venue> findByVenueTopThree();
 
+    public boolean createVenuePicList(String venueName ,MultipartFile[] file);
 
 }
