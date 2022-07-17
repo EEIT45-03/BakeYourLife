@@ -3,7 +3,7 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
 import eeit45.group3.bakeyourlife.farmerproduct.dao.FarmerProductRepository;
 import eeit45.group3.bakeyourlife.farmerproduct.utils.FarmerProductChart;
-import eeit45.group3.bakeyourlife.farmerproduct.utils.TypeAmount;
+import eeit45.group3.bakeyourlife.farmerproduct.utils.QueryChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +21,22 @@ public class FarmerChartController {
         this.farmerProductRepository = farmerProductRepository;
     }
 
+
+    @GetMapping("/FarmerProductSupplier/farmerSaleAmount")
+    public FarmerProductChart farmerSaleAmount() {
+        FarmerProductChart farmerProductChart = new FarmerProductChart();
+        List<QueryChart> queryChartList = farmerProductRepository.farmerSaleAmount();
+        for (QueryChart data : queryChartList) {
+            farmerProductChart.addData(data);
+        }
+        return farmerProductChart;
+    }
+
     @GetMapping("/FarmerProductSupplier/typeAmount")
     public FarmerProductChart findTypeAmount() {
         FarmerProductChart farmerProductChart = new FarmerProductChart();
-        List<TypeAmount> typeAmountList = farmerProductRepository.findTypeAmount();
-        for (TypeAmount data : typeAmountList) {
+        List<QueryChart> queryChartList = farmerProductRepository.findTypeAmount();
+        for (QueryChart data : queryChartList) {
             farmerProductChart.addData(data);
         }
         return farmerProductChart;
@@ -34,8 +45,8 @@ public class FarmerChartController {
     @GetMapping("/FarmerProductSupplier/typeAmountByFarmerId/{id}")
     public FarmerProductChart findTypeAmountByFarmerId(@PathVariable Integer id) {
         FarmerProductChart farmerProductChart = new FarmerProductChart();
-        List<TypeAmount> typeAmountList = farmerProductRepository.findTypeAmountByFarmerId(id);
-        for (TypeAmount data : typeAmountList) {
+        List<QueryChart> queryChartList = farmerProductRepository.findTypeAmountByFarmerId(id);
+        for (QueryChart data : queryChartList) {
             farmerProductChart.addData(data);
         }
         return farmerProductChart;

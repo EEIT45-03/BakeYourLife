@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,15 +21,24 @@ public class AdminFarmerProductController {
 
     FarmerProductService farmerProductService;
 
+    FarmerService farmerService;
+
     @Autowired
-    public AdminFarmerProductController(FarmerProductService farmerProductService) {
+    public AdminFarmerProductController(FarmerProductService farmerProductService, FarmerService farmerService) {
         this.farmerProductService = farmerProductService;
+        this.farmerService = farmerService;
     }
 
     @GetMapping("/admin/FarmerProduct/Chart")
     public String viewChart(Model model) {
+        Integer saleAmount = farmerProductService.saleAmount();
+        model.addAttribute("saleAmount", saleAmount);
+        Long farmerCount = farmerService.count();
+        model.addAttribute("farmerCount", farmerCount);
         Long count = farmerProductService.count();
         model.addAttribute("count", count);
+        Float avgStar = farmerProductService.avgStar();
+        model.addAttribute("avgStar", avgStar);
         return "admin/farmerproduct/AdminFarmerProductChart";
     }
 

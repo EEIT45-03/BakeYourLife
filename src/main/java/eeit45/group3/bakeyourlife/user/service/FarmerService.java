@@ -18,4 +18,6 @@ public interface FarmerService {
 
     void updateFarmer(Farmer farmer);
 
+    Long count();
+
 }

@@ -74,6 +74,21 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public Integer saleAmount() {
+        return farmerProductRepository.saleAmount();
+    }
+
+    @Override
+    public Float avgStar() {
+        return farmerProductRepository.avgStar();
+    }
+
+    @Override
+    public Float avgStarByFarmerId(Integer farmerId) {
+        return farmerProductRepository.avgStarByFarmerId(farmerId);
+    }
+
+    @Override
     @Transactional
     public void insert(FarmerProductBean farmerProductBean) {
         farmerProductRepository.save(farmerProductBean);

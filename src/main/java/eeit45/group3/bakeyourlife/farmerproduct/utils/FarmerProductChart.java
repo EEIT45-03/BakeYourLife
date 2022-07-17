@@ -23,8 +23,8 @@ public class FarmerProductChart {
         this.data = data;
     }
 
-    public void addData(TypeAmount data) {
-        this.labels.add(data.getType());
+    public void addData(QueryChart data) {
+        this.labels.add(data.getLabel());
         this.data.add(data.getValue());
     }
 

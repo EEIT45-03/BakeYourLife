@@ -32,6 +32,14 @@ public interface FarmerProductService {
 
     Integer saleAmountByFarmerId(Integer farmerId);
 
+    Integer saleAmount();
+
+    //全部廠商 商品平均星數
+    Float avgStar();
+
+    //單個廠商 商品平均星數
+    Float avgStarByFarmerId(Integer farmerId);
+
 
     void insert(FarmerProductBean farmerProductBean);
 

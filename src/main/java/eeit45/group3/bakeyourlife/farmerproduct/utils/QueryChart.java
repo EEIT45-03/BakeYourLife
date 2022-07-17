@@ -1,8 +1,8 @@
 package eeit45.group3.bakeyourlife.farmerproduct.utils;
 
-public interface TypeAmount {
+public interface QueryChart {
 
-    String getType();
+    String getLabel();
 
     Integer getValue();
 

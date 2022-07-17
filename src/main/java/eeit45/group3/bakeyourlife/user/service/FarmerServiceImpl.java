@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 @Transactional
-public class FarmerServiceImpl implements FarmerService{
-
+public class FarmerServiceImpl implements FarmerService {
 
 
     FarmerRepository farmerRepository;
@@ -47,7 +47,7 @@ public class FarmerServiceImpl implements FarmerService{
 
     @Override
     public void deleteByFarmerId(Integer farmerId) {
-         farmerRepository.deleteById(farmerId);
+        farmerRepository.deleteById(farmerId);
     }
 
     @Override
@@ -56,5 +56,10 @@ public class FarmerServiceImpl implements FarmerService{
         farmer.setPassword(encoder.encode(farmer.getPassword()));
         farmerRepository.save(farmer);
 
+    }
+
+    @Override
+    public Long count() {
+        return farmerRepository.count();
     }
 }
