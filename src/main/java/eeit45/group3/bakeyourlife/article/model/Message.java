@@ -36,8 +36,9 @@ public class Message implements Serializable {
     @JoinColumn(name = "postid")
     private Article article;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "userId")
+    @ManyToOne
+    @JoinColumn(name = "user_Id",referencedColumnName = "userId", nullable = false)
+    @JsonIgnore
     private User user;
 
     public User getUser() {

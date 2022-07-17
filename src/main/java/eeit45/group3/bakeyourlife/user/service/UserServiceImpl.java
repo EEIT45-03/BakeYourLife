@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void setCurrentUser(Authentication authentication, User user){
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        userDetails.setUser(user);
+    }
+
+    @Override
     public List<User> findAll() {
         return repository.findAll();
     }
@@ -63,9 +69,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        // 加密密碼
-        user.setPassword(encoder.encode(user.getPassword()));
+        // 修改的加密密碼改在controller
+//        user.setPassword(encoder.encode(user.getPassword()));
         repository.save(user);
+
 
     }
 

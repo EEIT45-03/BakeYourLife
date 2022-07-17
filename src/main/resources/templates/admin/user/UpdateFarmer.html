@@ -62,9 +62,9 @@
             <form id="form" action="" method="post" th:object="${farmer}" enctype="multipart/form-data">
 
               <!-- 小農廠商頭像: -->
-              <img  ID="previewImage" width="200" height="200" th:src="${farmer.imageUrl}" style=" margin:auto;"/>
+              <img  ID="previewImage" width="100" height="100" th:src="${farmer.imageUrl}" style=" margin:auto;"/>
               <div class="row mb-3">
-                <label for="farmerImage" class="col-sm-2 col-form-labels">小農廠商頭像:</label>
+                <label for="farmerImage" class="col-sm-2 col-form-labels">廠商帳號頭像:</label>
                 <div class="col-sm-10">
                   <input type="file" th:field="*{productImage}" class="form-control" name="farmerImage"
                          id="farmerImage" >
@@ -72,7 +72,7 @@
               </div>
               <!-- 小農廠商帳號: -->
               <div class="row mb-3">
-                <label  class="col-sm-2 col-form-labels">帳號:</label>
+                <label  class="col-sm-2 col-form-labels">廠商帳號:</label>
                 <div class="col-sm-10">
                   <input th:field="*{username}" class="form-control"
                          readonly required>
@@ -81,10 +81,10 @@
               </div>
               <!-- 小農廠商密碼: -->
               <div class="row mb-3">
-                <label for="password" class="col-sm-2 col-form-labels">密碼:</label>
+                <label for="password" class="col-sm-2 col-form-labels">廠商密碼:</label>
                 <div class="col-sm-10">
-                  <input type="password" th:value="*{password}"  class="form-control" minlength="6"
-                         id="password" name="password" required>
+                  <input type="password" th:field="*{password}"  class="form-control" minlength="6"
+                         id="password" name="password" placeholder="註:若沒有要更改密碼請不要點選欄位" >
                   <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼
                   <span class="show" id="s_password"></span>
                 </div>
@@ -113,7 +113,7 @@
 
               <!-- 小農廠商電話: -->
               <div class="row mb-3">
-                <label for="phone" class="col-sm-2 col-form-labels">手機號碼:</label>
+                <label for="phone" class="col-sm-2 col-form-labels">廠商電話(手機):</label>
                 <div class="col-sm-10">
                   <input type="text" th:field="*{phone}" class="form-control"
                          id="phone"  required>
@@ -124,7 +124,7 @@
 
               <!-- 小農廠商地址: -->
               <div class="row mb-3">
-                <label for="address" class="col-sm-2 col-form-labels">地址:</label>
+                <label for="address" class="col-sm-2 col-form-labels">廠商地址:</label>
                 <div class="col-sm-10">
                   <input type="text" th:field="*{address}" class="form-control"
                          id="address"  required>
@@ -132,7 +132,7 @@
               </div>
               <!-- 小農廠商簡介: -->
               <div class="row mb-3">
-                <label for="farmerInfo" class="col-sm-2 col-form-labels">簡介:</label>
+                <label for="farmerInfo" class="col-sm-2 col-form-labels">廠商簡介:</label>
                 <div class="col-sm-4">
                   <textarea class="form-control" th:field="*{farmerInfo}" name="farmerInfo"
                             id="farmerInfo" value=""  maxlength="500"
@@ -150,7 +150,7 @@
 <!--              </div>-->
 
 
-              <button type="submit" class="btn btn-primary" id="submit">修改會員資料</button>
+              <button type="submit" class="btn btn-primary" id="submit">儲存</button>
             </form>
           </div>
         </div>
@@ -205,30 +205,30 @@
   window.onload = function () {
 
     document.getElementById("form").onsubmit = function () {
-      return checkUserName(), checkPassword(), checkFullName(), checkEmail(), checkPhone();
+      return checkFullName(), checkEmail(), checkPhone();
     }
-    document.getElementById("userName").onblur = checkUserName;
-    document.getElementById("password").onblur = checkPassword;
-    document.getElementById("fullName").onblur = checkFullName;
+    // document.getElementById("userName").onblur = checkUserName;
+    document.getElementById("password").onclick = checkPassword;
+    document.getElementById("farmerName").onblur = checkfarmerName;
     document.getElementById("email").onblur = checkEmail;
     document.getElementById("phone").onblur = checkPhone;
   }
 
-  function checkUserName() {
-
-    var userName = document.getElementById("userName").value;
-    var res = /^[a-zA-Z0-9]{6,}$/;
-    var flag1 = res.test(userName);
-    if (flag1) {
-      document.getElementById("s_userName").innerHTML = "<i class='fa-solid fa-check'>帳號格式正確</i>";
-      document.getElementById('submit').disabled = false;
-      return true;
-    } else {
-      document.getElementById("s_userName").innerHTML = "<p class='wrong'>帳號格式錯誤</p>";
-      document.getElementById('submit').disabled = true;
-      return false;
-    }
-  }
+  // function checkUserName() {
+  //
+  //   var userName = document.getElementById("userName").value;
+  //   var res = /^[a-zA-Z0-9]{6,}$/;
+  //   var flag1 = res.test(userName);
+  //   if (flag1) {
+  //     document.getElementById("s_userName").innerHTML = "<i class='fa-solid fa-check'>帳號格式正確</i>";
+  //     document.getElementById('submit').disabled = false;
+  //     return true;
+  //   } else {
+  //     document.getElementById("s_userName").innerHTML = "<p class='wrong'>帳號格式錯誤</p>";
+  //     document.getElementById('submit').disabled = true;
+  //     return false;
+  //   }
+  // }
 
   function checkPassword() {
     var password = document.getElementById("password").value;
@@ -246,16 +246,16 @@
   }
 
   //js驗證真實姓名，是用的unicode字元的來進行匹配
-  function checkFullName() {
-    var fullName = document.getElementById("fullName").value;
-    var res = /^[\u4e00-\u9fa5]{2,4}$/;
-    var flag3 = res.test(fullName);
+  function checkfarmerName() {
+    var farmerName = document.getElementById("farmerName").value;
+    var res = /^[\u4e00-\u9fa5]{2,20}$/;
+    var flag3 = res.test(farmerName);
     if (flag3) {
-      document.getElementById("s_fullName").innerHTML = "<i class='fa-solid fa-check'></i>";
+      document.getElementById("s_farmerName").innerHTML = "<i class='fa-solid fa-check'></i>";
       document.getElementById('submit').disabled = false;
       return true;
     } else {
-      document.getElementById("s_fullName").innerHTML = "<p class='wrong'>姓名格式錯誤:請輸入真實中文名字</p>";
+      document.getElementById("s_farmerName").innerHTML = "<p class='wrong'>姓名格式錯誤:請輸入真實中文名字</p>";
       document.getElementById('submit').disabled = true;
       return false;
     }
