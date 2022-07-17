@@ -1,7 +1,5 @@
 package eeit45.group3.bakeyourlife.good.controller;
 
-import eeit45.group3.bakeyourlife.farmerproduct.utils.FarmerProductChart;
-import eeit45.group3.bakeyourlife.farmerproduct.utils.TypeAmount;
 import eeit45.group3.bakeyourlife.good.dao.GoodsRepository;
 import eeit45.group3.bakeyourlife.good.utils.GoodsChart;
 import eeit45.group3.bakeyourlife.good.utils.GoodsCount;
@@ -15,14 +13,15 @@ import java.util.List;
 public class GoodsChartController {
 
 
-
     private final GoodsRepository goodsRepository;
 
     @Autowired
-    public GoodsChartController(GoodsRepository goodsRepository) {this.goodsRepository = goodsRepository;
+    public GoodsChartController(GoodsRepository goodsRepository) {
+        this.goodsRepository = goodsRepository;
     }
+
     @GetMapping("/GoodsTypeCount")
-    public GoodsChart findGoodsTypeAmount(){
+    public GoodsChart findGoodsTypeAmount() {
         GoodsChart goodsChart = new GoodsChart();
         List<GoodsCount> goodsCountList = goodsRepository.findGoodsTypeAmount();
         for (GoodsCount data : goodsCountList) {
@@ -32,7 +31,7 @@ public class GoodsChartController {
     }
 
     @GetMapping("/GoodsOriginCount")
-    public GoodsChart findGoodsOriginAmount(){
+    public GoodsChart findGoodsOriginAmount() {
         GoodsChart goodsChart = new GoodsChart();
         List<GoodsCount> goodsCountList = goodsRepository.findGoodsOriginAmount();
         for (GoodsCount data : goodsCountList) {
@@ -42,7 +41,7 @@ public class GoodsChartController {
     }
 
     @GetMapping("/GoodsNameCount")
-    public GoodsChart findGoodsNameCount(){
+    public GoodsChart findGoodsNameCount() {
         GoodsChart goodsChart = new GoodsChart();
         List<GoodsCount> goodsCountList = goodsRepository.findGoodsNameCount();
         for (GoodsCount data : goodsCountList) {
