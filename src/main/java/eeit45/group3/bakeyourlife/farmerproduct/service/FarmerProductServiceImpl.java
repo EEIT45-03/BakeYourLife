@@ -1,6 +1,6 @@
 package eeit45.group3.bakeyourlife.farmerproduct.service;
 
-import eeit45.group3.bakeyourlife.farmerproduct.controller.dao.FarmerProductRepository;
+import eeit45.group3.bakeyourlife.farmerproduct.dao.FarmerProductRepository;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

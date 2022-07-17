@@ -65,8 +65,6 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     private PasswordEncoder encoder = new BCryptPasswordEncoder(4);
     private UserRepository userRepository;
     private OrderRepository orderRepository;
-    @Autowired
-    DataSource dataSource;
 
     @Autowired
     public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService, UserRepository userRepository, OrderRepository orderRepository) {
@@ -144,8 +142,8 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
         long start = System.currentTimeMillis();
 
-        orderRepository.saveAll(orders);
         userRepository.saveAll(users);
+        orderRepository.saveAll(orders);
 
         coupon.setUsedQuantity(couponUsedNumber);
         couponService.updateCoupon(coupon);

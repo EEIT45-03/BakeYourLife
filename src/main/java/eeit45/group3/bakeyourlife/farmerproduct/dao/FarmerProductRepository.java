@@ -1,4 +1,4 @@
-package eeit45.group3.bakeyourlife.farmerproduct.controller.dao;
+package eeit45.group3.bakeyourlife.farmerproduct.dao;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.utils.TypeAmount;
