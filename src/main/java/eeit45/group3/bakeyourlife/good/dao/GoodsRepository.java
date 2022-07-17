@@ -26,7 +26,7 @@ public interface GoodsRepository extends JpaRepository<Goods,Integer> {
     @Query(nativeQuery = true, value = "Select origin AS 'label', count(origin) AS 'value' from member_goods_table3 group by origin")
     List<GoodsCount> findGoodsOriginAmount();
 
-    @Query(nativeQuery = true, value ="select name AS 'label',count AS 'Value' from member_goods_table3")
+    @Query(nativeQuery = true, value ="select packagematerial AS 'label',sum(cast(count as int))AS 'Value' from member_goods_table3 GROUP BY packagematerial")
     List<GoodsCount>findGoodsNameCount();
 
 
