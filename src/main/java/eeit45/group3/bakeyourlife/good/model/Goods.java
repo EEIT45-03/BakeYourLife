@@ -26,6 +26,17 @@ public class Goods implements CartItem {
 
 	String packagematerial;//種類
 	String saveway;//保存方式
+
+	public String getSales() {
+		return sales;
+	}
+
+	public void setSales(String sales) {
+		this.sales = sales;
+	}
+
+	String sales;//促銷
+
 //	@JsonIgnore++
 //	Blob image;
 //	String fileName;
@@ -79,7 +90,7 @@ public class Goods implements CartItem {
 	public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
 				 String packagematerial, String saveway, Timestamp admissionTime,
 				 CommonsMultipartFile[] productImage, String count, String system, String describe, String stars,
-				 String evaluation,String imageUrl) {
+				 String evaluation,String imageUrl,String sales) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -99,6 +110,7 @@ public class Goods implements CartItem {
 		this.stars = stars;
 		this.evaluation = evaluation;
 		this.imageUrl = imageUrl;
+		this.sales = sales;
 	}
 	public Goods() {
 		super();

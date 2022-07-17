@@ -219,13 +219,14 @@
                                         <th>商品名稱</th>
                                         <th class="none">成分</th>
                                         <th class="none">產地</th>
-                                        <th>保存期限</th>
+
                                         <th>價格(元)</th>
+                                        <th>推薦商品</th>
                                         <th>狀態</th>
                                         <th class="none">商品類別</th>
                                         <th class="none">保存方式</th>
 
-
+                                        <th class="none">保存期限</th>
                                         <th class="none">建檔日期</th>
                                         <th class="none">庫存數量:</th>
 <!--                                        <th>商品評價</th>-->
@@ -247,13 +248,14 @@
                                             <td th:text="${good.name}">2</td>
                                             <td th:text="${good.element}">3</td>
                                             <td th:text="${good.origin}">4</td>
-                                            <td th:text="${good.savetime}">5</td>
+
                                             <td th:text="${good.packages}">6</td>
+                                            <td th:text="${good.sales}">6</td>
                                             <td th:text="${good.system}">6</td>
                                             <td th:text="${good.packagematerial}">7</td>
                                             <td th:text="${good.saveway}">8</td>
 
-
+                                            <td th:text="${good.savetime}">5</td>
                                             <td th:text="${#dates.format(good.admissionTime,'yyyy-MM-dd HH:mm')}">8</td>
                                             <td th:text="${good.count}">8</td>
 <!--                                            <td> <button type="button"-->
