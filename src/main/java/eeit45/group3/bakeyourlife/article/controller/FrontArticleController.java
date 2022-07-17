@@ -43,19 +43,21 @@ public class FrontArticleController {
 
     @GetMapping(path = "/ArticleDetail")
     public String processQuery(@RequestParam(required = false) Integer postid,
+                               @RequestParam(required = false) String type,
                                Model model) throws IOException {
         Article article = articleService.selectOne(postid).orElse(null);
         if (article == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        //Message message = messageService.messageOne(messageId).orElse(null);
+
 //		article = listone.get(0);
         article.setCounter(article.getCounter() + 1);
         articleService.update(article);
 
-       // List<Message> messageAll = messageService.findMessageAll();
-        //model.addAttribute("messages", messageAll);
+
         model.addAttribute("article", article);
+        List<Article> articleType = articleService.findAllByTypeContaining(type);
+        model.addAttribute("selectType", articleType);
         return "article/ArticleDetail";
 
     }
@@ -101,26 +103,6 @@ public class FrontArticleController {
 
     }
 
-
-    @GetMapping(path = "/SelectType")
-    private String processSelectByType(@RequestParam(required = false) String type, Model m) {
-
-        List<Article> article = articleService.findAllByTypeContaining(type);
-        m.addAttribute("articles", article);
-
-        return "article/SelectArticle";
-
-    }
-
-    @GetMapping(path = "/SelectDate")
-    private String processSelectDate(@RequestParam(required = false) Date date, Model m) {
-
-        List<Article> article = articleService.findLatestDate(date);
-        m.addAttribute("article", article);
-
-        return "article/FrontArticle";
-
-    }
 
 
 }
