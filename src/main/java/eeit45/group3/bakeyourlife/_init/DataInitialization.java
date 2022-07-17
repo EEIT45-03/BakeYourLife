@@ -36,7 +36,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//@Component
+@Component
 public class DataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 
     //取消率
