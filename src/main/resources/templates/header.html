@@ -340,7 +340,7 @@
                                             我的租借
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/#/}">
+                                           th:href="@{/UserArticle}">
                                             <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-book"></i>
                                             我的文章
@@ -420,7 +420,7 @@
                         <!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
                         <!--                            </ul>-->
                         <!--                        </li>-->
-                        <li><a href="#">烘焙專欄</a>
+                        <li><a th:href="@{/FrontArticle}">烘焙專欄</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">烘焙專欄選單A</a></li>
                                 <li><a href="#">烘焙專欄選單B</a></li>
