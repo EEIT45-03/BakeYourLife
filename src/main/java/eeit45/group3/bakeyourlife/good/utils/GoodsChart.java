@@ -32,6 +32,9 @@ public class GoodsChart {
         } else {
             this.labels.add(data.getLabel());
         }
+//        if(data.getId()!=null){
+//            this.data.add()
+//        }
         this.data.add(data.getValue());
     }
 }
