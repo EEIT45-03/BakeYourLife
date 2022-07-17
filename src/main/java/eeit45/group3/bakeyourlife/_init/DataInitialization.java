@@ -57,7 +57,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     List<Goods> goods;
     List<CartItem> cartItems;
 
-    Set<String> orderNos= new HashSet<>();
+    Set<String> orderNos = new HashSet<>();
 
     private CouponService couponService;
     private FarmerProductService farmerProductService;
@@ -93,48 +93,49 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         ObjectMapper objectMapper = new ObjectMapper();
         List<FakeUserData> fakeUserDatas;
         try {
-            fakeUserDatas = objectMapper.readValue(resourceAsStream, new TypeReference<List<FakeUserData>>(){});
+            fakeUserDatas = objectMapper.readValue(resourceAsStream, new TypeReference<List<FakeUserData>>() {
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         //現在-365天
         Calendar cal = Calendar.getInstance();
-        cal.set(2021, Calendar.JULY,25,0,0,0);
+        cal.set(2021, Calendar.JULY, 25, 0, 0, 0);
 //        cal.add(Calendar.DATE, -365);
         Date now = cal.getTime();
 //        System.out.println(now);
 
-        for(int i = 0;i<365;i++){
+        for (int i = 0; i < 365; i++) {
             cal.add(Calendar.DATE, 1);
             Date date = cal.getTime();
 //            System.out.println(date);
             //每天產生3個會員
-            for (int j = 0;j<3;j++){
-            FakeUserData fakeUserData = fakeUserDatas.get(0);
-            fakeUserDatas.remove(fakeUserData);
-            User user = toUser(fakeUserData);
-            //隨機28800000(8H)~82800000(23H)
-            user.setRegisterTime(new Timestamp(date.getTime() + (long)(Math.random()*(82800000-28800000))));
-            users.add(user);
+            for (int j = 0; j < 3; j++) {
+                //隨機產生會員資料
+                FakeUserData fakeUserData = fakeUserDatas.get(new Random().nextInt(fakeUserDatas.size()));
+                fakeUserDatas.remove(fakeUserData);
+                User user = toUser(fakeUserData);
+                //隨機28800000(8H)~82800000(23H)
+                user.setRegisterTime(new Timestamp(date.getTime() + (long) (Math.random() * (82800000 - 28800000))));
+                users.add(user);
             }
 
 
             //產生訂單
 
-                users.forEach(user -> {
-                    //50%機率產生訂單
-                    if(Math.random()<0.3){
-                        long registerTime = user.getRegisterTime().getTime();
-                        //產生registerTime後的訂單，今天前的隨機時間
-                        long end = date.getTime()+86400000;
-                        //隨機registerTime~end隨機數字
-                        long orderDate = registerTime + (long)(Math.random()*(end+5-registerTime));
-                        Order order = genOrder(user, new Date(orderDate));
-                        orders.add(order);
-                    }
-                });
-
+            users.forEach(user -> {
+                //50%機率產生訂單
+                if (Math.random() < 0.3) {
+                    long registerTime = user.getRegisterTime().getTime();
+                    //產生registerTime後的訂單，今天前的隨機時間
+                    long end = date.getTime() + 86400000;
+                    //隨機registerTime~end隨機數字
+                    long orderDate = registerTime + (long) (Math.random() * (end + 5 - registerTime));
+                    Order order = genOrder(user, new Date(orderDate));
+                    orders.add(order);
+                }
+            });
 
 
         }
@@ -157,54 +158,55 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     /**
      * 轉成假資料
      * 帳號密碼為a+手機
+     *
      * @param fakeUserData
      * @return
      */
-    private User toUser(FakeUserData fakeUserData){
+    private User toUser(FakeUserData fakeUserData) {
         User user = new User();
-        user.setUsername("a"+fakeUserData.getPhone());
-        user.setPassword(encoder.encode("a"+fakeUserData.getPhone()));
+        user.setUsername("a" + fakeUserData.getPhone());
+        user.setPassword(encoder.encode("a" + fakeUserData.getPhone()));
         user.setFullName(fakeUserData.getName());
-        user.setEmail("a"+fakeUserData.getPhone() + "@example.com");
+        user.setEmail("a" + fakeUserData.getPhone() + "@example.com");
         user.setPhone(fakeUserData.getPhone());
         user.setAuthority("ROLE_USER");
         user.setImageUrl("https://i.imgur.com/gEHJxsi.jpg");
         user.setAddress(fakeUserData.getAddress());
         //隨機0、1
-        int random = (int)(Math.random()*2);
-        user.setGender(random==0?"男":"女");
+        int random = (int) (Math.random() * 2);
+        user.setGender(random == 0 ? "男" : "女");
         user.setBirth(genRandomDate());
         return user;
     }
 
-    private Order genOrder(User user,Date date){
+    private Order genOrder(User user, Date date) {
 //        //隨機1~100
-        long random = (int)(Math.random()*100);
+        long random = (int) (Math.random() * 100);
         Order order = genCart().getOrder();
         order.setUser(user);
         order.setOrderDate(date);
         DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         int end;
-		do {
-            end = (int) (Math.random()*10);
+        do {
+            end = (int) (Math.random() * 10);
             order.setOrderNo(df.format(date) + end);
-        }while (orderNos.contains(order.getOrderNo()));
+        } while (orderNos.contains(order.getOrderNo()));
 //		order.setOrderNo(df.format(date) + end);
         orderNos.add(order.getOrderNo());
-        if(random<CANCELLED_RATE){
+        if (random < CANCELLED_RATE) {
             order.setOrderStatus(OrderStatus.CANCELLED);
             order.setAddress(user.getAddress());
             order.setReview(false);
-            order.setPayType(Math.random()<0.5? PayType.ECPAY:PayType.PAYPAL);
-        }else if(random>CANCELLED_RATE && random<CANCELLED_RATE+REFUND_RATE) {
+            order.setPayType(Math.random() < 0.5 ? PayType.ECPAY : PayType.PAYPAL);
+        } else if (random > CANCELLED_RATE && random < CANCELLED_RATE + REFUND_RATE) {
             order.setOrderStatus(OrderStatus.REFUNDED);
             order.setAddress(user.getAddress());
             order.setReview(false);
             order.setPayType(Math.random() < 0.5 ? PayType.ECPAY : PayType.PAYPAL);
-            random = (long)(Math.random()*(86400000-300000))+300000;
-            order.setPayDate(new Timestamp(date.getTime()+random));
+            random = (long) (Math.random() * (86400000 - 300000)) + 300000;
+            order.setPayDate(new Timestamp(date.getTime() + random));
             //0~2
-            random = (int)(Math.random()*3);
+            random = (int) (Math.random() * 3);
             switch ((int) random) {
                 case 0:
                     order.setRefundReason("等太久");
@@ -216,16 +218,16 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
                     order.setRefundReason("買錯東西");
                     break;
             }
-        }else{
-        order.setOrderStatus(OrderStatus.FINISH);
-        order.setAddress(user.getAddress());
-        order.setReview(false);
-        order.setPayType(Math.random()<0.5? PayType.ECPAY:PayType.PAYPAL);
-        //隨機300000~86400000(1D)數字
-        random = (long)(Math.random()*(86400000-300000))+300000;
-        order.setPayDate(new Timestamp(date.getTime()+random));
-        random = (long)(Math.random()*(86400000*7-43200000))+random;
-        order.setShipDate(new Timestamp(date.getTime()+random));
+        } else {
+            order.setOrderStatus(OrderStatus.FINISH);
+            order.setAddress(user.getAddress());
+            order.setReview(false);
+            order.setPayType(Math.random() < 0.5 ? PayType.ECPAY : PayType.PAYPAL);
+            //隨機300000~86400000(1D)數字
+            random = (long) (Math.random() * (86400000 - 300000)) + 300000;
+            order.setPayDate(new Timestamp(date.getTime() + random));
+            random = (long) (Math.random() * (86400000 * 7 - 43200000)) + random;
+            order.setShipDate(new Timestamp(date.getTime() + random));
         }
         return order;
     }
@@ -233,7 +235,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
     private Cart genCart() {
         //隨機1~5
-        int buyNum = (int) (Math.random() * 5)+1;
+        int buyNum = (int) (Math.random() * 5) + 1;
         int productNum = cartItems.size();
         Cart cart = new Cart();
         //建立隨機商品及數量
@@ -242,14 +244,14 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
             int random = (int) (Math.random() * productNum);
             CartItem cartItem = cartItems.get(random);
             int qty = 1;
-            if(cartItem.getCartPrice()<500){
+            if (cartItem.getCartPrice() < 500) {
                 qty = (int) (Math.random() * 10);
             }
             cart.addItem(cartItem, qty);
         }
         //是否使用優惠券0、1
-        int random = (int)(Math.random()*2);
-        if(random==1){
+        int random = (int) (Math.random() * 2);
+        if (random == 1) {
             cart.setCoupon(coupon);
             couponUsedNumber++;
         }
@@ -258,15 +260,14 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     }
 
 
-
-    private String genRandomDate(){
+    private String genRandomDate() {
         //1957~2007
-        int year = (int)(Math.random()*(2007-1957+1))+1957;
+        int year = (int) (Math.random() * (2007 - 1957 + 1)) + 1957;
         //1~12
-        int month = (int)(Math.random()*12)+1;
+        int month = (int) (Math.random() * 12) + 1;
         //1~25
-        int day = (int)(Math.random()*25)+1;
-        return year+"-"+month+"-"+day;
+        int day = (int) (Math.random() * 25) + 1;
+        return year + "-" + month + "-" + day;
     }
 }
 
