@@ -3,13 +3,19 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -21,6 +27,9 @@ public class FarmerProductSupplierController {
     FarmerProductService farmerProductService;
 
     FarmerService farmerService;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @Autowired
     public FarmerProductSupplierController(FarmerProductService farmerProductService, FarmerService farmerService) {
@@ -44,7 +53,7 @@ public class FarmerProductSupplierController {
         return "redirect:/login";
     }
 
-    @GetMapping("UpdateSupplier")
+    @GetMapping("/UpdateSupplier")
     public String viewUpdateSupplier(Principal principal, Model model) {
         if (principal != null) {
             Farmer farmer = farmerService.findByUsername(principal.getName());
@@ -55,6 +64,38 @@ public class FarmerProductSupplierController {
         }
         return "redirect:/login";
     }
+
+
+    @PostMapping("/UpdateSupplier")
+    public String updateSupplier(Authentication authentication, @RequestParam(required = false) Farmer password, Farmer farmer) {
+
+        Farmer farmerDB = farmerService.getCurrentFarmer(authentication);
+//        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
+        MultipartFile productImage = farmer.getProductImage();
+        if (productImage.getSize() == 0) {
+            farmer.setImageUrl(farmerDB.getImageUrl());
+        } else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+            farmer.setImageUrl(link);
+        }
+
+        if (farmer.getPassword() == null){
+            farmer.setPassword(farmerDB.getPassword());
+        }else {
+            farmer.setPassword(encoder.encode(farmer.getPassword()));
+        }
+
+        farmer.setRegisterTime(farmerDB.getRegisterTime());
+        farmer.setAuthority(farmerDB.getAuthority());
+        farmer.setFarmerId(farmerDB.getFarmerId());
+        farmerService.updateFarmer(farmer);
+        farmerService.setCurrentFarmer(authentication,farmer);
+        return "farmerproduct/UpdateSupplier";
+
+
+    }
+
+
 
 
     @GetMapping("SupplierProductList")
