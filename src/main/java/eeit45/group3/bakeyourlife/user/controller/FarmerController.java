@@ -1,10 +1,13 @@
 package eeit45.group3.bakeyourlife.user.controller;
 
 import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,10 +26,15 @@ import java.util.List;
 public class FarmerController {
 
     FarmerService farmerService;
+    UserService userService;
 
     @Autowired
-    public FarmerController(FarmerService farmerService) {
+    PasswordEncoder encoder;
+
+    @Autowired
+    public FarmerController(FarmerService farmerService,UserService userService) {
         this.farmerService = farmerService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -36,14 +44,14 @@ public class FarmerController {
         return "admin/user/Farmer";
     }
 
-    @GetMapping("CreateFarmer")
+    @GetMapping("/CreateFarmer")
     public String viewCreateFarmer(Model model) {
         model.addAttribute("farmer",new Farmer());
 
         return "admin/user/CreateFarmer";
     }
 
-    @PostMapping("CreateFarmer")
+    @PostMapping("/CreateFarmer")
     public String CreateFarmer(Farmer farmer) {
         MultipartFile productImage = farmer.getProductImage();
         if(productImage.getSize() == 0){
@@ -76,6 +84,7 @@ public class FarmerController {
     public String updateUser(@RequestParam("farmerId")Integer farmerId, Farmer farmer) {
 
         Farmer farmerDB = farmerService.findByFarmerId(farmerId);
+
         MultipartFile productImage = farmer.getProductImage();
         if(productImage.getSize() == 0){
             farmer.setImageUrl(farmerDB.getImageUrl());
@@ -83,6 +92,13 @@ public class FarmerController {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             farmer.setImageUrl(link);
         }
+        //-------------------------------------------------------------------------------------------
+        if (farmer.getPassword().length() == 0){
+            farmer.setPassword(farmerDB.getPassword());
+        }else {
+            farmer.setPassword(encoder.encode(farmer.getPassword()));
+        }
+        //-------------------------------------------------------------------------------------------
         farmer.setRegisterTime(farmerDB.getRegisterTime());
         farmer.setAuthority(farmerDB.getAuthority());
         farmerService.updateFarmer(farmer);
@@ -98,13 +114,12 @@ public class FarmerController {
     }
     @PostMapping(value = "/CheckFarmer", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean CheckFarmer(@RequestParam String username) {
+        User user = userService.findByUsername(username);
         Farmer farmer = farmerService.findByUsername(username);
-        return farmer == null;
-//        if (farmer == null) {
-//            return true;
-//        }
-//        return false;
-//    }
+        if (user == null && farmer == null) {
+            return true;
+        }
+        return false;
     }
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {

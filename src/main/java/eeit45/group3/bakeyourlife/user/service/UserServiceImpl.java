@@ -70,7 +70,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         // 修改的加密密碼改在controller
-
 //        user.setPassword(encoder.encode(user.getPassword()));
         repository.save(user);
 

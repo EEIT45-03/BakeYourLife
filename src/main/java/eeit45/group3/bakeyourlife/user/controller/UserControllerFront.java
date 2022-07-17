@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.user.controller;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,26 +23,26 @@ import java.sql.Timestamp;
 public class UserControllerFront {
 
     UserService userService;
-
-    CustomUserDetails customUserDetails;
+    FarmerService farmerService;
 
     @Autowired
     PasswordEncoder encoder;
 
     @Autowired
-    public UserControllerFront(UserService userService) {
+    public UserControllerFront(UserService userService,FarmerService farmerService) {
+
         this.userService = userService;
+        this.farmerService = farmerService;
+
     }
 
     @GetMapping("SignUp")
     public String viewSignUp(Model model ) {
         model.addAttribute("user", new User());
-
-
         return "SignUp";
     }
     @PostMapping("SignUp")
-    public String SignUp(User user) {
+    public String SignUp(Authentication authentication,User user) {
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
             String pic = "https://i.imgur.com/gEHJxsi.jpg";
@@ -55,6 +56,29 @@ public class UserControllerFront {
         user.setRegisterTime(ts);
         user.setAuthority("ROLE_USER");
         userService.save(user);
+
+        return "redirect:login";
+    }
+    @GetMapping("FarmerSignUp")
+    public String viewFarmerSignUp(Model model ) {
+        model.addAttribute("farmer", new Farmer());
+        return "FarmerSignUp";
+    }
+    @PostMapping("FarmerSignUp")
+    public String FarmerSignUp(Farmer farmer) {
+        MultipartFile productImage = farmer.getProductImage();
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            farmer.setImageUrl(pic);
+        }else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+            farmer.setImageUrl(link);
+        }
+//        ----------------------------------------------------------
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        farmer.setRegisterTime(ts);
+        farmer.setAuthority("ROLE_FARMER");
+        farmerService.save(farmer);
         return "redirect:login";
     }
     @GetMapping("/User/UserData")
@@ -81,8 +105,7 @@ public class UserControllerFront {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
-//        System.out.println("----------------------------------------");
-//        System.out.println(user.getPassword());
+
         if (user.getPassword() == null){
             user.setPassword(userDB.getPassword());
         }else {
@@ -99,11 +122,11 @@ public class UserControllerFront {
 
     }
 
-
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
         User user = userService.findByUsername(username);
-        if (user == null) {
+        Farmer farmer = farmerService.findByUsername(username);
+        if (user == null && farmer == null) {
             return true;
         }
         return false;

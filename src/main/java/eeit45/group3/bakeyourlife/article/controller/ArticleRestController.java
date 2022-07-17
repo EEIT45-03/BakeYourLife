@@ -62,21 +62,21 @@ public class ArticleRestController {
     }
     @PostMapping(value = "/ArticleAdd")
     public ResponseEntity<Article> insert(@Valid
-            @RequestParam String title,
-                                          Principal principal, Authentication authentication,
+            @RequestParam String title,BindingResult bindingResult,
+                                          Authentication authentication,
                                           @RequestParam String type,
                                           @RequestParam java.sql.Date date,
                                           @RequestParam String content,
                                           @RequestParam ("articleImage")  MultipartFile articleImage) {
 
 //        if (bindingResult.hasErrors()) {
-//            //model = new ModelAndView("customerCreate");
-//            //return model;
+////            //model = new ModelAndView("customerCreate");
+////            //return model;
 //            return ResponseEntity.ok("valid");
-//        }
+//       }
         //User userName = userService.findByUsername(principal.getName());
         ///User userid = userService.findByUserId(userId);
-        //User user = userService.
+        User user = userService.getCurrentUser(authentication);
         Article m = new Article();
         m.setTitle(title);
         m.setType(type);
@@ -85,6 +85,7 @@ public class ArticleRestController {
         m.setCounter(0);
         //m.setUser(userid);
         //m.setUser(userName);
+        m.setUser(user);
         m.setImageUrl(ImgurService.updateByMultipartFile(articleImage).getLink());
         //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(articleImage).getLink());
@@ -92,16 +93,19 @@ public class ArticleRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createArticle);
     }
 
-    @PutMapping(value = "/ArticleUpdate/{postid}")
+    @PutMapping(value = "/ArticleUpdate/{userId}")
     public ResponseEntity<Article> update(
-            @RequestParam("postid")Integer postid,
+            @RequestParam("userId")Integer userId,
+            @RequestParam Integer postid,
             @RequestParam String title,
-            Principal principal,
+            Authentication authentication,
             @RequestParam String type,
             @RequestParam java.sql.Date date,
             @RequestParam String content,
             @RequestParam ("articleImage")  MultipartFile articleImage) {
 
+        User user = userService.getCurrentUser(authentication);
+        //User userid = userService.findByUserId(userId);
         Article update = new Article();
         update.setPostid(postid);
         update.setTitle(title);
@@ -110,6 +114,8 @@ public class ArticleRestController {
         update.setDate(date);
         update.setContent(content);
         update.setCounter(0);
+        update.setUser(user);
+        update.setUser(userService.findByUserId(userId));
         update.setImageUrl(ImgurService.updateByMultipartFile(articleImage).getLink());
         //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(articleImage).getLink());
@@ -117,32 +123,37 @@ public class ArticleRestController {
         return ResponseEntity.status(HttpStatus.OK).body(UpdateArticle);
     }
 
-    @DeleteMapping("/ArticleDelete/{postid}")
-    public ResponseEntity<Article> delete(@PathVariable Integer postid) {
-        articleService.delete(postid);
+    @DeleteMapping("/ArticleDelete/{userId}")
+    public ResponseEntity<Article> delete(@PathVariable Integer userId) {
+        articleService.delete(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping(value = "/MessageAdd")
     public ResponseEntity<Message> insert(
-            @RequestParam String userName,
-            Principal principal,
+//            @RequestParam String userName,
+            Authentication authentication,
             @RequestParam String message,
-            @RequestParam Integer postid,
+            @RequestParam Integer postid,@RequestParam ("messageImage")  MultipartFile messageImage
+//            @RequestParam Integer userId,
             //@RequestParam Date datetime,
-            @RequestParam ("messageImage")  MultipartFile messageImage) {
+           ) {
 
+        User user = userService.getCurrentUser(authentication);
         Message m = new Message();
         m.setMessage(message);
-        User user = userService.findByUsername(principal.getName());
-        m.setUserName(userName);
+        //User user = userService.findByUsername(principal.getName());
+        //m.setUserName(userName);
         Date date = new Date();
         m.setDateTime(date);
+        m.setUser(user);
+       //m.setUser(userService.findByUsername(userName));
+        //m.setUser(userService.findByUserId(userId));
         m.setImageUrl(ImgurService.updateByMultipartFile(messageImage).getLink());
         Article article = articleService.selectOne(postid).orElse(null);;
         m.setArticle(article);
         //m.setMessageImage(messageImage);
-        System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(messageImage).getLink());
+       // System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(messageImage).getLink());
         Message createMessage = messageService.insert(m);
         return ResponseEntity.status(HttpStatus.CREATED).body(createMessage);
     }
