@@ -197,12 +197,18 @@ public class ShoppingCartController {
     @GetMapping("/Cart/useCoupon")
     public ResponseEntity<Cart> useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
+                            Authentication authentication,
                             Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
         Date now = new Date();
         if(coupon == null || !"進行中".equals(coupon.getState()) || !(coupon.getMaxQuantity()>coupon.getUsedQuantity())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        User currentUser = userService.getCurrentUser(authentication);
+        if(orderService.findByByCoupon(currentUser, coupon) != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
         cart.setCoupon(coupon);
         //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);

@@ -70,84 +70,24 @@
           </div>
           <div class="card-body">
             <div class="">
-              <table class="table table-striped text-center" id="oredrTable">
+              <table class="table table-striped text-center" id="oredrTable" width="100%">
                 <thead>
                 <tr>
-                  <th></th>
-                  <th>編號</th>
-                  <th>訂單編號</th>
-                  <th>帳號</th>
-                  <th>訂單日期</th>
-                  <th>付款方式</th>
-                  <th>總金額</th>
-                  <th>訂單狀態</th>
-                  <th>訂單明細</th>
-                  <th>操作</th>
+<!--                  <th></th>-->
+                  <th style="width:7%;">編號</th>
+                  <th style="width:10%;">訂單編號</th>
+                  <th style="width:10%;">帳號</th>
+                  <th style="width:20%;">訂單日期</th>
+                  <th style="width:10%;">付款方式</th>
+                  <th style="width:10%;">總金額</th>
+                  <th style="width:10%;">訂單狀態</th>
+                  <th style="width:10%;">訂單明細</th>
+                  <th style="width:13%;">操作</th>
 <!--                  <th class="none">訂單商品</th>-->
 <!--                  <th class="none">地址</th>-->
                 </tr>
                 </thead>
                 <tbody>
-
-
-<!--                  <c:set var="orderItemList" value="${order.orderItemList}" />-->
-                  <tr th:each="order: ${orders}">
-                    <td></td>
-                    <td th:text="${order.orderId}">1</td>
-                    <td th:text="${order.orderNo}">222222222222222</td>
-                    <td th:text="${order.user.username}">user</td>
-                    <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}">2022/06/15 00:00</td>
-                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}">---</td>
-                    <td th:text="|NT$${order.totalPrice}|">NT$1000</td>
-                    <td th:text="${order.orderStatus.code}"></td>
-                      <td>                        <button type="button"
-                                                          class="btn btn-info btn-sm"
-                                                          th:onclick="|showAlert(${order.orderId})|">
-														<span class="icon text-white-50">
-                                                          <i class="fa-solid fa-info"></i> 訂單明細
-														</span>
-                      </button></td>
-                    <td class="text-right">
-<!--                      <button type="button"-->
-<!--                              class="btn btn-warning btn-sm"-->
-<!--                              th:onclick="|updateAlert(${order.orderId})|">-->
-<!--														<span class="icon text-white-50"> <i-->
-<!--                                                                class="fas fa-exclamation-triangle"></i>-->
-<!--														</span>-->
-<!--                      </button>-->
-                      <button th:if="${order.orderStatus.code} == '待出貨'" type="button"
-                              class="btn btn-warning btn-sm mr-3"
-                              th:attr="onclick=|shipAlert('${order.orderNo}')|">
-														<span class="icon text-gray-50">
-                                                          <i class="fa-solid fa-truck-fast"></i> 發貨
-														</span>
-                      </button>
-
-                        <button th:if="${order.orderStatus.code} == '退款審核中'" type="button"
-                                class="btn btn-danger btn-sm mr-2"
-                                th:attr="onclick=|refundingAlert('${order.orderNo}','${order.refundReason}')|">
-														<span class="icon text-danger-50">
-                                                          <i class="fa-solid fa-sack-dollar"></i> 處理退款
-														</span>
-                        </button>
-                      <button type="button"
-                              class="btn btn-danger btn-sm ml-2"
-                              th:onclick="|deleteAlert(${order.orderId})|">
-														<span class="icon text-white-50"> <i
-                                                                class="fas fa-trash"></i>
-														</span>
-                      </button>
-
-                    </td>
-<!--                    <td>-->
-
-<!--                      <ul th:each="orderItem:${order.orderItemList}">-->
-<!--                          <li><span th:text="|商品名稱: ${orderItem.productName} 數量:${orderItem.qty } 小計: NT$${orderItem.subTotal}|"></span></li>-->
-<!--                      </ul>-->
-<!--                    </td>-->
-<!--                    <td th:text="${order.address}"></td>-->
-
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -179,30 +119,79 @@
 <script>
 
     $('#oredrTable').DataTable({
+        serverSide: true,
+        pagingType: "full_numbers",
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
         },
-        responsive: {
-            details: {
-                type: 'column'
-            }
+        ajax: {
+            'url': '[[@{/OrdersByDT}]]',
         },
-        columnDefs: [{
-            className: 'dtr-control',
-            orderable: false,
-            targets: 0
-        }, {
-            className: 'dt-center',
-            targets: [1, 2, 3, 4, 5, 6, 7]
-        }],
-        order: [1, 'asc']/*,
-          dom: 'Bfrtip',
-          buttons: [
-              'copyHtml5',
-              'excelHtml5',
-              'csvHtml5'
-          ]*/
+        columns: [
+            {data: 'orderId'},
+            {data: 'orderNo'},
+            {data: 'user.username'},
+            {data: 'orderDate'},
+            {data: 'payType',
+                render:function (data, type, row) {
+                    if(data==='ECPAY'){
+                        return '綠界支付';
+                    }else {
+                        return data;
+                    }
+                }},
+            {data: 'totalPrice',
+                render:function (data, type, row) {
+                    return 'NT$'+data;
+                }},
+            {data: 'orderStatus'},
+            {
+                data: 'orderId',
+                render: function (data, type, row) {
+                    return `<button type="button" class="btn btn-info btn-sm" onclick="showAlert(${data})">
+<span class="icon text-white-50"> <i class="fa-solid fa-info"></i> 訂單明細 </span>
+                          </button>`;
+                },
+                searchable: false,
+                orderable: false
+            },
+            {
+                data: 'orderNo',
+                render: function (data, type, row) {
+                    let btn = '';
+                    var orderStatus = row.orderStatus;
+                     if (orderStatus === '待出貨') {
+                        return `<button type="button" class="btn btn-success btn-sm" onclick="shipAlert('${data}')">
+<span class="icon text-danger-50">
+<i class="fa-solid fa-truck-fast"></i> 發貨
+</span>
+</button>`;
+                    }else if (orderStatus === '退款審核中') {
+                        if(row.review === false){
+                            return `<button type="button" class="btn btn-danger btn-sm" onclick="refundingAlert('${data}','${row.refundReason}')">
+<span class="icon text-danger-50">
+<i class="fa-solid fa-sack-dollar"></i> 處理退款
+</span>
+</button>`;
+                        }else {
+                            return '已評價';
+                        }
+                    }
+
+                    btn += `<button type="button"
+                              class="btn btn-danger btn-sm ml-2 text-right"
+                              onclick="deleteAlert(${row.orderId})">
+<span class="icon text-white-50"> <i class="fas fa-trash"></i> 刪除 </span> </button>`
+
+                    return btn;
+                },
+                searchable: false,
+                orderable: false
+            }
+        ],
+        order: [0, 'asc']
     });
+
 </script>
 
 </body>

@@ -1,12 +1,8 @@
 package eeit45.group3.bakeyourlife.order.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
@@ -15,6 +11,8 @@ import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -87,6 +85,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public Order findByByCoupon(User user, Coupon coupon) {
+		if(coupon != null){
+			return orderRepository.findByCouponAndUser(coupon,user);
+		}
+		return null;
+	}
+
+	@Override
 	public Long count() {
 		return orderRepository.count();
 	}
@@ -115,7 +121,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findAll() {
-		return orderRepository.findAll();
+		return (List<Order>) orderRepository.findAll();
+	}
+
+	@Override
+	public DataTablesOutput<Order> findAll(DataTablesInput input) {
+		return orderRepository.findAll(input);
 	}
 
 	@Override
