@@ -2,7 +2,12 @@
 SET
 IDENTITY_INSERT [dbo].[farmers] ON
 
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (1, N'320桃園市中壢區新生路二段421號', N'ROLE_FARMER', N'ddfoew133@gmail.com', N'123', N'聖德小農', N'https://i.imgur.com/xZPc9iL.jpg', N'$2a$10$/8NjHp7kfnUPJhqjh3isaOXMrYTGIq89dmDoF4XvO5hY2gifSSxZu', N'0998765432', CAST(N'2022-07-14T10:16:40.5780000' AS DateTime2), N'a123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url],
+                        [password], [phone], [register_time], [username])
+VALUES (1, N'320桃園市中壢區新生路二段421號', N'ROLE_FARMER', N'ddfoew133@gmail.com',
+        N'農場位於桃園聖德山後山山腳下，長年使用天然的山泉水灌概，以友善的方式涵養土壤，使果園孕育出優質的有機水果。', N'聖德小農',
+        N'https://i.imgur.com/H6pJVIo.png', N'$2a$10$/8NjHp7kfnUPJhqjh3isaOXMrYTGIq89dmDoF4XvO5hY2gifSSxZu',
+        N'0998765432', CAST(N'2022-07-14T10:16:40.5780000' AS DateTime2), N'a123456')
 SET IDENTITY_INSERT [dbo].[farmers] OFF
 
 --一般商品

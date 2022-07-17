@@ -123,13 +123,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">小農評論管理</h1>
-                <p class="mb-4">
+                <h1 class="h3 mb-2 text-gray-800">評論管理</h1>
+                <!--                <p class="mb-4">-->
 
-                    <button type="button" class="btn btn-primary btn-icon-split btn-sm create">
-                        <span class="icon text-white-50"><i class="fas fa-plus"></i></span><span
-                            class="text">建立評論</span></button>
-                </p>
+                <!--                    <button type="button" class="btn btn-primary btn-icon-split btn-sm create">-->
+                <!--                        <span class="icon text-white-50"><i class="fas fa-plus"></i></span><span-->
+                <!--                            class="text">建立評論</span></button>-->
+                <!--                </p>-->
 
 
                 <!-- DataTales Example -->
@@ -158,9 +158,16 @@
                                     <td th:text="${comment.productCommentId}"></td>
                                     <td th:text="${comment.user.username}"></td>
                                     <td class="namelink">
-                                        <a th:href="@{/FarmerProductSupplier/ShopDetails(farmerProductId=${comment.farmerProductBean.farmerProductId})}"
+                                        <span th:if="${comment.farmerProductBean}!=null">
+                                        <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${comment.farmerProductBean.farmerProductId})}"
                                            th:text="${comment.farmerProductBean.name}" target=" _blank">
                                         </a>
+                                        </span>
+                                        <span th:if="${comment.goods}!=null">
+                                             <a th:href="@{/Goods1/Picture(id=${comment.goods.id},name=${comment.goods.name})}"
+                                                th:text="${comment.goods.name}" target=" _blank">
+                                             </a>
+                                        </span>
                                     </td>
                                     <td>
                                         <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
@@ -233,26 +240,26 @@
 
     });
 
-
-    $(".create").on("click", function () {
-
-        Swal.showLoading()
-        fetch('./CreateProductComment')
-            .then(response => response.text())
-            .then(function (data) {
-
-                Swal.fire({
-                    title: '建立評論',
-                    icon: 'info',
-                    html: data,
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    focusConfirm: false
-                })
-            });
-
-    })
+    //
+    // $(".create").on("click", function () {
+    //
+    //     Swal.showLoading()
+    //     fetch('./CreateProductComment')
+    //         .then(response => response.text())
+    //         .then(function (data) {
+    //
+    //             Swal.fire({
+    //                 title: '建立評論',
+    //                 icon: 'info',
+    //                 html: data,
+    //                 showCloseButton: true,
+    //                 showCancelButton: false,
+    //                 showConfirmButton: false,
+    //                 focusConfirm: false
+    //             })
+    //         });
+    //
+    // })
 
 
     //跳出修改
@@ -319,45 +326,45 @@
 
     // ====================新增========================
 
-    function sendcreate() {
-        var xhr = new XMLHttpRequest();
-        var jsonString = JSON.stringify(getComment());
-        console.log(jsonString);
-        if (check()) {
-            var userId = $("#userId").val();
-            var farmerProductId = $("#farmerProductId").val();
-            xhr.onreadystatechange = function () {
-                //建立成功，狀態碼會是201
-                if (xhr.readyState === 4 && xhr.status === 201) {
-                    Swal.fire(
-                        '新增成功!',
-                        ':D',
-                        'success'
-                    ).then((result) => {
-                        if (result.isConfirmed) {
-                            location = "./";
-                        }
-                    })
-                } else if (xhr.status === 400) {
-                    Swal.fire(
-                        '新增失敗!',
-                        json.message,
-                        'error'
-                    )
-                }
-            }
-            xhr.open("POST", '[[@{/ProductComments/}]]' + userId + '/' + farmerProductId, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.send(jsonString);
-        } else {
-            Swal.fire(
-                '有欄位未填寫',
-                '請填寫完整，謝謝!!',
-                'error'
-            )
-        }
-
-    }
+    // function sendcreate() {
+    //     var xhr = new XMLHttpRequest();
+    //     var jsonString = JSON.stringify(getComment());
+    //     console.log(jsonString);
+    //     if (check()) {
+    //         var userId = $("#userId").val();
+    //         var farmerProductId = $("#farmerProductId").val();
+    //         xhr.onreadystatechange = function () {
+    //             //建立成功，狀態碼會是201
+    //             if (xhr.readyState === 4 && xhr.status === 201) {
+    //                 Swal.fire(
+    //                     '新增成功!',
+    //                     ':D',
+    //                     'success'
+    //                 ).then((result) => {
+    //                     if (result.isConfirmed) {
+    //                         location = "./";
+    //                     }
+    //                 })
+    //             } else if (xhr.status === 400) {
+    //                 Swal.fire(
+    //                     '新增失敗!',
+    //                     json.message,
+    //                     'error'
+    //                 )
+    //             }
+    //         }
+    //         xhr.open("POST", '[[@{/ProductComments/}]]' + userId + '/' + farmerProductId, true);
+    //         xhr.setRequestHeader("Content-type", "application/json");
+    //         xhr.send(jsonString);
+    //     } else {
+    //         Swal.fire(
+    //             '有欄位未填寫',
+    //             '請填寫完整，謝謝!!',
+    //             'error'
+    //         )
+    //     }
+    //
+    // }
 
     // ===================修改========================
     function sendupdate(productCommentId) {

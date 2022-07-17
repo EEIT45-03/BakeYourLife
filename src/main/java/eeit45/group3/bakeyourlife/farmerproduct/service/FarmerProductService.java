@@ -15,7 +15,13 @@ public interface FarmerProductService {
 
     List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state);
 
+    List<FarmerProductBean> findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(Integer farmerId);
+
     List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type);
+
+    List<FarmerProductBean> findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(String type, Integer farmerProductId);
+
+    List<FarmerProductBean> findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(String type, Integer farmerId);
 
 
     FarmerProductBean findByFarmerProductId(Integer farmerProductId);
@@ -23,6 +29,8 @@ public interface FarmerProductService {
     Long count();
 
     Long countByFarmerId(Integer id);
+
+    Integer saleAmountByFarmerId(Integer farmerId);
 
 
     void insert(FarmerProductBean farmerProductBean);

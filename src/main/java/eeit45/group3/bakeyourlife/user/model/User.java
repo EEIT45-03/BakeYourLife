@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.user.model;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -33,6 +34,9 @@ public class User implements Serializable {
     MultipartFile productImage;
 
     private String imageUrl;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<ProductComment> productCommentList;
 
 
     public User() {
@@ -90,7 +94,7 @@ public class User implements Serializable {
 
     }
 
- 
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -195,6 +199,13 @@ public class User implements Serializable {
         this.productImage = productImage;
     }
 
+    public List<ProductComment> getProductCommentList() {
+        return productCommentList;
+    }
+
+    public void setProductCommentList(List<ProductComment> productCommentList) {
+        this.productCommentList = productCommentList;
+    }
     @Override
     public String toString() {
         return "User{" +

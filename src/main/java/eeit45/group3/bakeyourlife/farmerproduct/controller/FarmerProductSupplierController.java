@@ -45,6 +45,8 @@ public class FarmerProductSupplierController {
             System.out.println(principal.getName());
             if (farmer.getFarmerId() != null) {
                 model.addAttribute("farmer", farmer);
+                Integer saleAmount = farmerProductService.saleAmountByFarmerId(farmer.getFarmerId());
+                model.addAttribute("saleAmount", saleAmount);
                 Long count = farmerProductService.countByFarmerId(farmer.getFarmerId());
                 model.addAttribute("count", count);
                 return "farmerproduct/SupplierChart";
