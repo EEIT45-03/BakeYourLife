@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>好文內容</title>
+
+    <div th:replace="/css.html"></div>
+
+    <style>
+
+        .comment_area {
+            border-bottom: 1px solid #ebebeb;
+        }
+
+        .single_comment_area {
+            position: relative;
+            z-index: 1;
+        }
+
+        .single_comment_area:after {
+            position: absolute;
+            width: 1px;
+            height: 90%;
+            background-color: #ebebeb;
+            left: 100px;
+            top: 0;
+            z-index: 2;
+            content: ''
+        }
+
+        .single_comment_area ol li.single_comment_area {
+            margin-left: 130px;
+        }
+
+
+        .single_comment_area ol li.single_comment_area:after {
+            display: none;
+        }
+
+
+        .comment-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .comment-wrapper .comment-author {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-right: 60px;
+        }
+
+        .single_comment_area ol li.single_comment_area .comment-wrapper .comment-author {
+            margin-right: 30px;
+        }
+
+        .comment-wrapper .comment-author img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .comment-wrapper .comment-content {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+
+        .comment-wrapper .comment-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comment-wrapper .comment-content h5 {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .comment-wrapper .comment-content a {
+            min-width: 80px;
+            height: 30px;
+            border: 1px solid #ebebeb;
+            line-height: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #232d37;
+            display: inline-block;
+        }
+
+        .comment-wrapper .comment-content a.active {
+            color: #fff;
+            background-color: #fc6c3f;
+        }
+
+        @media (min-width: 320px) and (max-width: 767px) {
+            .comment-wrapper .comment-author {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+            .single_comment_area::after {
+                display: none;
+            }
+            .single_comment_area ol li.single_comment_area {
+                margin-left: 30px;
+            }
+            .single_comment_area ol li.single_comment_area .comment-wrapper .comment-author {
+                margin-right: 10px;
+            }
+            .single_comment_area ol li.single_comment_area {
+                margin-left: 15px;
+            }
+        }
+
+
+        @media (min-width: 576px) and (max-width: 767px) {
+            .comment-wrapper .comment-author {
+                margin-right: 60px;
+                width: 70px;
+                height: 70px;
+            }
+
+            .single_comment_area::after {
+                display: block;
+            }
+
+            .single_comment_area ol li.single_comment_area {
+                margin-left: 60px;
+            }
+
+            .single_comment_area ol li.single_comment_area .comment-wrapper .comment-author {
+                margin-right: 30px;
+            }
+
+            .single_comment_area ol li.single_comment_area {
+                margin-left: 130px;
+            }
+        }
+        /*    .login-button { !* 按鈕美化 *!*/
+        /*        width: 270px; !* 寬度 *!*/
+        /*        height: 40px; !* 高度 *!*/
+        /*        border-width: 0px; !* 邊框寬度 *!*/
+        /*        border-radius: 3px; !* 邊框半徑 *!*/
+        /*        background: #b08968; !* 背景顏色 *!*/
+        /*        !*cursor: pointer; !* 滑鼠移入按鈕範圍時出現手勢 *!*!*/
+        /*        !*outline: none; !* 不顯示輪廓線 *!*!*/
+        /*        !*font-family: Microsoft YaHei; !* 設定字型 *!*!*/
+        /*        color: #b08968; !* 字型顏色 *!*/
+        /*        font-size: 17px; !* 字型大小 *!*/
+        /*    }*/
+        /*    .login-button:hover { !* 滑鼠移入按鈕範圍時改變顏色 *!*/
+        /*        background: #b08968;*/
+        /*    }*/
+
+        /*}*/
+    </style>
+</head>
+
+<body>
+<div th:replace="/header.html"></div>
+<div th:replace="/menu.html"></div>
+
+
+<!-- Blog Details Hero Begin -->
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="/img/blog/details/img4.png" alt="...">
+            <!--            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="..." width="300" height="300">-->
+            <!--            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="..." width="300" height="300">-->
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- Blog Details Hero End -->
+
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <br><br><br><a href="./" class="blog__sidebar" style="text-decoration: none;color:#F0F0F0;background: #b08968; width: 500px;height: 100px;border-radius: 20px;
+    font-size: 17px;font-family: Microsoft YaHei;padding: 19px;margin: 55px;">
+                                    <span class="blog__sidebar">
+                                        <i class="fas fa-undo"></i>
+                                    </span>
+    <span class="blog__sidebar">返回選單</span>
+</a>
+
+    <div style="margin: 50px;"><button type="button"
+                                       class="btn btn-danger"
+                                       th:onclick="|archiveFunction(${article.user.userId})|" id="deleteBtn" input style="float:right">刪除文章</button></div>
+    <div style="margin: 50px;">
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertArticle" input style="float:right">
+        編輯文章
+    </button>
+    </div>
+    <td></td>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                        <!--                        <form action="ArticleDetail">-->
+                        <!--                            <input type="text" placeholder="Search...">-->
+                        <!--                            <button type="submit"><span class="icon_search"></span></button>-->
+                        <!--                        </form>-->
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Categories</h4>
+                        <ul>
+                            <li><a href="#">All</a></li>
+                            <li><a href="#">Beauty (20)</a></li>
+                            <li><a href="#">Food (5)</a></li>
+                            <li><a href="#">Life Style (9)</a></li>
+                            <li><a href="#">Travel (10)</a></li>
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Recent News</h4>
+                        <div class="blog__sidebar__recent">
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="/img/blog/sidebar/sr-1.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="/img/blog/sidebar/sr-2.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="/img/blog/sidebar/sr-3.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Search By</h4>
+                        <div class="blog__sidebar__item__tags">
+                            <a href="#">Apple</a>
+                            <a href="#">Beauty</a>
+                            <a href="#">Vegetables</a>
+                            <a href="#">Fruit</a>
+                            <a href="#">Healthy Food</a>
+                            <a href="#">Lifestyle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-7 order-md-1 order-1" style="text-align: center;">
+                <div class="blog__details__text">
+                    <H3 th:text="${ article.title}"></H3>
+                    <span class="fa fa-calendar-o" th:text="${ article.date}"></span>
+                    <img th:src="${article.imageUrl}" alt="" width="300" height="300" style="display:block; margin:auto;border-radius: 5px;">
+                    <p th:utext="${ article.content}"></p>
+                    觀看次數:<h5 th:text="${ article.counter}"></h5>
+                </div>
+                <div class="blog__details__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="blog__details__author">
+                                <div class="blog__details__author__pic">
+                                    <img th:src="${article.user.imageUrl}" alt="">
+                                </div>
+                                <div class="blog__details__author__text">
+                                    <h6 th:text="${article.user.fullName}">Michael Scofield</h6>
+                                    <span th:text="${article.user.username}">Admin</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="blog__details__widget">
+                                <ul>
+                                    <li><span th:text="${ article.type}"></span></li>
+                                    <li><span>Tags:</span> All, Trending, Cooking, Healthy Food, Life Style</li>
+                                </ul>
+                                <div class="blog__details__social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="InsertArticle" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">編輯文章</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" enctype="multipart/form-data" id="updateform">
+                        <div class="form-group">
+                            <input type="hidden" name="userId" th:value="${article.user.userId}" id="userId">
+                            <input type="hidden" name="postid" th:value="${article.postid}" id="postid">
+                            <label for="title">標題:</label>
+                            <input type="text" name="title" class="form-control"  id="title" th:value="${article.title}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">文章分類:</label>
+                            <select name="type" class="form-control" id="type">
+                                <option value= null label="請選擇分類">請選擇分類</option>
+                                <option value="活動資訊" th:selected="${article.type} == '活動資訊'">活動資訊</option>
+                                <option value="課程資訊" th:selected="${article.type} == '課程資訊'">課程資訊</option>
+                                <option value="食譜討論" th:selected="${article.type} == '食譜討論'">食譜討論</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="date">發文日期:</label>
+                            <input type="date" name="date" id="date" th:value="${article.date}">
+                        </div>
+                        <div class="form-group">
+                            <label>內文:</label>
+                            <textarea name="content" class="form-control"  id="content" cols="30"
+                                      rows="10" th:value="${article.content}">[[${article.content}]]</textarea> <br>
+                        </div>
+                        <div class="form-group">
+                            <img th:src="${article.imageUrl}"  width="100" height="100" style="display:block; margin:auto;" id="previewImage"/>
+                            <label for="articleImage">上傳圖片</label>
+                            <input type="file" name="articleImage" class="form-control-file" id="articleImage" th:value="${article.imageUrl}">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  class="btn btn-outline-warning" id="update">送出文章</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- Blog Details Section End -->
+
+<!-- Related Blog Section Begin -->
+<section class="related-blog spad">
+
+    <span th:each="message: ${article.messageList}">
+        <ol>
+        <!-- Single Comment Area -->
+        <ol class="single_comment_area">
+            <div class="comment-wrapper d-flex">
+                <!-- Comment Meta -->
+                <div class="comment-author">
+                    <img th:src="${message.user.imageUrl}" alt="">
+                </div>
+                <!-- Comment Content -->
+                <div class="comment-content">
+                    <h5 th:text="${ message.user.fullName}"></h5>
+                    <p th:text="${ message.message}"></p>
+                    <div style="width: 100px; height: 100px;">
+                    <img th:src="${message.imageUrl}" style="width: 100%; height: 100%;">
+                    </div>
+                     <span class="comment-date text-muted" th:text="${#dates.format(message.dateTime, 'yyyy/MM/dd HH:mm:sss')}"></span>
+                </div>
+
+            </div>
+            </ol>
+<!--            <ol class="children">-->
+<!--                <li class="single_comment_area">-->
+<!--                    <div class="comment-wrapper d-flex">-->
+<!--                        &lt;!&ndash; Comment Meta &ndash;&gt;-->
+<!--                        <div class="comment-author">-->
+<!--                            <img src="img/blog-img/18.jpg" alt="">-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Comment Content &ndash;&gt;-->
+<!--                        <div class="comment-content">-->
+<!--                            <span class="comment-date text-muted">27 Aug 2018</span>-->
+<!--                            <h5>Brandon Kelley</h5>-->
+<!--                            <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
+<!--                            <a href="#">Like</a>-->
+<!--                            <a class="active" href="#">Reply</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </ol>-->
+        </ol>
+    </span>
+    <div>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertMessage">
+            回覆留言
+        </button>
+    </div>
+
+<!--    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertMessage">-->
+<!--        新增留言-->
+<!--    </button>-->
+
+    <div class="modal fade" id="InsertMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增留言</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/MessageAdd"  method="post" enctype="multipart/form-data" id="form">
+                        <div class="form-group">
+                            <input type="hidden" name="postid" th:value="${article.postid}">
+                            <!--                                            <label for="InputName">留言名稱</label>-->
+                            <!--                                            <input type="text" name="userName" class="form-control" id="InputName" >-->
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMessage">留言</label>
+                            <textarea class="form-control" name="message" id="InputMessage" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputImage">上傳圖片</label>
+                            <input type="file" name="messageImage" class="form-control-file" id="InputImage">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  class="btn btn-outline-warning" id="testadd" onclick="submitStyle1()">送出留言</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related-blog-title">
+                    <h2>Post You May Like</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="/img/blog/blog-1.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="/img/blog/blog-2.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="/img/blog/blog-3.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Visit the clean farm in the US</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related Blog Section End -->
+
+<div th:replace="/footer.html"></div>
+
+
+
+</body>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script>
+
+
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+            window.editor = editor;//一鍵輸入要加
+            editor = editor;//一鍵輸入要加
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+
+    $(document).ready(function(){
+        $("body").on("change", "#articleImage", function(e){
+            var file = e.target.files[0];
+            var mediabase64data;
+            getBase64(file).then(
+                mediabase64data => $('#previewImage').attr('src', mediabase64data)
+            );
+        });
+    })
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+    $('#update').click(function (event) {
+        event.preventDefault();
+        update();
+    })
+
+    function update() {
+        const editorData = editor.getData();
+        var formData = new FormData($('#updateform')[0]);
+        formData.set('content',editorData)   //update 要用set設定新的data
+        $.ajax({
+            url: "[[@{/ArticleUpdate}]]"+ "/" + $('#userId').val(),
+            data: formData,
+            type: "put",
+            cache: false, // 不需要cache
+            processData: false, // jQuery預設會把data轉為query String, 所以要停用
+            contentType: false,
+            enctype: 'multipart/form-data',
+            // dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                // loadData();
+                // console.log(111111)
+                $('#InsertArticle').modal('hide');
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+
+
+    $('#testadd').click(function (event) {
+        event.preventDefault();
+        add();
+    })
+
+    function add() {
+        var formData = new FormData($('#form')[0]);
+        $.ajax({
+            url: "[[@{/MessageAdd}]]",
+            data: formData,
+            type: "post",
+            cache: false, // 不需要cache
+            processData: false, // jQuery預設會把data轉為query String, 所以要停用
+            contentType: false,
+            enctype: 'multipart/form-data',
+            // dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                // loadData();
+                // console.log(111111)
+                $('#InsertMessage').modal('hide');
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+
+    function archiveFunction(userId) {
+        Swal.fire({
+            title: '確定要刪除嗎?',
+            text: "刪除後無法復原!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '刪除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/ArticleDelete/' + userId,
+                    type: 'DELETE',
+                    success: function (msg) {
+                        Swal.fire(
+                            '已刪除!',
+                            '文章已成功刪除!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                // location.reload();
+                                location = '/FrontArticle';
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+            }
+        })
+    }
+
+
+</script>
+
+</html>
