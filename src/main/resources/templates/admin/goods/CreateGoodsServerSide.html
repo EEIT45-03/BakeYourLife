@@ -115,19 +115,23 @@
                                             aria-label="Default select example">
                                         <!-- 問一下 --> <option value="上架中" >上架中</option>
                                          <option value="已下架" >已下架</option>
-                                         <option value="待上架" >待上架</option>
                                      </select>
                                  </div>
                              </div>
 
                              <div class="row mb-3">
-                                 <label  for="packagematerial" class="col-sm-2 col-form-labels">商品包裝材質:</label>
+                                 <label  for="packagematerial" class="col-sm-2 col-form-labels">商品類別:</label>
                                  <div class="col-sm-10">
                                      <select th:field="*{packagematerial}" class="form-control form-select mb-3" name="packagematerial" id="packagematerial"
                                                   aria-label="Default select example">
-                                         <!-- 問一下  --> <option value="原裝利樂包" >原裝利樂包</option>
-                                         <option value="透明夾鏈立袋" >透明夾鏈立袋</option>
-                                         <option value="保溫錫箔紙" >保溫錫箔紙</option>
+                                         <!-- 問一下  --> <option value="麵粉" >麵粉</option>
+                                         <option value="巧克力" >巧克力</option>
+                                         <option value="乳製品" >乳製品</option>
+                                         <option value="頂級鹽品" >頂級鹽品</option>
+                                         <option value="堅果乾" >堅果乾</option>
+                                         <option value="抹醬" >抹醬</option>
+                                         <option value="嚴選香料" >嚴選香料</option>
+                                         <option value="彩糖" >彩糖</option>
                                      </select>
                                  </div>
                              </div>
@@ -142,6 +146,19 @@
                                      </select>
                                  </div>
                              </div>
+
+                            <div class="row mb-3">
+                                <label  for="sales" class="col-sm-2 col-form-labels">推薦商品:</label>
+                                <div class="col-sm-10">
+                                    <select th:field="*{sales}" class="form-control form-select mb-3" name="sales" id="sales"
+                                            aria-label="Default select example">
+                                        <!-- 問一下 --> <option value="是" >是</option>
+                                        <option value="否" >否</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
                              <div class="row mb-3">
                                  <label  for="describe" class="col-sm-2 col-form-labels">商品描述:</label>
                                  <div class="col-sm-10">

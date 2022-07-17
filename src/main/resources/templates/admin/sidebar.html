@@ -52,14 +52,20 @@
     <!--            <span>商品管理</span></a>-->
     <!--    </li>-->
 
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link" th:href="@{/admin/Goods/}">-->
+<!--            <i class="fas fa-fw fa-gift"></i>-->
+<!--            <span>商品管理</span></a>-->
+<!--    </li>-->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGoods"
-           aria-expanded="false" aria-controls="collapseGoods">
-            <i class="fas fa-fw fa-gift"></i>
+           aria-expanded="false" aria-controls="collapseUser">
+            <i class="fas fa-fw fa-user"></i>
             <span>商品管理</span>
         </a>
         <div id="collapseGoods" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" th:href="@{/admin/Goods/Chart}">商品分析表</a>
                 <a class="collapse-item" th:href="@{/admin/Goods/}">商品管理</a>
                 <a class="collapse-item" th:href="@{/admin/ProductComment/}">評論管理</a>
             </div>

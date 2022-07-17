@@ -46,6 +46,22 @@ public class GoodsControllerServerSide {
 		return "admin/goods/GoodsServerSide";
 	}
 
+//	@GetMapping(path = "/Chart")  不能重覆
+//	private String processSelectChart() {
+//		return "admin/goods/GoodsChart";
+//	}
+
+	@GetMapping("/Chart")
+	public String viewGoods1(Model model) {
+		Long count = goodService.count();
+		Goods goodsMax = goodService.max();
+		Goods goodsMin = goodService.min();
+		model.addAttribute("count", count);
+		model.addAttribute("max", goodsMax);
+		model.addAttribute("min", goodsMin);
+		return "admin/goods/GoodsChart";
+	}
+
 	@GetMapping("/CreateGoods")
 	public String viewCreateGoods(Model m){
 		m.addAttribute("Goods",new Goods());
