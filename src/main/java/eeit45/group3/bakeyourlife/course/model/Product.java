@@ -103,17 +103,5 @@ public class Product {
 		this.courseSet = courseSet;
 	}
 
-	@Override
-	public String toString() {
-		return "Product{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", summary='" + summary + '\'' +
-				", description='" + description + '\'' +
-				", price=" + price +
-				", image='" + image + '\'' +
-				", file=" + file +
-				", courseSet=" + courseSet +
-				'}';
-	}
+
 }

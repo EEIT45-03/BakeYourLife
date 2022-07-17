@@ -19,7 +19,7 @@ public class Register implements Serializable {
     private static final long serialVersionUID = 1L;
     //報名編號
     @Id
-    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 8803 )
+    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 2022003 )
     @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ReSeq")
     private Integer registerId;
 
@@ -33,7 +33,6 @@ public class Register implements Serializable {
 //    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerDate;
-
 
     private Integer state = 0;// 狀態 0報名成功 1使用者取消報名 2管理者取消課程 3課程完成
 

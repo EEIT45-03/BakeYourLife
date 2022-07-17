@@ -1,5 +1,8 @@
 package eeit45.group3.bakeyourlife.email.service;
 
+import eeit45.group3.bakeyourlife.course.model.Course;
+import eeit45.group3.bakeyourlife.course.model.Register;
+
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
 
@@ -17,6 +20,14 @@ public interface EmailService {
     void sendOrderMail(
             Order order,
             OrderStatusChangeEvent orderStatusChangeEvent
+    ) throws MessagingException;
+
+
+
+    void sendRegisterMail(String email, //收件者
+                          String subject, //主旨
+                          Register register,//內容
+                          String templateName//模板名稱
     ) throws MessagingException;
 
 
