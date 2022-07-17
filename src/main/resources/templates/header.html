@@ -26,10 +26,12 @@
         <!--                <li><a href="#">English</a></li>-->
         <!--            </ul>-->
         <!--        </div>-->
-        <div sec:authorize="!isAuthenticated()">
+        <div sec:authorize="!isAuthenticated()" class="humberger__menu__nav mobile-menu">
             <ul>
-                <li><a href="/login"><i class="fa-solid fa-user"></i>登入</a></li>
-                <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
+                <li><a href="/SignUp"><i class="fa-solid fa-user-plus "></i>一般會員註冊</a>
+                <li><a href="/FarmerSignUp"><i class="fa-solid fa-user-plus "></i> 小農廠商註冊</a></li>
+                <li><a href="/login"><i class="fa-solid fa-user "></i> 登入</a></li>
+
             </ul>
         </div>
         <!--        <div sec:authorize="isAuthenticated()">-->
@@ -234,12 +236,19 @@
         <!--        <a href="#"><i class="fa fa-linkedin"></i></a>-->
         <!--        <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
     </div>
+<!--    方向設定：direction="參數值"；可設定 up（向上）、dun（向下）、left（向左）、right（向右）。-->
+<!--    對齊設定：align="參數值"；可設定 top（向上對齊）、midden（垂直至中）、botton（向下對齊）。-->
+<!--    速度設定：scrollamount="參數值" ；可設定為數字，通常設定 1~10 的範圍，數字越大跑得越快。-->
+<!--    長度設定：height="參數值"；數字，自行設定。-->
+<!--    寬度設定：width="參數值"；數字，自行設定。-->
+<!--    行為設定：behavior="參數值"；可設定 alternate（來回跑）、slide（跑入後停止）。-->
+<!--    背景顏色：bgcolor="參數值"；可設定為顏色的色碼，不設定則沒有顏色。-->
     <div class="humberger__menu__contact">
         <ul>
             <li><i class="fa-solid fa-phone"></i> 0800-000-666</li><br>
             <li><i class="fa fa-envelope"></i>bakeyourlife@gmail.com</li>
-            <li>跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告</li>
         </ul>
+<!--        <marquee direction="right" height="20" scrollamount="7" behavior="slide"><a href="/Goods1/flour">🌾🌾🌾最新消息麵粉類全面7折,點我看看或趕快到商品頁面選購吧!!🌾🌾🌾</a></marquee></a>-->
     </div>
 </div>
 <!-- Humberger End -->
@@ -254,8 +263,15 @@
                         <ul>
                             <li><i class="fa-solid fa-phone"></i> 0800-000-666</li><br>
                             <li><i class="fa fa-envelope"></i> bakeyourlife@gmail.com</li>
-                            <li>跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告跑馬燈公告</li>
                         </ul>
+                        <marquee direction="left" height="20" scrollamount="7" behavior="slide"><a href="/Goods1/flour">🌾🌾🌾最新消息麵粉類全面8折,點我看看或趕快到商品頁面選購吧!!🌾🌾🌾</a></marquee></a>
+                        <!--    方向設定：direction="參數值"；可設定 up（向上）、dun（向下）、left（向左）、right（向右）。-->
+                        <!--    對齊設定：align="參數值"；可設定 top（向上對齊）、midden（垂直至中）、botton（向下對齊）。-->
+                        <!--    速度設定：scrollamount="參數值" ；可設定為數字，通常設定 1~10 的範圍，數字越大跑得越快。-->
+                        <!--    長度設定：height="參數值"；數字，自行設定。-->
+                        <!--    寬度設定：width="參數值"；數字，自行設定。-->
+                        <!--    行為設定：behavior="參數值"；可設定 alternate（來回跑）、slide（跑入後停止）。-->
+                        <!--    背景顏色：bgcolor="參數值"；可設定為顏色的色碼，不設定則沒有顏色。-->
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -267,8 +283,8 @@
 
                             <div sec:authorize="!isAuthenticated()">
                                 <ul>
-                                    <li><a href="/login"><i class="fa-solid fa-user"></i> 登入</a></li>
-                                    <li><a href="/SignUp"><i class="fa-solid fa-user-plus"></i>註冊</a></li>
+                                    <li><a href="/SignUp"><i class="fa-solid fa-user-plus "></i>一般會員註冊</a><a href="/FarmerSignUp"><i class="fa-solid fa-user-plus "></i>小農廠商註冊</a></li>
+                                    <li><a href="/login"><i class="fa-solid fa-user "></i> 登入</a></li>
                                 </ul>
                             </div>
                             <!--                            <div sec:authorize="isAuthenticated()">-->
@@ -359,7 +375,7 @@
                                             我的租借
                                         </a>
                                         <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-                                           th:href="@{/#/}">
+                                           th:href="@{/UserArticle}">
                                             <!--                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                             <i class="fa-solid fa-book"></i>
                                             我的文章
@@ -439,7 +455,7 @@
                         <!--                                <li><a href="./blog-details.html">Blog Details</a></li>-->
                         <!--                            </ul>-->
                         <!--                        </li>-->
-                        <li><a href="#">烘焙專欄</a>
+                        <li><a th:href="@{/FrontArticle}">烘焙專欄</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">烘焙專欄選單A</a></li>
                                 <li><a href="#">烘焙專欄選單B</a></li>
@@ -490,6 +506,7 @@
         </div>
     </div>
 </header>
+<hr>
 <!-- Header Section End -->
 
 

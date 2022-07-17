@@ -2,6 +2,8 @@ package eeit45.group3.bakeyourlife.productcomment.controller;
 
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.good.model.Goods;
+import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import eeit45.group3.bakeyourlife.productcomment.service.ProductCommentService;
@@ -23,13 +25,13 @@ public class ProductCommentController {
     UserService userService;
     FarmerProductService farmerProductService;
 
-    //@Autowired
+    GoodService goodService;
 
-
-    public ProductCommentController(ProductCommentService productCommentService, UserService userService, FarmerProductService farmerProductService) {
+    public ProductCommentController(ProductCommentService productCommentService, UserService userService, FarmerProductService farmerProductService, GoodService goodService) {
         this.productCommentService = productCommentService;
         this.userService = userService;
         this.farmerProductService = farmerProductService;
+        this.goodService = goodService;
     }
 
     @GetMapping("/ProductComments")
@@ -38,20 +40,20 @@ public class ProductCommentController {
         return ResponseEntity.status(HttpStatus.OK).body(productCommentList);
     }
 
-    @PostMapping("/ProductComments/{userid}/{productid}")
-    public ResponseEntity<ProductComment> createComment(@PathVariable Integer userid, @PathVariable Integer productid, @RequestBody @Valid ProductComment productComment) {
-
-        User user = userService.findByUserId(userid);
-        FarmerProductBean farmerProductBean = farmerProductService.findByFarmerProductId(productid);
-        if (user != null && farmerProductBean != null) {
-            productComment.setUser(user);
-            productComment.setFarmerProductBean(farmerProductBean);
-        }
-        Date date = new Date();
-        productComment.setTime(date);
-        ProductComment productCommentDb = productCommentService.create(productComment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productCommentDb);
-    }
+//    @PostMapping("/ProductComments/{userid}/{productid}")
+//    public ResponseEntity<ProductComment> createComment(@PathVariable Integer userid, @PathVariable Integer productid, @RequestBody @Valid ProductComment productComment) {
+//
+//        User user = userService.findByUserId(userid);
+//        FarmerProductBean farmerProductBean = farmerProductService.findByFarmerProductId(productid);
+//        if (user != null && farmerProductBean != null) {
+//            productComment.setUser(user);
+//            productComment.setFarmerProductBean(farmerProductBean);
+//        }
+//        Date date = new Date();
+//        productComment.setTime(date);
+//        ProductComment productCommentDb = productCommentService.create(productComment);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(productCommentDb);
+//    }
 
     @PutMapping("/ProductComments/{id}")
     public ResponseEntity<ProductComment> updateComment(@PathVariable Integer id,
@@ -69,11 +71,16 @@ public class ProductCommentController {
         productComment.setProductCommentId(id);
         productCommentService.update(productCommentDb);
 
-
-//        ProductComment productCommentDb = productCommentService.findById(id);
         FarmerProductBean farmerProductBeanDb = productCommentDb.getFarmerProductBean();
-        farmerProductBeanDb.getProductCommentList().remove(productCommentDb);
-        farmerProductService.update(farmerProductBeanDb);
+        Goods goodsDb = productCommentDb.getGoods();
+        if (farmerProductBeanDb != null) {
+            farmerProductBeanDb.getProductCommentList().remove(productCommentDb);
+            farmerProductService.update(farmerProductBeanDb);
+        }
+        if (goodsDb != null) {
+            goodsDb.getProductCommentList().remove(productCommentDb);
+            goodService.updateGoods(goodsDb);
+        }
 
 
         return ResponseEntity.status(HttpStatus.OK).body(productCommentDb);
@@ -83,9 +90,17 @@ public class ProductCommentController {
     public ResponseEntity<?> deleteComment(@PathVariable Integer id) {
         productCommentService.delete(id);
         ProductComment productCommentDb = productCommentService.findById(id);
+
         FarmerProductBean farmerProductBeanDb = productCommentDb.getFarmerProductBean();
-        farmerProductBeanDb.getProductCommentList().remove(productCommentDb);
-        farmerProductService.update(farmerProductBeanDb);
+        Goods goodsDb = productCommentDb.getGoods();
+        if (farmerProductBeanDb != null) {
+            farmerProductBeanDb.getProductCommentList().remove(productCommentDb);
+            farmerProductService.update(farmerProductBeanDb);
+        }
+        if (goodsDb != null) {
+            goodsDb.getProductCommentList().remove(productCommentDb);
+            goodService.updateGoods(goodsDb);
+        }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

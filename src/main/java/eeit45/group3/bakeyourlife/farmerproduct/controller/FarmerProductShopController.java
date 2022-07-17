@@ -30,13 +30,14 @@ public class FarmerProductShopController {
     @GetMapping("/ShopDetails/{id}")
     private String ShopDetails(@PathVariable Integer id, Model model) {
         FarmerProductBean farmerProductBean = null;
-
+        List<FarmerProductBean> farmerProductBeanList = null;
         if (id != null) {
             farmerProductBean = farmerProductService.findByFarmerProductId(id);
+            farmerProductBeanList = farmerProductService.findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(farmerProductBean.getType(), id);
         }
 
         model.addAttribute(farmerProductBean);
-
+        model.addAttribute(farmerProductBeanList);
         return "farmerproduct/FarmerProductShopDetails";
     }
 
@@ -50,6 +51,16 @@ public class FarmerProductShopController {
         model.addAttribute(farmerList);
 
         return "farmerproduct/FarmerProductShopGrid";
+    }
+
+    @GetMapping("/ShopGrid/{id}")
+    private String SupplierShopGrid(Model model, @PathVariable Integer id) {
+        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(id);
+        model.addAttribute(farmerProductBeanList);
+        Farmer farmer = farmerService.findByFarmerId(id);
+        model.addAttribute(farmer);
+
+        return "farmerproduct/SupplierShopGrid";
     }
 
 

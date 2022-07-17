@@ -25,6 +25,8 @@ public interface ArticleService {
 	List<Article> findAllByTypeContaining(String type);
 
 	List<Article>findLatestDate(Date date);
+
+	public List<Article>findByUserId(Integer userid);
 }
 //	Article findById (Integer postid);
 //}
