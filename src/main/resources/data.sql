@@ -89,17 +89,69 @@ INSERT INTO tackle_sort(sort) VALUES('測量工具');
 INSERT INTO tackle_sort(sort) VALUES('擠花/翻糖工具');
 
 --新增器具
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,'NB-H3801 大容量、發酵烘烤一機完成。3D熱風對流 - 大火力立體熱風對流烘烤，全面包圍時才，不易烤焦，油切更健康。上下獨立控溫滿足各種火力需求-上火+下火雙重控溫:上火、下火可同時設定不同溫度，滿足多種食材不同厚度的火裡需求。發酵行程 發酵烘培一機完成 - 結合發酵箱功能，一次滿足發酵與烘培需求，選擇發酵行程，無須再另外設定溫度就能維持30度~50度C最佳發酵環境。附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架','PANASONIC NB-H3801','38L電烤箱', 1);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,'NB-H3203 大容量、發酵烘烤一機完成。雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷，同時擁有更良好的聚熱功能，效率更提升。360度自動旋轉燒烤 - 自動旋轉烘烤，不會過焦或不熟，全面均勻受熱，不遺漏任何一處的美味。3D熱風對流 - 大火力立體熱風對流烘烤，全面包圍時才，不易烤焦，油切更健康。上下獨立控溫滿足各種火力需求- * 上火+下火雙重控溫:上火、下火可同時設定不同溫度，滿足多種食材不同厚度的火裡需求。發酵行程 發酵烘培一機完成 - 結合發酵箱功能，一次滿足發酵與烘培需求，選擇發酵行程，無須再另外設定溫度就能維持30度~50度C最佳發酵環境。附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架','PANASONIC  NB-H3203','32L電烤箱', 1);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'成份：鋁合金(耐溫230度)。產地：台灣。規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小兔頭_5入_T213016','鳳梨酥模具+壓棒(兔子)', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'成份：鋁合金(耐溫230度)。產地：台灣。規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小熊頭_5入_T213015','鳳梨酥模具+壓棒(小熊)', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA雙心12連_126-19B','雙心12連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA栗子12連_126-18','栗子12連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。','多連烤盤_MATSUNAGA瑪德蓮15連_126-13','瑪德蓮15連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,'產地：日本。材質：耐熱玻璃(耐熱溫差120度)。尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。容量：(S)900ml/(M)1500ml/(L)2200ml。商品重量：約2.45公斤。用途：盛裝食材用。注意事項：不可重摔','玻璃盆_MXPN-3704','玻璃盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,'產地：中國。材質：不鏽鋼。尺寸規格 : 直徑長約20公分、高約12公分。商品重量：約470公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','深型打蛋盆20cm_WK9364','20cm不鏽鋼盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。材質：不鏽鋼。尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。商品重量：約460公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','深型打蛋盆24cmBetty_CT4967','24cm不鏽鋼盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。材質：不鏽鋼。尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。商品重量：約500公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','握把底止滑打蛋盆23cm_CT4966','握把底止滑打蛋盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,'NB-H3801 大容量、發酵烘烤一機完成。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架。','PANASONIC NB-H3801','38L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,'NB-H3203 大容量、發酵烘烤一機完成。
+                                                                                                         ●雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷,同時擁有更良好的聚熱功能,效率更提升。
+                                                                                                         ●360度自動旋轉燒烤 - 自動旋轉烘烤,不會過焦或不熟,全面均勻受熱,不遺漏任何一處的美味。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架','PANASONIC  NB-H3203','32L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'產地：台灣。
+
+                                                                                                        成份：鋁合金(耐溫230度)。
+                                                                                                        規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小兔頭_5入_T213016','鳳梨酥模具+壓棒(兔子)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'產地：台灣。
+
+                                                                                                         成份：鋁合金(耐溫230度)。
+                                                                                                         規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小熊頭_5入_T213015','鳳梨酥模具+壓棒(小熊)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,'產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA雙心12連_126-19B','雙心12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,'產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA栗子12連_126-18','栗子12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,'產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。','多連烤盤_MATSUNAGA瑪德蓮15連_126-13','瑪德蓮15連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,'產地：日本。
+
+                                                                                                        材質：耐熱玻璃(耐熱溫差120度)。
+                                                                                                        尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。
+                                                                                                        容量：(S)900ml/(M)1500ml/(L)2200ml。
+                                                                                                        商品重量：約2.45公斤。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔','玻璃盆_MXPN-3704','玻璃盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,'產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 直徑長約20公分、高約12公分。
+                                                                                                        商品重量：約470公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐','深型打蛋盆20cm_WK9364','20cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。
+                                                                                                        商品重量：約460公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐','深型打蛋盆24cmBetty_CT4967','24cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。
+                                                                                                        商品重量：約500公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐','握把底止滑打蛋盆23cm_CT4966','握把底止滑打蛋盆', 3);
 
 --新增器具圖片
 INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/tb8W5J4.png',1);
@@ -153,14 +205,14 @@ INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A
 INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A102',0,NULL,1);
 INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A201',0,NULL,1);
 INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A202',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B201',500,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B202',500,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (10,'B301',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B302',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B303',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B401',200,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B501',200,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B601',200,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B201',125,NULL,2);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B202',125,NULL,2);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (10,'B301',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B302',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B303',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B401',50,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B501',50,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B601',50,NULL,4);
 
 
 

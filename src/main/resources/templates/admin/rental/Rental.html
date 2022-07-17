@@ -108,13 +108,14 @@
                   <td th:text="${rental.total}"></td>
                   <td th:text="${rental.state}"></td>
                   <td th:if="${rental.type} == '器具'">
-                    <button type="button"
+                    <a th:href="|CreateTackleList/${rental.rentalId}|"
                             class="btn btn-warning btn-icon-split btn-sm"
-                            th:onclick="|createTackleList(${rental.rentalId})|">
+                            >
+<!--                            th:onclick="|createTackleList(${rental.rentalId})|">-->
                       <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                       </span>
-                    </button>
+                    </a>
                   </td>
                   <td th:if="${rental.type} == '場地'">
                     <button type="button"
@@ -165,7 +166,7 @@
                         <td th:text="${tackleList.total}"></td>
                         <td th:text="${tackleList.state}"></td>
                         <td>
-                          <button type="button"
+                          <button type="button" href="CreateTackleList"
                                   class="btn btn-warning btn-icon-split btn-sm"
                                   th:onclick="|updateTackleList(${tackleList.tackleListId})|">
                       <span class="icon text-white-50">
@@ -194,7 +195,7 @@
                         <td>租借場地:</td>
                         <td>出租日期:</td>
                         <td>出租時段:</td>
-                        <td>食材提供:</td>
+<!--                        <td>食材提供:</td>-->
                         <td>人數:</td>
                         <td>小計:</td>
                         <th>修改</th>
@@ -206,7 +207,7 @@
                         <td th:text="${venueList.venue.venueName}"></td>
                         <td th:text="${#dates.format(venueList.rentalDate, 'yyyy/MM/dd')}"></td>
                         <td th:text="${venueList.period}"></td>
-                        <td th:text="${venueList.ingredients}"></td>
+<!--                        <td th:text="${venueList.ingredients}"></td>-->
                         <td th:text="${venueList.person}"></td>
                         <td th:text="${venueList.price}"></td>
                         <td>

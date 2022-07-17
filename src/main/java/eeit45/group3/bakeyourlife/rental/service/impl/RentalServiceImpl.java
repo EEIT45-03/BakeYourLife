@@ -200,6 +200,22 @@ public class RentalServiceImpl implements RentalService{
 		return rental;
 	}
 
+	@Override
+	public Rental CheckUserRental(Integer userId, String listType) {
+		User user = userService.findByUserId(userId);
+		Rental rental = rentalRepository.findByUserAndStateAndType(user, "未下單", listType);
+		if(rental != null){
+			return rental;
+		} else {
+			rental = new Rental();
+			rental.setUser(user);
+			rental.setType(listType);
+			rental.setTotal(0);
+		}
+
+		return rental;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/

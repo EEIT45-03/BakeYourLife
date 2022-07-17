@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.rental.controller;
 
+import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
@@ -36,15 +37,23 @@ public class RentalController {
     public String viewVenueCommodity(@PathVariable Integer id,
                                 Model model) {
         model.addAttribute("venueBean", venueService.findByVenueId(id));
-        return "VenueIntroduce";
+        return "/rental/VenueIntroduce";
     }
 
     @GetMapping("/Introduce/Tackle/{id}")
     public String viewTackleCommodity(@PathVariable Integer id,
                                      Model model) {
         model.addAttribute("tackleBean", tackleService.findByTackleId(id));
-        return "TackleIntroduce";
+        return "/rental/TackleIntroduce";
     }
 
+    @GetMapping("/Venue")
+    public String viewRental() {
+        return "/rental/RentalVenue";
+    }
 
+    @GetMapping("/Tackle")
+    public String viewRTackle() {
+        return "/rental/RentalTackle";
+    }
 }

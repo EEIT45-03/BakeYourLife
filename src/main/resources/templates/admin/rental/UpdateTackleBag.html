@@ -1,0 +1,86 @@
+<div class="card-body">
+
+    <form th:action="@{UpdateTackleList(tackleListId=*{tackleListId})}" method="post"
+               th:object="${tackleListRequest}">
+
+        <!-- 租借編號: -->
+        <div class="row mb-3">
+            <label for="rentalNo" class="col-sm-3 col-form-labels">租借編號:</label>
+            <div class="col-sm-9">
+                <input th:field="*{rental.rentalNo}" type="text" class="form-control"
+                       name="rentalNo" id="rentalNo" required="required" th:readonly="true"/>
+            </div>
+        </div>
+
+        <!-- 清單編號: -->
+        <div class="row mb-3">
+            <label for="tackleListNo" class="col-sm-3 col-form-labels">清單編號:</label>
+            <div class="col-sm-9">
+                <input th:field="*{tackleListNo}" type="text" class="form-control"
+                       name="tackleListNo" id="tackleListNo" required="required" th:readonly="true"/>
+            </div>
+        </div>
+
+        <!-- 租借器具: -->
+        <div class="row mb-3">
+            <label for="tackleId" class="col-sm-3 col-form-labels">租借器具:</label>
+            <div class="col-sm-9" >
+                <select th:field="*{tackle.tackleId}" class="form-control form-select mb-3" name="tackleId"
+                        type="text"  id="tackleId" aria-label="Default select example" >
+                    <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
+                            th:text="${tackle.tackleName}" ></option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 出租時間: -->
+        <div class="row mb-3">
+            <label for="lendDate" class="col-sm-3 col-form-labels">出租時間:</label>
+            <div class="col-sm-9">
+                <input th:field="*{lendDate}" type="date" class="form-control" th:onchange="|checkTLD()|"
+                       name="lendDate" id="lendDate" required="required" />
+                <span class="show" id="s_lDate"></span>
+            </div>
+        </div>
+
+        <!-- 結束時間: -->
+        <div class="row mb-3">
+            <label for="endDate" class="col-sm-3 col-form-labels">結束時間:</label>
+            <div class="col-sm-9">
+                <input th:field="*{endDate}" type="date" class="form-control" th:onchange="|checkTED()|"
+                       name="endDate" id="endDate" required="required" />
+                <span class="show" id="s_eDate"></span>
+            </div>
+        </div>
+
+        <!-- 歸還時間: -->
+        <div class="row mb-3" id="rD" style="display: none">
+            <label for="returnDate" class="col-sm-3 col-form-labels">歸還時間:</label>
+            <div class="col-sm-9">
+                <input th:field="*{returnDate}" type="date" class="form-control" th:onchange="|checkTRD()|"
+                       name="returnDate" id="returnDate" />
+                <span class="show" id="s_rDate"></span>
+            </div>
+        </div>
+
+        <!-- 數量: -->
+        <div class="row mb-3">
+            <label for="quantity" class="col-sm-3 col-form-labels">數量:</label>
+            <div class="col-sm-9">
+                <input th:field="*{quantity}" type="number" class="form-control"
+                       name="quantity" id="quantity" min="1" required="required" />
+            </div>
+        </div>
+
+        <!-- 小計: -->
+        <div class="row mb-3">
+            <label for="price" class="col-sm-3 col-form-labels">小計:</label>
+            <div class="col-sm-9">
+                <input th:field="*{price}" type="number" class="form-control"
+                       name="price" id="price" min="0" required="required" />
+            </div>
+        </div>
+
+        <button type="submit" id="submit_List" class="btn btn-primary">修改器具清單</button>
+    </form>
+</div>

@@ -5,6 +5,7 @@ import eeit45.group3.bakeyourlife.rental.model.ProduceNo;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
+import eeit45.group3.bakeyourlife.user.model.User;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public interface RentalService {
 	//建請租借單請求資料
 	public Rental createRentalNoRequest();
 
+	public Rental CheckUserRental(Integer userId, String listType);
 
 	/*場地租借清單 DAO
 		----------------------------------------------------------------*/
