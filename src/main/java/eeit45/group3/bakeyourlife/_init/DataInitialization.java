@@ -26,6 +26,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -34,7 +36,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Component
+//@Component
 public class DataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 
     //取消率
@@ -42,9 +44,9 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     //退款率
     private final Long REFUND_RATE = 5L;
     //總訂單數
-    private final Integer TOTAL_ORDER_NUMBER = 10000;
+//    private final Integer TOTAL_ORDER_NUMBER = 10000;
     //總用戶數
-    private final Integer TOTAL_USER_NUMBER = 222;
+//    private final Integer TOTAL_USER_NUMBER = 222;
 
     private Integer couponUsedNumber = 0;
 
@@ -63,7 +65,8 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     private PasswordEncoder encoder = new BCryptPasswordEncoder(4);
     private UserRepository userRepository;
     private OrderRepository orderRepository;
-
+    @Autowired
+    DataSource dataSource;
 
     @Autowired
     public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService, UserRepository userRepository, OrderRepository orderRepository) {
@@ -76,6 +79,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Order> orders = new ArrayList<>();
         List<User> users = new ArrayList<>();
@@ -138,12 +142,16 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         }
 
 
+        long start = System.currentTimeMillis();
 
         orderRepository.saveAll(orders);
         userRepository.saveAll(users);
 
         coupon.setUsedQuantity(couponUsedNumber);
         couponService.updateCoupon(coupon);
+        long end = System.currentTimeMillis();
+
+        System.out.println(String.format("Total time: %d 毫秒", (end - start)));
         System.out.println("DataInitialization finished");
 
     }

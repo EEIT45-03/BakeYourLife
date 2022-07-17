@@ -42,7 +42,7 @@ public class Order implements Serializable {
     @Transient
     private String username;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne
     @JoinColumn(name = "userId")
 //    @JsonIgnore
     private User user;

@@ -14,13 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
@@ -62,9 +56,9 @@ public class OrderRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
 
-	@PostMapping("/OrdersByDT")
+	@GetMapping("/OrdersByDT")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public DataTablesOutput<Order> getOrdersByDataTables(@Valid @RequestBody DataTablesInput input){
+	public DataTablesOutput<Order> getOrdersByDataTables(@Valid DataTablesInput input){
 			System.out.println(input);
 			DataTablesOutput<Order> orders = null;
 			orders = orderService.findAll(input);

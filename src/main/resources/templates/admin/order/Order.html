@@ -118,18 +118,14 @@
 <script th:src="@{/js/order.js}"></script>
 <script>
 
-    let orderTable = $('#oredrTable').DataTable({
+    $('#oredrTable').DataTable({
         serverSide: true,
+        pagingType: "full_numbers",
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
         },
         ajax: {
-            'contentType': 'application/json',
             'url': '[[@{/OrdersByDT}]]',
-            'type': 'POST',
-            'data': function(d) {
-                return JSON.stringify(d);
-            }
         },
         columns: [
             {data: 'orderId'},
