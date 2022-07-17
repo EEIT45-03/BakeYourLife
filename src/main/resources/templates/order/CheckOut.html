@@ -78,12 +78,10 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="checkout__order__subtotal">商品小計 <span >XXXX</span></div>
-                                                            <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>
-                                                            <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>
-                                                            <div class="checkout__order__total" th:if="${cart.coupon}">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>
-                                                            <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total - cart.discountAmount}|">$750.99</span></div>
-
+                                <div class="checkout__order__subtotal">商品小計 <span th:text="|NT$${cart.total - cart.shippingFee}|"></span></div>
+                                <div class="checkout__order__total">運費 <span th:text="|NT$${cart.shippingFee}|">$750.99</span></div>
+                                <div class="checkout__order__total" th:if="${cart.coupon}">折扣 <span th:text="|-NT$${cart.discountAmount}|">$750.99</span></div>
+                                <div class="checkout__order__total">總金額 <span th:text="|NT$${cart.total - cart.discountAmount}|">$750.99</span></div>
                             </div>
                             <!--                            <h4>你的訂單</h4>-->
                             <!--                            <div class="checkout__order__products">商品 <span>小計</span></div>-->
@@ -137,22 +135,19 @@
                                 <label for="address"
                                        class="col-sm-2 col-form-labels">地址:</label>
                                 <div class="col-sm-10">
-<!--                                    <input type="text" class="form-control"-->
-<!--                                           name="address" id="address" placeholder="請輸入地址"-->
-<!--                                           required="required" th:value="${address}" />-->
                                     <input type="text" class="form-control"
                                            name="address" id="address" placeholder="請輸入地址"
-                                           required="required" />
+                                           required="required" th:value="${address}" />
                                 </div>
                             </div>
                         </div>
                         <!--                                                            </div>-->
-                    <button type="submit" class="site-btn btn-block">提交訂單</button>
+                        <button type="submit" class="site-btn btn-block">提交訂單</button>
                     </div>
                 </div>
-<!--        </div>-->
-        </form>
-    </div>
+                <!--        </div>-->
+            </form>
+        </div>
     </div>
 </section>
 <!-- Checkout Section End -->

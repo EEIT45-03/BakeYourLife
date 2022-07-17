@@ -1,8 +1,11 @@
 package eeit45.group3.bakeyourlife.user.service;
 
 import eeit45.group3.bakeyourlife.user.dao.FarmerRepository;
+import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,18 @@ public class FarmerServiceImpl implements FarmerService {
     }
 
     @Override
+    public Farmer getCurrentFarmer(Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        return userDetails.getFarmer();
+    }
+
+    @Override
+    public void setCurrentFarmer(Authentication authentication, Farmer farmer) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        userDetails.setFarmer(farmer);
+    }
+
+    @Override
     public List<Farmer> findAll() {
         return farmerRepository.findAll();
     }
@@ -52,8 +67,8 @@ public class FarmerServiceImpl implements FarmerService {
 
     @Override
     public void updateFarmer(Farmer farmer) {
-        // 加密密碼
-        farmer.setPassword(encoder.encode(farmer.getPassword()));
+        // 修改的加密密碼改在controller
+//        farmer.setPassword(encoder.encode(farmer.getPassword()));
         farmerRepository.save(farmer);
 
     }

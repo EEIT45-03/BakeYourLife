@@ -24,4 +24,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     @Query(nativeQuery = true,value = "Select type AS 'label',AVG(counter) AS 'value' FROM ARTICLE GROUP BY type")
     List<ArticleCount> selectCounterByType();
+
+    @Query(nativeQuery = true,value ="select * from ARTICLE where user_id like '2'")
+    List<Article> findByUserId(Integer userid);
 }

@@ -2,24 +2,25 @@ package eeit45.group3.bakeyourlife.course.service;
 
 
 import eeit45.group3.bakeyourlife.course.model.Course;
-//import eeit45.group3.bakeyourlife.course.model.CourseType;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
-//import eeit45.group3.bakeyourlife.course.repository.CourseTypeRepository;
 
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.RegisterRepository;
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,22 +28,22 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class CourseServiceImpl implements CourseService {
-
 	CourseRepository courseRepository;
-
 	RentalService rentalService;
 	UserService userService;
 	VenueService venueService;
-
+	EmailService emailService;
 	CourseTimeRepository courseTimeRepository;
 	RegisterRepository registerRepository;
 
+
 	@Autowired
-	public CourseServiceImpl(CourseRepository courseRepository, VenueService venueService,RentalService rentalService, UserService userService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
+	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
 		this.courseRepository = courseRepository;
 		this.rentalService = rentalService;
 		this.userService = userService;
 		this.venueService = venueService;
+		this.emailService = emailService;
 		this.courseTimeRepository = courseTimeRepository;
 		this.registerRepository = registerRepository;
 	}
@@ -81,7 +82,6 @@ public class CourseServiceImpl implements CourseService {
 		Venue venue = venueService.findByVenueId(course.getRoomId());
 		course.setRoom(venue);
 		courseRepository.save(course);
-
 	}
 
 	//--------CourseTime課程代號-----------
@@ -120,8 +120,8 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Register> findRegisterByUser() {
-		return null;
+	public List<Register> findRegisterByUser(User user) {
+		return registerRepository.findByUser(user);
 	}
 
 	@Override
@@ -145,18 +145,6 @@ public class CourseServiceImpl implements CourseService {
 		registerRepository.save(registerDb);
 	}
 
-	//	@Override
-//	@Transactional
-//	public Register updateRegister(Register register) {
-//		return registerRepository.save(register);
-//	}
-//	public Register updateRegister(Integer registerId){
-//		Register registerDb = registerRepository.findById(registerId).orElse(null);
-////		registerDb.getUser().getUserId();
-////		registerDb.getCourse().getOpenCourse();
-//
-//		return updateRegister(registerDb);
-//	};
 	@Override
 	@Transactional
 	public void createRegister(Register register) {
@@ -169,5 +157,30 @@ public class CourseServiceImpl implements CourseService {
 		registerRepository.save(register);
 	}
 
-
+	@Override
+	@Transactional
+	public void createRegisterWithId(Register register) {
+		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
+		User user = userService.findByUserId(register.getUser().getUserId());
+		Integer sum = (register.getAttendance())*(course.getcProduct().getPrice());
+		register.setUser(user);
+		register.setTotalPrice(sum);
+		register.setRegisterDate(new Date());
+		registerRepository.save(register);
+		//報名人數加入開課明細
+		Integer attSum = registerRepository.getSumAttendanceByCourse(course);
+		if(attSum != null){
+			course.setApplicants(attSum.intValue());
+		} else {
+			course.setApplicants(0);
+		}
+		courseRepository.save(course);
+		//寄email
+		String email = user.getEmail();
+		try {
+			emailService.sendRegisterMail(email, "[Bake Your Life 烘焙材料網] 報名成功通知",register,"courseRegister");
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

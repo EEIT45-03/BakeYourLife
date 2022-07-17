@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import eeit45.group3.bakeyourlife.rental.model.TackleBag;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -27,7 +29,7 @@ public class Tackle implements Serializable {
 	private Integer tackleId;
 
 	//器具名稱
-	@Column(name = "tackleName", columnDefinition = "varchar(20) not null unique")
+	@Column(name = "tackleName", columnDefinition = "varchar(max) not null")
 	private String tackleName;
 
 	//器具規格
@@ -35,8 +37,12 @@ public class Tackle implements Serializable {
 	private String specification;
 
 	//圖片路徑
-	@Column(name = "picture")
-	private String picture;
+//	@Column(name = "picture")
+//	private String picture;
+	@JsonManagedReference
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "tackle")
+	private List<TacklePicList> tacklePicList ;
+
 
 	//價錢/天
 	@Column(name = "dayPrice", columnDefinition = "int not null")
@@ -51,7 +57,7 @@ public class Tackle implements Serializable {
 	private Integer max;
 
 	//備註
-	@Column
+	@Column(name = "notes", columnDefinition = "varchar(max)")
 	private String notes;
 
 	//對應器具包
@@ -59,20 +65,33 @@ public class Tackle implements Serializable {
 	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "tackle")
 	private Set<TackleBag> tackleBags = new LinkedHashSet<TackleBag>();
 
+	@JsonManagedReference
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name = "FK_sortId", referencedColumnName = "tackleSortId", nullable = false)
 	private TackleSort tackleSort ;
 
 	@Transient
-	private MultipartFile tackleImage;
+	private MultipartFile[] tackleImage;
 
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String specification, String picture, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile tackleImage) {
+	public Tackle(String tackleName, String specification, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
 		this.tackleName = tackleName;
 		this.specification = specification;
-		this.picture = picture;
+		this.dayPrice = dayPrice;
+		this.damages = damages;
+		this.max = max;
+		this.notes = notes;
+		this.tackleBags = tackleBags;
+		this.tackleSort = tackleSort;
+		this.tackleImage = tackleImage;
+	}
+
+	public Tackle(String tackleName, String specification, List<TacklePicList> tacklePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
+		this.tackleName = tackleName;
+		this.specification = specification;
+		this.tacklePicList = tacklePicList;
 		this.dayPrice = dayPrice;
 		this.damages = damages;
 		this.max = max;
@@ -106,12 +125,12 @@ public class Tackle implements Serializable {
 		this.specification = specification;
 	}
 
-	public String getPicture() {
-		return picture;
+	public List<TacklePicList> getTacklePicList() {
+		return tacklePicList;
 	}
 
-	public void setPicture(String picture) {
-		this.picture = picture;
+	public void setTacklePicList(List<TacklePicList> venuePicList) {
+		this.tacklePicList = tacklePicList;
 	}
 
 	public Integer getDayPrice() {
@@ -162,11 +181,11 @@ public class Tackle implements Serializable {
 		this.tackleSort = tackleSort;
 	}
 
-	public MultipartFile getTackleImage() {
+	public MultipartFile[] getTackleImage() {
 		return tackleImage;
 	}
 
-	public void setTackleImage(MultipartFile tackleImage) {
+	public void setTackleImage(MultipartFile[] tackleImage) {
 		this.tackleImage = tackleImage;
 	}
 }

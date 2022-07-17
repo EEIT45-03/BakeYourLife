@@ -1,15 +1,20 @@
 package eeit45.group3.bakeyourlife.venue.service.impl;
 
+import eeit45.group3.bakeyourlife.venue.dao.VenuePicListRepository;
 import eeit45.group3.bakeyourlife.venue.dao.VenueRepository;
 import eeit45.group3.bakeyourlife.venue.dao.VenueSortRepository;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
+import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,10 +24,13 @@ public class VenueSerivceImpl implements VenueService {
 
     private VenueSortRepository venueSortRepository;
 
+    private VenuePicListRepository venuePicListRepository;
+
     @Autowired
-    public VenueSerivceImpl(VenueRepository venueRepository, VenueSortRepository venueSortRepository) {
+    public VenueSerivceImpl(VenueRepository venueRepository, VenueSortRepository venueSortRepository, VenuePicListRepository venuePicListRepository) {
         this.venueRepository = venueRepository;
         this.venueSortRepository = venueSortRepository;
+        this.venuePicListRepository = venuePicListRepository;
     }
 
     //查詢全部的場地
@@ -74,6 +82,7 @@ public class VenueSerivceImpl implements VenueService {
     }
 
 
+
     //更新場地
     @Override
     @Transactional
@@ -107,6 +116,29 @@ public class VenueSerivceImpl implements VenueService {
     public List<Venue> findAllByVenueSort(Integer venueSortId) {
         VenueSort venueSort = venueSortRepository.findById(venueSortId).orElse(null);
         return venueRepository.findAllByVenueSort(venueSort);
+    }
+
+    @Override
+    public List<Venue> findAllByVenueSortNot(Integer venueSortId) {
+        VenueSort venueSort = venueSortRepository.findById(venueSortId).orElse(null);
+        return venueRepository.findByVenueSortNot(venueSort);
+    }
+
+    @Override
+    @Transactional
+    public boolean createVenuePicList(String venueName, MultipartFile[] file) {
+        if(file!=null){
+            Venue venue = findByVenueName(venueName);
+
+            for( int i=0 ; i<file.length ; i++ ){
+                VenuePicList venuePicList = new VenuePicList();
+                venuePicList.setVenue(venue);
+                venuePicList.setPicture(updateByMultipartFile(file[i]).getLink());
+                venuePicListRepository.save(venuePicList);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -63,11 +63,19 @@
                     </div>
 
                     <div class="card-body">
-                        <form id="form" action="CreateFarmer" method="post" th:object="${farmer}" enctype="multipart/form-data">
-
+                        <form id="form" action="" method="post" th:object="${farmer}" enctype="multipart/form-data">
+                            <!-- 照片: -->
+                            <img id="previewImage" width="100" height="100" th:src="@{https://i.imgur.com/gEHJxsi.jpg}" style="margin:auto;"/>
+                            <div class="row mb-3">
+                                <label for="productImage" class="col-sm-2 col-form-labels">廠商帳號頭像:</label>
+                                <div class="col-sm-10">
+                                    <input  th:field="*{productImage}"  type="file" class="form-control" name="productImage"
+                                            id="productImage" >
+                                </div>
+                            </div>
                             <!-- 帳號: -->
                             <div class="row mb-3">
-                                <label  for="username" class="col-sm-2 col-form-labels">帳號:</label>
+                                <label  for="username" class="col-sm-2 col-form-labels">廠商帳號:</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{username}" type="text" class="form-control" name="username"
                                            id="username" placeholder="請輸入帳號,應為英文開頭之最少6位英數組合" required> <span
@@ -79,7 +87,7 @@
                             </div>
                             <!-- 密碼: -->
                             <div class="row mb-3">
-                                <label for="password" class="col-sm-2 col-form-labels">密碼:</label>
+                                <label for="password" class="col-sm-2 col-form-labels">廠商密碼:</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{password}" type="password" class="form-control" minlength="6"
                                            name="password" id="password" placeholder="請輸入密碼,必須至少 8 個字元含有大小寫英文字母且至少一個數字" required>
@@ -109,7 +117,7 @@
                             </div>
                             <!-- 廠商電話: -->
                             <div class="row mb-3">
-                                <label for="phone" class="col-sm-2 col-form-labels">手機號碼:</label>
+                                <label for="phone" class="col-sm-2 col-form-labels">廠商電話(手機):</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{phone}" type="number" class="form-control" name="phone"
                                            id="phone" placeholder="請輸入手機號碼" required> <span
@@ -118,7 +126,7 @@
                             </div>
                             <!-- 地址: -->
                             <div class="row mb-3">
-                                <label for="address" class="col-sm-2 col-form-labels">地址:</label>
+                                <label for="address" class="col-sm-2 col-form-labels">廠商地址:</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{address}" type="text" class="form-control" name="address"
                                            id="address" placeholder="請輸入地址" required>
@@ -126,7 +134,7 @@
                             </div>
                             <!-- 簡介: -->
                             <div class="row mb-3">
-                                <label for="farmerInfo" class="col-sm-2 col-form-labels">商品介紹:</label>
+                                <label for="farmerInfo" class="col-sm-2 col-form-labels">廠商簡介:</label>
                                 <div class="col-sm-4">
 										<textarea class="form-control" th:field="*{farmerInfo}" name="farmerInfo"
                                                   id="farmerInfo" value="" placeholder="請輸入廠商簡介" maxlength="500"
@@ -136,20 +144,19 @@
                                 <span id="desSize"> 0/500 </span>
                                 <div id="desError" class="col-sm-5" style="color:#f15e5e"></div>
                             </div>
-                            <!-- 照片: -->
-                            <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>
-                            <div class="row mb-3">
-                                <label for="productImage" class="col-sm-2 col-form-labels">廠商帳號頭像:</label>
-                                <div class="col-sm-10">
-                                    <input  th:field="*{productImage}"  type="file" class="form-control" name="productImage"
-                                            id="productImage" >
-                                </div>
-                            </div>
+<!--                            &lt;!&ndash; 照片: &ndash;&gt;-->
+<!--                            <img id="previewImage" width="200" height="200" style="display:block; margin:auto;"/>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label for="productImage" class="col-sm-2 col-form-labels">廠商帳號頭像:</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input  th:field="*{productImage}"  type="file" class="form-control" name="productImage"-->
+<!--                                            id="productImage" >-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
                             <button type="submit" class="btn btn-primary" id="submit">新增小農廠商</button>
-                        </form>
-
+                        </form><br>
                         <button id="correctInput" class="btn btn-primary">測試 一鍵輸入</button>
                     </div>
                 </div>

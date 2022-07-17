@@ -27,6 +27,8 @@ public class IndexController {
             return "redirect:/admin";
         } else if (request.isUserInRole("ROLE_FARMER")) {
             return "redirect:/FarmerProductSupplier/";
+        }else if(request.isUserInRole("ROLE_USER")){
+            return "redirect:/";
         }
         return "redirect:/";
     }

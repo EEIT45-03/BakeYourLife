@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.coupon.service;
 
 import eeit45.group3.bakeyourlife.coupon.dao.CouponRepository;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class CouponServiceImpl implements CouponService{
     @Override
     public void deleteCoupon(String code) {
         repository.deleteById(code);
+    }
+
+    @Override
+    public boolean isUsedCoupon(User user, String code) {
+        return false;
     }
 
     @Override

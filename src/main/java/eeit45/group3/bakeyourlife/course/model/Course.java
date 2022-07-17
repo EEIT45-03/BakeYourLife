@@ -229,21 +229,21 @@ public class Course implements Serializable{
 		this.courseTimes = courseTimes;
 	}
 
-	@Override
-	public String toString() {
-		return "Course{" +
-				"openCourse=" + openCourse +
-				", cProduct=" + cProduct +
-				", hours=" + hours +
-				", startDate=" + startDate +
-				", endDate=" + endDate +
-				", venue=" + venue +
-				", courseTimes=" + courseTimes +
-				", clVenueId=" + clVenueId +
-				", applicants=" + applicants +
-				", teacher='" + teacher + '\'' +
-				", note='" + note + '\'' +
-				", registers=" + registers +
-				'}';
-	}
+//	@Override
+//	public String toString() {
+//		return "Course{" +
+//				"openCourse=" + openCourse +
+//				", cProduct=" + cProduct +
+//				", hours=" + hours +
+//				", startDate=" + startDate +
+//				", endDate=" + endDate +
+//				", venue=" + venue +
+//				", courseTimes=" + courseTimes +
+//				", clVenueId=" + clVenueId +
+//				", applicants=" + applicants +
+//				", teacher='" + teacher + '\'' +
+//				", note='" + note + '\'' +
+//				", registers=" + registers +
+//				'}';
+//	}
 }

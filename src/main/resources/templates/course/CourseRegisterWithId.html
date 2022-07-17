@@ -10,6 +10,13 @@
     <title>報名</title>
 
     <div th:replace="css.html"></div>
+    <style>
+        #price2 {
+            text-align: left;
+            font-family: sans-serif;
+            font-weight: 700;
+        }
+    </style>
 
 </head>
 
@@ -47,7 +54,7 @@
         </div> -->
         <div class="checkout__form">
             <h4>課程報名表</h4>
-            <form th:action="@{CreateRegister}" method="post" th:object="${register}">
+            <form th:action="@{CreateRegisterWithId}" method="post" th:object="${register2}">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="row">
@@ -57,42 +64,45 @@
                                     <p>會員ID<span>*</span></p>
                                     <p th:text="${user.userId}"></p>
 
-                                        <input  type="text" th:field="*{user.userId}"
-                                               name="userId" id="userId" placeholder="請輸入使用者編號"
-                                               required="required" />
-<!--                                        th:field="*{user.userId}"-->
+                                        <input type="hidden" th:field="*{user.userId}"
+                                               name="userId" id="userId" />
+<!--                                th:attr="name=user.userId"        th:field="*{user.userId}"-->
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>會員姓名<span>*</span></p>
-                                    <input th:field="*{user.username}" type="text"
-                                           name="username" id="username" placeholder="請輸入使用者編號" />
+                                    <p th:text="${user.username}"></p>
+<!--                                    <input th:field="*{user.username}" type="text"-->
+<!--                                           name="username" id="username" placeholder="請輸入使用者編號" />-->
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
-                            <p>課程<span>*</span></p>
-                            <p th:text="${course.openCourse}"></p>
-                            <input th:field="*{course.openCourse}" type="text" class="checkout__input__add"
-                                   name="openCourse" id="openCourse" placeholder="請輸入課程開課編號"/>
-                            <input th:field="*{course.startDate}" type="text" class="checkout__input__add"
-                                   name="course" id="course" placeholder="請輸入課程開課日期"/>
-                            <input type="text" placeholder="課程金額" class="checkout__input__add">
+                            <p>課程資訊<span></span></p>
+                                <input  type="hidden" th:field="*{course.openCourse}"
+                                        name="openCourse" id="openCourse" />
+                                <td th:field="${course.openCourse}" th:text="|開課編號: ${course.openCourse}|"></td></br>
+                                <td th:text="|開課時間: ${#dates.format(course.startDate, 'yyyy/MM/dd HH:mm')}|"></td></br>
+                                <td th:text="|課程名稱: ${course.cProduct.name}|"></td></br>
+                                <td th:text="|課程單價: ${'$'+course.cProduct.price}|"></td></br>
                         </div>
+
                         <div class="checkout__input">
                             <p>參加總人數<span>*</span></p>
-                            <input th:field="*{attendance}" type="text" class="form-control"
-                                   name="attendance" id="attendance" placeholder="請輸入參加人數"/>
+                            <input th:field="*{attendance}" type="number" class="form-control" th:min="1"
+                                   name="attendance" id="attendance" placeholder="請輸入參加人數" style="color: #444444;"/>
                         </div>
 
                         <div class="checkout__input__checkbox">
-                            <label for="acc">
+                            <label for="agree">
                                 點此同意免責聲明
-                                <input type="checkbox" id="acc" required="required">
-                                <span class="checkmark"></span>
+                                <input type="checkbox" id="agree" required="required">
+                                <span class="checkmark" ></span>
+                                <div id="error"></div>
                             </label>
                         </div>
+
                         <p>本公司相當重視隱私權的保護。關於您的會員及其資料，將依本服務「隱私權保護政策」保護與規範。</br>
                             您已了解並同意當您使用本服務時，本公司依據「隱私權保護政策」之規範進行資料的蒐集與利用。</p>
                     </div>
@@ -101,16 +111,18 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
                             <h4>課程訂單</h4>
-                            <div class="checkout__order__products">課程類別 <span>總計</span></div>
-                            <ul>
-                                <li>Vegetable’s Package <span>$100</span></li>
+                            <div class="checkout__order__products">課程類別 <span>合計</span></div>
+                            <ul >
+                                <li th:text="${course.cProduct.name}"></li>
+                                <div style="text-align: right; font-weight:700; color:#666666; font-size: 18px "><span th:text="${course.cProduct.price}" id="coursePrice"></span></div>
                             </ul>
+
                             <div class="checkout__order__subtotal">人數 <span>
-                                    <em id='peopleResult'></em>
+                                    <em id='peopleResult' style="font-weight:700; color:#666666; font-size: 18px; font-style:normal "></em>
                                 </span>
                             </div>
-                            <div class="checkout__order__total">總計 <span>$500</span></div>
-                            <button type="submit" class="site-btn">送出報名</button>
+                            <div class="checkout__order__total">總計 <span id="total"></span></div>
+                            <button type="submit" class="site-btn" onclick="errorMessage()">送出報名</button>
                         </div>
                     </div>
                     <!--This is end of sideBar -->
@@ -121,10 +133,35 @@
 </section>
 <!-- Checkout Section End -->
 <div th:replace="footer.html"></div>
-<script>
+<script th:inline="javascript">
+    //數字會自動帶
     document.getElementById('attendance').onblur = function(){
         var people = parseInt(document.getElementById('attendance').value);
-        document.getElementById('peopleResult').textContent = people;
+        if(people != null && !isNaN(people) && people != 0){
+            document.getElementById('peopleResult').textContent = people;
+        } else{
+            document.getElementById('peopleResult').textContent = 0;
+        }
+        var coursePrice = [[${course.cProduct.price}]];
+        var total = people * coursePrice;
+        if(total != null && !isNaN(total) && total != 0) {
+            document.getElementById('total').textContent = total;
+        } else{
+            document.getElementById('total').textContent = 0;
+        }
+    }
+
+    //免責聲明要勾
+    function errorMessage() {
+        var error = document.getElementById("error")
+        if (isNaN(document.getElementById("agree").value))
+        {
+            // Changing content and color of content
+            error.textContent = "同意後送出報名"
+            error.style.color = "red"
+        } else {
+            error.textContent = ""
+        }
     }
 </script>
 

@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.good.model.Goods;
+import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.user.model.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -102,6 +104,27 @@ public class Cart {
         orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
         cart.put(cartItem.getCartNo(), orderItem);
         }
+    }
+
+    public Order getOrder(){
+        Order order = new Order();
+
+        //訂單狀態
+        order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+
+        order.setShippingFee(this.getShippingFee());
+
+        order.setOrderItemList(new LinkedHashSet<>(this.getCart().values()));
+
+        order.getOrderItemList().forEach((e) -> e.setOrder(order));
+        if (this.getCoupon() != null) {
+            order.setCoupon(this.getCoupon());
+        }
+
+        order.setTotalPrice(this.getTotal() - this.getDiscountAmount());
+
+        order.setDiscountAmount(this.getDiscountAmount());
+        return order;
     }
 
 }

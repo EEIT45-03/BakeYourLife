@@ -47,9 +47,14 @@ public class ArticleServiceImpl implements ArticleService {
 		return repository.findAllByTypeContaining(type);
 	}
 
+	      @Override
 	      public List<Article>findLatestDate(Date date){
 		      return repository.findLatestDate(date);
 		  }
+	     @Override
+	     public List<Article>findByUserId(Integer userid){
+		return repository.findByUserId(userid);
+	}
 
 	@Override
 			public Article insert(Article newArticle) {

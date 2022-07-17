@@ -129,7 +129,7 @@ public class RentalServiceImpl implements RentalService{
 			User user = userService.findByUserId(rental.getUser().getUserId());
 			rental.setUser(user);
 		}
-		rental.setRentalDate(new Date());
+//		rental.setRentalDate(new Date());
 		return rentalRepository.save(rental);
 	}
 
@@ -246,6 +246,8 @@ public class RentalServiceImpl implements RentalService{
 			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
 			venueList.setVenue(venue);
 		}
+		venueList.getRental().setRentalDate(new Date());
+
 		return venueListRepository.save(venueList);
 	}
 
@@ -395,6 +397,7 @@ public class RentalServiceImpl implements RentalService{
 		TackleList tackleList = new TackleList();
 		if(tackleListRequest.getRental().getRentalNo()!=null) {
 			Rental rental = rentalRepository.findByRentalNo(tackleListRequest.getRental().getRentalNo());
+			rental.setRentalDate(new Date());
 			tackleList.setRental(rental);
 		}
 		if(tackleListRequest.getTackleListNo()!=null){

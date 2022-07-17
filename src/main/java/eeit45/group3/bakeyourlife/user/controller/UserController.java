@@ -6,9 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -24,12 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     UserService userService;
+    FarmerService farmerService;
+    @Autowired
+    PasswordEncoder encoder;
 
     @Autowired
-    public UserController(UserService userService) {
-
+    public UserController(UserService userService,FarmerService farmerService) {
         this.userService = userService;
-
+        this.farmerService = farmerService;
     }
 
     @GetMapping("/")
@@ -39,14 +45,14 @@ public class UserController {
         return "admin/user/User";
     }
 
-    @GetMapping("CreateUser")
+    @GetMapping("/CreateUser")
     public String viewCreateUser(Model model) {
         model.addAttribute("user",new User());
 
         return "admin/user/CreateUser";
     }
 
-    @PostMapping("CreateUser")
+    @PostMapping("/CreateUser")
     public String createUser(User user) {
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
@@ -58,7 +64,7 @@ public class UserController {
         }
 //        --------------------------------------------------------------
         String fullname = user.getFullName();
-        user.setFullName("管理員-"+fullname);
+        user.setFullName("管理員"+fullname);
 //        ----------------------------------------------------------
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
@@ -77,9 +83,12 @@ public class UserController {
     }
 
     @PostMapping("/UpdateUser")
-    public String updateUser(@RequestParam("userId")Integer userId, User user) {
+    public String updateUser(@RequestParam("userId")Integer userId, User user ) {
 
         User userDB = userService.findByUserId(userId);
+//        System.out.println("密碼:"+user.getPassword());
+//        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
+
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
             user.setImageUrl(userDB.getImageUrl());
@@ -87,6 +96,13 @@ public class UserController {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
+//-------------------------------------------------------------------------------------------
+        if (user.getPassword().length() == 0){
+            user.setPassword(userDB.getPassword());
+        }else {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
+//-------------------------------------------------------------------------------------------
         user.setRegisterTime(userDB.getRegisterTime());
         user.setAuthority(userDB.getAuthority());
         userService.updateUser(user);
@@ -103,7 +119,11 @@ public class UserController {
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
         User user = userService.findByUsername(username);
-        return user == null;
+        Farmer farmer = farmerService.findByUsername(username);
+        if (user == null && farmer == null) {
+            return true;
+        }
+        return false;
     }
 
     @InitBinder

@@ -206,4 +206,22 @@ public class User implements Serializable {
     public void setProductCommentList(List<ProductComment> productCommentList) {
         this.productCommentList = productCommentList;
     }
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authority='" + authority + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birth='" + birth + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", registerTime=" + registerTime +
+                ", productImage=" + productImage +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

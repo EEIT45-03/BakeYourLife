@@ -45,10 +45,10 @@
 
     <!-- 圖片: -->
     <div class="row mb-3">
-        <label for="image" class="col-sm-3 col-form-labels">圖片:</label>
+        <label for="files" class="col-sm-3 col-form-labels">圖片:</label>
         <div class="col-sm-9">
-            <input type="file" class="form-control" th:name="venueImage"
-                   id="image" accept="image/png, image/jpeg, image/jpg"/>
+            <input th:field="*{venueImage}" type="file" class="form-control" name="venueImage"
+                   id="files" accept="image/png, image/jpeg, image/jpg" multiple="multiple" onchange="fileCountCheck(this,0,5)"/>
         </div>
     </div>
     <!-- 圖片顯示 -->

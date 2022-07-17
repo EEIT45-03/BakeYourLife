@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.tackle.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class TackleSort implements Serializable {
     @Column(nullable = false, unique = true)
     private String sort;
 
+    @JsonBackReference
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "tackleSort")
     private Set<Tackle> tackles = new LinkedHashSet<Tackle>();
 

@@ -64,8 +64,8 @@ public class Article implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name = "FK_userId",referencedColumnName = "userId", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "user_Id",referencedColumnName = "userId", nullable = false)
 	@JsonIgnore
 	private User user;
 
