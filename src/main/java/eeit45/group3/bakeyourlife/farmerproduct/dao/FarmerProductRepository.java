@@ -23,6 +23,9 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     //多個商品 從類型跟狀態找 按時間排序 新到舊
     List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type, Integer state);
 
+    //多個商品 從類型跟狀態找 排除一個商品 按時間排序 新到舊
+    List<FarmerProductBean> findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(String type, Integer state, Integer farmerProductId);
+
     //多個商品 從類型跟狀態跟廠商ID找 按時間排序 新到舊
     List<FarmerProductBean> findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(String type, Integer state, Integer farmerId);
 

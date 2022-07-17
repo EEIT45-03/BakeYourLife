@@ -34,15 +34,15 @@ public class AdminProductCommentController {
         return "admin/productcomment/ProductComment";
     }
 
-    @GetMapping("/admin/ProductComment/CreateProductComment")
-    public String createProductComment(Model model) {
-        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findAll();
-        List<User> userList = userService.findAll();
-        model.addAttribute(farmerProductBeanList);
-        model.addAttribute(userList);
-
-        return "admin/productcomment/CreateProductComment";
-    }
+//    @GetMapping("/admin/ProductComment/CreateProductComment")
+//    public String createProductComment(Model model) {
+//        List<FarmerProductBean> farmerProductBeanList = farmerProductService.findAll();
+//        List<User> userList = userService.findAll();
+//        model.addAttribute(farmerProductBeanList);
+//        model.addAttribute(userList);
+//
+//        return "admin/productcomment/CreateProductComment";
+//    }
 
     @GetMapping("/admin/ProductComment/UpdateProductComment")
     public String updateProductComment(@RequestParam Integer productCommentId, Model model) {

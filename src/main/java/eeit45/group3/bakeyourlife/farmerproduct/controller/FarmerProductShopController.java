@@ -30,13 +30,14 @@ public class FarmerProductShopController {
     @GetMapping("/ShopDetails/{id}")
     private String ShopDetails(@PathVariable Integer id, Model model) {
         FarmerProductBean farmerProductBean = null;
-
+        List<FarmerProductBean> farmerProductBeanList = null;
         if (id != null) {
             farmerProductBean = farmerProductService.findByFarmerProductId(id);
+            farmerProductBeanList = farmerProductService.findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(farmerProductBean.getType(), id);
         }
 
         model.addAttribute(farmerProductBean);
-
+        model.addAttribute(farmerProductBeanList);
         return "farmerproduct/FarmerProductShopDetails";
     }
 

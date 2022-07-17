@@ -16,6 +16,8 @@
         .farmer span i {
             color: #305632;
         }
+
+
     </style>
 
 </head>
@@ -91,7 +93,7 @@
                         </div>
                     </div>
                     <a href="#" class="primary-btn" th:onclick="|add('F',*{farmerProductId})|">加入購物車</a>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    <!--                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                     <ul>
                         <li><b>庫存</b> <span th:text="*{quantity}"></span></li>
                         <li><b>內容物</b> <span th:text="*{contents}"></span></li>
@@ -157,15 +159,15 @@
                                 <section class="content-item" id="comments">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-12">
                                                 <!-- COMMENT 1 - START -->
                                                 <div class="media" th:each="comment :*{productCommentList}">
                                                     <a class="pull-left" href="#">
                                                         <img class="img userimg media-object"
-                                                             src="/img/undraw_profile.svg"
+                                                             th:src="${comment.user.imageUrl}"
                                                              alt=""></a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading" th:text="${comment.user.username}">
+                                                        <h4 class="media-heading" th:text="${comment.user.fullName}">
                                                             John Doe</h4>
                                                         <span th:switch="${comment.star}" class="star">
                                                                <span th:case="1">
@@ -194,20 +196,12 @@
                                                                   <i class="fa-solid fa-star"></i>
                                                                </span>
                                                         </span>
-                                                        <!--                                                        <p th:text="${comment.commentContent}"></p>-->
                                                         <p th:utext="${#strings.replace(#strings.escapeXml(comment.commentContent),'&#10;','&lt;br&gt;')}"></p>
-
-
                                                         <ul class="list-unstyled list-inline media-detail pull-left">
                                                             <li><i class="fa fa-calendar"></i>
                                                                 <span th:text=" ${#dates.format(comment.time, 'yyyy/MM/dd HH:mm')}"></span>
                                                             </li>
-
                                                         </ul>
-                                                        <!--                                                        <ul class="list-unstyled list-inline media-detail pull-right">-->
-                                                        <!--                                                            <li class=""><a href="">Like</a></li>-->
-                                                        <!--                                                            <li class=""><a href="">Reply</a></li>-->
-                                                        <!--                                                        </ul>-->
                                                     </div>
                                                 </div>
                                                 <!-- COMMENT 1 - END -->
@@ -229,70 +223,46 @@
 <!-- Product Details Section End -->
 
 <!-- Related Product Section Begin -->
-<section class="related-product">
+<section class="product">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title related__product__title">
-                    <h2>推薦商品</h2>
-                </div>
+        <div class=" product__discount ">
+            <div class="section-title from-blog__title">
+                <h2>推薦商品</h2>
             </div>
-        </div>
-        <div class="row" id="productContent">
-
-
-        </div>
-    </div>
-</section>
-<!-- Related Product Section End -->
-
-<div th:replace="footer.html"></div>
-
-<script>
-
-    $(document).ready(function () {
-        let type = $("#type").text()
-        console.log(type)
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '[[@{/FarmerProducts/}]]' + type, true);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let result = JSON.parse(xhr.responseText);
-                let data = ``;
-                for (let i = 0; i < result.length; i++) {
-                    data += `<div class="col-lg-3 col-md-4 col-sm-6" >
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" style="background-image: url('${result[i].farmerProductPicList[0].pictureLink}')">
+            <div class="row ">
+                <div class="product__discount__slider owl-carousel">
+                    <div class="col-lg-4" th:each="bean :${farmerProductBeanList}">
+                        <div class="product__discount__item">
+                            <div class="product__discount__item__pic set-bg"
+                                 th:data-setbg="${bean.farmerProductPicList[0].pictureLink}">
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li>
+                                        <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"><i
+                                                class="fa fa-magnifying-glass"></i></a></li>
+                                    <li><a href="#" th:onclick="|add('F',${bean.farmerProductId})|"><i
+                                            class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="/FarmerProductShop/ShopDetails/${result[i].farmerProductId}">${result[i].name}</a>
+                                <h6>
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${bean.farmerProductId})}"
+                                       th:text="${bean.name}"></a>
                                 </h6>
-                                <h5 >NT$${result[i].price}</h5>
+                                <h5 th:text="|NT$${bean.price}|"></h5>
                             </div>
                         </div>
-                    </div>`
-                }
-                $("#productContent").html(data);
-            } else if (xhr.status === 400) {
-                Swal.fire(
-                    '錯誤!',
-                    json.message,
-                    'error'
-                )
-            }
-        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
-    });
+<!-- Related Product Section End -->
 
-
-</script>
+<div th:replace="footer.html"></div>
 
 
 </body>

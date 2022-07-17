@@ -44,6 +44,11 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
+    public List<FarmerProductBean> findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(String type, Integer farmerProductId) {
+        return farmerProductRepository.findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(type, 0, farmerProductId);
+    }
+
+    @Override
     public List<FarmerProductBean> findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(String type, Integer farmerId) {
         return farmerProductRepository.findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(type, 0, farmerId);
     }

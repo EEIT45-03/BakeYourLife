@@ -19,6 +19,8 @@ public interface FarmerProductService {
 
     List<FarmerProductBean> findByTypeAndStateOrderByLaunchedTimeDesc(String type);
 
+    List<FarmerProductBean> findByTypeAndStateAndFarmerProductIdNotOrderByLaunchedTimeDesc(String type, Integer farmerProductId);
+
     List<FarmerProductBean> findByTypeAndStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(String type, Integer farmerId);
 
 

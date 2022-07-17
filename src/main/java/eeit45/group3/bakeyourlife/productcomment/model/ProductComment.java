@@ -1,7 +1,9 @@
 package eeit45.group3.bakeyourlife.productcomment.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "ProductComment")
+@JsonIgnoreProperties(value = {"farmerProductBean", "user", "goods"})
 public class ProductComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +21,9 @@ public class ProductComment {
     @JoinColumn(name = "farmer_product_id")
     private FarmerProductBean farmerProductBean;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "goods_id")
+    private Goods goods;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -33,9 +39,26 @@ public class ProductComment {
     public ProductComment() {
     }
 
-    public ProductComment(Integer productCommentId, FarmerProductBean farmerProductBean, User user, Date time, String commentContent, Integer star) {
+    public ProductComment(Integer productCommentId, FarmerProductBean farmerProductBean, Goods goods, User user, Date time, String commentContent, Integer star) {
         this.productCommentId = productCommentId;
         this.farmerProductBean = farmerProductBean;
+        this.goods = goods;
+        this.user = user;
+        this.time = time;
+        this.commentContent = commentContent;
+        this.star = star;
+    }
+
+    public ProductComment(FarmerProductBean farmerProductBean, User user, Date time, String commentContent, Integer star) {
+        this.farmerProductBean = farmerProductBean;
+        this.user = user;
+        this.time = time;
+        this.commentContent = commentContent;
+        this.star = star;
+    }
+
+    public ProductComment(Goods goods, User user, Date time, String commentContent, Integer star) {
+        this.goods = goods;
         this.user = user;
         this.time = time;
         this.commentContent = commentContent;
@@ -88,5 +111,13 @@ public class ProductComment {
 
     public void setStar(Integer star) {
         this.star = star;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

@@ -2,19 +2,92 @@
 <html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Ogani Template">
-  <meta name="keywords" content="Ogani, unica, creative, html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>評價商品</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>評價商品</title>
 
-  <div th:replace="css.html"></div>
+    <div th:replace="css.html"></div>
 
-  <style>
+    <style>
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
 
 
-  </style>
+        .commentcard {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            width: 600px;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: 20px;
+            -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+        }
+
+        .rating {
+            display: flex;
+            margin-top: 6px;
+            flex-direction: row-reverse;
+            margin-left: -4px;
+            float: left;
+        }
+
+        .rating > input {
+            display: none
+        }
+
+        .rating > label {
+            position: relative;
+            width: 40px;
+            font-size: 50px;
+            color: #ffbf00;
+            cursor: pointer;
+        }
+
+        .rating > label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+            opacity: 1 !important
+        }
+
+        .rating > input:checked ~ label:before {
+            opacity: 1
+        }
+
+        .rating:hover > input:checked ~ label:before {
+            opacity: 0.4
+        }
+
+
+        .btnn {
+            margin-right: 20px;
+        }
+
+        .bodyItem {
+            padding: 0px 20px 20px 20px;
+        }
+
+
+    </style>
 
 </head>
 
@@ -24,113 +97,133 @@
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="breadcrumb__text">
-          <h2>評價商品</h2>
-          <div class="breadcrumb__option">
-            <a href="/">首頁</a>
-            <span>評價商品</span>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>評價商品</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">首頁</a>
+                        <span>評價商品</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 <!-- Breadcrumb Section End -->
 
 
-<section class="checkout spad">
-  <div class="container">
+<div class="container commentcard ">
 
 
+    <div class="card shadow ">
 
-<div class="card-body">
-  <div class="card-body"><div class="commentcard">
-    <form action="" method="post" th:object="${wrapper}">
+        <div class="card-header ">
+            <h6 class="m-0 font-weight-bold text-primary">評價商品</h6>
+        </div>
 
-        <div class="row" th:each="review,stat:*{reviews}">
-          <h4 th:text="${review.getProductName()}"></h4>
-          <input type="hidden" th:field="*{reviews[__${stat.index}__].productNo}" />
-          <input type="hidden" th:field="*{reviews[__${stat.index}__].productName}" />
-          <div class="col-12">
+        <div class="card-body">
 
-            <div class="comment-box ml-2">
+            <form action="" method="post" th:object="${wrapper}">
 
+                <div class="row bodyItem" th:each="review,stat:*{reviews}">
+                    <h4 th:text="${review.getProductName()}"></h4>
+                    <input type="hidden" th:field="*{reviews[__${stat.index}__].productNo}"/>
+                    <input type="hidden" th:field="*{reviews[__${stat.index}__].productName}"/>
+                    <div class="col-12">
 
-              <div class="rating">
-                <input type="radio" th:field="*{reviews[__${stat.index}__].star}" value="5" id="5"><label for="5">☆</label>
-                <input type="radio" th:field="*{reviews[__${stat.index}__].star}" value="4" id="4"><label for="4">☆</label>
-                <input type="radio" th:field="*{reviews[__${stat.index}__].star}" value="3" id="3"><label for="3">☆</label>
-                <input type="radio" th:field="*{reviews[__${stat.index}__].star}" value="2" id="2"><label for="2">☆</label>
-                <input type="radio" th:field="*{reviews[__${stat.index}__].star}" value="1" id="1"><label for="1">☆</label>
-              </div>
-
-              <div class="comment-area">
-
-                        <textarea id="commentContent" th:field="*{reviews[__${stat.index}__].commentContent}" class="form-control" placeholder="評論..."
-                                  rows="4"
-                                  maxlength="100"
-                                  required></textarea>
-
-              </div>
+                        <div class="comment-box ml-2">
 
 
-            </div>
+                            <div class="rating">
+                                <input type="radio" th:field="*{reviews[__${stat.index}__].star}"
+                                       value="5"><label>☆</label>
+                                <input type="radio" th:field="*{reviews[__${stat.index}__].star}"
+                                       value="4"><label>☆</label>
+                                <input type="radio" th:field="*{reviews[__${stat.index}__].star}"
+                                       value="3"><label>☆</label>
+                                <input type="radio" th:field="*{reviews[__${stat.index}__].star}"
+                                       value="2"><label>☆</label>
+                                <input type="radio" th:field="*{reviews[__${stat.index}__].star}"
+                                       value="1"><label>☆</label>
+                            </div>
 
-          </div>
+                            <div class="comment-area">
+                                 <textarea id="commentContent"
+                                           th:field="*{reviews[__${stat.index}__].commentContent}"
+                                           class="form-control textarea" placeholder="評論..."
+                                           rows="4"
+                                           maxlength="100"
+                                           required></textarea>
+
+                            </div>
+
+                            <hr>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="comment-btns mt-2">
+                    <div class="row col-12">
+                        <button type="submit" class="btn btn-success btnn" onclick="sendcreate()">送出
+                        </button>
+                        <button type="button" class="btn btn-info btnn" onclick="inputGood()">一鍵好讚</button>
+                        <button type="button" class="btn btn-warning btnn" onclick="inputBad()">一鍵好爛
+                        </button>
+                    </div>
+                </div>
+
+
+                <!--    <div class="row">-->
+
+                <!--      <div class="col-2">-->
+                <!--        <label for="farmerProductId" class="col-sm-2 col-form-labels">商品:</label>-->
+
+                <!--&lt;!&ndash;        <img src="/img/undraw_profile.svg" width="70" class="rounded-circle mt-2">&ndash;&gt;-->
+
+
+                <!--      </div>-->
+
+
+            </form>
+
 
         </div>
-    <div class="comment-btns mt-2">
 
 
-      <div class="col-10">
-
-
-        <button class="btn btn-success" onclick="sendcreate()">送出</button>
-        <br>
-        <button class="btn btn-info" onclick="inputGood()">一鍵好讚</button>
-        <br>
-        <button class="btn btn-warning" onclick="inputBad()">一鍵好爛</button>
-
-
-      </div>
-
-
+        <!--  <div class="card card-body" id="cartBody">-->
+        <!--    <p>訂單編號: [[${orderNo}]] 已付款成功</p>-->
+        <!--    <p><span id="sec"></span>秒後自動跳轉到購買清單</p>-->
+        <!--  </div>-->
     </div>
 
-
-<!--    <div class="row">-->
-
-<!--      <div class="col-2">-->
-<!--        <label for="farmerProductId" class="col-sm-2 col-form-labels">商品:</label>-->
-
-<!--&lt;!&ndash;        <img src="/img/undraw_profile.svg" width="70" class="rounded-circle mt-2">&ndash;&gt;-->
-
-
-<!--      </div>-->
-
-
-    </form>
-
-    </div>
-
-  </div>
-
-  </div>
-<!--  <div class="card card-body" id="cartBody">-->
-<!--    <p>訂單編號: [[${orderNo}]] 已付款成功</p>-->
-<!--    <p><span id="sec"></span>秒後自動跳轉到購買清單</p>-->
-<!--  </div>-->
 </div>
-  </div>
-</section>
 
 
 <div th:replace="footer.html"></div>
 
-<script type="text/javascript">
+<script>
+    $(document).ready(function () {
+        $(":radio").each(function () {
+            let radioId = $(this).attr("id");
+            $(this).next().attr("for", radioId);
+        })
+    })
+
+    function inputGood() {
+        $(".textarea").val("好讚 好讚 好讚 好讚\n" +
+            "好讚 好讚 好讚 好讚\n" +
+            "好讚 好讚 好讚 好讚")
+    }
+
+    function inputBad() {
+        $(".textarea").val("好爛 好爛 好爛 好爛\n" +
+            "好爛 好爛 好爛 好爛\n" +
+            "好爛 好爛 好爛 好爛")
+    }
+
 </script>
 
 </body>
