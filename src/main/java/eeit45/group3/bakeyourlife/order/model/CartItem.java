@@ -26,4 +26,8 @@ public interface CartItem {
 
     //庫存功能?
 
+    Integer getStock();
+
+    void updateStock(Integer stock);
+
 }

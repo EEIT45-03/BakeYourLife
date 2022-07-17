@@ -8,6 +8,8 @@ import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,16 @@ public class Cart {
     private Integer shippingFee = 100;
     //優惠卷
     private Coupon coupon;
+
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     //購物車商品
     private Map<String, OrderItem> cart = new HashMap<>();

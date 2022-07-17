@@ -270,4 +270,14 @@ public class Goods implements CartItem {
     public boolean isEnable() {
         return "上架中".equals(this.system);
     }
+
+    @Override
+    public Integer getStock() {
+        return Integer.valueOf(this.count);
+    }
+
+    @Override
+    public void updateStock(Integer stock) {
+        this.count = stock.toString();
+    }
 }
