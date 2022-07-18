@@ -156,8 +156,8 @@ public class InsertInitDataJdbc {
     public void saveAllByUsers(List<User> users){
         String userSql = "insert into users " +
                 "(user_id, address, authority, birth, email, full_name," +
-                " gender, image_url, password, phone, register_time, username)" +
-                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " gender, image_url, password, phone, register_time, username,enabled)" +
+                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection=null;
         try{
             connection = dataSource.getConnection();
@@ -184,6 +184,7 @@ public class InsertInitDataJdbc {
                 userPs.setString(10, user.getPhone());
                 userPs.setTimestamp(11, user.getRegisterTime());
                 userPs.setString(12, user.getUsername());
+                userPs.setBoolean(13,user.isEnabled());
                 userPs.addBatch();
                 userId++;
             }
