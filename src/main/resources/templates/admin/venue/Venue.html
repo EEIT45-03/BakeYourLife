@@ -15,11 +15,54 @@
     <div th:replace="admin/css.html"></div>
 
     <style>
-        img {
-            width: 50px;
-            height: 50px;
+
+
+        .img {
+            border-radius: 5px;
+            object-fit: cover;
+            width: 120px;
+            height: 90px;
+
         }
+
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        td.child {
+            text-align: left;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        .fa-solid {
+            font-size: 1.3rem;
+        }
+
+        .text {
+            white-space: pre;
+        }
+
+        .btn {
+
+            margin: 5px;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+
+
     </style>
+
 </head>
 
 <body id="page-top">
@@ -90,7 +133,7 @@
                                         <th>人數上限</th>
                                         <th>價錢/時</th>
                                         <th>圖片</th>
-                                        <th style="width: 30%">備註</th>
+                                        <th class="none">備註</th>
                                         <th>修改</th>
                                         <th>刪除</th>
                                     </tr>
@@ -103,7 +146,34 @@
                                         <td th:text="${venue.venueSort.sort}"></td>
                                         <td th:text="${venue.personMax}"></td>
                                         <td th:text="${venue.hrPrice}"></td>
-                                        <td><img th:src="${venue.picture}"></td>
+                                        <td></td>
+<!--                                        <td>-->
+<!--                                            <div th:if="${not #lists.isEmpty(venue.venuePicList)}"-->
+<!--                                                 class="carousel slide" data-ride="carousel">-->
+<!--                                                <div class="carousel-inner">-->
+<!--                                                    <div class="carousel-item"-->
+<!--                                                         th:each="venuePic: ${venue.venuePicList}">-->
+<!--                                                        <img class="d-block w-100 img"-->
+<!--                                                             th:src="${venuePic.picture}">-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <a class="carousel-control-prev"-->
+<!--                                                   role="button" data-slide="prev"-->
+<!--                                                   onclick="$(this).parent().carousel('prev')">-->
+<!--                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                                                    <span class="sr-only">Previous</span>-->
+<!--                                                </a>-->
+<!--                                                <a class="carousel-control-next"-->
+<!--                                                   role="button" data-slide="next"-->
+<!--                                                   onclick="$(this).parent().carousel('next')">-->
+<!--                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                                                    <span class="sr-only">Next</span>-->
+<!--                                                </a>-->
+<!--                                            </div>-->
+<!--                                            <img th:unless="${not #lists.isEmpty(venue.venuePicList)}"-->
+<!--                                                 class="d-block w-100 img"-->
+<!--                                                 src="/img/logo4.png">-->
+<!--                                        </td>-->
                                         <td th:text="${venue.notes}"></td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-icon-split btn-sm"

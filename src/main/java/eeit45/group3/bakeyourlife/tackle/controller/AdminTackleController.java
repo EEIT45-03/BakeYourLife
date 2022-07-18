@@ -55,14 +55,15 @@ public class AdminTackleController {
 
     @PostMapping("/CreateTackle")
     public String createTackle(@ModelAttribute("tackle") Tackle tackle,
-                               @RequestParam(value = "tackleImage", required = false) MultipartFile file,
+                               @RequestParam(value = "tackleImage", required = false) MultipartFile[] file,
                               BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return  "/admin/tackle/Tackle";
         }
 
-        tackle.setPicture(updateByMultipartFile(file).getLink());
+//        tackle.setPicture(updateByMultipartFile(file).getLink());
         tackleService.createTackle(tackle);
+        tackleService.createTacklePicList(tackle.getTackleName(),file);
         return "redirect:./";
     }
 
@@ -91,7 +92,7 @@ public class AdminTackleController {
             return  "/admin/tackle/Tackle";
         }
 
-        tackle.setPicture(updateByMultipartFile(file).getLink());
+//        tackle.setPicture(updateByMultipartFile(file).getLink());
         tackleService.updateTackle(tackle);
         return "redirect:./";
     }

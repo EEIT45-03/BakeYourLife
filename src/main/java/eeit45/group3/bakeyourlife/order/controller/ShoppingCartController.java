@@ -57,9 +57,6 @@ public class ShoppingCartController {
 
     @GetMapping("/Carts")
     public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart) {
-//        List<Goods> goods = goodService.getAllGoods();
-//        model.addAttribute("goods", goods);
-//        return "order/Cart";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
@@ -68,43 +65,22 @@ public class ShoppingCartController {
                           @RequestParam String type,
                           @RequestParam Integer qty,
                           @ModelAttribute Cart cart) {
-        CartItem cartItem = null;
-        switch (type) {
-            case "G":
-                cartItem = goodService.getGoods(itemId);
-                break;
-            case "F":
-                cartItem = farmerProductService.findByFarmerProductId(itemId);
-                break;
-        }
+        CartItem cartItem = getCartItem(type,itemId);
 
-        if (cartItem != null) {
-            cart.addItem(cartItem,qty);
-        }
-//        return "order/CartBody";
-        return ResponseEntity.status(HttpStatus.OK).body(cart);
+
+        return getCartResponseEntity(qty, cart, cartItem);
     }
 
     @GetMapping("/Carts/Remove")
     public ResponseEntity<Cart> cartRemove(@RequestParam String itemNo,
-//                             @RequestParam String type,
                              @ModelAttribute Cart cart) {
-        CartItem cartItem = null;
         String type = itemNo.substring(0, 1);
         Integer itemId = Integer.valueOf(itemNo.substring(1));
-        switch (type) {
-            case "G":
-                cartItem = goodService.getGoods(itemId);
-                break;
-            case "F":
-                cartItem = farmerProductService.findByFarmerProductId(itemId);
-                break;
-        }
+        CartItem cartItem = getCartItem(type,itemId);
 
         if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
-//        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
@@ -114,25 +90,13 @@ public class ShoppingCartController {
 //                             @RequestParam String type,
                              @RequestParam Integer qty,
                              @ModelAttribute Cart cart) {
-        CartItem cartItem = null;
         String type = itemNo.substring(0, 1);
         Integer itemId = Integer.valueOf(itemNo.substring(1));
-        switch (type) {
-            case "G":
-                cartItem = goodService.getGoods(itemId);
-                break;
-            case "F":
-                cartItem = farmerProductService.findByFarmerProductId(itemId);
-                break;
-        }
+        CartItem cartItem = getCartItem(type,itemId);
 
-        if (cartItem != null) {
-            cart.updataItem(cartItem, qty);
-        }
-//        return "order/CartBody";
-        return ResponseEntity.status(HttpStatus.OK).body(cart);
+
+        return getCartResponseEntity(qty, cart, cartItem);
     }
-
 
 
     @PostMapping(path = "/CheckOut", produces = "text/html;charset=UTF-8")
@@ -174,9 +138,22 @@ public class ShoppingCartController {
 
             order.setShippingFee(cart.getShippingFee());
 
+
             order.setOrderItemList(new LinkedHashSet<>(cart.getCart().values()));
 
-            order.getOrderItemList().forEach((e) -> e.setOrder(order));
+            order.getOrderItemList().forEach((e) -> {
+                if(e.getProductNo().charAt(0) == 'G'){
+                    Goods goods = goodService.getGoods(Integer.parseInt(e.getProductNo().substring(1)));
+                    goods.updateStock(goods.getStock() - e.getQty());
+                    goodService.updateGoods(goods);
+                }
+                if(e.getProductNo().charAt(0) == 'F'){
+                    FarmerProductBean farmerProduct = farmerProductService.findByFarmerProductId(Integer.parseInt(e.getProductNo().substring(1)));
+                    farmerProduct.updateStock(farmerProduct.getStock() - e.getQty());
+                    farmerProductService.update(farmerProduct);
+                }
+                e.setOrder(order);
+            });
             if (cart.getCoupon() != null) {
                 order.setCoupon(cart.getCoupon());
             }
@@ -197,12 +174,18 @@ public class ShoppingCartController {
     @GetMapping("/Cart/useCoupon")
     public ResponseEntity<Cart> useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
+                            Authentication authentication,
                             Model model) {
         Coupon coupon = couponService.findById(code).orElse(null);
         Date now = new Date();
         if(coupon == null || !"進行中".equals(coupon.getState()) || !(coupon.getMaxQuantity()>coupon.getUsedQuantity())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        User currentUser = userService.getCurrentUser(authentication);
+        if(orderService.findByByCoupon(currentUser, coupon) != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
         cart.setCoupon(coupon);
         //        return "order/CartBody";
         return ResponseEntity.status(HttpStatus.OK).body(cart);
@@ -243,6 +226,34 @@ public class ShoppingCartController {
         res.put("小農",map);
 
         return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+
+    private ResponseEntity<Cart> getCartResponseEntity(@RequestParam Integer qty, @ModelAttribute Cart cart, CartItem cartItem) {
+        if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
+            cart.updataItem(cartItem,qty);
+        }else if(!cartItem.isEnable()) {
+            Cart error = new Cart();
+            error.setMessage("商品不存在或已下架");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }else if(cartItem.getStock()<qty) {
+            Cart error = new Cart();
+            error.setMessage("庫存不足");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
+    }
+
+
+
+    private CartItem getCartItem(String type, Integer itemId) {
+        switch (type) {
+            case "G":
+                return goodService.getGoods(itemId);
+            case "F":
+                return farmerProductService.findByFarmerProductId(itemId);
+        }
+        return null;
     }
 
 
