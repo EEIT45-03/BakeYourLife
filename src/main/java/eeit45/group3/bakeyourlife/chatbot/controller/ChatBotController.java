@@ -2,6 +2,9 @@ package eeit45.group3.bakeyourlife.chatbot.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eeit45.group3.bakeyourlife.chatbot.model.DialogflowMessenger;
+import eeit45.group3.bakeyourlife.chatbot.model.ListMessage;
+import eeit45.group3.bakeyourlife.chatbot.model.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,247 +17,80 @@ import java.util.Map;
 
 @RestController
 public class ChatBotController {
+    /**
+     * 把Integrations的Dialogflow Messenger Enable後的code放到footer.html的</footer>下(取代掉原本的)
+     * 然後參考老師的教學設定，ngrok的port改8080，在Fulfillment的Webhook修改為對應的網址(看ngrok的Forwarding)
+     */
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @PostMapping("/webhook")
     public Object webhook(@RequestBody String bodyStr) throws JsonProcessingException {
-//        System.out.println(bodyStr);
+
         Map body = objectMapper.readValue(bodyStr, Map.class);
         Map queryResult = (Map) body.get("queryResult");
-        Map parameters = (Map)queryResult.get("parameters");
+        Map parameters = (Map) queryResult.get("parameters");
+
+        DialogflowMessenger dialogflowMessenger = new DialogflowMessenger();
+
+        /**
+         * Info 訊息
+         */
+        dialogflowMessenger.addInfoMessage("Info標題","內文","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/FrontArticle/ArticleDetail?postid=1");
 
 
-        Object map = objectMapper.readValue("{\n" +
-                "  \"fulfillmentMessages\": [\n" +
-                "    {\n" +
-                "      \"payload\": {\n" +
-                "        \"richContent\": [\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"info\",\n" +
-                "              \"title\": \"Info item title\",\n" +
-                "              \"subtitle\": \"Info item subtitle\",\n" +
-                "              \"image\": {\n" +
-                "                \"src\": {\n" +
-                "                  \"rawUrl\": \"https://example.com/images/logo.png\"\n" +
-                "                }\n" +
-                "              },\n" +
-                "              \"actionLink\": \"https://example.com\"\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"description\",\n" +
-                "              \"title\": \"Description title\",\n" +
-                "              \"text\": [\n" +
-                "                \"This is text line 1.\",\n" +
-                "                \"This is text line 2.\"\n" +
-                "              ]\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"image\",\n" +
-                "              \"rawUrl\": \"https://example.com/images/logo.png\",\n" +
-                "              \"accessibilityText\": \"Example logo\"\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"button\",\n" +
-                "              \"icon\": {\n" +
-                "                \"type\": \"chevron_right\",\n" +
-                "                \"color\": \"#FF9800\"\n" +
-                "              },\n" +
-                "              \"text\": \"Button text\",\n" +
-                "              \"link\": \"https://example.com\",\n" +
-                "              \"event\": {\n" +
-                "                \"name\": \"\",\n" +
-                "                \"languageCode\": \"\",\n" +
-                "                \"parameters\": {\n" +
-                "                  \n" +
-                "                }\n" +
-                "              }\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"list\",\n" +
-                "              \"title\": \"List item 1 title\",\n" +
-                "              \"subtitle\": \"List item 1 subtitle\",\n" +
-                "              \"event\": {\n" +
-                "                \"name\": \"\",\n" +
-                "                \"languageCode\": \"\",\n" +
-                "                \"parameters\": {\n" +
-                "                  \n" +
-                "                }\n" +
-                "              }\n" +
-                "            },\n" +
-                "            {\n" +
-                "              \"type\": \"divider\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "              \"type\": \"list\",\n" +
-                "              \"title\": \"List item 2 title\",\n" +
-                "              \"subtitle\": \"List item 2 subtitle\",\n" +
-                "              \"event\": {\n" +
-                "                \"name\": \"\",\n" +
-                "                \"languageCode\": \"\",\n" +
-                "                \"parameters\": {\n" +
-                "                  \n" +
-                "                }\n" +
-                "              }\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"accordion\",\n" +
-                "              \"title\": \"Accordion title\",\n" +
-                "              \"subtitle\": \"Accordion subtitle\",\n" +
-                "              \"image\": {\n" +
-                "                \"src\": {\n" +
-                "                  \"rawUrl\": \"https://example.com/images/logo.png\"\n" +
-                "                }\n" +
-                "              },\n" +
-                "              \"text\": \"Accordion text\"\n" +
-                "            }\n" +
-                "          ],\n" +
-                "          [\n" +
-                "            {\n" +
-                "              \"type\": \"chips\",\n" +
-                "              \"options\": [\n" +
-                "                {\n" +
-                "                  \"text\": \"Chip 1\",\n" +
-                "                  \"image\": {\n" +
-                "                    \"src\": {\n" +
-                "                      \"rawUrl\": \"https://example.com/images/logo.png\"\n" +
-                "                    }\n" +
-                "                  },\n" +
-                "                  \"link\": \"https://example.com\"\n" +
-                "                },\n" +
-                "                {\n" +
-                "                  \"text\": \"Chip 2\",\n" +
-                "                  \"image\": {\n" +
-                "                    \"src\": {\n" +
-                "                      \"rawUrl\": \"https://example.com/images/logo.png\"\n" +
-                "                    }\n" +
-                "                  },\n" +
-                "                  \"link\": \"https://example.com\"\n" +
-                "                }\n" +
-                "              ]\n" +
-                "            }\n" +
-                "          ]\n" +
-                "        ]\n" +
-                "      }\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}", Object.class);
+        /**
+         * Description 訊息
+         */
+        List<String> description = new ArrayList<>();
+        description.add("內文一");
+        description.add("內文二");
+        description.add("內文三");
+        description.add("內文四");
+        dialogflowMessenger.addDescriptionMessage("Description標題",description);
+
+        /**
+         * Image 訊息
+         */
+        dialogflowMessenger.addImageMessage("Image標題","https://i.imgur.com/N42uCxU.jpg","圖片的替換文字");
+
+        /**
+         * Icon Type : https://fonts.google.com/icons?selected=Material+Icons
+         * Button 訊息
+         */
+        dialogflowMessenger.addButtonMessage("Home","#FF9800","Button文字","http://localhost:8080/",null,null,null);
 
 
-//        Map<String,>
+        /**
+         * Accordion 訊息
+         * 伸縮訊息
+         */
+        dialogflowMessenger.addAccordionMessage("Accordion標題","內文","https://i.imgur.com/N42uCxU.jpg","藏起來的文字");
+
+        /**
+         * List 訊息
+         */
+        ListMessage listMessage = new ListMessage();
+        listMessage.addMessage("List標題","內文",null,null,null);
+        listMessage.addDividerMessage();//分隔線
+        listMessage.addMessage("List標題","內文",null,null,null);
+        listMessage.addDividerMessage();//分隔線
+        listMessage.addMessage("List標題","內文",null,null,null);
+        dialogflowMessenger.addListMessage(listMessage);
 
 
-        Map<String, Object> response = new HashMap<>();
-        Map<String,Object> payload = new HashMap<>();
-        Map<String,Object> richContent = new HashMap<>();
-        List<Object> message = new ArrayList<>();
-        payload.put("payload", richContent);
-        richContent.put("richContent",message);
-        List list = new ArrayList();
-        list.add(payload);
-        response.put("fulfillmentMessages", list);
+        /**
+         * Chips 訊息
+         */
+        Option option = new Option();
+        option.addOption("Chips選項一","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
+        option.addOption("Chips選項二","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
+        option.addOption("Chips選項三","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
+        dialogflowMessenger.addChipsMessage(option);
 
+        return dialogflowMessenger.getResponse();
 
-
-
-
-
-
-
-        return response;
-
-    }
-
-
-    private List getInfoMessage(String title,String subtitle,String image,String actionLink){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "info");
-        message.put("title", title);
-        message.put("subtitle", subtitle);
-        Map<String,Object> imageMap = new HashMap<>();
-        Map<String,Object> imageSrc = new HashMap<>();
-        imageSrc.put("rawUrl", image);
-        imageMap.put("src", imageSrc);
-        message.put("image", imageMap);
-        message.put("actionLink", actionLink);
-        list.add(message);
-        return list;
-    }
-
-    private List getDescriptionMessage(String title,List<String> text){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "description");
-        message.put("title", title);
-        message.put("text", text);
-        list.add(message);
-        return list;
-    }
-
-    private List getImageMessage(String title,String imageUrl,String accessibilityText){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "image");
-        message.put("rawUrl", imageUrl);
-        message.put("accessibilityText", accessibilityText);
-        list.add(message);
-        return list;
-    }
-
-    private List getButtonMessage(String iconType,String iconColor,String text,String link,
-                                  String eventName,String eventLanguageCode,Map<String,Object> eventParameters){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "button");
-        Map<String,String> icon = new HashMap<>();
-        icon.put("type", iconType);
-        icon.put("color", iconColor);
-        message.put("icon", icon);
-        message.put("text", text);
-        message.put("link", link);
-        Map<String,Object> event = new HashMap<>();
-        event.put("name", eventName);
-        event.put("languageCode", eventLanguageCode);
-        event.put("parameters", eventParameters);
-        list.add(message);
-        return list;
-    }
-
-    private List getListMessage(String title,String subtitle,String eventName,String eventLanguageCode,Map<String,Object> eventParameters){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "list");
-        message.put("title", title);
-        message.put("subtitle", subtitle);
-        Map<String,Object> event = new HashMap<>();
-        event.put("name", eventName);
-        event.put("languageCode", eventLanguageCode);
-        event.put("parameters", eventParameters);
-        message.put("event", event);
-        list.add(message);
-        return list;
-    }
-
-    //分隔線
-    private List getDividerMessage(){
-        List list = new ArrayList();
-        Map<String,Object> message = new HashMap<>();
-        message.put("type", "divider");
-        list.add(message);
-        return list;
     }
 
 }
