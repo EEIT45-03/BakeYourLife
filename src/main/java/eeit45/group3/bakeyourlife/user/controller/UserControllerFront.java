@@ -16,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.sql.Timestamp;
 
@@ -59,6 +62,32 @@ public class UserControllerFront {
 
         return "redirect:login";
     }
+
+    @PostMapping("process_register")
+    public String processRegister(User user, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        MultipartFile productImage = user.getProductImage();
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            user.setImageUrl(pic);
+        }else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+            user.setImageUrl(link);
+        }
+//        ----------------------------------------------------------
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        user.setRegisterTime(ts);
+        user.setAuthority("ROLE_USER");
+        userService.register(user, getSiteURL(request));
+        return "user/register_success";
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+
     @GetMapping("FarmerSignUp")
     public String viewFarmerSignUp(Model model ) {
         model.addAttribute("farmer", new Farmer());

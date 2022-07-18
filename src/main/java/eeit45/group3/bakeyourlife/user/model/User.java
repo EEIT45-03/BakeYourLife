@@ -38,6 +38,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ProductComment> productCommentList;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    private boolean enabled;
+
 
     public User() {
         super();
@@ -53,10 +58,11 @@ public class User implements Serializable {
         this.birth = birth;
         this.gender = gender;
         this.address = address;
+
     }
 
     public User(Integer userId, String username, String password, String authority, String fullName, String email, String phone,
-                String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl) {
+                String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled) {
         super();
         this.userId = userId;
         this.username = username;
@@ -71,12 +77,14 @@ public class User implements Serializable {
         this.registerTime = registerTime;
         this.productImage = productImage;
         this.imageUrl = imageUrl;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
 
 
     }
 
     public User(String username, String password, String authority, String fullName, String email, String phone, String birth,
-                String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl) {
+                String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled) {
         super();
         this.username = username;
         this.password = password;
@@ -90,10 +98,27 @@ public class User implements Serializable {
         this.registerTime = registerTime;
         this.productImage = productImage;
         this.imageUrl = imageUrl;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
 
 
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getImageUrl() {
         return imageUrl;
