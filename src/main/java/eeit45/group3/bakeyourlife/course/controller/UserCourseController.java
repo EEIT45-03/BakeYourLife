@@ -4,6 +4,7 @@ import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.model.Register;
+//import eeit45.group3.bakeyourlife.course.model.Result;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
 import eeit45.group3.bakeyourlife.email.service.EmailService;
@@ -11,6 +12,8 @@ import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.utils.Image;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -113,6 +116,26 @@ public class UserCourseController {
         courseService.updateRegisterState(register);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+//    //學員上傳結果
+//    @GetMapping("/User/Course/AddResult")
+//    public String showAddProduct(Model model) {
+//        //表單綁定用
+//        model.addAttribute("product",new Result());
+//        return "/course/CreateResult";
+//    }
+//
+//    @RequestMapping(value = "/User/Course/AddResult", method = RequestMethod.POST)
+//    public String saveProduct(
+//            @ModelAttribute Product product
+//    )
+//    {
+//        Image image = ImgurService.updateByMultipartFile(product.getFile());
+//        image.getLink();
+//        System.out.println("圖片連結: " + image.getLink());
+//        productService.saveProductToDB(image.getLink(), product.getName(), product.getDescription(), product.getSummary(), product.getPrice());
+//        return "redirect:./listProducts";
+//    }
 
 
 }
