@@ -255,4 +255,14 @@ public class FarmerProductBean implements Serializable, CartItem {
         }
         return false;
     }
+
+    @Override
+    public Integer getStock() {
+        return this.quantity;
+    }
+
+    @Override
+    public void updateStock(Integer stock) {
+        this.quantity = stock;
+    }
 }

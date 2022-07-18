@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>小農商品</title>
 
-    <div th:replace="/css.html"></div>
+    <div th:replace="css.html"></div>
     <link rel="stylesheet" href="/css/supplier.css" type="text/css">
 
     <style>
@@ -81,8 +81,8 @@
 </head>
 
 <body>
-<div th:replace="/header.html"></div>
-<div th:replace="/menu.html"></div>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
 
 
 <!-- Product Section Begin -->
@@ -248,7 +248,7 @@
 </section>
 <!-- Product Section End -->
 
-<div th:replace="/footer.html"></div>
+<div th:replace="footer.html"></div>
 
 <script th:src="@{/js/farmerPagination.js}"></script>
 
