@@ -70,7 +70,17 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return this.user.isEnabled();
+		boolean flag = false;
+		if (this.user != null) {
+			flag=this.user.isEnabled();
+		} else if (this.farmer != null) {
+			flag=this.farmer.isEnabled();
+		}
+		return flag;
+
+
+
+//		return this.user.isEnabled();
 //		return true;
 
 	}
