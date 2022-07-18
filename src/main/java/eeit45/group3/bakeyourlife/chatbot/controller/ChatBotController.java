@@ -18,7 +18,6 @@ import java.util.Map;
 @RestController
 public class ChatBotController {
     /**
-     * 把Integrations的Dialogflow Messenger Enable後的code放到footer.html的</footer>下(取代掉原本的)
      * 然後參考老師的教學設定，ngrok的port改8080，在Fulfillment的Webhook修改為對應的網址(看ngrok的Forwarding)
      */
 
