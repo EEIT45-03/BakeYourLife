@@ -5,8 +5,10 @@ import eeit45.group3.bakeyourlife.rental.model.ProduceNo;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
+import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.user.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -73,6 +75,9 @@ public interface RentalService {
 
 	//查詢租借單場地租借總金額
 	public Long findVenueListPriceSumByRental(Rental rental);
+
+	//查詢某時間的場地使用狀況
+	public List<AvailableQuantity> getVenueSelect(String name, Date date);
 
 	//依租借時間查詢場地
 //	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime);

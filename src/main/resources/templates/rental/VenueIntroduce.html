@@ -267,7 +267,7 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
-                    <h3 th:text="*{venueName}"></h3>
+                    <h3 th:text="*{venueName}" id="venue"></h3>
                     <div class="product__details__rating">
                         <!--                        <i class="fa fa-star"></i>-->
                         <!--                        <i class="fa fa-star"></i>-->
@@ -276,7 +276,7 @@
                         <!--                        <i class="fa fa-star-half-o"></i>-->
                         <!--                        <span>(18 reviews)</span>-->
                     </div>
-                    <div class="product__details__price" th:text="|一小時 NT$*{hrPrice}|"></div>
+                    <div class="product__details__price"> 一小時 NT$<span id="pri" th:text="*{hrPrice}"></span></div>
 
                     <!--                    <div class="product__details__quantity">-->
                     <!--                        -->
@@ -290,10 +290,39 @@
                     <!--                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                     <ul>
                         <li><b>種類:</b> <span id="type" th:text="*{venueSort.sort}"></span></li>
-                        <li><b>數量:</b> <span id="max" th:text="|*{personMax}組|"></span></li>
+                        <li><b>數量:</b> <span id="max" th:text="*{personMax}"></span><span>組</span></li>
                     </ul>
+                    <hr>
 
-                    <a class="main_btn" th:onclick="getVenueSelect()"><i class="fas fa-fw fa-shopping-cart"></i><span>前往租借</span></a>
+                    <table>
+                        <tr>
+                            <th><label  for="dateSel">查詢日期: </label></th>
+                            <th><input type="date" name="dateSel" id="dateSel"></th>
+                        </tr>
+                        <tr>
+                            <th><label for="periodSel">時段: </label></label></th>
+                            <th><select type="text" name="periodSel" id="periodSel">
+                                <option value="" selected>請選擇</option>
+                                <option value="08:00-12:00">08:00-12:00</option>
+                                <option value="12:00-16:00">12:00-16:00</option>
+                                <option value="16:00-20:00">16:00-20:00</option>
+                                <option value="08:00-16:00">08:00-16:00</option>
+                                <option value="12:00-20:00">12:00-20:00</option>
+                                <option value="08:00-20:00">08:00-20:00</option>
+                            </select></th>
+                        </tr>
+                    </table>
+                    <p id="useSel"></p>
+                    <span class="product__details__quantity">
+                        <span class="quantity">
+                            <span class="pro-qty">
+                                <input type="text" id="num" value="1">
+                            </span>
+                        </span>
+                    </span>
+                    <span>
+                    <a class="main_btn" th:onclick="|getCeateRentalVenue()|"><i class="fas fa-fw fa-shopping-cart"></i><span>加入租借單</span></a>
+                    </span>
                 </div>
             </div>
 
@@ -418,47 +447,127 @@
 
 <script>
 
-    // $(document).ready(function () {
-    //     let type = $("#type").text()
-    //     console.log(type)
-    //     var xhr = new XMLHttpRequest();
-    //     xhr.open("GET", '[[@{/FarmerProducts/}]]' + type, true);
-    //     xhr.send();
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState === 4 && xhr.status === 200) {
-    //             let result = JSON.parse(xhr.responseText);
-    //             let data = ``;
-    //             for (let i = 0; i < result.length; i++) {
-    //                 data += `<div class="col-lg-3 col-md-4 col-sm-6" >
-    //                     <div class="product__item">
-    //                         <div class="product__item__pic set-bg" style="background-image: url('${result[i].farmerProductPicList[0].pictureLink}')">
-    //                             <ul class="product__item__pic__hover">
-    //                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-    //                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-    //                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-    //                             </ul>
-    //                         </div>
-    //                         <div class="product__item__text">
-    //                             <h6><a href="/FarmerProductShop/ShopDetails/${result[i].farmerProductId}">${result[i].name}</a>
-    //                             </h6>
-    //                             <h5 >NT$${result[i].price}</h5>
-    //                         </div>
-    //                     </div>
-    //                 </div>`
-    //             }
-    //             $("#productContent").html(data);
-    //         } else if (xhr.status === 400) {
-    //             Swal.fire(
-    //                 '錯誤!',
-    //                 json.message,
-    //                 'error'
-    //             )
-    //         }
-    //     }
-    //
-    //
-    // });
+    $(document).ready(function () {
 
+
+        $('#dateSel').on('change',function (){
+            var name = $('#venue').text();
+            var max = $('#max').text();
+            var date = $('#dateSel').val();
+            var period = $('#periodSel').val();
+                getVenueSelect(name,date,period,max)
+        })
+        $('#periodSel').on('change',function (){
+            var name = $('#venue').text();
+            var max = $('#max').text();
+            var date = $('#dateSel').val();
+            var period = $('#periodSel').val();
+                getVenueSelect(name,date,period,max)
+        })
+        // $('#num').on('change',function (){
+        //     var rem = $('#rem').text();
+        //     var num = $('#num').val();
+        //     if(rem.length>0){
+        //         if(num >rem){
+        //             $('#num').val(rem);
+        //         } else {
+        //
+        //         }
+        //     }else {
+        //         num = 0;
+        //     }
+        // })
+    })
+
+
+    function getVenueSelect(name,date,period,max){
+        fetch("/VenueSelect/"+name+"/"+date).then(response =>{
+            if (!response.ok) {
+                // make the promise be rejected if we didn't get a 2xx response
+                const err = new Error("Not 2xx response");
+                err.response = response;
+                throw err;
+            } else {
+                return response.json()
+            }
+        }).then(data => {
+                let num = max;
+                if(data.length >0){
+
+                    let numArray = [];
+                    for (let per of data) {
+                        if (per.label == "08:00-12:00") {
+                            numArray[0] = per.value;
+                        } else {
+                            numArray[0] = 0;
+                        }
+                        if (per.label == "12:00-16:00") {
+                            numArray[1] = per.value;
+                        } else {
+                            numArray[1] = 0;
+                        }
+                        if (per.label == "16:00-20:00") {
+                            numArray[2] = per.value;
+                        } else {
+                            numArray[2] = 0;
+                        }
+                        if (per.label == "08:00-16:00") {
+                            numArray[3] = per.value;
+                        } else {
+                            numArray[3] = 0;
+                        }
+                        if (per.label == "12:00-20:00") {
+                            numArray[4] = per.value;
+                        } else {
+                            numArray[4] = 0;
+                        }
+                        if (per.label == "08:00-20:00") {
+                            numArray[5] = per.value;
+                        } else {
+                            numArray[5] = 0;
+                        }
+                    }
+                    if (period.length > 0) {
+                        if (period == "08:00-12:00") {
+                            num = max - (numArray[0] + numArray[3] + numArray[5]);
+                        }
+                        if (period == "12:00-16:00") {
+                            num = max - (numArray[1] + numArray[3] + numArray[4] + numArray[5]);
+                        }
+                        if (period == "16:00-20:00") {
+                            num = max - (numArray[2] + numArray[4] + numArray[5]);
+                        }
+                        if (period == "08:00-16:00") {
+                            num = max - (numArray[0] + numArray[1] + numArray[3] + numArray[4] + numArray[5]);
+                        }
+                        if (period == "12:00-20:00") {
+                            num = max - (numArray[1] + numArray[2] + numArray[3] + numArray[4] + numArray[5]);
+                        }
+                        if (period == "08:00-20:00") {
+                            num = max - (numArray[0] + numArray[1] + numArray[2] + numArray[3] + numArray[4] + numArray[5]);
+                        }
+                    } else {
+                        num = max - (numArray[1] + numArray[2] + numArray[3] + numArray[4] + numArray[5]);
+                    }
+                }
+            if(num)
+                $('#useSel').html('<span>剩餘</span><span id="rem">'+num+'</span><span>組位置可使用</span>');
+            else
+                $('#useSel').html('剩餘0組位置可使用');
+        }).catch(function (err){
+            console.log('Error:'+(err))
+        })
+    };
+
+    function getCeateRentalVenue(){
+        var name = $('venue').text();
+        var date = $('dateSel').val();
+        var period = $('periodSel').val();
+        var num = $('num').val();
+        var rem = $('rem').text();
+        var pri = $('pri').text();
+
+    }
 
 </script>
 

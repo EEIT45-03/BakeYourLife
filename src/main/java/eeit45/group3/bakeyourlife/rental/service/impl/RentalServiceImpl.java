@@ -4,6 +4,7 @@ import eeit45.group3.bakeyourlife.rental.dao.*;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.model.*;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -245,6 +246,12 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.findPriceSumByRental(rental);
 	}
 
+	//查詢某時間的場地使用狀況
+	@Override
+	public List<AvailableQuantity> getVenueSelect(String name, Date date){
+		Venue venue = venueService.findByVenueName(name);
+		return venueListRepository.findSumByVenueAndDatetime(venue.getVenueId(),date);
+	}
 
 	//依租借時間查詢場地
 //	@Override
