@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -55,9 +57,10 @@ public class RentalUIController {
 
     @ResponseBody
     @RequestMapping(value = "/inertVenueList",method = RequestMethod.POST)
-    public void insertVenueList(@RequestBody @Valid VenueListRequest venueListRequest){
+    public void insertVenueList(@RequestBody @Valid VenueListRequest venueListRequest,
+                                Principal principal) throws ParseException {
         if (venueListRequest!=null){
-            rentalService
+            rentalService.createVenueList(venueListRequest,principal);
         }
     }
 

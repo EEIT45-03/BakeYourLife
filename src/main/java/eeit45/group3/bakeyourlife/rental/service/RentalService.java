@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.rental.service;
 
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.ProduceNo;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
@@ -8,6 +9,8 @@ import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.user.model.User;
 
+import java.security.Principal;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +88,8 @@ public interface RentalService {
 	//新增場地租借清單
 	public VenueList createVenueList(VenueList venueList);
 
+	public VenueList createVenueList(VenueListRequest venueListRequest, Principal principal) throws ParseException;
+
 //	public VenueList createVenueList(Integer fk_rentalId, VenueList venueList);
 	//更新場地租借清單
 	public VenueList updateVenueList(VenueList venueList);
@@ -123,6 +128,7 @@ public interface RentalService {
 	//新增器具租借清單
 	public TackleList createTackleList(TackleList tackleList);
 	public TackleList createTackleList(TackleListRequest tackleListRequest);
+
 
 	//更新器具租借清單
 	public TackleList updateTackleList(TackleList tackleList);

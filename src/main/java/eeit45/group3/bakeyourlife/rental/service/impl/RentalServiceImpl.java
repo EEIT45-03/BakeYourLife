@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.rental.service.impl;
 
 import eeit45.group3.bakeyourlife.rental.dao.*;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.*;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -274,19 +277,43 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.save(venueList);
 	}
 
-//	@Override
-//	public VenueList createVenueList(Integer fk_rentalId, VenueList venueList) {
-//		if(fk_rentalId != null){
-//			Rental rental = findByRentalId(fk_rentalId);
-//			venueList.setRental(rental);
-//		}
-//		if(venueList.getVenue().getVenueId() != null){
-//			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
-//			venueList.setVenue(venue);
-//		}
-//		return venueListRepository.save(venueList);
-//	}
+	@Override
+	public VenueList createVenueList(VenueListRequest venueListRequest, Principal principal) throws ParseException {
 
+		User user = userService.findByUsername(principal.getName());
+
+		Rental rental = rentalRepository.findByUserAndStateAndType(user,"未下單","場地");
+		if(rental == null) {
+			rental = createRentalNoRequest();
+			rental.setState("未下單");
+			rental.setType("場地");
+			rental.setUser(user);
+			updateProduceNo(rental.getRentalNo());
+			rentalRepository.save(rental);
+		}
+
+		VenueList venueList = createVenueListNoRequest(rental);
+
+		if(venueListRequest.getVenueName()!=null){
+			Venue venue = venueService.findByVenueName(venueListRequest.getVenueName());
+			venueList.setVenue(venue);
+		}
+		if(venueListRequest.getRentalDate()!=null){
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(venueListRequest.getRentalDate().toString());
+			venueList.setRentalDate(date);
+		}
+		if(venueListRequest.getPeriod()!=null){
+			venueList.setPeriod(venueListRequest.getPeriod());
+		}
+		if(venueListRequest.getPerson()!=null){
+			venueList.setPerson(venueListRequest.getPerson());
+		}
+		if(venueListRequest.getPrice()!=null){
+			venueList.setPrice(venueListRequest.getPrice());
+		}
+		updateProduceNo(venueList.getVenueListNo());
+		return venueListRepository.save(venueList);
+	}
 
 	//更新場地租借清單
 	@Override
