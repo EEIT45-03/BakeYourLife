@@ -184,7 +184,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 	}
 
-//	@Override
+	@Override
 	@Transactional
 	public void updateRegisterState(Register register) {
 		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
@@ -194,20 +194,17 @@ public class CourseServiceImpl implements CourseService {
 		register.setTotalPrice(sum);
 		register.setRegisterDate(new Date());
 		registerRepository.save(register);
-//		//報名人數加入開課明細
-//		Integer attSum = registerRepository.getSumAttendanceByCourse(course);
-//		if(attSum != null){
-//			course.setApplicants(attSum.intValue());
-//		} else {
-//			course.setApplicants(0);
-//		}
-//		courseRepository.save(course);
-//		//寄email
-//		String email = user.getEmail();
-//		try {
-//			emailService.sendRegisterMail(email, "[Bake Your Life 烘焙材料網] 報名成功通知",register,"courseRegister");
-//		} catch (MessagingException e) {
-//			throw new RuntimeException(e);
-//		}
+		//取消報名時,報名人數減少開課明細
+		if(register.getState() == 1) {
+			Integer attSum = registerRepository.getSumAttendanceByCourse(course);
+			Integer cancelAtt = register.getAttendance();
+			Integer attLeft = attSum - cancelAtt;
+			if (attSum != null) {
+				course.setApplicants(attLeft.intValue());
+			} else {
+				course.setApplicants(0);
+			}
+			courseRepository.save(course);
+		}
 	}
 }

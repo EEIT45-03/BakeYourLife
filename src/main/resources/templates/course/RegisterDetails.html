@@ -143,7 +143,8 @@
                                     <th>上課日期</th>
                                     <th>報名</th>
                                     <th>狀態</th>
-                                    <th>取消報名</th>
+                                    <th></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -171,28 +172,14 @@
                                         <div th:case="4" th:text="課程完成"/>
                                         <div th:case="5" th:text="已評價"/>
                                     </td>
-                                    <!--                                        <td class="shoping__cart__total">-->
-                                    <!--                                            <p th:each="venues:${course.venue}" th:text="${venues.personMax}"></p>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="shoping__cart__total">-->
-                                    <!--                                            <p th:text="*{course.teacher}"></p>-->
-                                    <!--                                        </td>-->
-
                                     <td class="shoping__cart__total">
-                                        <!-- FarmPd-->
-<!--                                            <span th:if="${bean.state}==1">-->
-<!--                                                <button type="button" class="btn btn-info btn-icon-split btn-sm"-->
-<!--                                                        data-toggle="modal" data-target="#myModal0"-->
-<!--                                                        th:onclick="|updateState(${bean.farmerProductId},0,'確認上架此商品?','')|">-->
-<!--                                                    <span class="icon text-white-50">-->
-<!--                                                        <i class="fa-solid fa-arrow-up"></i>-->
-<!--                                                    </span>-->
-<!--                                                    <span class="text">上架</span>-->
-<!--                                                </button>-->
-<!--                                            </span>-->
-                                        <!-- FarmPd -->
+
                                         <span th:if="${register.state}==0">
-                                               <a class="icon_briefcase_alt" th:onclick="|updateState(${register.registerId},'確認取消報名?','')|"></a>
+                                               <i class="icon_error-triangle_alt" th:onclick="|updateState(${register.registerId},1,'確認取消報名?','')|" style="cursor:pointer;">&nbsp;取消</i>
+
+                                        </span>
+                                        <span th:if="${register.state}==4">
+                                               <i class="icon_comment" th:onclick="|updateState(${register.registerId},'確認取消報名?','')|" style="cursor:pointer;">&nbsp;評論</i>
 
                                         </span>
                                     </td>
@@ -213,47 +200,8 @@
 
 <div th:replace="footer.html"></div>
 <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/course.js}"></script>
 <script>
-    //取消報名
-    function updateState(registerId, title, text) {
-        Swal.fire({
-            title: `${title}`,
-            text: `${text}`,
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: '取消',
-            confirmButtonColor: '#f15e5e',
-            cancelButtonColor: '#ADADAD',
-            confirmButtonText: '確定'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "PUT",
-                    url: '/Course/' + registerId,
-                    success: function (msg) {
-                        Swal.fire(
-                            '成功',
-                            '',
-                            'success'
-                        ).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
-                    },
-                    error: function (msg) {
-                        // console.log(msg.status)
-                        Swal.fire({
-                            icon: 'error',
-                            title: '發生錯誤',
-                            text: 'HTTP 狀態碼為 ' + msg.status,
-                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
-                        })
-                    }
-                });
-            }
-        })
-    }
 
 </script>
 

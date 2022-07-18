@@ -69,13 +69,13 @@ public class UserCourseController {
     }
 
     //提交報名表
-    @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.GET)
+    @RequestMapping(value = "/User/Course/CreateRegisterWithId", method = RequestMethod.GET)
     public String viewCreateRegisterWithId(@RequestParam("id") Integer openCourse, Model model,
                                            Authentication authentication) {
         Course course = courseService.findById(openCourse).orElse(null);
-        if(authentication == null){
-            return "redirect:/login";
-        } else{
+//        if(authentication == null){
+//            return "redirect:/login";
+//        } else{
             User user = userService.getCurrentUser(authentication);
             Register register = new Register();
             register.setCourse(course);
@@ -84,15 +84,15 @@ public class UserCourseController {
             model.addAttribute("course",course);
             model.addAttribute("register2", register);
             return "course/CourseRegisterWithId";
-        }
+//        }
     }
-    @RequestMapping(value = "/Course/CreateRegisterWithId", method = RequestMethod.POST)
+    @RequestMapping(value = "/User/Course/CreateRegisterWithId", method = RequestMethod.POST)
     public String createRegisterWithId(@ModelAttribute("register2") Register register, BindingResult result) throws MessagingException {
         courseService.createRegisterWithId(register);
         return "redirect:./UserRegister";
     }
     //查看報名
-    @GetMapping("/Course/UserRegister")
+    @GetMapping("/User/Course/UserRegister")
     public String viewRegisterByUser(Authentication authentication, Model model) {
         if(authentication == null){
             return "redirect:/login";
@@ -103,13 +103,13 @@ public class UserCourseController {
             return "course/RegisterDetails";
     }
     //取消報名
-    @PutMapping("/Course/{registerId}")
-    public ResponseEntity<Register> cancelRegister(@PathVariable Integer registerId) {
+    @PutMapping("/Course/{registerId}/{state}")
+    public ResponseEntity<?> cancelRegister(@PathVariable Integer registerId, @PathVariable Integer state) {
         Register register = null;
         if(registerId !=null) {
           register =  courseService.findByRegisterId(registerId).orElse(null);
         }
-        register.setState(1);//0報名成功 變成 1審核中
+        register.setState(state);//0報名成功 變成 1審核中
         courseService.updateRegisterState(register);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

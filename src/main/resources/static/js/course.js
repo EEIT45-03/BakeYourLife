@@ -387,4 +387,43 @@ function updateCourseTime(ctimeId){
 		});
 }
 
-
+//取消報名
+function updateState(registerId, state, title, text) {
+	Swal.fire({
+		title: `${title}`,
+		text: `${text}`,
+		icon: 'warning',
+		showCancelButton: true,
+		cancelButtonText: '取消',
+		confirmButtonColor: '#f15e5e',
+		cancelButtonColor: '#ADADAD',
+		confirmButtonText: '確定'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "PUT",
+				url: '/Course/' + registerId + '/' + state,
+				success: function (msg) {
+					Swal.fire(
+						'成功',
+						'',
+						'success'
+					).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+				},
+				error: function (msg) {
+					// console.log(msg.status)
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤',
+						text: 'HTTP 狀態碼為 ' + msg.status,
+						footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+					})
+				}
+			});
+		}
+	})
+}

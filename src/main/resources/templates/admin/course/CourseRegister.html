@@ -76,14 +76,31 @@
                                         <td th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd HH:mm')}"></td>
                                         <td th:text="${register.attendance}"></td>
                                         <td th:text="${register.totalPrice}"></td>
-
-                                        <td th:switch="${register.state}">
-                                            <div th:case="0" th:text="報名完成"/>
-                                            <div th:case="1" th:text="審核中"/>
-                                            <div th:case="2" th:text="已取消"/>
-                                            <div th:case="3" th:text="不通過"/>
-                                            <div th:case="4" th:text="課程完成"/>
-                                            <div th:case="5" th:text="已評價"/>
+                                        <td>
+                                            <span th:if="${register.state}==0" >
+                                                <span>報名完成&nbsp;</span></br>
+                                                <i class="fas fa-clipboard-check"th:id="${register.registerId}"
+                                                   style="cursor:pointer;"
+                                                   th:onclick="|updateState(${register.registerId},4,'課程是否完成?','')|">&nbsp;課程完成</i>
+                                            </span>
+                                            <span th:if="${register.state}==1">
+                                                <span>審核&nbsp;</span>
+                                                <i class="fas fa-circle-check"
+                                                   style="cursor:pointer;"
+                                                   th:onclick="|updateState(${register.registerId},2,'確認審核通過?','')|"></i>
+                                                <i class="fas fa-circle-xmark"th:id="${register.registerId}"
+                                                   style="cursor:pointer;"
+                                                   th:onclick="|updateState(${register.registerId},3,'是否審核不通過?','')|"></i>
+                                            </span>
+                                            <span th:if="${register.state}==2" th:text="已取消"/>
+                                            <span th:if="${register.state}==3" th:text="不通過"/>
+                                            <span th:if="${register.state}==4">
+                                                <span>課程完成&nbsp</span></br>
+                                                <i class="fas fa-comment"th:id="${register.registerId}"
+                                                   style="cursor:pointer;"
+                                                   onclick="statusOkAjax(this.registerId)">&nbsp;評價</i>
+                                            </span>
+                                            <span th:if="${register.state}==5" th:text="已評價"/>
                                         </td>
                                         <td>
                                             <a      th:onclick="|updateRegister(${register.registerId})|"
