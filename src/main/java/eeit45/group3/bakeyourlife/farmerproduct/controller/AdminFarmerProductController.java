@@ -31,7 +31,7 @@ public class AdminFarmerProductController {
 
     @GetMapping("/admin/FarmerProduct/Chart")
     public String viewChart(Model model) {
-        Integer saleAmount = farmerProductService.saleAmount();
+        String saleAmount = farmerProductService.saleAmount();
         model.addAttribute("saleAmount", saleAmount);
         Long farmerCount = farmerService.count();
         model.addAttribute("farmerCount", farmerCount);

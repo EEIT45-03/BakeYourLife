@@ -30,15 +30,21 @@ public interface FarmerProductService {
 
     Long countByFarmerId(Integer id);
 
-    Integer saleAmountByFarmerId(Integer farmerId);
+    String saleAmountByFarmerId(Integer farmerId);
 
-    Integer saleAmount();
+    String saleAmount();
 
     //全部廠商 商品平均星數
     Float avgStar();
 
     //單個廠商 商品平均星數
     Float avgStarByFarmerId(Integer farmerId);
+
+    //最熱賣商品 件數
+    String topSaleItemByFarmerId(Integer farmerId);
+
+    //熱銷Top 6
+    List<FarmerProductBean> topSix();
 
 
     void insert(FarmerProductBean farmerProductBean);

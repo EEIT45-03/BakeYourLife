@@ -63,7 +63,7 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -83,12 +83,12 @@
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 商品總數
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${count}"
@@ -101,20 +101,55 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                最熱賣商品
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:if="${item}!=null" th:text="${item[0]}"></div>
+                                            <div class="h5 mb-0  text-gray-600" th:if="${item}!=null" th:text="|已賣出 ${item[1]} 件|"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas  fa-carrot fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                平均星數
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">平均星數
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                            ></div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                         th:text="${avgStar}"
+                                                    ></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div th:if="${avgStar} != null" class="progress-bar bg-warning"
+                                                             role="progressbar"
+                                                             th:style="|width: ${avgStar*20}%|"
+                                                             aria-valuenow="50"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-cart-shopping fa-2x text-gray-300"></i>
+                                            <i class="fas fa-star fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -193,6 +228,95 @@
         Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.color = '#858796';
         let id = $("#farmerId").text();
+
+
+
+        fetch('[[@{/FarmerProductSupplier/monthSaleAmountByFarmerId/}]]'+id)
+            .then(response => response.json())
+            .then(res =>{
+                console.log(res);
+                // myAreaChart
+                const ctxMyAreaChart = $('#myAreaChart');
+                //標籤
+                const data = {
+                    labels: res.labels,
+                    datasets: [{
+                        label: '銷售額',
+                        //使用SQL取出每月銷售額(去掉取消的訂單及退款的訂單)
+                        data: res.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 205, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgb(37,187,61, 0.6)',
+                            'rgb(229,55,112, 0.6)',
+                            'rgb(94,50,141, 0.6)',
+                            'rgb(20,73,241, 0.6)',
+                            'rgb(6,161,111, 0.6)',
+                            'rgba(201, 203, 207, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(37,187,61)',
+                            'rgb(229,55,112)',
+                            'rgb(94,50,141)',
+                            'rgb(20,73,241)',
+                            'rgb(6,161,111)',
+                            'rgb(201, 203, 207)',
+                        ],
+                        borderWidth: 1
+                    },
+                        {
+                            type: 'line',
+                            label: '銷售額',
+                            data: res.data,
+                            borderColor: 'rgb(74,136,205)',
+                            backgroundColor: 'rgba(74,136,205,0.8)',
+                        }]
+                }
+                const myAreaChart = new Chart(ctxMyAreaChart,{
+                    type: 'bar',
+                    data:data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            autoPadding: true
+                        },
+
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    beginAtZero: true,
+                                    //側邊顯示數字
+                                    callback: function (value, index, values) {
+                                        return  'NT$' + value;
+                                    }
+                                }
+
+                            }
+                        },
+                        locale:'zh-TW',
+                    },
+                });
+
+
+
+            });
+
+
+
+
+        //圓餅圖
         fetch('[[@{/FarmerProductSupplier/typeAmountByFarmerId/}]]' + id)
             .then(response => response.json())
             .then(res => {

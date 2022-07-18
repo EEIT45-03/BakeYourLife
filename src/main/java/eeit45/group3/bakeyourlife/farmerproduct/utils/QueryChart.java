@@ -4,7 +4,7 @@ public interface QueryChart {
 
     String getLabel();
 
-    Integer getValue();
+    String getValue();
 
 }
 

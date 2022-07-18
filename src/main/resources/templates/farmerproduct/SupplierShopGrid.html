@@ -124,15 +124,15 @@
                             <div class="row">
                                 <div class=" col-lg-6">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2" th:text="${farmerProductBeanList.size()}"></h6>
+                                        <h6 class="count h2" th:text="${count}"></h6>
                                         <p class="m-0px font-w-600">商品總數</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="count-data text-center">
-                                        <h6 class="count h2"><i class="fa-solid fa-star fa-xs"
-                                                                style="color: #ffd922"></i> 5</h6>
-                                        <p class="m-0px font-w-600">平均評價</p>
+                                        <!--                                        <h6 class="count h2" th:text="${avgStar}"></h6>-->
+                                        <h6 class="count h2" th:utext="${avgStar}">3</h6>
+                                        <p class="m-0px font-w-600">平均星數</p>
                                     </div>
                                 </div>
 
@@ -162,29 +162,78 @@
                     </div>
 
                     <div class="sidebar__item">
-                        <div class="latest-product__text">
+                        <div class="latest-product__text"
+                             th:if="${not #lists.isEmpty(topSixList)} and ${topSixList.size()} >= 6">
                             <h4>熱銷商品</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[0].farmerProductId})}"
+                                       class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-1.jpg" alt="">
+                                            <img th:src="${topSixList[0].farmerProductPicList[0].pictureLink}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
+                                            <span>Top 1</span>
+                                            <h6 th:text="${topSixList[0].name}"></h6>
+                                            <span th:text="|NT$${topSixList[0].price}|"></span>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[1].farmerProductId})}"
+                                       class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img th:src="${topSixList[1].farmerProductPicList[0].pictureLink}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <span>Top 2</span>
+                                            <h6 th:text="${topSixList[1].name}"></h6>
+                                            <span th:text="|NT$${topSixList[1].price}|"></span>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[2].farmerProductId})}"
+                                       class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img th:src="${topSixList[2].farmerProductPicList[0].pictureLink}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <span>Top 3</span>
+                                            <h6 th:text="${topSixList[2].name}"></h6>
+                                            <span th:text="|NT$${topSixList[2].price}|"></span>
                                         </div>
                                     </a>
 
                                 </div>
                                 <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[3].farmerProductId})}"
+                                       class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-1.jpg" alt="">
+                                            <img th:src="${topSixList[3].farmerProductPicList[0].pictureLink}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
+                                            <span>Top 4</span>
+                                            <h6 th:text="${topSixList[3].name}"></h6>
+                                            <span th:text="|NT$${topSixList[3].price}|"></span>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[4].farmerProductId})}"
+                                       class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img th:src="${topSixList[4].farmerProductPicList[0].pictureLink}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <span>Top 5</span>
+                                            <h6 th:text="${topSixList[4].name}"></h6>
+                                            <span th:text="|NT$${topSixList[4].price}|"></span>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[5].farmerProductId})}"
+                                       class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img th:src="${topSixList[5].farmerProductPicList[0].pictureLink}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <span>Top 6</span>
+                                            <h6 th:text="${topSixList[5].name}"></h6>
+                                            <span th:text="|NT$${topSixList[5].price}|"></span>
                                         </div>
                                     </a>
 
@@ -193,6 +242,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -206,7 +257,7 @@
 
                     <div class="col-lg-4 col-md-4">
                         <div class="filter__found" id="countDiv">
-                            <h6>共 <span th:text="${farmerProductBeanList.size()}"></span>項商品</h6>
+                            <!--                            <h6>共 <span th:text="${farmerProductBeanList.size()}"></span>項商品</h6>-->
                         </div>
                     </div>
 

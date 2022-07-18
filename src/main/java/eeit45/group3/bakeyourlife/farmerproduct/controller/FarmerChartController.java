@@ -22,6 +22,16 @@ public class FarmerChartController {
     }
 
 
+    @GetMapping("/FarmerProductSupplier/monthSaleAmountByFarmerId/{id}")
+    public FarmerProductChart monthSaleAmountByFarmerId(@PathVariable Integer id) {
+        FarmerProductChart farmerProductChart = new FarmerProductChart();
+        List<QueryChart> queryChartList = farmerProductRepository.monthSaleAmountByFarmerId(id);
+        for (QueryChart data : queryChartList) {
+            farmerProductChart.addData(data);
+        }
+        return farmerProductChart;
+    }
+
     @GetMapping("/FarmerProductSupplier/farmerSaleAmount")
     public FarmerProductChart farmerSaleAmount() {
         FarmerProductChart farmerProductChart = new FarmerProductChart();
