@@ -321,7 +321,8 @@
                         </span>
                     </span>
                     <span>
-                    <a class="main_btn" th:onclick="|getCeateRentalVenue()|"><i class="fas fa-fw fa-shopping-cart"></i><span>加入租借單</span></a>
+                    <a class="main_btn" id="but_insert">
+                        <i class="fas fa-fw fa-shopping-cart"></i><span>加入租借單</span></a>
                     </span>
                 </div>
             </div>
@@ -449,34 +450,39 @@
 
     $(document).ready(function () {
 
+        var time = new Date();
+        var time = new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+        $('#dateSel').val(today).attr('min',today);
+
 
         $('#dateSel').on('change',function (){
             var name = $('#venue').text();
             var max = $('#max').text();
             var date = $('#dateSel').val();
             var period = $('#periodSel').val();
-                getVenueSelect(name,date,period,max)
+            getVenueSelect(name,date,period,max);
         })
         $('#periodSel').on('change',function (){
             var name = $('#venue').text();
             var max = $('#max').text();
             var date = $('#dateSel').val();
             var period = $('#periodSel').val();
-                getVenueSelect(name,date,period,max)
+            getVenueSelect(name,date,period,max);
         })
-        // $('#num').on('change',function (){
-        //     var rem = $('#rem').text();
-        //     var num = $('#num').val();
-        //     if(rem.length>0){
-        //         if(num >rem){
-        //             $('#num').val(rem);
-        //         } else {
-        //
-        //         }
-        //     }else {
-        //         num = 0;
-        //     }
-        // })
+        $('#but_insert').on('click',function (){
+            var name = $('#venue').text();
+            var date = $('#dateSel').val();
+            var period = $('#periodSel').val();
+            var num = $('#num').val();
+            var rem = $('#rem').text();
+            var pri = $('#pri').text();
+            getCeateRentalVenue(name,date,period,num,pri,rem);
+        })
+
+
     })
 
 
@@ -491,40 +497,28 @@
                 return response.json()
             }
         }).then(data => {
-                let num = max;
+                let num = 0;
                 if(data.length >0){
 
-                    let numArray = [];
+                    let numArray = [0,0,0,0,0,0];
                     for (let per of data) {
                         if (per.label == "08:00-12:00") {
                             numArray[0] = per.value;
-                        } else {
-                            numArray[0] = 0;
                         }
                         if (per.label == "12:00-16:00") {
                             numArray[1] = per.value;
-                        } else {
-                            numArray[1] = 0;
                         }
                         if (per.label == "16:00-20:00") {
                             numArray[2] = per.value;
-                        } else {
-                            numArray[2] = 0;
                         }
                         if (per.label == "08:00-16:00") {
                             numArray[3] = per.value;
-                        } else {
-                            numArray[3] = 0;
                         }
                         if (per.label == "12:00-20:00") {
                             numArray[4] = per.value;
-                        } else {
-                            numArray[4] = 0;
                         }
                         if (per.label == "08:00-20:00") {
                             numArray[5] = per.value;
-                        } else {
-                            numArray[5] = 0;
                         }
                     }
                     if (period.length > 0) {
@@ -546,28 +540,77 @@
                         if (period == "08:00-20:00") {
                             num = max - (numArray[0] + numArray[1] + numArray[2] + numArray[3] + numArray[4] + numArray[5]);
                         }
+                        $('#useSel').html('<span>剩餘</span><span id="rem">'+num+'</span><span>組位置可使用</span>');
                     } else {
-                        num = max - (numArray[1] + numArray[2] + numArray[3] + numArray[4] + numArray[5]);
+                        $('#useSel').html('請選擇使用時段');
+                    }
+
+                } else {
+                    if(period.length > 0) {
+                        num = max
+                        $('#useSel').html('<span>剩餘</span><span id="rem">' + num + '</span><span>組位置可使用</span>');
+                    } else {
+                        $('#useSel').html('請選擇使用時段');
                     }
                 }
-            if(num)
-                $('#useSel').html('<span>剩餘</span><span id="rem">'+num+'</span><span>組位置可使用</span>');
-            else
-                $('#useSel').html('剩餘0組位置可使用');
         }).catch(function (err){
             console.log('Error:'+(err))
         })
     };
 
-    function getCeateRentalVenue(){
-        var name = $('venue').text();
-        var date = $('dateSel').val();
-        var period = $('periodSel').val();
-        var num = $('num').val();
-        var rem = $('rem').text();
-        var pri = $('pri').text();
+    function getCeateRentalVenue(name,date,period,num,pri,rem){
 
+        if(rem>=num && num != 0) {
+            let hr1 = period.substring(0,2)
+            let hr2 = period.substring(6,8)
+            let price = (hr2-hr1)*num*pri;
+            console.log(price)
+            let venueListRequest = {
+                "venueName": name,
+                "rentalDate": date,
+                "period": period,
+                "person": num,
+                "price": price
+            }
+            $.ajax({
+                url: "/inertVenueList",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(venueListRequest),
+                success: function () {
+                    Swal.fire(
+                        '新增成功!',
+                        '以新增到租借單!',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                },
+                error: function (err) {
+                    console.log("error=" + err)
+                }
+            })
+        } else {
+            if(rem != "" && rem !== undefined){
+                Swal.fire(
+                    '此場地位置不夠,剩餘'+rem+'組位置',
+                    '',
+                    'warning'
+                )
+            } else {
+                Swal.fire(
+                    '請先選擇使用時段',
+                    '',
+                    'warning'
+                )
+            }
+            return false;
+        }
     }
+
 
 </script>
 
