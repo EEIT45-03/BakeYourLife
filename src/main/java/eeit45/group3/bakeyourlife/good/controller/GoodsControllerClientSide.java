@@ -34,6 +34,8 @@ public class GoodsControllerClientSide {
 	public String redirect(Model m) {
 		List<Goods> goods = goodService.getAllBySystem("上架中");
 		m.addAttribute("goods", goods);
+		List<Goods> sales = goodService.findGoodsSales();
+		m.addAttribute("Sales",sales);
 	return "admin/goods/GoodsClientSide";
 	}
 
