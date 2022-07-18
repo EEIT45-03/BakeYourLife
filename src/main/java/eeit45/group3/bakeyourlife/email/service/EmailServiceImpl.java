@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -44,6 +45,7 @@ public class EmailServiceImpl implements EmailService {
      * @throws MessagingException
      */
     @Override
+    @Async
     public void sendMailByThymeleaf(
             String to,//收件者
             String subject,//主旨
@@ -70,6 +72,8 @@ public class EmailServiceImpl implements EmailService {
 
 }
     //報名課程Email
+    @Override
+    @Async//非同步
     public void sendRegisterMail(
             String to,//收件者
             String subject,//主旨
@@ -90,6 +94,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Async//非同步
     public void sendOrderMail(Order order, OrderStatusChangeEvent orderStatusChangeEvent) throws MessagingException {
         String to = order.getUser().getEmail();
         String subject = "訂單編號: " + order.getOrderNo();
