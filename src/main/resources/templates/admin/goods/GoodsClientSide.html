@@ -224,9 +224,10 @@
                     <div class="product__item">
                         <a th:href="@{Picture(id=${bean.id},name=${bean.name})}">
                             <div class="product__item__pic set-bg"
+                                 style="width:270px;height: 270px"
                              th:data-setbg="${bean.imageUrl}" >
                         </div></a>
-                        <div class="product__item__text">
+                        <div class="product__item__text" >
                             <h6 th:text="${bean.name}">
                             </h6>
                             <h5 th:text="|NT$${bean.packages}|"></h5>
