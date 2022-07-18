@@ -14,11 +14,8 @@ import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
 import eeit45.group3.bakeyourlife.order.model.Cart;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.Order;
-import eeit45.group3.bakeyourlife.order.service.OrderService;
 import eeit45.group3.bakeyourlife.user.dao.UserRepository;
 import eeit45.group3.bakeyourlife.user.model.User;
-import eeit45.group3.bakeyourlife.user.service.FarmerService;
-import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -27,12 +24,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -63,21 +58,21 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     private FarmerProductService farmerProductService;
     private GoodService goodService;
     private PasswordEncoder encoder = new BCryptPasswordEncoder(4);
-    private UserRepository userRepository;
-    private OrderRepository orderRepository;
+
 
     @Autowired
-    public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService, UserRepository userRepository, OrderRepository orderRepository) {
+    private DataSource dataSource;
+
+    @Autowired
+    public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService) {
         this.couponService = couponService;
         this.farmerProductService = farmerProductService;
         this.goodService = goodService;
-        this.userRepository = userRepository;
-        this.orderRepository = orderRepository;
     }
 
 
     @Override
-    @Transactional
+//    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Order> orders = new ArrayList<>();
         List<User> users = new ArrayList<>();
@@ -143,9 +138,10 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
         long start = System.currentTimeMillis();
 
-        userRepository.saveAll(users);
-        orderRepository.saveAll(orders);
+        InsertInitDataJdbc jdbc = new InsertInitDataJdbc(dataSource);
 
+        jdbc.saveAllByUsers(users);
+        jdbc.saveAllByOrders(orders);
         coupon.setUsedQuantity(couponUsedNumber);
         couponService.updateCoupon(coupon);
         long end = System.currentTimeMillis();
