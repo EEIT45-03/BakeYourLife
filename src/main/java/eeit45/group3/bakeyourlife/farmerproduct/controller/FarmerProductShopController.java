@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,18 +48,34 @@ public class FarmerProductShopController {
         model.addAttribute(farmerProductBeanList);
 
         List<Farmer> farmerList = farmerService.findAll();
-
         model.addAttribute(farmerList);
+
+        List<FarmerProductBean> topSixList = farmerProductService.topSix();
+        model.addAttribute("topSixList", topSixList);
+
 
         return "farmerproduct/FarmerProductShopGrid";
     }
 
     @GetMapping("/ShopGrid/{id}")
     private String SupplierShopGrid(Model model, @PathVariable Integer id) {
+
+
         List<FarmerProductBean> farmerProductBeanList = farmerProductService.findByStateAndFarmerFarmerIdOrderByLaunchedTimeDesc(id);
         model.addAttribute(farmerProductBeanList);
+
+        Integer count = farmerProductBeanList.size();
+        model.addAttribute("count", count);
+
+
         Farmer farmer = farmerService.findByFarmerId(id);
         model.addAttribute(farmer);
+        Float star = farmerProductService.avgStarByFarmerId(id);
+        String avgStar = "<i class='fa-solid fa-star fa-xs' style='color: #ffd922'></i> " + star;
+        model.addAttribute("avgStar", avgStar);
+
+        List<FarmerProductBean> topSixList = farmerProductService.topSix();
+        model.addAttribute("topSixList", topSixList);
 
         return "farmerproduct/SupplierShopGrid";
     }

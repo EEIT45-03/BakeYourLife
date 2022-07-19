@@ -17,6 +17,11 @@
             color: #305632;
         }
 
+        .starBlock {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
 
     </style>
 
@@ -75,13 +80,10 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
                     <h3 th:text="*{name}"></h3>
-                    <div class="product__details__rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <span>(18 reviews)</span>
+                    <div class="starBlock">
+                        <i class="fa-solid fa-star star"></i>
+                        <span id="avgStar"></span>
+
                     </div>
                     <div class="product__details__price" th:text="|NT$*{price}|"></div>
 
@@ -169,6 +171,8 @@
                                                     <div class="media-body">
                                                         <h4 class="media-heading" th:text="${comment.user.fullName}">
                                                             John Doe</h4>
+                                                        <span style="display: none" th:text="${comment.star}"
+                                                              class="starCount"></span>
                                                         <span th:switch="${comment.star}" class="star">
                                                                <span th:case="1">
                                                                   <i class="fa-solid fa-star"></i>
@@ -263,6 +267,25 @@
 <!-- Related Product Section End -->
 
 <div th:replace="footer.html"></div>
+
+<script>
+    $(document).ready(function () {
+        let sum = 0;
+        let count = $(".starCount").length
+
+        let avg = 0;
+        $(".starCount").each(function () {
+            sum += $(this).text()
+        })
+        avg = (sum / count).toFixed(1);
+        if (count !== 0) {
+            $("#avgStar").text(avg)
+        } else {
+            $("#avgStar").text(0)
+        }
+    })
+
+</script>
 
 
 </body>

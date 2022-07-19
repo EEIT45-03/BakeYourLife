@@ -84,10 +84,10 @@
 
 
                 <p class="mb-4">
-                    <a href="/FarmerProductSupplier/" target="_blank" class="btn btn-primary btn-icon-split btn-sm">
-                        <span class="icon text-white-50"> <i class="fas fa-fw fa-tractor"></i> </span> <span
-                            class="text">前往小農廠商 (前台) </span>
-                    </a>
+                    <!--                                    <a href="/FarmerProductSupplier/" target="_blank" class="btn btn-primary btn-icon-split btn-sm">-->
+                    <!--                                        <span class="icon text-white-50"> <i class="fas fa-fw fa-tractor"></i> </span> <span-->
+                    <!--                                            class="text">前往小農廠商 (前台) </span>-->
+                    <!--                                    </a>-->
                 </p>
 
 
@@ -102,6 +102,7 @@
                                 <tr>
                                     <th></th>
                                     <th>商品編號</th>
+                                    <th>廠商名稱</th>
                                     <th class="none">商品類型</th>
                                     <th>商品圖片</th>
                                     <th>商品名稱</th>
@@ -121,6 +122,7 @@
                                     <td></td>
 
                                     <td th:text="${bean.farmerProductId}"></td>
+                                    <td th:text="${bean.farmer.farmerName}"></td>
                                     <td th:text="${bean.type}"></td>
                                     <td>
                                         <div th:if="${not #lists.isEmpty(bean.farmerProductPicList)}"

@@ -25,6 +25,8 @@ public interface FarmerService {
 
     void updateFarmer(Farmer farmer);
 
+    Long count();
+
     void register(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
     void sendVerificationEmail(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
     boolean verify(String verificationCode);

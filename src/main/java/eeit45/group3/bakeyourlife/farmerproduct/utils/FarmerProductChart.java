@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FarmerProductChart {
     private List<String> labels = new ArrayList<>();
-    private List<Integer> data = new ArrayList<>();
+    private List<String> data = new ArrayList<>();
 
     public List<String> getLabels() {
         return labels;
@@ -15,16 +15,16 @@ public class FarmerProductChart {
         this.labels = labels;
     }
 
-    public List<Integer> getData() {
+    public List<String> getData() {
         return data;
     }
 
-    public void setData(List<Integer> data) {
+    public void setData(List<String> data) {
         this.data = data;
     }
 
-    public void addData(TypeAmount data) {
-        this.labels.add(data.getType());
+    public void addData(QueryChart data) {
+        this.labels.add(data.getLabel());
         this.data.add(data.getValue());
     }
 

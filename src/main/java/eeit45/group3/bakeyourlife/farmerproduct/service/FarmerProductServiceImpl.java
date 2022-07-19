@@ -68,8 +68,33 @@ public class FarmerProductServiceImpl implements FarmerProductService {
     }
 
     @Override
-    public Integer saleAmountByFarmerId(Integer farmerId) {
+    public String saleAmountByFarmerId(Integer farmerId) {
         return farmerProductRepository.saleAmountByFarmerId(farmerId);
+    }
+
+    @Override
+    public String saleAmount() {
+        return farmerProductRepository.saleAmount();
+    }
+
+    @Override
+    public Float avgStar() {
+        return farmerProductRepository.avgStar();
+    }
+
+    @Override
+    public Float avgStarByFarmerId(Integer farmerId) {
+        return farmerProductRepository.avgStarByFarmerId(farmerId);
+    }
+
+    @Override
+    public String topSaleItemByFarmerId(Integer farmerId) {
+        return farmerProductRepository.topSaleItemByFarmerId(farmerId);
+    }
+
+    @Override
+    public List<FarmerProductBean> topSix() {
+        return farmerProductRepository.topSix();
     }
 
     @Override

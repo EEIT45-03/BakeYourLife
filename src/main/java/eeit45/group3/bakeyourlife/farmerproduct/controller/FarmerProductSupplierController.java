@@ -45,10 +45,18 @@ public class FarmerProductSupplierController {
             System.out.println(principal.getName());
             if (farmer.getFarmerId() != null) {
                 model.addAttribute("farmer", farmer);
-                Integer saleAmount = farmerProductService.saleAmountByFarmerId(farmer.getFarmerId());
+                String saleAmount = farmerProductService.saleAmountByFarmerId(farmer.getFarmerId());
                 model.addAttribute("saleAmount", saleAmount);
                 Long count = farmerProductService.countByFarmerId(farmer.getFarmerId());
                 model.addAttribute("count", count);
+                Float avgStar = farmerProductService.avgStarByFarmerId(farmer.getFarmerId());
+                model.addAttribute("avgStar", avgStar);
+                String topSaleItem = farmerProductService.topSaleItemByFarmerId(farmer.getFarmerId());
+                if (topSaleItem != null) {
+
+                    String[] item = topSaleItem.split("@");
+                    model.addAttribute("item", item);
+                }
                 return "farmerproduct/SupplierChart";
             }
         }
@@ -81,9 +89,9 @@ public class FarmerProductSupplierController {
             farmer.setImageUrl(link);
         }
 
-        if (farmer.getPassword() == null){
+        if (farmer.getPassword() == null) {
             farmer.setPassword(farmerDB.getPassword());
-        }else {
+        } else {
             farmer.setPassword(encoder.encode(farmer.getPassword()));
         }
 
@@ -91,13 +99,11 @@ public class FarmerProductSupplierController {
         farmer.setAuthority(farmerDB.getAuthority());
         farmer.setFarmerId(farmerDB.getFarmerId());
         farmerService.updateFarmer(farmer);
-        farmerService.setCurrentFarmer(authentication,farmer);
+        farmerService.setCurrentFarmer(authentication, farmer);
         return "farmerproduct/UpdateSupplier";
 
 
     }
-
-
 
 
     @GetMapping("SupplierProductList")
