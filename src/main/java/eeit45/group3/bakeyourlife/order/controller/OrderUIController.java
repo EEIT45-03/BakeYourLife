@@ -104,13 +104,13 @@ public class OrderUIController {
         return "admin/order/Chart";
     }
 
-    @GetMapping("/user/order/reviews/{orderId}")
+    @GetMapping("/User/order/reviews/{orderId}")
     public String viewReviews(@PathVariable Integer orderId, Model model) {
         Order order = orderService.findByOrderId(orderId).orElse(null);
         ReviewListWrapper wrapper = new ReviewListWrapper();
         ArrayList<OrderItemReview> reviews = new ArrayList<>();
         if (order == null) {
-            return "redirect:/user/order";
+            return "redirect:/User/order";
         }
         order.getOrderItemList().forEach(orderItem -> {
             OrderItemReview oir = new OrderItemReview();
@@ -123,12 +123,12 @@ public class OrderUIController {
         return "order/Review";
     }
 
-    @PostMapping("/user/order/reviews/{orderId}")
+    @PostMapping("/User/order/reviews/{orderId}")
     public String postReviews(@PathVariable Integer orderId,
                               @ModelAttribute ReviewListWrapper wrapper, Principal principal) {
         Order order = orderService.findByOrderId(orderId).orElse(null);
         if (order == null) {
-            return "redirect:/user/order";
+            return "redirect:/User/order";
         }
         orderService.review(order.getOrderId(), true);
         User user = userService.findByUsername(principal.getName());
@@ -167,7 +167,7 @@ public class OrderUIController {
         });
 
 
-        return "redirect:/user/order";
+        return "redirect:/User/order";
     }
 
     @ModelAttribute
