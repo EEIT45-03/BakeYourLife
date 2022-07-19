@@ -1,12 +1,15 @@
 package eeit45.group3.bakeyourlife.tackle.service.impl;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.tackle.dao.TacklePicListRepository;
 import eeit45.group3.bakeyourlife.tackle.dao.TackleRepository;
 import eeit45.group3.bakeyourlife.tackle.dao.TackleSortRepository;
+import eeit45.group3.bakeyourlife.tackle.dto.TackleRequest;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.model.TacklePicList;
 import eeit45.group3.bakeyourlife.tackle.model.TackleSort;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,14 +85,42 @@ public class TackleServiceImpl implements TackleService {
         return tackleRepository.save(tackle);
     }
 
+    @Override
+    @Transactional
+    public Tackle createTackle(TackleRequest tackleRequest) {
+//        Tackle tackle = new Tackle();
+//        if(tackleRequest.getTackleName()!=null){
+//            tackle.setTackleName(tackleRequest.getTackleName());
+//        }
+//        if(tackleRequest.getSpecification()!=null){
+//            tackle.setSpecification(tackleRequest.getSpecification());
+//        }
+//        if(tackleRequest.getDayPrice()!=null){
+//            tackle.setDayPrice(tackleRequest.getDayPrice());
+//        }
+//        if(tackleRequest.getDamages()!=null){
+//            tackle.setDamages(tackleRequest.getDamages());
+//        }
+//        if(tackleRequest.getMax()!=null){
+//            tackle.setMax(tackleRequest.getMax());
+//        }
+//        if(tackleRequest.getSortId()!=null){
+//            TackleSort tackleSort = tackleSortRepository.findById(tackleRequest.getSortId()).orElse(null);
+//            tackle.setTackleSort(tackleSort);
+//        }
+//        if(tackleRequest.getNotes()!=null){
+//            tackle.setNotes(tackleRequest.getNotes());
+//        }
+//        return tackleRepository.save(tackle);
+        return  null;
+    }
+
     //更新器具
     @Override
     @Transactional
     public Tackle updateTackle(Tackle tackle) {
         TackleSort sort = tackleSortRepository.findById(tackle.getTackleSort().getTackleSortId()).orElse(null);
         tackle.setTackleSort(sort);
-
-
 
         return tackleRepository.save(tackle);
     }

@@ -37,7 +37,7 @@
         <div class="col-sm-9">
             <select th:field="*{venueSort.sort}" type="text" class="form-control form-select mb-sm-1"
                     id="vSort" aria-label="Default select example">
-                <option value="">全部</option>
+                <option value="">請選擇</option>
                 <option th:each="sort : ${sorts}" th:value="${sort.sort}" th:text="${sort.sort}"></option>
             </select>
         </div>

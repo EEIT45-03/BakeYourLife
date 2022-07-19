@@ -1,5 +1,8 @@
 package eeit45.group3.bakeyourlife.tackle.controller;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
+import eeit45.group3.bakeyourlife.tackle.dto.TackleRequest;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
@@ -53,19 +61,26 @@ public class AdminTackleController {
         return "/admin/tackle/CreateTackle";
     }
 
-    @PostMapping("/CreateTackle")
-    public String createTackle(@ModelAttribute("tackle") Tackle tackle,
-                               @RequestParam(value = "tackleImage", required = false) MultipartFile[] file,
-                              BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return  "/admin/tackle/Tackle";
-        }
+//    @PostMapping("/CreateTackle")
+//    public String createTackle(@ModelAttribute("tackle") Tackle tackle,
+//                               @RequestParam(value = "tackleImage", required = false) MultipartFile[] file,
+//                              BindingResult bindingResult) {
+//        if(bindingResult.hasErrors()){
+//            return  "/admin/tackle/Tackle";
+//        }
+//
+////        tackle.setPicture(updateByMultipartFile(file).getLink());
+//        tackleService.createTackle(tackle);
+//        tackleService.createTacklePicList(tackle.getTackleName(),file);
+//        return "redirect:./";
+//    }
+@PostMapping("/CreateTackle")
+public ResponseEntity<Tackle> ceateVenueList(@RequestBody @Valid Tackle tackle) {
 
-//        tackle.setPicture(updateByMultipartFile(file).getLink());
-        tackleService.createTackle(tackle);
-        tackleService.createTacklePicList(tackle.getTackleName(),file);
-        return "redirect:./";
-    }
+    Tackle tackleDb = tackleService.createTackle(tackle);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(tackleDb);
+}
 
     @GetMapping("/UpdateTackle")
     public String viewUpdateTackle(@RequestParam Integer tackleId, Model model) {

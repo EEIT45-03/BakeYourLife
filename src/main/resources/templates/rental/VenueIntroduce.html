@@ -474,9 +474,9 @@
         })
         $('#but_insert').on('click',function (){
             var name = $('#venue').text();
-            var date = $('#dateSel').val();
+            var date = $.trim($('#dateSel').val());
             var period = $('#periodSel').val();
-            var num = $('#num').val();
+            var num = $.trim($('#num').val());
             var rem = $('#rem').text();
             var pri = $('#pri').text();
             getCeateRentalVenue(name,date,period,num,pri,rem);
@@ -565,7 +565,6 @@
             let hr1 = period.substring(0,2)
             let hr2 = period.substring(6,8)
             let price = (hr2-hr1)*num*pri;
-            console.log(price)
             let venueListRequest = {
                 "venueName": name,
                 "rentalDate": date,
@@ -583,7 +582,7 @@
                     console.log(res)
                     Swal.fire(
                         '新增成功!',
-                        '以新增到租借單!',
+                        '已新增到租借單!',
                         'success'
                     ).then((result) => {
                         if (result.isConfirmed) {

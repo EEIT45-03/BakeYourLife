@@ -25,24 +25,215 @@ $(document).ready(function () {
         order: [1, 'asc']
     });
 
-    $("body").on("change", "#files", function(e){
-        var file = e.target.files[0];
-        var mediabase64data;
-        getBase64(file).then(
-            mediabase64data => $('#images').attr('src', mediabase64data)
-        );
-    });
-});
-//
-// function getBase64(file) {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.onload = () => resolve(reader.result);
-//         reader.onerror = error => reject(error);
-//     });
-// }
+    $(document).on("change", ".uploadFile", function () {
+        var file = $(this);
+        var img = file.closest(".imgUp").find("img");
 
+        var fileSize = 0;
+        var fileMaxSize = 1024;//1M
+        var filePath = file.val();
+        if (filePath) {
+            fileSize = file[0].files[0].size;
+
+            var size = fileSize / 1024;
+            if (size > fileMaxSize) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '檔案大小不能大於1MB！',
+                    text: '',
+                })
+                file.val("");
+                return false;
+            } else if (size <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '檔案大小不能為0MB！',
+                    text: '',
+                })
+                file.val("");
+                return false;
+            } else {
+                readURL(file)
+            }
+        } else {
+            return false;
+        }
+    });
+
+    function readURL(input) {
+        let dataUrl = null;
+        let base64 = "";
+        if (!window.FileReader) {
+            Swal.fire({
+                icon: 'error',
+                title: '此瀏覽器不支援！',
+                text: '',
+            })
+            return;//瀏覽器沒支援就跳出
+        }
+
+        if (input.prop("files") && input[0].files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                dataUrl = e.target.result;
+                base64 = dataUrl.split(",")[1];
+                input.closest(".imgUp").find("img").attr('src', dataUrl);
+                input.next().val(base64)
+
+            }
+            reader.readAsDataURL(input[0].files[0]);
+            imgAdd();
+        }
+    }
+
+
+    $(".imgAdd").click(function () {
+        imgAdd();
+    })
+
+    function imgAdd() {
+
+        if ($(".imgUp").length < 5) {
+            $(".imgAdd")
+                .before(`<div class=" imgUp" id="imgdiv" >
+											<img id="img" class="imagePreview"  src="/img/logo6.png"><br>
+											<label class="btn btn-primary imgbtn">
+												選擇圖片
+												<input type="file" class="uploadFile"
+													accept="image/png,image/gif,image/jpg,image/jpeg"
+													 id="farmerProductPic" value=""
+													style="width: 0px;height: 0px;overflow: hidden;">
+												<input type="hidden" name="base64" id="base64" value="">
+											</label><i class="fa fa-times del"></i>
+										</div>`);
+
+        }
+        if ($(".imgUp").length == 5) {
+            $(".imgAdd").css("display", "none")
+        }
+
+    }
+
+
+    $(document).on("click", "i.del", function () {
+        $(this).prev().children().next().val("");
+        $(this).parent().remove();
+        $(".imgAdd").css("display", "block");
+    });
+
+    $('#submit').on('click', function (){
+        if(check){
+            var venueList = getTackle();
+            $.ajax({
+                url: "/admin/Tackle/CreateTackle",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(venueList),
+                success: function (res) {
+                    Swal.fire(
+                        '新增成功',
+                        '器具已新增',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                },
+                error: function (xhr,status,err) {
+                    console.log("error=" + err)
+                    console.log("status=" + status)
+                    console.log("xhr=" + xhr)
+                }
+            })
+
+        }
+    })
+
+});
+
+
+function getTackle() {
+
+    let tackleName = $.trim($("#tName").val());
+    let specification = $.trim($("#spe").val());
+    let dayPrice = $.trim($("#daPri").val());
+    let damages = $.trim($("#dam").val());
+    let max = $.trim($("#max").val());
+    let sort = $.trim($("#tSort").val());
+    let notes = $.trim($("#tNotes").val());
+    let base64Array = new Array();
+    $("input[name=base64]").each(function () {
+        base64Array.push($(this).val());
+    });
+    let tackle = {
+        "tackleName": tackleName,
+        "specification": specification,
+        "dayPrice": dayPrice,
+        "damages": damages,
+        "max": max,
+        "sort": sort,
+        "notes": notes,
+        "base64": base64Array
+    }
+    return tackle;
+}
+
+function check(){
+    let tackleName = $.trim($("#tName").val());
+    let dayPrice = $.trim($("#daPri").val());
+    let damages = $.trim($("#dam").val());
+    let max = $.trim($("#max").val());
+    let sort = $.trim($("#tSort").val());
+    let notes = $.trim($("#tNotes").val());
+    if(tackleName === '' || tackleName.length <=0){
+        Swal.fire(
+            '請輸入器具名稱',
+            '',
+            'warning'
+        )
+        return false;
+    }
+    if(dayPrice === '' || dayPrice <= 0 ){
+        Swal.fire(
+            '請輸入價錢/天',
+            '',
+            'warning'
+        )
+        return false;
+    }
+    if(damages === '' || damages <= 0 ){
+        Swal.fire(
+            '請輸入賠償價錢',
+            '',
+            'warning'
+        )
+        return false;
+    }
+    if(max === '' || max <= 0 ){
+        Swal.fire(
+            '請輸入器具總數量',
+            '',
+            'warning'
+        )
+        return false;
+    }
+    if(sort === '' || sort <=0){
+        '請選擇器具種類',
+            '',
+            'warning'
+        return false;
+    }
+    if(notes === '' || notes.length <=0){
+        '請輸入器具介紹(備註)',
+            '',
+            'warning'
+        return false;
+    }
+    return true;
+}
 
 //刪除器具
 function deleteTackle(tackleId) {
