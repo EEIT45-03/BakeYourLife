@@ -169,7 +169,7 @@
     window.onload = function () {
 
         document.getElementById("form").onsubmit = function () {
-            return checkPassword();
+            return checkPassword() && checkNewPassword() && checkConNewPassword();
         }
         document.getElementById("password").oninput = checkPassword;
         document.getElementById("newPassword").oninput = checkNewPassword;
@@ -209,13 +209,13 @@
     }
     function checkConNewPassword() {
         var newPassword = document.getElementById("newPassword").value;
-        var ConNewPassword = document.getElementById("ConNewPassword").value;
-        if (newPassword === ConNewPassword) {
-            document.getElementById("s_ConNewPassword").innerHTML = "<i class='fa-solid fa-check'></i>";
+        var conNewPassword = document.getElementById("conNewPassword").value;
+        if (newPassword == conNewPassword) {
+            document.getElementById("s_conNewPassword").innerHTML = "<i class='fa-solid fa-check'></i>";
             document.getElementById('submit').disabled = false;
             return true;
         } else {
-            document.getElementById("s_ConNewPassword").innerHTML = "<p class='wrong'>輸入的密碼不同</p>";
+            document.getElementById("s_conNewPassword").innerHTML = "<p class='wrong'>輸入的密碼不同</p>";
             document.getElementById('submit').disabled = true;
             return false;
         }
