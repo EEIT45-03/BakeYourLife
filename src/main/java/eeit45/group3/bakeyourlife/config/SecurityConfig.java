@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 //login頁面不需要認證
-                .antMatchers("/*", "/Goods1/*", "/FarmerProductShop/**", "/FarmerProducts/**", "/Carts/**", "/Course/**", "/webfonts/**", "/SignUp", "/login", "/Order/*/Result", "/Order/PaySuccess", "/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/*", "/Goods1/**", "/FarmerProductShop/**", "/FarmerProducts/**", "/Carts/**", "/Course/**", "/webfonts/**", "/SignUp", "/login", "/Order/*/Result", "/Order/PaySuccess", "/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/User/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/FarmerProductSupplier/**").hasAnyRole("FARMER", "ADMIN")
@@ -49,6 +49,12 @@ public class SecurityConfig {
                 //1.successForwardUrl：請求轉發，轉發後瀏覽器的位址不會變，登入成功後不會跳轉到原來的位址。
                 //2.defaultSuccessUrl：302重定向，登入成功後會跳轉到原來的位址。
                 .defaultSuccessUrl("/default", false)
+                .and().rememberMe()
+//                .key("123")
+                .userDetailsService(userDetailsService)
+                .tokenValiditySeconds(60*60*24)
+//                .alwaysRemember(true)
+                .useSecureCookie(true)
                 .and()
                 .httpBasic()
                 .and()

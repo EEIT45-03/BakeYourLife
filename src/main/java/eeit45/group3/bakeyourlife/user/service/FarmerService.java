@@ -2,9 +2,10 @@ package eeit45.group3.bakeyourlife.user.service;
 
 
 import eeit45.group3.bakeyourlife.user.model.Farmer;
-import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.security.core.Authentication;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface FarmerService {
@@ -24,6 +25,8 @@ public interface FarmerService {
 
     void updateFarmer(Farmer farmer);
 
-    Long count();
+    void register(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    void sendVerificationEmail(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    boolean verify(String verificationCode);
 
 }

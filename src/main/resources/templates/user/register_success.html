@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>歡迎加入Bake Your Life</title>
+    <div th:replace="css.html"></div>
+
+</head>
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<div class="text-center">
+    <h2>歡迎加入Bake Your Life</h2><br>
+    <h3>請至您的E-mail點擊連結完成註冊程序</h3>
+    <h5><span id="sec"></span>秒後自動跳轉到首頁</h5>
+</div>
+
+<div th:replace="footer.html"></div>
+<script>
+    //設定倒數秒數
+    var t = 10;
+    //顯示倒數秒數
+    function showTime(){
+        t -= 1;
+        document.getElementById('sec').innerHTML= t;
+        if(t==0){
+            location.href='[[@{/}]]';
+        }
+//每秒執行一次,showTime()
+        setTimeout("showTime()",1000);
+    }
+    //執行showTime()
+    showTime();
+</script>
+</body>
+</html>

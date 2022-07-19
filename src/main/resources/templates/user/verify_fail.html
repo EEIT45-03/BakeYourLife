@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>註冊驗證失敗</title>
+    <div th:replace="css.html"></div>
+
+</head>
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<div class="text-center">
+    <h4>很抱歉，註冊驗證失敗，驗證碼失效或錯誤</h4>
+    <h4>請重新註冊，期待你的加入</h4>
+    <h5><span id="sec"></span>秒後自動跳轉到首頁</h5>
+</div>
+
+<div th:replace="footer.html"></div>
+<script>
+    //設定倒數秒數
+    var t = 20;
+    //顯示倒數秒數
+    function showTime(){
+        t -= 1;
+        document.getElementById('sec').innerHTML= t;
+        if(t==0){
+            location.href='[[@{/}]]';
+        }
+//每秒執行一次,showTime()
+        setTimeout("showTime()",1000);
+    }
+    //執行showTime()
+    showTime();
+</script>
+</body>
+</html>

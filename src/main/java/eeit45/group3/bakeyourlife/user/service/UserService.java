@@ -1,10 +1,13 @@
 package eeit45.group3.bakeyourlife.user.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
 
 import eeit45.group3.bakeyourlife.user.model.User;
+
+import javax.mail.MessagingException;
 
 
 public interface UserService {
@@ -29,4 +32,9 @@ public interface UserService {
     User findByPhone(String phone);
 
     User findByEmail(String email);
+
+    void register(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
+
+    void sendVerificationEmail(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    boolean verify(String verificationCode);
 }

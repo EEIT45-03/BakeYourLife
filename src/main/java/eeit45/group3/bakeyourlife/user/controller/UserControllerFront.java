@@ -7,6 +7,7 @@ import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.sql.Timestamp;
 
@@ -59,6 +63,41 @@ public class UserControllerFront {
 
         return "redirect:login";
     }
+
+    @PostMapping("process_register")
+    public String processRegister(User user, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        MultipartFile productImage = user.getProductImage();
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            user.setImageUrl(pic);
+        }else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+            user.setImageUrl(link);
+        }
+//        ----------------------------------------------------------
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        user.setRegisterTime(ts);
+        user.setAuthority("ROLE_USER");
+        userService.register(user, getSiteURL(request));
+        return "user/register_success";
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            return "user/verify_success";
+        } else {
+            return "user/verify_fail";
+        }
+    }
+
+
     @GetMapping("FarmerSignUp")
     public String viewFarmerSignUp(Model model ) {
         model.addAttribute("farmer", new Farmer());
@@ -81,6 +120,33 @@ public class UserControllerFront {
         farmerService.save(farmer);
         return "redirect:login";
     }
+    @PostMapping("process_farmerRegister")
+    public String processRegister(Farmer farmer, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        MultipartFile productImage = farmer.getProductImage();
+        if(productImage.getSize() == 0){
+            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+            farmer.setImageUrl(pic);
+        }else {
+            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+            farmer.setImageUrl(link);
+        }
+//        ----------------------------------------------------------
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        farmer.setRegisterTime(ts);
+        farmer.setAuthority("ROLE_FARMER");
+        farmerService.register(farmer, getSiteURL(request));
+        return "user/register_success";
+    }
+    @GetMapping("/farmerVerify")
+    public String verifyFarmer(@Param("code") String code) {
+        if (farmerService.verify(code)) {
+            return "user/verify_success";
+        } else {
+            return "user/verify_fail";
+        }
+    }
+
     @GetMapping("/User/UserData")
     public String viewUser(Principal principal, Model model) {
         if (principal != null) {
