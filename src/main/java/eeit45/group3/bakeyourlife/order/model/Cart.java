@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.order.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.good.model.Goods;
@@ -11,6 +12,7 @@ import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,10 +21,15 @@ import java.util.*;
 /**
  * 購物車封裝物件
  */
-public class Cart {
+public class Cart implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
 
     //運費
     private Integer shippingFee = 100;
+    private Integer total;
+    private Integer discountAmount;
     //優惠卷
     private Coupon coupon;
 
@@ -39,7 +46,17 @@ public class Cart {
     //購物車商品
     private Map<String, OrderItem> cart = new HashMap<>();
 
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
+    public void setDiscountAmount(Integer discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public void setCart(Map<String, OrderItem> cart) {
+        this.cart = cart;
+    }
 
     public Integer getTotal() {
         Integer total = 0;
@@ -118,6 +135,7 @@ public class Cart {
         }
     }
 
+    @JsonIgnore
     public Order getOrder(){
         Order order = new Order();
 
@@ -139,4 +157,13 @@ public class Cart {
         return order;
     }
 
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "shippingFee=" + shippingFee +
+                ", coupon=" + coupon +
+                ", message='" + message + '\'' +
+                ", cart=" + cart +
+                '}';
+    }
 }
