@@ -33,6 +33,8 @@ public interface OrderService {
 
     Integer findYearSaleAmount();
 
+    void freeStock(Order order);
+
     /*
      * 用商品名稱找訂單
      *
