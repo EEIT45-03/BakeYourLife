@@ -161,80 +161,80 @@
                         </ul>
                     </div>
 
-                    <div class="sidebar__item">
-                        <div class="latest-product__text"
+                    <div class="sidebar__item col-sm-12">
+                        <div class="latest-product__text "
                              th:if="${not #lists.isEmpty(topSixList)} and ${topSixList.size()} >= 6">
                             <h4>熱銷商品</h4>
-                            <div class="latest-product__slider owl-carousel">
+                            <div class="latest-product__slider owl-carousel topSix ">
                                 <div class="latest-prdouct__slider__item">
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[0].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[0].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 1</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[0].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 1</span>
-                                            <h6 th:text="${topSixList[0].name}"></h6>
-                                            <span th:text="|NT$${topSixList[0].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[0].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[0].price}|"></h6>
+
                                     </a>
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[1].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[1].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 2</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[1].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 2</span>
-                                            <h6 th:text="${topSixList[1].name}"></h6>
-                                            <span th:text="|NT$${topSixList[1].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[1].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[1].price}|"></h6>
+
                                     </a>
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[2].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[2].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 3</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[2].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 3</span>
-                                            <h6 th:text="${topSixList[2].name}"></h6>
-                                            <span th:text="|NT$${topSixList[2].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[2].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[2].price}|"></h6>
+
                                     </a>
 
                                 </div>
                                 <div class="latest-prdouct__slider__item">
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[3].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[3].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 4</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[3].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 4</span>
-                                            <h6 th:text="${topSixList[3].name}"></h6>
-                                            <span th:text="|NT$${topSixList[3].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[3].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[3].price}|"></h6>
+
                                     </a>
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[4].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[4].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 5</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[4].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 5</span>
-                                            <h6 th:text="${topSixList[4].name}"></h6>
-                                            <span th:text="|NT$${topSixList[4].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[4].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[4].price}|"></h6>
+
                                     </a>
                                     <a th:href="@{/FarmerProductShop/ShopDetails/{farmerProductId}(farmerProductId=${topSixList[5].farmerProductId})}"
-                                       class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img th:src="${topSixList[5].farmerProductPicList[0].pictureLink}" alt="">
+                                       class="latest-product__item col-sm-12">
+                                        <h3 class="top">Top 6</h3>
+                                        <div>
+                                            <img class="topImg"
+                                                 th:src="${topSixList[5].farmerProductPicList[0].pictureLink}">
                                         </div>
-                                        <div class="latest-product__item__text">
-                                            <span>Top 6</span>
-                                            <h6 th:text="${topSixList[5].name}"></h6>
-                                            <span th:text="|NT$${topSixList[5].price}|"></span>
-                                        </div>
+                                        <h6 class="topName" th:text="${topSixList[5].name}"></h6>
+                                        <h6 class="topPrice" th:text="|NT$${topSixList[5].price}|"></h6>
+
                                     </a>
 
                                 </div>
