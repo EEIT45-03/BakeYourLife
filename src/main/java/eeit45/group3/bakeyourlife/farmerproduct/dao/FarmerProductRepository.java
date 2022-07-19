@@ -42,7 +42,7 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     String topSaleItemByFarmerId(Integer farmerId);
 
     //單個廠商 每月銷售額
-    @Query(nativeQuery = true, value = " SELECT CONVERT(char(7), o2.label, 111) AS 'label',  isnull(sum(o2.sub_total),0)   AS 'value' FROM " +
+    @Query(nativeQuery = true, value = " SELECT CONVERT(char(7), o2.label, 111) AS 'label',  isnull(sum(o2.sub_total)/10000,0)   AS 'value' FROM " +
             " ( select oi.order_id ,oi.product_name,sub_total,o.label from order_item oi " +
             "join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product  where farmer_id =?) f on oi.product_no =f.id " +
             "join(select order_id,order_status,CONVERT(char(7), order_date, 111) AS 'label' from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id  " +
@@ -50,7 +50,7 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     List<QueryChart> monthSaleAmountByFarmerId(Integer farmerId);
 
     //各廠商 總銷售額
-    @Query(nativeQuery = true, value = " select fn.farmer_name AS 'label',isnull(sum(oi.sub_total),0) AS 'value'  from order_item oi " +
+    @Query(nativeQuery = true, value = " select fn.farmer_name AS 'label',isnull(sum(oi.sub_total)/10000,0) AS 'value'  from order_item oi " +
             " join ( select 'F'+convert(varchar,farmer_product_id) AS 'id', farmer_id from farmer_product ) f on oi.product_no =f.id " +
             " join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id " +
             " right join ( select farmer_name,farmer_id from farmers)  fn on fn.farmer_id =f.farmer_id " +
@@ -68,11 +68,11 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
 
 
     //單個廠商 賣出商品總金額
-    @Query(nativeQuery = true, value = "select format(isnull(sum(oi.sub_total),0),'N0') from order_item oi join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product  where farmer_id =?) f on oi.product_no =f.id join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id")
+    @Query(nativeQuery = true, value = "select isnull(sum(oi.sub_total)/10000,0) from order_item oi join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product  where farmer_id =?) f on oi.product_no =f.id join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id")
     String saleAmountByFarmerId(Integer farmerId);
 
     //全部廠商 賣出商品總金額
-    @Query(nativeQuery = true, value = "select format(isnull(sum(oi.sub_total),0),'N0') from order_item oi join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product) f on oi.product_no =f.id join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id")
+    @Query(nativeQuery = true, value = "select format(isnull(sum(oi.sub_total)/10000,0),'N0') from order_item oi join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product) f on oi.product_no =f.id join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id")
     String saleAmount();
 
     //全部廠商 商品平均星數

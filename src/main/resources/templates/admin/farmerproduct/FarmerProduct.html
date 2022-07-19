@@ -204,7 +204,7 @@
                                     </button>
                                 	<button type="button" class="btn btn-dark btn-icon-split btn-sm"
                                             data-toggle="modal" data-target="#myModal2"
-                                            th:onclick="|updateState(${bean.farmerProductId},2,'確認下架此違規商品?','確認下架後將無法更改!')|">
+                                            th:onclick="|sendMail(${bean.farmerProductId})|">
                                         <span class="icon text-white-50"> <i class="fa-solid fa-ban"></i>
                                         </span> <span class="text">違規</span>
                                     </button>

@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.email.service;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -19,6 +21,7 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Service("EmailService")
 public class EmailServiceImpl implements EmailService {
@@ -70,7 +73,8 @@ public class EmailServiceImpl implements EmailService {
         helper.setTo(to);
         javaMailSender.send(mimeMessage);
 
-}
+    }
+
     //報名課程Email
     @Override
     @Async//非同步
@@ -82,7 +86,7 @@ public class EmailServiceImpl implements EmailService {
     ) throws MessagingException {
         Context context = new Context();
         context.setVariable("register", register);
-        String process = templateEngine.process("emails/"+templateName, context);
+        String process = templateEngine.process("emails/" + templateName, context);
         javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
         helper.setFrom(FROM_EMAIL);
@@ -131,6 +135,34 @@ public class EmailServiceImpl implements EmailService {
         helper.setText(process, true);
         javaMailSender.send(mimeMessage);
         System.out.println("已發送訂單通知信件");
+
+    }
+
+
+    //小農廠商違規通知信
+    @Override
+    @Async//非同步
+    public void sendViolationMail(
+            String to,//收件者
+            String subject,//主旨
+            FarmerProductBean farmerProductBean,//違規的商品
+            String text,//違規原因說明
+            String templateName//模板名稱
+    ) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("farmerProductBean", farmerProductBean);
+        List<FarmerProductPic> farmerProductPicList = farmerProductBean.getFarmerProductPicList();
+        String imgLink = farmerProductPicList.get(0).getPictureLink();
+        context.setVariable("imgLink", imgLink);
+        context.setVariable("text", text);
+        String process = templateEngine.process("emails/" + templateName, context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(FROM_EMAIL);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        javaMailSender.send(mimeMessage);
 
     }
 

@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.email.service;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Register;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
 
@@ -23,12 +24,17 @@ public interface EmailService {
     ) throws MessagingException;
 
 
-
     void sendRegisterMail(String email, //收件者
                           String subject, //主旨
                           Register register,//內容
                           String templateName//模板名稱
     ) throws MessagingException;
 
-
+    public void sendViolationMail(
+            String to,//收件者
+            String subject,//主旨
+            FarmerProductBean farmerProductBean,//內容
+            String text,
+            String templateName//模板名稱
+    ) throws MessagingException;
 }

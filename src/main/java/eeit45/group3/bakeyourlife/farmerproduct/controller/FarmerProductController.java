@@ -1,8 +1,11 @@
 package eeit45.group3.bakeyourlife.farmerproduct.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,13 +28,14 @@ public class FarmerProductController {
     FarmerProductService farmerProductService;
     FarmerService farmerService;
 
-    @Autowired
-    public FarmerProductController(FarmerProductService farmerProductService, FarmerService farmerService) {
+    EmailService emailService;
+
+    public FarmerProductController(FarmerProductService farmerProductService, FarmerService farmerService, EmailService emailService) {
         this.farmerProductService = farmerProductService;
         this.farmerService = farmerService;
+        this.emailService = emailService;
     }
 
- 
     @PostMapping("/FarmerProducts")
     public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody @Valid FarmerProductBean farmerProductBean) {
 
@@ -128,13 +133,39 @@ public class FarmerProductController {
             case 1:
                 farmerProductBean.setSuspendTime(date);
                 break;
-            case 2:
-                farmerProductBean.setViolationTime(date);
-                break;
+
             default:
                 break;
         }
 
+        farmerProductService.update(farmerProductBean);
+
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/FarmerProducts/sendMail/{id}/{text}")
+    private ResponseEntity<?> sendViolationMail(@PathVariable Integer id, @PathVariable String text) {
+        FarmerProductBean farmerProductBean = null;
+        if (id != null) {
+            farmerProductBean = farmerProductService.findByFarmerProductId(id);
+        }
+        farmerProductBean.setState(2);
+        Date date = new Date();
+        farmerProductBean.setViolationTime(date);
+        Farmer farmer = null;
+        String email = "";
+        farmer = farmerProductBean.getFarmer();
+        if (farmer != null) {
+            email = farmer.getEmail();
+        }
+        String subject = "[Bake Your Life 烘焙材料網] 商品違規通知";
+        String templateName = "violation";
+        try {
+            emailService.sendViolationMail(email, subject, farmerProductBean, text, templateName);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         farmerProductService.update(farmerProductBean);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

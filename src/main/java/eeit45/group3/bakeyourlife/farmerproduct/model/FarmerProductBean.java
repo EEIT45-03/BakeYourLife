@@ -265,4 +265,21 @@ public class FarmerProductBean implements Serializable, CartItem {
     public void updateStock(Integer stock) {
         this.quantity = stock;
     }
+
+    @Override
+    public String toString() {
+        return "FarmerProductBean{" +
+                "farmerProductId=" + farmerProductId +
+                ", farmer=" + farmer +
+                ", farmerId=" + farmerId +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", launchedTime=" + launchedTime +
+                ", suspendTime=" + suspendTime +
+                ", violationTime=" + violationTime +
+                ", state=" + state +
+                '}';
+    }
 }
