@@ -278,12 +278,14 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	@Transactional
 	public VenueList createVenueList(VenueListRequest venueListRequest, Principal principal) throws ParseException {
 
 		User user = userService.findByUsername(principal.getName());
 
 		Rental rental = rentalRepository.findByUserAndStateAndType(user,"未下單","場地");
 		if(rental == null) {
+			rental = new Rental();
 			rental = createRentalNoRequest();
 			rental.setState("未下單");
 			rental.setType("場地");
@@ -299,8 +301,9 @@ public class RentalServiceImpl implements RentalService{
 			venueList.setVenue(venue);
 		}
 		if(venueListRequest.getRentalDate()!=null){
-			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(venueListRequest.getRentalDate().toString());
-			venueList.setRentalDate(date);
+			String date = new SimpleDateFormat("yyyy-MM-dd").format(venueListRequest.getRentalDate());
+
+			venueList.setRentalDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
 		}
 		if(venueListRequest.getPeriod()!=null){
 			venueList.setPeriod(venueListRequest.getPeriod());
@@ -311,6 +314,7 @@ public class RentalServiceImpl implements RentalService{
 		if(venueListRequest.getPrice()!=null){
 			venueList.setPrice(venueListRequest.getPrice());
 		}
+		venueList.setIngredients("N");
 		updateProduceNo(venueList.getVenueListNo());
 		return venueListRepository.save(venueList);
 	}
@@ -322,35 +326,6 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.save(venueList);
 	}
 
-//	public VenueList updateVenueList(Integer venueListId, VenueList venueList) {
-//
-//		VenueList venueListDb = findByVenueListId(venueListId);
-//
-//		if(venueList.getRental().getRentalNo()!=null){
-//			Rental rental = findByRentalNo(venueList.getRental().getRentalNo());
-//			venueListDb.setRental(rental);
-//		}
-//		if(venueList.getVenue().getVenueId()!=null){
-//			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
-//			venueListDb.setVenue(venue);
-//		}
-//		if(venueList.getLendTime()!=null){
-//			venueListDb.setLendTime(venueList.getLendTime());
-//		}
-//		if(venueList.getEndTime()!=null){
-//			venueListDb.setEndTime(venueList.getEndTime());
-//		}
-//		if(venueList.getIngredients()!=null){
-//			venueListDb.setIngredients(venueList.getIngredients());
-//		}
-//		if(venueList.getPerson()!=null){
-//			venueListDb.setPrice(venueList.getPrice());
-//		}
-//		if(venueList.getPrice()!=null){
-//			venueListDb.setPrice(venueList.getPrice());
-//		}
-//		return venueListRepository.save(venueList);
-//	}
 
 	//刪除場地租借清單
 	@Override
@@ -360,6 +335,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	@Transactional
 	public VenueList createVenueListNoRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("VenueList");
@@ -516,6 +492,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	@Transactional
 	public TackleListRequest createTackleListNoRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("TackleList");
@@ -585,6 +562,7 @@ public class RentalServiceImpl implements RentalService{
 
 	//自動新增或更新編號
 	@Override
+	@Transactional
 	public ProduceNo updateProduceNo(String no) {
 		ProduceNo produceNo = null;
 		if(no.charAt(0) == 'T'){
@@ -603,8 +581,11 @@ public class RentalServiceImpl implements RentalService{
 			} else{
 				produceNo = produceNoRepository.findByName("VenueList");
 			}
+			String b = no.substring(1,9);
 			produceNo.setDate(no.substring(1,9));
+			Integer a = Integer.valueOf(no.substring(9,12));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+
 		} else {
 			if(produceNoRepository.findByName("Rental") == null){
 				produceNo = new ProduceNo();
@@ -612,7 +593,9 @@ public class RentalServiceImpl implements RentalService{
 			} else{
 				produceNo = produceNoRepository.findByName("Rental");
 			}
+
 			produceNo.setDate(no.substring(0,8));
+
 			produceNo.setNum(Integer.valueOf(no.substring(8,15)));
 		}
 

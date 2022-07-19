@@ -62,6 +62,7 @@ public class RentalUIController {
         if (venueListRequest!=null){
             rentalService.createVenueList(venueListRequest,principal);
         }
+//        return "{}";
     }
 
 }

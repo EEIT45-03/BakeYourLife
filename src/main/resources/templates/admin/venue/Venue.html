@@ -146,35 +146,35 @@
                                         <td th:text="${venue.venueSort.sort}"></td>
                                         <td th:text="${venue.personMax}"></td>
                                         <td th:text="${venue.hrPrice}"></td>
-                                        <td></td>
-<!--                                        <td>-->
-<!--                                            <div th:if="${not #lists.isEmpty(venue.venuePicList)}"-->
-<!--                                                 class="carousel slide" data-ride="carousel">-->
-<!--                                                <div class="carousel-inner">-->
-<!--                                                    <div class="carousel-item"-->
-<!--                                                         th:each="venuePic: ${venue.venuePicList}">-->
-<!--                                                        <img class="d-block w-100 img"-->
-<!--                                                             th:src="${venuePic.picture}">-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <a class="carousel-control-prev"-->
-<!--                                                   role="button" data-slide="prev"-->
-<!--                                                   onclick="$(this).parent().carousel('prev')">-->
-<!--                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                                                    <span class="sr-only">Previous</span>-->
-<!--                                                </a>-->
-<!--                                                <a class="carousel-control-next"-->
-<!--                                                   role="button" data-slide="next"-->
-<!--                                                   onclick="$(this).parent().carousel('next')">-->
-<!--                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                                                    <span class="sr-only">Next</span>-->
-<!--                                                </a>-->
-<!--                                            </div>-->
-<!--                                            <img th:unless="${not #lists.isEmpty(venue.venuePicList)}"-->
-<!--                                                 class="d-block w-100 img"-->
-<!--                                                 src="/img/logo4.png">-->
-<!--                                        </td>-->
-                                        <td th:text="${venue.notes}"></td>
+<!--                                        <td></td>-->
+                                        <td>
+                                            <div th:if="${not #lists.isEmpty(venue.venuePicList)}"
+                                                 class="carousel slide" data-ride="carousel">
+                                                <div  class="carousel-inner">
+                                                    <div class="carousel-item"
+                                                         th:each="venuePic: ${venue.venuePicList}">
+                                                        <img class="d-block w-100 img"
+                                                             th:src="${venuePic.picture}">
+                                                    </div>
+                                                </div>
+                                                <a class="carousel-control-prev"
+                                                   role="button" data-slide="prev"
+                                                   onclick="$(this).parent().carousel('prev')">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next"
+                                                   role="button" data-slide="next"
+                                                   onclick="$(this).parent().carousel('next')">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            <img th:unless="${not #lists.isEmpty(venue.venuePicList)}"
+                                                 class="d-block w-100 img"
+                                                 src="/img/logo4.png">
+                                        </td>
+                                        <td th:utext="${#strings.replace(#strings.escapeXml(venue.notes),'&#10;','&lt;br&gt;')}"></td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-icon-split btn-sm"
                                                     th:onclick="|updateVenue(${venue.venueId})|">

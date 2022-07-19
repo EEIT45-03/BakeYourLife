@@ -560,7 +560,8 @@
 
     function getCeateRentalVenue(name,date,period,num,pri,rem){
 
-        if(rem>=num && num != 0) {
+
+        if(Number(rem)>=Number(num) && Number(num)!= 0) {
             let hr1 = period.substring(0,2)
             let hr2 = period.substring(6,8)
             let price = (hr2-hr1)*num*pri;
@@ -575,10 +576,11 @@
             $.ajax({
                 url: "/inertVenueList",
                 type: "POST",
-                dataType: "json",
+                // dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(venueListRequest),
-                success: function () {
+                success: function (res) {
+                    console.log(res)
                     Swal.fire(
                         '新增成功!',
                         '以新增到租借單!',
@@ -589,8 +591,10 @@
                         }
                     })
                 },
-                error: function (err) {
+                error: function (xhr,status,err) {
                     console.log("error=" + err)
+                    console.log("status=" + status)
+                    console.log("xhr=" + xhr)
                 }
             })
         } else {

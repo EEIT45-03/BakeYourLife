@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $(".carousel-inner").each(function () {
+
+        $(this).children().first().addClass("active");
+    })
+
     $('#venueTable').DataTable({
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/zh-HANT.json'
