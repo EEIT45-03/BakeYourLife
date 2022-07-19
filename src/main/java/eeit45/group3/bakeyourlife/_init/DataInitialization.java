@@ -162,6 +162,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         User user = new User();
         user.setUsername("a" + fakeUserData.getPhone());
         user.setPassword(encoder.encode("a" + fakeUserData.getPhone()));
+        user.setEnabled(true);
         user.setFullName(fakeUserData.getName());
         user.setEmail("a" + fakeUserData.getPhone() + "@example.com");
         user.setPhone(fakeUserData.getPhone());
