@@ -53,6 +53,8 @@ public interface CourseService {
 		void createRegister(Register register);
 		void createRegisterWithId(Register register);
 
+		void updateRegisterState(Register register);
+
 //		void addAttendanceToOpCourse(Course course);
 
 }

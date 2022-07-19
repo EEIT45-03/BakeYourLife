@@ -114,9 +114,9 @@
 
 <!-- Product Details Section Begin -->
 <section class="product-details">
-<!--    <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">-->
-<!--    -->
-<!--    </form>-->
+    <!--    <form enctype="multipart/form-data" action="/Course/CourseDetails" method="Get">-->
+    <!--    -->
+    <!--    </form>-->
 </section>
 <!-- Product Details Section End -->
 
@@ -141,43 +141,48 @@
                                 <tr>
                                     <th class="shoping__product">課程名稱</th>
                                     <th>上課日期</th>
-                                    <th>報名日期</th>
+                                    <th>報名</th>
                                     <th>狀態</th>
-                                    <th>取消報名</th>
+                                    <th></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="register:${userRegister}">
-                                        <td class="shoping__cart__item">
-                                            <img th:src="*{{register.course.cProduct.image}}" alt="" style="height: 100px; border-radius: 10px">
-                                            <h5 th:text="*{register.course.openCourse}"></h5>
-                                            <h5>&ensp; | &ensp;</h5>
-                                            <h5 th:text="*{register.course.cProduct.name}"></h5>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            <p th:each="courseTime:${register.course.courseTimes}" th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            <p th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd')}"></p>
-                                        </td>
-                                        <td th:switch="${register.state}">
-                                            <div th:case="0" th:text="報名完成"/>
-                                            <div th:case="1" th:text="取消報名"/>
-                                            <div th:case="2" th:text="審核中"/>
-                                            <div th:case="3" th:text="審核通過"/>
-                                            <div th:case="4" th:text="課程結束"/>
-                                            <div th:case="5" th:text="已評價"/>
-                                        </td>
-<!--                                        <td class="shoping__cart__total">-->
-<!--                                            <p th:each="venues:${course.venue}" th:text="${venues.personMax}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="shoping__cart__total">-->
-<!--                                            <p th:text="*{course.teacher}"></p>-->
-<!--                                        </td>-->
-                                        <td class="shoping__cart__total">
-                                            <a class="icon_briefcase_alt" ></a>
-<!--                                            th:href="@{CreateRegisterWithId(id=${course.openCourse})}"-->
-                                        </td>
+                                    <td class="shoping__cart__item">
+                                        <img th:src="*{{register.course.cProduct.image}}" alt=""
+                                             style="height: 100px; border-radius: 10px">
+                                        <h5 th:text="*{register.course.openCourse}"></h5>
+                                        <h5>&ensp; | &ensp;</h5>
+                                        <h5 th:text="*{register.course.cProduct.name}"></h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        <p th:each="courseTime:${register.course.courseTimes}"
+                                           th:text="${#dates.format(courseTime.ctimeStartDate, 'yyyy/MM/dd')}"></p>
+                                    </td>
+                                    <td >
+                                        <p th:text="|編號:${register.registerId}|"></p>
+                                        <p th:text="${#dates.format(register.registerDate, 'yyyy/MM/dd')}"></p>
+                                    </td>
+                                    <td class="shoping__cart__price" th:switch="${register.state}">
+                                        <div th:case="0" th:text="報名完成"/>
+                                        <div th:case="1" th:text="審核中"/>
+                                        <div th:case="2" th:text="已取消"/>
+                                        <div th:case="3" th:text="不通過"/>
+                                        <div th:case="4" th:text="課程完成"/>
+                                        <div th:case="5" th:text="已評價"/>
+                                    </td>
+                                    <td class="shoping__cart__total">
+
+                                        <span th:if="${register.state}==0">
+                                               <i class="icon_error-triangle_alt" th:onclick="|updateState(${register.registerId},1,'確認取消報名?','')|" style="cursor:pointer;">&nbsp;取消</i>
+
+                                        </span>
+                                        <span th:if="${register.state}==4">
+                                               <i class="icon_comment" th:onclick="|updateState(${register.registerId},'確認評論報名?','')|" style="cursor:pointer;">&nbsp;評論</i>
+
+                                        </span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -188,15 +193,15 @@
             </div>
         </section>
         <!-- Shoping Cart Section End -->
-        </div>
+    </div>
     </div>
 </section>
 <!-- Related Product Section End -->
 
 <div th:replace="footer.html"></div>
-
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/course.js}"></script>
 <script>
-
 
 </script>
 

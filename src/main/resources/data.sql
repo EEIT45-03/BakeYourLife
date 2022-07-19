@@ -234,7 +234,9 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 
 --新增會員資料
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison919@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg',1)
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'ddfoew133@gmail.com', N'測試會員', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
+--課程測試帳號
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$qejRQsLN7pWVsMJn9f71DOusiUQ5hLxe73Ux0un/dp70R.uqohy4O', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg')
 
 
 --新增器具類別
