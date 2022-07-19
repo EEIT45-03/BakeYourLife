@@ -66,7 +66,7 @@ public class OrderUIController {
         return "admin/order/Order";
     }
 
-    @GetMapping("/user/order")
+    @GetMapping("/User/order")
     public String viewOrder() {
         return "order/Order";
     }

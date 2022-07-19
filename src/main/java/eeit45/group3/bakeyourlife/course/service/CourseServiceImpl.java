@@ -37,6 +37,8 @@ public class CourseServiceImpl implements CourseService {
 	RegisterRepository registerRepository;
 
 
+
+
 	@Autowired
 	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
 		this.courseRepository = courseRepository;
@@ -181,6 +183,30 @@ public class CourseServiceImpl implements CourseService {
 			emailService.sendRegisterMail(email, "[Bake Your Life 烘焙材料網] 報名成功通知",register,"courseRegister");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void updateRegisterState(Register register) {
+		Course course = courseRepository.findById(register.getCourse().getOpenCourse()).orElse(null);
+		User user = userService.findByUserId(register.getUser().getUserId());
+		Integer sum = (register.getAttendance())*(course.getcProduct().getPrice());
+		register.setUser(user);
+		register.setTotalPrice(sum);
+		register.setRegisterDate(new Date());
+		registerRepository.save(register);
+		//取消報名時,報名人數減少開課明細
+		if(register.getState() == 1) {
+			Integer attSum = registerRepository.getSumAttendanceByCourse(course);
+			Integer cancelAtt = register.getAttendance();
+			Integer attLeft = attSum - cancelAtt;
+			if (attSum != null) {
+				course.setApplicants(attLeft.intValue());
+			} else {
+				course.setApplicants(0);
+			}
+			courseRepository.save(course);
 		}
 	}
 }

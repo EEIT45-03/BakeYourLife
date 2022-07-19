@@ -98,10 +98,11 @@
 <!--    </div>-->
     <div class="container">
         <div class="wrapper">
-            <a class="pages-arrow" id="slidePre"></a><i class="fa-solid fa-arrow-left"></i>
-            <a class="pages-arrow right" id="slideNext"></a><i class="fa-solid fa-arrow-right"></i>
+            <div class="carousel slide" data-interval="1000" id="carousel-demo">
+            <a href="#carousel-demo" class="pages-arrow active" id="slidePre" ></a><i class="fa-solid fa-arrow-left"></i>
+            <a href="#carousel-demo" class="pages-arrow right" id="slideNext"></a><i class="fa-solid fa-arrow-right"></i>
             <ul class="slide-imgs">
-                <li><img src="/img/blog/details/IMG_6351.JPG" alt=""></li>
+                <li><img src="/img/blog/details/IMG_6351.JPG" alt="" class="active"></li>
                 <li><img src="/img/blog/details/lemon.jpg" alt=""></li>
                 <li><img src="/img/blog/details/IMG_6279.JPG" alt=""></li>
                 <li><img src="/img/blog/details/madeleine.jpg" alt=""></li>
@@ -109,13 +110,13 @@
 
             </ul>
             <ul class="pages" id="pages">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li data-target="#carousel-demo"></li>
+                <li data-target="#carousel-demo"></li>
+                <li data-target="#carousel-demo"></li>
+                <li data-target="#carousel-demo"></li>
+                <li data-target="#carousel-demo"></li>
             </ul>
-
+            </div>
         </div>
     </div>
 </section>
@@ -153,7 +154,7 @@
 <!--                        </ul>-->
                     </div>
                     <div class="blog__sidebar__item">
-                        <h4>最新貼文</h4>
+                        <h4>最新文章</h4>
                         <form action="/" method="get" th:each="article: ${articleDate}">
                         <div class="blog__sidebar__recent">
                             <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__sidebar__recent__item">
@@ -377,9 +378,9 @@
         xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
         xhr2.send();
 
-        function displayPageBooks(article){
+        function displayPageBooks(map){
             $('#container').html('')
-            var mapData = JSON.parse(article);
+            var mapData = JSON.parse(map);
             let html = ''
              for(var i=0; i < mapData.length; i++){
                         const append = `
@@ -444,6 +445,12 @@
             $('#pages li').eq(index).css('background','white')
                 .siblings().css('background','transparent')
         }
+    })
+
+    $(document).ready(() => {
+        $('.carousel').carousel({
+            interval: 1000
+        })
     })
 </script>
 

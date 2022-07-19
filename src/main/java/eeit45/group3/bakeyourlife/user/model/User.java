@@ -33,6 +33,9 @@ public class User implements Serializable {
     @Transient
     MultipartFile productImage;
 
+    @Transient
+    String newPassword;
+
     private String imageUrl;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -62,7 +65,7 @@ public class User implements Serializable {
     }
 
     public User(Integer userId, String username, String password, String authority, String fullName, String email, String phone,
-                String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled) {
+                String birth, String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled,String newPassword) {
         super();
         this.userId = userId;
         this.username = username;
@@ -79,12 +82,13 @@ public class User implements Serializable {
         this.imageUrl = imageUrl;
         this.verificationCode = verificationCode;
         this.enabled = enabled;
+        this.newPassword = newPassword;
 
 
     }
 
     public User(String username, String password, String authority, String fullName, String email, String phone, String birth,
-                String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled) {
+                String gender, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl,String verificationCode,boolean enabled,String newPassword) {
         super();
         this.username = username;
         this.password = password;
@@ -100,8 +104,16 @@ public class User implements Serializable {
         this.imageUrl = imageUrl;
         this.verificationCode = verificationCode;
         this.enabled = enabled;
+        this.newPassword = newPassword;
 
+    }
 
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getVerificationCode() {
@@ -231,6 +243,7 @@ public class User implements Serializable {
     public void setProductCommentList(List<ProductComment> productCommentList) {
         this.productCommentList = productCommentList;
     }
+
     @Override
     public String toString() {
         return "User{" +

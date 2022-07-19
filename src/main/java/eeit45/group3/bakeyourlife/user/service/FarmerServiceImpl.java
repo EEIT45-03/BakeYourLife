@@ -29,7 +29,7 @@ public class FarmerServiceImpl implements FarmerService {
 
 
     @Autowired
-    public FarmerServiceImpl(FarmerRepository farmerRepository, PasswordEncoder encoder, JavaMailSender mailSender) {
+    public FarmerServiceImpl(FarmerRepository farmerRepository, PasswordEncoder encoder,JavaMailSender mailSender) {
         this.farmerRepository = farmerRepository;
         this.encoder = encoder;
         this.mailSender = mailSender;
@@ -84,6 +84,11 @@ public class FarmerServiceImpl implements FarmerService {
     }
 
     @Override
+    public Long count() {
+        return farmerRepository.count();
+    }
+
+    @Override
     public void register(Farmer farmer, String siteURL)
             throws UnsupportedEncodingException, MessagingException {
         String encodedPassword = encoder.encode(farmer.getPassword());
@@ -104,7 +109,7 @@ public class FarmerServiceImpl implements FarmerService {
         String toAddress = farmer.getEmail();
         String fromAddress = "bakeyourlifemail@gmail.com";
         String senderName = "Bake Your Life 烘焙材料網";
-        String subject = "Bake Your Life 烘焙材料網小農廠商會員 " + farmer.getFarmerName() + " 註冊驗證信件";
+        String subject = "Bake Your Life 烘焙材料網小農廠商會員 "+farmer.getFarmerName()+ " 註冊驗證信件";
         String content = "Dear [[name]],<br>"
                 + "請以下點擊連結完成註冊:<br>"
                 + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
@@ -142,10 +147,5 @@ public class FarmerServiceImpl implements FarmerService {
 
             return true;
         }
-    }
-
-    @Override
-    public Long count() {
-        return farmerRepository.count();
     }
 }

@@ -24,7 +24,9 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*")
@@ -53,16 +55,19 @@ public class ArticleRestController {
     }
 
     @GetMapping(value = "/ArticlesType/{type}", produces = "application/json")
-    public ResponseEntity<List<Article>> findAllByTypeContaining(@PathVariable String type) {
+    public ResponseEntity<List<Article>> findAllByTypeContaining(@PathVariable String type,Article postid) {
         List<Article> article = articleService.findAllByTypeContaining(type);
+//        List<Message> messageAll = messageService.findMessageByPostid(postid);
 
-//        String encoded64 = new String(article.getBase64());
-//        article.setBase64(encoded64);
+        Map<String,Object>map = new HashMap<>();
+        map.put("article",article);
+//        map.put("messageAll",messageAll);
         return ResponseEntity.status(HttpStatus.OK).body(article);
+
     }
     @PostMapping(value = "/ArticleAdd")
     public ResponseEntity<Article> insert(@Valid
-            @RequestParam String title,BindingResult bindingResult,
+            @RequestParam String title,
                                           Authentication authentication,
                                           @RequestParam String type,
                                           @RequestParam java.sql.Date date,
@@ -93,10 +98,9 @@ public class ArticleRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createArticle);
     }
 
-    @PutMapping(value = "/ArticleUpdate/{userId}")
+    @PutMapping(value = "/ArticleUpdate/{postid}")
     public ResponseEntity<Article> update(
-            @RequestParam("userId")Integer userId,
-            @RequestParam Integer postid,
+            @RequestParam("postid")Integer postid,
             @RequestParam String title,
             Authentication authentication,
             @RequestParam String type,
@@ -115,7 +119,7 @@ public class ArticleRestController {
         update.setContent(content);
         update.setCounter(0);
         update.setUser(user);
-        update.setUser(userService.findByUserId(userId));
+        //update.setUser(userService.findByUserId(userId));
         update.setImageUrl(ImgurService.updateByMultipartFile(articleImage).getLink());
         //m.setMessageImage(messageImage);
         System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(articleImage).getLink());
@@ -123,9 +127,9 @@ public class ArticleRestController {
         return ResponseEntity.status(HttpStatus.OK).body(UpdateArticle);
     }
 
-    @DeleteMapping("/ArticleDelete/{userId}")
-    public ResponseEntity<Article> delete(@PathVariable Integer userId) {
-        articleService.delete(userId);
+    @DeleteMapping("/ArticleDelete/{postid}")
+    public ResponseEntity<Article> delete(@PathVariable Integer postid) {
+        articleService.delete(postid);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -150,7 +154,7 @@ public class ArticleRestController {
        //m.setUser(userService.findByUsername(userName));
         //m.setUser(userService.findByUserId(userId));
         m.setImageUrl(ImgurService.updateByMultipartFile(messageImage).getLink());
-        Article article = articleService.selectOne(postid).orElse(null);;
+        Article article = articleService.selectOne(postid).orElse(null);
         m.setArticle(article);
         //m.setMessageImage(messageImage);
        // System.out.println("圖片網址:  " + ImgurService.updateByMultipartFile(messageImage).getLink());

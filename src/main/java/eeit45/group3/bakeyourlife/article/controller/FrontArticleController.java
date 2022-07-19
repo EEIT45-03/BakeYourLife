@@ -43,7 +43,8 @@ public class FrontArticleController {
 
     @GetMapping(path = "/ArticleDetail")
     public String processQuery(@RequestParam(required = false) Integer postid,
-                               @RequestParam(required = false) String type,
+                               @RequestParam(required = false) Integer counter,
+                               @RequestParam(required = false) Date date,
                                Model model) throws IOException {
         Article article = articleService.selectOne(postid).orElse(null);
         if (article == null){
@@ -56,8 +57,10 @@ public class FrontArticleController {
 
 
         model.addAttribute("article", article);
-        List<Article> articleType = articleService.findAllByTypeContaining(type);
+        List<Article> articleType = articleService.findTopCounter(counter);
         model.addAttribute("selectType", articleType);
+        List<Article> Date = articleService.findLatestDate(date);
+        model.addAttribute("articleDate", Date);
         return "article/ArticleDetail";
 
     }

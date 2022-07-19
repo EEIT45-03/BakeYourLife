@@ -6,9 +6,14 @@ import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
+import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
+import eeit45.group3.bakeyourlife.good.model.Goods;
+import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.dao.OrderItemRepository;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -34,21 +39,24 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepository orderRepository;
 	private OrderItemRepository orderItemRepository;
 	private CouponService couponService;
+	private GoodService goodService;
+	private FarmerProductService farmerProductService;
 	private UserService userService;
 	private StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine;
 	private StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister;
 
 
-	public OrderServiceImpl(OrderRepository orderRepository,
-							OrderItemRepository orderItemRepository,
-							UserService userService,
-							CouponService couponService,
-							StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine,
-							StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister) {
+	@Autowired
+	public OrderServiceImpl(OrderRepository orderRepository, OrderItemRepository orderItemRepository,
+			CouponService couponService, GoodService goodService, FarmerProductService farmerProductService,
+			UserService userService, StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine,
+			StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister) {
 		this.orderRepository = orderRepository;
 		this.orderItemRepository = orderItemRepository;
-		this.userService = userService;
 		this.couponService = couponService;
+		this.goodService = goodService;
+		this.farmerProductService = farmerProductService;
+		this.userService = userService;
 		this.orderStateMachine = orderStateMachine;
 		this.persister = persister;
 	}
@@ -100,6 +108,23 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Integer findYearSaleAmount() {
 		return orderRepository.findYearSaleAmount();
+	}
+
+	@Override
+	@Transactional
+	public void freeStock(Order order) {
+		order.getOrderItemList().forEach((e) -> {
+			if(e.getProductNo().charAt(0) == 'G'){
+				Goods goods = goodService.getGoods(Integer.parseInt(e.getProductNo().substring(1)));
+				goods.updateStock(goods.getStock() + e.getQty());
+				goodService.updateGoods(goods);
+			}
+			if(e.getProductNo().charAt(0) == 'F'){
+				FarmerProductBean farmerProduct = farmerProductService.findByFarmerProductId(Integer.parseInt(e.getProductNo().substring(1)));
+				farmerProduct.updateStock(farmerProduct.getStock() + e.getQty());
+				farmerProductService.update(farmerProduct);
+			}
+		});
 	}
 
 	@Override

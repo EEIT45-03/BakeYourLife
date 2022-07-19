@@ -91,9 +91,12 @@
                             <div class="row mb-3">
                                 <label for="desc" class="col-sm-2 col-form-labels">課程簡介:</label>
                                 <div class="col-sm-10">
-                                    <textarea th:field="*{description}" class="form-control mb-4" id="desc" name="desc"
+                                    <textarea th:field="*{description}"  id="desc" name="desc"
                                               placeholder="課程說明">
                                     </textarea>
+<!--                                    <textarea th:field="*{description}" class="form-control mb-4" id="desc" name="desc"-->
+<!--                                              placeholder="課程說明">-->
+<!--                                    </textarea>-->
                                 </div>
                             </div>
                             <!-- Picture -->
@@ -133,10 +136,16 @@
 <!-- End of Page Wrapper -->
 
 <div th:replace="admin/javascript.html"></div>
-<script th:src="@{/js/course.js}"></script>
-//這是讓上傳檔案可以有文字
-<script th:src="@{https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js}"></script>
 
+<script th:src="@{/js/course.js}"></script>
+<!--//這是讓上傳檔案可以有文字-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js}"></script>
+<!--//這是CKEditor-->
+<script th:src="@{https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js}"></script>
+<script>CKEDITOR.replace('desc');</script>
+<!-- CKEDITOR -->
+
+<!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
 
 </body>
 

@@ -11,7 +11,9 @@ import eeit45.group3.bakeyourlife.order.constant.PayType;
 import eeit45.group3.bakeyourlife.order.model.Cart;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.order.model.SalesRecord;
 import eeit45.group3.bakeyourlife.order.service.OrderService;
+import eeit45.group3.bakeyourlife.order.service.SalesRecordService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +44,15 @@ public class ShoppingCartController {
 
     private final FarmerProductService farmerProductService;
 
+    private final SalesRecordService salesRecordService;
     @Autowired
-    public ShoppingCartController(OrderService orderService,
-                                  GoodService goodService,
-                                  UserService userService,
-                                  CouponService couponService,
-                                  FarmerProductService farmerProductService) {
+    public ShoppingCartController(OrderService orderService, GoodService goodService, UserService userService, CouponService couponService, FarmerProductService farmerProductService, SalesRecordService salesRecordService) {
         this.orderService = orderService;
         this.goodService = goodService;
         this.userService = userService;
         this.couponService = couponService;
         this.farmerProductService = farmerProductService;
+        this.salesRecordService = salesRecordService;
     }
 
     @GetMapping("/Carts")
@@ -146,10 +146,27 @@ public class ShoppingCartController {
                     Goods goods = goodService.getGoods(Integer.parseInt(e.getProductNo().substring(1)));
                     goods.updateStock(goods.getStock() - e.getQty());
                     goodService.updateGoods(goods);
+                    //銷售紀錄
+                    SalesRecord salesRecord = new SalesRecord();
+                    salesRecord.setProductNo(goods.getCartNo());
+                    salesRecord.setProductId(goods.getId());
+                    salesRecord.setSalesQty(e.getQty());
+                    salesRecord.setSalesDate(order.getOrderDate());
+                    salesRecord.setSalesSubTotal(e.getSubTotal());
+                    salesRecordService.createSalesRecord(salesRecord);
                 }
                 if(e.getProductNo().charAt(0) == 'F'){
                     FarmerProductBean farmerProduct = farmerProductService.findByFarmerProductId(Integer.parseInt(e.getProductNo().substring(1)));
                     farmerProduct.updateStock(farmerProduct.getStock() - e.getQty());
+                    //銷售紀錄
+                    SalesRecord salesRecord = new SalesRecord();
+                    salesRecord.setFarmerId(farmerProduct.getFarmer().getFarmerId());
+                    salesRecord.setProductNo(farmerProduct.getCartNo());
+                    salesRecord.setProductId(farmerProduct.getFarmerProductId());
+                    salesRecord.setSalesQty(e.getQty());
+                    salesRecord.setSalesDate(order.getOrderDate());
+                    salesRecord.setSalesSubTotal(e.getSubTotal());
+                    salesRecordService.createSalesRecord(salesRecord);
                     farmerProductService.update(farmerProduct);
                 }
                 e.setOrder(order);

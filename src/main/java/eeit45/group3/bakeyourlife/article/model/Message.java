@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.article.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Message")
+@JsonIgnoreProperties("article")
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;

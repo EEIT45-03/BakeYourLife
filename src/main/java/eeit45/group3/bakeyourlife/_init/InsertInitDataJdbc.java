@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife._init;
 
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
+import eeit45.group3.bakeyourlife.order.model.SalesRecord;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 import javax.sql.DataSource;
@@ -212,6 +213,61 @@ public class InsertInitDataJdbc {
 
     }
 
+    public void saveAllBySalesRecords(List<SalesRecord> salesRecords) {
+        String userSql = "insert into sales_record (id,farmer_id, product_id, product_no, sales_date, sales_qty, sales_sub_total) " +
+                "values (?, ?, ?, ?, ?, ?, ?)";
+        Connection connection=null;
+        try{
+            connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(id) FROM sales_record");
+            int id = 0;
+            if(resultSet.next()) {
+                id = resultSet.getInt(1)+1;
+            }
+            PreparedStatement userPs = connection.prepareStatement(userSql);
+            for(SalesRecord salesRecord : salesRecords) {
+                userPs.setInt(1, id);
+                salesRecord.setId(id);
+                if(salesRecord.getFarmerId() != null) {
+                    userPs.setInt(2, salesRecord.getFarmerId());
+                } else {
+                    userPs.setNull(2, Types.INTEGER);
+                }
+                userPs.setInt(3, salesRecord.getProductId());
+                userPs.setString(4, salesRecord.getProductNo());
+                userPs.setTimestamp(5, new Timestamp(salesRecord.getSalesDate().getTime()));
+                userPs.setInt(6, salesRecord.getSalesQty());
+                userPs.setInt(7, salesRecord.getSalesSubTotal());
+                userPs.addBatch();
+                id++;
+            }
+            statement.execute("SET IDENTITY_INSERT sales_record ON");
+            int[] userResult = userPs.executeBatch();
+            statement.execute("SET IDENTITY_INSERT sales_record OFF");
+            connection.commit();
+            System.out.println("總共新增銷售紀錄: " + userResult.length + " 筆");
+            statement.close();
+            userPs.close();
+
+
+            connection.setAutoCommit(true);
+            connection.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
     private void setOrderId(List<Order> orders, Integer orderId, Integer itemNo) {
 
         for (Order order : orders) {
@@ -221,6 +277,7 @@ public class InsertInitDataJdbc {
             }
         }
     }
+
 
 
 }

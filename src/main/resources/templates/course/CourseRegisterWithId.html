@@ -154,7 +154,7 @@
     //免責聲明要勾
     function errorMessage() {
         var error = document.getElementById("error")
-        if (isNaN(document.getElementById("agree").value))
+        if ((document.getElementById("agree").checked) == false)
         {
             // Changing content and color of content
             error.textContent = "同意後送出報名"

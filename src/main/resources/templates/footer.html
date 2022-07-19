@@ -141,5 +141,15 @@
             });
     }
 
+    function showLoader() {
+        $(".loader").show();
+        $("#preloder").show();
+    }
+
+    function hideLoader() {
+        $(".loader").fadeOut();
+        $("#preloder").delay(200).fadeOut("slow");
+    }
+
 
 </script>

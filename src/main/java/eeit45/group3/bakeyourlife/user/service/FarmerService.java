@@ -10,10 +10,9 @@ import java.util.List;
 
 public interface FarmerService {
     Farmer save(Farmer farmer);
-
     Farmer getCurrentFarmer(Authentication authentication);
-
     void setCurrentFarmer(Authentication authentication, Farmer farmer);
+
 
 
     List<Farmer> findAll();
@@ -26,12 +25,10 @@ public interface FarmerService {
 
     void updateFarmer(Farmer farmer);
 
-    void register(Farmer farmer, String siteURL) throws UnsupportedEncodingException, MessagingException;
-
-    void sendVerificationEmail(Farmer farmer, String siteURL) throws UnsupportedEncodingException, MessagingException;
-
-    boolean verify(String verificationCode);
-
     Long count();
+
+    void register(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    void sendVerificationEmail(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    boolean verify(String verificationCode);
 
 }

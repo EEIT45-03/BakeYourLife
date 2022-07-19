@@ -4,6 +4,8 @@ import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.order.service.OrderService;
+import eeit45.group3.bakeyourlife.order.service.SalesRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.annotation.OnTransition;
@@ -22,6 +24,10 @@ public class OrderStateListener {
 
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private OrderService orderService;
+//    @Autowired
+//    private SalesRecordService salesRecordService;
 
     @OnTransition(source = "WAIT_PAYMENT", target = "WAIT_DELIVER")
     public boolean payTransition(Message<OrderStatusChangeEvent> message) throws MessagingException {
@@ -55,6 +61,7 @@ public class OrderStateListener {
         order.setOrderStatus(OrderStatus.CANCELLED);
         System.out.println("取消訂單，狀態機反饋資訊：" + message.getHeaders().toString());
         emailService.sendOrderMail(order, message.getPayload());
+        orderService.freeStock(order);
         return true;
     }
 
@@ -73,6 +80,7 @@ public class OrderStateListener {
         order.setOrderStatus(OrderStatus.REFUNDED);
         System.out.println("退款同意，狀態機反饋資訊：" + message.getHeaders().toString());
         emailService.sendOrderMail(order, message.getPayload());
+        orderService.freeStock(order);
         return true;
     }
 

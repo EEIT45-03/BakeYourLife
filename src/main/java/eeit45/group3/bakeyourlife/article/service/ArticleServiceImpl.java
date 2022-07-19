@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.article.dao.ArticleRepository;
+import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,6 @@ import eeit45.group3.bakeyourlife.article.model.Article;
 public class ArticleServiceImpl implements ArticleService {
 
 
-
 	private ArticleRepository repository;
 
 	@Autowired
@@ -24,38 +24,43 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-		   public List<Article> findAll() {
-		   return repository.findAll();
-	        }
+	public List<Article> findAll() {
+		return repository.findAll();
+	}
 //			@Override
 //			public List<Article> select(String title) {
 //				return repository.findAll(title);
 //			}
 
-			@Override
-			public Optional<Article> selectOne(Integer postid) {
-				return repository.findById(postid);
-			}
+	@Override
+	public Optional<Article> selectOne(Integer postid) {
+		return repository.findById(postid);
+	}
 
-	       @Override
-	        public List<Article> findByTitle(String title) {
-		    return repository.findByTitle(title);
-	        }
+	@Override
+	public List<Article> findByTitle(String title) {
+		return repository.findByTitle(title);
+	}
 
-	      @Override
-	      public List<Article> findAllByTypeContaining(String type) {
+	@Override
+	public List<Article> findAllByTypeContaining(String type) {
 		return repository.findAllByTypeContaining(type);
 	}
 
-	      @Override
-	      public List<Article>findLatestDate(Date date){
-		      return repository.findLatestDate(date);
-		  }
-	     @Override
-	     public List<Article>findByUserId(Integer userid){
-		return repository.findByUserId(userid);
+	@Override
+	public List<Article> findLatestDate(Date date) {
+		return repository.findLatestDate(date);
 	}
 
+
+	@Override
+	public List<Article> findAllByUser(User user) {
+		return repository.findAllByUser(user);
+	}
+	 @Override
+	  public List<Article> findTopCounter(Integer counter){
+		return repository.findTopCounter(counter);
+      }
 	@Override
 			public Article insert(Article newArticle) {
 				return repository.save(newArticle);

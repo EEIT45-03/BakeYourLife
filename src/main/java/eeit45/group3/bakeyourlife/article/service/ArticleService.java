@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import eeit45.group3.bakeyourlife.article.model.Article;
+import eeit45.group3.bakeyourlife.user.model.User;
 
 
 public interface ArticleService {
@@ -26,7 +27,8 @@ public interface ArticleService {
 
 	List<Article>findLatestDate(Date date);
 
-	public List<Article>findByUserId(Integer userid);
+	public List<Article>findAllByUser(User user);
+	 List<Article> findTopCounter(Integer counter);
 }
 //	Article findById (Integer postid);
 //}

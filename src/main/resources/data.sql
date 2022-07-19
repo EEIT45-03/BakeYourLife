@@ -1,11 +1,11 @@
 --新增小農廠商資料
 SET IDENTITY_INSERT [dbo].[farmers] ON
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (1, N'320桃園市中壢區新生路二段421號', N'ROLE_FARMER', N'shengte2022@gmail.com', N'農場位於桃園聖德山後山山腳下，長年使用天然的山泉水灌概，以友善的方式涵養土壤，使果園孕育出優質的有機水果。', N'聖德小農', N'https://i.imgur.com/H6pJVIo.png', N'$2a$10$/8NjHp7kfnUPJhqjh3isaOXMrYTGIq89dmDoF4XvO5hY2gifSSxZu', N'0998765432', CAST(N'2022-07-14T10:16:40.5780000' AS DateTime2), N'a123456', N'1')
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (2, N'320桃園市中壢區新生路一段777號', N'ROLE_FARMER', N'garyfarm@gmail.com', N'李老夫婦倆經營二十餘年的農場，共有六甲地，從慣形農法轉作為有機農法，最重要的動力，就是希望回歸自然。', N'Gary''s Farm', N'https://i.imgur.com/diiOEEN.jpg', N'$2a$10$CN/uDEjDWYUXZ1c7cqRxcuSNc47tp51ncpAQyn3R7TRl1qZQWy8jq', N'0963524152', CAST(N'2022-07-18T17:28:30.2970000' AS DateTime2), N'b123456', N'1')
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (3, N'320桃園市中壢區新生路八段763號', N'ROLE_FARMER', N'c8763@gmail.com', N'快還要更快，磨豆還要哭!!', N'星爆咖啡', N'https://i.imgur.com/a4a2ayg.jpg', N'$2a$10$.QjkVdYrsOw5aBAQeZi0H.smojiuZ8t1r/.A/1CwgtDqOBP8TFK1G', N'0987878763', CAST(N'2022-07-18T17:32:23.6960000' AS DateTime2), N'c123456', N'1')
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (4, N'320桃園市中壢區新生路二段45號', N'ROLE_FARMER', N'eeit45tea@gmail.com', N'茶~', N'EEIT45 TEA', N'https://i.imgur.com/Tvs3Rrb.jpg', N'$2a$10$7XGw4/D8OkLHFsn086NbOuJ.Tj02hXHsrlU3X/3ojrzH3yktJbW2G', N'0965454587', CAST(N'2022-07-18T17:34:00.5990000' AS DateTime2), N'd123456', N'1')
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (5, N'320桃園市中壢區新生路六段666號', N'ROLE_FARMER', N'ispanvegetable@gmail.com', N'只提供無毒蔬菜，用心堅持四十五代的農場', N'資展蔬果', N'https://i.imgur.com/b2Zen1G.jpg', N'$2a$10$g2L1wVp5ZZxXyMYSIQ3gq.GGoqqFTxCZgNbyucPEijxiwk6MIhIPq', N'0965658789', CAST(N'2022-07-18T17:36:48.3310000' AS DateTime2), N'e123456', N'1')
-INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username], [enabled]) VALUES (6, N'320桃園市中壢區新生路二段204號', N'ROLE_FARMER', N'204milk@gmail.com', N'以給自家人喝的心情，將台灣最高品質的鮮奶，以最嚴格自然的生產流程，新鮮供應給每一個期待天然無添加食品的家庭。', N'204牧場', N'https://i.imgur.com/QvKy87p.jpg', N'$2a$10$DTq0rKfoi6z9.YcCFz7SYeQJpG9LnpnYV8lqWdadSUkdRWwHdzmuO', N'0920204204', CAST(N'2022-07-18T17:38:23.9170000' AS DateTime2), N'f123456', N'1')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (1, N'320桃園市中壢區新生路二段421號', N'ROLE_FARMER', N'ddfoew133@gmail.com', N'農場位於桃園聖德山後山山腳下，長年使用天然的山泉水灌概，以友善的方式涵養土壤，使果園孕育出優質的有機水果。', N'聖德小農', N'https://i.imgur.com/H6pJVIo.png', N'$2a$10$/8NjHp7kfnUPJhqjh3isaOXMrYTGIq89dmDoF4XvO5hY2gifSSxZu', N'0998765432', CAST(N'2022-07-14T10:16:40.5780000' AS DateTime2), N'a123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (2, N'320桃園市中壢區新生路一段777號', N'ROLE_FARMER', N'garyfarm@gmail.com', N'李老夫婦倆經營二十餘年的農場，共有六甲地，從慣形農法轉作為有機農法，最重要的動力，就是希望回歸自然。', N'Gary''s Farm', N'https://i.imgur.com/diiOEEN.jpg', N'$2a$10$CN/uDEjDWYUXZ1c7cqRxcuSNc47tp51ncpAQyn3R7TRl1qZQWy8jq', N'0963524152', CAST(N'2022-07-18T17:28:30.2970000' AS DateTime2), N'b123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (3, N'320桃園市中壢區新生路八段763號', N'ROLE_FARMER', N'c8763@gmail.com', N'快還要更快，磨豆還要哭!!', N'星爆咖啡', N'https://i.imgur.com/a4a2ayg.jpg', N'$2a$10$.QjkVdYrsOw5aBAQeZi0H.smojiuZ8t1r/.A/1CwgtDqOBP8TFK1G', N'0987878763', CAST(N'2022-07-18T17:32:23.6960000' AS DateTime2), N'c123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (4, N'320桃園市中壢區新生路二段45號', N'ROLE_FARMER', N'eeit45tea@gmail.com', N'茶~', N'EEIT45 TEA', N'https://i.imgur.com/Tvs3Rrb.jpg', N'$2a$10$7XGw4/D8OkLHFsn086NbOuJ.Tj02hXHsrlU3X/3ojrzH3yktJbW2G', N'0965454587', CAST(N'2022-07-18T17:34:00.5990000' AS DateTime2), N'd123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (5, N'320桃園市中壢區新生路六段666號', N'ROLE_FARMER', N'ispanvegetable@gmail.com', N'只提供無毒蔬菜，用心堅持四十五代的農場', N'資展蔬果', N'https://i.imgur.com/b2Zen1G.jpg', N'$2a$10$g2L1wVp5ZZxXyMYSIQ3gq.GGoqqFTxCZgNbyucPEijxiwk6MIhIPq', N'0965658789', CAST(N'2022-07-18T17:36:48.3310000' AS DateTime2), N'e123456')
+INSERT [dbo].[farmers] ([farmer_id], [address], [authority], [email], [farmer_info], [farmer_name], [image_url], [password], [phone], [register_time], [username]) VALUES (6, N'320桃園市中壢區新生路二段204號', N'ROLE_FARMER', N'204milk@gmail.com', N'以給自家人喝的心情，將台灣最高品質的鮮奶，以最嚴格自然的生產流程，新鮮供應給每一個期待天然無添加食品的家庭。', N'204牧場', N'https://i.imgur.com/QvKy87p.jpg', N'$2a$10$DTq0rKfoi6z9.YcCFz7SYeQJpG9LnpnYV8lqWdadSUkdRWwHdzmuO', N'0920204204', CAST(N'2022-07-18T17:38:23.9170000' AS DateTime2), N'f123456')
 SET IDENTITY_INSERT [dbo].[farmers] OFF
 
 --一般商品
@@ -53,29 +53,38 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 ★考量保鮮不易，恕無法提供磨粉服務。
 ★每月月底現烘出貨，如欲購買請先向客服人員詢問出貨時間', CAST(N'2022-07-11T09:31:25.1630000' AS DateTime2), N'招牌綜合咖啡豆 200g x 5包', 300, 300, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (5, N'原片茶葉，單罐50g', N'清晨採摘掛著露水的新鮮桂花，製茶師以古老精湛的工藝渥堆花與茶，層層交錯堆疊，使茶葉充分吸收花香，烘焙乾燥製成清新脫俗的桂花鐵觀音。
+
 以新鮮的桂花烘焙鐵觀音，風味色澤不像混以乾燥花入茶般的濃烈鮮豔。反之，伴隨一股清新雅致，餘韻不絕的淡淡花香，為醇厚的鐵觀音，注入一抹淡雅悠長的曼妙風味。', CAST(N'2022-07-11T09:32:19.6490000' AS DateTime2), N'手採桂花鐵觀音', 89, 100, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (6, N'紅鬚玉米筍(帶殼)6斤裝', N'最熱銷品項-紅鬚玉米筍強勢來襲，擁有玉米的香甜卻搭配爽脆口感。玉米筍通常是玉米成熟前的果穗，富含維生素、及胺基酸，營養多熱量也不高。但紅鬚玉米筍為專門的玉米筍品種，又脆又甜，在市場相當受消費者歡迎。', CAST(N'2022-07-18T18:27:19.4530000' AS DateTime2), N'【無毒紅鬚帶殼玉米筍6斤裝】', 550, 600, 0, N'冰箱冷藏', NULL, N'蔬菜類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (7, N'紅肉紅龍果5斤±5%', N'★我們推薦妞妞果紅龍果的理由
 ■友善環境 草生栽培
 ■彰化縣107~110年度紅龍果評鑑比賽年年得獎
 ■有產銷履歷可追溯(EG-180408T1Z)
+
 紅肉紅龍果，果實甜度佳且均勻，帶紅龍果特殊香氣。香甜可口多汁鮮美，每一口都是好滋味！
+
 妞妞果園位於彰化福興鄉，自製益生菌噴灌，採用有機質活化土壤，友善環境，草生栽培，
 在食安風暴下，陳大哥希望提供給每位消費者，安心、自然、健康的紅龍果。', CAST(N'2022-07-18T18:27:59.9280000' AS DateTime2), N'【產銷履歷紅龍果(紅肉5斤裝)】', 520, 400, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (8, N'紅鑽芭樂5斤裝(約5-8顆)', N'★為什麼我們強力推薦綠創頂級芭樂呢？
 ■ 拒用除草劑，愛地球愛健康
 ■ 口感清脆香甜，讓人一再回味
 ■ 使用高成本有機肥，確保植株養分健康成長
+
 紅鑽石芭樂市面上相當稀少，不好種植！果肉呈現紅色，細緻甘甜，籽非常少，有一種淡淡的花果香，口感清脆、有十分香濃的芭樂味，與白心芭樂截然不同～超涮嘴的酸甜比，絕對讓您一口接一口停不下來，沒吃過的您一定要試試！更是中醫藥材指定藥用水果，富含維生素C及多重的抗氧化成分，是水果當中的抗氧化之王哦。', CAST(N'2022-07-18T18:28:42.0000000' AS DateTime2), N'【紅鑽石芭樂5斤裝(約5-8顆)】', 765, 650, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (9, N'930cc鮮乳x3瓶', N'★為什麼我們推薦五梅牧場?
+
 全台灣眾多牧場，僅有不到5%能榮獲農委會評鑑為特優的五梅獎牧場，能三度獲頒的牧場更是鳳毛麟角!
+
 牧場要在生乳品質、經營效益、飼養管理、疾病防治、環境衛生等各方面都能維持特優水準，除了飼養環境要青山綠水無汙染，更仰賴來自以色列，高科技的牛隻健康管理系統，透過牛隻身上的無線傳輸監控環，掌握每頭牛的活動量、飲食及健康狀況，比對生乳品質後，才能針對個別狀況給予最適當的照顧，確保每滴鮮乳都維持最佳品質。
+
 五梅牧場鮮乳品質保證:
 1.100%來自五梅獎牧場的生乳，不加一滴水。
 2.決不經人工修飾，不添加人工乳化劑及消泡劑，成分無調整。
 3.經檢驗無抗生素及磺胺劑殘留', CAST(N'2022-07-18T18:29:42.8810000' AS DateTime2), N'【五梅鮮奶 930cc 3瓶組】', 425, 425, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 1)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (10, N'100g/包', N'★有機農產品驗證字號：1-009-110213
+
 綠茶帶著鮮甜的青草香、淡淡的海苔鮮、微微的甘蔗味，聞得到茶園新鮮氣息，不發酵的製作過程保留更多營養價值，低溫浸泡，不苦不澀，適合全家大小一起飲用，其中茶葉中的營養成分價值高。
+
 ◎品種：金萱
 ◎發酵程度：無發酵
 ◎烘焙程度：輕烘焙', CAST(N'2022-07-18T20:34:10.0990000' AS DateTime2), N'【醜醜茶 有機綠茶100g】', 900, 300, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 1)
@@ -83,6 +92,7 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 花香氣、柑橘、伯爵茶、蘋果酸、蜂蜜甜、及回甘的水果香甜
 ■ 處理方式：水洗(純淨超清爽山泉水)
 ■ 品種：衣索比亞原生種 Heirloom
+
 包裝材料：牛皮紙包裝
 烘焙方式：一爆密爆後40秒下豆
 養豆方式：烘焙完成日期五天後才可以打開飲用', CAST(N'2022-07-18T21:09:29.9310000' AS DateTime2), N'【非洲之王 艾達多(Adado) 水洗豆 220g裝】', 300, 800, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 2)
@@ -90,7 +100,9 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 ■為保鮮度 每日清晨採收出貨
 ■使用植物性基肥 甜度自然不膩口
 ■嬌嫩欲滴 果香迷人
+
 梨山擁有得天獨厚的生長條件，因海拔高日夜溫差大加上豐富的天然資源，所孕育出的水蜜桃口感鮮嫩多汁、果肉綿密細緻，濃郁的水蜜桃香氣讓人驚嘆。
+
 黃爸爸每日清晨五點，必須趕在太陽還沒起床就上工採收水蜜桃，因為此時摘採的水蜜桃最新鮮，並趕在中午前分級、包裝、宅配，每到七、八月份黃爸爸都要跟時間賽跑，為的就是希望把最新鮮的水蜜桃送到消費者手上。', CAST(N'2022-07-18T21:10:22.7260000' AS DateTime2), N'【超人氣！梨山特有 上海水蜜桃6入裝】', 820, 620, 0, N'放置陰涼處', NULL, N'水果類', NULL, 2)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (13, N'鮮乳大罐(936ml) x 8', N'★因夏季炎熱，特別提醒您要注意鮮乳的保存:
 1.收到鮮乳後，請立刻放入冰箱冷藏。
@@ -99,7 +111,9 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (14, N'1kg盒裝9~9.5row', N'■ 來自美國西北部 著名產區
 ■ 世界上口感與色澤最好的櫻桃之一
 ■ 夏季盛產 現在吃 正當季
+
 美國西北櫻桃，不是指品種，是指美國華盛頓州、俄勒崗州、愛達荷州及猶他州所產的櫻桃。這四州位於美國西北部，因此稱為西北櫻桃。因美國西北部絕佳的氣候、地理環境，世界上首屈一指的栽種技術，再經過美國農業單位嚴格檢驗、農場專業篩選，讓西北櫻桃聞名世界，更被稱為世界上口感與色澤最好的櫻桃之一。
+
 西北櫻桃表皮光澤透亮，果肉結實又具彈性，夏季是西北櫻桃的產季，一年只有一次，請把握品嚐這富含鐵質的水果。進口水果皆通過政府進口檢驗規範，請安心購買，開心品嚐。', CAST(N'2022-07-18T21:11:28.0000000' AS DateTime2), N'【水果中的鑽石 美國西北櫻桃1kg裝】', 1200, 1000, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 2)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (15, N'烘焙咖啡豆454g×5包，單向排氣閥包裝。', N'由封閉者依產季及每批咖啡豆品質挑選混合成完美的口味，並依季節調整烘焙度。是最能品嚐出咖啡師傅功力與品味的招牌!', CAST(N'2022-07-18T21:26:11.7250000' AS DateTime2), N'【商用綜合咖啡豆 454g×5包】', 2300, 200, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (16, N'300公克(20公克x15入/包)', N'銷售第一名，最好喝，超便宜，不怕您比較。
@@ -109,34 +123,48 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 ★最好喝，超便宜，以台灣人口感喜好調配的咖啡。', CAST(N'2022-07-18T21:32:40.1900000' AS DateTime2), N'【二合一無加糖白咖啡(20gx15入/包)】', 160, 1200, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (17, N'咖啡豆763g', N'濃郁複雜的花香、莓果、葡萄、黑嘉麗軟糖、多層次水果風味、層次飽滿豐富。', CAST(N'2022-07-18T21:33:39.9770000' AS DateTime2), N'【星爆精選 星爆豆 763g裝】', 8763, 8763, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (18, N'3.5g/包；共30包/盒', N'選用陳期已逾16年的熟茶為原料製作，歷經時間淬鍊茶湯口感醇和飽滿，茶香帶棗乾、糯米及熟茶茶香，水甜滑順，口尾回甘度佳，熟茶的溫暖與醇和，飯後來上一杯，是生活美麗的點綴。
+
 特別推薦：普洱奶茶
 兩茶包搭配300cc水小火滾煮3分鐘，再加入200cc牛奶小火煮至溫熱後熄火，可依個人喜好加入蜂蜜或糖調味。', CAST(N'2022-07-18T21:41:09.0930000' AS DateTime2), N'【普洱熟茶立體茶包30入】', 480, 600, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (19, N'60g±3%/罐', N'★有機驗證機構：慈心有機驗證(股)公司 證書字號：1-009-110128
 此茶樹是用種子來繁殖，經過野放栽培而成，製茶時先以基本烏龍茶的製作過程製作後，再轉為紅茶的做法來完成，以重發酵、輕烘焙來製成，不炒菁保留了茶葉的活性，經過存放，茶質已經轉為甘甜順口！結合烏龍茶與紅茶的製作過程，讓其茶味也融合了這兩種茶的醇和、甘潤的特色，帶有熟果香，與中重焙火製成的烏龍茶更多了一分溫潤與滑順，好入口不刺激。
+
 茶園完全不使用除草劑、化學肥料及農藥，透過友善土地的栽種方式，喝綠光農園的有機茶，不但有益身心，亦能透過喝有機茶來支持、維護我們的水源與自然生態，歡迎大家來品嚐。', CAST(N'2022-07-18T21:41:38.9530000' AS DateTime2), N'【有機紅水烏龍單罐60g】', 1050, 1666, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (20, N'無毒檸檬切片(低溫烘乾)25g', N'將無毒新鮮檸檬切片後以低溫烘乾，製作出天然無添加的無毒檸檬果乾，保留最天然的檸檬香氣與營養。
+
 不含防腐劑及任何添加物。', CAST(N'2022-07-18T21:42:16.4230000' AS DateTime2), N'【檸檬茶片】', 160, 2000, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (21, N'6份時令有機葉菜類(約250g/包)
 2份有機瓜果根莖類(約500g/包)', N'精選花蓮縣壽豐鄉農友供應之當季農產品，每份組合含6份有機葉菜類、2份有機瓜果根莖類。
+
 參考菜單:
 【葉菜類】小松菜、小芥菜、紅鳳菜、塔菇菜、山甜菜、芊寶菜、龍鬚菜、過貓、空心菜、地瓜葉、青江菜、小白菜、京水菜、雪菜、快綠菜、甜菜心、日本茼蒿等當季葉菜。
+
 【瓜果根莖類】白蘿蔔、白花椰、南瓜、芭蕉、結頭菜、甜玉米、馬鈴薯、茄子、黑木耳、小黃瓜、花生、甜椒、芋頭、地瓜等當季根莖瓜果類或時令水果。
+
 ◎為正常作業及均衡營養考量，配送內容依實際出貨為主', CAST(N'2022-07-18T21:49:30.3000000' AS DateTime2), N'【輕量套餐 2莖6葉有機蔬果箱】', 600, 3000, 0, N'冰箱冷藏', NULL, N'蔬菜類', NULL, 5)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (22, N'5斤/箱', N'■「綠竹筍原料」均通過有機(或轉型期)農產品驗證
 ■無添加保鮮劑、人工添加物
 ■專業預冷保鮮處理
+
 綠竹筍在八里區生產已逾百年，其出土綠化前色澤金黃亮麗，品質特優，因此農會將此命名為「黃金筍」，八里區黃金筍多種在砂壤土中，加上東北季風帶來的鹽份，所以品質特別細嫩甜美，吃來口感如細嫩水梨一般。
+
 帶殼黃金筍於現採後兩小時內進行預冷處理，能延長保鮮期限，長途運輸也方便。烹調食用前需剝殼去皮，經預冷的黃金筍鮮炒時，特別鮮、甜、脆。', CAST(N'2022-07-18T21:50:17.2960000' AS DateTime2), N'【帶殼預冷黃金筍5斤/箱】', 990, 2220, 0, N'冰箱冷藏', NULL, N'蔬菜類', NULL, 5)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (23, N'彩色地瓜10斤：菱角地瓜/紫地瓜/栗子地瓜/台農66號/台農57號～約各2斤', N'本組合有五種地瓜：菱角地瓜、紫地瓜、栗子地瓜、台農66號地瓜、台農57號地瓜，台灣是地瓜王國，不管是在地品種或外來改良，在甜度細緻度上都享譽國際，慧軒農場用傳承三代的種植技術，讓您一次品嚐多種台灣之光！
+
 ■菱角地瓜：產量超稀少！外皮為紫色，果肉如同牛奶白又帶著淡淡的紫，吃起來有菱角香氣及牛奶味，質地相當細緻綿密，史場少見。
+
 ■紫地瓜：外皮及內肉都呈現絢麗的紫色而得其名，富含膳食纖維及花青素，低卡又高纖，甜度屬於地瓜中較低的品種，口感紮實。
+
 ■栗子地瓜：粉紫色外皮配上金黃色果肉，日本超人氣品種，甜度相當高，口感細緻卻紮實，猶如炒栗子的風味，產量不多。
+
 ■台農66號地瓜：紅皮橘肉，口感甘甜軟嫩水分相當多，為台灣相當常見的『紅薯』，胡蘿蔔素含量高，不管是蒸煮、配稀飯，都好吃！
+
 ■台農57號地瓜：黃皮黃肉，台灣最普遍蕃薯品種，品質相當穩定，甜度高口感鬆Q，烤地瓜首選品種，蒸後冰鎮也超好吃。', CAST(N'2022-07-18T21:51:03.8890000' AS DateTime2), N'【無毒彩色地瓜10斤裝】', 700, 1600, 0, N'放置陰涼處', NULL, N'蔬菜類', NULL, 5)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (24, N'940cc鮮乳x20瓶', N'■使用自家種植牧草餵養
 ■使用100%無人工調整鮮乳(符合國家CNS3056規定)
 ■絕無添加防腐劑及人工香料', CAST(N'2022-07-18T22:11:12.2650000' AS DateTime2), N'【主恩鮮乳 940cc 20瓶 團購優惠組】', 1880, 1000, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (25, N'200cc寡多醣可可亞x15瓶', N'牧場要在生乳品質、經營效益、飼養管理、疾病防治、環境衛生等各方面都能維持特優水準，除了飼養環境要青山綠水無汙染，更仰賴來自以色列，高科技的牛隻健康管理系統，透過牛隻身上的無線傳輸監控環，掌握每頭牛的活動量、飲食及健康狀況，比對生乳品質後，才能針對個別狀況給予最適當的照顧，確保每滴鮮乳都維持最佳品質。
+
 五梅牧場寡多醣可可亞的特色:
 1.完全以生乳調配不使用奶粉、奶精及人工乳化劑。
 2.使用天然可可粉及天然麥芽精粉調味完全不使用人工添加劑
@@ -145,11 +173,14 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 (3)不使用消泡劑
 3.添加二種水溶性膳食纖維(Fibersol-2、Inulin)', CAST(N'2022-07-18T22:11:47.6120000' AS DateTime2), N'【200cc 寡多醣可可亞牛羊乳 15瓶組】', 560, 1300, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (26, N'920cc鮮乳x6瓶', N'根據各界醫學研究，乳鐵蛋白對提升腸道免疫力極具幫助，抵抗如腸病毒等病菌，吸收能力不好或常感冒的幼童尤其需要。
+
 一般採高溫殺菌的鮮乳，卻也同時破壞了重要的營養成分，老爹鮮乳經檢驗證實其營養價值非常接近生乳成份，此研究結果更曾發表於畜產業知名的國際期刊"乳品新知 Journal of Dairy Science"上，廣受迴響!', CAST(N'2022-07-18T22:12:14.6300000' AS DateTime2), N'【老爹鮮乳 920cc 6瓶組】', 700, 1700, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
 INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (27, N'936ml鮮羊乳x2瓶', N'■備受大廠壓迫 酪農辛苦慘賠
 祥豪牧場的羊乳從以前就被大廠收購，價錢受到打壓，因此一直處於賠錢的狀態，第二代楊仁豪先生偶然發現父母所經營的牧場已經連年虧損近百萬元，從小認識的當地酪農也皆是如此。
+
 ■自創羊舍品牌 生產高品質羊乳
 為了改善這樣的情況，他決定自創「羊舍」品牌，從飼養、擠奶、加工殺菌到運送羊乳，每個步驟都深具學問，絲毫毫馬虎不得。他更傳承了父母35年來的堅持-「100%純羊乳」，保證成分無調整、無添加，因此才能生產出最高品質的美味羊乳！
+
 ■精選飼育羊種 調配營養飼料
 牧場所飼養的羊隻品種是阿爾拜因羊，母羊的泌乳期長、體質強健，對不同氣候環境的適應性良好。而牧場選用的飼料更混合台灣產的新鮮玉米粒、豆殼、豆粕，以及進口苜蓿草等，幫助羊隻補充每日所需營養。因此牧場的羊兒各個乳汁豐沛，不但營養價值高，且口感香醇濃郁。', CAST(N'2022-07-18T22:12:45.7930000' AS DateTime2), N'【936ml 鮮羊乳 2瓶組】', 420, 1600, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
 SET IDENTITY_INSERT [dbo].[farmer_product] OFF
@@ -200,9 +231,12 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 
 
 
+
 --新增會員資料
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison919@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg',1)
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'ddfoew133@gmail.com', N'測試會員', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
+--課程測試帳號
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$qejRQsLN7pWVsMJn9f71DOusiUQ5hLxe73Ux0un/dp70R.uqohy4O', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg')
 
 
 --新增器具類別

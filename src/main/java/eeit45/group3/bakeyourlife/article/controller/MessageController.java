@@ -29,12 +29,24 @@ public class MessageController {
 
     @Autowired
     private MessageService messageService;
-
+    @Autowired
+    private ArticleService articleService;
 
     @GetMapping(path = "/")
-    private String processFindOne(@RequestParam(required = false) Integer messageId, Model m,Message message) {
+    private String processFindAll(@RequestParam(required = false) Integer messageId, Model m,Message message) {
 
         List<Message> messageAll = messageService.findMessageAll();
+//        String encoded64 = new String(message.getImage());
+//        message.setBase64Message(encoded64);
+        m.addAttribute("messages", messageAll);
+        return "admin/article/Message";
+
+    }
+
+    @GetMapping(path = "/FindOneByPostid")
+    private String processFindOne(@RequestParam(required = false) Integer postid, Model m,Message message) {
+        Article article = articleService.selectOne(postid).orElse(null);
+        List<Message> messageAll = messageService.findMessageByPostid(article);
 //        String encoded64 = new String(message.getImage());
 //        message.setBase64Message(encoded64);
         m.addAttribute("messages", messageAll);

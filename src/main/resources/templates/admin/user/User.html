@@ -16,6 +16,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
+
         .modal-confirm {
             color: #636363;
             width: 400px;
@@ -191,7 +192,7 @@
                                     <th>地址</th>
 
                                     <th class="none">帳號:</th>
-                                    <th class="none">密碼:</th>
+<!--                                    <th class="none">密碼:</th>-->
                                     <th class="none">帳號權限:</th>
                                     <th class="none">創立時間:</th>
                                     <th class="none">動作:</th>
@@ -223,7 +224,7 @@
                                     <td th:text="${user.gender}"></td>
                                     <td th:text="${user.address}"></td>
                                     <td th:text="${user.username}"></td>
-                                    <td th:text="${user.password}"></td>
+<!--                                    <td th:text="${user.password}"></td>-->
                                     <td th:text="${user.authority}"></td>
                                     <td th:text="${user.registerTime}"></td>
                                     <td><a th:href="@{UpdateUser(userId=${user.userId})}" class="btn btn-warning btn-icon-split btn-sm"> <span
