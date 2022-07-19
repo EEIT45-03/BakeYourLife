@@ -45,24 +45,24 @@ public class UserControllerFront {
         model.addAttribute("user", new User());
         return "SignUp";
     }
-    @PostMapping("SignUp")
-    public String SignUp(Authentication authentication,User user) {
-        MultipartFile productImage = user.getProductImage();
-        if(productImage.getSize() == 0){
-            String pic = "https://i.imgur.com/gEHJxsi.jpg";
-            user.setImageUrl(pic);
-        }else {
-            String link = ImgurService.updateByMultipartFile(productImage).getLink();
-            user.setImageUrl(link);
-        }
-//        ----------------------------------------------------------
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        user.setRegisterTime(ts);
-        user.setAuthority("ROLE_USER");
-        userService.save(user);
-
-        return "redirect:login";
-    }
+//    @PostMapping("SignUp")
+//    public String SignUp(Authentication authentication,User user) {
+//        MultipartFile productImage = user.getProductImage();
+//        if(productImage.getSize() == 0){
+//            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+//            user.setImageUrl(pic);
+//        }else {
+//            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+//            user.setImageUrl(link);
+//        }
+////        ----------------------------------------------------------
+//        Timestamp ts = new Timestamp(System.currentTimeMillis());
+//        user.setRegisterTime(ts);
+//        user.setAuthority("ROLE_USER");
+//        userService.save(user);
+//
+//        return "redirect:login";
+//    }
 
     @PostMapping("process_register")
     public String processRegister(User user, HttpServletRequest request)
@@ -103,23 +103,23 @@ public class UserControllerFront {
         model.addAttribute("farmer", new Farmer());
         return "FarmerSignUp";
     }
-    @PostMapping("FarmerSignUp")
-    public String FarmerSignUp(Farmer farmer) {
-        MultipartFile productImage = farmer.getProductImage();
-        if(productImage.getSize() == 0){
-            String pic = "https://i.imgur.com/gEHJxsi.jpg";
-            farmer.setImageUrl(pic);
-        }else {
-            String link = ImgurService.updateByMultipartFile(productImage).getLink();
-            farmer.setImageUrl(link);
-        }
-//        ----------------------------------------------------------
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        farmer.setRegisterTime(ts);
-        farmer.setAuthority("ROLE_FARMER");
-        farmerService.save(farmer);
-        return "redirect:login";
-    }
+//    @PostMapping("FarmerSignUp")
+//    public String FarmerSignUp(Farmer farmer) {
+//        MultipartFile productImage = farmer.getProductImage();
+//        if(productImage.getSize() == 0){
+//            String pic = "https://i.imgur.com/gEHJxsi.jpg";
+//            farmer.setImageUrl(pic);
+//        }else {
+//            String link = ImgurService.updateByMultipartFile(productImage).getLink();
+//            farmer.setImageUrl(link);
+//        }
+////        ----------------------------------------------------------
+//        Timestamp ts = new Timestamp(System.currentTimeMillis());
+//        farmer.setRegisterTime(ts);
+//        farmer.setAuthority("ROLE_FARMER");
+//        farmerService.save(farmer);
+//        return "redirect:login";
+//    }
     @PostMapping("process_farmerRegister")
     public String processRegister(Farmer farmer, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
@@ -160,7 +160,7 @@ public class UserControllerFront {
     }
 
     @PostMapping("/User/UserData")
-    public String updateUser(Authentication authentication, @RequestParam(required = false)User password,User user) {
+    public String updateUser(Authentication authentication,User user) {
 
         User userDB = userService.getCurrentUser(authentication);
 //        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
@@ -171,22 +171,63 @@ public class UserControllerFront {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
-
-        if (user.getPassword() == null){
-            user.setPassword(userDB.getPassword());
-        }else {
-            user.setPassword(encoder.encode(user.getPassword()));
-        }
-
+//        @RequestParam(required = false)User password
+//        if (user.getPassword() == null){
+//            user.setPassword(userDB.getPassword());
+//        }else {
+//            user.setPassword(encoder.encode(user.getPassword()));
+//        }
+        user.setPassword(userDB.getPassword());
         user.setRegisterTime(userDB.getRegisterTime());
         user.setAuthority(userDB.getAuthority());
         user.setUserId(userDB.getUserId());
+        user.setEnabled(userDB.isEnabled());
         userService.updateUser(user);
         userService.setCurrentUser(authentication,user);
         return "user/UserCenterUpdate";
 
+    }
+
+    @GetMapping("/User/Updatepsw")
+    public String viewUpdatepsw(Principal principal, Model model) {
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user.getUserId() != null) {
+                model.addAttribute("user", user);
+                return "user/UserUpdatepsw";
+            }
+        }
+        return "redirect:/login";
+    }
+    @PostMapping("/User/Updatepsw")
+    public String updatepsw(Authentication authentication,User user) {
+
+        User userDB = userService.getCurrentUser(authentication);
+//        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
+        boolean flag = encoder.matches(user.getPassword(),userDB.getPassword());
+
+        if (!flag){
+           return "user/Updatepsw_fail";
+        }
+        user.setPassword(encoder.encode(user.getNewPassword()));
+        user.setUserId(userDB.getUserId());
+        user.setImageUrl(userDB.getImageUrl());
+        user.setUsername(userDB.getUsername());
+        user.setFullName(userDB.getFullName());
+        user.setEmail(userDB.getEmail());
+        user.setPhone(userDB.getPhone());
+        user.setBirth(userDB.getBirth());
+        user.setGender(userDB.getGender());
+        user.setAddress(userDB.getAddress());
+        user.setRegisterTime(userDB.getRegisterTime());
+        user.setAuthority(userDB.getAuthority());
+        user.setEnabled(userDB.isEnabled());
+        userService.updateUser(user);
+        return "user/Updatepsw_success";
 
     }
+
+
 
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {

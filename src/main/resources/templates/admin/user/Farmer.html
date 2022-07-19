@@ -163,16 +163,16 @@
 
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800">小農廠商</h1>
-        <p class="mb-4">
-          <a href="CreateFarmer" class="btn btn-primary btn-icon-split btn-sm">
-							<span class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">新增小農廠商</span>
-          </a>
-<!--          <a href="/" class="btn btn-primary btn-icon-split btn-sm">-->
+<!--        <p class="mb-4">-->
+<!--          <a href="CreateFarmer" class="btn btn-primary btn-icon-split btn-sm">-->
 <!--							<span class="icon text-white-50"> <i class="fas fa-plus"></i>-->
-<!--						</span> <span class="text">回前台首頁</span>-->
+<!--						</span> <span class="text">新增小農廠商</span>-->
 <!--          </a>-->
-        </p>
+<!--&lt;!&ndash;          <a href="/" class="btn btn-primary btn-icon-split btn-sm">&ndash;&gt;-->
+<!--&lt;!&ndash;							<span class="icon text-white-50"> <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;						</span> <span class="text">回前台首頁</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </a>&ndash;&gt;-->
+<!--        </p>-->
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -193,7 +193,7 @@
 
                   <th class="none">廠商簡介:</th>
                   <th class="none">廠商帳號:</th>
-                  <th class="none">廠商密碼:</th>
+<!--                  <th class="none">廠商密碼:</th>-->
                   <th class="none">帳號權限:</th>
                   <th class="none">創立時間:</th>
                   <th class="none">動作:</th>
@@ -224,7 +224,7 @@
                   <td th:text="${farmer.address}"></td>
                   <td th:text="${farmer.farmerInfo}"></td>
                   <td th:text="${farmer.username}"></td>
-                  <td th:text="${farmer.password}"></td>
+<!--                  <td th:text="${farmer.password}"></td>-->
                   <td th:text="${farmer.authority}"></td>
                   <td th:text="${farmer.registerTime}"></td>
                   <td><a th:href="@{UpdateFarmer(farmerId=${farmer.farmerId})}" class="btn btn-warning btn-icon-split btn-sm"> <span

@@ -65,6 +65,7 @@ public class FarmerController {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         farmer.setRegisterTime(ts);
         farmer.setAuthority("ROLE_FARMER");
+        farmer.setEnabled(true);
         farmerService.save(farmer);
         return "redirect:./";
         }
@@ -101,6 +102,7 @@ public class FarmerController {
         //-------------------------------------------------------------------------------------------
         farmer.setRegisterTime(farmerDB.getRegisterTime());
         farmer.setAuthority(farmerDB.getAuthority());
+        farmer.setEnabled(farmerDB.isEnabled());
         farmerService.updateFarmer(farmer);
             return "redirect:./";
     }
