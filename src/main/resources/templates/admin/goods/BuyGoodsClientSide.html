@@ -38,7 +38,7 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
-<section class="product-details spad" th:object="${Goods}">
+<section class="product-details spad" th:object="${Goods}" style="background: #ffdf7e ">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -98,15 +98,15 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="product__details__tab">
-                    <ul class="nav nav-tabs" role="tablist">
+                <div class="product__details__tab" >
+                    <ul class="nav nav-tabs" role="tablist" style="background: #f4b30d ">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                               aria-selected="true">敘述</a>
+                               aria-selected="true" style="background: #f4b30d ">敘述</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                               aria-selected="false">評價</a>
+                               aria-selected="false" style="background: #f4b30d ">評價</a>
                         </li>
                         <!--                        <li class="nav-item">-->
                         <!--                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"-->
@@ -115,8 +115,8 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <div class="product__details__tab__desc">
-                                <h6>Products Infomation</h6>
+                            <div class="product__details__tab__desc" style="background:#f4b30d ">
+                                <h6>商品描述</h6>
                                 <p th:text="${Goods.describe}"></p>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
     </div>
 </section>
 
-<section class="related-product">
+<section class="related-product" style="background: #ffdf7e ">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
