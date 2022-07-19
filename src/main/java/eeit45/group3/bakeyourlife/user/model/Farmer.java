@@ -38,6 +38,7 @@ public class Farmer implements Serializable {
     private String verificationCode;
 
     private boolean enabled;
+
     public Farmer() {
     }
 
@@ -224,5 +225,14 @@ public class Farmer implements Serializable {
 
     public void setProductImage(MultipartFile productImage) {
         this.productImage = productImage;
+    }
+
+    @Override
+    public String toString() {
+        return "Farmer{" +
+                "farmerId=" + farmerId +
+                ", farmerName='" + farmerName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

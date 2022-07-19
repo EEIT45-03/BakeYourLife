@@ -71,7 +71,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 總銷售額
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="|NT$${saleAmount}|"
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="|NT$${saleAmount}萬|"
                                             ></div>
                                         </div>
                                         <div class="col-auto">
@@ -299,7 +299,7 @@
                                     beginAtZero: true,
                                     //側邊顯示數字
                                     callback: function (value, index, values) {
-                                        return  'NT$' + value;
+                                        return  'NT$' + value + '萬';
                                     }
                                 }
 
