@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -58,12 +59,17 @@ public class ShoppingCartController {
         this.salesRecordService = salesRecordService;
     }
 
+
+    //可以使用ModelMap把需要物件放在Session中
     @GetMapping("/Carts")
-    public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart,Authentication authentication,Model model) {
+    public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart, Authentication authentication, ModelMap model) {
         if(authentication!=null){
             User user = userService.getCurrentUser(authentication);
+            if(redisTemplate.opsForValue().get("cart_" + user.getUserId()) != null){
             cart = redisTemplate.opsForValue().get("cart_" + user.getUserId());
             model.addAttribute("cart", cart);
+            }
+
         }
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
@@ -73,14 +79,14 @@ public class ShoppingCartController {
                           @RequestParam String type,
                           @RequestParam Integer qty,
                           @ModelAttribute Cart cart,
-                          Authentication authentication,Model model) {
+                          Authentication authentication) {
         User currentUser = null;
         if(authentication!=null){
             currentUser = userService.getCurrentUser(authentication);
         }
         CartItem cartItem = getCartItem(type,itemId);
 
-        return getCartResponseEntity(qty, cart, cartItem, currentUser, model);
+        return getCartResponseEntity(qty, cart, cartItem, currentUser);
     }
 
     @GetMapping("/Carts/Remove")
@@ -108,8 +114,7 @@ public class ShoppingCartController {
 //                             @RequestParam String type,
                              @RequestParam Integer qty,
                              @ModelAttribute Cart cart,
-                              Authentication authentication,
-                                           Model model) {
+                              Authentication authentication) {
         User currentUser = null;
         if(authentication!=null){
         currentUser = userService.getCurrentUser(authentication);
@@ -119,7 +124,7 @@ public class ShoppingCartController {
         CartItem cartItem = getCartItem(type,itemId);
 
 
-        return getCartResponseEntity(qty, cart, cartItem,currentUser, model);
+        return getCartResponseEntity(qty, cart, cartItem,currentUser);
     }
 
 
@@ -215,8 +220,7 @@ public class ShoppingCartController {
     @GetMapping("/Cart/useCoupon")
     public ResponseEntity<Cart> useCoupon(@ModelAttribute Cart cart,
                             @RequestParam String code,
-                            Authentication authentication,
-                            Model model) {
+                            Authentication authentication) {
         Coupon coupon = couponService.findById(code).orElse(null);
         Date now = new Date();
         if(coupon == null || !"進行中".equals(coupon.getState()) || !(coupon.getMaxQuantity()>coupon.getUsedQuantity())) {
@@ -235,13 +239,13 @@ public class ShoppingCartController {
 
 
     @ModelAttribute("cart")
-    public Cart cart(Authentication authentication,Model model) {
+    public Cart cart(@ModelAttribute Cart cart, Authentication authentication) {
         User user = null;
-        Cart cart = null;
+        Cart cartRedis = null;
         if(authentication!=null){
             user = userService.getCurrentUser(authentication);
-            cart = redisTemplate.opsForValue().get("cart_" + user.getUserId());
-            model.addAttribute("cart", cart);
+            cartRedis = redisTemplate.opsForValue().get("cart_" + user.getUserId());
+            cart = cartRedis;
         }
         if (cart == null) {
             cart = new Cart();
@@ -281,10 +285,11 @@ public class ShoppingCartController {
     }
 
 
-    private ResponseEntity<Cart> getCartResponseEntity(@RequestParam Integer qty, @ModelAttribute Cart cart, CartItem cartItem, User currentUser,Model model) {
+    private ResponseEntity<Cart> getCartResponseEntity(@RequestParam Integer qty, Cart cart, CartItem cartItem, User currentUser) {
+        Cart cartRedis = null;
         if(currentUser!=null){
-            cart = redisTemplate.opsForValue().get("cart_" + currentUser.getUserId());
-            model.addAttribute("cart", cart);
+            cartRedis = redisTemplate.opsForValue().get("cart_" + currentUser.getUserId());
+            cart = cartRedis;
         }
         if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
             cart.updataItem(cartItem,qty);
