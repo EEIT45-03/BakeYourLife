@@ -233,11 +233,11 @@
             return checkUserName() && checkPassword();
             //&&checkFullname()&&checkEmail()&&checkPhone();
         }
-        document.getElementById("username").onblur = checkUserName;
-        document.getElementById("password").onblur = checkPassword;
-        document.getElementById("farmerName").onblur = checkFarmerName;
-        document.getElementById("email").onblur = checkEmail;
-        document.getElementById("phone").onblur = checkPhone;
+        document.getElementById("username").oninput = checkUserName;
+        document.getElementById("password").oninput = checkPassword;
+        document.getElementById("farmerName").oninput = checkFarmerName;
+        document.getElementById("email").oninput = checkEmail;
+        document.getElementById("phone").oninput = checkPhone;
     }
 
     function checkUserName() {

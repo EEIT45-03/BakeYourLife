@@ -68,6 +68,7 @@ public class UserController {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
         user.setAuthority("ROLE_ADMIN");
+        user.setEnabled(true);
         userService.save(user);
         return "redirect:./";
     }
@@ -104,6 +105,7 @@ public class UserController {
 //-------------------------------------------------------------------------------------------
         user.setRegisterTime(userDB.getRegisterTime());
         user.setAuthority(userDB.getAuthority());
+        user.setEnabled(userDB.isEnabled());
         userService.updateUser(user);
         return "redirect:./";
     }
