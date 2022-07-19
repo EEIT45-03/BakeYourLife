@@ -34,6 +34,10 @@ public class Farmer implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "farmer", cascade = CascadeType.ALL)
     private List<FarmerProductBean> farmerProductBeanList;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    private boolean enabled;
     public Farmer() {
     }
 
@@ -82,6 +86,40 @@ public class Farmer implements Serializable {
         this.productImage = productImage;
         this.imageUrl = imageUrl;
         this.farmerProductBeanList = farmerProductBeanList;
+    }
+
+    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl, List<FarmerProductBean> farmerProductBeanList, String verificationCode, boolean enabled) {
+        this.farmerId = farmerId;
+        this.username = username;
+        this.password = password;
+        this.authority = authority;
+        this.farmerName = farmerName;
+        this.farmerInfo = farmerInfo;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.registerTime = registerTime;
+        this.productImage = productImage;
+        this.imageUrl = imageUrl;
+        this.farmerProductBeanList = farmerProductBeanList;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<FarmerProductBean> getFarmerProductBeanList() {

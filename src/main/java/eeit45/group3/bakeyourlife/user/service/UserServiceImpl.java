@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
-
+    @Override
     public void register(User user, String siteURL)
             throws UnsupportedEncodingException, MessagingException {
         String encodedPassword = encoder.encode(user.getPassword());
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
         sendVerificationEmail(user, siteURL);
     }
-
+    @Override
     public void sendVerificationEmail(User user, String siteURL)
             throws UnsupportedEncodingException,MessagingException {
         String toAddress = user.getEmail();
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
         String subject = "Bake Your Life 烘焙材料網會員 "+user.getFullName()+ " 註冊驗證信件";
         String content = "Dear [[name]],<br>"
                 + "請以下點擊連結完成註冊:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h3>"
+                + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
                 + "謝謝您<br>";
 
 
@@ -134,6 +134,21 @@ public class UserServiceImpl implements UserService {
         helper.setText(content, true);
 
         mailSender.send(message);
+
+    }
+    @Override
+    public boolean verify(String verificationCode) {
+        User user = repository.findByVerificationCode(verificationCode);
+
+        if (user == null || user.isEnabled()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setEnabled(true);
+            repository.save(user);
+
+            return true;
+        }
 
     }
 

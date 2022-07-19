@@ -35,6 +35,6 @@ public interface UserService {
 
     void register(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
 
-
     void sendVerificationEmail(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    boolean verify(String verificationCode);
 }
