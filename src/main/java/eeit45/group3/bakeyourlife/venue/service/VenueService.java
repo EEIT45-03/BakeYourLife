@@ -58,6 +58,6 @@ public interface VenueService {
     //查詢TOP3場地
     public List<Venue> findByVenueTopThree();
 
-    public boolean createVenuePicList(String venueName ,MultipartFile[] file);
+    public boolean createVenuePicList(Venue venue);
 
 }

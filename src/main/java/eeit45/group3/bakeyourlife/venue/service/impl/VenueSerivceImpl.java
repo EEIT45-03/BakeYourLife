@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.service.impl;
 
+import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import eeit45.group3.bakeyourlife.venue.dao.VenuePicListRepository;
 import eeit45.group3.bakeyourlife.venue.dao.VenueRepository;
 import eeit45.group3.bakeyourlife.venue.dao.VenueSortRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
@@ -76,8 +79,27 @@ public class VenueSerivceImpl implements VenueService {
     @Override
     @Transactional
     public Venue createVenue(Venue venue) {
-        VenueSort sortDb = venueSortRepository.findBySort(venue.getVenueSort().getSort());
-        venue.setVenueSort(sortDb);
+        if(venue.getSort()!=null) {
+            VenueSort sort = venueSortRepository.findBySort(venue.getSort());
+            venue.setVenueSort(sort);
+        }
+        List<String> base64List = venue.getBase64();
+        List<VenuePicList> venuePicList = new ArrayList<>();
+        if (base64List != null && base64List.size() > 0) {
+            VenuePicList venuePic = new VenuePicList();
+            for (String base64 : base64List) {
+                venuePic.setVenue(venue);
+                venuePic.setPicture(ImgurService.updateByBase64(base64).getLink());
+                venuePicList.add(venuePic);
+            }
+        } else {
+            VenuePicList venuePic = new VenuePicList();
+            venuePic.setVenue(venue);
+            venuePic.setPicture("https://i.imgur.com/fWtT2ZK.png");
+            venuePicList.add(venuePic);
+        }
+        venue.setVenuePicList(venuePicList);
+
         return venueRepository.save(venue);
     }
 
@@ -126,18 +148,23 @@ public class VenueSerivceImpl implements VenueService {
 
     @Override
     @Transactional
-    public boolean createVenuePicList(String venueName, MultipartFile[] file) {
-        if(file!=null){
-            Venue venue = findByVenueName(venueName);
-
-            for( int i=0 ; i<file.length ; i++ ){
-                VenuePicList venuePicList = new VenuePicList();
-                venuePicList.setVenue(venue);
-                venuePicList.setPicture(updateByMultipartFile(file[i]).getLink());
-                venuePicListRepository.save(venuePicList);
+    public boolean createVenuePicList(Venue venue) {
+        List<String> base64List = venue.getBase64();
+        List<VenuePicList> venuePicList = new ArrayList<>();
+        if (base64List != null && base64List.size() > 0) {
+            VenuePicList venuePic = new VenuePicList();
+            for (String base64 : base64List) {
+                venuePic.setVenue(venue);
+                venuePic.setPicture(ImgurService.updateByBase64(base64).getLink());
+                venuePicList.add(venuePic);
             }
-            return true;
+        } else {
+            VenuePicList venuePic = new VenuePicList();
+            venuePic.setVenue(venue);
+            venuePic.setPicture("https://i.imgur.com/fWtT2ZK.png");
+            venuePicList.add(venuePic);
         }
+
         return false;
     }
 

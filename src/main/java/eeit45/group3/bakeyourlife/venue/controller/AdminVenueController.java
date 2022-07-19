@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.controller;
 
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.venue.dto.text;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
@@ -11,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
@@ -55,18 +59,17 @@ public class AdminVenueController {
         return "/admin/venue/CreateVenue";
     }
 
-    @PostMapping("/CreateVenue")
-    public String createVenue(@ModelAttribute("venue") Venue venue,
-                              @RequestParam(value = "venueImage", required = false) MultipartFile[] file,
-                              BindingResult bindingResult) {
-
-        if(bindingResult.hasErrors()){
-            return "/admin/venue/Venue";
-        }
-        venueService.createVenue(venue);
-        venueService.createVenuePicList(venue.getVenueName(),file);
-
-        return "redirect:./";
+    @ResponseBody
+    @RequestMapping(value = "/CreateVenue",method = RequestMethod.POST/*,produces={"application/json;charset=UTF-8"}*/)
+    public void createVenue(@RequestBody @Valid text venue /*Venue venue*/) {
+//        Venue venueDb = null;
+//        if (venue != null){
+//            venueDb = venueService.createVenue(venue);
+//        }
+//        if (venue.getBase64()!=null){
+//            venueService.createVenuePicList(venue);
+//        }
+        System.out.println(venue);
     }
 
 

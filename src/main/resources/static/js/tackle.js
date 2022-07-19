@@ -125,12 +125,12 @@ $(document).ready(function () {
 
     $('#submit').on('click', function (){
         if(check){
-            var venueList = getTackle();
+            var tackleList = getTackle();
             $.ajax({
                 url: "/admin/Tackle/CreateTackle",
                 type: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(venueList),
+                data: JSON.stringify(tackleList),
                 success: function (res) {
                     Swal.fire(
                         '新增成功',

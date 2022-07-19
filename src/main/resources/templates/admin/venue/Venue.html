@@ -88,13 +88,13 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">場地管理</h1>
                 <p class="mb-4">
-                    <button type="button"
-                            class="btn btn-warning btn-icon-split btn-sm"
-                            th:onclick="|createVenue()|">
-                      <span
-                              class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">新增場地</span>
-                    </button>
+                    <a href="CreateVenue"
+                       class="btn btn-primary btn-icon-split btn-sm">
+                      <span class="icon text-white-50">
+                          <i class="fas fa-plus"></i>
+                      </span>
+                      <span class="text">新增場地</span>
+                    </a>
                 </p>
 
                 <!-- DataTales Example -->
@@ -104,7 +104,7 @@
                     </div>
 
                     <form action="" class="form-inline">
-                        <label for="vName" class="row-cols-1 col-form-labels">教室名稱:</label>
+                        <label for="vName" class="row-cols-1 col-form-labels">場地名稱:</label>
                         <select type="text" class="form-control form-select mb-sm-1"
                                 th:name="vName" id="vName" aria-label="Default select example">
                             <option value="">全部</option>

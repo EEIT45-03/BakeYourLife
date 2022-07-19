@@ -64,12 +64,15 @@ public class Venue implements Serializable {
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 
 	@Transient
-	private MultipartFile[] venueImage;
+	private List<String> base64;
+
+	@Transient
+	private String sort;
 
 	public Venue() {
 	}
 
-	public Venue(String venueName, Integer personMax, Integer hrPrice, List<VenuePicList> venuePicList, String notes, VenueSort venueSort, Set<VenueList> venueList, MultipartFile[] venueImage) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice, List<VenuePicList> venuePicList, String notes, VenueSort venueSort, Set<VenueList> venueList, List<String> base64, String sort) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
@@ -77,7 +80,8 @@ public class Venue implements Serializable {
 		this.notes = notes;
 		this.venueSort = venueSort;
 		this.venueList = venueList;
-		this.venueImage = venueImage;
+		this.base64 = base64;
+		this.sort = sort;
 	}
 
 	public Integer getVenueId() {
@@ -144,12 +148,20 @@ public class Venue implements Serializable {
 		this.venueList = venueList;
 	}
 
-	public MultipartFile[] getVenueImage() {
-		return venueImage;
+	public List<String> getBase64() {
+		return base64;
 	}
 
-	public void setVenueImage(MultipartFile[] venueImage) {
-		this.venueImage = venueImage;
+	public void setBase64(List<String> base64) {
+		this.base64 = base64;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 }
 
