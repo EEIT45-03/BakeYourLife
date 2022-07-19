@@ -1,6 +1,7 @@
 package eeit45.group3.bakeyourlife.article.service;
 
 import eeit45.group3.bakeyourlife.article.dao.MessageRepository;
+import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.article.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> findMessageAll() {
         return messageRepository.findAll();
+    }
+
+    @Override
+    public List<Message> findMessageByPostid(Article postid) {
+        return messageRepository.findAllByArticle(postid);
     }
 
 

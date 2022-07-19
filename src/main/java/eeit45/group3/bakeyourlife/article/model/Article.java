@@ -69,6 +69,9 @@ public class Article implements Serializable {
 	@JsonIgnore
 	private User user;
 
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+	private List<Message> favoriteList;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
 	private List<Message> messageList;
 

@@ -1,10 +1,15 @@
 package eeit45.group3.bakeyourlife.article.controller;
 
 import eeit45.group3.bakeyourlife.article.model.Article;
+import eeit45.group3.bakeyourlife.article.model.Favorite;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
+import eeit45.group3.bakeyourlife.article.service.AuthenticationService;
+import eeit45.group3.bakeyourlife.article.service.FavoriteService;
+import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +22,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/UserArticle")
+@RequestMapping(path = "User/UserArticle")
 public class UserArticleController {
 
     @Autowired
@@ -25,17 +30,37 @@ public class UserArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
+    @Autowired
+    private FavoriteService favoriteService;
 
     @GetMapping(path = "")
-    private String processFindOne(@RequestParam(required = false) Integer userid,  Model m) {
+    private String processFindOne(@RequestParam(required = false) Integer userid, Model m, Authentication authentication ) {
 
-        List<Article> listAll = articleService.findByUserId(userid);
+        User user = userService.getCurrentUser(authentication);
+        List<Article> listAll = articleService.findAllByUser(user);
+
         m.addAttribute("articles", listAll);
 
 
         return "article/UserArticle";
 
     }
+
+    @GetMapping(path = "/farvorite")
+    private String processFavorite(@RequestParam(required = false) Integer postid, Model m, Authentication authentication ) {
+
+        User user = userService.getCurrentUser(authentication);
+        List<Favorite> favorites = favoriteService.findAllByUser(user);
+
+        m.addAttribute("articles", favorites);
+        return "article/FavoriteArticle";
+
+    }
+
+
 
     @GetMapping(path = "/Update")
     public String processQuery(@RequestParam(required = false) Integer postid,

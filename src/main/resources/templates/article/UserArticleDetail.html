@@ -141,23 +141,11 @@
                 margin-left: 130px;
             }
         }
-        /*    .login-button { !* 按鈕美化 *!*/
-        /*        width: 270px; !* 寬度 *!*/
-        /*        height: 40px; !* 高度 *!*/
-        /*        border-width: 0px; !* 邊框寬度 *!*/
-        /*        border-radius: 3px; !* 邊框半徑 *!*/
-        /*        background: #b08968; !* 背景顏色 *!*/
-        /*        !*cursor: pointer; !* 滑鼠移入按鈕範圍時出現手勢 *!*!*/
-        /*        !*outline: none; !* 不顯示輪廓線 *!*!*/
-        /*        !*font-family: Microsoft YaHei; !* 設定字型 *!*!*/
-        /*        color: #b08968; !* 字型顏色 *!*/
-        /*        font-size: 17px; !* 字型大小 *!*/
-        /*    }*/
-        /*    .login-button:hover { !* 滑鼠移入按鈕範圍時改變顏色 *!*/
-        /*        background: #b08968;*/
-        /*    }*/
 
-        /*}*/
+        .update{
+            text-decoration: none;color:#F0F0F0;background: #b08968; width: 150px;height: 60px;border-radius: 20px;
+            font-size: 17px;font-family: Microsoft YaHei;padding: 19px;border: #F0F0F0;
+        }
     </style>
 </head>
 
@@ -167,29 +155,46 @@
 
 
 <!-- Blog Details Hero Begin -->
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
-            <img src="/img/blog/details/img4.png" alt="...">
-            <!--            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="..." width="300" height="300">-->
-            <!--            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="..." width="300" height="300">-->
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="...">
+<!--<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">-->
+<!--    <div class="carousel-inner">-->
+<!--        <div class="carousel-item active" data-bs-interval="10000">-->
+<!--            <img src="/img/blog/details/img4.png" alt="...">-->
+<!--            &lt;!&ndash;            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="..." width="300" height="300">&ndash;&gt;-->
+<!--            &lt;!&ndash;            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="..." width="300" height="300">&ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="carousel-item" data-bs-interval="2000">-->
+<!--            <img src="/img/blog/details/lemon.jpg" class="d-block w-100" alt="...">-->
+<!--        </div>-->
+<!--        <div class="carousel-item">-->
+<!--            <img src="/img/blog/details/madeleine.jpg" class="d-block w-100" alt="...">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">-->
+<!--        <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--        <span class="visually-hidden">Previous</span>-->
+<!--    </button>-->
+<!--    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">-->
+<!--        <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--        <span class="visually-hidden">Next</span>-->
+<!--    </button>-->
+<!--</div>-->
+
+<section class="breadcrumb-section set-bg" data-setbg="/img/blog/details/img5.png">
+    <!--      <img src="/img/blog/details/img4.png" alt="...">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>編輯文章</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Home</a>
+                        <span>我的文章</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+</section>
 <!-- Blog Details Hero End -->
 
 <!-- Blog Details Section Begin -->
@@ -202,11 +207,11 @@
     <span class="blog__sidebar">返回選單</span>
 </a>
 
-    <div style="margin: 50px;"><button type="button"
-                                       class="btn btn-danger"
-                                       th:onclick="|archiveFunction(${article.user.userId})|" id="deleteBtn" input style="float:right">刪除文章</button></div>
+<!--    <div style="margin: 50px;"><button type="button"-->
+<!--                                       class="btn btn-danger"-->
+<!--                                       th:onclick="|archiveFunction(${article.user.userId})|" id="deleteBtn" input style="float:right">刪除文章</button></div>-->
     <div style="margin: 50px;">
-    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertArticle" input style="float:right">
+    <button type="button" class="update" data-toggle="modal" data-target="#InsertArticle" input style="float:right">
         編輯文章
     </button>
     </div>
@@ -223,62 +228,62 @@
                         <!--                        </form>-->
                     </div>
                     <div class="blog__sidebar__item">
-                        <h4>Categories</h4>
-                        <ul>
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">Beauty (20)</a></li>
-                            <li><a href="#">Food (5)</a></li>
-                            <li><a href="#">Life Style (9)</a></li>
-                            <li><a href="#">Travel (10)</a></li>
-                        </ul>
+<!--                        <h4>Categories</h4>-->
+<!--                        <ul>-->
+<!--                            <li><a href="#">All</a></li>-->
+<!--                            <li><a href="#">Beauty (20)</a></li>-->
+<!--                            <li><a href="#">Food (5)</a></li>-->
+<!--                            <li><a href="#">Life Style (9)</a></li>-->
+<!--                            <li><a href="#">Travel (10)</a></li>-->
+<!--                        </ul>-->
                     </div>
                     <div class="blog__sidebar__item">
-                        <h4>Recent News</h4>
+<!--                        <h4>Recent News</h4>-->
                         <div class="blog__sidebar__recent">
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="/img/blog/sidebar/sr-1.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="/img/blog/sidebar/sr-2.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="/img/blog/sidebar/sr-3.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
+<!--                            <a href="#" class="blog__sidebar__recent__item">-->
+<!--                                <div class="blog__sidebar__recent__item__pic">-->
+<!--                                    <img src="/img/blog/sidebar/sr-1.jpg" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="blog__sidebar__recent__item__text">-->
+<!--                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>-->
+<!--                                    <span>MAR 05, 2019</span>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="#" class="blog__sidebar__recent__item">-->
+<!--                                <div class="blog__sidebar__recent__item__pic">-->
+<!--                                    <img src="/img/blog/sidebar/sr-2.jpg" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="blog__sidebar__recent__item__text">-->
+<!--                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>-->
+<!--                                    <span>MAR 05, 2019</span>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="#" class="blog__sidebar__recent__item">-->
+<!--                                <div class="blog__sidebar__recent__item__pic">-->
+<!--                                    <img src="/img/blog/sidebar/sr-3.jpg" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="blog__sidebar__recent__item__text">-->
+<!--                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>-->
+<!--                                    <span>MAR 05, 2019</span>-->
+<!--                                </div>-->
+<!--                            </a>-->
                         </div>
                     </div>
                     <div class="blog__sidebar__item">
-                        <h4>Search By</h4>
-                        <div class="blog__sidebar__item__tags">
-                            <a href="#">Apple</a>
-                            <a href="#">Beauty</a>
-                            <a href="#">Vegetables</a>
-                            <a href="#">Fruit</a>
-                            <a href="#">Healthy Food</a>
-                            <a href="#">Lifestyle</a>
-                        </div>
+<!--                        <h4>Search By</h4>-->
+<!--                        <div class="blog__sidebar__item__tags">-->
+<!--                            <a href="#">Apple</a>-->
+<!--                            <a href="#">Beauty</a>-->
+<!--                            <a href="#">Vegetables</a>-->
+<!--                            <a href="#">Fruit</a>-->
+<!--                            <a href="#">Healthy Food</a>-->
+<!--                            <a href="#">Lifestyle</a>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-8 col-md-7 order-md-1 order-1" style="text-align: center;">
+            <div class="col-lg-8 col-md-7 order-md-1 order-1" style="text-align: justify;">
                 <div class="blog__details__text">
                     <H3 th:text="${ article.title}"></H3>
                     <span class="fa fa-calendar-o" th:text="${ article.date}"></span>
@@ -420,7 +425,7 @@
         </ol>
     </span>
     <div>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertMessage">
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertMessage" style="margin: 40px;">
             回覆留言
         </button>
     </div>
@@ -465,62 +470,62 @@
 
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title related-blog-title">
-                    <h2>Post You May Like</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="/img/blog/blog-1.jpg" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="/img/blog/blog-2.jpg" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="/img/blog/blog-3.jpg" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Visit the clean farm in the US</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <div class="section-title related-blog-title">-->
+<!--                    <h2>Post You May Like</h2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--                <div class="blog__item">-->
+<!--                    <div class="blog__item__pic">-->
+<!--                        <img src="/img/blog/blog-1.jpg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="blog__item__text">-->
+<!--                        <ul>-->
+<!--                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>-->
+<!--                            <li><i class="fa fa-comment-o"></i> 5</li>-->
+<!--                        </ul>-->
+<!--                        <h5><a href="#">Cooking tips make cooking simple</a></h5>-->
+<!--                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--                <div class="blog__item">-->
+<!--                    <div class="blog__item__pic">-->
+<!--                        <img src="/img/blog/blog-2.jpg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="blog__item__text">-->
+<!--                        <ul>-->
+<!--                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>-->
+<!--                            <li><i class="fa fa-comment-o"></i> 5</li>-->
+<!--                        </ul>-->
+<!--                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>-->
+<!--                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-4 col-sm-6">-->
+<!--                <div class="blog__item">-->
+<!--                    <div class="blog__item__pic">-->
+<!--                        <img src="/img/blog/blog-3.jpg" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="blog__item__text">-->
+<!--                        <ul>-->
+<!--                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>-->
+<!--                            <li><i class="fa fa-comment-o"></i> 5</li>-->
+<!--                        </ul>-->
+<!--                        <h5><a href="#">Visit the clean farm in the US</a></h5>-->
+<!--                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </section>
 <!-- Related Blog Section End -->
 
@@ -575,7 +580,7 @@
         var formData = new FormData($('#updateform')[0]);
         formData.set('content',editorData)   //update 要用set設定新的data
         $.ajax({
-            url: "[[@{/ArticleUpdate}]]"+ "/" + $('#userId').val(),
+            url: "[[@{/ArticleUpdate}]]"+ "/" + $('#postid').val(),
             data: formData,
             type: "put",
             cache: false, // 不需要cache
@@ -628,7 +633,7 @@
     }
 
 
-    function archiveFunction(userId) {
+    function archiveFunction(postid) {
         Swal.fire({
             title: '確定要刪除嗎?',
             text: "刪除後無法復原!",
@@ -641,7 +646,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/ArticleDelete/' + userId,
+                    url: '/ArticleDelete/' + postid,
                     type: 'DELETE',
                     success: function (msg) {
                         Swal.fire(

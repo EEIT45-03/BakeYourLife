@@ -65,6 +65,34 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         return http.build();
     }
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+		.authorizeHttpRequests()
+			//login頁面不需要認證
+			.antMatchers("/*","/FrontArticle/*","/Goods1/*","/FarmerProductShop/**","/Course/**","/webfonts/**","/SignUp","/login","/Order/*/Result","/Order/PaySuccess","/css/**","/js/**","/img/**").permitAll()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/User/**").hasAnyRole("USER","ADMIN")
+				.antMatchers("/FarmerProductSupplier/**").hasAnyRole("FARMER","ADMIN")
+			//其他都要認證
+			.anyRequest().authenticated()
+		.and()
+			.formLogin()
+			//自訂登入頁
+			.loginPage("/login")
+				//1.successForwardUrl：請求轉發，轉發後瀏覽器的位址不會變，登入成功後不會跳轉到原來的位址。
+				//2.defaultSuccessUrl：302重定向，登入成功後會跳轉到原來的位址。
+				.defaultSuccessUrl("/default",false)
+		.and()
+			.httpBasic()
+		.and()
+		//使用自己實作的userDetailsService
+		.userDetailsService(userDetailsService)
+		//綠界需要關csrf
+		.csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+		return http.build();
+	}
 
 
 }
