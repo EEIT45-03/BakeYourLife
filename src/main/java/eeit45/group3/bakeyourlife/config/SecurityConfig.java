@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 //login頁面不需要認證
-                .antMatchers("/*", "/FrontArticle/*", "/Goods1/**", "/FarmerProductShop/**", "/FarmerProducts/**", "/Carts/**", "/Course/**", "/webfonts/**", "/SignUp", "/login", "/Order/*/Result", "/Order/PaySuccess", "/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/*","/FrontArticle/*", "/Goods1/**", "/FarmerProductShop/**", "/FarmerProducts/**", "/Carts/**", "/Course/**", "/webfonts/**", "/SignUp", "/login", "/Order/*/Result", "/Order/PaySuccess", "/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/User/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/FarmerProductSupplier/**").hasAnyRole("FARMER", "ADMIN")
