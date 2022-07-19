@@ -11,9 +11,11 @@ import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
 import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
+import eeit45.group3.bakeyourlife.order.dao.SalesRecordRepository;
 import eeit45.group3.bakeyourlife.order.model.Cart;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.order.model.SalesRecord;
 import eeit45.group3.bakeyourlife.user.dao.UserRepository;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     private CouponService couponService;
     private FarmerProductService farmerProductService;
     private GoodService goodService;
+    private SalesRecordRepository salesRecordRepository;
     private PasswordEncoder encoder = new BCryptPasswordEncoder(4);
 
 
@@ -64,10 +67,12 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     private DataSource dataSource;
 
     @Autowired
-    public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService) {
+    public DataInitialization(CouponService couponService, FarmerProductService farmerProductService, GoodService goodService,
+                              SalesRecordRepository salesRecordRepository) {
         this.couponService = couponService;
         this.farmerProductService = farmerProductService;
         this.goodService = goodService;
+        this.salesRecordRepository = salesRecordRepository;
     }
 
 
@@ -76,8 +81,16 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Order> orders = new ArrayList<>();
         List<User> users = new ArrayList<>();
+        List<SalesRecord> salesRecords = new ArrayList<>();
+        Map<String,CartItem> cartItemsMap = new HashMap<>();
         farmerProducts = farmerProductService.findAll();
+        farmerProducts.forEach(o -> {
+            cartItemsMap.put(o.getCartNo(),o);
+        });
         goods = goodService.getAllGoods();
+        goods.forEach(o -> {
+            cartItemsMap.put(o.getCartNo(),o);
+        });
         cartItems = new ArrayList<>();
         cartItems.addAll(farmerProducts);
         cartItems.addAll(goods);
@@ -129,6 +142,34 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
                     long orderDate = registerTime + (long) (Math.random() * (end + 5 - registerTime));
                     Order order = genOrder(user, new Date(orderDate));
                     orders.add(order);
+
+                    order.getOrderItemList().forEach(e -> {
+                        if(e.getProductNo().charAt(0) == 'G'){
+                            Goods goods = (Goods) cartItemsMap.get(e.getProductNo());
+                            //銷售紀錄
+                            SalesRecord salesRecord = new SalesRecord();
+                            salesRecord.setProductNo(goods.getCartNo());
+                            salesRecord.setProductId(goods.getId());
+                            salesRecord.setSalesQty(e.getQty());
+                            salesRecord.setSalesDate(order.getOrderDate());
+                            salesRecord.setSalesSubTotal(e.getSubTotal());
+                            salesRecords.add(salesRecord);
+                        }
+                        if(e.getProductNo().charAt(0) == 'F'){
+                            FarmerProductBean farmerProduct = (FarmerProductBean) cartItemsMap.get(e.getProductNo());
+                            //銷售紀錄
+                            SalesRecord salesRecord = new SalesRecord();
+                            salesRecord.setFarmerId(farmerProduct.getFarmer().getFarmerId());
+                            salesRecord.setProductNo(farmerProduct.getCartNo());
+                            salesRecord.setProductId(farmerProduct.getFarmerProductId());
+                            salesRecord.setSalesQty(e.getQty());
+                            salesRecord.setSalesDate(order.getOrderDate());
+                            salesRecord.setSalesSubTotal(e.getSubTotal());
+                            salesRecords.add(salesRecord);
+                        }
+                    });
+
+
                 }
             });
 
@@ -142,6 +183,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
         jdbc.saveAllByUsers(users);
         jdbc.saveAllByOrders(orders);
+//        jdbc.saveAllBySalesRecords(salesRecords);
         coupon.setUsedQuantity(couponUsedNumber);
         couponService.updateCoupon(coupon);
         long end = System.currentTimeMillis();
@@ -150,6 +192,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         System.out.println("DataInitialization finished");
 
     }
+
 
     /**
      * 轉成假資料
