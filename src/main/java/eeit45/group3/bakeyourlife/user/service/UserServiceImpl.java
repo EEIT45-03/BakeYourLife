@@ -9,7 +9,6 @@ import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import eeit45.group3.bakeyourlife.user.model.User;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 @Service
 @Transactional
@@ -96,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(User user, String siteURL)
+    public void register(User user )
             throws UnsupportedEncodingException, MessagingException {
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -107,8 +105,48 @@ public class UserServiceImpl implements UserService {
 
         repository.save(user);
 
-        sendVerificationEmail(user, siteURL);
+        sendVerificationEmail(user);
     }
+    @Override
+    public void sendVerificationEmail(User user) {
+//        String randomCode = RandomString.make(64);
+        String email = user.getEmail();
+        try {
+            emailService.sendUserMail(email, "Bake Your Life 烘焙材料網註冊驗證信件",user,"signupmail");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+//    @Override
+//    public void sendVerificationEmail(User user, String siteURL)
+//            throws UnsupportedEncodingException,MessagingException {
+//        String toAddress = user.getEmail();
+//        String fromAddress = "bakeyourlifemail@gmail.com";
+//        String senderName = "Bake Your Life 烘焙材料網";
+//        String subject = "Bake Your Life 烘焙材料網會員 "+user.getFullName()+ " 註冊驗證信件";
+//        String content = "Dear [[name]],<br>"
+//                + "請以下點擊連結完成註冊:<br>"
+//                + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
+//                + "謝謝您<br>";
+//
+//
+//        MimeMessage message = mailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        helper.setFrom(fromAddress, senderName);
+//        helper.setTo(toAddress);
+//        helper.setSubject(subject);
+//
+//        content = content.replace("[[name]]", user.getFullName());
+//        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+//
+//        content = content.replace("[[URL]]", verifyURL);
+//
+//        helper.setText(content, true);
+//
+//        mailSender.send(message);
+//
+//    }
 
 
 
@@ -118,54 +156,24 @@ public class UserServiceImpl implements UserService {
         user.setVerificationCode(randomCode);
 
         repository.save(user);
-        sendfindpswEmail(user);
+        sendFindPswEmail(user);
     }
 
 
 
 
     @Override
-    public void sendfindpswEmail(User user) {
+    public void sendFindPswEmail(User user) {
 //        String randomCode = RandomString.make(64);
         String email = user.getEmail();
         try {
-            emailService.sendFindpawMail(email, "[Bake Your Life 烘焙材料網] 重設您的密碼",user,"findpswmail");
+            emailService.sendUserMail(email, "Bake Your Life 烘焙材料網 重設您的密碼",user,"findpswmail");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    @Override
-    public void sendVerificationEmail(User user, String siteURL)
-            throws UnsupportedEncodingException,MessagingException {
-        String toAddress = user.getEmail();
-        String fromAddress = "bakeyourlifemail@gmail.com";
-        String senderName = "Bake Your Life 烘焙材料網";
-        String subject = "Bake Your Life 烘焙材料網會員 "+user.getFullName()+ " 註冊驗證信件";
-        String content = "Dear [[name]],<br>"
-                + "請以下點擊連結完成註冊:<br>"
-                + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
-                + "謝謝您<br>";
-
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
-        helper.setSubject(subject);
-
-        content = content.replace("[[name]]", user.getFullName());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
-
-        content = content.replace("[[URL]]", verifyURL);
-
-        helper.setText(content, true);
-
-        mailSender.send(message);
-
-    }
     @Override
     public boolean verify(String verificationCode) {
         User user = repository.findByVerificationCode(verificationCode);

@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.email.service;
 
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,7 +131,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Async//非同步
-    public void sendFindpawMail(
+    public void sendUserMail(
             String to,//收件者
             String subject,//主旨
             User user,//內容
@@ -146,7 +147,29 @@ public class EmailServiceImpl implements EmailService {
         helper.setSubject(subject);
         helper.setText(process, true);
         javaMailSender.send(mimeMessage);
-        System.out.println("已發送重設密碼信件");
+        System.out.println("已發送信件");
 
     }
+    @Override
+    @Async//非同步
+    public void sendFarmerMail(
+            String to,//收件者
+            String subject,//主旨
+            Farmer farmer,//內容
+            String templateName//模板名稱
+    ) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("farmer", farmer);
+        String process = templateEngine.process("emails/"+templateName, context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(FROM_EMAIL);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        javaMailSender.send(mimeMessage);
+        System.out.println("已發送信件");
+
+    }
+
 }

@@ -33,14 +33,14 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    void register(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    void register(User user)throws UnsupportedEncodingException, MessagingException;
+
+    void sendVerificationEmail(User user);
 
     void resetpsw(User user);
 
-    void sendfindpswEmail(User user);
+    void sendFindPswEmail(User user);
 
-
-    void sendVerificationEmail(User user, String siteURL)throws UnsupportedEncodingException, MessagingException;
     boolean verify(String verificationCode);
 
     boolean pswverify(String verificationCode);
