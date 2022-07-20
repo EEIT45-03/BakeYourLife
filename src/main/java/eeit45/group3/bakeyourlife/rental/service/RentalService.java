@@ -64,6 +64,9 @@ public interface RentalService {
 
 	public Rental CheckUserRental(Integer userId, String listType);
 
+
+	public Rental updateRentalPic(Rental rental);
+
 	/*場地租借清單 DAO
 		----------------------------------------------------------------*/
 
@@ -81,6 +84,8 @@ public interface RentalService {
 
 	//查詢某時間的場地使用狀況
 	public List<AvailableQuantity> getVenueSelect(String name, Date date);
+
+	//依租借單查詢場地清單
 
 	//依租借時間查詢場地
 //	public Long findDateBetweenByFK_VenueId(Integer FK_venueId, Date lendTime, Date returnTime);

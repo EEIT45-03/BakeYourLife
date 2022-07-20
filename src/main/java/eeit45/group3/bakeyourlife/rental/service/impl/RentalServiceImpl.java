@@ -220,6 +220,19 @@ public class RentalServiceImpl implements RentalService{
 		return rental;
 	}
 
+	@Override
+	public Rental updateRentalPic(Rental rental) {
+		Long sum = null;
+		if("器具".equals(rental.getType())){
+			sum = tackleListRepository.findPriceSumByRental(rental);
+		} else if("場地".equals(rental.getType())){
+			sum = venueListRepository.findPriceSumByRental(rental);
+		}
+		rental.setTotal(sum.intValue());
+		Rental rentalDb = rentalRepository.save(rental);
+		return rentalDb;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/
@@ -248,6 +261,7 @@ public class RentalServiceImpl implements RentalService{
 	public Long findVenueListPriceSumByRental(Rental rental) {
 		return venueListRepository.findPriceSumByRental(rental);
 	}
+
 
 	//查詢某時間的場地使用狀況
 	@Override

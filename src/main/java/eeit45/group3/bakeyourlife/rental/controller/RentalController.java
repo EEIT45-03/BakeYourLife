@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/Rental")
+@RequestMapping
+//@RequestMapping(path = "/Rental")
 public class RentalController {
 
     private RentalService rentalService;
@@ -28,32 +29,38 @@ public class RentalController {
         this.tackleService = tackleService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/Rental/")
     public String viewIndex(){
         return "/rental/Index";
     }
 
-    @GetMapping("/Introduce/Venue/{id}")
+    @GetMapping("/Rental/Introduce/Venue/{id}")
     public String viewVenueCommodity(@PathVariable Integer id,
                                 Model model) {
         model.addAttribute("venueBean", venueService.findByVenueId(id));
         return "/rental/VenueIntroduce";
     }
 
-    @GetMapping("/Introduce/Tackle/{id}")
+    @GetMapping("/Rental/Introduce/Tackle/{id}")
     public String viewTackleCommodity(@PathVariable Integer id,
                                      Model model) {
         model.addAttribute("tackleBean", tackleService.findByTackleId(id));
         return "/rental/TackleIntroduce";
     }
 
-    @GetMapping("/Venue")
+    @GetMapping("/Rental/Venue")
     public String viewRental() {
         return "/rental/RentalVenue";
     }
 
-    @GetMapping("/Tackle")
+    @GetMapping("/Rental/Tackle")
     public String viewRTackle() {
         return "/rental/RentalTackle";
+    }
+
+    @GetMapping("/User/rental")
+    public String viewUserRental(Model m) {
+        m.addAttribute("rentals", rentalService.findAllRental());
+        return "/rental/MyRental";
     }
 }

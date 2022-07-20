@@ -12,6 +12,6 @@ public interface TackleListRepository extends JpaRepository<TackleList, Integer>
 
     public List<TackleList> findAllByRental(Rental rental);
 
-//    @Query("SELECT SUM(tl.price) FROM TackleList tl WHERE tl.rental = :r ")
-//    public Long findPriceSumByRental(@Param("r") Rental rental);
+    @Query("SELECT SUM(tl.total) FROM TackleList tl WHERE tl.rental = :r ")
+    public Long findPriceSumByRental(@Param("r") Rental rental);
 }

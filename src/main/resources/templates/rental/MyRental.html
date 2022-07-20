@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的租借</title>
+
+    <div th:replace="css.html"></div>
+    <style>
+
+    </style>
+
+
+</head>
+
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>我的租借</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div th:replace="user/UserSidebar.html"></div>
+            <div class="col-lg-10 pt-5">
+                <table class="table table-striped" id="rentalTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>租借單編號</th>
+                            <th>下單日期</th>
+                            <th>租借類型</th>
+                            <th>總金額</th>
+                            <th>狀態</th>
+                            <th>明細</th>
+                            <th>操作</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="rental: ${rentals}">
+                            <td></td>
+                            <td th:text="${rental.rentalNo}"></td>
+                            <td th:text="${#dates.format(rental.rentalDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                            <td th:text="${rental.type}"></td>
+                            <td th:text="${rental.total}"></td>
+                            <td th:text="${rental.state}"></td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm" th:onclick="|show(${rental.rentalId},${rental.type},${rental.rentalNo},${rental.total})|">
+                                <span class="icon text-white-50"> 明細 </span>
+                            </button>
+                            </td>
+                            <td><button type="button"
+                                        class="btn btn-warning btn-icon-split btn-sm"
+                                        th:onclick="|deleteRental(${rental.rentalId})|">
+                            <i class="fas fa-trash"></i>取消租借單
+                            </button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        租借單編號:
+                    </div>
+                    <div class="col-lg-3 text-center" id="rentalno">
+
+                    </div>
+                    <div class="col-lg-2">
+                        總金額:
+                    </div>
+                    <div class="col-lg-3 text-center"  id="rentaltotal">
+
+                    </div>
+                    <hr>
+                    <table class="table" id="show">
+<!--                        <tr>-->
+<!--                            <td>租借日期:</td>-->
+<!--                            <td>租借場地:</td>-->
+<!--                            <td>租借組數:</td>-->
+<!--                            <td>租借金額:</td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+<div th:replace="footer.html"></div>
+
+<script th:src="@{/js/rental.js}"></script>
+
+<script>
+    function show(id,type,no,tal) {
+        $('#rentalno').html(no)
+        $('#rentaltotal').html(tal)
+        if(type === '場地')
+        fetch('/show/'+id+'/venuelist').then(response => {
+            if (!response.ok) {
+                // make the promise be rejected if we didn't get a 2xx response
+                const err = new Error("Not 2xx response");
+                err.response = response;
+                throw err;
+            } else {
+                return response.json()
+            }
+        }).then(data => {
+            let table = '<tr>' +
+                            '<td>租借日期:</td>'+
+                            '<td>租借場地:</td>'+
+                            '<td>租借組數:</td>'+
+                            '<td>租借金額:</td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                        '</tr>';
+        }).catch(function (err){
+            console.log('Error:'+(err))
+        })
+    };
+
+</script>
+</body>
+
+</html>
