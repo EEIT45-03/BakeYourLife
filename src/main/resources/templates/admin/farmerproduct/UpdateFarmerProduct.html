@@ -280,7 +280,7 @@
                         <input type="hidden" th:field="*{suspendTime}" name="suspendTime" id="suspendTime" value="">
                         <input type="hidden" th:field="*{violationTime}" name="violationTime" id="violationTime"
                                value="">
-
+                        <span style="display: none" id="farmerId" th:text="*{farmer.farmerId}"></span>
                         <button class="btn btn-primary"
                                 th:onclick="|sendupdate(*{farmerProductId})|">確認修改
                         </button>
