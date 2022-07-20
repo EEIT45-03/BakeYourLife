@@ -226,8 +226,55 @@ public class UserControllerFront {
         return "user/Updatepsw_success";
 
     }
+    @GetMapping("/User/Findpsw")
+    public String viewFindpsw() {
+        return "user/UserFindpsw";
+    }
+    @GetMapping("/User/process_findpsw")
+    public String processFindpsw(Principal principal) {
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            userService.resetpsw(user);
+//            userService.sendfindpswEmail(user);
+            return "user/pswReset_start";
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/pswVerify")
+    public String pswVerify(@Param("code") String code ,Principal principal,Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
+        if (userService.pswverify(code)) {
+            return "user/pswverify_success";
+        } else {
+            return "user/pswverify_fail";
+        }
+    }
+    //------------------------------------------------------------------
+    @PostMapping("pswReset")
+    public String pswReset(Authentication authentication,User user) {
+        User userDB = userService.getCurrentUser(authentication);
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setUserId(userDB.getUserId());
+        user.setImageUrl(userDB.getImageUrl());
+        user.setUsername(userDB.getUsername());
+        user.setFullName(userDB.getFullName());
+        user.setEmail(userDB.getEmail());
+        user.setPhone(userDB.getPhone());
+        user.setBirth(userDB.getBirth());
+        user.setGender(userDB.getGender());
+        user.setAddress(userDB.getAddress());
+        user.setRegisterTime(userDB.getRegisterTime());
+        user.setAuthority(userDB.getAuthority());
+        user.setEnabled(userDB.isEnabled());
+        userService.updateUser(user);
 
 
+        return "user/pswReset_success";
+    }
+//-------------------------------------------------------------------
 
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {

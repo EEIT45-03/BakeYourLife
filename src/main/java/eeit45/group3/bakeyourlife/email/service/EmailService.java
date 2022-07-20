@@ -5,6 +5,8 @@ import eeit45.group3.bakeyourlife.course.model.Register;
 
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.scheduling.annotation.Async;
 
 import javax.mail.MessagingException;
 
@@ -31,4 +33,11 @@ public interface EmailService {
     ) throws MessagingException;
 
 
+    @Async//非同步
+    void sendFindpawMail(
+            String to,//收件者
+            String subject,//主旨
+            User user,//內容
+            String templateName//模板名稱
+    ) throws MessagingException;
 }

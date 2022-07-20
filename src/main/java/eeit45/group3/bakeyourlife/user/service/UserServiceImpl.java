@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.user.service;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.user.dao.UserRepository;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import net.bytebuddy.utility.RandomString;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
     UserRepository repository;
     PasswordEncoder encoder;
     JavaMailSender mailSender;
+    @Autowired
+    EmailService emailService;
     @Autowired
     public UserServiceImpl(UserRepository repository, PasswordEncoder encoder,JavaMailSender mailSender) {
         this.repository = repository;
@@ -106,6 +109,33 @@ public class UserServiceImpl implements UserService {
 
         sendVerificationEmail(user, siteURL);
     }
+
+
+
+    @Override
+    public void resetpsw(User user) {
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+
+        repository.save(user);
+        sendfindpswEmail(user);
+    }
+
+
+
+
+    @Override
+    public void sendfindpswEmail(User user) {
+//        String randomCode = RandomString.make(64);
+        String email = user.getEmail();
+        try {
+            emailService.sendFindpawMail(email, "[Bake Your Life 烘焙材料網] 重設您的密碼",user,"findpswmail");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void sendVerificationEmail(User user, String siteURL)
             throws UnsupportedEncodingException,MessagingException {
@@ -145,6 +175,22 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setVerificationCode(null);
             user.setEnabled(true);
+            repository.save(user);
+
+            return true;
+        }
+
+    }
+
+    @Override
+    //--------------------------------------------------------------
+    public boolean pswverify(String verificationCode) {
+        User user = repository.findByVerificationCode(verificationCode);
+
+        if (user == null) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
             repository.save(user);
 
             return true;

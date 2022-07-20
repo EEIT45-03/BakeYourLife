@@ -3,12 +3,8 @@ package eeit45.group3.bakeyourlife.email.service;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.user.model.User;
-import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Register;
-import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
-import eeit45.group3.bakeyourlife.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -17,8 +13,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import java.io.UnsupportedEncodingException;
 
 @Service("EmailService")
 public class EmailServiceImpl implements EmailService {
@@ -134,4 +128,25 @@ public class EmailServiceImpl implements EmailService {
 
     }
 
+    @Override
+    @Async//非同步
+    public void sendFindpawMail(
+            String to,//收件者
+            String subject,//主旨
+            User user,//內容
+            String templateName//模板名稱
+    ) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("user", user);
+        String process = templateEngine.process("emails/"+templateName, context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(FROM_EMAIL);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        javaMailSender.send(mimeMessage);
+        System.out.println("已發送重設密碼信件");
+
+    }
 }
