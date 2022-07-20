@@ -19,11 +19,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     UserDetailsService userDetailsService;
+    CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Autowired
     @Lazy
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
+    public void setUserDetailsService(UserDetailsService userDetailsService,CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
         this.userDetailsService = userDetailsService;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
 
     @Bean
@@ -48,6 +50,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 //1.successForwardUrl：請求轉發，轉發後瀏覽器的位址不會變，登入成功後不會跳轉到原來的位址。
                 //2.defaultSuccessUrl：302重定向，登入成功後會跳轉到原來的位址。
+                .failureHandler(customAuthenticationFailureHandler)
                 .defaultSuccessUrl("/default", false)
                 .and().rememberMe()
 //                .key("123")
