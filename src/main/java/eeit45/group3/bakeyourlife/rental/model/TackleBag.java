@@ -34,7 +34,7 @@ public class TackleBag implements Serializable {
     private Tackle tackle;
 
     //器具租借清單
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="FK_tackleListId", referencedColumnName = "tackleListId", nullable = false)
     private TackleList tackleList;
 

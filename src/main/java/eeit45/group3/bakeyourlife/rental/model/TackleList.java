@@ -59,8 +59,8 @@ public class TackleList implements Serializable {
 	private String state;
 
 	//器具包
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "tackleList")
-	private Set<TackleBag> tackleBags = new LinkedHashSet<TackleBag>();
+	@OneToOne(cascade = {CascadeType.ALL}, mappedBy = "tackleList")
+	private TackleBag tackleBag;
 
 	//租借單
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -71,18 +71,14 @@ public class TackleList implements Serializable {
 	public TackleList() {
 	}
 
-	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer total, String state, Set<TackleBag> tackleBags, Rental rental) {
+	public TackleList(String tackleListNo, Date lendDate, Date endDate, Date returnDate, Integer total, String state, TackleBag tackleBag, Rental rental) {
 		this.tackleListNo = tackleListNo;
 		this.lendDate = lendDate;
 		this.endDate = endDate;
 		this.returnDate = returnDate;
 		this.total = total;
 		this.state = state;
-		this.tackleBags = tackleBags;
-		this.rental = rental;
-	}
-
-	public TackleList(Rental rental) {
+		this.tackleBag = tackleBag;
 		this.rental = rental;
 	}
 
@@ -126,22 +122,6 @@ public class TackleList implements Serializable {
 		this.returnDate = returnDate;
 	}
 
-	public Set<TackleBag> getTackleBags() {
-		return tackleBags;
-	}
-
-	public void setTackleBags(Set<TackleBag> tackleBags) {
-		this.tackleBags = tackleBags;
-	}
-
-	public Rental getRental() {
-		return rental;
-	}
-
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
-
 	public Integer getTotal() {
 		return total;
 	}
@@ -158,4 +138,19 @@ public class TackleList implements Serializable {
 		this.state = state;
 	}
 
+	public TackleBag getTackleBag() {
+		return tackleBag;
+	}
+
+	public void setTackleBag(TackleBag tackleBag) {
+		this.tackleBag = tackleBag;
+	}
+
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
 }

@@ -1,57 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>新增器具清單</title>
-
-  <div th:replace="admin/css.html"></div>
-  <style>
-  </style>
-</head>
-
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-  <div th:replace="admin/sidebar.html"></div>
-
-  <!-- Content Wrapper -->
-  <div id="content-wrapper" class="d-flex flex-column">
-
-    <!-- Main Content -->
-    <div id="content">
-
-      <div th:replace="admin/header.html"></div>
 
 
-      <!-- Begin Page Content -->
-      <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800"></h1>
-        <p class="mb-4">
-          <a href="../Rental/" class="btn btn-primary btn-icon-split btn-sm">
-							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
-						</span> <span class="text">返回</span></a>
-        </p>
-
-<!--        <div th:if="${error}" class="alert alert-danger" role="alert"></div>-->
-
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">新增器具清單</h6>
-          </div>
-          <div class="card-body">
-<form action="" method="post" th:object="${tackleList}">
+<form th:action="@{CreateTackleList(FK_rentalId=*{rental.rentalId})}" method="post" th:object="${tackleList}">
 
 
 
@@ -129,92 +78,37 @@
           <th>器具</th>
           <th>數量</th>
           <th>小計</th>
-
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <td>
+        <th>
           <select th:field="*{tackleIds}" class="form-control form-select mb-3"
                   name="tackles" type="text"  aria-label="Default select example" >
             <option th:each="tackle : ${tackles}" th:value="${tackle.tackleId}"
                     th:text="${tackle.tackleName}" ></option>
           </select>
-        </td>
-        <td>
+        </th>
+        <th>
           <input th:field="*{quantitys}" type="number" class="form-control"
-                   name="quantitys" th:min="1" required="required"/>
-        </td>
-        <td>
+                   name="quantitys" th:min="0" required="required"/>
+        </th>
+        <th>
           <input th:field="*{prices}" type="number" class="form-control"
-                 name="prices" th:min="1" required="required"/>
-        </td>
+                 name="prices" th:min="0" required="required"/>
+        </th>
+        <tr>
+          <td><button type="button" id="bag_btn" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+          </button></td>
+        </tr>
         </tbody>
       </table>
-      <a id="btn" class="btn btn-primary">
-        <i class="fas fa-plus"></i>
-      </a>
+
     </div>
   </div>
 
   <button type="submit" id="submit" class="btn btn-primary">建立清單</button>
 
 </form>
-          </div>
-        </div>
-      </div>
-      <!-- /.container-fluid -->
-
-    </div>
-    <!-- End of Main Content -->
-
-    <div th:replace="admin/footer.html"></div>
-
-
-  </div>
-  <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-
-
-<!-- Bootstrap core JavaScript-->
-<div th:replace="admin/javascript.html"></div>
-
 <script th:src="@{/js/rental.js}"></script>
-<script>
-  $(function () {
-
-
-  $('#btn').click(function(){
-    let content='<tr>'+
-                '<td>'+
-                '<select th:field="[[*{tackleIds}]]" class="form-control form-select mb-3"'+
-            'name="tackles" type="text"  aria-label="Default select example" >'+
-            '<option th:each="[[tackle : ${tackles}]]" th:value="[[${tackle.tackleId}]]"'+
-                   'th:text="[[${tackle.tackleName}]]" ></option>'+
-          '</select>'+
-            '</td>'+
-            '<td>'+
-                '<input th:field="[*{quantitys}]" type="number" class="form-control"'+
-                   'name="quantitys" th:min="0" required="required"/>'+
-            '</td>'+
-            '<td>'+
-                '<input th:field="[*{prices}]" type="number" class="form-control"'+
-                 'name="prices" th:min="0" required="required"/>'+
-            '</td>'+
-            '<td><button class="del btn btn-danger"><i class="fas fa-minus"></i></button></td>'+
-        '</tr>';
-    if($('tr').length<=10){
-      $('tbody').append(content)
-    }
-  })
-  $('tbody').on('click','.del',function(){
-    $(this).closest('tr').remove()
-  })
-
-  });
-</script>
-</body>
-
-</html>

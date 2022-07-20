@@ -71,24 +71,14 @@ public class Tackle implements Serializable {
 	private TackleSort tackleSort ;
 
 	@Transient
-	private MultipartFile[] tackleImage;
+	private List<String> base64;
 
+	@Transient
+	private Integer sortId;
 	public Tackle() {
 	}
 
-	public Tackle(String tackleName, String specification, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
-		this.tackleName = tackleName;
-		this.specification = specification;
-		this.dayPrice = dayPrice;
-		this.damages = damages;
-		this.max = max;
-		this.notes = notes;
-		this.tackleBags = tackleBags;
-		this.tackleSort = tackleSort;
-		this.tackleImage = tackleImage;
-	}
-
-	public Tackle(String tackleName, String specification, List<TacklePicList> tacklePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, MultipartFile[] tackleImage) {
+	public Tackle(String tackleName, String specification, List<TacklePicList> tacklePicList, Integer dayPrice, Integer damages, Integer max, String notes, Set<TackleBag> tackleBags, TackleSort tackleSort, List<String> base64, Integer sortId) {
 		this.tackleName = tackleName;
 		this.specification = specification;
 		this.tacklePicList = tacklePicList;
@@ -98,7 +88,8 @@ public class Tackle implements Serializable {
 		this.notes = notes;
 		this.tackleBags = tackleBags;
 		this.tackleSort = tackleSort;
-		this.tackleImage = tackleImage;
+		this.base64 = base64;
+		this.sortId = sortId;
 	}
 
 	public Integer getTackleId() {
@@ -129,7 +120,7 @@ public class Tackle implements Serializable {
 		return tacklePicList;
 	}
 
-	public void setTacklePicList(List<TacklePicList> venuePicList) {
+	public void setTacklePicList(List<TacklePicList> tacklePicList) {
 		this.tacklePicList = tacklePicList;
 	}
 
@@ -181,11 +172,19 @@ public class Tackle implements Serializable {
 		this.tackleSort = tackleSort;
 	}
 
-	public MultipartFile[] getTackleImage() {
-		return tackleImage;
+	public List<String> getBase64() {
+		return base64;
 	}
 
-	public void setTackleImage(MultipartFile[] tackleImage) {
-		this.tackleImage = tackleImage;
+	public void setBase64(List<String> base64) {
+		this.base64 = base64;
+	}
+
+	public Integer getSortId() {
+		return sortId;
+	}
+
+	public void setSortId(Integer sortId) {
+		this.sortId = sortId;
 	}
 }

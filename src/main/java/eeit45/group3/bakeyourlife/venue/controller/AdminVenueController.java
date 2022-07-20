@@ -1,5 +1,7 @@
 package eeit45.group3.bakeyourlife.venue.controller;
 
+import eeit45.group3.bakeyourlife.tackle.model.Tackle;
+import eeit45.group3.bakeyourlife.venue.dto.text;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.model.VenuePicList;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
@@ -12,6 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
+import java.util.List;
+import java.util.Map;
+
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Controller
@@ -20,6 +27,8 @@ public class AdminVenueController {
 
     @Autowired
     private VenueService venueService;
+
+
 
 
     @GetMapping("/")
@@ -51,28 +60,27 @@ public class AdminVenueController {
     @GetMapping("/CreateVenue")
     public String viewCreateVenue(Model model) {
         model.addAttribute("sorts", venueService.findAllVenueSort());
-        model.addAttribute("venue",new Venue());
+//        model.addAttribute("venue",new Venue());
         return "/admin/venue/CreateVenue";
     }
 
-    @PostMapping("/CreateVenue")
-    public String createVenue(@ModelAttribute("venue") Venue venue,
-                              @RequestParam(value = "venueImage", required = false) MultipartFile[] file,
-                              BindingResult bindingResult) {
-
-        if(bindingResult.hasErrors()){
-            return "/admin/venue/Venue";
+    @ResponseBody
+    @RequestMapping(value = "/CreateVenue",method = RequestMethod.POST)
+    public void createVenue(@RequestBody @Valid Map<String,Object> venue) {
+        Venue venueDb = null;
+        if (venue != null){
+            venueDb = venueService.createVenue(venue);
         }
-        venueService.createVenue(venue);
-        venueService.createVenuePicList(venue.getVenueName(),file);
-
-        return "redirect:./";
+        if (venue.get("base64")!=null){
+            venueService.createVenuePicList(venueDb,(List<String>)venue.get("base64"));
+        }
+//        return "redirect:../";
     }
 
 
 
-    @GetMapping("/UpdateVenue")
-    public String viewUpdateVenue(@RequestParam Integer venueId, Model model) {
+    @GetMapping("/UpdateVenue/{venueId}")
+    public String viewUpdateVenue(@PathVariable Integer venueId, Model model) {
         model.addAttribute("sorts", venueService.findAllVenueSort());
         Venue venue = null;
         if(venueId != null){
@@ -87,18 +95,11 @@ public class AdminVenueController {
     }
 
 
-    @PostMapping("/UpdateVenue")
-    public String updateVenue(@RequestParam Integer venueId,
-                              @ModelAttribute("venueRequest") Venue venue,
-                              @RequestParam(value = "venueImage", required = false) MultipartFile[] file,
-                              BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return  "/admin/venue/Venue";
-        }
-
-//        venue.setPicture(updateByMultipartFile(file).getLink());
-        venueService.updateVenue(venue);
-
+    @ResponseBody
+    @RequestMapping(value = "/UpdateVenue",method = RequestMethod.POST)
+    public String updateVenue(@RequestBody @Valid Map<String,Object> venue) {
+        Venue venueDb = venueService.updateVenue(venue);
+        venueService.updateVenuePicList(venueDb, (List<String>)venue.get("base64"));
         return "redirect:./";
     }
 

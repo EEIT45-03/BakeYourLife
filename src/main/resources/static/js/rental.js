@@ -201,6 +201,26 @@ function createTackleList(rentalId){
                 title: '新增器具清單',
                 icon: 'info',
                 html:data,
+                width: '60%',
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false
+
+            })
+        });
+}
+
+function createTackleBag(ListId){
+    Swal.showLoading()
+    fetch('./CreateTackleList?FK_rentalId=' + ListId)
+        .then(response => response.text())
+        .then(function(data){
+
+            Swal.fire({
+                title: '新增器具清單',
+                icon: 'info',
+                html:data,
                 // width: '40%',
                 showCloseButton: true,
                 showCancelButton: false,
