@@ -16,9 +16,9 @@
 //    private String resultImageUrl;
 //    @Transient
 //    private MultipartFile resultFile;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "fk_user_id")
-//    private User user;
+////    @ManyToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "fk_user_id")
+////    private User user;
 //
 ////    @ManyToOne(fetch = FetchType.LAZY)
 ////    @JoinColumn(name = "fk_register")
@@ -26,20 +26,19 @@
 //
 //    public Result(){}
 //
-//    public Result(Long resultId, String resultTitle, String resultComment, String resultImageUrl, MultipartFile resultFile, User user) {
+//    public Result(Long resultId, String resultTitle, String resultComment, String resultImageUrl, MultipartFile resultFile, Register register) {
 //        this.resultId = resultId;
 //        this.resultTitle = resultTitle;
 //        this.resultComment = resultComment;
 //        this.resultImageUrl = resultImageUrl;
 //        this.resultFile = resultFile;
-//        this.user = user;
 //
 //    }
 //
 //    public Long getResultId() {
 //        return resultId;
 //    }
-//
+////
 //    public void setResultId(Long resultId) {
 //        this.resultId = resultId;
 //    }
@@ -76,13 +75,7 @@
 //        this.resultFile = resultFile;
 //    }
 //
-//    public User getUser() {
-//        return user;
-//    }
 //
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 //
 //
 //}
