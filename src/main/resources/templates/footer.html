@@ -91,7 +91,7 @@
 <script type="text/javascript"
         src="/js/datatables.min.js"></script>
 
-<script>
+<script sec:authorize="!hasRole('ROLE_FARMER')">
     fetch('[[@{/Carts}]]')
         .then(response => response.json())
         .then(function (cart) {
@@ -140,6 +140,8 @@
                 )
             });
     }
+</script>
+    <script>
 
     function showLoader() {
         $(".loader").show();

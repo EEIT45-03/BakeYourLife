@@ -65,7 +65,7 @@ public class ShoppingCartController {
     public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart, Authentication authentication, ModelMap model) {
         if(authentication!=null){
             User user = userService.getCurrentUser(authentication);
-            if(redisTemplate.opsForValue().get("cart_" + user.getUserId()) != null){
+            if(user!= null && redisTemplate.opsForValue().get("cart_" + user.getUserId()) != null){
             cart = redisTemplate.opsForValue().get("cart_" + user.getUserId());
             model.addAttribute("cart", cart);
             }
@@ -104,7 +104,9 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
+        if(currentUser!= null){
         redisTemplate.opsForValue().set("cart_" + currentUser.getUserId(), cart);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 

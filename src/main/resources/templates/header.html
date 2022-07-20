@@ -12,7 +12,7 @@
     <div class="humberger__menu__cart">
         <ul>
             <!--            <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>-->
-            <li><a href="/Cart"><i class="fa fa-shopping-cart"></i> <span class="cartCount"></span></a></li>
+            <li sec:authorize="!hasRole('ROLE_FARMER')"><a href="/Cart"><i class="fa fa-shopping-cart"></i> <span class="cartCount"></span></a></li>
         </ul>
         <!--        <div class="header__cart__price">item: <span>$150.00</span></div>-->
     </div>
@@ -494,7 +494,7 @@
                 <div class="header__cart" >
                     <ul>
 <!--                        <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>-->
-                        <li><a href="/Cart"><i class="fa-solid fa-cart-shopping "></i><span class="cartCount"></span></a>
+                        <li sec:authorize="!hasRole('ROLE_FARMER')"><a href="/Cart"><i class="fa-solid fa-cart-shopping "></i><span class="cartCount"></span></a>
                         </li>
                     </ul>
                     <!--                    <div class="header__cart__price">item: <span>訂單價錢</span></div>-->
