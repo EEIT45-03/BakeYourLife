@@ -41,11 +41,11 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Section Begin -->
-<section class="product spad" style="background: #ffdf7e ">
+<section class="product spad" >
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-5">
-                <div class="sidebar" style="border: 1px solid #000;background: #f4b30d ">
+                <div class="sidebar" >
                     <div class="sidebar__item">
                         <h4>材料項目</h4>
                         <ul>
@@ -58,15 +58,15 @@
 <!--                            <li><a th:href="@{jam}">抹醬</a></li>-->
 <!--                            <li><a th:href="@{spice}">嚴選香料</a></li>-->
 <!--                            <li><a th:href="@{sugar}">彩糖</a></li>-->
-                            <li  style="border-top: 1px solid #000;"><a  th:onclick='showByType("商品總覽")'>商品總覽</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("麵粉")'>麵粉</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("巧克力")'>巧克力</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("乳製品")'>乳製品</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("抹醬")'>抹醬</a></li>
-                            <li  style="border-top: 1px solid #000;"><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
-                            <li  style="border-top: 1px solid #000;border-bottom: 1px solid #000;"><a th:onclick='showByType("彩糖")'>彩糖</a></li>
+                            <li  ><a  th:onclick='showByType("商品總覽")'>商品總覽</a></li>
+                            <li  ><a th:onclick='showByType("麵粉")'>麵粉</a></li>
+                            <li  ><a th:onclick='showByType("巧克力")'>巧克力</a></li>
+                            <li  ><a th:onclick='showByType("乳製品")'>乳製品</a></li>
+                            <li  ><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
+                            <li  ><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
+                            <li  ><a th:onclick='showByType("抹醬")'>抹醬</a></li>
+                            <li  ><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
+                            <li  ><a th:onclick='showByType("彩糖")'>彩糖</a></li>
 
                         </ul>
                     </div>
@@ -154,13 +154,12 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                    <div class="sidebar__item">-->
-                        <div class="latest-product__text" style="background: #f4b30d ">
+                        <div class="latest-product__text" >
                             <h4>推薦商品</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item" th:each="sales: ${Sales}">
                                     <a th:href="@{Picture(id=${sales.id},name=${sales.name})}"
-                                       class="latest-product__item"
-                                       style="background: #ed969e " >
+                                       class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img    style="width:110px;height: 110px"
                                                     th:src="${sales.imageUrl}" alt="">
@@ -206,21 +205,19 @@
 <!--                    </div>-->
 <!--                    </tr>-->
                     <div class="filter__item col-12">
-                        <div class="row" style="border-top: 1px solid #000;
-                        border-right: 1px solid #000;
-                        border-left: 1px solid #000;background: #f78d5e ">
-                            <div class="col-lg-4 col-md-5" style="border-bottom: 1px solid #000;">
+                        <div class="row" ;>
+                            <div class="col-lg-4 col-md-5" >
                                 <div class="filter__sort">
 
                                 </div>
                             </div>
-                    <div class="col-lg-4 col-md-4" style="border-bottom: 1px solid #000;">
+                    <div class="col-lg-4 col-md-4" >
                         <div class="filter__found" id="countDiv" >
                             <h6>共 <span th:text="${goods.size()}"></span>項商品</h6>
                         </div>
                     </div>
 
-                            <div class="col-lg-4 col-md-6" style="border-bottom: 1px solid #000;">
+                            <div class="col-lg-4 col-md-6">
                                 <div class="filter__sort">
 
                                 </div>
@@ -228,8 +225,7 @@
             </div>
             <!--              右邊下面的商品開始-->
             <div class="row" id="productContent">
-                <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}" style="border-right: 1px solid #000;
-                border-left: 1px solid #000;border-bottom: 1px solid #000;background: #f78d5e ">
+                <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}" >
                     <div class="product__item">
                         <a th:href="@{Picture(id=${bean.id},name=${bean.name})}">
                             <div class="product__item__pic set-bg"
@@ -270,8 +266,7 @@
                 let result = JSON.parse(xhr.responseText);
                 let data = ``;
                 for (let i = 0; i < result.length; i++) {
-                    data += `<div class="col-lg-4 col-md-6 col-sm-6" style="border-right: 1px solid #000;
-                border-left: 1px solid #000;border-bottom: 1px solid #000;background: #f78d5e " >
+                    data += `<div class="col-lg-4 col-md-6 col-sm-6"  >
                         <div class="product__item">
                           <a href="Picture?id=${result[i].id}&name=${result[i].name}">
                             <div class="product__item__pic set-bg" style="background-image: url('${result[i].imageUrl}')">
