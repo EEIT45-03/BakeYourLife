@@ -38,5 +38,7 @@ public interface GoodsRepository extends JpaRepository<Goods,Integer> {
             "= (select min(cast(packages as int)) from member_goods_table3 ) ")
     Goods min();
 
+    @Query(nativeQuery = true, value = "select * from member_goods_table3 where sales = '是' and system = '上架中'")
+    List<Goods> findGoodsSales();
 
 }

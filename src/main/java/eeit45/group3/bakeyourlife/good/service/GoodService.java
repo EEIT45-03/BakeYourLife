@@ -32,4 +32,6 @@ public interface GoodService {
 	Goods max();
 
 	Goods min();
+
+	List<Goods> findGoodsSales();
 }
