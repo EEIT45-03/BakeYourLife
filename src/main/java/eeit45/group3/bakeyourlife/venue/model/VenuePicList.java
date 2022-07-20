@@ -35,7 +35,6 @@ public class VenuePicList implements Serializable {
     }
 
     public VenuePicList() {
-
     }
 
     public Integer getId() {

@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import java.util.List;
+import java.util.Map;
+
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Controller
@@ -60,16 +63,15 @@ public class AdminVenueController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/CreateVenue",method = RequestMethod.POST/*,produces={"application/json;charset=UTF-8"}*/)
-    public void createVenue(@RequestBody @Valid text venue /*Venue venue*/) {
-//        Venue venueDb = null;
-//        if (venue != null){
-//            venueDb = venueService.createVenue(venue);
-//        }
-//        if (venue.getBase64()!=null){
-//            venueService.createVenuePicList(venue);
-//        }
-        System.out.println(venue);
+    @RequestMapping(value = "/CreateVenue",method = RequestMethod.POST)
+    public void createVenue(@RequestBody @Valid Map<String,Object> venue) {
+        Venue venueDb = null;
+        if (venue != null){
+            venueDb = venueService.createVenue(venue);
+        }
+        if (venue.get("base64")!=null){
+            venueService.createVenuePicList(venueDb,(List<String>)venue.get("base64"));
+        }
     }
 
 

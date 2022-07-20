@@ -6,6 +6,7 @@ import eeit45.group3.bakeyourlife.venue.model.VenueSort;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface VenueService {
 
@@ -31,7 +32,7 @@ public interface VenueService {
     public Venue findByVenueName(String venueName);
 
     //新增場地
-    public Venue createVenue(Venue venue);
+    public Venue createVenue(Map<String,Object> venue);
 
 //    public Venue createVenue(Venue venue, MultipartFile[] file);
 
@@ -58,6 +59,6 @@ public interface VenueService {
     //查詢TOP3場地
     public List<Venue> findByVenueTopThree();
 
-    public boolean createVenuePicList(Venue venue);
+    public void createVenuePicList(Venue venue,List<String> list);
 
 }

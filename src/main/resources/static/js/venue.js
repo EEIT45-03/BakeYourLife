@@ -84,7 +84,7 @@ $(document).ready(function () {
 
             }
             reader.readAsDataURL(input[0].files[0]);
-            imgAdd();
+            // imgAdd();
         }
     }
 
@@ -124,11 +124,11 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", "i.del", function () {
-        $(this).prev().children().next().val("");
-        $(this).parent().remove();
-        $(".imgAdd").css("display", "block");
-    });
+    // $(document).on("click", "i.del", function () {
+    //     $(this).prev().children().next().val("");
+    //     $(this).parent().remove();
+    //     $(".imgAdd").css("display", "block");
+    // });
 
     $('#submit').on('click', function () {
         if (check) {

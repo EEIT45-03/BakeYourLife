@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
@@ -78,29 +79,37 @@ public class VenueSerivceImpl implements VenueService {
     //新增場地
     @Override
     @Transactional
-    public Venue createVenue(Venue venue) {
-        if(venue.getSort()!=null) {
-            VenueSort sort = venueSortRepository.findBySort(venue.getSort());
-            venue.setVenueSort(sort);
+    public Venue createVenue(Map<String,Object> venue) {
+        Venue venueDb = new Venue();
+        venueDb.setVenueName((String) venue.get("venueName"));
+        venueDb.setPersonMax(Integer.valueOf((String) venue.get("personMax")));
+        venueDb.setHrPrice(Integer.valueOf((String) venue.get("hrPrice")));
+        venueDb.setNotes((String) venue.get("notes"));
+        if(venue.get("sort")!=null) {
+            VenueSort sort = venueSortRepository.findBySort((String) venue.get("sort"));
+            venueDb.setVenueSort(sort);
         }
-        List<String> base64List = venue.getBase64();
-        List<VenuePicList> venuePicList = new ArrayList<>();
-        if (base64List != null && base64List.size() > 0) {
-            VenuePicList venuePic = new VenuePicList();
-            for (String base64 : base64List) {
-                venuePic.setVenue(venue);
-                venuePic.setPicture(ImgurService.updateByBase64(base64).getLink());
-                venuePicList.add(venuePic);
-            }
-        } else {
-            VenuePicList venuePic = new VenuePicList();
-            venuePic.setVenue(venue);
-            venuePic.setPicture("https://i.imgur.com/fWtT2ZK.png");
-            venuePicList.add(venuePic);
-        }
-        venue.setVenuePicList(venuePicList);
+//        List<String> base64List = (List<String>) venue.get("base64");
+//        List<VenuePicList> venuePicLists = new ArrayList<>();
+//        if (base64List != null && base64List.size() > 0) {
+//
+//            for (String base64 : base64List) {
+//                VenuePicList venuePicList = new VenuePicList();
+//                venuePicList.setVenue(venueDb);
+//                venuePicList.setPicture(ImgurService.updateByBase64(base64).getLink());
+//                venuePicLists.add(venuePicList);
+////                venuePicListRepository.save(venuePic);
+//            }
+//        } else {
+//            VenuePicList venuePicList = new VenuePicList();
+//            venuePicList.setVenue(venueDb);
+//            venuePicList.setPicture("https://i.imgur.com/fWtT2ZK.png");
+//            venuePicLists.add(venuePicList);
+////            venuePicListRepository.save(venuePic);
+//        }
+//        venueDb.setVenuePicList(venuePicLists);
 
-        return venueRepository.save(venue);
+        return venueRepository.save(venueDb);
     }
 
 
@@ -148,24 +157,21 @@ public class VenueSerivceImpl implements VenueService {
 
     @Override
     @Transactional
-    public boolean createVenuePicList(Venue venue) {
-        List<String> base64List = venue.getBase64();
-        List<VenuePicList> venuePicList = new ArrayList<>();
-        if (base64List != null && base64List.size() > 0) {
-            VenuePicList venuePic = new VenuePicList();
-            for (String base64 : base64List) {
+    public void createVenuePicList(Venue venue, List<String> list) {
+        if (list != null && list.size() > 0) {
+
+            for (String base64 : list) {
+                VenuePicList venuePic = new VenuePicList();
                 venuePic.setVenue(venue);
                 venuePic.setPicture(ImgurService.updateByBase64(base64).getLink());
-                venuePicList.add(venuePic);
+                venuePicListRepository.save(venuePic);
             }
         } else {
             VenuePicList venuePic = new VenuePicList();
             venuePic.setVenue(venue);
             venuePic.setPicture("https://i.imgur.com/fWtT2ZK.png");
-            venuePicList.add(venuePic);
+            venuePicListRepository.save(venuePic);
         }
-
-        return false;
     }
 
     @Override
