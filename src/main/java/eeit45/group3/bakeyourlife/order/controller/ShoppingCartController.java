@@ -240,6 +240,9 @@ public class ShoppingCartController {
     }
 
 
+    /*
+    只會需要時建一次(無登入時會自動建立[因為購物車AJAX]，登入時不會再呼叫此方法)
+     */
     @ModelAttribute("cart")
     public Cart cart(@ModelAttribute Cart cart, Authentication authentication) {
         User user = null;
@@ -291,7 +294,9 @@ public class ShoppingCartController {
         Cart cartRedis = null;
         if(currentUser!=null){
             cartRedis = redisTemplate.opsForValue().get("cart_" + currentUser.getUserId());
-            cart = cartRedis;
+            if(cartRedis!=null){
+                cart = cartRedis;
+            }
         }
         if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
             cart.updataItem(cartItem,qty);
