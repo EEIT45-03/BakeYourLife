@@ -176,12 +176,11 @@
                                         </td>
                                         <td th:utext="${#strings.replace(#strings.escapeXml(venue.notes),'&#10;','&lt;br&gt;')}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-warning btn-icon-split btn-sm"
-                                                    th:onclick="|updateVenue(${venue.venueId})|">
+                                            <a th:href="|UpdateVenue/${venue.venueId}|" class="btn btn-warning btn-icon-split btn-sm" >
                                               <span class="icon text-white-50">
                                                 <i class="fas fa-exclamation-triangle"></i>
                                               </span>
-                                            </button>
+                                            </a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-icon-split btn-sm"

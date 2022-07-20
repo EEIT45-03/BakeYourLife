@@ -126,7 +126,7 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-4 text-gray-800"></h1>
                 <p class="mb-4">
-                    <a href="../Venue/" class="btn btn-primary btn-icon-split btn-sm">
+                    <a href="../Venue/" class="btn btn-primary btn-icon-split btn-sm" id="previous">
 							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
 						</span> <span class="text">返回</span></a>
                 </p>
@@ -138,7 +138,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">新增場地</h6>
                     </div>
                     <div class="card-body">
-                        <div class="card-body" th:object="${venue}">
+                        <div class="card-body">
 
 
                             <!-- 場地名稱: -->
@@ -146,7 +146,7 @@
                                 <label for="vName" class="col-sm-3 col-form-labels">場地名稱:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control"
-                                           th:name="venueName" id="vName" maxlength="5" required="required"/>
+                                         name="venueName" id="vName" maxlength="5" required="required"/>
                                     <span class="show" id="s_vName"></span>
                                 </div>
                             </div>
@@ -187,10 +187,8 @@
 
                             <!-- 圖片: -->
                             <div class="row mb-3">
-                                <span class="col-sm-2 col-form-labels">圖片:</span>
-
-
-                                <i class="fa fa-plus imgAdd"></i>
+                                <span class="col-sm-3 col-form-labels">圖片:</span>
+                                    <i class="fa fa-plus imgAdd"></i>
                             </div>
                             <!--                            <div class="row mb-3">-->
                             <!--                                <label for="files" class="col-sm-3 col-form-labels">圖片:</label>-->
@@ -215,7 +213,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" id="submit" class="btn btn-primary">建立</button>
+                            <button type="submit" id="submit_c" class="btn btn-primary">建立</button>
                         </div>
                     </div>
                 </div>
@@ -238,9 +236,6 @@
 <!-- Bootstrap core JavaScript-->
 <div th:replace="admin/javascript.html"></div>
 <script th:src="@{/js/venue.js}"></script>
-<script>
-
-</script>
 </body>
 
 </html>

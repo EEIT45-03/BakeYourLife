@@ -37,7 +37,7 @@ public interface VenueService {
 //    public Venue createVenue(Venue venue, MultipartFile[] file);
 
     //更新場地
-    public Venue updateVenue(Venue venue);
+    public Venue updateVenue(Map<String,Object> venue);
 
     //刪除場地
     public void deleteVenue(Integer venueId);
@@ -60,5 +60,7 @@ public interface VenueService {
     public List<Venue> findByVenueTopThree();
 
     public void createVenuePicList(Venue venue,List<String> list);
+
+    public void updateVenuePicList(Venue venue,List<String> list);
 
 }

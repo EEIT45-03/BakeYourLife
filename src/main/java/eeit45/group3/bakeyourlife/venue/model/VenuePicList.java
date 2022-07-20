@@ -20,7 +20,7 @@ public class VenuePicList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(name = "picture", nullable = false, unique = true)
+    @Column(name = "picture"/*, nullable = false, unique = true*/)
     private String picture;
 
 

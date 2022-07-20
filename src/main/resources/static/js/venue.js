@@ -130,7 +130,7 @@ $(document).ready(function () {
     //     $(".imgAdd").css("display", "block");
     // });
 
-    $('#submit').on('click', function () {
+    $('#submit_c').on('click', function () {
         if (check) {
             var venue = getVenue();
             $.ajax({
@@ -145,7 +145,36 @@ $(document).ready(function () {
                         'success'
                     ).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload();
+                            location.href="../Venue/";
+                        }
+                    })
+                },
+                error: function (xhr, status, err) {
+                    console.log("error=" + err)
+                    console.log("status=" + status)
+                    console.log("xhr=" + xhr)
+                }
+            })
+
+        }
+    });
+
+    $('#submit_u').on('click', function () {
+        if (check) {
+            var venue = getVenue();
+            $.ajax({
+                url: "/admin/Venue/UpdateVenue",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(venue),
+                success: function (res) {
+                    Swal.fire(
+                        '更新成功',
+                        '場地已更新',
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href="../";
                         }
                     })
                 },
@@ -162,7 +191,7 @@ $(document).ready(function () {
 });
 
 function getVenue() {
-
+    let venueId = $.trim($("#vId").val());
     let venueName = $.trim($("#vName").val());
     let personMax = $.trim($("#pMax").val());
     let hrPrice = $.trim($("#hPri").val());
@@ -173,6 +202,7 @@ function getVenue() {
         base64Array.push($(this).val());
     });
     let venue = {
+        "venueId": venueId,
         "venueName": venueName,
         "personMax": personMax,
         "hrPrice": hrPrice,
@@ -189,7 +219,7 @@ function check(){
     let hrPrice = $.trim($("#hPri").val());
     let sort = $.trim($("#vSort").val());
     let notes = $.trim($("#tNotes").val());
-    if(venueName === '' || tackleName.length <=0){
+    if(venueName === '' || venueName.length <=0){
         Swal.fire(
             '請輸入場地名稱',
             '',

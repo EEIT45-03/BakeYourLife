@@ -29,6 +29,8 @@ public class AdminVenueController {
     private VenueService venueService;
 
 
+
+
     @GetMapping("/")
     public String viewIndex(@RequestParam(value = "vName", required = false) String venueName,
                             @RequestParam(value = "vSort", required = false) String sort,
@@ -58,7 +60,7 @@ public class AdminVenueController {
     @GetMapping("/CreateVenue")
     public String viewCreateVenue(Model model) {
         model.addAttribute("sorts", venueService.findAllVenueSort());
-        model.addAttribute("venue",new Venue());
+//        model.addAttribute("venue",new Venue());
         return "/admin/venue/CreateVenue";
     }
 
@@ -72,12 +74,13 @@ public class AdminVenueController {
         if (venue.get("base64")!=null){
             venueService.createVenuePicList(venueDb,(List<String>)venue.get("base64"));
         }
+//        return "redirect:../";
     }
 
 
 
-    @GetMapping("/UpdateVenue")
-    public String viewUpdateVenue(@RequestParam Integer venueId, Model model) {
+    @GetMapping("/UpdateVenue/{venueId}")
+    public String viewUpdateVenue(@PathVariable Integer venueId, Model model) {
         model.addAttribute("sorts", venueService.findAllVenueSort());
         Venue venue = null;
         if(venueId != null){
@@ -92,18 +95,11 @@ public class AdminVenueController {
     }
 
 
-    @PostMapping("/UpdateVenue")
-    public String updateVenue(@RequestParam Integer venueId,
-                              @ModelAttribute("venueRequest") Venue venue,
-                              @RequestParam(value = "venueImage", required = false) MultipartFile[] file,
-                              BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return  "/admin/venue/Venue";
-        }
-
-//        venue.setPicture(updateByMultipartFile(file).getLink());
-        venueService.updateVenue(venue);
-
+    @ResponseBody
+    @RequestMapping(value = "/UpdateVenue",method = RequestMethod.POST)
+    public String updateVenue(@RequestBody @Valid Map<String,Object> venue) {
+        Venue venueDb = venueService.updateVenue(venue);
+        venueService.updateVenuePicList(venueDb, (List<String>)venue.get("base64"));
         return "redirect:./";
     }
 
