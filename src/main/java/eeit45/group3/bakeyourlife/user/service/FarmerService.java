@@ -27,6 +27,10 @@ public interface FarmerService {
 
     Long count();
 
+    void farmerResetPsw(Farmer farmer);
+
+    void sendFindPswEmail(Farmer farmer);
+
     void register(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException;
 
@@ -35,4 +39,5 @@ public interface FarmerService {
 
     boolean verify(String verificationCode);
 
+    boolean farmerpswverify(String verificationCode);
 }

@@ -191,7 +191,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //--------------------------------------------------------------
     public boolean pswverify(String verificationCode) {
         User user = repository.findByVerificationCode(verificationCode);
 

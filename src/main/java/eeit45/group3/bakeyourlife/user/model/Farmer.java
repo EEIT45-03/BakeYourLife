@@ -29,6 +29,9 @@ public class Farmer implements Serializable {
     @Transient
     MultipartFile productImage;
 
+    @Transient
+    String newPassword;
+
     private String imageUrl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "farmer", cascade = CascadeType.ALL)
@@ -89,7 +92,7 @@ public class Farmer implements Serializable {
         this.farmerProductBeanList = farmerProductBeanList;
     }
 
-    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl, List<FarmerProductBean> farmerProductBeanList, String verificationCode, boolean enabled) {
+    public Farmer(Integer farmerId, String username, String password, String authority, String farmerName, String farmerInfo, String email, String phone, String address, Timestamp registerTime, MultipartFile productImage, String imageUrl, List<FarmerProductBean> farmerProductBeanList, String verificationCode, boolean enabled,String newPassword) {
         this.farmerId = farmerId;
         this.username = username;
         this.password = password;
@@ -105,6 +108,16 @@ public class Farmer implements Serializable {
         this.farmerProductBeanList = farmerProductBeanList;
         this.verificationCode = verificationCode;
         this.enabled = enabled;
+        this.newPassword = newPassword;
+
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getVerificationCode() {
