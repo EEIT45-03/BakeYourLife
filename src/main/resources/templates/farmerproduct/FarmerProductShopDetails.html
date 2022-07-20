@@ -22,6 +22,10 @@
             margin-bottom: 10px;
         }
 
+        .supplierLink:hover {
+            box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+        }
+
 
     </style>
 
@@ -104,8 +108,9 @@
                     </ul>
                 </div>
                 <!--            廠商資料-->
-                <a th:href="@{/FarmerProductShop/ShopGrid/{farmetId}(farmetId=*{farmer.farmerId})}">
-                    <div class="blog__details__content ">
+                <a th:href="@{/FarmerProductShop/ShopGrid/{farmetId}(farmetId=*{farmer.farmerId})}"
+                >
+                    <div class="blog__details__content supplierLink">
                         <div class="row">
                             <div class="col-lg-5 farmer">
                                 <div class="blog__details__author">

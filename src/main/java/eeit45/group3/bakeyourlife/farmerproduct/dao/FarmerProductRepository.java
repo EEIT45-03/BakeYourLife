@@ -85,8 +85,8 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
 
 
     //熱銷Top 6
-    @Query(nativeQuery = true, value = " select Top 6  f1.* from farmer_product f1 " +
-            " join(select 'F'+convert(varchar,farmer_product_id) AS 'fid',farmer_product_id from farmer_product ) f2 " +
+    @Query(nativeQuery = true, value = "  select Top 6  f1.* from farmer_product f1 " +
+            " join(select 'F'+convert(varchar,farmer_product_id) AS 'fid',farmer_product_id from farmer_product where state = '0' ) f2 " +
             " on f1.farmer_product_id =f2.farmer_product_id  " +
             " join(select product_no,sum(qty) as 'sumQty' from order_item where product_type ='小農' group by product_no  )f3  on f2.fid =f3.product_no order by sumQty desc")
     List<FarmerProductBean> topSix();
