@@ -56,7 +56,7 @@ public class RentalUIController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/inertVenueList",method = RequestMethod.POST)
+    @RequestMapping(value = "/User/inertVenueList",method = RequestMethod.POST)
     public void insertVenueList(@RequestBody @Valid VenueListRequest venueListRequest,
                                 Principal principal) throws ParseException {
         if (venueListRequest!=null){
