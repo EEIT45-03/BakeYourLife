@@ -6,7 +6,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>會員更改密碼</title>
+    <title>會員重設密碼</title>
     <div th:replace="css.html"></div>
     <link rel="stylesheet" href="/css/supplier.css" type="text/css">
 
@@ -78,40 +78,21 @@
                 <div class="col-lg-10 updateCard">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4>更改密碼</h4>
-                           <h6>為了保護你帳號的安全，請不要分享你的密碼給其他人<a th:href="@{/User/Findpsw}"><button class="btn btn-primary" STYLE="margin-left: 300px">忘記密碼</button></a></h6>
+                            <h4>重新設定密碼</h4>
                         </div>
 
                         <div class="card-body">
-                            <form id="form" action="" method="post" th:object="${user}" enctype="multipart/form-data">
+                            <form id="form" action="pswReset" method="post" th:object="${user}" enctype="multipart/form-data">
 
 
                                 <!--會員密碼: -->
                                 <div class="row mb-3">
-                                    <label for="password" class="col-sm-2 col-form-labels">現在的密碼:</label>
+                                    <label for="password" class="col-sm-2 col-form-labels">新密碼:</label>
                                     <div class="col-sm-10">
                                         <input th:field="*{password}" type="password"  class="form-control" minlength="6"
                                                id="password" name="password">
                                         <input id="achkPasw" type="checkbox" onclick="typeChanger()">顯示輸入
                                         <span class="show" id="s_password"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="newPassword" class="col-sm-2 col-form-labels">新的密碼:</label>
-                                    <div class="col-sm-10">
-                                        <input th:field="*{newPassword}" type="password"  class="form-control" minlength="6"
-                                               id="newPassword" name="newPassword">
-                                        <input id="bchkPasw" type="checkbox" onclick="newtypeChanger()">顯示輸入
-                                        <span class="show" id="s_newPassword"></span>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="conNewPassword" class="col-sm-2 col-form-labels">確認密碼:</label>
-                                    <div class="col-sm-10">
-                                        <input type="password"  class="form-control" minlength="6"
-                                               id="conNewPassword" name="conNewPassword">
-                                        <input id="cchkPasw" type="checkbox" onclick="connewtypeChanger()">顯示輸入
-                                        <span class="show" id="s_conNewPassword"></span>
                                     </div>
                                 </div>
 
@@ -150,24 +131,6 @@
 
         }
     }
-    function newtypeChanger() {
-        var txtpasw = $("#newPassword");
-        if (txtpasw.attr("type") == "password") {
-            document.getElementById("newPassword").type = "text";
-        } else {
-            document.getElementById("newPassword").type = "password";
-
-        }
-    }
-    function connewtypeChanger() {
-        var txtpasw = $("#conNewPassword");
-        if (txtpasw.attr("type") == "password") {
-            document.getElementById("conNewPassword").type = "text";
-        } else {
-            document.getElementById("conNewPassword").type = "password";
-
-        }
-    }
 
     window.onload = function () {
 
@@ -175,10 +138,6 @@
             return checkPassword() && checkNewPassword() && checkConNewPassword();
         }
         document.getElementById("password").oninput = checkPassword;
-        document.getElementById("newPassword").oninput = checkNewPassword;
-        document.getElementById("conNewPassword").oninput = checkConNewPassword;
-
-
 
     }
 
@@ -192,33 +151,6 @@
             return true;
         } else {
             document.getElementById("s_password").innerHTML = "<p class='wrong'>密碼格式錯誤: 必須至少 8 個字元含有大小寫英文字母且至少一個數字</p>";
-            document.getElementById('submit').disabled = true;
-            return false;
-        }
-    }
-    function checkNewPassword() {
-        var newPassword = document.getElementById("newPassword").value;
-        var res = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-        var flag1 = res.test(newPassword);
-        if (flag1) {
-            document.getElementById("s_newPassword").innerHTML = "<i class='fa-solid fa-check'></i>";
-            document.getElementById('submit').disabled = false;
-            return true;
-        } else {
-            document.getElementById("s_newPassword").innerHTML = "<p class='wrong'>密碼格式錯誤: 必須至少 8 個字元含有大小寫英文字母且至少一個數字</p>";
-            document.getElementById('submit').disabled = true;
-            return false;
-        }
-    }
-    function checkConNewPassword() {
-        var newPassword = document.getElementById("newPassword").value;
-        var conNewPassword = document.getElementById("conNewPassword").value;
-        if (newPassword == conNewPassword) {
-            document.getElementById("s_conNewPassword").innerHTML = "<i class='fa-solid fa-check'></i>";
-            document.getElementById('submit').disabled = false;
-            return true;
-        } else {
-            document.getElementById("s_conNewPassword").innerHTML = "<p class='wrong'>輸入的密碼不同</p>";
             document.getElementById('submit').disabled = true;
             return false;
         }

@@ -27,8 +27,12 @@ public interface FarmerService {
 
     Long count();
 
-    void register(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
-    void sendVerificationEmail(Farmer farmer, String siteURL)throws UnsupportedEncodingException, MessagingException;
+    void register(Farmer farmer)
+            throws UnsupportedEncodingException, MessagingException;
+
+    void sendVerificationEmail(Farmer farmer)
+            throws UnsupportedEncodingException, MessagingException;
+
     boolean verify(String verificationCode);
 
 }

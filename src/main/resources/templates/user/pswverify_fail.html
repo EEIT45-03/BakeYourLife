@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>密碼重設失敗</title>
+  <div th:replace="css.html"></div>
+
+</head>
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<div class="text-center">
+  <h4>很抱歉，密碼重設失敗，可能為驗證信件過期或其他不可預期之問題</h4>
+  <h4>請再次重設密碼或聯絡管理員，感謝您的配合</h4>
+  <h5><span id="sec"></span>秒後自動跳轉到更改密碼頁面</h5>
+</div>
+
+<div th:replace="footer.html"></div>
+<script>
+  //設定倒數秒數
+  var t = 6;
+  //顯示倒數秒數
+  function showTime(){
+    t -= 1;
+    document.getElementById('sec').innerHTML= t;
+    if(t==0){
+      location.href='[[@{/User/Updatepsw}]]';
+    }
+//每秒執行一次,showTime()
+    setTimeout("showTime()",1000);
+  }
+  //執行showTime()
+  showTime();
+</script>
+</body>
+</html>
