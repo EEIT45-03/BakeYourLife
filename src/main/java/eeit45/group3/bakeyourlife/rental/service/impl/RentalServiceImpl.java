@@ -105,6 +105,12 @@ public class RentalServiceImpl implements RentalService{
 	public List<Rental> findAllByTypeAndRentalNoStartingWith(String listType, String RentalNo) {
 		return rentalRepository.findAllByTypeAndRentalNoStartingWith(listType,RentalNo);
 	}
+
+	@Override
+	public List<Rental> findAllByState(String state) {
+		return rentalRepository.findAllByState(state);
+	}
+
 	//依會員與租借類型查詢租借單
 	@Override
 	public List<Rental> findAllByUserAndType(Integer userId, String listType) {
@@ -220,6 +226,19 @@ public class RentalServiceImpl implements RentalService{
 		return rental;
 	}
 
+	@Override
+	public Rental updateRentalPic(Rental rental) {
+		Long sum = null;
+		if("器具".equals(rental.getType())){
+			sum = tackleListRepository.findPriceSumByRental(rental);
+		} else if("場地".equals(rental.getType())){
+			sum = venueListRepository.findPriceSumByRental(rental);
+		}
+		rental.setTotal(sum.intValue());
+		Rental rentalDb = rentalRepository.save(rental);
+		return rentalDb;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/
@@ -248,6 +267,7 @@ public class RentalServiceImpl implements RentalService{
 	public Long findVenueListPriceSumByRental(Rental rental) {
 		return venueListRepository.findPriceSumByRental(rental);
 	}
+
 
 	//查詢某時間的場地使用狀況
 	@Override
@@ -323,6 +343,17 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	@Transactional
 	public VenueList updateVenueList(VenueList venueList) {
+		Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
+		venueList.setVenue(venue);
+		String period = venueList.getPeriod();
+		int num1 = Integer.valueOf(period.substring(0,2));
+		System.out.println(num1);
+		int num2 = Integer.valueOf(period.substring(6,8));
+		System.out.println(num2);
+		int num = num2-num1;
+		int price = num * venueList.getPerson() * venueList.getVenue().getHrPrice();
+		venueList.setPrice(price);
+		venueList.setIngredients("N");
 		return venueListRepository.save(venueList);
 	}
 

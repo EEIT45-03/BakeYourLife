@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的租借</title>
+
+    <div th:replace="css.html"></div>
+    <style>
+
+    </style>
+
+
+</head>
+
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>我的租借</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div th:replace="user/UserSidebar.html"></div>
+            <div class="col-lg-10 pt-5">
+
+                <div class="row">
+                    <p> <h4>租借編號:</h4><h4 th:text="${rental.rentalNo}"></h4></p>
+                    <hr>
+                    <p><h4>總金額:</h4><h4 th:text="${rental.total}"></h4></p>
+                </div>
+                <table class="table table-striped" id="rentalTable">
+                        <thead>
+                        <tr>
+                            <th>租借場地種類</th>
+                            <th>租借場地</th>
+                            <th>租借日期</th>
+                            <th>租借時段</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                            <th>修改</th>
+                            <th>刪除</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="list: ${lists}">
+                            <td th:text="${list.venue.venueSort.sort}"></td>
+                            <td th:text="${list.venue.venueName}"></td>
+                            <td th:text="${#dates.format(list.rentalDate, 'yyyy/MM/dd')}"></td>
+                            <td th:text="${list.period}"></td>
+                            <td th:text="${list.person}"></td>
+                            <td th:text="${list.price}"></td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-warning btn-icon-split btn-sm"
+                                        th:onclick="|updateUIVenueList(${list.venueListId})|">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-warning btn-icon-split btn-sm"
+                                        th:onclick="|deleteUIVenueList(${list.venueListId},${rental.rentalId})|">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-trash"></i>
+                            </span>
+                                </button>
+                            </td>
+                        </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+<div th:replace="footer.html"></div>
+
+<script th:src="@{/js/rental.js}"></script>
+
+<script>
+    //刪除場地清單
+    function deleteUIVenueList(venueListId,rentalId) {
+        console.log(rentalId)
+        Swal.fire({
+            title: '請問是否要刪除此清單?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '刪除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '../DeleteVenueList?venueListId=' + venueListId ,
+                    success: function (msg) {
+                        Swal.fire(
+                            '已刪除!',
+                            '清單已成功刪除!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location="/User/rental/update/"+rentalId;
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+            }
+        })
+    }
+    //跳出修改場地清單
+    function updateUIVenueList(venueListId){
+        Swal.showLoading()
+        fetch('../UpdateVenueList?venueListId=' + venueListId)
+            .then(response => response.text())
+            .then(function(data){
+
+                Swal.fire({
+                    title: '修改場地清單',
+                    icon: 'info',
+                    html:data,
+                    // width: '40%',
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+    }
+    //跳出新增場地清單
+    function createUIVenueList(rentalId){
+        Swal.showLoading()
+        fetch('./CreateVenueList?FK_rentalId=' + rentalId)
+            .then(response => response.text())
+            .then(function(data){
+
+                Swal.fire({
+                    title: '新增場地清單',
+                    icon: 'info',
+                    html:data,
+                    // width: '40%',
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false
+                })
+            });
+    }
+</script>
+</body>
+
+</html>

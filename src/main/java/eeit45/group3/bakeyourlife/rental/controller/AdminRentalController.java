@@ -117,7 +117,7 @@ public class AdminRentalController {
     }
 
 
-    @GetMapping("/UpdateRental")
+    @GetMapping(path = {"/UpdateRental",})
     public String viewUpdateRental(@RequestParam Integer rentalId, Model model) {
         Rental rental = null;
         List<User> users = userService.findAll();
