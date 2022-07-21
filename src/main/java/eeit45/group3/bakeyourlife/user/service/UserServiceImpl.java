@@ -119,6 +119,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void sendNewUserCouponEmail(User user) {
+        String email = user.getEmail();
+        try {
+            emailService.sendUserMail(email, "歡迎加入 Bake Your Life 烘焙材料網(內含優惠卷)",user,"coupon");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void resetpsw(User user) {
@@ -167,7 +177,7 @@ public class UserServiceImpl implements UserService {
             user.setVerificationCode(null);
             user.setEnabled(true);
             repository.save(user);
-
+            sendNewUserCouponEmail(user);
             return true;
         }
 

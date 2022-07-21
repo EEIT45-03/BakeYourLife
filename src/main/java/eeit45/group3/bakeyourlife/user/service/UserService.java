@@ -36,6 +36,8 @@ public interface UserService {
     void register(User user)throws UnsupportedEncodingException, MessagingException;
 
     void sendVerificationEmail(User user);
+    void sendNewUserCouponEmail(User user);
+
 
     void resetpsw(User user);
 
