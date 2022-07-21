@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.course.model;
 
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,9 +28,14 @@ public class Product {
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "cProduct")
 	private Set<Course> courseSet = new LinkedHashSet<Course>();
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_user_id")
-	private User user;
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private Set<StudentResult> studentResultSet;
+
+
+
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "fk_user_id")
+//	private User user;
 
 	public Product(){
 	}

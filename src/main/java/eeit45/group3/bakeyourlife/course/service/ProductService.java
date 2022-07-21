@@ -48,6 +48,14 @@ public class ProductService {
 
 		return p;
 	}
+
+	public String selectProductByIdReturnName(Long id)
+	{
+		Product p = new Product();
+		p = (Product) productRepo.findByName(String.valueOf(id));
+
+		return p.getName();
+	}
 	//-----Result
 //	public void createResult(Result result){
 //		resultRepository.save(result);

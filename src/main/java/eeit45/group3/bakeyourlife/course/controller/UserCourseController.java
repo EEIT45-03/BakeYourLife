@@ -1,19 +1,14 @@
 package eeit45.group3.bakeyourlife.course.controller;
 
-import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.model.Register;
 //import eeit45.group3.bakeyourlife.course.model.Result;
+import eeit45.group3.bakeyourlife.course.model.StudentResult;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
-import eeit45.group3.bakeyourlife.email.service.EmailService;
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
-import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
-import eeit45.group3.bakeyourlife.utils.Image;
-import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -34,13 +27,13 @@ public class UserCourseController {
     private CourseService courseService;
     private ProductService productService;
     private UserService userService;
-    private EmailService emailService;
+//    private EmailService emailService;
     @Autowired
-    public UserCourseController(CourseService courseService, ProductService productService, UserService userService, EmailService emailService) {
+    public UserCourseController(CourseService courseService, ProductService productService, UserService userService) {
         this.courseService = courseService;
         this.productService = productService;
         this.userService = userService;
-        this.emailService = emailService;
+//        this.emailService = emailService;
     }
     //------------------------------查看-------------------------------------------
     @GetMapping("/Course")
@@ -117,25 +110,73 @@ public class UserCourseController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//    //學員上傳結果
-//    @GetMapping("/User/Course/AddResult")
-//    public String showAddProduct(Model model) {
-//        //表單綁定用
-//        model.addAttribute("product",new Result());
-//        return "/course/CreateResult";
-//    }
-//
-//    @RequestMapping(value = "/User/Course/AddResult", method = RequestMethod.POST)
-//    public String saveProduct(
-//            @ModelAttribute Product product
-//    )
-//    {
-//        Image image = ImgurService.updateByMultipartFile(product.getFile());
-//        image.getLink();
-//        System.out.println("圖片連結: " + image.getLink());
-//        productService.saveProductToDB(image.getLink(), product.getName(), product.getDescription(), product.getSummary(), product.getPrice());
-//        return "redirect:./listProducts";
-//    }
+    @GetMapping("/Course2/{registerId}/{state}")
+    public String cancelRegisterEmail(@PathVariable Integer registerId, @PathVariable Integer state) {
+        Register register = null;
+        System.out.println(registerId);
+        System.out.println(state);
+        System.out.println("----------------------------------------------------------");
+        if(registerId !=null) {
+            register =  courseService.findByRegisterId(registerId).orElse(null);
+//            System.out.println(register.getState());
+            if(register.getState() == 4 || register == null){
+//                model.addAttribute("register", register);
+                return "course/errorState";
+            }
+        }
 
+
+
+        register.setState(state);//0報名成功 變成 1審核中
+        courseService.updateRegisterState(register);
+        return "redirect:/User/Course/UserRegister";
+
+
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //學員上傳結果
+    @GetMapping("/User/Course/AddResult")
+    public String viewCreateResult(@RequestParam(value = "fk_productId",required = false) Long fk_productId, Model model) {
+        Product product = null;
+        StudentResult studentResult = null;
+        if (fk_productId !=null){
+            product = productService.selectProductById(fk_productId);
+        } if (product != null){
+            studentResult = new StudentResult();
+            studentResult.setProduct(product);
+        }
+        //表單綁定用
+        model.addAttribute("studentResult",studentResult);
+        return "course/CreateStudentResult";
+    }
+
+    @PostMapping("/User/Course/AddResult")
+    public String createResult(@RequestParam(value = "fk_productId") Long fk_productId,
+            @ModelAttribute StudentResult studentResult, Authentication authentication )    {
+        User user = userService.getCurrentUser(authentication);
+        studentResult.setUser(user);
+        Product product = productService.selectProductById(fk_productId);
+        studentResult.setProduct(product);
+        courseService.createStudentResult(studentResult);
+        return "redirect:/";
+    }
+
+    //學生作品
+    @GetMapping("/Course/StudentResult")
+    public String viewIndexStudentResult(Model model) {
+        List<StudentResult> studentResultList = courseService.findAllStudentResult();
+        model.addAttribute("studentResultList", studentResultList);
+        return "course/studentResultList";
+    }
+
+    //學生作品ByProduct
+    @GetMapping("/Course/StudentResultByProduct")
+    public String viewIndexStudentResultByProduct(@RequestParam Long productId, Model model) {
+        List<StudentResult> studentResultList = courseService.findStudentReslutByProduct(productId);
+//        List<StudentResult> studentResultList = courseService.findAllStudentResult();
+        model.addAttribute("studentResultList", studentResultList);
+        return "course/studentResultList";
+    }
 
 }

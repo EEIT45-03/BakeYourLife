@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>學生成果</title>
+
+    <div th:replace="css.html"></div>
+    <style>
+        .wrapper{
+            width: 800px;
+            height: 400px;
+            background-color: black;
+            margin: 0 auto;
+            position: relative;
+        }
+        .slide-imgs{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            display: flex;
+            width: 4000px;
+            /* left: -800px; */
+
+        }
+        .slide-imgs li{
+            width: 800px;
+            height: 400px;
+        }
+        .slide-imgs li img{
+            width: 100%;
+            height: 100%;
+            /*控制元素內容填入大小比例*/
+            object-fit: cover;
+        }
+        .pages{
+            position: absolute;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            bottom: 10px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+        }
+        .pages li{
+            border: 1px solid white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .pages-arrow{
+            position: absolute;
+            z-index: 1;
+            font-size: 36px;
+            width: 40px;
+            height: 100%;
+            color: white;
+            display: flex;
+            /* 次軸對齊 */
+            align-items: center;
+            opacity: 6;
+            cursor: pointer;
+        }
+        .right{
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="header.html"></div>
+<div th:replace="menu.html"></div>
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Blog</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Home</a>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb Section End -->
+
+<!-- Blog Section Begin -->
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                        <form th:action="@{/Course/StudentResult}" method="get" enctype="multipart/form-data">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Categories</h4>
+                        <ul>
+                            <li><a href="#">All</a></li>
+                            <li><a href="#">Beauty (20)</a></li>
+                            <li><a href="#">Food (5)</a></li>
+                            <li><a href="#">Life Style (9)</a></li>
+                            <li><a href="#">Travel (10)</a></li>
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Recent News</h4>
+                        <div class="blog__sidebar__recent">
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="img/blog/sidebar/sr-1.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="img/blog/sidebar/sr-2.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="img/blog/sidebar/sr-3.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Search By</h4>
+                        <div class="blog__sidebar__item__tags">
+                            <a href="#">Apple</a>
+                            <a href="#">Beauty</a>
+                            <a href="#">Vegetables</a>
+                            <a href="#">Fruit</a>
+                            <a href="#">Healthy Food</a>
+                            <a href="#">Lifestyle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-2.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-3.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Visit the clean farm in the US</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-1.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-4.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-4.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">The Moment You Need To Remove Garlic From The Menu</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-6.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                    quaerat </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="product__pagination blog__pagination">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+
+
+<div th:replace="footer.html"></div>
+
+
+
+</body>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script>
+    var editor; //要先定義
+    $('#correctInput').click(function () {
+
+        $('#title').val('烘焙小百科:烘焙材料該怎麼保存？')
+        $('#type').val('食譜討論')
+        $('#type').niceSelect('update')
+        $('#date').val('2022-07-07')
+        //$('#content').val('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。')
+        editor.setData('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。除此之外，像是抹茶粉、可可粉、芝士粉、杏仁粉、奶粉等等，可以簡單地成為烘焙風味粉，旨在提高產品的風味，讓口感更加豐富另外常見的，還有糯米粉、粘米粉、玉米澱粉、馬鈴薯澱粉、木薯粉等等。上述眾多粉類的保存，都需要放置在避光、陰涼且乾燥的環境中密封保存另外由於這些粉類的強吸附力，應避免與氣味強烈的食材同放和遠離地面減少污染，防止霉變。然後像是一些不太常用的粉類，或者到了夏天特別炎熱的時候，一定要用保鮮盒密封起來放進冰箱冷藏，可以有效保存好這些粉類。');
+    })  //ckEditor要加setData才能使用JS一鍵輸入
+
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+            window.editor = editor;//一鍵輸入要加
+            editor = editor;//一鍵輸入要加
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+
+    $(document).ready(function(){
+        $("body").on("change", "#articleImage", function(e){
+            var file = e.target.files[0];
+            var mediabase64data;
+            getBase64(file).then(
+                mediabase64data => $('#previewImage').attr('src', mediabase64data)
+            );
+        });
+    })
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    $('#testadd').click(function (event) {
+        event.preventDefault();
+        add();
+    })
+
+    function add() {
+        const editorData = editor.getData(); //ckEditor要加getData，Ajax傳輸才能取到值
+        var formData = new FormData($('#form')[0]);
+        formData.append('content',editorData)   //append要用是附加傳資料
+        //console.log(formData)
+        $.ajax({
+            url: "[[@{/ArticleAdd}]]",
+            data: formData,
+            type: "post",
+            cache: false, // 不需要cache
+            processData: false, // jQuery預設會把data轉為query String, 所以要停用
+            contentType: false,
+            enctype: 'multipart/form-data',
+            // dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                // loadData();
+                // console.log(111111)
+                $('#InsertArticle').modal('hide');
+                window.location.reload();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    var selectElement = document.getElementById('typeSelect');
+    var xhr2 = new XMLHttpRequest();
+    var companyData = [];
+    selectElement.onchange = function(){
+        xhr2.onreadystatechange = function() {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                displayPageBooks(xhr2.responseText);
+            }
+        }
+        var articleType = selectElement.options[ selectElement.selectedIndex ].value;
+
+        xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
+        xhr2.send();
+
+        function displayPageBooks(map){
+            $('#container').html('')
+            var mapData = JSON.parse(map);
+            let html = ''
+             for(var i=0; i < mapData.length; i++){
+                        const append = `
+                    <div class="col-lg-6 col-md-6 col-sm-6" >
+                    <div class="blog__item"><div class="blog__item__pic" style="width: 200px;
+                              height: 200px;"><img style="display:block; margin:auto; border-radius:10px;width:100%; height:100%;" src=${mapData[i].imageUrl}>
+                     </div><div class="blog__item__text"><ul><li><i class="fa fa-calendar-o"></i>${mapData[i].date}</li><li><i class="fa fa-eye"></i>${mapData[i].counter}</li>
+                                            </ul><h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}">
+                                                   ${mapData[i].title}
+                                           </a></h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}"
+                                               class="blog__btn">觀看文章<span class="arrow_right"></span></a></div></div></div>`
+
+
+                        html = html + append
+             }
+
+
+            var div = document.getElementById('container');
+            div.innerHTML = html;
+            //$("#container").html(content);
+
+        }
+    }
+
+
+
+    let index=0
+    let slideMove=0
+    $(function(){
+        $('#pages li').on('mouseenter',function(){
+            // $('.slide-imgs').css('left','-800px')
+            index=$(this).index()
+            console.log(index)
+            slideMove=0-index*800
+            $('.slide-imgs').css('left',slideMove)
+            $(this).css('background','white')
+                .siblings().css('background','transparent')
+        })
+        let pagesli=$('.pages li').length
+        $('#slideNext').on('click',function(){
+            index++
+            if(index>=pagesli){
+                index=0
+            }
+            //    slideMove=0-index*800
+            //    $('.slide-imgs').css('left',slideMove)
+            //    $('#pages li').eq(index).css('background','white')
+            //    .siblings().css('background','transparent')
+            moveImg()
+        })
+        $('#slidePrev').on('click',function(){
+            index--
+            if(index<0){
+                index=pagesli-1
+            }
+            moveImg()
+
+        })
+        function moveImg(){
+            slideMove=0-index*800
+            $('.slide-imgs').css('left',slideMove)
+            $('#pages li').eq(index).css('background','white')
+                .siblings().css('background','transparent')
+        }
+    })
+
+    $(document).ready(() => {
+        $('.carousel').carousel({
+            interval: 1000
+        })
+    })
+</script>
+
+</html>

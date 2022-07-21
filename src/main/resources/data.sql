@@ -238,9 +238,10 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison918889@gmail.com', N'管理者', N'男', N'$2a$10$gZpVFhR6Qxp.EC4AP1s9HO0ZcLBgJlVZ8p4mQ4RyWTkGLXxybkaO2', N'0918583187', GETDATE(), N'user',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg',1)
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'vison919@gmail.com', N'跳跳虎', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/oGvQlYA.jpg',1)
 --課程測試帳號
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$qejRQsLN7pWVsMJn9f71DOusiUQ5hLxe73Ux0un/dp70R.uqohy4O', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/q5nYQAo.png',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'麵包超人', N'男', N'$2a$10$mRMiQNyTRMTbtxEXICVWieVdExX4stSVIVQPmEy7SW4MAyP5zN1OK', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/8OWhg3I.png',1)
+-- INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$T3NCCFHTBIuMYsREiyFGDOi08B1KGO4jQ1/mA/S/vbOa4aL3t0G1u', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/q5nYQAo.png',1)
 --文章測試
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png')
 
 
 --新增器具類別
@@ -432,7 +433,9 @@ INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_not
 SET IDENTITY_INSERT [dbo].[course_time] OFF
 --新增報名資料
 INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022001, 1, CAST(N'2022-01-01T11:00:00.0000000' AS DateTime2), 1, 1000, 1)
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022002, 3, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 1, 1001, 1)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022002, 2, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022003, 3, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022004, 4, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
 
 --新增文章資料
 SET IDENTITY_INSERT [dbo].[article] ON

@@ -4,6 +4,7 @@ package eeit45.group3.bakeyourlife.course.service;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
+import eeit45.group3.bakeyourlife.course.model.StudentResult;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.security.core.Authentication;
 
@@ -56,5 +57,13 @@ public interface CourseService {
 		void updateRegisterState(Register register);
 
 //		void addAttendanceToOpCourse(Course course);
+		void createStudentResult(StudentResult studentResult);
+		void createStudentResult(StudentResult studentResult, Authentication authentication);
+		void upadateStudentResult(StudentResult studentResult);
+
+		Optional<StudentResult> findStudentReslutById(Integer strId);
+		List<StudentResult> findStudentReslutByProduct(Long productId);
+		List<StudentResult> findAllStudentResult();
+
 
 }

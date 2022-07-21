@@ -1,13 +1,14 @@
 package eeit45.group3.bakeyourlife.course.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name = "courseRegister")
@@ -19,7 +20,7 @@ public class Register implements Serializable {
     private static final long serialVersionUID = 1L;
     //報名編號
     @Id
-    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 2022003 )
+    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 2022005 )
     @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ReSeq")
     private Integer registerId;
 
@@ -39,6 +40,7 @@ public class Register implements Serializable {
     @ManyToOne
     @JoinColumn(name="FK_opCourse", referencedColumnName = "openCourse", nullable = false)
     private Course course;
+
 
     public Register(Integer registerId, User user, Integer attendance, Integer totalPrice, Date registerDate, Integer state, Course course) {
         this.registerId = registerId;
