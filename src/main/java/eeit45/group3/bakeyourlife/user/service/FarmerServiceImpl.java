@@ -1,20 +1,18 @@
 package eeit45.group3.bakeyourlife.user.service;
 
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.user.dao.FarmerRepository;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
-import eeit45.group3.bakeyourlife.user.model.User;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -26,6 +24,8 @@ public class FarmerServiceImpl implements FarmerService {
     FarmerRepository farmerRepository;
     PasswordEncoder encoder;
     JavaMailSender mailSender;
+    @Autowired
+    EmailService emailService;
 
 
     @Autowired
@@ -89,7 +89,7 @@ public class FarmerServiceImpl implements FarmerService {
     }
 
     @Override
-    public void register(Farmer farmer, String siteURL)
+    public void register(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException {
         String encodedPassword = encoder.encode(farmer.getPassword());
         farmer.setPassword(encodedPassword);
@@ -100,37 +100,18 @@ public class FarmerServiceImpl implements FarmerService {
 
         farmerRepository.save(farmer);
 
-        sendVerificationEmail(farmer, siteURL);
+        sendVerificationEmail(farmer);
     }
 
     @Override
-    public void sendVerificationEmail(Farmer farmer, String siteURL)
+    public void sendVerificationEmail(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException {
-        String toAddress = farmer.getEmail();
-        String fromAddress = "bakeyourlifemail@gmail.com";
-        String senderName = "Bake Your Life 烘焙材料網";
-        String subject = "Bake Your Life 烘焙材料網小農廠商會員 "+farmer.getFarmerName()+ " 註冊驗證信件";
-        String content = "Dear [[name]],<br>"
-                + "請以下點擊連結完成註冊:<br>"
-                + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
-                + "謝謝您<br>";
-
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
-        helper.setSubject(subject);
-
-        content = content.replace("[[name]]", farmer.getFarmerName());
-        String verifyURL = siteURL + "/farmerVerify?code=" + farmer.getVerificationCode();
-
-        content = content.replace("[[URL]]", verifyURL);
-
-        helper.setText(content, true);
-
-        mailSender.send(message);
+        String email = farmer.getEmail();
+        try {
+            emailService.sendFarmerMail(email, "Bake Your Life 烘焙材料網 小農廠商註冊驗證信件",farmer,"farmersignupmail");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

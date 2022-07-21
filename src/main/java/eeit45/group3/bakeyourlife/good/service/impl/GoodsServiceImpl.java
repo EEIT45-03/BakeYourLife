@@ -89,4 +89,9 @@ public class GoodsServiceImpl implements GoodService {
     public Goods min() {
         return goodsRepository.min();
     }
+
+    @Override
+    public List<Goods> findGoodsSales() {
+        return goodsRepository.findGoodsSales();
+    }
 }

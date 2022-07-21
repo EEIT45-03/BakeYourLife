@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>一般商品</title>
 
     <div th:replace="css.html"></div>
 <style>
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>商品總覽</h2>
+                    <h2>商品</h2>
 <!--                    <div class="breadcrumb__option">-->
 <!--                        <a href="./index.html">Home</a>-->
 <!--                        <span>Shop</span>-->
@@ -41,13 +41,13 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Section Begin -->
-<section class="product spad">
+<section class="product spad" >
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-5">
-                <div class="sidebar">
+                <div class="sidebar" >
                     <div class="sidebar__item">
-                        <h4>精選材料</h4>
+                        <h4>材料項目</h4>
                         <ul>
 <!--                            <li><a th:href="@{/Goods1/}">商品總覽</a></li>-->
 <!--                            <li><a th:href="@{flour}">麵粉</a></li>-->
@@ -58,15 +58,15 @@
 <!--                            <li><a th:href="@{jam}">抹醬</a></li>-->
 <!--                            <li><a th:href="@{spice}">嚴選香料</a></li>-->
 <!--                            <li><a th:href="@{sugar}">彩糖</a></li>-->
-                            <li><a th:onclick='showByType("商品總覽")'>商品總覽</a></li>
-                            <li><a th:onclick='showByType("麵粉")'>麵粉</a></li>
-                            <li><a th:onclick='showByType("巧克力")'>巧克力</a></li>
-                            <li><a th:onclick='showByType("乳製品")'>乳製品</a></li>
-                            <li><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
-                            <li><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
-                            <li><a th:onclick='showByType("抹醬")'>抹醬</a></li>
-                            <li><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
-                            <li><a th:onclick='showByType("彩糖")'>彩糖</a></li>
+                            <li  ><a  th:onclick='showByType("商品總覽")'>商品總覽</a></li>
+                            <li  ><a th:onclick='showByType("麵粉")'>麵粉</a></li>
+                            <li  ><a th:onclick='showByType("巧克力")'>巧克力</a></li>
+                            <li  ><a th:onclick='showByType("乳製品")'>乳製品</a></li>
+                            <li  ><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
+                            <li  ><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
+                            <li  ><a th:onclick='showByType("抹醬")'>抹醬</a></li>
+                            <li  ><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
+                            <li  ><a th:onclick='showByType("彩糖")'>彩糖</a></li>
 
                         </ul>
                     </div>
@@ -153,79 +153,34 @@
 <!--                            </label>-->
 <!--                        </div>-->
 <!--                    </div>-->
-                    <div class="sidebar__item">
-                        <div class="latest-product__text">
-                            <h4>Latest Products</h4>
+<!--                    <div class="sidebar__item">-->
+                        <div class="latest-product__text" >
+                            <h4>推薦商品</h4>
                             <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
+                                <div class="latest-prdouct__slider__item" th:each="sales: ${Sales}">
+                                    <a th:href="@{Picture(id=${sales.id},name=${sales.name})}"
+                                       class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-1.jpg" alt="">
+                                            <img    style="width:110px;height: 110px"
+                                                    th:src="${sales.imageUrl}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
+                                            <h6 th:text="${sales.name}"></h6>
+                                            <span th:text="|NT$${sales.packages}|"></span>
                                         </div>
                                     </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
+
                                 </div>
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="/img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
-                    </div>
+<!--                    </div>-->
                 </div>
             </div>
             <div class="col-lg-9 col-md-7">
-                <div class="product__discount">
-                    <div class="section-title product__discount__title">
-                        <h2>商品</h2>
-                    </div>
-                </div>
+<!--                <div class="product__discount">-->
+
+<!--                </div>-->
 
 
 
@@ -250,27 +205,34 @@
 <!--                    </div>-->
 <!--                    </tr>-->
                     <div class="filter__item col-12">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-5">
+                        <div class="row" ;>
+                            <div class="col-lg-4 col-md-5" >
                                 <div class="filter__sort">
 
                                 </div>
                             </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="filter__found" id="countDiv">
+                    <div class="col-lg-4 col-md-4" >
+                        <div class="filter__found" id="countDiv" >
                             <h6>共 <span th:text="${goods.size()}"></span>項商品</h6>
                         </div>
                     </div>
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="filter__sort">
+
+                                </div>
+                            </div>
             </div>
             <!--              右邊下面的商品開始-->
             <div class="row" id="productContent">
-                <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}">
+                <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}" >
                     <div class="product__item">
                         <a th:href="@{Picture(id=${bean.id},name=${bean.name})}">
                             <div class="product__item__pic set-bg"
+                                 style="width:270px;height: 270px"
                              th:data-setbg="${bean.imageUrl}" >
                         </div></a>
-                        <div class="product__item__text">
+                        <div class="product__item__text" >
                             <h6 th:text="${bean.name}">
                             </h6>
                             <h5 th:text="|NT$${bean.packages}|"></h5>
@@ -304,7 +266,7 @@
                 let result = JSON.parse(xhr.responseText);
                 let data = ``;
                 for (let i = 0; i < result.length; i++) {
-                    data += `<div class="col-lg-4 col-md-6 col-sm-6" >
+                    data += `<div class="col-lg-4 col-md-6 col-sm-6"  >
                         <div class="product__item">
                           <a href="Picture?id=${result[i].id}&name=${result[i].name}">
                             <div class="product__item__pic set-bg" style="background-image: url('${result[i].imageUrl}')">

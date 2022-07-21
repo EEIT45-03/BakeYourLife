@@ -21,12 +21,15 @@
 
         .updateCard {
             padding-top: 50px;
+            padding-right: 100px;
         }
 
         .card-body {
             color: #858796;
             font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            width: 700px;
         }
+
 
     </style>
 
@@ -76,7 +79,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h4>更改密碼</h4>
-                           <h6>為了保護你帳號的安全，請不要分享你的密碼給其他人</h6>
+                           <h6>為了保護你帳號的安全，請不要分享你的密碼給其他人<a th:href="@{/User/Findpsw}"><button class="btn btn-primary" STYLE="margin-left: 300px">忘記密碼</button></a></h6>
                         </div>
 
                         <div class="card-body">

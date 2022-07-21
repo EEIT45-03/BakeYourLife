@@ -149,14 +149,14 @@ public class AdminRentalController {
     /*================================器具清單=========================================*/
 
 
-    @GetMapping("/CreateTackleList")
-    public String viewCreateTackleList(@RequestParam Integer FK_rentalId, Model model) {
+    @GetMapping("/CreateTackleList/{id}")
+    public String viewCreateTackleList(@PathVariable Integer id, Model model) {
 
         Rental rental = null;
         List<Tackle> tackles = null;
 
-        if(FK_rentalId != null) {
-            rental = rentalService.findByRentalId(FK_rentalId);
+        if(id != null) {
+            rental = rentalService.findByRentalId(id);
         }
         if(rental != null) {
             TackleListRequest tackleListRequest = rentalService.createTackleListNoRequest(rental);

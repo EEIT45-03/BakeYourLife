@@ -6,6 +6,9 @@ import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.user.model.Farmer;
+import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.scheduling.annotation.Async;
 
 import javax.mail.MessagingException;
 
@@ -30,7 +33,25 @@ public interface EmailService {
                           String templateName//模板名稱
     ) throws MessagingException;
 
-    public void sendViolationMail(
+
+
+    @Async//非同步
+    void sendUserMail(
+            String to,//收件者
+            String subject,//主旨
+            User user,//內容
+            String templateName//模板名稱
+    ) throws MessagingException;
+
+    @Async//非同步
+    void sendFarmerMail(
+            String to,//收件者
+            String subject,//主旨
+            Farmer farmer,//內容
+            String templateName//模板名稱
+    ) throws MessagingException;
+
+    void sendViolationMail(
             String to,//收件者
             String subject,//主旨
             FarmerProductBean farmerProductBean,//內容

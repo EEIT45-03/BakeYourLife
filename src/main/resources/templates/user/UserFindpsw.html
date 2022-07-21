@@ -1,0 +1,144 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>會員更改密碼</title>
+    <div th:replace="css.html"></div>
+    <link rel="stylesheet" href="/css/supplier.css" type="text/css">
+
+    <style>
+        .fa-check {
+            color: GREEN;
+        }
+
+        .wrong {
+            color: RED;
+        }
+        .updateCard {
+            padding-top: 50px;
+        }
+
+        .card-body {
+            color: #858796;
+            font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+    </style>
+
+
+</head>
+<!--<body id="page-top">-->
+<body id="page-top">
+<div th:replace="header.html"></div>
+<!--<div th:replace="menu.html"></div>-->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/top7.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 style="color: #5f3f3f">會員中心</h2>
+                    <div class="breadcrumb__option">
+                        <!--                        <a href="/">首頁</a>-->
+                        <!--                        <span>修改這個</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!--    <div th:replace="sidebar.html"></div>-->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content" class="container">
+
+
+            <!-- Begin Page Content -->
+            <div class="row">
+                <div th:replace="user/UserSidebar.html"></div>
+                <!--                <input type="hidden" id="userId" th:value="${user.userId}">-->
+                <!-- Page Heading -->
+                <div class="col-lg-10 updateCard">
+                    <p class="mb-4">
+                        <a href="/User/Updatepsw/" class="btn btn-primary btn-icon-split btn-sm">
+							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
+						</span> <span class="text">返回</span>
+                        </a>
+                    </p>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h4>重新設定密碼</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <form id="form" action="/User/process_findpsw" method="">
+                                <div class="row mb-3">
+                                    <label for="reset" class="col-sm-2 col-form-labels">輸入RESET來重設密碼</label>
+                                    <div class="col-sm-10">
+                                        <input type="text"  class="form-control" maxlength="10"
+                                               id="reset" name="reset" placeholder="RESET">
+                                        <span class="show" id="s_reset"></span>
+                                    </div>
+                                </div>
+                                <a th:href="@{/User/process_findpsw}"><button type="submit" class="btn btn-primary" id="submit">確定重設密碼</button></a>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+<div th:replace="footer.html"></div>
+
+<!-- Page level custom scripts -->
+<script>
+    window.onload = function () {
+
+        document.getElementById("form").onsubmit = function () {
+            return checkReset();
+        }
+        document.getElementById("reset").oninput = checkReset;
+
+    }
+    function checkReset() {
+        var reset = document.getElementById("reset").value;
+        if (reset === "RESET") {
+            document.getElementById("s_reset").innerHTML = "<i class='fa-solid fa-check'></i>";
+            document.getElementById('submit').disabled = false;
+            return true;
+        } else {
+            document.getElementById("s_reset").innerHTML = "<p class='wrong'>輸入錯誤</p>";
+            document.getElementById('submit').disabled = true;
+            return false;
+        }
+    }
+
+</script>
+</body>
+
+</html>

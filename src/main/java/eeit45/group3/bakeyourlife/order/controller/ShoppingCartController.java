@@ -65,7 +65,7 @@ public class ShoppingCartController {
     public ResponseEntity<Cart> viewCart(@ModelAttribute Cart cart, Authentication authentication, ModelMap model) {
         if(authentication!=null){
             User user = userService.getCurrentUser(authentication);
-            if(redisTemplate.opsForValue().get("cart_" + user.getUserId()) != null){
+            if(user!= null && redisTemplate.opsForValue().get("cart_" + user.getUserId()) != null){
             cart = redisTemplate.opsForValue().get("cart_" + user.getUserId());
             model.addAttribute("cart", cart);
             }
@@ -104,7 +104,9 @@ public class ShoppingCartController {
         if (cartItem != null) {
             cart.removeItem(cartItem.getCartNo());
         }
+        if(currentUser!= null){
         redisTemplate.opsForValue().set("cart_" + currentUser.getUserId(), cart);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
@@ -238,6 +240,9 @@ public class ShoppingCartController {
     }
 
 
+    /*
+    只會需要時建一次(無登入時會自動建立[因為購物車AJAX]，登入時不會再呼叫此方法)
+     */
     @ModelAttribute("cart")
     public Cart cart(@ModelAttribute Cart cart, Authentication authentication) {
         User user = null;
@@ -289,7 +294,9 @@ public class ShoppingCartController {
         Cart cartRedis = null;
         if(currentUser!=null){
             cartRedis = redisTemplate.opsForValue().get("cart_" + currentUser.getUserId());
-            cart = cartRedis;
+            if(cartRedis!=null){
+                cart = cartRedis;
+            }
         }
         if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
             cart.updataItem(cartItem,qty);

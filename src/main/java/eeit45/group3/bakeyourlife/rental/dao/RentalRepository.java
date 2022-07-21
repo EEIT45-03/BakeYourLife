@@ -36,6 +36,6 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
                                      @Param("lDate") String lDate,
                                      @Param("eDate") String eDate);
 
-//    @Query
-//    public List<VenueList> findAllByTimeBetween();
+    public Rental findByUserAndStateAndType(User user, String state, String listType);
+
 }

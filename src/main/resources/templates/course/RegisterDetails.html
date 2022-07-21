@@ -176,11 +176,9 @@
 
                                         <span th:if="${register.state}==0">
                                                <i class="icon_error-triangle_alt" th:onclick="|updateState(${register.registerId},1,'確認取消報名?','')|" style="cursor:pointer;">&nbsp;取消</i>
-
                                         </span>
                                         <span th:if="${register.state}==4">
                                                <i class="icon_comment" th:onclick="|updateState(${register.registerId},'確認評論報名?','')|" style="cursor:pointer;">&nbsp;評論</i>
-
                                         </span>
                                     </td>
                                 </tr>

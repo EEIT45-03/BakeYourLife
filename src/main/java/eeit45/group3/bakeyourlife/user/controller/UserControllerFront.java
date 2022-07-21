@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.user.controller;
 
-import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
@@ -8,9 +7,7 @@ import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -65,7 +61,7 @@ public class UserControllerFront {
 //    }
 
     @PostMapping("process_register")
-    public String processRegister(User user, HttpServletRequest request)
+    public String processRegister(User user)
             throws UnsupportedEncodingException, MessagingException {
         MultipartFile productImage = user.getProductImage();
         if(productImage.getSize() == 0){
@@ -79,13 +75,8 @@ public class UserControllerFront {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setRegisterTime(ts);
         user.setAuthority("ROLE_USER");
-        userService.register(user, getSiteURL(request));
+        userService.register(user);
         return "user/register_success";
-    }
-
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
     }
 
     @GetMapping("/verify")
@@ -121,7 +112,7 @@ public class UserControllerFront {
 //        return "redirect:login";
 //    }
     @PostMapping("process_farmerRegister")
-    public String processRegister(Farmer farmer, HttpServletRequest request)
+    public String processRegister(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException {
         MultipartFile productImage = farmer.getProductImage();
         if(productImage.getSize() == 0){
@@ -135,7 +126,7 @@ public class UserControllerFront {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         farmer.setRegisterTime(ts);
         farmer.setAuthority("ROLE_FARMER");
-        farmerService.register(farmer, getSiteURL(request));
+        farmerService.register(farmer);
         return "user/register_success";
     }
     @GetMapping("/farmerVerify")
@@ -226,8 +217,55 @@ public class UserControllerFront {
         return "user/Updatepsw_success";
 
     }
+    @GetMapping("/User/Findpsw")
+    public String viewFindpsw() {
+        return "user/UserFindpsw";
+    }
+    @GetMapping("/User/process_findpsw")
+    public String processFindpsw(Principal principal) {
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            userService.resetpsw(user);
+//            userService.sendfindpswEmail(user);
+            return "user/pswReset_start";
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/pswVerify")
+    public String pswVerify(@Param("code") String code ,Principal principal,Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
+        if (userService.pswverify(code)) {
+            return "user/pswverify_success";
+        } else {
+            return "user/pswverify_fail";
+        }
+    }
+    //------------------------------------------------------------------
+    @PostMapping("pswReset")
+    public String pswReset(Authentication authentication,User user) {
+        User userDB = userService.getCurrentUser(authentication);
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setUserId(userDB.getUserId());
+        user.setImageUrl(userDB.getImageUrl());
+        user.setUsername(userDB.getUsername());
+        user.setFullName(userDB.getFullName());
+        user.setEmail(userDB.getEmail());
+        user.setPhone(userDB.getPhone());
+        user.setBirth(userDB.getBirth());
+        user.setGender(userDB.getGender());
+        user.setAddress(userDB.getAddress());
+        user.setRegisterTime(userDB.getRegisterTime());
+        user.setAuthority(userDB.getAuthority());
+        user.setEnabled(userDB.isEnabled());
+        userService.updateUser(user);
 
 
+        return "user/pswReset_success";
+    }
+//-------------------------------------------------------------------
 
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
@@ -238,4 +276,9 @@ public class UserControllerFront {
         }
         return false;
     }
+
+//    private String getSiteURL(HttpServletRequest request) {
+//        String siteURL = request.getRequestURL().toString();
+//        return siteURL.replace(request.getServletPath(), "");
+//    }
 }

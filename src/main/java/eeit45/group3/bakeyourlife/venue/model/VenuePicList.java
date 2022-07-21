@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.venue.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,11 +20,11 @@ public class VenuePicList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(name = "picture", nullable = false, unique = true)
+    @Column(name = "picture"/*, nullable = false, unique = true*/)
     private String picture;
 
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name="FK_venueId", referencedColumnName = "venueId", nullable = false)
     private Venue venue;
@@ -34,7 +35,6 @@ public class VenuePicList implements Serializable {
     }
 
     public VenuePicList() {
-
     }
 
     public Integer getId() {

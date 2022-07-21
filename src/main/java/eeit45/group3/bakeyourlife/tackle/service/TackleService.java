@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.tackle.service;
 
+import eeit45.group3.bakeyourlife.tackle.dto.TackleRequest;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.model.TackleSort;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
@@ -28,6 +29,8 @@ public interface TackleService {
 
     //新增器具
     public Tackle createTackle(Tackle tackle);
+
+    public Tackle createTackle(TackleRequest tackle);
 
     //更新器具
     public Tackle updateTackle(Tackle tackle);

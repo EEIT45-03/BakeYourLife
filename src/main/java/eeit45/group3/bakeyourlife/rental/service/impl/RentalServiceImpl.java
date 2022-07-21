@@ -2,8 +2,10 @@ package eeit45.group3.bakeyourlife.rental.service.impl;
 
 import eeit45.group3.bakeyourlife.rental.dao.*;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
+import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.*;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -200,6 +204,22 @@ public class RentalServiceImpl implements RentalService{
 		return rental;
 	}
 
+	@Override
+	public Rental CheckUserRental(Integer userId, String listType) {
+		User user = userService.findByUserId(userId);
+		Rental rental = rentalRepository.findByUserAndStateAndType(user, "未下單", listType);
+		if(rental != null){
+			return rental;
+		} else {
+			rental = new Rental();
+			rental.setUser(user);
+			rental.setType(listType);
+			rental.setTotal(0);
+		}
+
+		return rental;
+	}
+
 
 	/*場地租借清單 DAO
 	----------------------------------------------------------------*/
@@ -229,6 +249,12 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.findPriceSumByRental(rental);
 	}
 
+	//查詢某時間的場地使用狀況
+	@Override
+	public List<AvailableQuantity> getVenueSelect(String name, Date date){
+		Venue venue = venueService.findByVenueName(name);
+		return venueListRepository.findSumByVenueAndDatetime(venue.getVenueId(),date);
+	}
 
 	//依租借時間查詢場地
 //	@Override
@@ -251,19 +277,47 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.save(venueList);
 	}
 
-//	@Override
-//	public VenueList createVenueList(Integer fk_rentalId, VenueList venueList) {
-//		if(fk_rentalId != null){
-//			Rental rental = findByRentalId(fk_rentalId);
-//			venueList.setRental(rental);
-//		}
-//		if(venueList.getVenue().getVenueId() != null){
-//			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
-//			venueList.setVenue(venue);
-//		}
-//		return venueListRepository.save(venueList);
-//	}
+	@Override
+	@Transactional
+	public VenueList createVenueList(VenueListRequest venueListRequest, Principal principal) throws ParseException {
 
+		User user = userService.findByUsername(principal.getName());
+
+		Rental rental = rentalRepository.findByUserAndStateAndType(user,"未下單","場地");
+		if(rental == null) {
+			rental = new Rental();
+			rental = createRentalNoRequest();
+			rental.setState("未下單");
+			rental.setType("場地");
+			rental.setUser(user);
+			updateProduceNo(rental.getRentalNo());
+			rentalRepository.save(rental);
+		}
+
+		VenueList venueList = createVenueListNoRequest(rental);
+
+		if(venueListRequest.getVenueName()!=null){
+			Venue venue = venueService.findByVenueName(venueListRequest.getVenueName());
+			venueList.setVenue(venue);
+		}
+		if(venueListRequest.getRentalDate()!=null){
+			String date = new SimpleDateFormat("yyyy-MM-dd").format(venueListRequest.getRentalDate());
+
+			venueList.setRentalDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+		}
+		if(venueListRequest.getPeriod()!=null){
+			venueList.setPeriod(venueListRequest.getPeriod());
+		}
+		if(venueListRequest.getPerson()!=null){
+			venueList.setPerson(venueListRequest.getPerson());
+		}
+		if(venueListRequest.getPrice()!=null){
+			venueList.setPrice(venueListRequest.getPrice());
+		}
+		venueList.setIngredients("N");
+		updateProduceNo(venueList.getVenueListNo());
+		return venueListRepository.save(venueList);
+	}
 
 	//更新場地租借清單
 	@Override
@@ -272,35 +326,6 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.save(venueList);
 	}
 
-//	public VenueList updateVenueList(Integer venueListId, VenueList venueList) {
-//
-//		VenueList venueListDb = findByVenueListId(venueListId);
-//
-//		if(venueList.getRental().getRentalNo()!=null){
-//			Rental rental = findByRentalNo(venueList.getRental().getRentalNo());
-//			venueListDb.setRental(rental);
-//		}
-//		if(venueList.getVenue().getVenueId()!=null){
-//			Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
-//			venueListDb.setVenue(venue);
-//		}
-//		if(venueList.getLendTime()!=null){
-//			venueListDb.setLendTime(venueList.getLendTime());
-//		}
-//		if(venueList.getEndTime()!=null){
-//			venueListDb.setEndTime(venueList.getEndTime());
-//		}
-//		if(venueList.getIngredients()!=null){
-//			venueListDb.setIngredients(venueList.getIngredients());
-//		}
-//		if(venueList.getPerson()!=null){
-//			venueListDb.setPrice(venueList.getPrice());
-//		}
-//		if(venueList.getPrice()!=null){
-//			venueListDb.setPrice(venueList.getPrice());
-//		}
-//		return venueListRepository.save(venueList);
-//	}
 
 	//刪除場地租借清單
 	@Override
@@ -310,6 +335,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	@Transactional
 	public VenueList createVenueListNoRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("VenueList");
@@ -466,6 +492,7 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	@Transactional
 	public TackleListRequest createTackleListNoRequest(Rental rental) {
 
 		ProduceNo produceNo = produceNoRepository.findByName("TackleList");
@@ -535,6 +562,7 @@ public class RentalServiceImpl implements RentalService{
 
 	//自動新增或更新編號
 	@Override
+	@Transactional
 	public ProduceNo updateProduceNo(String no) {
 		ProduceNo produceNo = null;
 		if(no.charAt(0) == 'T'){
@@ -553,8 +581,11 @@ public class RentalServiceImpl implements RentalService{
 			} else{
 				produceNo = produceNoRepository.findByName("VenueList");
 			}
+			String b = no.substring(1,9);
 			produceNo.setDate(no.substring(1,9));
+			Integer a = Integer.valueOf(no.substring(9,12));
 			produceNo.setNum(Integer.valueOf(no.substring(9,12)));
+
 		} else {
 			if(produceNoRepository.findByName("Rental") == null){
 				produceNo = new ProduceNo();
@@ -562,7 +593,9 @@ public class RentalServiceImpl implements RentalService{
 			} else{
 				produceNo = produceNoRepository.findByName("Rental");
 			}
+
 			produceNo.setDate(no.substring(0,8));
+
 			produceNo.setNum(Integer.valueOf(no.substring(8,15)));
 		}
 

@@ -13,10 +13,10 @@ SET IDENTITY_INSERT [dbo].[farmers] OFF
 SET IDENTITY_INSERT [dbo].[member_goods_table3] ON
 
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (1, CAST(N'2022-07-17T15:59:46.5650000' AS DateTime2), N'6', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/z2JaiX7.jpg,https://i.imgur.com/Ez9ThcI.jpg,https://i.imgur.com/MT924wB.jpg', N'北海道優質麵粉', N'日本', N'麵粉', N'59', N'否', N'2023-06-05', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (2, CAST(N'2022-07-17T15:59:52.5310000' AS DateTime2), N'73', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/xddgnal.jpg,https://i.imgur.com/XTb16wM.jpg,https://i.imgur.com/XPVD7xN.jpg', N'巧克力', N'台灣', N'巧克力', N'92', N'否', N'2023-07-05', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (2, CAST(N'2022-07-18T11:12:45.7810000' AS DateTime2), N'33', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/xddgnal.jpg,https://i.imgur.com/XTb16wM.jpg,https://i.imgur.com/XPVD7xN.jpg', N'巧克力', N'台灣', N'巧克力', N'92', N'是', N'2023-07-05', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (3, CAST(N'2022-07-17T15:59:58.6740000' AS DateTime2), N'81', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/dYjHIAM.jpg,https://i.imgur.com/4QkXZGZ.jpg,https://i.imgur.com/obvVijn.jpg', N'乳酪蛋糕', N'紐西蘭', N'乳製品', N'159', N'否', N'2023-08-05', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (4, CAST(N'2022-07-17T16:00:06.6020000' AS DateTime2), N'49', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/4Ccy2GF.jpg,https://i.imgur.com/2LTuRm0.jpg,https://i.imgur.com/VaM8Xom.jpg', N'玫瑰鹽', N'日本', N'頂級鹽品', N'180', N'否', N'2023-09-05', N'常溫', NULL, N'已下架')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (5, CAST(N'2022-07-17T16:00:13.1610000' AS DateTime2), N'46', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/E0m0Leh.jpg,https://i.imgur.com/VWtSK8Z.jpg,https://i.imgur.com/tj8EvAT.jpg', N'堅果', N'日本', N'堅果乾', N'96', N'否', N'2023-10-05', N'常溫', NULL, N'已下架')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (4, CAST(N'2022-07-18T10:44:18.7140000' AS DateTime2), N'49', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/4Ccy2GF.jpg,https://i.imgur.com/2LTuRm0.jpg,https://i.imgur.com/VaM8Xom.jpg', N'玫瑰鹽', N'日本', N'頂級鹽品', N'180', N'是', N'2023-09-05', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (5, CAST(N'2022-07-18T11:23:11.2240000' AS DateTime2), N'46', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/E0m0Leh.jpg,https://i.imgur.com/VWtSK8Z.jpg,https://i.imgur.com/tj8EvAT.jpg', N'堅果', N'日本', N'堅果乾', N'96', N'否', N'2023-10-05', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (18, CAST(N'2022-07-17T16:00:19.6520000' AS DateTime2), N'7', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/C1a4sa7.jpg,https://i.imgur.com/mMyE7ml.jpg,https://i.imgur.com/yvqQIlh.jpg', N'高筋麵粉', N'日本', N'麵粉', N'100', N'否', N'2023-11-09', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (19, CAST(N'2022-07-17T16:00:25.6360000' AS DateTime2), N'9', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉、茶葉', NULL, N'https://i.imgur.com/f6kfTrz.jpg,https://i.imgur.com/cpJfwpx.jpg,https://i.imgur.com/lgHfZu4.jpg', N'山茶花麵粉', N'台灣', N'麵粉', N'66', N'否', N'2023-12-05', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (20, CAST(N'2022-07-17T16:00:32.3320000' AS DateTime2), N'4', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/ET2w8Yp.jpg,https://i.imgur.com/qA9JoWz.jpg,https://i.imgur.com/ESgHOAH.jpg', N'沖繩高筋麵粉', N'日本', N'麵粉', N'165', N'否', N'2023-01-04', N'冷藏', NULL, N'上架中')
@@ -25,13 +25,15 @@ INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe],
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (23, CAST(N'2022-07-17T16:00:56.0950000' AS DateTime2), N'7', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/2rWuweQ.jpg,https://i.imgur.com/693zedW.jpg,https://i.imgur.com/UFuhUe2.jpg', N'義大利麵粉', N'義大利', N'麵粉', N'167', N'否', N'2023-04-05', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (24, CAST(N'2022-07-17T16:01:48.7440000' AS DateTime2), N'6', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/a3R21ka.jpg,https://i.imgur.com/7gcH9Vr.jpg,https://i.imgur.com/kKT0bol.jpg', N'中筋麵粉', N'日本', N'麵粉', N'37', N'否', N'2023-05-07', N'常溫', NULL, N'上架中')
 INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (25, CAST(N'2022-07-17T16:01:15.8370000' AS DateTime2), N'7', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/rKDiJHE.jpg,https://i.imgur.com/tQ4fPDw.jpg,https://i.imgur.com/zPfJnWl.jpg', N'低筋麵粉', N'日本', N'麵粉', N'69', N'否', N'2023-06-05', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (26, CAST(N'2022-07-17T16:01:23.7520000' AS DateTime2), N'63', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/o5drCcA.jpg,https://i.imgur.com/g5D6GFN.jpg,https://i.imgur.com/dbxAkns.jpg', N'法式巧克力', N'法國', N'巧克力', N'144', N'否', N'2023-07-09', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (27, CAST(N'2022-07-17T16:01:56.7360000' AS DateTime2), N'12', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'可可粉', NULL, N'https://i.imgur.com/VXJGh3T.jpg', N'義大利經典巧克力', N'義大利', N'巧克力', N'67', N'否', N'2023-08-07', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (28, CAST(N'2022-07-17T16:01:41.1590000' AS DateTime2), N'80', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/4EkTZLk.jpg', N'南非經典巧克力', N'南非', N'巧克力', N'159', N'否', N'2023-09-09', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (29, CAST(N'2022-07-17T16:01:32.2660000' AS DateTime2), N'33', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/IbR43Xy.jpg', N'巴西黑巧克力', N'巴西', N'巧克力', N'201', N'否', N'2030-10-04', N'常溫', NULL, N'上架中')
-INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (30, CAST(N'2022-07-17T16:01:06.6550000' AS DateTime2), N'87', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/Yd1tZYc.jpg', N'西班牙純巧克力', N'西班牙', N'巧克力', N'259', N'否', N'2023-12-15', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (26, CAST(N'2022-07-18T11:13:18.2320000' AS DateTime2), N'33', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/o5drCcA.jpg,https://i.imgur.com/g5D6GFN.jpg,https://i.imgur.com/dbxAkns.jpg', N'法式巧克力', N'法國', N'巧克力', N'144', N'否', N'2023-07-09', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (27, CAST(N'2022-07-18T11:19:45.7580000' AS DateTime2), N'12', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'可可粉', NULL, N'https://i.imgur.com/3ON9ZKa.jpg,https://i.imgur.com/wDHsKSa.jpg,https://i.imgur.com/1MEH0pk.jpg', N'義大利經典巧克力', N'義大利', N'巧克力', N'67', N'否', N'2023-08-07', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (28, CAST(N'2022-07-18T11:20:09.0310000' AS DateTime2), N'80', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/6mCfJl1.jpg,https://i.imgur.com/gp3igHw.jpg,https://i.imgur.com/JfNofAT.jpg', N'南非經典巧克力', N'南非', N'巧克力', N'159', N'否', N'2023-09-09', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (29, CAST(N'2022-07-18T11:20:33.4200000' AS DateTime2), N'33', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/xuPuF1R.jpg,https://i.imgur.com/zFSAdVV.jpg,https://i.imgur.com/k25MNWf.jpg', N'巴西黑巧克力', N'巴西', N'巧克力', N'201', N'否', N'2030-10-04', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (30, CAST(N'2022-07-18T11:21:48.0520000' AS DateTime2), N'87', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/P1vsqXB.jpg,https://i.imgur.com/zTq4Rn4.jpg,https://i.imgur.com/Ye6rBk6.jpg', N'西班牙純巧克力', N'西班牙', N'巧克力', N'259', N'否', N'2023-12-15', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (31, CAST(N'2022-07-18T11:27:19.4570000' AS DateTime2), N'50', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'草莓', NULL, N'https://i.imgur.com/oIXrQlA.jpg,https://i.imgur.com/0qS9n97.jpg,https://i.imgur.com/HGsoPVl.jpg', N'草莓醬', N'日本', N'抹醬', N'59', N'是', N'2023-06-05', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (32, CAST(N'2022-07-18T11:29:32.5260000' AS DateTime2), N'50', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/RSywQX9.jpg,https://i.imgur.com/kpx2jrF.jpg,https://i.imgur.com/ScvSQS4.jpg', N'經典香料', N'日本', N'嚴選香料', N'59', N'是', N'2023-04-05', N'常溫', NULL, N'上架中')
+INSERT [dbo].[member_goods_table3] ([id], [admission_time], [count], [describe], [element], [evaluation], [image_url], [name], [origin], [packagematerial], [packages], [sales], [savetime], [saveway], [stars], [system]) VALUES (33, CAST(N'2022-07-18T11:31:25.6000000' AS DateTime2), N'50', N'以黑麥、小麥等糧食作物為基本原料，先磨成粉，再加水、鹽、酵母等和面並製成麵團坯料，然後再以烘、烤、蒸或煎等方式加熱製成的食品。麵包有時候也含有其他成分，例如牛奶、雞蛋、糖、香料、水果、果仁等等。麵包是最古老的加工食品之一，在新石器時代已經出現。  通常提到麵包，大都會想到歐美麵包的夾餡麵包、甜麵包等。其實，按照上述的定義劃分，麵包這一食品範圍更加廣泛，世界上還有許多特殊種類的麵包。  世界上廣泛使用的製作麵包的原料除了黑麥粉、小麥粉以外，還有蕎麥粉、糙米粉、玉米粉等。有些麵包經酵母發酵，在烘烤過程中變得更加彭鬆柔軟；亦有剛好相反的麵包，不需要經過發酵。儘管原料和製作工藝不盡相同，它們都被稱為麵包。', N'小麥粉', NULL, N'https://i.imgur.com/k4yPbyu.jpg,https://i.imgur.com/MlSZcmC.jpg,https://i.imgur.com/AmZeWSR.jpg', N'經典彩糖', N'日本', N'彩糖', N'59', N'是', N'2023-07-15', N'常溫', NULL, N'上架中')
 SET IDENTITY_INSERT [dbo].[member_goods_table3] OFF
-
 
 
 --新增小農商品資料
@@ -240,101 +242,164 @@ INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_t
 
 
 --新增器具類別
-INSERT INTO tackle_sort(sort) VALUES('烤箱');
-INSERT INTO tackle_sort(sort) VALUES('模具');
-INSERT INTO tackle_sort(sort) VALUES('容器');
-INSERT INTO tackle_sort(sort) VALUES('濾網/篩具');
-INSERT INTO tackle_sort(sort) VALUES('桿麵棍');
-INSERT INTO tackle_sort(sort) VALUES('攪拌用具');
-INSERT INTO tackle_sort(sort) VALUES('刷具');
-INSERT INTO tackle_sort(sort) VALUES('刀具/切割工具');
-INSERT INTO tackle_sort(sort) VALUES('測量工具');
-INSERT INTO tackle_sort(sort) VALUES('擠花/翻糖工具');
+INSERT INTO tackle_sort(sort) VALUES(N'烤箱');
+INSERT INTO tackle_sort(sort) VALUES(N'模具');
+INSERT INTO tackle_sort(sort) VALUES(N'容器');
+INSERT INTO tackle_sort(sort) VALUES(N'濾網/篩具');
+INSERT INTO tackle_sort(sort) VALUES(N'桿麵棍');
+INSERT INTO tackle_sort(sort) VALUES(N'攪拌用具');
+INSERT INTO tackle_sort(sort) VALUES(N'刷具');
+INSERT INTO tackle_sort(sort) VALUES(N'刀具/切割工具');
+INSERT INTO tackle_sort(sort) VALUES(N'測量工具');
+INSERT INTO tackle_sort(sort) VALUES(N'擠花/翻糖工具');
 
 --新增器具
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,'NB-H3801 大容量、發酵烘烤一機完成。3D熱風對流 - 大火力立體熱風對流烘烤，全面包圍時才，不易烤焦，油切更健康。上下獨立控溫滿足各種火力需求-上火+下火雙重控溫:上火、下火可同時設定不同溫度，滿足多種食材不同厚度的火裡需求。發酵行程 發酵烘培一機完成 - 結合發酵箱功能，一次滿足發酵與烘培需求，選擇發酵行程，無須再另外設定溫度就能維持30度~50度C最佳發酵環境。附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架','PANASONIC NB-H3801','38L電烤箱', 1);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,'NB-H3203 大容量、發酵烘烤一機完成。雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷，同時擁有更良好的聚熱功能，效率更提升。360度自動旋轉燒烤 - 自動旋轉烘烤，不會過焦或不熟，全面均勻受熱，不遺漏任何一處的美味。3D熱風對流 - 大火力立體熱風對流烘烤，全面包圍時才，不易烤焦，油切更健康。上下獨立控溫滿足各種火力需求- * 上火+下火雙重控溫:上火、下火可同時設定不同溫度，滿足多種食材不同厚度的火裡需求。發酵行程 發酵烘培一機完成 - 結合發酵箱功能，一次滿足發酵與烘培需求，選擇發酵行程，無須再另外設定溫度就能維持30度~50度C最佳發酵環境。附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架','PANASONIC  NB-H3203','32L電烤箱', 1);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'成份：鋁合金(耐溫230度)。產地：台灣。規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小兔頭_5入_T213016','鳳梨酥模具+壓棒(兔子)', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,'成份：鋁合金(耐溫230度)。產地：台灣。規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。','鳳梨酥模具組_鋁合金小熊頭_5入_T213015','鳳梨酥模具+壓棒(小熊)', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA雙心12連_126-19B','雙心12連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。','多連烤盤_MATSUNAGA栗子12連_126-18','栗子12連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,'成份：鍍錫鋼片。產地：日本。規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。','多連烤盤_MATSUNAGA瑪德蓮15連_126-13','瑪德蓮15連模具', 2);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,'產地：日本。材質：耐熱玻璃(耐熱溫差120度)。尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。容量：(S)900ml/(M)1500ml/(L)2200ml。商品重量：約2.45公斤。用途：盛裝食材用。注意事項：不可重摔','玻璃盆_MXPN-3704','玻璃盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,'產地：中國。材質：不鏽鋼。尺寸規格 : 直徑長約20公分、高約12公分。商品重量：約470公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','深型打蛋盆20cm_WK9364','20cm不鏽鋼盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。材質：不鏽鋼。尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。商品重量：約460公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','深型打蛋盆24cmBetty_CT4967','24cm不鏽鋼盆', 3);
-INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,'產地：中國。材質：不鏽鋼。尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。商品重量：約500公克。用途：盛裝食材用。注意事項：不可重摔、放入微波爐','握把底止滑打蛋盆23cm_CT4966','握把底止滑打蛋盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,N'
+                                                                                                         NB-H3801 大容量、發酵烘烤一機完成。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架。',N'PANASONIC NB-H3801',N'38L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,N'
+                                                                                                         NB-H3203 大容量、發酵烘烤一機完成。
+                                                                                                         ●雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷,同時擁有更良好的聚熱功能,效率更提升。
+                                                                                                         ●360度自動旋轉燒烤 - 自動旋轉烘烤,不會過焦或不熟,全面均勻受熱,不遺漏任何一處的美味。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架',N'PANASONIC  NB-H3203',N'32L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
+                                                                                                         產地：台灣。
+
+                                                                                                        成份：鋁合金(耐溫230度)。
+                                                                                                        規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小兔頭_5入_T213016',N'鳳梨酥模具+壓棒(兔子)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
+                                                                                                         產地：台灣。
+
+                                                                                                         成份：鋁合金(耐溫230度)。
+                                                                                                         規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小熊頭_5入_T213015',N'鳳梨酥模具+壓棒(小熊)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA雙心12連_126-19B',N'雙心12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA栗子12連_126-18',N'栗子12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。',N'多連烤盤_MATSUNAGA瑪德蓮15連_126-13',N'瑪德蓮15連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,N'
+                                                                                                        產地：日本。
+
+                                                                                                        材質：耐熱玻璃(耐熱溫差120度)。
+                                                                                                        尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。
+                                                                                                        容量：(S)900ml/(M)1500ml/(L)2200ml。
+                                                                                                        商品重量：約2.45公斤。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔',N'玻璃盆_MXPN-3704',N'玻璃盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 直徑長約20公分、高約12公分。
+                                                                                                        商品重量：約470公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'深型打蛋盆20cm_WK9364',N'20cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。
+                                                                                                        商品重量：約460公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'深型打蛋盆24cmBetty_CT4967',N'24cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。
+                                                                                                        商品重量：約500公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'握把底止滑打蛋盆23cm_CT4966',N'握把底止滑打蛋盆', 3);
 
 --新增器具圖片
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/tb8W5J4.png',1);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/32RgBtM.png',1);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/xBpTAEm.png',1);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/nIQ7cWy.png',1);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/hxevsGw.png',2);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/uwkvD6G.png',2);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/Qk8Pz8S.png',2);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/7LYKHqh.png',2);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/hKTKUIm.png',2);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/HRaZVRP.png',3);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/S2KDkan.png',3);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/6WpFPTN.png',3);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/Hveg2Gl.png',3);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/1mGDySq.png',4);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/suof28U.png',4);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/hSnuiOC.png',4);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/eVTMLU3.png',4);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/CBzzRt4.png',5);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/6oxKYZl.png',5);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/bMe6oVu.png',5);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/Taf9bPN.png',5);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/rROpkOM.png',6);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/F2WY0eR.png',6);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/abXs2p1.png',6);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/UneqTz4.png',6);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/IaCJqaU.png',7);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/umbhqpf.png',7);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/ojBEUSN.png',7);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/9mO9pbP.png',7);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/h0dBp7v.png',8);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/jqoZB4F.png',8);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/nd7Jw0W.png',9);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/xAadPqt.png',9);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/yq493eP.png',10);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/U21OVeB.png',10);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/77tCgYR.png',11);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/EJTHlhj.png',11);
-INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES('https://i.imgur.com/qi2ZZCt.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/tb8W5J4.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/32RgBtM.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xBpTAEm.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nIQ7cWy.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hxevsGw.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/uwkvD6G.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Qk8Pz8S.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/7LYKHqh.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hKTKUIm.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/HRaZVRP.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/S2KDkan.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6WpFPTN.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Hveg2Gl.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/1mGDySq.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/suof28U.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hSnuiOC.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/eVTMLU3.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/CBzzRt4.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6oxKYZl.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/bMe6oVu.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Taf9bPN.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/rROpkOM.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/F2WY0eR.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/abXs2p1.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/UneqTz4.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/IaCJqaU.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/umbhqpf.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/ojBEUSN.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/9mO9pbP.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/h0dBp7v.png',8);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/jqoZB4F.png',8);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nd7Jw0W.png',9);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xAadPqt.png',9);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/yq493eP.png',10);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/U21OVeB.png',10);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/77tCgYR.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/EJTHlhj.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/qi2ZZCt.png',11);
 
 --新增場地類別
-INSERT INTO venue_sort(sort) VALUES('課用烘培室');
-INSERT INTO venue_sort(sort) VALUES('親子烘培室');
-INSERT INTO venue_sort(sort) VALUES('小型烘培室');
-INSERT INTO venue_sort(sort) VALUES('大型烘培室');
+INSERT INTO venue_sort(sort) VALUES(N'課用烘培室');
+INSERT INTO venue_sort(sort) VALUES(N'親子烘培室');
+INSERT INTO venue_sort(sort) VALUES(N'小型烘培室');
+INSERT INTO venue_sort(sort) VALUES(N'大型烘培室');
 
 
 --新增場地
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A101',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A102',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A201',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'A202',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B201',500,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,'B202',500,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (10,'B301',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B302',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,'B303',350,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B401',200,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B501',200,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,'B601',200,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A101',0,NULL,1);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A102',0,NULL,1);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A201',0,NULL,1);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A202',0,NULL,1);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,N'B201',125,NULL,2);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,N'B202',125,NULL,2);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (10,N'B301',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,N'B302',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,N'B303',80,NULL,3);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B401',50,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B501',50,NULL,4);
+INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B601',50,NULL,4);
 
 
 
 --新增訂單資料
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-06T22:35:24.6900000' AS DateTime2), N'202207062235245', N'完成', CAST(N'2022-07-06T22:35:57.5750000' AS DateTime2), 0, CAST(N'2022-07-06T22:42:52.8590000' AS DateTime2), 100, 958, N'111111111111', NULL, 2)
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-06-06T22:36:13.6490000' AS DateTime2), N'202207062236137', N'退款審核中', CAST(N'2022-07-06T22:36:33.0420000' AS DateTime2), 1, CAST(N'2022-07-06T22:42:56.1490000' AS DateTime2), 100, 899, N'', NULL, 2,'等太久')
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-05-06T22:37:36.7950000' AS DateTime2), N'202207062237369', N'退款審核中', CAST(N'2022-07-06T22:38:01.3090000' AS DateTime2), 0, NULL, 100, 1698, NULL, NULL, 2,'我不想買了')
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-04-06T22:38:22.6500000' AS DateTime2), N'202207062238220', N'待出貨', CAST(N'2022-07-06T22:38:34.1380000' AS DateTime2), 1, CAST(N'2022-07-06T22:43:00.0770000' AS DateTime2), 100, 2497, N'', NULL, 2)
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-03-06T22:38:54.8850000' AS DateTime2), N'202207062238548', N'待付款', NULL, 0, NULL, 100, 899, NULL, NULL, 2)
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-02-06T22:39:13.2840000' AS DateTime2), N'202207062239134', N'待出貨', CAST(N'2022-07-06T22:39:22.9590000' AS DateTime2), 1, CAST(N'2022-07-06T22:43:03.0060000' AS DateTime2), 100, 899, N'', NULL, 2)
-INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-01-06T22:40:25.7620000' AS DateTime2), N'202207062240251', N'待出貨', CAST(N'2022-07-06T22:40:46.1170000' AS DateTime2), 0, CAST(N'2022-07-06T22:43:08.5550000' AS DateTime2), 100, 899, N'', NULL, 2)
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-25T22:35:24.6900000' AS DateTime2), N'202207062235245', N'完成', CAST(N'2022-07-25T22:35:57.5750000' AS DateTime2), 0, CAST(N'2022-07-25T22:42:52.8590000' AS DateTime2), 100, 958, N'111111111111', NULL, 2)
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-24T22:36:13.6490000' AS DateTime2), N'202207062236137', N'退款審核中', CAST(N'2022-07-24T22:36:33.0420000' AS DateTime2), 1, CAST(N'2022-07-25T22:42:56.1490000' AS DateTime2), 100, 899, N'', NULL, 2,'等太久')
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id,refund_reason) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-23T22:37:36.7950000' AS DateTime2), N'202207062237369', N'退款審核中', CAST(N'2022-07-23T22:38:01.3090000' AS DateTime2), 0, NULL, 100, 1698, NULL, NULL, 2,'我不想買了')
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-22T22:38:22.6500000' AS DateTime2), N'202207062238220', N'待出貨', CAST(N'2022-07-22T22:38:34.1380000' AS DateTime2), 1, CAST(N'2022-07-25T22:43:00.0770000' AS DateTime2), 100, 2497, N'', NULL, 2)
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-21T22:38:54.8850000' AS DateTime2), N'202207062238548', N'待付款', NULL, 0, NULL, 100, 899, NULL, NULL, 2)
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-20T22:39:13.2840000' AS DateTime2), N'202207062239134', N'待出貨', CAST(N'2022-07-21T22:39:22.9590000' AS DateTime2), 1, CAST(N'2022-07-24T22:43:03.0060000' AS DateTime2), 100, 899, N'', NULL, 2)
+INSERT INTO orders (address, is_review, discount_amount, order_date, order_no, order_status, pay_date, pay_type, ship_date, shipping_fee, total_price, tracking_number, code, user_id) VALUES (N'桃園市楊梅區中山路121巷4弄9號', 0, 0, CAST(N'2022-07-19T22:40:25.7620000' AS DateTime2), N'202207062240251', N'待出貨', CAST(N'2022-07-20T22:40:46.1170000' AS DateTime2), 0, CAST(N'2022-07-23T22:43:08.5550000' AS DateTime2), 100, 899, N'', NULL, 2)
 INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 1)
 INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 1, 799, 2)
 INSERT INTO order_item ( product_name, product_no, product_type, qty, sub_total, order_id) VALUES (N'愛文芒果5斤(8~9入)禮盒裝', N'F1', N'小農', 2, 1598, 3)

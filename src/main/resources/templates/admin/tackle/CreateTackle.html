@@ -138,110 +138,110 @@
                         <h6 class="m-0 font-weight-bold text-primary">新增器具</h6>
                     </div>
                     <div class="card-body">
-<form th:action="@{CreateTackle}" method="post" th:object="${tackle}" enctype="multipart/form-data">
+
+                        <div class="card-body" th:object="${tackle}">
+                            <!-- 器具名稱: -->
+                            <div class="row mb-3">
+                                <label for="tName" class="col-sm-2 col-form-labels">器具名稱:</label>
+                                <div class="col-sm-5">
+                                    <input th:field="*{tackleName}" type="text" class="form-control"
+                                           id="tName" required="required"/>
+                                    <span class="show" id="s_tName"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_name_err"></p>
+                                </div>
+                            </div>
+
+                            <!-- 器具規格: -->
+                            <div class="row mb-3">
+                                <label for="spe" class="col-sm-2 col-form-labels">器具規格:</label>
+                                <div class="col-sm-5">
+                                    <input th:field="*{specification}" type="text" class="form-control"
+                                           id="spe"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_spe_err"></p>
+                                </div>
+                            </div>
 
 
-    <!-- 器具名稱: -->
-    <div class="row mb-3">
-        <label for="tName" class="col-sm-2 col-form-labels">器具名稱:</label>
-        <div class="col-sm-5">
-            <input th:field="*{tackleName}" type="text" class="form-control"
-                   id="tName" required="required"/>
-            <span class="show" id="s_tName"></span>
-        </div>
-        <div class="col-sm-3">
-            <p id="t_name_err"></p>
-        </div>
-    </div>
-
-    <!-- 器具規格: -->
-    <div class="row mb-3">
-        <label for="spe" class="col-sm-2 col-form-labels">器具規格:</label>
-        <div class="col-sm-5">
-            <input th:field="*{specification}" type="text" class="form-control"
-                   id="spe" />
-        </div>
-        <div class="col-sm-3">
-            <p id="t_spe_err"></p>
-        </div>
-    </div>
+                            <!-- 價錢/1天: -->
+                            <div class="row mb-3">
+                                <label for="daPri" class="col-sm-2 col-form-labels"> 價錢/天:</label>
+                                <div class="col-sm-5">
+                                    <input th:field="*{dayPrice}" type="number" class="form-control"
+                                           id="daPri" th:min="10" th:max="500" required="required"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_pri_err"></p>
+                                </div>
+                            </div>
 
 
-    <!-- 價錢/1天: -->
-    <div class="row mb-3">
-        <label for="daPri" class="col-sm-2 col-form-labels"> 價錢/天:</label>
-        <div class="col-sm-5">
-            <input th:field="*{dayPrice}" type="number" class="form-control"
-                   id="daPri" th:min="10" th:max="500" required="required"/>
-        </div>
-        <div class="col-sm-3">
-            <p id="t_pri_err"></p>
-        </div>
-    </div>
+                            <!-- 損毀價錢: -->
+                            <div class="row mb-3">
+                                <label for="dam" class="col-sm-2 col-form-labels"> 損毀價錢:</label>
+                                <div class="col-sm-5">
+                                    <input th:field="*{damages}" type="number" class="form-control"
+                                           id="dam" th:min="1" th:max="10000" required="required"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_dame_err"></p>
+                                </div>
+                            </div>
 
 
-    <!-- 損毀價錢: -->
-    <div class="row mb-3">
-        <label for="dam" class="col-sm-2 col-form-labels"> 損毀價錢:</label>
-        <div class="col-sm-5">
-            <input th:field="*{damages}" type="number" class="form-control"
-                   id="dam" th:min="1" th:max="10000" required="required"/>
-        </div>
-        <div class="col-sm-3">
-            <p id="t_dame_err"></p>
-        </div>
-    </div>
+                            <!-- 總數量: -->
+                            <div class="row mb-3">
+                                <label for="max" class="col-sm-2 col-form-labels"> 總數量:</label>
+                                <div class="col-sm-5">
+                                    <input th:field="*{max}" type="number" class="form-control"
+                                           id="max" th:min="1" th:max="200" required="required"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_max_err"></p>
+                                </div>
+                            </div>
+
+                            <!-- 種類: -->
+                            <div class="row mb-3">
+                                <label for="tSort" class="col-sm-2 col-form-labels"> 器具種類:</label>
+                                <div class="col-sm-5">
+                                    <select th:field="*{tackleSort.tackleSortId}" type="text"
+                                            class="form-control form-select mb-sm-1"
+                                            id="tSort" aria-label="Default select example">
+                                        <option value="">請選擇</option>
+                                        <option th:each="sort : ${sorts}" th:value="${sort.tackleSortId}"
+                                                th:text="${sort.sort}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_sort_err"></p>
+                                </div>
+                            </div>
+
+                            <!-- 圖片: -->
+                            <div class="row mb-3">
+                                <span class="col-sm-2 col-form-labels">器具圖片:</span>
 
 
-    <!-- 總數量: -->
-    <div class="row mb-3">
-        <label for="max" class="col-sm-2 col-form-labels"> 總數量:</label>
-        <div class="col-sm-5">
-            <input th:field="*{max}" type="number" class="form-control"
-                   id="max" th:min="1" th:max="200" required="required" />
-        </div>
-        <div class="col-sm-3">
-            <p id="t_max_err"></p>
-        </div>
-    </div>
+                                <i class="fa fa-plus imgAdd"></i>
+                            </div>
 
-    <!-- 種類: -->
-    <div class="row mb-3">
-        <label for="tSort" class="col-sm-2 col-form-labels"> 器具種類:</label>
-        <div class="col-sm-5">
-            <select th:field="*{tackleSort.tackleSortId}" type="text" class="form-control form-select mb-sm-1"
-                    id="tSort" aria-label="Default select example">
-                <option value="">全部</option>
-                <option th:each="sort : ${sorts}" th:value="${sort.tackleSortId}" th:text="${sort.sort}"></option>
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <p id="t_sort_err"></p>
-        </div>
-    </div>
+                            <!-- 備註: -->
+                            <div class="row mb-3">
+                                <label for="tNotes" class="col-sm-2 col-form-labels"> 備註:</label>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control" th:name="notes" id="tNotes"></textarea>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p id="t_nate_err"></p>
+                                </div>
+                            </div>
 
-    <!-- 圖片: -->
-    <div class="row mb-3">
-        <span class="col-sm-2 col-form-labels">器具圖片:</span>
-
-
-
-        <i class="fa fa-plus imgAdd"></i>
-    </div>
-
-    <!-- 備註: -->
-    <div class="row mb-3">
-        <label for="tNotes" class="col-sm-2 col-form-labels"> 備註:</label>
-        <div class="col-sm-5">
-            <textarea class="form-control" th:name="notes" id="tNotes" ></textarea>
-        </div>
-        <div class="col-sm-3">
-            <p id="t_nate_err"></p>
-        </div>
-    </div>
-
-    <button type="submit" id="submit" class="btn btn-primary">建立</button>
-</form>
+                            <button type="submit" id="submit" class="btn btn-primary">建立</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,6 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
 
 
 <!-- Bootstrap core JavaScript-->
