@@ -280,7 +280,7 @@
 
         let avg = 0;
         $(".starCount").each(function () {
-            sum += $(this).text()
+            sum += parseInt($(this).text());
         })
         avg = (sum / count).toFixed(1);
         if (count !== 0) {
