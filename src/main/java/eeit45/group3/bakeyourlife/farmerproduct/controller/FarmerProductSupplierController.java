@@ -7,6 +7,7 @@ import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -89,21 +90,111 @@ public class FarmerProductSupplierController {
             farmer.setImageUrl(link);
         }
 
-        if (farmer.getPassword() == null) {
-            farmer.setPassword(farmerDB.getPassword());
-        } else {
-            farmer.setPassword(encoder.encode(farmer.getPassword()));
-        }
 
+        farmer.setPassword(farmerDB.getPassword());
         farmer.setRegisterTime(farmerDB.getRegisterTime());
         farmer.setAuthority(farmerDB.getAuthority());
         farmer.setFarmerId(farmerDB.getFarmerId());
+        farmer.setEnabled(farmerDB.isEnabled());
+
         farmerService.updateFarmer(farmer);
         farmerService.setCurrentFarmer(authentication, farmer);
         return "farmerproduct/UpdateSupplier";
 
+    }
+    //----小農管理中心內更改密碼------------------------------------------------------------------
+    @GetMapping("/UpdateSupplierPsw")
+    public String viewUpdateSupplierPsw(Principal principal, Model model) {
+        if (principal != null) {
+            Farmer farmer = farmerService.findByUsername(principal.getName());
+            if (farmer.getFarmerId() != null) {
+                model.addAttribute("farmer", farmer);
+                return "farmerproduct/FarmerUpdatepsw";
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @PostMapping("/UpdateSupplierPsw")
+    public String updatepsw(Authentication authentication,Farmer farmer) {
+
+        Farmer farmerDB = farmerService.getCurrentFarmer(authentication);
+//        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
+        boolean flag = encoder.matches(farmer.getPassword(),farmerDB.getPassword());
+
+        if (!flag){
+            return "farmerproduct/UpdateFarmerpsw_fail";
+        }
+        farmer.setPassword(encoder.encode(farmer.getNewPassword()));
+        farmer.setFarmerId(farmerDB.getFarmerId());
+        farmer.setImageUrl(farmerDB.getImageUrl());
+        farmer.setUsername(farmerDB.getUsername());
+        farmer.setFarmerName(farmerDB.getFarmerName());
+        farmer.setEmail(farmerDB.getEmail());
+        farmer.setPhone(farmerDB.getPhone());
+        farmer.setAddress(farmerDB.getAddress());
+        farmer.setRegisterTime(farmerDB.getRegisterTime());
+        farmer.setAuthority(farmerDB.getAuthority());
+        farmer.setEnabled(farmerDB.isEnabled());
+        farmer.setFarmerInfo(farmerDB.getFarmerInfo());
+        farmerService.updateFarmer(farmer);
+        return "farmerproduct/UpdateFarmerpsw_success";
 
     }
+//------小農管理中心內更改密碼end----------------------------------------------------------
+
+//------小農管理中心內忘記密碼-----------------------------------------------------------------
+    @GetMapping("/FindSupplierPsw")
+    public String viewFindSupplierPsw() {
+    return "farmerproduct/FarmerFindpsw";
+}
+
+    @GetMapping("/process_FindSupplierPsw")
+    public String process_FindSupplierPsw(Principal principal) {
+        if (principal != null) {
+            Farmer farmer = farmerService.findByUsername(principal.getName());
+            farmerService.farmerResetPsw(farmer);
+            return "farmerproduct/farmerPswReset_start";
+        }
+        return "redirect:/login";
+    }
+    @GetMapping("/farmerPswVerify")
+    public String farmerPswVerify(@Param("code") String code , Principal principal, Model model) {
+        Farmer farmer = farmerService.findByUsername(principal.getName());
+        model.addAttribute("farmer", farmer);
+
+        if (farmerService.farmerpswverify(code)) {
+            return "farmerproduct/farmerPswVerify_success";
+        } else {
+            return "farmerproduct/farmerPswVerify_fail";
+        }
+    }
+    @PostMapping("farmerPswReset")
+    public String farmerPswReset(Authentication authentication,Farmer farmer) {
+        Farmer farmerDB = farmerService.getCurrentFarmer(authentication);
+        farmer.setPassword(encoder.encode(farmer.getPassword()));
+        farmer.setFarmerId(farmerDB.getFarmerId());
+        farmer.setImageUrl(farmerDB.getImageUrl());
+        farmer.setUsername(farmerDB.getUsername());
+        farmer.setFarmerName(farmerDB.getFarmerName());
+        farmer.setEmail(farmerDB.getEmail());
+        farmer.setPhone(farmerDB.getPhone());
+        farmer.setAddress(farmerDB.getAddress());
+        farmer.setRegisterTime(farmerDB.getRegisterTime());
+        farmer.setAuthority(farmerDB.getAuthority());
+        farmer.setEnabled(farmerDB.isEnabled());
+        farmer.setFarmerInfo(farmerDB.getFarmerInfo());
+
+        farmerService.updateFarmer(farmer);
+
+
+        return "farmerproduct/farmerPswReset_success";
+    }
+
+//------小農管理中心內忘記密碼END-----------------------------------------------------------------
+
+
+
 
 
     @GetMapping("SupplierProductList")

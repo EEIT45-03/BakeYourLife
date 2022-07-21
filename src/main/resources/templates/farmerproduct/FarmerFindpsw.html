@@ -6,7 +6,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>會員找回密碼</title>
+    <title>小農廠商找回密碼</title>
     <div th:replace="css.html"></div>
     <link rel="stylesheet" href="/css/supplier.css" type="text/css">
 
@@ -37,12 +37,12 @@
 <!--<div th:replace="menu.html"></div>-->
 
 <!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="/img/top7.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2 style="color: #5f3f3f">會員中心</h2>
+                    <h2 style="color: #5f3f3f">小農管理中心</h2>
                     <div class="breadcrumb__option">
                         <!--                        <a href="/">首頁</a>-->
                         <!--                        <span>修改這個</span>-->
@@ -68,12 +68,12 @@
 
             <!-- Begin Page Content -->
             <div class="row">
-                <div th:replace="user/UserSidebar.html"></div>
+                <div th:replace="farmerproduct/SupplierSidebar.html"></div>
                 <!--                <input type="hidden" id="userId" th:value="${user.userId}">-->
                 <!-- Page Heading -->
                 <div class="col-lg-10 updateCard">
                     <p class="mb-4">
-                        <a href="/User/Updatepsw/" class="btn btn-primary btn-icon-split btn-sm">
+                        <a href="/FarmerProductSupplier/UpdateSupplierPsw" class="btn btn-primary btn-icon-split btn-sm">
 							<span class="icon text-white-50"> <i class="fas fa-undo"></i>
 						</span> <span class="text">返回</span>
                         </a>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form id="form" action="/User/process_findpsw" method="">
+                            <form id="form" action="/FarmerProductSupplier/process_FindSupplierPsw" method="">
                                 <div class="row mb-3">
                                     <label for="reset" class="col-sm-2 col-form-labels">輸入RESET來重設密碼</label>
                                     <div class="col-sm-10">
@@ -93,7 +93,7 @@
                                         <span class="show" id="s_reset"></span>
                                     </div>
                                 </div>
-                                <a th:href="@{/User/process_findpsw}"><button type="submit" class="btn btn-primary" id="submit">確定重設密碼</button></a>
+                                <a th:href="@{/FarmerProductSupplier/process_FindSupplierPsw}"><button type="submit" class="btn btn-primary" id="submit">確定重設密碼</button></a>
                             </form>
 
                         </div>

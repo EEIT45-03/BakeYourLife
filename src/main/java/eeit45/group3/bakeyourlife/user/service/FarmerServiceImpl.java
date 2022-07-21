@@ -88,6 +88,27 @@ public class FarmerServiceImpl implements FarmerService {
         return farmerRepository.count();
     }
 
+
+//---------------------------------------------------------------------------------
+    @Override
+    public void farmerResetPsw(Farmer farmer) {
+        String randomCode = RandomString.make(64);
+        farmer.setVerificationCode(randomCode);
+
+        farmerRepository.save(farmer);
+        sendFindPswEmail(farmer);
+    }
+    @Override
+    public void sendFindPswEmail(Farmer farmer) {
+        String email = farmer.getEmail();
+        try {
+            emailService.sendFarmerMail(email, "Bake Your Life 烘焙材料網 重設您的密碼",farmer,"farmerfindpswmail");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//--------------------------------------------------------------------------------
     @Override
     public void register(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException {
@@ -128,5 +149,19 @@ public class FarmerServiceImpl implements FarmerService {
 
             return true;
         }
+    }
+    @Override
+    public boolean farmerpswverify(String verificationCode) {
+        Farmer farmer = farmerRepository.findByVerificationCode(verificationCode);
+
+        if (farmer == null) {
+            return false;
+        } else {
+            farmer.setVerificationCode(null);
+            farmerRepository.save(farmer);
+
+            return true;
+        }
+
     }
 }
