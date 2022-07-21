@@ -241,7 +241,7 @@ INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_t
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'麵包超人', N'男', N'$2a$10$mRMiQNyTRMTbtxEXICVWieVdExX4stSVIVQPmEy7SW4MAyP5zN1OK', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/8OWhg3I.png',1)
 -- INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$T3NCCFHTBIuMYsREiyFGDOi08B1KGO4jQ1/mA/S/vbOa4aL3t0G1u', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/q5nYQAo.png',1)
 --文章測試
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png')
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png',1)
 
 
 --新增器具類別
