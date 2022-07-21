@@ -438,7 +438,7 @@ function AddResult(productId){
 			Swal.fire({
 				title: '學生作品上傳',
 				html:data,
-				width: '50%',
+				width: '60%',
 				showCloseButton: true,
 				showCancelButton: false,
 				showConfirmButton: false,
