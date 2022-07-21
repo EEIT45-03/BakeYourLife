@@ -58,9 +58,11 @@ public interface CourseService {
 
 //		void addAttendanceToOpCourse(Course course);
 		void createStudentResult(StudentResult studentResult);
+		void createStudentResult(StudentResult studentResult, Authentication authentication);
 		void upadateStudentResult(StudentResult studentResult);
 
 		Optional<StudentResult> findStudentReslutById(Integer strId);
+		List<StudentResult> findStudentReslutByProduct(Long productId);
 		List<StudentResult> findAllStudentResult();
 
 

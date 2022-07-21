@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "course_student_result")
-@JsonIgnoreProperties(value = {"product", "user"})
+//@JsonIgnoreProperties(value = {"product", "user"})
 public class StudentResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +61,14 @@ public class StudentResult {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getUsername() {
+        if (user != null) {
+            return user.getUsername();
+        } else {
+            return null;
+        }
     }
 
     public User getUser() {

@@ -1,6 +1,7 @@
 
 
-<form th:action="@{/AddResult(fk_productId=${studentResult.product.id})}" method="post" th:object="${studentResult}">
+<form th:action="@{/User/Course/AddResult(fk_productId=${studentResult.product.id})}"
+      method="post" th:object="${studentResult}" enctype="multipart/form-data">
 
   <div class="row mb-3">
     <div class="col-sm-10">

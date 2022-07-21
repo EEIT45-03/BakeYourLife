@@ -20,6 +20,7 @@ import eeit45.group3.bakeyourlife.utils.ImgurService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -228,8 +229,19 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public void createStudentResult(StudentResult studentResult) {
-		User user = userService.findByUserId(studentResult.getUser().getUserId());
-		studentResult.setUser(user);
+		Image image = ImgurService.updateByMultipartFile(studentResult.getResultFile());
+		studentResult.setResultImageUrl(image.getLink());
+		studentResult.setTime(new Date());
+		studentResultRepository.save(studentResult);
+	}
+
+	@Override
+	public void createStudentResult(StudentResult studentResult ,Authentication authentication) {
+//		User user = userService.getCurrentUser();
+//		User user = userService.findByUserId(studentResult.getUser().getUserId());
+//		studentResult.setUser(user);
+
+
 		Image image = ImgurService.updateByMultipartFile(studentResult.getResultFile());
 		studentResult.setResultImageUrl(image.getLink());
 		studentResult.setTime(new Date());
@@ -246,7 +258,12 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+	public List<StudentResult> findStudentReslutByProduct(Long productId) {
+		return studentResultRepository.findByProductId(productId);
+	}
+
+	@Override
 	public List<StudentResult> findAllStudentResult() {
-		return null;
+		return studentResultRepository.findAll();
 	}
 }

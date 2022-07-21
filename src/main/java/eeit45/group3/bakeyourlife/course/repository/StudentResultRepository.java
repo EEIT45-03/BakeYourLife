@@ -10,4 +10,5 @@ import java.util.Set;
 public interface StudentResultRepository extends JpaRepository<StudentResult,Integer> {
     //在課程頁面，顯示學生作品
     List<StudentResult> findByProductId(Long product_id);
+
 }
