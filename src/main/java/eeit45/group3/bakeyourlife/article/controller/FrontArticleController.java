@@ -29,6 +29,7 @@ public class FrontArticleController {
     @Autowired
     private MessageService messageService;
 
+
     @GetMapping(path = "")
     private String processFindOne(@RequestParam(required = false) Integer postid,@RequestParam(required = false) Date date, Model m) {
 
@@ -96,16 +97,51 @@ public class FrontArticleController {
         return "redirect:./";
     }
 
-    @GetMapping(path = "/SelectArticle")
-    private String processSelect(@RequestParam(required = false) String title, Model m) {
+
+    @GetMapping (path = "/SelectArticle")
+    private String viewSelect(@RequestParam(required = false) String title,@RequestParam(required = false) Date date,
+                              Model m) {
 
         List<Article> article = articleService.findByTitle(title);
         m.addAttribute("articles", article);
+        List<Article> articleDate = articleService.findLatestDate(date);
+        m.addAttribute("articleDate", articleDate);
 
         return "article/SelectArticle";
 
     }
 
+
+//    @PostMapping (path = "/SelectArticle")
+//    private String processSelect(@Valid @ModelAttribute("SelectArticle") Article articles,@RequestParam(required = false) String title,@RequestParam(required = false) Date date,
+//                                 BindingResult bindingResult,Model m) {
+//
+//            if (bindingResult.hasErrors()) {
+//
+//			return "article/SelectArticle";
+//		}
+//
+//        List<Article> article = articleService.findByTitle(title);
+//        m.addAttribute("articles", article);
+//        List<Article> articleDate = articleService.findLatestDate(date);
+//        m.addAttribute("articleDate", articleDate);
+//
+//        return "article/SelectArticle";
+//
+//    }
+
+
+//    @GetMapping(path = "/index")
+//    public String processIndex(@RequestParam(required = false) Integer counter,
+//                               Model model) throws IOException {
+//
+//
+//        List<Article> articleType = articleService.findTopCounter(counter);
+//        model.addAttribute("selectType", articleType);
+//
+//        return "/index";
+//
+//    }
 
 
 }

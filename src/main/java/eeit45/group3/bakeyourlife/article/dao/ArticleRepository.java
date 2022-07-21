@@ -17,7 +17,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     List<Article> findAllByTypeContaining(String type);
 
-    @Query(nativeQuery = true,value ="select TOP(3)* from ARTICLE where DATE <= GETDATE() ORDER BY DATE DESC")
+    @Query(nativeQuery = true,value ="select TOP(5)* from ARTICLE where DATE <= GETDATE() ORDER BY DATE DESC")
     List<Article> findLatestDate(Date date);
 
     @Query(nativeQuery = true,value = "Select type AS 'label',count(*) AS 'value' FROM ARTICLE GROUP BY type")

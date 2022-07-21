@@ -29,11 +29,13 @@ public class ProductCommentServiceImpl implements ProductCommentService {
     }
 
     @Override
+    @Transactional
     public ProductComment create(ProductComment productComment) {
         return productCommentRepository.save(productComment);
     }
 
     @Override
+    @Transactional
     public void update(ProductComment productComment) {
         ProductComment productCommentDb = productCommentRepository.findByProductCommentId(productComment.getProductCommentId());
         if (productCommentDb != null) {
@@ -43,6 +45,7 @@ public class ProductCommentServiceImpl implements ProductCommentService {
 
 
     @Override
+    @Transactional
     public void delete(Integer productCommentId) {
         productCommentRepository.deleteById(productCommentId);
     }

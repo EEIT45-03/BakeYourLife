@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +39,6 @@ public class Article implements Serializable {
 	//@Column(name="date")
 	@Valid
 	@NotNull(message = "日期不可為空")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@Valid
 	@NotBlank(message = "內容欄不可為空")
@@ -70,8 +68,7 @@ public class Article implements Serializable {
 	private User user;
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
-	private List<Message> favoriteList;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
 	private List<Message> messageList;
 

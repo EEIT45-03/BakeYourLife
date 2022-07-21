@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser(Authentication authentication){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        return userDetails.getUser();
+        return repository.findByUsername(userDetails.getUsername());
+//        return userDetails.getUser();
     }
 
     @Override

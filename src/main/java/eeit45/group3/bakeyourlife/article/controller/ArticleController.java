@@ -9,10 +9,13 @@ import java.util.List;
 import eeit45.group3.bakeyourlife.article.model.Message;
 import eeit45.group3.bakeyourlife.article.service.MessageService;
 import eeit45.group3.bakeyourlife.article.validator.ArticleValidator;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +38,8 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleservice;
 	//private MessageService messageService;
-
+	@Autowired
+	private UserService userService;
 
 	@GetMapping(path = "/")
 	private String processFindOne(@RequestParam(required = false) Integer postid, Model m) {
@@ -94,7 +98,7 @@ public class ArticleController {
 
 	@PostMapping(path = "/CreateArticle")
 	public String processInsert(@Valid @ModelAttribute("article") Article articleInfo,
-								BindingResult bindingResult,
+								BindingResult bindingResult, Authentication authentication,
 								@RequestParam(value = "articleImage", required = false) MultipartFile file,
 								RedirectAttributes redirectAttributes
 	) {
@@ -106,7 +110,7 @@ public class ArticleController {
 			return "admin/article/CreateArticle";
 		}
 
-
+		User user = userService.getCurrentUser(authentication);
 
 		articleInfo.setCounter(0);
 		articleInfo.setArticleImage(file);
@@ -116,6 +120,7 @@ public class ArticleController {
 //			System.out.println(result);
 //			articleInfo.setPicture(image);
 			articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
+			articleInfo.setUser(user);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -130,6 +135,7 @@ public class ArticleController {
 
 
 		Article listone = articleservice.selectOne(postid).orElse(null);
+
 //		String encoded64 = new String(listone.getPicture());
 //		listone.setBase64(encoded64);
 		model.addAttribute("article", listone);
@@ -137,20 +143,21 @@ public class ArticleController {
 	}
 
 	@PostMapping("/UpdateArticle")
-	public String processUpdate(@ModelAttribute ("article") Article articleInfo,
+	public String processUpdate(@ModelAttribute ("article") Article articleInfo,Authentication authentication,
 								@RequestParam(value = "articleImage", required = false) MultipartFile file,
-								Model model)  throws IOException{{
+								Model model)  throws IOException{
 
 
 
+		User user = userService.getCurrentUser(authentication);
 
-
-		articleInfo.setArticleImage(file);
+//		articleInfo.setArticleImage(file);
 		try{
 //			byte[] image = Base64.encodeBase64(articleInfo.getArticleImage().getBytes());
 //			String result = new String(image);
 //			System.out.println(result);
 //			articleInfo.setPicture(image);
+			articleInfo.setUser(user);
 			articleInfo.setImageUrl(ImgurService.updateByMultipartFile(file).getLink());
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -160,11 +167,12 @@ public class ArticleController {
 		articleInfo.setCounter(0);
 		articleservice.update(articleInfo);
 		//Integer counter = 0;
-	}
+
 
 		return "redirect:./";
 
 	}
+
 
 	@PostMapping("/DeleteArticle")
 	public String processDelete(@RequestParam("postid") Integer postid){

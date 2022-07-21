@@ -173,6 +173,7 @@
                                     <tr>
 
                                         <th>留言ID</th>
+                                        <th>留言大頭貼</th>
                                         <th>留言名稱</th>
                                         <th>內容</th>
                                         <th>留言時間</th>
@@ -185,7 +186,8 @@
 
                                     <tr th:each="message: ${messages}">
                                         <td th:text="${message.messageId}"></td>
-                                        <td th:text="${ message.userName}">
+                                    <td><img width="50" height="50" style="display:block; margin:auto; border-radius: 50%;" th:src="${message.user.imageUrl}"/></td>
+                                        <td th:text="${ message.user.fullName}">
                                         </td>
                                         <td th:text="${ message.message}"></td>
                                         <td th:text="${#dates.format(message.dateTime, 'yyyy/MM/dd HH:mm:sss')}">2022/06/15 00:00</td>
