@@ -112,6 +112,14 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="maxQuantity" class="col-sm-2 col-form-labels">已使用數量:</label>
+                                <div class="col-sm-10">
+
+                                    <input type="number" class="form-control" name="usedQuantity" id="usedQuantity" readonly />
+                                </div>
+                            </div>
+
 
 
 
@@ -156,6 +164,7 @@
                     $("#endDate").val(data.endDate);
                     $("#minimum").val(data.minimum);
                     $("#maxQuantity").val(data.maxQuantity);
+                    $("#usedQuantity").val(data.usedQuantity);
 
                     if(data.type === 'deduct'){
                         $("#deductAmount").val(data.deductAmount);
@@ -259,6 +268,7 @@
                 var endDate = $("#endDate").val();
                 var minimum = $("#minimum").val();
                 var maxQuantity = $("#maxQuantity").val();
+                var usedQuantity = $("#usedQuantity").val();
 
                 var coupon = {
                     "type":type,
@@ -267,7 +277,8 @@
                     "startDate": startDate,
                     "endDate": endDate,
                     "minimum": minimum,
-                    "maxQuantity":maxQuantity
+                    "maxQuantity":maxQuantity,
+                    "usedQuantity":usedQuantity
                 }
 
                 if(type === 'deduct'){
