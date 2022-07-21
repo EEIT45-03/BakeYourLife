@@ -74,13 +74,7 @@ public class ArticleRestController {
                                           @RequestParam String content,
                                           @RequestParam ("articleImage")  MultipartFile articleImage) {
 
-//        if (bindingResult.hasErrors()) {
-////            //model = new ModelAndView("customerCreate");
-////            //return model;
-//            return ResponseEntity.ok("valid");
-//       }
-        //User userName = userService.findByUsername(principal.getName());
-        ///User userid = userService.findByUserId(userId);
+
         User user = userService.getCurrentUser(authentication);
         Article m = new Article();
         m.setTitle(title);

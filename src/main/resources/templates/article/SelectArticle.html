@@ -30,8 +30,8 @@
         }
 
         .update{
-            text-decoration: none;color:#F0F0F0;background: #b08968; width: 116px;height: 45px;border-radius: 20px;
-            font-size: 14px;font-family: Microsoft YaHei;padding: 15px;border: #F0F0F0;text-align:center;
+            text-decoration: none;color:#F0F0F0;background:#b08968; width: 50px;height: 40px;border-radius: 20px;
+            font-size: 14px;font-family: Microsoft YaHei;padding: 12px;border: #F0F0F0;text-align:center;
         }
     </style>
 </head>
@@ -168,7 +168,7 @@
 
                                 <button type="button"
                                         class="update"
-                                        id="favorite" th:onclick="|archiveFunction(${article.postid})|">收藏文章<i class="fa-solid fa-book"></i></button>
+                                        id="favorite" th:onclick="|archiveFunction(${article.postid})|"><i class="fa-solid fa-heart"></i></button>
 
                                 <!--                                <td><button type="button"-->
                                 <!--                                            class="btn btn-danger"-->
@@ -321,7 +321,7 @@
                                                class="blog__btn">觀看文章<span class="arrow_right"></span></a>
                                                <button type="button"
                                            class="update"
-                                            id="favorite" onclick="archiveFunction(${mapData[i].postid})">收藏文章<i class="fa-solid fa-book"></i></button>
+                                            id="favorite" onclick="archiveFunction(${mapData[i].postid})"><i class="fa-solid fa-heart"></i></button>
                             </div></div></div>`
 
 
