@@ -117,37 +117,6 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
     }
-//    @Override
-//    public void sendVerificationEmail(User user, String siteURL)
-//            throws UnsupportedEncodingException,MessagingException {
-//        String toAddress = user.getEmail();
-//        String fromAddress = "bakeyourlifemail@gmail.com";
-//        String senderName = "Bake Your Life 烘焙材料網";
-//        String subject = "Bake Your Life 烘焙材料網會員 "+user.getFullName()+ " 註冊驗證信件";
-//        String content = "Dear [[name]],<br>"
-//                + "請以下點擊連結完成註冊:<br>"
-//                + "<h2><a href=\"[[URL]]\" target=\"_self\">點我完成註冊</a></h2>"
-//                + "謝謝您<br>";
-//
-//
-//        MimeMessage message = mailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message);
-//
-//        helper.setFrom(fromAddress, senderName);
-//        helper.setTo(toAddress);
-//        helper.setSubject(subject);
-//
-//        content = content.replace("[[name]]", user.getFullName());
-//        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
-//
-//        content = content.replace("[[URL]]", verifyURL);
-//
-//        helper.setText(content, true);
-//
-//        mailSender.send(message);
-//
-//    }
-
 
 
     @Override
@@ -158,13 +127,8 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
         sendFindPswEmail(user);
     }
-
-
-
-
     @Override
     public void sendFindPswEmail(User user) {
-//        String randomCode = RandomString.make(64);
         String email = user.getEmail();
         try {
             emailService.sendUserMail(email, "Bake Your Life 烘焙材料網 重設您的密碼",user,"findpswmail");
@@ -172,6 +136,24 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public void loginresetpsw(User user) {
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+
+        repository.save(user);
+        sendLoginFindPswEmail(user);
+    }
+    @Override
+    public void sendLoginFindPswEmail(User user) {
+        String email = user.getEmail();
+        try {
+            emailService.sendUserMail(email, "Bake Your Life 烘焙材料網 重設您的密碼",user,"loginfindpswmail");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     @Override
