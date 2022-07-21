@@ -12,4 +12,6 @@ public interface FavoriteService {
     Favorite createFavorite(Favorite favorite);
 
     List<Favorite> findAllByUser(User user);
+
+    void deleteById(Integer id);
 }

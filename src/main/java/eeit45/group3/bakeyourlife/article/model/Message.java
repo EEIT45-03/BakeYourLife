@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer messageId;
 
-    private String userName;
+//    private String userName;
     private String message;
 
     private Date dateTime;
@@ -30,6 +31,7 @@ public class Message implements Serializable {
 //    private byte[] image;
     private String imageUrl;
     @Transient
+    @Nullable
     private MultipartFile messageImage;
 //    @Transient
 //    private String base64Message;
@@ -54,7 +56,7 @@ public class Message implements Serializable {
     public Message(Integer messageId, String userName, String message, Date dateTime, byte[] image, MultipartFile messageImage,
                    String base64Message) {
         this.messageId = messageId;
-        this.userName = userName;
+//        this.userName = userName;
         this.message = message;
         this.dateTime = dateTime;
         //this.image = image;
@@ -82,13 +84,13 @@ public class Message implements Serializable {
         this.messageId = messageId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
 
     public String getMessage() {
         return message;

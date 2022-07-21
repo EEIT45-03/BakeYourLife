@@ -10,116 +10,19 @@
   <title>我的文章</title>
   <script>
 
-   const title = document.getElementById('title')
-   const type = document.getElementById('type')
-   const date = document.getElementById('date')
-   const content = document.getElementById('content')
-   const articleImage = document.getElementById('articleImage')
-   const form = document.getElementById('form')
-   const error = document.getElementById('error')
 
-   form.addEventListener('submit',(e) => {
-     let message = []
-     if(title.value === '' || title.value == null){
-       message.push('請輸入標題')
-     }
-     if(type.value === '' || type.value == null){
-       message.push('請選擇文章分類')
-     }
-     if(date.value === '' || date.value == null){
-       message.push('請輸入日期')
-     }
-     if(content.value === '' || content.value == null){
-       message.push('請輸入內容')
-     }
-     if(articleImage.value === '' || articleImage.value == null){
-       message.push('請放入照片')
-     }
-     if(message.length > 0){
-       e.preventDefault()
-       error.innerText = message.join(',')
-     }
-
-   })
  </script>
 
   <div th:replace="css.html"></div>
   <style>
-    .wrapper{
-      width: 800px;
-      height: 400px;
-      background-color: black;
-      margin: 0 auto;
-      position: relative;
-    }
-    .slide-imgs{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      position: absolute;
-      display: flex;
-      width: 4000px;
-      /* left: -800px; */
-
-    }
-    .slide-imgs li{
-      width: 800px;
-      height: 400px;
-    }
-    .slide-imgs li img{
-      width: 100%;
-      height: 100%;
-      /*控制元素內容填入大小比例*/
-      object-fit: cover;
-    }
-    .pages{
-      position: absolute;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      bottom: 10px;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-
-    }
-    .pages li{
-      border: 1px solid white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      margin: 0 5px;
-    }
-    .pages-arrow{
-      position: absolute;
-      z-index: 1;
-      font-size: 36px;
-      width: 40px;
-      height: 100%;
-      color: white;
-      display: flex;
-      /* 次軸對齊 */
-      align-items: center;
-      opacity: 6;
-      cursor: pointer;
-    }
-    .right{
-      right: 0;
-    }
-
-    #css_table {
-      display:table;
-    }
-    .css_tr {
-      display: table-row;
-    }
-    .css_td {
-      display: table-cell;
-    }
 
     .update{
-        text-decoration: none;color:#F0F0F0;background: #b08968; width: 150px;height: 60px;border-radius: 20px;
-        font-size: 17px;font-family: Microsoft YaHei;padding: 19px;border: #F0F0F0;
+        text-decoration: none;color:#F0F0F0;background: #b08968; width: 120px;height: 50px;border-radius: 20px;
+        font-size: 15px;font-family: Microsoft YaHei;padding: 19px;border: #F0F0F0;
+    }
+
+    .wrong {
+        color: RED;
     }
   </style>
 </head>
@@ -136,128 +39,17 @@
           <div class="row">
               <div class="col-lg-12 text-center">
                   <div class="breadcrumb__text">
-                      <h2>我的文章</h2>
+                      <h2 style="color: #1c1c1c">我的文章</h2>
                       <div class="breadcrumb__option">
-                          <a href="./index.html">Home</a>
-                          <span>我的文章</span>
+<!--                          <a href="./index.html">Home</a>-->
+<!--                          <span>我的文章</span>-->
                       </div>
                   </div>
               </div>
           </div>
       </div>
 </section>
-<!--  <div class="container">-->
-<!--    <div class="wrapper">-->
-<!--      <a class="pages-arrow" id="slidePre"></a><i class="fa-solid fa-arrow-left"></i>-->
-<!--      <a class="pages-arrow right" id="slideNext"></a><i class="fa-solid fa-arrow-right"></i>-->
-<!--      <ul class="slide-imgs">-->
-<!--        <li><img src="/img/blog/details/IMG_6351.JPG" alt=""></li>-->
-<!--        <li><img src="/img/blog/details/lemon.jpg" alt=""></li>-->
-<!--        <li><img src="/img/blog/details/IMG_6279.JPG" alt=""></li>-->
-<!--        <li><img src="/img/blog/details/madeleine.jpg" alt=""></li>-->
-<!--        <li><img src="/img/blog/details/lemontart4.jpg" alt=""></li>-->
 
-<!--      </ul>-->
-<!--      <ul class="pages" id="pages">-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--      </ul>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
-<!--&lt;!&ndash; Breadcrumb Section End &ndash;&gt;-->
-
-<!--&lt;!&ndash; Blog Section Begin&ndash;&gt;-->
-<!--<section class="blog spad">-->
-<!--  <div class="container">-->
-<!--    <div class="row">-->
-<!--      <div class="col-lg-4 col-md-5">-->
-<!--        <div class="blog__sidebar">-->
-<!--          <div class="blog__sidebar__search">-->
-<!--            <form th:action="@{/FrontArticle/SelectArticle}" method="get" enctype="multipart/form-data">-->
-<!--              <input name="title" type="text" placeholder="搜尋標題">-->
-<!--              <button type="submit"><span class="icon_search"></span></button>-->
-<!--            </form>-->
-<!--          </div>-->
-<!--          <div class="blog__sidebar__item">-->
-<!--            <h4>文章分類</h4>-->
-
-<!--            <div class="form-group">-->
-<!--              <label for="type"></label>-->
-<!--              <select name="type" class="form-control" id="typeSelect">-->
-<!--                <option value= null label="請選擇分類">請選擇分類</option>-->
-<!--                <option value="活動資訊">活動資訊</option>-->
-<!--                <option value="課程資訊">課程資訊</option>-->
-<!--                <option value="食譜討論">食譜討論</option>-->
-<!--              </select>-->
-
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <li><a href="@{/SelectArticle(title=${article.title})}">活動資訊</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <li><a href="#">課程資訊</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <li><a href="#">食譜討論</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--          <div class="blog__sidebar__item">-->
-<!--            <h4>最新貼文</h4>-->
-<!--            <form action="/" method="get" th:each="article: ${articleDate}">-->
-<!--              <div class="blog__sidebar__recent">-->
-<!--                <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__sidebar__recent__item">-->
-<!--                  <div class="blog__sidebar__recent__item__pic" style="width: 100px;-->
-<!--                              height: 100px;">-->
-<!--                    <img th:src="${article.imageUrl}" alt="" style="width: 100%;-->
-<!--                              height: 100%;margin:auto; padding: 3px;" >-->
-<!--                  </div>-->
-<!--                  <div class="blog__sidebar__recent__item__text">-->
-<!--                    <h6 th:text="${ article.title}"></h6>-->
-<!--                    <span th:text="${ article.date}"></span>-->
-<!--                  </div>-->
-<!--                </a>-->
-
-<!--              </div>-->
-<!--            </form>-->
-<!--          </div>-->
-<!--          <div class="blog__sidebar__item">-->
-<!--            <h4>Search By</h4>-->
-<!--            <div class="blog__sidebar__item__tags">-->
-<!--&lt;!&ndash;              <a href="#">Apple</a>&ndash;&gt;-->
-<!--&lt;!&ndash;              <a href="#">Beauty</a>&ndash;&gt;-->
-<!--&lt;!&ndash;              <a href="#">Vegetables</a>&ndash;&gt;-->
-<!--&lt;!&ndash;              <a href="#">Fruit</a>&ndash;&gt;-->
-<!--&lt;!&ndash;              <a href="#">Healthy Food</a>&ndash;&gt;-->
-<!--&lt;!&ndash;              <a href="#">Lifestyle</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <div class="col-lg-8 col-md-7">-->
-<!--        <div class="row" id="container">-->
-<!--          <div class="col-lg-6 col-md-6 col-sm-6"  th:each="article: ${articles}" style="text-align:justify-all;">-->
-<!--            <div class="blog__item">-->
-<!--              <div class="blog__item__pic" style="width: 200px;-->
-<!--                              height: 180px;">-->
-<!--                <img th:src="${article.imageUrl}" style="display:block; margin:auto; border-radius:10px;width:100%; height:100%;">-->
-<!--              </div>-->
-<!--              <div class="blog__item__text">-->
-<!--                <span></span>-->
-<!--                <ul>-->
-<!--                  <li><i class="fa fa-calendar-o" th:text="${ article.date}"></i></li>-->
-<!--                  <li><i class="fa fa-eye" th:text="${ article.counter}"></i></li>-->
-<!--                  &lt;!&ndash;                                   <i class="fa-solid fa-book-open-cover"></i>fa fa-comment-o&ndash;&gt;-->
-<!--                </ul>-->
-<!--                <h5><a th:href="@{/UserArticle/UserArticleDetail(postid=${article.postid})}" th:text="${ article.title}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;">-->
-<!--                </a></h5>-->
-<!--                <p th:text="${ article.type}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;"></p>-->
-<!--                <a th:href="@{/UserArticle/UserArticleDetail(postid=${article.postid})}" class="blog__btn">觀看文章 <span class="arrow_right"></span></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
 
 <div id="wrapper">
 
@@ -274,10 +66,14 @@
                     <li><i class="fa-solid fa-address-card faIcon"></i> <a th:href="@{/User/UserData/}">會員資料</a></li>
                     <li><i class="fa-solid fa-heart faIcon"></i> <a th:href="@{/User/UserArticle/farvorite}">喜愛清單</a></li>
                     <li><i class="fa-solid fa-cart-shopping faIcon"></i> <a th:href="@{/User/order/}">購買清單</a></li>
-                    <li><i class="fa-solid fa-ticket faIcon"></i> <a th:href="@{/#/}">我的優惠卷</a></li>
+<!--                    <li><i class="fa-solid fa-ticket faIcon"></i> <a th:href="@{/#/}">我的優惠卷</a></li>-->
                     <li><i class="fa-solid fa-school faIcon"></i> <a th:href="@{/#/}">我的課程</a></li>
                     <li><i class="fa-solid fa-table faIcon"></i> <a th:href="@{/#/}">我的租借</a></li>
-                    <li><i class="fa-solid fa-book faIcon"></i> <a th:href="@{/#/}">我的文章</a></li>
+                    <li><i class="fa-solid fa-book faIcon"></i> <a th:href="@{/User/UserArticle/}">我的文章</a>
+                        <ol class="panel">
+                            <li style="margin-left: 30px"><i class="fa-solid fa-heart faIcon"></i><a th:href="@{/User/UserArticle/farvorite}">收藏文章</a></li>
+                        </ol>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -299,7 +95,7 @@
                   <p class="mb-4">
                   <div>
                       <button type="button" class="update" data-toggle="modal" data-target="#InsertArticle" input style="float:top;">
-                          新增文章
+                          <i class="fas fa-plus"></i>新增文章
                       </button>
                   </div>
                   </p>
@@ -329,7 +125,7 @@
               <div class="table-responsive">
 
                 <form action="Article" method="get">
-                  <table class="table table-bordered" id="dataTable" width="100%"
+                  <table class="table table-bordered" id="dataTable" style="width: 100%"
                          cellspacing="0">
                     <thead>
                     <tr>
@@ -356,7 +152,7 @@
                    <td><img th:src="${article.imageUrl}" style="display:block; margin:auto; border-radius:10px;width:100px; height:100px;"></td>
                       <td th:text="${ article.counter}"></td>
 <!--                        <td>-->
-<!--                            <button type="button" class="btn btn-warning" data-toggle="modal" th:attr="data-target='#UpdateArticle'+${article.postid}" input style="float:right">-->
+<!--                            <button type="button" class="btn btn-warning" data-toggle="modal" th:attr="data-target='#UpdateArticle'+${article.postid}" input style="float:right" th:onclick="|updateFunction(${article.postid})|">-->
 <!--                                編輯文章-->
 <!--                            </button>-->
 <!--                        </td>-->
@@ -365,57 +161,57 @@
                                   th:onclick="|archiveFunction(${article.postid})|" id="btn">刪除貼文</button></td>
                       <!--<td><a class="btn btn-danger"
                         href="DeleteArticle?postid=${article.postid}" onclick="del()">刪除貼文</a></td>-->
-                        <div class="modal fade" th:id="UpdateArticle+${article.postid}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="ModalLabel">編輯文章</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" enctype="multipart/form-data" id="updateform">
-                                            <div class="form-group">
-<!--                                                <input type="hidden" name="userId" th:value="${article.user.userId}" id="userId">-->
-                                                <input type="hidden" name="postid" th:value="${article.postid}" id="postid">
-                                                <label for="title">標題:</label>
-                                                <input type="text" name="title" class="form-control"  id="uptitle" th:value="${article.title}">
-                                            </div>
+<!--                        <div class="modal fade" th:id="UpdateArticle+${article.postid}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">-->
+<!--                            <div class="modal-dialog" role="document">-->
+<!--                                <div class="modal-content">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <h5 class="modal-title" id="ModalLabel">編輯文章</h5>-->
+<!--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                            <span aria-hidden="true">&times;</span>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">-->
+<!--                                        <form  method="post" enctype="multipart/form-data" id="updateform">-->
+<!--                                            <div class="form-group">-->
+<!--&lt;!&ndash;                                                <input type="hidden" name="userId" th:value="${article.user.userId}" id="userId">&ndash;&gt;-->
+<!--                                                <input type="hidden" name="postid" th:value="${article.postid}" id="postid">-->
+<!--                                                <label for="title">標題:</label>-->
+<!--                                                <input type="text" name="title" class="form-control"  id="uptitle" th:value="${article.title}">-->
+<!--                                            </div>-->
 
-                                            <div class="form-group">
-                                                <label for="type">文章分類:</label>
-                                                <select name="type" class="form-control" id="uptype">
-                                                    <option value= null label="請選擇分類">請選擇分類</option>
-                                                    <option value="活動資訊" th:selected="${article.type} == '活動資訊'">活動資訊</option>
-                                                    <option value="課程資訊" th:selected="${article.type} == '課程資訊'">課程資訊</option>
-                                                    <option value="食譜討論" th:selected="${article.type} == '食譜討論'">食譜討論</option>
-                                                </select>
+<!--                                            <div class="form-group">-->
+<!--                                                <label for="type">文章分類:</label>-->
+<!--                                                <select name="type" class="form-control" id="uptype">-->
+<!--                                                    <option value= null label="請選擇分類">請選擇分類</option>-->
+<!--                                                    <option value="活動資訊" th:selected="${article.type} == '活動資訊'">活動資訊</option>-->
+<!--                                                    <option value="課程資訊" th:selected="${article.type} == '課程資訊'">課程資訊</option>-->
+<!--                                                    <option value="食譜討論" th:selected="${article.type} == '食譜討論'">食譜討論</option>-->
+<!--                                                </select>-->
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="date">發文日期:</label>
-                                                <input type="date" name="date" id="updateDate" th:value="${article.date}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>內文:</label>
-                                                <textarea name="content" class="form-control upContent"  id="upContent" cols="30"
-                                                          rows="10" th:value="${article.content}">[[${article.content}]]</textarea> <br>
-                                            </div>
-                                            <div class="form-group">
-                                                <img th:src="${article.imageUrl}"  width="100" height="100" style="display:block; margin:auto;" id="upPreviewImage"/>
-                                                <label for="upArticleImage">上傳圖片</label>
-                                                <input type="file" name="articleImage" class="form-control-file" id="upArticleImage" th:value="${article.imageUrl}">
-                                            </div>
+<!--                                            </div>-->
+<!--                                            <div class="form-group">-->
+<!--                                                <label for="date">發文日期:</label>-->
+<!--                                                <input type="date" name="date" id="updateDate" th:value="${article.date}">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group">-->
+<!--                                                <label>內文:</label>-->
+<!--                                                <textarea name="content" class="form-control upContent"  id="upContent" cols="30"-->
+<!--                                                          rows="10" th:value="${article.content}">[[${article.content}]]</textarea> <br>-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group">-->
+<!--                                                <img th:src="${article.imageUrl}"  width="100" height="100" style="display:block; margin:auto;" id="upPreviewImage"/>-->
+<!--                                                <label for="upArticleImage">上傳圖片</label>-->
+<!--                                                <input type="file" name="articleImage" class="form-control-file" id="upArticleImage" th:value="${article.imageUrl}">-->
+<!--                                            </div>-->
 
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button  class="btn btn-outline-warning" id="update">送出文章</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-footer">-->
+<!--                                        <button  class="btn btn-outline-warning" id="update">送出文章</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
 
 
@@ -449,44 +245,61 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div id="error"></div>
-                  <form action="/ArticleAdd"  method="post" enctype="multipart/form-data" id="form" >
+                    <div id='resultMsg' style="height: 18px; font-weight: bold;"></div>
+                  <form action="/ArticleAdd"  method="post" enctype="multipart/form-data" id="form">
                     <div class="form-group">
                       <!--                                            <input type="hidden" name="userid"  id="userid">-->
                       <label for="title">標題:</label>
                       <input type="text" name="title" class="form-control"  id="title">
+                        <td style="width:200px">
+                            <div id='result0c' style="height: 10px;"></div>
+                            <br>
+                            <div id='result0s' style="height: 10px;"></div>
+                        </td>
                     </div>
 
                     <div class="form-group">
                       <label for="type">文章分類:</label>
                       <select name="type" class="form-control" id="type">
-                        <option value= null label="請選擇分類">請選擇分類</option>
+                        <option value= "" label="請選擇分類">請選擇分類</option>
                         <option value="活動資訊">活動資訊</option>
                         <option value="課程資訊">課程資訊</option>
                         <option value="食譜討論">食譜討論</option>
                       </select>
+                        <td style="vertical-align: top;width:200px;">
+                            <div id='result1c' style="height: 10px;"></div>
+                        </td>
 
                     </div>
                     <div class="form-group">
                       <label for="date">發文日期:</label>
                       <input type="date" name="date" id="date">
+                        <td style="vertical-align: top;width:200px;">
+                            <div id='result2c' style="height: 10px;"></div>
+                        </td>
                     </div>
                     <div class="form-group">
                       <label>內文:</label>
                       <textarea name="content" class="form-control"  id="content" cols="30"
                                 rows="10"></textarea> <br>
+                        <td style="vertical-align: top;width:200px;">
+                            <div id='result3c' style="height: 10px;"></div>
+                        </td>
                     </div>
                     <div class="form-group">
                       <img width="100" height="100" style="display:block; margin:auto;" id="previewImage"/>
                       <label for="articleImage">上傳圖片</label>
                       <input type="file" name="articleImage" class="form-control-file" id="articleImage">
+                        <td style="vertical-align: top;width:200px;">
+                            <div id='result4c' style="height: 10px;"></div>
+                        </td>
                     </div>
 
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" id="correctInput">一鍵輸入</button>
-                  <button type="submit" class="btn btn-outline-warning" id="testadd">送出文章</button>
+                  <button type="submit" class="btn btn-outline-warning" id="testAdd">送出文章</button>
                 </div>
               </div>
             </div>
@@ -521,8 +334,51 @@
 
 </body>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>-->
 <script>
+
+
+    function archiveFunction(postid) {
+        Swal.fire({
+            title: '確定要刪除嗎?',
+            text: "刪除後無法復原!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '刪除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/ArticleDelete/' + postid,
+                    type: 'DELETE',
+                    success: function (msg) {
+                        Swal.fire(
+                            '已刪除!',
+                            '文章已成功刪除!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                // location.reload();
+                                location = '/User/UserArticle';
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+            }
+        })
+    }
+
 
 
 
@@ -572,165 +428,95 @@
 
 
 
+  // $('#testadd').click(function (event) {
+  //     event.preventDefault();
+  //     add();
+  // })
 
 
 
-  $('#testadd').click(function (event) {
-    event.preventDefault();
-    add();
-  })
+  // function add() {
 
-  function add() {
-    const editorData = editor.getData(); //ckEditor要加getData，Ajax傳輸才能取到值
-    var formData = new FormData($('#form')[0]);
-    formData.append('content',editorData)   //append要用是附加傳資料
-    //console.log(formData)
-    $.ajax({
-      url: "[[@{/ArticleAdd}]]",
-      data: formData,
-      type: "post",
-      cache: false, // 不需要cache
-      processData: false, // jQuery預設會把data轉為query String, 所以要停用
-      contentType: false,
-      enctype: 'multipart/form-data',
-      // dataType: "json",
-      // contentType: "application/json;charset=utf-8",
-      success: function (result) {
-        // loadData();
-        // console.log(111111)
-        $('#InsertArticle').modal('hide');
-        window.location.reload();
-      },
-      error: function (errormessage) {
-        alert(errormessage.responseText);
-      }
-    });
-  }
+      var testAdd = document.getElementById("testAdd");
+      testAdd.onclick = function() {
+
+          const editorData = editor.getData(); //ckEditor要加getData，Ajax傳輸才能取到值
+          var formData = new FormData($('#form')[0]);
+          formData.append('content', editorData)   //append要用是附加傳資料
+
+          var title = document.getElementById("title").value;
+          var type = document.getElementById("type").value;
+          var date = document.getElementById("date").value;
+          var content = document.getElementById("content").value;
+          var articleImage = document.getElementById("articleImage").value;
 
 
-
-  var selectElement = document.getElementById('typeSelect');
-  var xhr2 = new XMLHttpRequest();
-  var companyData = [];
-  selectElement.onchange = function(){
-    xhr2.onreadystatechange = function() {
-      if (xhr2.readyState == 4 && xhr2.status == 200) {
-        displayPageBooks(xhr2.responseText);
-      }
-    }
-    var articleType = selectElement.options[ selectElement.selectedIndex ].value;
-
-    xhr2.open("GET", "[[@{/ArticlesType/}]]" + articleType, true);
-    xhr2.send();
-
-    function displayPageBooks(article){
-      $('#container').html('')
-      var mapData = JSON.parse(article);
-      let html = ''
-      for(var i=0; i < mapData.length; i++){
-        const append = `
-                    <div class="col-lg-6 col-md-6 col-sm-6" >
-                    <div class="blog__item"><div class="blog__item__pic"><img style="display:block; margin:auto; border-radius:10px;width:250px; height:250px;" src=${mapData[i].imageUrl}>
-                     </div><div class="blog__item__text"><ul><li><i class="fa fa-calendar-o"></i>${mapData[i].date}</li><li><i class="fa fa-eye"></i>${mapData[i].counter}</li>
-                                            </ul><h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}">
-                                                   ${mapData[i].title}
-                                           </a></h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}"
-                                               class="blog__btn">觀看文章<span class="arrow_right"></span></a></div></div></div>`
-
-
-        html = html + append
-      }
-
-
-      var div = document.getElementById('container');
-      div.innerHTML = html;
-      //$("#container").html(content);
-
-    }
-  }
-
-  function archiveFunction(postid) {
-    Swal.fire({
-      title: '確定要刪除嗎?',
-      text: "刪除後無法復原!",
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: '取消',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '刪除'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          url: '/ArticleDelete/' + postid,
-          type: 'DELETE',
-          success: function (msg) {
-            Swal.fire(
-                    '已刪除!',
-                    '文章已成功刪除!',
-                    'success'
-            ).then((result) => {
-              if (result.isConfirmed) {
-                // location.reload();
-                location = '/FrontArticle';
-              }
-            })
-          },
-          error: function (msg) {
-            // console.log(msg.status)
-            Swal.fire({
-              icon: 'error',
-              title: '發生錯誤',
-              text: 'HTTP 狀態碼為 ' + msg.status,
-              footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
-            })
+          var hasError = false; // 設定判斷有無錯誤的旗標
+          var div0 = document.getElementById('result0c');
+          var div1 = document.getElementById('result1c');
+          var div2 = document.getElementById('result2c');
+          var div3 = document.getElementById('result3c');
+          var div4 = document.getElementById('result4c');
+          var divResult = document.getElementById('resultMsg');
+          if (!title) {
+              div0.innerHTML = "<p class='wrong'>請輸入標題</p>";
+              hasError = true;
+          } else {
+              div0.innerHTML = "";
           }
-        });
+          if (!type) {
+              div1.innerHTML = "<p class='wrong'>請選擇分類</p>";
+              hasError = true;
+          } else {
+              div1.innerHTML = "";
+          }
+          if (!date) {
+              div2.innerHTML = "<p class='wrong'>請輸入日期</p>";
+              hasError = true;
+          } else {
+              div2.innerHTML = "";
+          }
+          if (!editorData) {
+              div3.innerHTML = "<p class='wrong'>請輸入內文</p>";
+              hasError = true;
+          } else {
+              div3.innerHTML = "";
+          }
+          if (!articleImage) {
+              div4.innerHTML = "<p class='wrong'>請放入照片</p>";
+              hasError = true;
+          } else {
+              div4.innerHTML = "";
+          }
+          if (hasError) {
+              return false;
+          }
+          //console.log(formData)
+          $.ajax({
+              url: "[[@{/ArticleAdd}]]",
+              data: formData,
+              type: "post",
+              cache: false, // 不需要cache
+              processData: false, // jQuery預設會把data轉為query String, 所以要停用
+              contentType: false,
+              enctype: 'multipart/form-data',
+              // dataType: "json",
+              // contentType: "application/json;charset=utf-8",
+              success: function (result) {
+                  // loadData();
+                  // console.log(111111)
+                  $('#InsertArticle').modal('hide');
+                  window.location.reload();
+              },
+              error: function (errormessage) {
+                  alert(errormessage.responseText);
+              }
+          });
+
+
       }
-    })
-  }
 
 
-
-  let index=0
-  let slideMove=0
-  $(function(){
-    $('#pages li').on('mouseenter',function(){
-      // $('.slide-imgs').css('left','-800px')
-      index=$(this).index()
-      console.log(index)
-      slideMove=0-index*800
-      $('.slide-imgs').css('left',slideMove)
-      $(this).css('background','white')
-              .siblings().css('background','transparent')
-    })
-    let pagesli=$('.pages li').length
-    $('#slideNext').on('click',function(){
-      index++
-      if(index>=pagesli){
-        index=0
-      }
-      //    slideMove=0-index*800
-      //    $('.slide-imgs').css('left',slideMove)
-      //    $('#pages li').eq(index).css('background','white')
-      //    .siblings().css('background','transparent')
-      moveImg()
-    })
-    $('#slidePrev').on('click',function(){
-      index--
-      if(index<0){
-        index=pagesli-1
-      }
-      moveImg()
-
-    })
-    function moveImg(){
-      slideMove=0-index*800
-      $('.slide-imgs').css('left',slideMove)
-      $('#pages li').eq(index).css('background','white')
-              .siblings().css('background','transparent')
-    }
-  })
 </script>
 
 </html>

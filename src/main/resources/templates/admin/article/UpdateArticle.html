@@ -71,7 +71,7 @@
 <!--                                         <tr th:each="article: ${articles}">-->
                                      <!-- 發文ID: -->
                                         <div class="row mb-3">
-                                            <label for="postid" class="col-sm-2 col-form-labels">發文ID:</label>
+                                            <label class="col-sm-2 col-form-labels">發文ID:</label>
 
                                             <div class="col-sm-10">
 
@@ -105,7 +105,7 @@
                                          rows="10" required th:field="*{content}">[[${article.content}]]</textarea> <br>
                                          </div>
                                          <div>                                    
-                                           <img th:src="|data:image;base64,${article.base64}|"  width="200" height="200" style="display:block; margin:auto;" id="previewImage"/>
+                                           <img th:src="|${article.imageUrl}|"  width="200" height="200" style="display:block; margin:auto;" id="previewImage"/>
                                           </div>                                                                                                                                                                 
                                          <div class="row mb-3">照片上傳 
                                          <input type="file" name="articleImage" value="" required id="image"  th:field="*{articleImage}">

@@ -3,7 +3,6 @@ package eeit45.group3.bakeyourlife.article.controller;
 
 import eeit45.group3.bakeyourlife.article.model.Favorite;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
-import eeit45.group3.bakeyourlife.article.service.AuthenticationService;
 
 import eeit45.group3.bakeyourlife.article.service.FavoriteService;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -30,15 +29,13 @@ public class FavoriteController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    AuthenticationService authenticationService;
 
     @Autowired
     ArticleService articleService;
 
-    @PostMapping("/addFarvorite/{postid}")
+    @PostMapping("/addFavorite/{postid}")
     public ResponseEntity<Favorite> addToFavorite(
-            Authentication authentication,@RequestParam("postid") Integer postid) {
+            Authentication authentication,@PathVariable("postid") Integer postid) {
 
         // authenticationService.authenticate(token);
 
@@ -70,4 +67,14 @@ public class FavoriteController {
         List<Favorite> favorites = favoriteService.findAllByUser(user);
         return  ResponseEntity.status(HttpStatus.OK).body(favorites);
     }
+
+    @DeleteMapping("/farvoriteDelete/{id}")
+    public ResponseEntity<Article> delete(@PathVariable Integer id) {
+        favoriteService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }
+
+
+

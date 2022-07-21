@@ -3,7 +3,6 @@ package eeit45.group3.bakeyourlife.article.controller;
 import eeit45.group3.bakeyourlife.article.model.Article;
 import eeit45.group3.bakeyourlife.article.model.Favorite;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
-import eeit45.group3.bakeyourlife.article.service.AuthenticationService;
 import eeit45.group3.bakeyourlife.article.service.FavoriteService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
@@ -13,12 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -30,8 +29,6 @@ public class UserArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @Autowired
-    AuthenticationService authenticationService;
 
     @Autowired
     private FavoriteService favoriteService;
@@ -55,7 +52,7 @@ public class UserArticleController {
         User user = userService.getCurrentUser(authentication);
         List<Favorite> favorites = favoriteService.findAllByUser(user);
 
-        m.addAttribute("articles", favorites);
+        m.addAttribute("favorites", favorites);
         return "article/FavoriteArticle";
 
     }
@@ -63,7 +60,7 @@ public class UserArticleController {
 
 
     @GetMapping(path = "/Update")
-    public String processQuery(@RequestParam(required = false) Integer postid,
+    public String processQuery(@PathVariable Integer postid,
                                Model model) throws IOException {
         Article article = articleService.selectOne(postid).orElse(null);
         if (article == null){

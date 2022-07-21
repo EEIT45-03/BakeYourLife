@@ -10,11 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class FavoriteServiceImpl implements FavoriteService {
      @Autowired
     FavoriteRepository favoriteRepository;
 
+    @Transactional
     public Favorite createFavorite(Favorite favorite) {
         return  favoriteRepository.save(favorite);
     }
@@ -22,4 +23,12 @@ public class FavoriteServiceImpl implements FavoriteService {
     public List<Favorite> findAllByUser(User user){
         return favoriteRepository.findAllByUser(user);
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Integer id) {
+        favoriteRepository.deleteById(id);
+    }
+
+
 }
