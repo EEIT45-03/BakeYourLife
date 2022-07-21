@@ -11,6 +11,71 @@
 
     <div th:replace="css.html"></div>
 
+    <style>
+
+
+        #login {
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+            /*margin: auto;*/
+            /*width: 605px;*/
+            padding: 60px 40px;
+            border-radius: 20px;
+        }
+
+        .fontawesome-user {
+            background-color: #b08968;
+            border-radius: 3px 0px 0px 3px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+            color: #ffffff;
+            display: block;
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            width: 50px;
+        }
+
+        .input {
+            height: 50px;
+        }
+
+        #login form input[type="text"],
+        input[type="password"] {
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+            background-color: #ffffff;
+            border-radius: 0px 3px 3px 0px;
+            color: #606468;
+            margin-bottom: 20px;
+            padding: 0 16px;
+            width: 350px;
+        }
+
+        #login form input[type="submit"], .signup {
+            border: none;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            background-color: #b08968;
+            color: #eee;
+            font-weight: bold;
+            /*margin-bottom: 20px;*/
+            text-transform: uppercase;
+            /*width: 400px;*/
+        }
+
+        #login form input[type="submit"]:hover, .signup:hover {
+            background-color: #563c2a;
+            color: white;
+        }
+
+        .checkbox {
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+
 </head>
 
 <body>
@@ -37,60 +102,119 @@
 
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
+
+
     <div class="container">
-        <div class="row">
-        </div>
-        <form action="" method="post" class="user">
-            <div class="form-group">
-                <input type="text" name="username" class="form-control form-control-user"
-                       id="username" aria-describedby="emailHelp"
-                       placeholder="輸入帳號">
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" class="form-control form-control-user"
-                       id="password" placeholder="輸入密碼">
-                <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼<br>
-                <input type="checkbox" name="remember-me" >記住我
-            </div>
-            <!-- <div class="form-group">
-                <div class="custom-control custom-checkbox small">
-                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                    <label class="custom-control-label" for="customCheck">Remember
-                        Me</label>
+        <div class="row justify-content-center">
+            <div id="login" class="col-lg-8">
+                <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                    帳號或密碼錯誤
                 </div>
-            </div> -->
+                <div th:if="${param.logout}" class="alert alert-warning" role="alert">
+                    您已登出
+                </div>
 
-            <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                帳號或密碼錯誤
-            </div>
-            <div th:if="${param.logout}" class="alert alert-warning" role="alert">
-                您已登出
-            </div>
-            <input type="submit" value="登入" class="btn site-btn btn-user btn-block">
-            <!--       <hr>-->
-            <!--      <a href="index.html" class="btn btn-google btn-user btn-block">-->
-            <!--          <i class="fab fa-google fa-fw"></i> Login with Google-->
-            <!--      </a>-->
-            <!--      <a href="index.html" class="btn btn-facebook btn-user btn-block">-->
-            <!--          <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook-->
-            <!--      </a>-->
+                <form method="post" class="user " action="">
+                    <div class="col-sm-12 ">
+                        <div class="fontawesome-user "><i class="fa-solid fa-user"></i></div>
+                        <input class="input" type="text" name="username" id="username" aria-describedby="emailHelp"
+                               placeholder="輸入帳號" value="" required>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="fontawesome-user "><i class="fa-solid fa-unlock"></i></div>
+                        <input class="input" type="password" value="" name="password" id="password"
+                               placeholder="輸入密碼"
+                               required>
+                    </div>
 
-        </form>
-        <HR>
-        <a class="btn site-btn btn-user btn-block" href="/SignUp">註冊</a>
-        <hr>
-        <div class="text-center">
-            <button id="correctInput" class="site-btn">管理員登入，自動輸入</button>
-            <button id="userInput" class="site-btn">一般用戶登入，自動輸入</button>
-            <button id="farmerInput" class="site-btn">小農登入，自動輸入</button>
+                    <div class="checkbox">
+                        <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼
+                        <input type="checkbox" name="remember-me">記住我
+                    </div>
+                    <div class="col-sm-12">
+                        <input class="btn site-btn btn-user" type="submit" value="登入">
+                        <a class="btn site-btn btn-user signup " href="/SignUp">註冊</a>
+                    </div>
+
+                </form>
+                <hr>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <button id="correctInput" class="site-btn signup">管理員登入 自動輸入</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="userInput" class="site-btn signup">一般用戶登入 自動輸入</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="farmerInput" class="site-btn signup">小農登入 自動輸入</button>
+                    </div>
+                </div>
+
+
+            </div> <!-- end login -->
+
         </div>
-        <hr>
+
+
+        <!--        =======================================================================================-->
+        <!--        <div class="row justify-content-center">-->
+        <!--            <form action="" method="post" class="user col-lg-5">-->
+        <!--                <div class="form-group">-->
+        <!--                    <input type="text" name="username" class="form-control form-control-user"-->
+        <!--                           id="username" aria-describedby="emailHelp"-->
+        <!--                           placeholder="輸入帳號">-->
+        <!--                </div>-->
+        <!--                <div class="form-group">-->
+        <!--                    <input type="password" name="password" class="form-control form-control-user"-->
+        <!--                           id="password" placeholder="輸入密碼">-->
+        <!--                    <input id="chkPasw" type="checkbox" onclick="typeChanger()">顯示密碼<br>-->
+        <!--                    <input type="checkbox" name="remember-me">記住我-->
+        <!--                </div>-->
+        <!--                &lt;!&ndash; <div class="form-group">-->
+        <!--                    <div class="custom-control custom-checkbox small">-->
+        <!--                        <input type="checkbox" class="custom-control-input" id="customCheck">-->
+        <!--                        <label class="custom-control-label" for="customCheck">Remember-->
+        <!--                            Me</label>-->
+        <!--                    </div>-->
+        <!--                </div> &ndash;&gt;-->
+
+        <!--                <div th:if="${param.error}" class="alert alert-danger" role="alert">-->
+        <!--                    帳號或密碼錯誤-->
+        <!--                </div>-->
+        <!--                <div th:if="${param.logout}" class="alert alert-warning" role="alert">-->
+        <!--                    您已登出-->
+        <!--                </div>-->
+        <!--                <input type="submit" value="登入" class="btn site-btn btn-user btn-block">-->
+        <!--                &lt;!&ndash;       <hr>&ndash;&gt;-->
+        <!--                &lt;!&ndash;      <a href="index.html" class="btn btn-google btn-user btn-block">&ndash;&gt;-->
+        <!--                &lt;!&ndash;          <i class="fab fa-google fa-fw"></i> Login with Google&ndash;&gt;-->
+        <!--                &lt;!&ndash;      </a>&ndash;&gt;-->
+        <!--                &lt;!&ndash;      <a href="index.html" class="btn btn-facebook btn-user btn-block">&ndash;&gt;-->
+        <!--                &lt;!&ndash;          <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook&ndash;&gt;-->
+        <!--                &lt;!&ndash;      </a>&ndash;&gt;-->
+
+        <!--            </form>-->
+
+        <!--        </div>-->
+        <!--        <div class="text-center">-->
+        <!--            <a class="btn site-btn btn-user btn-block col-lg-5" href="/SignUp">註冊</a>-->
+        <!--        </div>-->
+
+        <!--        <div class="text-center">-->
+        <!--            <button id="correctInput" class="site-btn">管理員登入，自動輸入</button>-->
+        <!--            <button id="userInput" class="site-btn">一般用戶登入，自動輸入</button>-->
+        <!--            <button id="farmerInput" class="site-btn">小農登入，自動輸入</button>-->
+        <!--        </div>-->
+
         <!--        <div class="text-center">-->
         <!--            <a class="small" href="#">忘記密碼?</a>-->
         <!--        </div>-->
         <!--        <div class="text-center">-->
         <!--            <a class="small" href="#">建立帳戶!</a>-->
         <!--        </div>-->
+
+
     </div>
 </section>
 <!-- Checkout Section End -->
