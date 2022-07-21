@@ -28,6 +28,9 @@ public interface RentalService {
 	//依租借單類型查詢租借單
 	public List<Rental> findAllByType(String type);
 
+	//依租借單狀態查詢租借單
+	public List<Rental> findAllByState(String state);
+
 	//依租借單編號查詢租借單
 	public List<Rental> findAllByRentalNoStartingWith(String rentalNo);
 

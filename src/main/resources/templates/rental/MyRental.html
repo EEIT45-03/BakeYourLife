@@ -62,15 +62,26 @@
                             <td th:text="${rental.total}"></td>
                             <td th:text="${rental.state}"></td>
                             <td>
-                                <button type="button" class="btn btn-info btn-sm" th:onclick="|show(${rental.rentalId},${rental.type},${rental.rentalNo},${rental.total})|">
+                                <button type="button" class="btn btn-info btn-sm" th:onclick="|show(${rental.rentalId})|">
                                 <span class="icon text-white-50"> 明細 </span>
                             </button>
                             </td>
-                            <td><button type="button"
+                            <td>
+                                <span th:unless="${rental.state} == '已付款'">
+                                <button type="button"
                                         class="btn btn-warning btn-icon-split btn-sm"
-                                        th:onclick="|deleteRental(${rental.rentalId})|">
-                            <i class="fas fa-trash"></i>取消租借單
-                            </button></td>
+                                        th:onclick="|deleteUIRental(${rental.rentalId})|">
+                                    <i class="fas fa-trash"></i>取消租借單
+                                </button></span>
+                                <span th:if="${rental.state} == '未下單'">
+                                <button type="button"
+                                        class="btn btn-warning btn-icon-split btn-sm"
+                                        th:onclick="|orderUIRental(${rental.rentalId})|"
+                                        >
+                                    <i class="fas fa-trash"></i>租借單下單
+                                </button>
+                                </span>
+                            </td>
 
                         </tr>
                     </tbody>
@@ -79,33 +90,21 @@
                 <hr>
                 <br>
 
-                <div class="row">
-                    <div class="col-lg-2">
-                        租借單編號:
-                    </div>
-                    <div class="col-lg-3 text-center" id="rentalno">
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-2">-->
+<!--                        租借單編號:-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 text-center" id="rentalno">-->
 
-                    </div>
-                    <div class="col-lg-2">
-                        總金額:
-                    </div>
-                    <div class="col-lg-3 text-center"  id="rentaltotal">
+<!--                    </div>-->
+<!--                    <div class="col-lg-2">-->
+<!--                        總金額:-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 text-center"  id="rentaltotal">-->
 
-                    </div>
-                    <hr>
-                    <table class="table" id="show">
-<!--                        <tr>-->
-<!--                            <td>租借日期:</td>-->
-<!--                            <td>租借場地:</td>-->
-<!--                            <td>租借組數:</td>-->
-<!--                            <td>租借金額:</td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-
-                    </table>
-
-                </div>
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -116,32 +115,148 @@
 <script th:src="@{/js/rental.js}"></script>
 
 <script>
-    function show(id,type,no,tal) {
-        $('#rentalno').html(no)
-        $('#rentaltotal').html(tal)
-        if(type === '場地')
-        fetch('/show/'+id+'/venuelist').then(response => {
-            if (!response.ok) {
-                // make the promise be rejected if we didn't get a 2xx response
-                const err = new Error("Not 2xx response");
-                err.response = response;
-                throw err;
-            } else {
+    function show(id) {
+        Swal.showLoading()
+        fetch('./show/'+id+'/venuelist')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(response.statusText)
+                }
                 return response.json()
+            })
+            .catch(error => {
+                Swal.showValidationMessage(
+                    `Request failed: ${error}`
+                )
+            })
+            .then( data => {
+                console.log(data)
+                let htmldata = '<table class="table text-center">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th scope="col" class="col-sm-6">場地名稱</th>' +
+                    '<th scope="col" class="col-sm-2">場地時段</th>' +
+                    '<th scope="col" class="col-sm-2">數量</th>' +
+                    '<th scope="col" class="col-sm-2">小計</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody>';
+
+                for (let item of data){
+                    htmldata += "<tr>";
+                    htmldata += "<th>"+ item.venue.venueName + "</th>";
+                    htmldata += "<th>"+ item.rentalDate + " " + item.period + "</th>";
+                    htmldata += "<th>"+ item.person + "</th>";
+                    htmldata += "<th>"+ item.price + "</th>";
+                    htmldata += "</tr>";
+                }
+
+                htmldata += '</tr>' +
+                    '</tbody>' +
+                    '</table>';
+
+                Swal.fire({
+                    title: "租借單明細-場地",
+                    html: htmldata,
+                    width: 1000,
+                    showCancelButton: true,
+                    cancelButtonText: '離開',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: '修改'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location="update/"+ id;
+                        }
+                })
+            });
+    }
+
+    //刪除租借單
+    function deleteUIRental(rentalId) {
+        Swal.fire({
+            title: '請問是否要刪除此租借單?',
+            text: "如果刪除租借單，相關的租借項目也會一併刪除!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '刪除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '/User/rental/DeleteRental?rentalId=' + rentalId,
+                    success: function (msg) {
+                        Swal.fire(
+                            '已刪除!',
+                            '訂單已成功刪除!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+
+
             }
-        }).then(data => {
-            let table = '<tr>' +
-                            '<td>租借日期:</td>'+
-                            '<td>租借場地:</td>'+
-                            '<td>租借組數:</td>'+
-                            '<td>租借金額:</td>'+
-                            '<td></td>'+
-                            '<td></td>'+
-                        '</tr>';
-        }).catch(function (err){
-            console.log('Error:'+(err))
         })
-    };
+    }
+
+    //下單租借單
+    function orderUIRental(rentalId) {
+        Swal.fire({
+            title: '租借單下單',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '確認'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '/User/rental/orderRental/' + rentalId,
+                    success: function (msg) {
+                        Swal.fire(
+                            '下單成功!',
+                            '請在限定時間內完成繳費!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    },
+                    error: function (msg) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '發生錯誤',
+                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">為什麼會有這個問題?</a>'
+                        })
+                    }
+                });
+
+
+            }
+        })
+    }
 
 </script>
 </body>

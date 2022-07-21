@@ -58,7 +58,7 @@ public class Venue implements Serializable {
 	private VenueSort venueSort;
 
 	//對應場地清單
-	@JsonManagedReference
+	@JsonBackReference
 	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venue")
 	@Column(name = "picList")
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();

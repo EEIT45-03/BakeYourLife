@@ -105,6 +105,12 @@ public class RentalServiceImpl implements RentalService{
 	public List<Rental> findAllByTypeAndRentalNoStartingWith(String listType, String RentalNo) {
 		return rentalRepository.findAllByTypeAndRentalNoStartingWith(listType,RentalNo);
 	}
+
+	@Override
+	public List<Rental> findAllByState(String state) {
+		return rentalRepository.findAllByState(state);
+	}
+
 	//依會員與租借類型查詢租借單
 	@Override
 	public List<Rental> findAllByUserAndType(Integer userId, String listType) {
@@ -337,6 +343,17 @@ public class RentalServiceImpl implements RentalService{
 	@Override
 	@Transactional
 	public VenueList updateVenueList(VenueList venueList) {
+		Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
+		venueList.setVenue(venue);
+		String period = venueList.getPeriod();
+		int num1 = Integer.valueOf(period.substring(0,2));
+		System.out.println(num1);
+		int num2 = Integer.valueOf(period.substring(6,8));
+		System.out.println(num2);
+		int num = num2-num1;
+		int price = num * venueList.getPerson() * venueList.getVenue().getHrPrice();
+		venueList.setPrice(price);
+		venueList.setIngredients("N");
 		return venueListRepository.save(venueList);
 	}
 

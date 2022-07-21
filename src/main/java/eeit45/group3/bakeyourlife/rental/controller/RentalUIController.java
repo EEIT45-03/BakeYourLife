@@ -38,14 +38,6 @@ public class RentalUIController {
         this.tackleService = tackleService;
     }
 
-
-
-//    @GetMapping("/TopThree/Venue")
-//    public ResponseEntity<List<Venue>> getVenueTopThree() {
-//        List<Venue> venues = venueService.findByVenueTopThree();
-//        return ResponseEntity.status(HttpStatus.OK).body(venues);
-//    }
-
     @GetMapping("/VenueSelect/{name}/{date}")
     public ResponseEntity<List<AvailableQuantity>> getVenueSelect(@PathVariable String name,
                                                                   @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
@@ -57,12 +49,12 @@ public class RentalUIController {
         return null;
     }
 
-    @GetMapping("/show/{id}/venuelist")
+    @GetMapping("User/rental/show/{id}/venuelist")
     public ResponseEntity<List<VenueList>> getShowVenuelist(@PathVariable Integer id){
         List<VenueList> lists = rentalService.findVenueListByFK_RentalId(id);
         return ResponseEntity.status(HttpStatus.OK).body(lists);
     }
-    @GetMapping("/show/{id}/tacklelist")
+    @GetMapping("User/rental/show/{id}/tacklelist")
     public ResponseEntity<List<TackleList>> getShowTacklelist(@PathVariable Integer id){
         List<TackleList> lists = rentalService.findTackleListByFK_RentalId(id);
         return ResponseEntity.status(HttpStatus.OK).body(lists);
@@ -85,6 +77,80 @@ public class RentalUIController {
             rentalService.updateRental(rental);
         }
 //        return "{}";
+    }
+
+//    @RequestMapping("User/rental/Rental/{rentalId}")
+//    public ResponseEntity<List<VenueList>> findVenueListByRental(@RequestParam Integer rentalId) {
+//        List<VenueList> lists = rentalService.findVenueListByFK_RentalId(rentalId);
+//        return ResponseEntity.status(HttpStatus.OK).body(lists);
+//    }
+    @RequestMapping("User/rental/DeleteRental")
+    public ResponseEntity<?> deleteRental(@RequestParam Integer rentalId) {
+        rentalService.deleteRental(rentalId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @RequestMapping(value = "/User/rental/orderRental/{rentalId}",method = RequestMethod.POST)
+    public ResponseEntity<Rental> orderRental(@PathVariable Integer rentalId) {
+        Rental rental = rentalService.findByRentalId(rentalId);
+        rental.setState("待付款");
+        rental.setRentalDate(new Date());
+
+        Rental r = rentalService.updateRental(rental);
+        return ResponseEntity.status(HttpStatus.OK).body(r);
+    }
+
+
+    @GetMapping("/User/rental/UpdateVenueList")
+    public String viewUpdateVenueList(@RequestParam Integer venueListId, Model model) {
+        List<Venue> venues = null;
+        VenueList venueList = null;
+        if(venueListId != null) {
+            venueList = rentalService.findByVenueListId(venueListId);
+        }
+        if(venueList != null) {
+            venues = venueService.findByOrderByVenueNameAsc();
+            model.addAttribute("venues",venues);
+            model.addAttribute("venueListRequest", venueList);
+            return "/rental/UpdateVenueList";
+        }
+        return null;
+    }
+
+
+    @PostMapping("/User/rental/UpdateVenueList")
+    public String updateVenueList(@RequestParam Integer venueListId, @ModelAttribute("venueListRequest") VenueList venueList) {
+        Rental rental = rentalService.findByRentalNo(venueList.getRental().getRentalNo());
+        venueList.setRental(rental);
+        rentalService.updateVenueList(venueList);
+
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
+        rentalService.updateRental(rental);
+
+        return "redirect:./update/"+rental.getRentalId();
+    }
+
+    @RequestMapping("/User/rental/DeleteVenueList")
+    public ResponseEntity<?> deleteVenueList(@RequestParam Integer venueListId) {
+        VenueList venueList = rentalService.findByVenueListId(venueListId);
+        Rental rental = venueList.getRental();
+
+        rentalService.deleteVenueList(venueListId);
+
+        Long sum = rentalService.findVenueListPriceSumByRental(rental);
+
+        if(sum != null){
+            rental.setTotal(sum.intValue());
+        } else {
+            rental.setTotal(0);
+        }
+        rentalService.updateRental(rental);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

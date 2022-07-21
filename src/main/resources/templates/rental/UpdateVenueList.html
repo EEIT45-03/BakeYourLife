@@ -1,0 +1,96 @@
+<div class="card-body">
+
+  <form th:action="@{/User/rental/UpdateVenueList(venueListId=*{venueListId})}" method="post"
+             th:object="${venueListRequest}">
+
+    <!-- 租借編號: -->
+    <div class="row mb-3">
+      <label for="rentalNo" class="col-sm-3 col-form-labels">租借編號:</label>
+      <div class="col-sm-9">
+        <input th:field="*{rental.rentalNo}" type="text" class="form-control"
+               name="rentalNo" id="rentalNo" th:readonly="true"/>
+      </div>
+    </div>
+
+    <!-- 清單編號: -->
+    <div class="row mb-3">
+      <label for="venueListNo" class="col-sm-3 col-form-labels">清單編號:</label>
+      <div class="col-sm-9">
+        <input th:field="*{venueListNo}" type="text" class="form-control"
+               name="venueListNo" id="venueListNo" th:readonly="true"/>
+      </div>
+    </div>
+
+    <!-- 租借場地: -->
+    <div class="row mb-3">
+      <label for="venueId" class="col-sm-3 col-form-labels">租借場地:</label>
+      <div class="col-sm-9" >
+        <select th:field="*{venue.venueId}" class="form-control form-select mb-3" name="venueId"
+                type="text"  id="venueId" aria-label="Default select example">
+          <option th:each="venue : ${venues}" th:text="${venue.venueName}"
+                  th:value="${venue.venueId}" ></option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 出租日期: -->
+    <div class="row mb-3">
+      <label for="rentalDate" class="col-sm-3 col-form-labels">出租日期:</label>
+      <div class="col-sm-9">
+        <input th:field="*{rentalDate}" type="date" class="form-control"
+               name="rentalDate" id="rentalDate" />
+        <span class="show" id="s_lTime"></span>
+      </div>
+    </div>
+
+
+    <!-- 出租時段: -->
+    <div class="row mb-3">
+      <label for="period" class="col-sm-3 col-form-labels">出租時段:</label>
+      <div class="col-sm-9">
+        <select th:field="*{period}" type="text" class="form-control form-select mb-3" name="period"
+                id="period" aria-label="Default select example">
+          <option th:value="|08:00-12:00|" th:text="|08:00-12:00|" ></option>
+          <option th:value="|12:00-16:00|" th:text="|12:00-16:00|" ></option>
+          <option th:value="|16:00-20:00|" th:text="|16:00-20:00|" ></option>
+          <option th:value="|08:00-16:00|" th:text="|08:00-16:00|" ></option>
+          <option th:value="|12:00-20:00|" th:text="|12:00-20:00|" ></option>
+          <option th:value="|08:00-20:00|" th:text="|08:00-20:00|" ></option>
+        </select>
+        <span class="show" id="s_eTime"></span>
+      </div>
+    </div>
+
+    <!-- 食材提供: -->
+<!--    <div class="row mb-3" >-->
+<!--      <label for="ingredients" class="col-sm-3 col-form-labels">食材提供:</label>-->
+<!--      <div class="col-sm-9" >-->
+<!--        <select th:field="*{ingredients}" class="form-control form-select mb-3" name="ingredients"-->
+<!--                type="text" id="ingredients" aria-label="Default select example">-->
+<!--          <option th:value="N" th:text="不提供" selected></option>-->
+<!--          <option th:value="Y" th:text="提供" ></option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <!-- 人數: -->
+    <div class="row mb-3">
+      <label for="person" class="col-sm-3 col-form-labels">人數:</label>
+      <div class="col-sm-9">
+        <input th:field="*{person}" type="number" class="form-control"
+               name="person" id="person" min="1" required="required" />
+      </div>
+    </div>
+
+    <!-- 小計: -->
+    <div class="row mb-3" style="display: none">
+      <label for="price" class="col-sm-3 col-form-labels">小計:</label>
+      <div class="col-sm-9">
+        <input th:field="*{price}" type="number" class="form-control"
+               name="price" id="price" min="0" required="required" th:readonly="true" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" th:submit="|checkVL()|">修改場地清單</button>
+  </form>
+</div>

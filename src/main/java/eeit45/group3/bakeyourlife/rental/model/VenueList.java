@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class VenueList implements Serializable {
 	private String venueListNo;
 	
 	//租借場地
-	@JsonBackReference
+	@JsonManagedReference
 	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="FK_venueId", referencedColumnName = "venueId")
 	private Venue venue;
