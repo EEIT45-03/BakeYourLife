@@ -9,6 +9,8 @@ import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.user.model.User;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
@@ -108,6 +110,9 @@ public interface RentalService {
 	//建請場地清單請求資料
 	public VenueList createVenueListNoRequest(Rental rental);
 
+	public boolean checkVenueListRequest(VenueListRequest venueListRequest);
+
+
 
 	/*教室 DAO
 		----------------------------------------------------------------*/
@@ -173,6 +178,6 @@ public interface RentalService {
 	public void deleteProduceNo(Integer id);
 
 
-
+	public void sendRentalMail(Rental rental) throws UnsupportedEncodingException, MessagingException;
 
 }

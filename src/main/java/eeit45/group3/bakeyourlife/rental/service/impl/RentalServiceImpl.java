@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.rental.service.impl;
 
+import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.rental.dao.*;
 import eeit45.group3.bakeyourlife.rental.dto.TackleListRequest;
 import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -335,6 +338,8 @@ public class RentalServiceImpl implements RentalService{
 			venueList.setPrice(venueListRequest.getPrice());
 		}
 		venueList.setIngredients("N");
+
+
 		updateProduceNo(venueList.getVenueListNo());
 		return venueListRepository.save(venueList);
 	}
@@ -395,6 +400,15 @@ public class RentalServiceImpl implements RentalService{
 		venueList.setPrice(0);
 		venueList.setRental(rental);
 		return venueList;
+	}
+
+
+	public boolean checkVenueListRequest(VenueListRequest venueListRequest){
+
+
+
+
+		return false;
 	}
 
 	/*教室 DAO
@@ -640,4 +654,9 @@ public class RentalServiceImpl implements RentalService{
 		produceNoRepository.deleteById(id);
 	}
 
+
+	@Override
+	public void sendRentalMail(Rental rental) throws UnsupportedEncodingException, MessagingException {
+
+	}
 }

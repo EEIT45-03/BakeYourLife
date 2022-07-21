@@ -4,6 +4,7 @@ import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusChangeEvent;
 import eeit45.group3.bakeyourlife.order.model.Order;
+import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.course.model.Register;
@@ -206,4 +207,19 @@ public class EmailServiceImpl implements EmailService {
 
     }
 
+    @Override
+    @Async
+    public void sendRentalMail(String to, String subject, Rental rental, String templateName) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("rental", rental);
+        String process = templateEngine.process("emails/"+templateName, context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(FROM_EMAIL);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        javaMailSender.send(mimeMessage);
+        System.out.println("已發送信件");
+    }
 }

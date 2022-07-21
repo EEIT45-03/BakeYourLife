@@ -65,8 +65,9 @@ public class RentalUIController {
     public void insertVenueList(@RequestBody @Valid VenueListRequest venueListRequest,
                                 Principal principal) throws ParseException {
         if (venueListRequest!=null){
-           VenueList venueList = rentalService.createVenueList(venueListRequest,principal);
-//           rentalService.updateRentalPic(venueList.getRental());
+
+            VenueList venueList = rentalService.createVenueList(venueListRequest,principal);
+
             Rental rental = venueList.getRental();
             Long sum = rentalService.findVenueListPriceSumByRental(rental);
             if(sum != null){
@@ -76,14 +77,8 @@ public class RentalUIController {
             }
             rentalService.updateRental(rental);
         }
-//        return "{}";
     }
 
-//    @RequestMapping("User/rental/Rental/{rentalId}")
-//    public ResponseEntity<List<VenueList>> findVenueListByRental(@RequestParam Integer rentalId) {
-//        List<VenueList> lists = rentalService.findVenueListByFK_RentalId(rentalId);
-//        return ResponseEntity.status(HttpStatus.OK).body(lists);
-//    }
     @RequestMapping("User/rental/DeleteRental")
     public ResponseEntity<?> deleteRental(@RequestParam Integer rentalId) {
         rentalService.deleteRental(rentalId);
