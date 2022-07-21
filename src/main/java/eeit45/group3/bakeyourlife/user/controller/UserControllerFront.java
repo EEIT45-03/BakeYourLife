@@ -29,7 +29,7 @@ public class UserControllerFront {
     PasswordEncoder encoder;
 
     @Autowired
-    public UserControllerFront(UserService userService,FarmerService farmerService) {
+    public UserControllerFront(UserService userService, FarmerService farmerService) {
 
         this.userService = userService;
         this.farmerService = farmerService;
@@ -37,7 +37,7 @@ public class UserControllerFront {
     }
 
     @GetMapping("SignUp")
-    public String viewSignUp(Model model ) {
+    public String viewSignUp(Model model) {
         model.addAttribute("user", new User());
         return "SignUp";
     }
@@ -64,10 +64,10 @@ public class UserControllerFront {
     public String processRegister(User user)
             throws UnsupportedEncodingException, MessagingException {
         MultipartFile productImage = user.getProductImage();
-        if(productImage.getSize() == 0){
+        if (productImage.getSize() == 0) {
             String pic = "https://i.imgur.com/gEHJxsi.jpg";
             user.setImageUrl(pic);
-        }else {
+        } else {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             user.setImageUrl(link);
         }
@@ -90,11 +90,12 @@ public class UserControllerFront {
 
 
     @GetMapping("FarmerSignUp")
-    public String viewFarmerSignUp(Model model ) {
+    public String viewFarmerSignUp(Model model) {
         model.addAttribute("farmer", new Farmer());
         return "FarmerSignUp";
     }
-//    @PostMapping("FarmerSignUp")
+
+    //    @PostMapping("FarmerSignUp")
 //    public String FarmerSignUp(Farmer farmer) {
 //        MultipartFile productImage = farmer.getProductImage();
 //        if(productImage.getSize() == 0){
@@ -115,10 +116,10 @@ public class UserControllerFront {
     public String processRegister(Farmer farmer)
             throws UnsupportedEncodingException, MessagingException {
         MultipartFile productImage = farmer.getProductImage();
-        if(productImage.getSize() == 0){
+        if (productImage.getSize() == 0) {
             String pic = "https://i.imgur.com/gEHJxsi.jpg";
             farmer.setImageUrl(pic);
-        }else {
+        } else {
             String link = ImgurService.updateByMultipartFile(productImage).getLink();
             farmer.setImageUrl(link);
         }
@@ -129,6 +130,7 @@ public class UserControllerFront {
         farmerService.register(farmer);
         return "user/register_success";
     }
+
     @GetMapping("/farmerVerify")
     public String verifyFarmer(@Param("code") String code) {
         if (farmerService.verify(code)) {
@@ -151,7 +153,7 @@ public class UserControllerFront {
     }
 
     @PostMapping("/User/UserData")
-    public String updateUser(Authentication authentication,User user) {
+    public String updateUser(Authentication authentication, User user) {
 
         User userDB = userService.getCurrentUser(authentication);
 //        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
@@ -174,7 +176,7 @@ public class UserControllerFront {
         user.setUserId(userDB.getUserId());
         user.setEnabled(userDB.isEnabled());
         userService.updateUser(user);
-        userService.setCurrentUser(authentication,user);
+        userService.setCurrentUser(authentication, user);
         return "user/UserCenterUpdate";
 
     }
@@ -190,15 +192,16 @@ public class UserControllerFront {
         }
         return "redirect:/login";
     }
+
     @PostMapping("/User/Updatepsw")
-    public String updatepsw(Authentication authentication,User user) {
+    public String updatepsw(Authentication authentication, User user) {
 
         User userDB = userService.getCurrentUser(authentication);
 //        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
-        boolean flag = encoder.matches(user.getPassword(),userDB.getPassword());
+        boolean flag = encoder.matches(user.getPassword(), userDB.getPassword());
 
-        if (!flag){
-           return "user/Updatepsw_fail";
+        if (!flag) {
+            return "user/Updatepsw_fail";
         }
         user.setPassword(encoder.encode(user.getNewPassword()));
         user.setUserId(userDB.getUserId());
@@ -217,10 +220,13 @@ public class UserControllerFront {
         return "user/Updatepsw_success";
 
     }
+
+    //-------------------------------------------------------------------------
     @GetMapping("/User/Findpsw")
     public String viewFindpsw() {
         return "user/UserFindpsw";
     }
+
     @GetMapping("/User/process_findpsw")
     public String processFindpsw(Principal principal) {
         if (principal != null) {
@@ -233,7 +239,7 @@ public class UserControllerFront {
     }
 
     @GetMapping("/pswVerify")
-    public String pswVerify(@Param("code") String code ,Principal principal,Model model) {
+    public String pswVerify(@Param("code") String code, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
 
@@ -243,9 +249,9 @@ public class UserControllerFront {
             return "user/pswverify_fail";
         }
     }
-    //------------------------------------------------------------------
+
     @PostMapping("pswReset")
-    public String pswReset(Authentication authentication,User user) {
+    public String pswReset(Authentication authentication, User user) {
         User userDB = userService.getCurrentUser(authentication);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setUserId(userDB.getUserId());
@@ -265,8 +271,58 @@ public class UserControllerFront {
 
         return "user/pswReset_success";
     }
-//-------------------------------------------------------------------
 
+    //-----------------------------------------------------------------------------
+    @GetMapping("/LoginFindPsw")
+    public String viewLoginFindPsw() {
+        return "user/login_find_psw";
+    }
+
+
+    @GetMapping("/process_loginFindPsw")
+    public String process_loginFindPsw(User user) {
+        User userDB = userService.findByEmail(user.getEmail());
+        if (userDB.getEmail()!=null) {
+            userService.loginresetpsw(userDB);
+            return "user/pswReset_start";
+        }
+            return "redirect:/login";
+    }
+    @GetMapping("/loginpswVerify")
+    public String pswVerify(@Param("code") String code, @Param("email") String email, Model model) {
+        User user = userService.findByEmail(email);
+        model.addAttribute("user", user);
+
+        if (userService.pswverify(code)) {
+            return "user/loginpswverify_success";
+        } else {
+            return "user/pswverify_fail";
+        }
+    }
+    @PostMapping("loginpswReset")
+    public String pswReset(User user) {
+        User userDB = userService.findByEmail(user.getEmail());
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setUserId(userDB.getUserId());
+        user.setImageUrl(userDB.getImageUrl());
+        user.setUsername(userDB.getUsername());
+        user.setFullName(userDB.getFullName());
+        user.setEmail(userDB.getEmail());
+        user.setPhone(userDB.getPhone());
+        user.setBirth(userDB.getBirth());
+        user.setGender(userDB.getGender());
+        user.setAddress(userDB.getAddress());
+        user.setRegisterTime(userDB.getRegisterTime());
+        user.setAuthority(userDB.getAuthority());
+        user.setEnabled(userDB.isEnabled());
+        userService.updateUser(user);
+
+
+        return "user/pswReset_success";
+    }
+
+
+    //--------------------------------------------------------------------------------
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
         User user = userService.findByUsername(username);
