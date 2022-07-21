@@ -332,7 +332,6 @@ public class UserControllerFront {
         }
         return false;
     }
-
 //    private String getSiteURL(HttpServletRequest request) {
 //        String siteURL = request.getRequestURL().toString();
 //        return siteURL.replace(request.getServletPath(), "");
