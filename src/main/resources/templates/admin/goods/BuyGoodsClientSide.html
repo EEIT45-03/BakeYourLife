@@ -62,14 +62,19 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
                     <h3 th:text="${Goods.name}"></h3>
-                    <div class="product__details__rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <!--                        <span>(18 reviews)</span>-->
+                    <div class="starBlock">
+                        <i class="fa-solid fa-star star"></i>
+                        <span id="avgStar"></span>
+
                     </div>
+<!--                    <div class="product__details__rating">-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star"></i>-->
+<!--                        <i class="fa fa-star-half-o"></i>-->
+<!--                        &lt;!&ndash;                        <span>(18 reviews)</span>&ndash;&gt;-->
+<!--                    </div>-->
                     <div class="product__details__price" th:text="|NT.${Goods.packages}|"></div>
                     <!--                    <p th:text="${Goods.describe}"></p>-->
                     <div class="product__details__quantity">
@@ -80,20 +85,20 @@
                         </div>
                     </div>
                     <a href="#" class="primary-btn" th:onclick="|add('G',*{id})|">ADD TO CARD</a>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+<!--                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                     <ul>
                         <li><b>成分</b> <span th:text="${Goods.element}"></span></li>
                         <li><b>產地</b> <span th:text="${Goods.origin}"><samp>Free pickup today</samp></span></li>
                         <li><b>包裝材質</b> <span th:text="${Goods.packagematerial}"></span></li>
                         <li><b>庫存數量</b> <span th:text="${Goods.count}"></span></li>
-                        <li><b>相關網站</b>
-                            <div class="share">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </div>
-                        </li>
+<!--                        <li><b>相關網站</b>-->
+<!--                            <div class="share">-->
+<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-pinterest"></i></a>-->
+<!--                            </div>-->
+<!--                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -136,6 +141,8 @@
                                                     <div class="media-body">
                                                         <h4 class="media-heading" th:text="${comment.user.fullName}">
                                                             John Doe</h4>
+                                                        <span style="display: none" th:text="${comment.star}"
+                                                              class="starCount"></span>
                                                         <span th:switch="${comment.star}" class="star">
                                                                <span th:case="1">
                                                                   <i class="fa-solid fa-star"></i>
@@ -260,7 +267,25 @@
 
 <div th:replace="footer.html"></div>
 
+<script>
 
+    $(document).ready(function () {
+        let sum = 0;
+        let count = $(".starCount").length
+
+        let avg = 0;
+        $(".starCount").each(function () {
+            sum += parseInt($(this).text())
+        })
+        avg = (sum / count).toFixed(1);
+        if (count !== 0) {
+            $("#avgStar").text(avg)
+        } else {
+            $("#avgStar").text(0)
+        }
+    })
+
+</script>
 </body>
 
 </html>
