@@ -41,6 +41,10 @@ public interface UserService {
 
     void sendFindPswEmail(User user);
 
+    void loginresetpsw(User user);
+
+    void sendLoginFindPswEmail(User user);
+
     boolean verify(String verificationCode);
 
     boolean pswverify(String verificationCode);
