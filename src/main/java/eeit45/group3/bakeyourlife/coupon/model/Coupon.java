@@ -50,6 +50,10 @@ public abstract class Coupon implements Serializable {
     //已使用數量
     private Integer usedQuantity = 0;
 
+    private String discountString;
+
+    private String state;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupon")
     private Set<Order> orderList = new LinkedHashSet<>();
 
