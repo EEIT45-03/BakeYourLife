@@ -376,20 +376,133 @@ INSERT INTO venue_sort(sort) VALUES(N'小型烘培室');
 INSERT INTO venue_sort(sort) VALUES(N'大型烘培室');
 
 
---新增場地
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A101',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A102',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A201',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'A202',0,NULL,1);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,N'B201',125,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (20,N'B202',125,NULL,2);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (10,N'B301',80,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,N'B302',80,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (12,N'B303',80,NULL,3);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B401',50,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B501',50,NULL,4);
-INSERT INTO Venue(person_max,venue_name,hr_price,notes,fk_sort_id) VALUES (30,N'B601',50,NULL,4);
 
+--新增場地
+SET IDENTITY_INSERT [dbo].[venue] ON
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (1, 0, NULL, 30, N'A101', 1)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (2, 0, NULL, 30, N'A102', 1)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (3, 0, NULL, 30, N'A201', 1)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (4, 0, NULL, 30, N'A202', 1)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (5, 125, N'適合與小孩一起學習烘培，空間空曠，讓小孩擁有安全的空間體驗烘培，每組可4~5人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 15, N'B201', 2)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (6, 125, N'適合與小孩一起學習烘培，空間空曠，讓小孩擁有安全的空間體驗烘培，每組可4~5人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 15, N'B202', 2)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (7, 100, N'每組擁有獨至的小型烘培區，適合單人或雙人共同體驗烘培，每組可1~2人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 30, N'B301', 3)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (8, 100, N'每組擁有獨至的小型烘培區，適合單人或雙人共同體驗烘培，每組可1~2人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 30, N'B302', 3)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (9, 100, N'每組擁有獨至的小型烘培區，適合單人或雙人共同體驗烘培，每組可1~2人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 30, N'B303', 3)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (10, 300, N'適合一家人或與朋友一起來體驗團體烘培，每組可5~8人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 10, N'B401', 4)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (11, 300, N'適合一家人或與朋友一起來體驗團體烘培，每組可5~8人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 10, N'B501', 4)
+INSERT [dbo].[venue] ([venue_id], [hr_price], [notes], [person_max], [venue_name], [fk_sort_id]) VALUES (12, 300, N'適合一家人或與朋友一起來體驗團體烘培，每組可5~8人。
+
+場地使用規則:
+1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。
+2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。
+3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。
+4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。
+5. 使用各項設備、器材，務必遵守使用規則，注意安全。
+6. 垃圾請依照各項分類做資源回收。
+7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。
+8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。', 10, N'B601', 4)
+SET IDENTITY_INSERT [dbo].[venue] OFF
+
+--新增場地圖片
+SET IDENTITY_INSERT [dbo].[venue_pic_list] ON
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (1, N'https://i.imgur.com/jvJMtLN.jpg', 5)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (2, N'https://i.imgur.com/2Xe02ZD.jpg', 5)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (3, N'https://i.imgur.com/U2i2lNL.jpg', 5)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (4, N'https://i.imgur.com/jp44JJP.jpg', 5)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (5, N'https://i.imgur.com/U1nSSRP.jpg', 5)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (6, N'https://i.imgur.com/bOUD65S.jpg', 10)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (7, N'https://i.imgur.com/3gSo8JX.jpg', 10)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (8, N'https://i.imgur.com/KurZRTY.jpg', 10)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (9, N'https://i.imgur.com/veTtvo7.jpg', 7)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (10, N'https://i.imgur.com/YHfqcrh.jpg', 7)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (11, N'https://i.imgur.com/fTnPDzK.jpg', 7)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (12, N'https://i.imgur.com/jvJMtLN.jpg', 6)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (13, N'https://i.imgur.com/2Xe02ZD.jpg', 6)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (14, N'https://i.imgur.com/U2i2lNL.jpg', 6)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (15, N'https://i.imgur.com/jp44JJP.jpg', 6)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (16, N'https://i.imgur.com/veTtvo7.jpg', 8)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (17, N'https://i.imgur.com/YHfqcrh.jpg', 8)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (18, N'https://i.imgur.com/fTnPDzK.jpg', 8)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (19, N'https://i.imgur.com/veTtvo7.jpg', 9)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (20, N'https://i.imgur.com/YHfqcrh.jpg', 9)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (21, N'https://i.imgur.com/fTnPDzK.jpg', 9)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (22, N'https://i.imgur.com/bOUD65S.jpg', 11)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (23, N'https://i.imgur.com/3gSo8JX.jpg', 11)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (24, N'https://i.imgur.com/KurZRTY.jpg', 11)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (25, N'https://i.imgur.com/bOUD65S.jpg', 12)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (26, N'https://i.imgur.com/3gSo8JX.jpg', 12)
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (27, N'https://i.imgur.com/KurZRTY.jpg', 12)
+SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
 
 
 --新增訂單資料
