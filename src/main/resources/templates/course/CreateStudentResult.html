@@ -1,0 +1,135 @@
+
+
+<form th:action="@{/AddResult(fk_productId=${studentResult.product.id})}" method="post" th:object="${studentResult}">
+
+  <div class="row mb-3">
+    <div class="col-sm-10">
+       <input th:field="*{product.id}" hidden="hidden"/>
+    </div>
+  </div>
+
+<!--   作品名稱:-->
+  <div class="row mb-3">
+    <label for="strTitle" class="col-sm-2 col-form-labels">作品名稱:</label>
+    <div class="col-sm-10">
+      <input th:field="*{strTitle}" type="text" class="form-control"
+             name="strTitle" id="strTitle" placeholder="請輸入作品名稱"
+             required="required"/>
+    </div>
+  </div>
+
+  <!-- 作品說明: -->
+  <div class="row mb-3">
+    <label for="strContent" class="col-sm-2 col-form-labels">作品說明:</label>
+    <div class="col-sm-10">
+      <textarea th:field="*{strContent}" type="text" class="form-control"
+                  name="strContent" id="strContent" placeholder="作品說明"
+                  required="required" />
+    </div>
+  </div>
+
+  <!-- 備註: -->
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-labels">課程圖片</label>
+    <div class="col-sm-10">
+        <input th:field="*{resultFile}" type="file" name="file" class="custom-file-input" onblur=""
+               id="customFile"  >
+        <label class="custom-file-label" for="customFile" >課程圖片</label>
+    </div>
+      <div class="card" style="max-width: 16rem; margin:auto" >
+          <img class="card-img" id="previewImage" height="100" width="100" />
+      </div>
+  </div>
+
+  <button type="submit" id="submit_List" class="btn btn-primary">建立清單</button>
+
+
+</form>
+<!--//這是讓上傳檔案可以有文字-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js}"></script>
+
+<!--<script>-->
+<!--  function sendcreate() {-->
+<!--    var xhr = new XMLHttpRequest();-->
+<!--    var jsonString = JSON.stringify(getFarmerProduct());-->
+<!--    console.log(jsonString);-->
+<!--    if (check()) {-->
+<!--      Swal.fire({-->
+<!--        title: '資料上傳中!',-->
+<!--        html: '請稍後...',-->
+<!--        allowOutsideClick: false,-->
+<!--        onBeforeOpen: () => {-->
+<!--          Swal.showLoading()-->
+<!--        },-->
+<!--      });-->
+<!--      xhr.onreadystatechange = function () {-->
+<!--        //建立成功，狀態碼會是201-->
+<!--        if (xhr.readyState === 4 && xhr.status === 201) {-->
+<!--          Swal.fire(-->
+<!--                  '新增成功!',-->
+<!--                  ':D',-->
+<!--                  'success'-->
+<!--          ).then((result) => {-->
+<!--            if (result.isConfirmed) {-->
+<!--              location = "./";-->
+<!--            }-->
+<!--          })-->
+<!--        } else if (xhr.status === 400) {-->
+<!--          Swal.fire(-->
+<!--                  '新增失敗!',-->
+<!--                  json.message,-->
+<!--                  'error'-->
+<!--          )-->
+<!--        }-->
+<!--      }-->
+<!--      xhr.open("POST", '/AddResult', true);-->
+<!--      xhr.setRequestHeader("Content-type", "application/json");-->
+<!--      xhr.send(jsonString);-->
+<!--    } else {-->
+<!--      Swal.fire(-->
+<!--              '有欄位未填寫',-->
+<!--              '請填寫完整，謝謝!!',-->
+<!--              'error'-->
+<!--      )-->
+<!--    }-->
+
+<!--  }-->
+
+<!--  function getFarmerProduct() {-->
+
+
+<!--    let farmerId = $("#farmerId").text();-->
+<!--    let type = $("#type").val();-->
+<!--    let name = $.trim($("#name").val());-->
+<!--    let price = $.trim($("#price").val());-->
+<!--    let quantity = $.trim($("#quantity").val());-->
+<!--    let storage = $.trim($("#storage").val());-->
+<!--    let contents = $.trim($("#contents").val());-->
+<!--    let description = $.trim($("#description").val());-->
+<!--    let state = $.trim($("#state").val());-->
+<!--    let launchedTime = $.trim($("#launchedTime").val());-->
+<!--    let suspendTime = $.trim($("#suspendTime").val());-->
+<!--    let violationTime = $.trim($("#violationTime").val());-->
+<!--    let base64Array = new Array();-->
+<!--    $("input[name=base64]").each(function () {-->
+<!--      base64Array.push($(this).val());-->
+<!--    });-->
+
+<!--    let FarmerProduct = {-->
+<!--      "farmerId": farmerId,-->
+<!--      "type": type,-->
+<!--      "name": name,-->
+<!--      "price": price,-->
+<!--      "quantity": quantity,-->
+<!--      "storage": storage,-->
+<!--      "contents": contents,-->
+<!--      "description": description,-->
+<!--      "state": state,-->
+<!--      "launchedTime": launchedTime,-->
+<!--      "suspendTime": suspendTime,-->
+<!--      "violationTime": violationTime,-->
+<!--      "base64": base64Array-->
+<!--    }-->
+<!--    return FarmerProduct;-->
+<!--  }-->
+<!--</script>-->

@@ -239,6 +239,7 @@ INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_t
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'ddfoew133@gmail.com', N'測試會員', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
 --課程測試帳號
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$qejRQsLN7pWVsMJn9f71DOusiUQ5hLxe73Ux0un/dp70R.uqohy4O', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$T3NCCFHTBIuMYsREiyFGDOi08B1KGO4jQ1/mA/S/vbOa4aL3t0G1u', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/gEHJxsi.jpg')
 
 
 --新增器具類別
@@ -430,7 +431,9 @@ INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_not
 SET IDENTITY_INSERT [dbo].[course_time] OFF
 --新增報名資料
 INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022001, 1, CAST(N'2022-01-01T11:00:00.0000000' AS DateTime2), 1, 1000, 1)
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022002, 3, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 1, 1001, 1)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022002, 2, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022003, 3, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022004, 4, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
 
 --新增文章資料
 SET IDENTITY_INSERT [dbo].[article] ON

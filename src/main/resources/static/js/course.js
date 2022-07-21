@@ -427,3 +427,22 @@ function updateState(registerId, state, title, text) {
 		}
 	})
 }
+
+//跳出新增課程時間清單
+function AddResult(productId){
+	Swal.showLoading()
+	fetch('./AddResult?fk_productId=' + productId)
+		.then(response => response.text())
+		.then(function(data){
+
+			Swal.fire({
+				title: '學生作品上傳',
+				html:data,
+				width: '50%',
+				showCloseButton: true,
+				showCancelButton: false,
+				showConfirmButton: false,
+				focusConfirm: false
+			})
+		});
+}

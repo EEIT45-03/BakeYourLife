@@ -4,19 +4,22 @@ package eeit45.group3.bakeyourlife.course.service;
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
+import eeit45.group3.bakeyourlife.course.model.StudentResult;
 import eeit45.group3.bakeyourlife.course.repository.CourseRepository;
 
 
 import eeit45.group3.bakeyourlife.course.repository.CourseTimeRepository;
 import eeit45.group3.bakeyourlife.course.repository.RegisterRepository;
+import eeit45.group3.bakeyourlife.course.repository.StudentResultRepository;
 import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.utils.Image;
+import eeit45.group3.bakeyourlife.utils.ImgurService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,26 +31,39 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class CourseServiceImpl implements CourseService {
+
+	//我的表
 	CourseRepository courseRepository;
+	CourseTimeRepository courseTimeRepository;
+	RegisterRepository registerRepository;
+	StudentResultRepository studentResultRepository;
+
+	//連動其他人的表
 	RentalService rentalService;
 	UserService userService;
 	VenueService venueService;
 	EmailService emailService;
-	CourseTimeRepository courseTimeRepository;
-	RegisterRepository registerRepository;
 
 
-
-
+//	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
+//		this.courseRepository = courseRepository;
+//		this.rentalService = rentalService;
+//		this.userService = userService;
+//		this.venueService = venueService;
+//		this.emailService = emailService;
+//		this.courseTimeRepository = courseTimeRepository;
+//		this.registerRepository = registerRepository;
+//	}
 	@Autowired
-	public CourseServiceImpl(CourseRepository courseRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository) {
+	public CourseServiceImpl(CourseRepository courseRepository, CourseTimeRepository courseTimeRepository, RegisterRepository registerRepository, StudentResultRepository studentResultRepository, RentalService rentalService, UserService userService, VenueService venueService, EmailService emailService) {
 		this.courseRepository = courseRepository;
+		this.courseTimeRepository = courseTimeRepository;
+		this.registerRepository = registerRepository;
+		this.studentResultRepository = studentResultRepository;
 		this.rentalService = rentalService;
 		this.userService = userService;
 		this.venueService = venueService;
 		this.emailService = emailService;
-		this.courseTimeRepository = courseTimeRepository;
-		this.registerRepository = registerRepository;
 	}
 
 	//--------Course課程-----------
@@ -208,5 +224,29 @@ public class CourseServiceImpl implements CourseService {
 			}
 			courseRepository.save(course);
 		}
+	}
+
+	@Override
+	public void createStudentResult(StudentResult studentResult) {
+		User user = userService.findByUserId(studentResult.getUser().getUserId());
+		studentResult.setUser(user);
+		Image image = ImgurService.updateByMultipartFile(studentResult.getResultFile());
+		studentResult.setResultImageUrl(image.getLink());
+		studentResult.setTime(new Date());
+	}
+
+	@Override
+	public void upadateStudentResult(StudentResult studentResult) {
+
+	}
+
+	@Override
+	public Optional<StudentResult> findStudentReslutById(Integer strId) {
+		return Optional.empty();
+	}
+
+	@Override
+	public List<StudentResult> findAllStudentResult() {
+		return null;
 	}
 }

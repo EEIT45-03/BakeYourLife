@@ -5,6 +5,7 @@ import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.Product;
 import eeit45.group3.bakeyourlife.course.model.Register;
 //import eeit45.group3.bakeyourlife.course.model.Result;
+import eeit45.group3.bakeyourlife.course.model.StudentResult;
 import eeit45.group3.bakeyourlife.course.service.CourseService;
 import eeit45.group3.bakeyourlife.course.service.ProductService;
 import eeit45.group3.bakeyourlife.email.service.EmailService;
@@ -34,13 +35,13 @@ public class UserCourseController {
     private CourseService courseService;
     private ProductService productService;
     private UserService userService;
-    private EmailService emailService;
+//    private EmailService emailService;
     @Autowired
-    public UserCourseController(CourseService courseService, ProductService productService, UserService userService, EmailService emailService) {
+    public UserCourseController(CourseService courseService, ProductService productService, UserService userService) {
         this.courseService = courseService;
         this.productService = productService;
         this.userService = userService;
-        this.emailService = emailService;
+//        this.emailService = emailService;
     }
     //------------------------------查看-------------------------------------------
     @GetMapping("/Course")
@@ -117,25 +118,30 @@ public class UserCourseController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//    //學員上傳結果
-//    @GetMapping("/User/Course/AddResult")
-//    public String showAddProduct(Model model) {
-//        //表單綁定用
-//        model.addAttribute("product",new Result());
-//        return "/course/CreateResult";
-//    }
-//
-//    @RequestMapping(value = "/User/Course/AddResult", method = RequestMethod.POST)
-//    public String saveProduct(
-//            @ModelAttribute Product product
-//    )
-//    {
-//        Image image = ImgurService.updateByMultipartFile(product.getFile());
-//        image.getLink();
-//        System.out.println("圖片連結: " + image.getLink());
-//        productService.saveProductToDB(image.getLink(), product.getName(), product.getDescription(), product.getSummary(), product.getPrice());
-//        return "redirect:./listProducts";
-//    }
+    //學員上傳結果
+    @GetMapping("/User/Course/AddResult")
+    public String viewCreateResult(@RequestParam(value = "fk_productId",required = false) Long fk_productId, Model model) {
+        Product product = null;
+        StudentResult studentResult = null;
+        if (fk_productId !=null){
+            product = productService.selectProductById(fk_productId);
+        } if (product != null){
+            studentResult = new StudentResult();
+            studentResult.setProduct(product);
+        }
+        //表單綁定用
+        model.addAttribute("studentResult",studentResult);
+        return "course/CreateStudentResult";
+    }
+
+    @PostMapping("/User/Course/AddResult")
+    public String createResult(@RequestParam(value = "fk_productId") Long fk_productId,
+            @ModelAttribute StudentResult studentResult    )    {
+        Product product = productService.selectProductById(fk_productId);
+        studentResult.setProduct(product);
+        courseService.createStudentResult(studentResult);
+        return "redirect:./";
+    }
 
 
 }
