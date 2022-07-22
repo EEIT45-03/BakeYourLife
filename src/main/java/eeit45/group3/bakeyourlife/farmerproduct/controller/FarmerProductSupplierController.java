@@ -3,7 +3,6 @@ package eeit45.group3.bakeyourlife.farmerproduct.controller;
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.farmerproduct.service.FarmerProductService;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
-import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +101,7 @@ public class FarmerProductSupplierController {
         return "farmerproduct/UpdateSupplier";
 
     }
+
     //----小農管理中心內更改密碼------------------------------------------------------------------
     @GetMapping("/UpdateSupplierPsw")
     public String viewUpdateSupplierPsw(Principal principal, Model model) {
@@ -116,13 +116,13 @@ public class FarmerProductSupplierController {
     }
 
     @PostMapping("/UpdateSupplierPsw")
-    public String updatepsw(Authentication authentication,Farmer farmer) {
+    public String updatepsw(Authentication authentication, Farmer farmer) {
 
         Farmer farmerDB = farmerService.getCurrentFarmer(authentication);
 //        System.out.println("密碼正確:" + encoder.matches(user.getPassword(),userDB.getPassword()));
-        boolean flag = encoder.matches(farmer.getPassword(),farmerDB.getPassword());
+        boolean flag = encoder.matches(farmer.getPassword(), farmerDB.getPassword());
 
-        if (!flag){
+        if (!flag) {
             return "farmerproduct/UpdateFarmerpsw_fail";
         }
         farmer.setPassword(encoder.encode(farmer.getNewPassword()));
@@ -143,11 +143,11 @@ public class FarmerProductSupplierController {
     }
 //------小農管理中心內更改密碼end----------------------------------------------------------
 
-//------小農管理中心內忘記密碼-----------------------------------------------------------------
+    //------小農管理中心內忘記密碼-----------------------------------------------------------------
     @GetMapping("/FindSupplierPsw")
     public String viewFindSupplierPsw() {
-    return "farmerproduct/FarmerFindpsw";
-}
+        return "farmerproduct/FarmerFindpsw";
+    }
 
     @GetMapping("/process_FindSupplierPsw")
     public String process_FindSupplierPsw(Principal principal) {
@@ -158,8 +158,9 @@ public class FarmerProductSupplierController {
         }
         return "redirect:/login";
     }
+
     @GetMapping("/farmerPswVerify")
-    public String farmerPswVerify(@Param("code") String code , Principal principal, Model model) {
+    public String farmerPswVerify(@Param("code") String code, Principal principal, Model model) {
         Farmer farmer = farmerService.findByUsername(principal.getName());
         model.addAttribute("farmer", farmer);
 
@@ -169,8 +170,9 @@ public class FarmerProductSupplierController {
             return "farmerproduct/farmerPswVerify_fail";
         }
     }
+
     @PostMapping("farmerPswReset")
-    public String farmerPswReset(Authentication authentication,Farmer farmer) {
+    public String farmerPswReset(Authentication authentication, Farmer farmer) {
         Farmer farmerDB = farmerService.getCurrentFarmer(authentication);
         farmer.setPassword(encoder.encode(farmer.getPassword()));
         farmer.setFarmerId(farmerDB.getFarmerId());
@@ -194,15 +196,12 @@ public class FarmerProductSupplierController {
 //------小農管理中心內忘記密碼END-----------------------------------------------------------------
 
 
-
-
-
     @GetMapping("SupplierProductList")
     public String viewProductList(Model model, Principal principal) {
 
         if (principal != null) {
             Farmer farmer = farmerService.findByUsername(principal.getName());
-            List<FarmerProductBean> farmerProductBeans = farmerProductService.findByFarmerId(farmer.getFarmerId());
+            List<FarmerProductBean> farmerProductBeans = farmerProductService.findByFarmerFarmerIdOrderByLaunchedTimeDesc(farmer.getFarmerId());
             model.addAttribute("farmerProductBeans", farmerProductBeans);
             return "farmerproduct/SupplierProductList";
         }

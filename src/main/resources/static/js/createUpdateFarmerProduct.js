@@ -107,6 +107,11 @@ $(document).ready(function () {
     }
 
 
+    if ($(".imgUp").length == 3) {
+        $(".imgAdd").css("display", "none")
+    }
+
+
     $(".imgAdd").click(function () {
         imgAdd();
     })
@@ -141,19 +146,17 @@ $(document).ready(function () {
         $(".imgAdd").css("display", "block");
     });
 
-
+// =======================一鍵輸入=====================
     $("#inputData").on("click", function () {
         $("#type").val("水果類").change();
-        $("#name").val("愛文芒果5斤(8~9入)禮盒裝");
-        $("#price").val("799");
+        $("#name").val("【珍珠芭樂5斤裝】");
+        $("#price").val("450");
         $("#quantity").val("200");
         $("#storage").val("冰箱冷藏").change();
-        $("#contents").val("中、大果規格：8~9入裝");
-        $("#description").val("★我們推薦大熊農場愛文芒果的理由\n" +
-            "■草生栽培安全用藥\n" +
-            "■甜度高 香氣足 果肉細緻\n" +
-            "■通過屏科大 381項農藥殘留檢驗\n" +
-            "■經產銷履歷驗證");
+        $("#contents").val("珍珠芭樂5斤裝（約7-8顆）");
+        $("#description").val("■ 拒用除草劑，愛地球愛健康\n" +
+            "■ 口感清脆香甜，讓人一再回味\n" +
+            "■ 使用高成本有機肥，確保植株養分健康成長");
 
     })
 
