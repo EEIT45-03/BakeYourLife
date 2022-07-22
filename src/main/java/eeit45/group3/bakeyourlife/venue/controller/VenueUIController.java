@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -45,5 +47,22 @@ public class VenueUIController {
     public ResponseEntity<List<Venue>> getVenuesBySortNot(@PathVariable Integer sortId) {
         List<Venue> venues = venueService.findAllByVenueSortNot(sortId);
         return ResponseEntity.status(HttpStatus.OK).body(venues);
+    }
+
+    @GetMapping("/checkVenueName")
+    public ResponseEntity<List<String>> checkVenueName() {
+        List<String> names = venueService.findAllVenueName();
+        return ResponseEntity.status(HttpStatus.OK).body(names);
+    }
+
+
+    @GetMapping("/checkVenueName/{id}")
+    public ResponseEntity<Map<String,Object>> checkVenueName1(@PathVariable Integer id) {
+        Venue venue = venueService.findByVenueId(id);
+        List<String> names = venueService.findAllVenueName();
+        Map<String,Object> map = new HashMap<>();
+        map.put("name", venue.getVenueName());
+        map.put("names", names);
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 }

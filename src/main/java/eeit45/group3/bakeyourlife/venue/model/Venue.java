@@ -30,7 +30,7 @@ public class Venue implements Serializable {
 	private Integer venueId;
 
 	//教室名稱
-	@Column(name = "VenueName",columnDefinition = "varchar(max) not null unique")
+	@Column(name = "VenueName",columnDefinition = "varchar(200) not null unique")
 	private String venueName;
 	
 	//人數上限

@@ -131,7 +131,15 @@ $(document).ready(function () {
     // });
 
     $('#submit_c').on('click', function () {
-        if (check()) {
+        if (check() && checkname()) {
+            Swal.fire({
+                title: '場地資料新增中',
+                html: '請稍後...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            });
             var venue = getVenue();
             $.ajax({
                 url: "/admin/Venue/CreateVenue",
@@ -160,7 +168,16 @@ $(document).ready(function () {
     });
 
     $('#submit_u').on('click', function () {
-        if (check()) {
+        let id = $('#vId').val();
+        if (check() && checkUpdatename(id)) {
+            Swal.fire({
+                title: '場地資料更新中!',
+                html: '請稍後...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            });
             var venue = getVenue();
             $.ajax({
                 url: "/admin/Venue/UpdateVenue",
@@ -214,7 +231,6 @@ function getVenue() {
 }
 
 
-
 function check(){
     let venueName = $.trim($("#vName").val());
     let personMax = $.trim($("#pMax").val());
@@ -223,6 +239,7 @@ function check(){
     let notes = $.trim($("#vNotes").val());
     var res = /^[A-Z]\d{2,5}$/;
     var flag = res.test(venueName);
+
     if(venueName === '' || venueName.length <=0){
         Swal.fire(
             '請輸入場地名稱',
@@ -231,7 +248,7 @@ function check(){
             'warning'
         )
         return false;
-    } else if (!flag || venueName.length >4){
+    } else if (!flag || venueName.length >5){
         Swal.fire(
             '請輸入場地名稱',
             '一個英文字母+3~4個數字',
@@ -239,7 +256,8 @@ function check(){
             'warning'
         )
         return false;
-    } else
+    }
+
     if(personMax === '' || personMax <= 0 ){
         Swal.fire(
             '請輸入場地上限組數',
@@ -247,6 +265,12 @@ function check(){
             'warning'
         )
         return false;
+    } else if(personMax > 50){
+        Swal.fire(
+            '最大上限不可出過50',
+            '',
+            'warning'
+        )
     }
 
     if(hrPrice === '' || hrPrice <= 0 ){
@@ -256,11 +280,18 @@ function check(){
             'warning'
         )
         return false;
+    } else if(hrPrice > 1500){
+        Swal.fire(
+            '每小時的價錢不可超過1500',
+            '',
+            'warning'
+        )
     }
+
     if(sort === '' || sort <= 0 ){
         Swal.fire(
             '請選擇場地種類',
-            '',
+            '場地種類不可為空',
             'warning'
         )
         return false;
@@ -273,10 +304,76 @@ function check(){
         )
         return false;
     }
+
     return true;
 }
 
 
+function checkname(){
+    let n = $.trim($("#vName").val());
+    fetch("/checkVenueName").then(response => {
+        if (!response.ok) {
+            const err = new Error("Not 2xx response");
+            err.response = response;
+            throw err;
+        } else {
+            return response.json()
+        }
+    }).then(data => {
+
+        for(let name of data){
+            if(n == name){
+                Swal.fire(
+                    '輸入錯誤',
+                    '場地名稱不可重複',
+                    '',
+                    'warning'
+                )
+                return false;
+            }
+        }
+
+    }).catch(function (err){
+        console.log('Error:'+(err))
+    })
+    return true;
+}
+
+function checkUpdatename(id){
+    let n = $.trim($("#vName").val());
+    fetch("/checkVenueName/"+id).then(response => {
+        if (!response.ok) {
+            const err = new Error("Not 2xx response");
+            err.response = response;
+            throw err;
+        } else {
+            return response.json()
+        }
+    }).then(data => {
+
+        for(let name of data.names){
+            if(n == name){
+                if(n == data.name){
+                    console.log("OK")
+                    return true;
+                } else {
+                    console.log("err")
+                    Swal.fire(
+                        '輸入錯誤',
+                        '場地名稱不可重複',
+                        '',
+                        'warning'
+                    )
+                    return false;
+                }
+            }
+        }
+
+    }).catch(function (err){
+        console.log('Error:'+(err))
+    })
+    return true;
+}
 
 //刪除場地
 function deleteVenue(venueId) {
