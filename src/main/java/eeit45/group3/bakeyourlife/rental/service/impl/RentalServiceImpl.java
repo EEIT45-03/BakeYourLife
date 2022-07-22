@@ -47,8 +47,10 @@ public class RentalServiceImpl implements RentalService{
 
 	ProduceNoRepository produceNoRepository;
 
+	EmailService emailService;
+
 	@Autowired
-	public RentalServiceImpl(UserService userService, TackleService tackleService, VenueService venueService, RentalRepository rentalRepository, VenueListRepository venueListRepository, TackleListRepository tackleListRepository, TackleBagRepository tackleBagRepository, ProduceNoRepository produceNoRepository) {
+	public RentalServiceImpl(UserService userService, TackleService tackleService, VenueService venueService, RentalRepository rentalRepository, VenueListRepository venueListRepository, TackleListRepository tackleListRepository, TackleBagRepository tackleBagRepository, ProduceNoRepository produceNoRepository, EmailService emailService) {
 		this.userService = userService;
 		this.tackleService = tackleService;
 		this.venueService = venueService;
@@ -57,6 +59,7 @@ public class RentalServiceImpl implements RentalService{
 		this.tackleListRepository = tackleListRepository;
 		this.produceNoRepository = produceNoRepository;
 		this.tackleBagRepository = tackleBagRepository;
+		this.emailService = emailService;
 	}
 
 
@@ -158,6 +161,16 @@ public class RentalServiceImpl implements RentalService{
 		} else{
 			return null;
 		}
+		if("已付款".equals(rental.getState())){
+			User user = userService.findByUserId(rental.getUser().getUserId());
+			String email = user.getEmail();
+			try {
+				emailService.sendRentalMail(email, "[Bake Your Life 烘焙材料網] 租借單已付款成功通知",rental,"rentalfinish");
+			} catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 		return rentalRepository.save(rental);
 	}
 
