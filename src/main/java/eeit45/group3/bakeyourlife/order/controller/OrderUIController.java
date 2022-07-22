@@ -49,20 +49,21 @@ public class OrderUIController {
     @GetMapping("/admin/Order/")
     public String viewAdminIndex(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date sdate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date edate,
-            Model model) {
-        List<Order> orders = null;
-        if (sdate != null && edate != null) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(edate);
-            cal.add(Calendar.DATE, 1);
-            edate = cal.getTime();
-            orders = orderService.findAllByOrderDateBetween(sdate, edate);
-        } else {
-            orders = orderService.findAll();
-        }
-
-        model.addAttribute("orders", orders);
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date edate
+//            ,Model model
+    ) {
+//        List<Order> orders = null;
+//        if (sdate != null && edate != null) {
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(edate);
+//            cal.add(Calendar.DATE, 1);
+//            edate = cal.getTime();
+//            orders = orderService.findAllByOrderDateBetween(sdate, edate);
+//        } else {
+//            orders = orderService.findAll();
+//        }
+//
+//        model.addAttribute("orders", orders);
         return "admin/order/Order";
     }
 
