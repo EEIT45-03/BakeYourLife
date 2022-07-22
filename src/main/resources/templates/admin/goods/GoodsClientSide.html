@@ -14,6 +14,9 @@
     a{
         cursor: pointer;
     }
+    .special{
+        font-size: 30px;
+    }
 </style>
 </head>
 
@@ -47,26 +50,17 @@
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar" >
                     <div class="sidebar__item">
-                        <h4>材料項目</h4>
-                        <ul>
-<!--                            <li><a th:href="@{/Goods1/}">商品總覽</a></li>-->
-<!--                            <li><a th:href="@{flour}">麵粉</a></li>-->
-<!--                            <li><a th:href="@{chocolate}">巧克力</a></li>-->
-<!--                            <li><a th:href="@{dairy}">乳製品</a></li>-->
-<!--                            <li><a th:href="@{salt}">頂級鹽品</a></li>-->
-<!--                            <li><a th:href="@{buckeye}">堅果乾</a></li>-->
-<!--                            <li><a th:href="@{jam}">抹醬</a></li>-->
-<!--                            <li><a th:href="@{spice}">嚴選香料</a></li>-->
-<!--                            <li><a th:href="@{sugar}">彩糖</a></li>-->
-                            <li  ><a  th:onclick='showByType("商品總覽")'>商品總覽</a></li>
-                            <li  ><a th:onclick='showByType("麵粉")'>麵粉</a></li>
-                            <li  ><a th:onclick='showByType("巧克力")'>巧克力</a></li>
-                            <li  ><a th:onclick='showByType("乳製品")'>乳製品</a></li>
-                            <li  ><a th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
-                            <li  ><a th:onclick='showByType("堅果乾")'>堅果乾</a></li>
-                            <li  ><a th:onclick='showByType("抹醬")'>抹醬</a></li>
-                            <li  ><a th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
-                            <li  ><a th:onclick='showByType("彩糖")'>彩糖</a></li>
+                        <h4 style="font-size:35px;" >材料項目</h4>
+                        <ul >
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("商品總覽")'>商品總覽</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("麵粉")'>麵粉</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("巧克力")'>巧克力</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("乳製品")'>乳製品</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("頂級鹽品")'>頂級鹽品</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("堅果乾")'>堅果乾</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("抹醬")'>抹醬</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("嚴選香料")'>嚴選香料</a></li>
+                            <li  ><a style="font-size:23px;"  th:onclick='showByType("彩糖")'>彩糖</a></li>
 
                         </ul>
                     </div>
@@ -155,18 +149,18 @@
 <!--                    </div>-->
 <!--                    <div class="sidebar__item">-->
                         <div class="latest-product__text" >
-                            <h4>推薦商品</h4>
+                            <h4 style="font-size:35px;">推薦商品</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item" th:each="sales: ${Sales}">
-                                    <a th:href="@{Picture(id=${sales.id},name=${sales.name})}"
+                                    <a style="font-size:23px;" th:href="@{Picture(id=${sales.id},name=${sales.name})}"
                                        class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img    style="width:150px;height: 150px"
                                                     th:src="${sales.imageUrl}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6 th:text="${sales.name}"></h6>
-                                            <span th:text="|NT$${sales.packages}|"></span>
+                                            <h6 style="font-size:23px;" th:text="${sales.name}"></h6>
+                                            <span style="font-size:23px;" th:text="|NT$${sales.packages}|"></span>
                                         </div>
                                     </a>
 
@@ -213,7 +207,7 @@
                             </div>
                     <div class="col-lg-4 col-md-4" >
                         <div class="filter__found" id="countDiv" >
-                            <h6>共 <span th:text="${goods.size()}"></span>項商品</h6>
+                            <h6 style="font-size:23px;">共 <span th:text="${goods.size()}"></span>項商品</h6>
                         </div>
                     </div>
 
@@ -227,15 +221,15 @@
             <div class="row" id="productContent">
                 <div class="col-lg-4 col-md-6 col-sm-6" th:each="bean:${goods}" >
                     <div class="product__item">
-                        <a th:href="@{Picture(id=${bean.id},name=${bean.name})}">
+                        <a style="font-size:23px;" th:href="@{Picture(id=${bean.id},name=${bean.name})}">
                             <div class="product__item__pic set-bg"
                                  style="width:270px;height: 270px"
                              th:data-setbg="${bean.imageUrl}" >
                         </div></a>
                         <div class="product__item__text" >
-                            <h6 th:text="${bean.name}">
+                            <h6 style="font-size:23px;" th:text="${bean.name}">
                             </h6>
-                            <h5 th:text="|NT$${bean.packages}|"></h5>
+                            <h5 style="font-size:23px;" th:text="|NT$${bean.packages}|"></h5>
                         </div>
                     </div>
                 </div>
