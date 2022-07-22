@@ -152,6 +152,7 @@ public class ShoppingCartController {
             order.setOrderNo(df.format(current) + end);
             orderNo = order.getOrderNo();
             order.setOrderDate(current);
+            order.setReview(false);
 
             //訂單狀態
             order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
