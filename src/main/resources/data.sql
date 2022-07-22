@@ -185,6 +185,7 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 
 ■精選飼育羊種 調配營養飼料
 牧場所飼養的羊隻品種是阿爾拜因羊，母羊的泌乳期長、體質強健，對不同氣候環境的適應性良好。而牧場選用的飼料更混合台灣產的新鮮玉米粒、豆殼、豆粕，以及進口苜蓿草等，幫助羊隻補充每日所需營養。因此牧場的羊兒各個乳汁豐沛，不但營養價值高，且口感香醇濃郁。', CAST(N'2022-07-18T22:12:45.7930000' AS DateTime2), N'【936ml 鮮羊乳 2瓶組】', 420, 1600, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (28, N'貓貓1隻', N'有點傷心的貓咪', CAST(N'2022-07-22 13:24:06.1780000' AS DateTime2), N'小貓咪', 500, 1, 0, N'放置陰涼處', NULL, N'牛奶類', NULL, 1)
 SET IDENTITY_INSERT [dbo].[farmer_product] OFF
 
 SET IDENTITY_INSERT [dbo].[farmer_product_pic] ON
@@ -229,6 +230,7 @@ INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (40, N'https://i.imgur.com/eApRBpR.jpg', 25)
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (41, N'https://i.imgur.com/ysQBZ0W.jpg', 26)
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (42, N'https://i.imgur.com/bZ8LR2u.jpg', 27)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (43, N'https://i.imgur.com/8t017n8.jpg', 28)
 SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 
 

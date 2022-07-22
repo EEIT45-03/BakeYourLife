@@ -12,6 +12,9 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     //單個商品 從商品ID找
     FarmerProductBean findByFarmerProductId(Integer farmerProductId);
 
+    //多個商品  按時間排序 新到舊
+    List<FarmerProductBean> findAllByOrderByLaunchedTimeDesc();
+
     //多個商品 從狀態找 按時間排序 新到舊
     List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state);
 
@@ -29,6 +32,9 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
 
     //多個商品 從廠商ID找
     List<FarmerProductBean> findByFarmerFarmerId(Integer farmerId);
+
+    //多個商品 從廠商ID找 按時間排序 新到舊
+    List<FarmerProductBean> findByFarmerFarmerIdOrderByLaunchedTimeDesc(Integer farmerId);
 
     //廠商商品數量
     Long countByFarmerFarmerId(Integer farmerId);
