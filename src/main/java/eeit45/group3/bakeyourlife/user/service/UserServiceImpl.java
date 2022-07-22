@@ -94,6 +94,18 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
+
+
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
+
+
+
+
+
     @Override
     public void register(User user )
             throws UnsupportedEncodingException, MessagingException {

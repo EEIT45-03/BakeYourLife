@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>會員資料分析</title>
+
+  <div th:replace="admin/css.html"></div>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="admin/sidebar.html"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="admin/header.html"></div>
+
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">會員</h1>
+        </div>
+
+
+        <div class="row">
+          <!-- Area Chart -->
+          <!--          <div class="col-xl-8 col-lg-7">-->
+          <!--            <div class="card shadow mb-4">-->
+          <!--              &lt;!&ndash; Card Header - Dropdown &ndash;&gt;-->
+          <!--              <div-->
+          <!--                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">-->
+          <!--                <h6 class="m-0 font-weight-bold text-primary">各商品庫存數量</h6>-->
+          <!--              </div>-->
+          <!--              &lt;!&ndash; Card Body &ndash;&gt;-->
+          <!--              <div class="card-body">-->
+          <!--                <div class="chart-area">-->
+          <!--                  <canvas id="myAreaChart"></canvas>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-s font-weight-bold text-warning text-uppercase mb-2">
+                      會員數量</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${count}"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-user fa-2x text-gray-500"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <!-- Pie Chart -->
+          <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">會員性別比</h6>
+                <div class="col-auto">
+                  <i class="fa-solid fa-mars-and-venus fa-2x text-gray-500"></i>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="myPieChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    <div th:replace="admin/footer.html"></div>
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<div th:replace="admin/javascript.html"></div>
+<!-- Page level custom scripts -->
+<script th:src="@{/js/chart.min.js}"></script>
+<script>
+  $(document).ready(function () {
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.color = '#858796';
+
+
+    fetch('[[@{/UserGenderCount}]]')
+            .then(response => response.json())
+            .then(res =>{
+              console.log(res);
+              const dataPie =  {
+                labels: res.labels,
+                datasets: [{
+                  label: '會員性別圓餅圖',
+                  data: res.data,
+                  backgroundColor: [
+                    'rgb(255, 11, 105)',
+                    'rgb(11, 100, 255)',
+                  ],
+                  hoverOffset: 4
+                }]
+              };
+
+              const ctxMyPieChart = $('#myPieChart');
+              const myPieChart = new Chart(ctxMyPieChart,{
+                type: 'pie',
+                data:dataPie,
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  layout: {
+                    autoPadding: true
+                  },
+                  locale:'zh-TW',
+                },
+              });
+
+            });
+
+    // fetch('[[@{/GoodsOriginCount}]]')
+    //         .then(response => response.json())
+    //         .then(res =>{
+    //           console.log(res);
+    //           const dataPie =  {
+    //             labels: res.labels,
+    //             datasets: [{
+    //               label: '商品銷售圓餅圖',
+    //               data: res.data,
+    //               backgroundColor: [
+    //                 'rgb(255, 190, 11)',
+    //                 'rgb(251, 86, 7)',
+    //                 'rgb(255, 0, 110)',
+    //                 'rgb(131, 56, 236)',
+    //                 'rgb(58, 134, 255)',
+    //                 'rgb(255, 107, 53)',
+    //                 'rgb(247, 197, 159)',
+    //                 'rgb(171, 225, 136)',
+    //                 'rgb(203, 212, 194)',
+    //                 'rgb(189, 180, 191)',
+    //                 'rgb(116, 164, 188)',
+    //                 'rgb(49, 233, 129)',
+    //               ],
+    //               hoverOffset: 4
+    //             }]
+    //           };
+    //
+    //           const ctxMyPieChart = $('#myPieChart2');
+    //           const myPieChart = new Chart(ctxMyPieChart,{
+    //             type: 'pie',
+    //             data:dataPie,
+    //             options: {
+    //               responsive: true,
+    //               maintainAspectRatio: false,
+    //               layout: {
+    //                 autoPadding: true
+    //               },
+    //               locale:'zh-TW',
+    //             },
+    //           });
+    //
+    //         });
+
+    // fetch('[[@{/GoodsNameCount}]]')
+    //         .then(response => response.json())
+    //         .then(res =>{
+    //           console.log(res);
+    //           const dataPie =  {
+    //             labels: res.labels,
+    //             datasets: [{
+    //               label: '商品銷售圓餅圖',
+    //               data: res.data,
+    //               backgroundColor: [
+    //                 'rgb(255, 190, 11)',
+    //                 'rgb(251, 86, 7)',
+    //                 'rgb(255, 0, 110)',
+    //                 'rgb(131, 56, 236)',
+    //                 'rgb(58, 134, 255)',
+    //                 'rgb(255, 107, 53)',
+    //                 'rgb(247, 197, 159)',
+    //                 'rgb(171, 225, 136)',
+    //                 'rgb(203, 212, 194)',
+    //                 'rgb(189, 180, 191)',
+    //                 'rgb(116, 164, 188)',
+    //                 'rgb(49, 233, 129)',
+    //               ],
+    //               hoverOffset: 4
+    //             }]
+    //           };
+    //
+    //           const ctxMyPieChart = $('#myPieChart3');
+    //           const myPieChart = new Chart(ctxMyPieChart,{
+    //             type: 'pie',
+    //             data:dataPie,
+    //             options: {
+    //               responsive: true,
+    //               maintainAspectRatio: false,
+    //               layout: {
+    //                 autoPadding: true
+    //               },
+    //               locale:'zh-TW',
+    //             },
+    //           });
+    //
+    //         });
+
+  })
+
+
+</script>
+</body>
+</html>

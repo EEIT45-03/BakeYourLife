@@ -33,6 +33,8 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    Long count();
+
     void register(User user)throws UnsupportedEncodingException, MessagingException;
 
     void sendVerificationEmail(User user);

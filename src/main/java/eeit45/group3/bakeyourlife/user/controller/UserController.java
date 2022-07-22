@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
@@ -43,6 +44,19 @@ public class UserController {
         model.addAttribute("users", users);
         return "admin/user/User";
     }
+
+    @GetMapping("/UserChart")
+    public String viewUserChart(Model model) {
+        Long count = userService.count();
+
+        model.addAttribute("count", count);
+
+        return "admin/user/UserChart";
+    }
+
+
+
+
 
     @GetMapping("/CreateUser")
     public String viewCreateUser(Model model) {
