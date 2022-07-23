@@ -29,7 +29,7 @@ public class Tackle implements Serializable {
 	private Integer tackleId;
 
 	//器具名稱
-	@Column(name = "tackleName", columnDefinition = "varchar(max) not null unique")
+	@Column(name = "tackleName", columnDefinition = "varchar(max) not null")
 	private String tackleName;
 
 	//器具規格
