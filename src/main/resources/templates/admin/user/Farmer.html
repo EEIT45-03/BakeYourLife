@@ -63,18 +63,18 @@
     }
 
     .modal-confirm .icon-box {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 95px;
       margin: 0 auto;
       border-radius: 50%;
       z-index: 9;
       text-align: center;
-      border: 3px solid #f15e5e;
+      /*border: 3px solid #f15e5e;*/
     }
 
     .modal-confirm .icon-box i {
       color: #f15e5e;
-      font-size: 46px;
+      font-size: 70px;
       display: inline-block;
       margin-top: 13px;
     }
@@ -147,10 +147,10 @@
         <div class="modal-dialog modal-confirm">
           <div class="modal-content">
             <div class="modal-header flex-column">
-              <div class="icon-box">
-                <i class="material-icons">&#xE5CD;</i>
+              <div style="border: 3px solid #f15e5e;" class="icon-box">
+                <i class="material-icons">delete</i>
               </div>
-              <h4 class="modal-title w-100">請確認是否要刪除此小農廠商?</h4>
+              <h4 class="modal-title w-100">是否要刪除此小農廠商?</h4>
               <button type="button" class="close" data-dismiss="modal"
                       aria-hidden="true">&times;
               </button>
@@ -170,6 +170,65 @@
           </div>
         </div>
       </div>
+
+
+      <div id="myAModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+          <div class="modal-content">
+            <div class="modal-header flex-column">
+              <div class="icon-box">
+                <i class="material-icons">block</i>
+              </div>
+              <h4 class="modal-title w-100">是否要停權此小農廠商?</h4>
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-hidden="true">&times;
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>如果停權，小農廠商帳號將無法登入!</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <form action="EnableFarmer">
+                <input type="hidden" name="farmerId" id="dateId2" value=""/> <input
+                      type="submit" class="btn btn-danger" value="停權">
+              </form>
+              <button type="button" class="btn btn-secondary"
+                      data-dismiss="modal">取消
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="myBModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+          <div class="modal-content">
+            <div class="modal-header flex-column">
+              <div class="icon-box">
+                <i style="color: #50C878" class="material-icons">account_circle</i>
+              </div>
+              <h4 class="modal-title w-100">是否要啟用此小農廠商帳號?</h4>
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-hidden="true">&times;
+              </button>
+            </div>
+            <div class="modal-body">
+              <!--                            <p>如果啟用，將會寄送E-mail給使用者</p>-->
+            </div>
+            <div class="modal-footer justify-content-center">
+              <form action="EnableFarmer">
+                <input type="hidden" name="farmerId" id="dateId3" value=""/> <input
+                      type="submit" class="btn btn-danger" value="啟用">
+              </form>
+              <button type="button" class="btn btn-secondary"
+                      data-dismiss="modal">取消
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
 
       <!-- Begin Page Content -->
@@ -256,6 +315,27 @@
                               class="fas fa-trash"></i>
 														</span> <span class="text">刪除</span>
                     </button>
+                    &nbsp
+                    <button th:if="${farmer.enabled} == true"
+                            type="button"
+                            class="btn btn-info btn-icon-split btn-sm"
+                            data-toggle="modal" data-target="#myAModal"
+                            th:onclick="|values2(${farmer.farmerId})|">
+                      <!-- onclick="values(${user.userId})"> -->
+                      <span class="icon text-white-50">
+                                                <i class="fa-solid fa-ban"></i>
+														</span> <span class="text">停權</span>
+                    </button>
+                    <button th:if="${farmer.enabled} == false"
+                            type="button"
+                            class="btn btn-success btn-icon-split btn-sm"
+                            data-toggle="modal" data-target="#myBModal"
+                            th:onclick="|values3(${farmer.farmerId})|">
+                      <!-- onclick="values(${user.userId})"> -->
+                      <span class="icon text-white-50"> <i
+                              class="fas fa-user-check"></i>
+														</span> <span class="text">啟用帳戶</span>
+                    </button>
                   </td>
 
                 </tr>
@@ -290,6 +370,12 @@
   //刪除訂單傳值
   function values(ID) {
     $('#dateId').val(ID);
+  }
+  function values2(ID) {
+    $('#dateId2').val(ID);
+  }
+  function values3(ID) {
+    $('#dateId3').val(ID);
   }
 
   $(document).ready(function () {

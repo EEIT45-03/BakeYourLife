@@ -64,18 +64,18 @@
         }
 
         .modal-confirm .icon-box {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 95px;
             margin: 0 auto;
             border-radius: 50%;
             z-index: 9;
             text-align: center;
-            border: 3px solid #f15e5e;
+            /*border: 3px solid #f15e5e;*/
         }
 
         .modal-confirm .icon-box i {
             color: #f15e5e;
-            font-size: 46px;
+            font-size: 70px;
             display: inline-block;
             margin-top: 13px;
         }
@@ -123,6 +123,10 @@
         td.child {
             text-align: left;
         }
+        .enable{
+            color: #4bd7ef;
+        }
+
 
 
 
@@ -150,8 +154,8 @@
                 <div class="modal-dialog modal-confirm">
                     <div class="modal-content">
                         <div class="modal-header flex-column">
-                            <div class="icon-box">
-                                <i class="material-icons">&#xE5CD;</i>
+                            <div style="border: 3px solid #f15e5e;" class="icon-box">
+                                <i class="material-icons">delete</i>
                             </div>
                             <h4 class="modal-title w-100">請確認是否要刪除此帳號?</h4>
                             <button type="button" class="close" data-dismiss="modal"
@@ -173,6 +177,69 @@
                     </div>
                 </div>
             </div>
+
+
+            <div id="myAModal" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <div class="icon-box">
+                                <i class="material-icons">block</i>
+                            </div>
+                            <h4 class="modal-title w-100">請確認是否要停權此帳號?</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>如果停權，帳號將無法登入!</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <form action="EnableUser">
+                                <input type="hidden" name="userId" id="dateId2" value=""/> <input
+                                    type="submit" class="btn btn-danger" value="停權">
+                            </form>
+                            <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="myBModal" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <div class="icon-box">
+                                <i style="color: #50C878" class="material-icons">account_circle</i>
+                            </div>
+                            <h4 class="modal-title w-100">請確認是否要啟用此帳號?</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+<!--                            <p>如果啟用，將會寄送E-mail給使用者</p>-->
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <form action="EnableUser">
+                                <input type="hidden" name="userId" id="dateId3" value=""/> <input
+                                    type="submit" class="btn btn-danger" value="啟用">
+                            </form>
+                            <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
 
 
             <!-- Begin Page Content -->
@@ -208,7 +275,7 @@
                                     <th>地址</th>
 
                                     <th class="none">帳號:</th>
-<!--                                    <th class="none">密碼:</th>-->
+                                    <th class="none">密碼:</th>
                                     <th class="none">帳號權限:</th>
                                     <th class="none">創立時間:</th>
                                     <th class="none">動作:</th>
@@ -240,7 +307,7 @@
                                     <td th:text="${user.gender}"></td>
                                     <td th:text="${user.address}"></td>
                                     <td th:text="${user.username}"></td>
-<!--                                    <td th:text="${user.password}"></td>-->
+                                    <td th:text="${user.password}"></td>
                                     <td th:text="${user.authority}"></td>
                                     <td th:text="${user.registerTime}"></td>
                                     <td><a th:href="@{UpdateUser(userId=${user.userId})}" class="btn btn-warning btn-icon-split btn-sm"> <span
@@ -258,6 +325,28 @@
                                                     class="fas fa-trash"></i>
 														</span> <span class="text">刪除</span>
                                         </button>
+                                        &nbsp
+                                        <button th:if="${user.enabled} == true"
+                                                type="button"
+                                                class="btn btn-info btn-icon-split btn-sm"
+                                                data-toggle="modal" data-target="#myAModal"
+                                                th:onclick="|values2(${user.userId})|">
+                                            <!-- onclick="values(${user.userId})"> -->
+                                            <span class="icon text-white-50">
+                                                <i class="fa-solid fa-ban"></i>
+														</span> <span class="text">停權</span>
+                                        </button>
+                                        <button th:if="${user.enabled} == false"
+                                                type="button"
+                                                class="btn btn-success btn-icon-split btn-sm"
+                                                data-toggle="modal" data-target="#myBModal"
+                                                th:onclick="|values3(${user.userId})|">
+                                            <!-- onclick="values(${user.userId})"> -->
+                                            <span class="icon text-white-50"> <i
+                                                    class="fas fa-user-check"></i>
+														</span> <span class="text">啟用帳戶</span>
+                                        </button>
+
                                     </td>
 
                                 </tr>
@@ -289,9 +378,16 @@
 <div th:replace="admin/javascript.html"></div>
 
 <script>
-    //刪除訂單傳值
+    //刪除會員傳值
     function values(ID) {
         $('#dateId').val(ID);
+    }
+
+    function values2(ID) {
+        $('#dateId2').val(ID);
+    }
+    function values3(ID) {
+        $('#dateId3').val(ID);
     }
 
     $(document).ready(function () {

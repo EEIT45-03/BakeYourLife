@@ -114,6 +114,25 @@ public class FarmerController {
         return "redirect:./";
 
     }
+
+
+    @RequestMapping("EnableFarmer")
+    public String enableFarmer(@RequestParam Integer farmerId) {
+        Farmer farmer = farmerService.findByFarmerId(farmerId);
+        if (farmer.isEnabled()) {
+            farmer.setEnabled(false);
+        }else {
+            farmer.setEnabled(true);
+        }
+        farmerService.updateFarmer(farmer);
+        return "redirect:./";
+
+    }
+
+
+
+
+
     @PostMapping(value = "/CheckFarmer", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean CheckFarmer(@RequestParam String username) {
         User user = userService.findByUsername(username);
