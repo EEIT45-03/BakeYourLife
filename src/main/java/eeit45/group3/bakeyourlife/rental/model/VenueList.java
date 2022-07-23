@@ -71,7 +71,7 @@ public class VenueList implements Serializable {
 	
 	//租借單
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.PERSIST )
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="FK_rentalId", referencedColumnName = "rentalId", nullable = false)
 	private Rental rental;
 

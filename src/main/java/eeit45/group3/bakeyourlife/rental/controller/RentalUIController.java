@@ -1,6 +1,8 @@
 package eeit45.group3.bakeyourlife.rental.controller;
 
 
+import eeit45.group3.bakeyourlife.email.service.EmailService;
+import eeit45.group3.bakeyourlife.email.service.EmailServiceImpl;
 import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.ParseException;
@@ -31,11 +34,14 @@ public class RentalUIController {
     VenueService venueService;
     TackleService tackleService;
 
+    EmailService emailService;
+
     @Autowired
-    public RentalUIController(RentalService rentalService, VenueService venueService, TackleService tackleService) {
+    public RentalUIController(RentalService rentalService, VenueService venueService, TackleService tackleService, EmailService emailService) {
         this.rentalService = rentalService;
         this.venueService = venueService;
         this.tackleService = tackleService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/VenueSelect/{name}/{date}")
@@ -81,7 +87,16 @@ public class RentalUIController {
 
     @RequestMapping("User/rental/DeleteRental")
     public ResponseEntity<?> deleteRental(@RequestParam Integer rentalId) {
-        rentalService.deleteRental(rentalId);
+        Rental r = rentalService.findByRentalId(rentalId);
+        r.setState("已退單");
+        rentalService.updateRental(r);
+
+        String email = r.getUser().getEmail();
+        try {
+            emailService.sendRentalMail(email, "[Bake Your Life 烘焙材料網] 租借單取消通知",r,"rentalCancel");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -90,8 +105,22 @@ public class RentalUIController {
         Rental rental = rentalService.findByRentalId(rentalId);
         rental.setState("待付款");
         rental.setRentalDate(new Date());
-
         Rental r = rentalService.updateRental(rental);
+        String email = r.getUser().getEmail();
+        if("場地".equals(r.getType())){
+            try {
+                emailService.sendRentalMail(email, "[Bake Your Life 烘焙材料網] 租借單下單成功通知",r,"rentaldown_v");
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+//        } else if ("器具".equals(r.getType())) {
+//            try {
+//                emailService.sendRentalMail(email, "[Bake Your Life 烘焙材料網] 租借單下單成功通知",r,"rentaldown_t");
+//            } catch (MessagingException e) {
+//                throw new RuntimeException(e);
+//            }
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(r);
     }
 
@@ -134,7 +163,6 @@ public class RentalUIController {
     public ResponseEntity<?> deleteVenueList(@RequestParam Integer venueListId) {
         VenueList venueList = rentalService.findByVenueListId(venueListId);
         Rental rental = venueList.getRental();
-
         rentalService.deleteVenueList(venueListId);
 
         Long sum = rentalService.findVenueListPriceSumByRental(rental);
