@@ -130,6 +130,19 @@ public class UserController {
         return "redirect:./";
 
     }
+    @RequestMapping("EnableUser")
+    public String enableUser(@RequestParam Integer userId) {
+       User user = userService.findByUserId(userId);
+       if (user.isEnabled()) {
+           user.setEnabled(false);
+       }else {
+           user.setEnabled(true);
+       }
+        userService.updateUser(user);
+        return "redirect:./";
+
+    }
+
 
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {
