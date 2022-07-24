@@ -57,7 +57,7 @@ public class ProductCommentController {
 
     @PutMapping("/ProductComments/{id}")
     public ResponseEntity<ProductComment> updateComment(@PathVariable Integer id,
-                                                        @RequestBody @Valid ProductComment productComment) {
+                                                        @RequestBody ProductComment productComment) {
 
         if (!productCommentService.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
