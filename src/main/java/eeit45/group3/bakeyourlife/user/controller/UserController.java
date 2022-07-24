@@ -48,8 +48,10 @@ public class UserController {
     @GetMapping("/UserChart")
     public String viewUserChart(Model model) {
         Long count = userService.count();
-
         model.addAttribute("count", count);
+        Long countEnabled = userService.countEnabled();
+        model.addAttribute("countEnabled", countEnabled);
+
 
         return "admin/user/UserChart";
     }

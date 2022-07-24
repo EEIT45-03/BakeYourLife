@@ -58,27 +58,66 @@
           <!--            </div>-->
           <!--          </div>-->
           <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-s font-weight-bold text-warning text-uppercase mb-2">
+                    <div class="text-s font-weight-bold text-info text-uppercase mb-2">
                       會員數量</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${count}"></div>
                   </div>
                   <div class="col-auto">
-                    <i class="fas fa-user fa-2x text-gray-500"></i>
+                    <i class="fas fa-users fa-2x text-gray-500"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-s font-weight-bold text-danger text-uppercase mb-2">
+                    違規或未完成註冊數量</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${countEnabled}"></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-users-slash fa-2x text-gray-500"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
 
 
         <div class="row">
+
+
           <!-- Pie Chart -->
+
+          <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">註冊人數趨勢</h6>
+                <div class="col-auto">
+                  <i class="fa-solid fa-user-plus fa-2x text-gray-500"></i>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="myAreaChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
               <!-- Card Header - Dropdown -->
@@ -97,8 +136,6 @@
               </div>
             </div>
           </div>
-
-
 
 
 
@@ -132,7 +169,7 @@
     Chart.defaults.color = '#858796';
 
 
-    fetch('[[@{/UserGenderCount}]]')
+    fetch('[[@{/admin/user/UserGenderCount}]]')
             .then(response => response.json())
             .then(res =>{
               console.log(res);
@@ -162,6 +199,90 @@
                   locale:'zh-TW',
                 },
               });
+
+            });
+
+
+    fetch('[[@{/admin/user/UsermonthSignUPAmount}]]')
+            .then(response => response.json())
+            .then(res =>{
+              console.log(res);
+              // myAreaChart
+              const ctxMyAreaChart = $('#myAreaChart');
+              //標籤
+              const data = {
+                labels: res.labels,
+                datasets: [{
+                  label: '長條圖',
+                  data: res.data,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 205, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgb(37,187,61, 0.6)',
+                    'rgb(229,55,112, 0.6)',
+                    'rgb(94,50,141, 0.6)',
+                    'rgb(20,73,241, 0.6)',
+                    'rgb(6,161,111, 0.6)',
+                    'rgba(201, 203, 207, 0.6)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(37,187,61)',
+                    'rgb(229,55,112)',
+                    'rgb(94,50,141)',
+                    'rgb(20,73,241)',
+                    'rgb(6,161,111)',
+                    'rgb(201, 203, 207)',
+                  ],
+                  borderWidth: 1
+                },
+                  {
+                    type: 'line',
+                    label: '折線圖',
+                    data: res.data,
+                    // borderColor: 'rgb(74,136,205)',
+                    // backgroundColor: 'rgba(74,136,205,0.8)',
+                    borderColor: 'rgb(0,0,0)',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                  }]
+              }
+              const myAreaChart = new Chart(ctxMyAreaChart,{
+                type: 'bar',
+                data:data,
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  layout: {
+                    autoPadding: true
+                  },
+
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        beginAtZero: true,
+                        //側邊顯示數字
+                        callback: function (value, index, values) {
+                          return  value + '(位)';
+                        }
+                      }
+
+                    }
+                  },
+                  locale:'zh-TW',
+                },
+              });
+
+
 
             });
 
