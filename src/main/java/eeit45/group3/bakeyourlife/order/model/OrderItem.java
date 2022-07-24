@@ -43,11 +43,22 @@ public class OrderItem implements Serializable {
 	
 	//小計
 	private Integer subTotal;
+
+	@Transient
+	private String imgUrl;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="orderId")
 	private Order order;
 
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public String getProductType() {
 		return productType;

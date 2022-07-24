@@ -233,11 +233,17 @@ function getDataFormJosn(cart) {
             </thead>
             <tbody>`;
     Object.values(cart.cart).forEach(val => {
+        let url = '';
+        if(val.productNo[0] === 'F'){
+            url = `<a href="/FarmerProductShop/ShopDetails/${val.productNo.substring(1)}">`
+        }else {
+            url = `<a href="/Goods1/Picture?id=${val.productNo.substring(1)}&name=${val.productName}">`
+        }
         data+= `<tr>
                 <input class="product-id" type="hidden" value="${val.productNo}" >
                 <td class="shoping__cart__item product-name">
-<!--                                <img src="/img/cart/cart-1.jpg" alt="">-->
-                    <h5>${val.productName}</h5>
+                                <img src="${val.imgUrl}" alt="" width="100" height="100">
+                    <h5>${url}${val.productName}</a></h5>
                 </td>
                 <td class="product-type">${val.productType}</td>
                 <td class="shoping__cart__price product-price">
@@ -263,7 +269,8 @@ function getDataFormJosn(cart) {
     let coupon;
     let discountAmount;
     if(cart.coupon !=null){
-        coupon = `<span>優惠卷:${cart.coupon.code} 折扣額度為 ${cart.coupon.discountString}</span>`
+        coupon = `<span>優惠卷:${cart.coupon.code} 折扣額度為 ${cart.coupon.discountString}</span>
+<a href="javascript:" onclick="removeCoupon()">移除</a>`
         discountAmount = `<li>折扣 <span>-NT$${cart.discountAmount}</span></li>`;
     }else {
         discountAmount = '';
@@ -343,10 +350,39 @@ function getDataFormJosn(cart) {
 
 }
 function update(id, qty) {
-    fetch("./Carts/Update?itemNo=" + id + '&qty=' + qty).then(response => response.json())
+    fetch("./Carts/Update?itemNo=" + id + '&qty=' + qty)
+        .then((response) => {
+            return response.json()
+                .then((json) => {
+                    if (response.ok) {
+                        return Promise.resolve(json)
+                    }
+                    return Promise.reject(json)
+                })
+        })
         .then(function (data) {
             getDataFormJosn(data)
         })
+        .catch(error => {
+            Swal.fire({
+                title: '錯誤',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: '確定'
+            })
+            getDataFormJosn(error)
+        });
+}
+function removeCoupon() {
+    fetch("[[@{/Cart/removeCoupon}]]")
+        .then((response) => response.json())
+        .then(function (data) {
+            Swal.fire({
+                title: '優惠卷移除成功',
+                icon: 'success',
+            })
+            getDataFormJosn(data)
+        });
 }
 
 function checkout() {

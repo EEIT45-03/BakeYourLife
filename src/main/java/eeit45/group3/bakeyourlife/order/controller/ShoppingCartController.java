@@ -240,6 +240,17 @@ public class ShoppingCartController {
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
+    @GetMapping("/Cart/removeCoupon")
+    public ResponseEntity<Cart> removeCoupon(@ModelAttribute Cart cart,
+                                             Authentication authentication){
+        User currentUser = userService.getCurrentUser(authentication);
+
+        cart.setCoupon(null);
+        redisTemplate.opsForValue().set("cart_" + currentUser.getUserId(), cart);
+        //        return "order/CartBody";
+        return ResponseEntity.status(HttpStatus.OK).body(cart);
+    }
+
 
     /*
     只會需要時建一次(無登入時會自動建立[因為購物車AJAX]，登入時不會再呼叫此方法)
@@ -302,11 +313,11 @@ public class ShoppingCartController {
         if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
             cart.updataItem(cartItem,qty);
         }else if(!cartItem.isEnable()) {
-            Cart error = new Cart();
+            Cart error = cart.clone();
             error.setMessage("商品不存在或已下架");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }else if(cartItem.getStock()<qty) {
-            Cart error = new Cart();
+            Cart error = cart.clone();
             error.setMessage("庫存不足");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }

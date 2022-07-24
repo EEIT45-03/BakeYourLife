@@ -267,6 +267,11 @@ public class FarmerProductBean implements Serializable, CartItem {
     }
 
     @Override
+    public String getCartImgUrl() {
+        return farmerProductPicList.get(0).getPictureLink();
+    }
+
+    @Override
     public String toString() {
         return "FarmerProductBean{" +
                 "farmerProductId=" + farmerProductId +

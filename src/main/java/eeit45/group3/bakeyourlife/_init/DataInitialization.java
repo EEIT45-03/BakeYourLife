@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -77,7 +78,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
 
     @Override
-//    @Transactional
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Order> orders = new LinkedList<>();
         List<User> users = new LinkedList<>();
