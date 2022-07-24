@@ -35,6 +35,8 @@ public interface UserService {
 
     Long count();
 
+    Long countEnabled();
+
     void register(User user)throws UnsupportedEncodingException, MessagingException;
 
     void sendVerificationEmail(User user);
