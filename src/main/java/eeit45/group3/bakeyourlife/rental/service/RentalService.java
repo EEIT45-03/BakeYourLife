@@ -108,7 +108,7 @@ public interface RentalService {
 	//更新場地租借清單
 	public VenueList updateVenueList(VenueList venueList);
 
-	public VenueList updateVenueList(Rental rental ,VenueListRequest venueListRequest);
+	public VenueList updateVenueList3(Rental rental ,VenueListRequest venueListRequest);
 	//刪除場地租借清單
 	public void deleteVenueList(Integer venueListId);
 
@@ -117,7 +117,7 @@ public interface RentalService {
 
 	public boolean checkVenueListRequest(VenueListRequest venueListRequest);
 
-	public List<VenueList> findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state);
+	public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state);
 
 
 	/*教室 DAO

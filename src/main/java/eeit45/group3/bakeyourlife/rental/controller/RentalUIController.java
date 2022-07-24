@@ -101,10 +101,11 @@ public class RentalUIController {
     @RequestMapping(value = "/User/updateVenueList",method = RequestMethod.POST)
     public void updateVenueList(@RequestBody @Valid VenueListRequest venueListRequest,
                                                     Principal principal) throws ParseException {
+
         if (venueListRequest!=null){
             User user = userService.findByUsername(principal.getName());
             Rental rental = rentalService.CheckUserRental(user, "未下單", "場地");
-            rentalService.updateVenueList(rental ,venueListRequest);
+            rentalService.updateVenueList3(rental ,venueListRequest);
         }
     }
 
@@ -120,10 +121,10 @@ public class RentalUIController {
             Rental rental = rentalService.CheckUserRental(user, "未下單", "場地");
             Venue venue = venueService.findByVenueName(bean.get("name"));
             if(rental != null) {
-                List<VenueList> venueLists = rentalService.findByRentalAndVenueAndRentalDateAndPeriod(
+                VenueList venueList = rentalService.findByRentalAndVenueAndRentalDateAndPeriod(
                         rental, venue, date, bean.get("period")
                 );
-                if (venueLists != null){
+                if (venueList != null){
                     return true;
                 }
             }

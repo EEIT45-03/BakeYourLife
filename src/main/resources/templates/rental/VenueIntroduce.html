@@ -451,11 +451,14 @@
     $(document).ready(function () {
 
         var time = new Date();
-        var time = new Date();
+        time.setDate(time.getDate()+1);
         var day = ("0" + time.getDate()).slice(-2);
         var month = ("0" + (time.getMonth() + 1)).slice(-2);
-        var today = time.getFullYear() + "-" + (month) + "-" + (day);
-        $('#dateSel').val(today).attr('min',today);
+        var tomorrow = time.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#dateSel').val(tomorrow).attr('min',tomorrow);
+
+
 
 
         $('#dateSel').on('change',function (){
@@ -544,7 +547,6 @@
                     } else {
                         $('#useSel').html('請選擇使用時段');
                     }
-
                 } else {
                     if(period.length > 0) {
                         num = max
@@ -558,43 +560,157 @@
         })
     };
 
+
+
+
     function getCeateRentalVenue(name,date,period,num,pri,rem){
 
 
         if(Number(rem)>=Number(num) && Number(num)!= 0) {
-            let hr1 = period.substring(0,2)
-            let hr2 = period.substring(6,8)
-            let price = (hr2-hr1)*num*pri;
-            let venueListRequest = {
-                "venueName": name,
-                "rentalDate": date,
-                "period": period,
-                "person": num,
-                "price": price
+
+
+            var name = $('#venue').text();
+            var date = $('#dateSel').val();
+            var period = $('#periodSel').val();
+            var bean = {
+                "name" : name,
+                "date" : date,
+                "period" : period,
             }
             $.ajax({
-                url: "/User/inertVenueList",
+                url: "/User/checkIVL",
                 type: "POST",
-                // dataType: "json",
+                dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(venueListRequest),
-                success: function () {
-                    Swal.fire(
-                        '新增成功!',
-                        '已新增到租借單!',
-                        'success'
-                    ).then((result) => {
-                        if (result.isConfirmed) {
-                            location.href="../../";
+                data: JSON.stringify(bean),
+                success: function (data) {
+                    if(data === false){
+                        let hr1 = period.substring(0,2)
+                        let hr2 = period.substring(6,8)
+                        let price = (hr2-hr1)*num*pri;
+                        let venueListRequest = {
+                            "venueName": name,
+                            "rentalDate": date,
+                            "period": period,
+                            "person": num,
+                            "price": price
                         }
-                    })
+
+                        $.ajax({
+                            url: "/User/inertVenueList",
+                            type: "POST",
+                            // dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(venueListRequest),
+                            success: function () {
+                                Swal.fire(
+                                    '新增成功!',
+                                    '已新增到租借單!',
+                                    'success'
+                                ).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href="../../";
+                                    }
+                                })
+                            },
+                            error: function () {
+                                location.href="../../../login";
+                            }
+                        })
+                    } else if (data === true){
+                        Swal.fire({
+                            title: '租借場地與時段重複',
+                            text: "是否繼續!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: '確定'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let hr1 = period.substring(0,2)
+                                let hr2 = period.substring(6,8)
+                                let price = (hr2-hr1)*num*pri;
+                                let venueListRequest = {
+                                    "venueName": name,
+                                    "rentalDate": date,
+                                    "period": period,
+                                    "person": num,
+                                    "price": price
+                                }
+
+                                $.ajax({
+                                    url: "/User/updateVenueList",
+                                    type: "POST",
+                                    // dataType: "json",
+                                    contentType: "application/json",
+                                    data: JSON.stringify(venueListRequest),
+                                    success: function () {
+                                        Swal.fire(
+                                            '更新成功!',
+                                            '租借單已更新!',
+                                            'success'
+                                        ).then((result) => {
+                                            if (result.isConfirmed) {
+                                                location.href="../../";
+                                            }
+                                        })
+                                    },
+                                    error: function () {
+                                        location.href="../../../login";
+                                    }
+                                })
+                            }
+                        })
+
+                    }
                 },
-                error: function (xhr,status,err) {
-                    console.log("error=" + err)
-                    console.log("status=" + status)
-                    console.log("xhr=" + xhr)
+                error: function () {
+                    location.href="../../../login";
                 }
             })
+
+            // if(check == false){
+
+            // } else if (check == true) {
+            //     console.log("1")
+            //     let hr1 = period.substring(0,2)
+            //     let hr2 = period.substring(6,8)
+            //     let price = (hr2-hr1)*num*pri;
+            //     let venueListRequest = {
+            //         "venueName": name,
+            //         "rentalDate": date,
+            //         "period": period,
+            //         "person": num,
+            //         "price": price
+            //     }
+            //
+            //     $.ajax({
+            //         url: "/User/updateVenueList",
+            //         type: "POST",
+            //         // dataType: "json",
+            //         contentType: "application/json",
+            //         data: JSON.stringify(venueListRequest),
+            //         success: function () {
+            //             Swal.fire(
+            //                 '更新成功!',
+            //                 '租借單已更新!',
+            //                 'success'
+            //             ).then((result) => {
+            //                 if (result.isConfirmed) {
+            //                     location.href="../../";
+            //                 }
+            //             })
+            //         },
+            //         error: function () {
+            //             location.href="../../../login";
+            //         }
+            //     })
+
+            // }
+
+
         } else {
             if(rem != "" && rem !== undefined){
                 Swal.fire(
@@ -612,6 +728,31 @@
             return false;
         }
     }
+
+    // function checkIVL(){
+    //     var name = $('#venue').text();
+    //     var date = $('#dateSel').val();
+    //     var period = $('#periodSel').val();
+    //     var bean = {
+    //         "name" : name,
+    //         "date" : date,
+    //         "period" : period,
+    //     }
+    //     $.ajax({
+    //         url: "/User/checkIVL",
+    //         type: "POST",
+    //         dataType: "json",
+    //         contentType: "application/json",
+    //         data: JSON.stringify(bean),
+    //         success: function (data) {
+    //             console.log(data)
+    //             return data;
+    //         },
+    //         error: function () {
+    //             location.href="../../../login";
+    //         }
+    //     })
+    // }
 
 
 </script>

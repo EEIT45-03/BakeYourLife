@@ -373,32 +373,28 @@ public class RentalServiceImpl implements RentalService{
 	public VenueList updateVenueList(VenueList venueList) {
 		Venue venue = venueService.findByVenueId(venueList.getVenue().getVenueId());
 		venueList.setVenue(venue);
-		String period = venueList.getPeriod();
-		int num1 = Integer.valueOf(period.substring(0,2));
-		System.out.println(num1);
-		int num2 = Integer.valueOf(period.substring(6,8));
-		System.out.println(num2);
-		int num = num2-num1;
-		int price = num * venueList.getPerson() * venueList.getVenue().getHrPrice();
-		venueList.setPrice(price);
-		venueList.setIngredients("N");
-		return venueListRepository.save(venueList);
+			String period = venueList.getPeriod();
+			int num1 = Integer.valueOf(period.substring(0, 2));
+			System.out.println(num1);
+			int num2 = Integer.valueOf(period.substring(6, 8));
+			System.out.println(num2);
+			int num = num2 - num1;
+			int price = num * venueList.getPerson() * venueList.getVenue().getHrPrice();
+			venueList.setPrice(price);
+			venueList.setIngredients("N");
+			return venueListRepository.save(venueList);
 	}
 
-	public VenueList updateVenueList(Rental rental, VenueListRequest venueListRequest){
+	public VenueList updateVenueList3(Rental rental, VenueListRequest venueListRequest){
 
-		for (VenueList item : rental.getVenueList()){
-			if(item.getRentalDate() == venueListRequest.getRentalDate()){
-				if(item.getPeriod() == venueListRequest.getPeriod()){
-					int person = item.getPerson() + venueListRequest.getPerson();
-					int price = item.getPrice() + venueListRequest.getPrice();
-					item.setPerson(person);
-					item.setPrice(price);
-					return venueListRepository.save(item);
-				}
-			}
-		}
-		return null;
+		Venue venue = venueService.findByVenueName(venueListRequest.getVenueName());
+
+		VenueList venueList = venueListRepository.findByRentalAndVenueAndRentalDateAndPeriod(rental, venue, venueListRequest.getRentalDate(), venueListRequest.getPeriod());
+					int person = venueList.getPerson() + venueListRequest.getPerson();
+					int price = venueList.getPrice() + venueListRequest.getPrice();
+			venueList.setPerson(person);
+			venueList.setPrice(price);
+			return venueListRepository.save(venueList);
 	}
 
 
@@ -443,7 +439,7 @@ public class RentalServiceImpl implements RentalService{
 
 
 	@Override
-	public List<VenueList> findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state) {
+	public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state) {
 		return venueListRepository.findByRentalAndVenueAndRentalDateAndPeriod(rental,venue,date,state);
 	}
 

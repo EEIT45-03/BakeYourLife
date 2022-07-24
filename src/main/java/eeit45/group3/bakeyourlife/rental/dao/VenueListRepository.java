@@ -29,5 +29,6 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
     public List<AvailableQuantity> findSumByVenueAndDatetime(@Param("v") Integer venue,
                                                              @Param("date") Date date);
 
-    public List<VenueList> findByRentalAndVenueAndRentalDateAndPeriod(Rental rental,Venue venue,Date date, String period);
+
+    public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental,Venue venue,Date date, String period);
 }
