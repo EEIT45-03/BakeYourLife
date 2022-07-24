@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.config;
 
+import eeit45.group3.bakeyourlife.user.service.CustomOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     UserDetailsService userDetailsService;
+
     CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+
+
+    @Autowired
+    private CustomOauth2UserService customOauth2UserService;
 
     @Autowired
     @Lazy
@@ -65,9 +72,13 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 //綠界需要關csrf
                 .csrf().disable().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .and().oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint().userService(customOauth2UserService);
         return http.build();
     }
+
 
 
 }

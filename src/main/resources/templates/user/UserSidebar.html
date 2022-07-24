@@ -1,27 +1,42 @@
 <div class="col-lg-2 col-md-3 ">
-  <div class="blog__sidebar">
-    <div class="blog__sidebar__item ">
-      <h4>會員中心選單</h4>
-      <ul>
-        <li class="flip"><i class="fa-solid fa-address-card faIcon"></i><a>會員清單</a>
-          <ol class="panel">
-            <li style="margin-left: 30px"><i class="fa-solid fa-user-gear"></i><a th:href="@{/User/UserData/}">會員資料</a></li>
-            <li style="margin-left: 30px"><i class="fa-solid fa-wrench"></i><a th:href="@{/User/Updatepsw/}">更改密碼</a></li>
-          </ol>
-        </li>
-<!--        <li><i class="fa-solid fa-heart faIcon"></i> <a th:href="@{/#/}">喜愛清單</a></li>-->
-        <li><i class="fa-solid fa-cart-shopping faIcon"></i> <a th:href="@{/User/order/}">購買清單</a></li>
-<!--        <li><i class="fa-solid fa-ticket faIcon"></i> <a th:href="@{/#/}">我的優惠卷</a></li>-->
-        <li><i class="fa-solid fa-school faIcon"></i> <a th:href="@{/User/Course/UserRegister}">我的課程</a></li>
-        <li class="aflip"><i  class="fa-solid fa-table faIcon"></i> <a th:href="@{/User/rental/}">我的租借</a>
-          <ol class="apanel">
-            <li style="margin-left: 30px"><i class="fa-solid fa-user-gear"></i><a th:href="@{/User/rental/noorder}">未下單</a></li>
-            <li style="margin-left: 30px"><i class="fa-solid fa-wrench"></i><a th:href="@{/User/rental/waitpay}">待付款</a></li>
-            <li style="margin-left: 30px"><i class="fa-solid fa-wrench"></i><a th:href="@{/User/rental/alreadypay}">已付款</a></li>
-          </ol>
-        </li>
-        <li><i class="fa-solid fa-book faIcon"></i> <a th:href="@{/User/UserArticle}">我的文章</a></li>
-      </ul>
+    <div class="blog__sidebar">
+        <div class="blog__sidebar__item ">
+            <h4>會員中心選單</h4>
+            <ul>
+                <li class="flip"><i class="fa-solid fa-address-card faIcon"></i><a>會員清單</a>
+                    <ol class="panel">
+                        <li style="margin-left: 30px"><i class="fa-solid fa-user-gear"></i><a
+                                th:href="@{/User/UserData/}">會員資料</a></li>
+                        <li style="margin-left: 30px"><i class="fa-solid fa-wrench"></i><a
+                                th:href="@{/User/Updatepsw/}">更改密碼</a></li>
+                    </ol>
+                </li>
+                <!--        <li><i class="fa-solid fa-heart faIcon"></i> <a th:href="@{/#/}">喜愛清單</a></li>-->
+                <li><i class="fa-solid fa-cart-shopping faIcon"></i> <a th:href="@{/User/order/}">購買清單</a></li>
+                <!--        <li><i class="fa-solid fa-ticket faIcon"></i> <a th:href="@{/#/}">我的優惠卷</a></li>-->
+                <li><i class="fa-solid fa-school faIcon"></i> <a th:href="@{/User/Course/UserRegister}">我的課程</a></li>
+                <li class="flipa"><i class="fa-solid fa-table faIcon"></i><a>租借清單</a>
+                    <ol class="panela">
+                        <li style="margin-left: 30px"><i class="fa-solid fa-table"></i><a
+                                th:href="@{/User/rental/}">我的租借</a></li>
+                        <li style="margin-left: 30px"><i class="fa-solid fa-sack-dollar"></i><a
+                                th:href="@{/User/rental/noorder}">未下單</a></li>
+                        <li style="margin-left: 30px"><i class="fa-solid fa-sack-dollar"></i><a
+                                th:href="@{/User/rental/waitpay}">待付款</a></li>
+                        <li style="margin-left: 30px"><i class="fa-solid fa-sack-dollar"></i><a
+                                th:href="@{/User/rental/alreadypay}">已付款</a></li>
+                    </ol>
+                </li>
+                <li class="flipb"><i class="fa-solid fa-book faIcon"></i><a>文章清單</a>
+                    <ol class="panelb">
+                        <li style="margin-left: 30px"><i class="fa-solid fa-book"></i><a
+                                th:href="@{/User/UserArticle}">我的文章</a></li>
+                        <li style="margin-left: 30px"><i class="fa-solid fa-heart"></i><a
+                                th:href="@{/User/UserArticle/farvorite}">收藏文章</a>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>
