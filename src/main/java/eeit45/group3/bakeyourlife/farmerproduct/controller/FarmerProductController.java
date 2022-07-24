@@ -37,7 +37,7 @@ public class FarmerProductController {
     }
 
     @PostMapping("/FarmerProducts")
-    public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody @Valid FarmerProductBean farmerProductBean) {
+    public ResponseEntity<FarmerProductBean> createFarmerProduct(@RequestBody FarmerProductBean farmerProductBean) {
 
         List<String> base64List = farmerProductBean.getBase64();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class FarmerProductController {
 
     @PutMapping("/FarmerProducts/{id}")
     private ResponseEntity<FarmerProductBean> updateFarmerProduct(@PathVariable Integer id,
-                                                                  @RequestBody @Valid FarmerProductBean farmerProductBean) {
+                                                                  @RequestBody FarmerProductBean farmerProductBean) {
 
         List<String> base64List = farmerProductBean.getBase64();
         List<FarmerProductPic> farmerProductPicList = new ArrayList<>();

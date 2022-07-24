@@ -67,13 +67,14 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 
 妞妞果園位於彰化福興鄉，自製益生菌噴灌，採用有機質活化土壤，友善環境，草生栽培，
 在食安風暴下，陳大哥希望提供給每位消費者，安心、自然、健康的紅龍果。', CAST(N'2022-07-18T18:27:59.9280000' AS DateTime2), N'【產銷履歷紅龍果(紅肉5斤裝)】', 520, 400, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 1)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (8, N'紅鑽芭樂5斤裝(約5-8顆)', N'★為什麼我們強力推薦綠創頂級芭樂呢？
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (8, N'貓貓1隻', N'有點傷心的貓咪', CAST(N'2022-07-11 09:27:35.1780000' AS DateTime2), N'小貓咪', 500, 1, 0, N'放置陰涼處', NULL, N'牛奶類', NULL, 1)
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (9, N'紅鑽芭樂5斤裝(約5-8顆)', N'★為什麼我們強力推薦綠創頂級芭樂呢？
 ■ 拒用除草劑，愛地球愛健康
 ■ 口感清脆香甜，讓人一再回味
 ■ 使用高成本有機肥，確保植株養分健康成長
 
 紅鑽石芭樂市面上相當稀少，不好種植！果肉呈現紅色，細緻甘甜，籽非常少，有一種淡淡的花果香，口感清脆、有十分香濃的芭樂味，與白心芭樂截然不同～超涮嘴的酸甜比，絕對讓您一口接一口停不下來，沒吃過的您一定要試試！更是中醫藥材指定藥用水果，富含維生素C及多重的抗氧化成分，是水果當中的抗氧化之王哦。', CAST(N'2022-07-18T18:28:42.0000000' AS DateTime2), N'【紅鑽石芭樂5斤裝(約5-8顆)】', 765, 650, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 1)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (9, N'930cc鮮乳x3瓶', N'★為什麼我們推薦五梅牧場?
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (10, N'930cc鮮乳x3瓶', N'★為什麼我們推薦五梅牧場?
 
 全台灣眾多牧場，僅有不到5%能榮獲農委會評鑑為特優的五梅獎牧場，能三度獲頒的牧場更是鳳毛麟角!
 
@@ -83,14 +84,14 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 1.100%來自五梅獎牧場的生乳，不加一滴水。
 2.決不經人工修飾，不添加人工乳化劑及消泡劑，成分無調整。
 3.經檢驗無抗生素及磺胺劑殘留', CAST(N'2022-07-18T18:29:42.8810000' AS DateTime2), N'【五梅鮮奶 930cc 3瓶組】', 425, 425, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 1)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (10, N'100g/包', N'★有機農產品驗證字號：1-009-110213
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (11, N'100g/包', N'★有機農產品驗證字號：1-009-110213
 
 綠茶帶著鮮甜的青草香、淡淡的海苔鮮、微微的甘蔗味，聞得到茶園新鮮氣息，不發酵的製作過程保留更多營養價值，低溫浸泡，不苦不澀，適合全家大小一起飲用，其中茶葉中的營養成分價值高。
 
 ◎品種：金萱
 ◎發酵程度：無發酵
 ◎烘焙程度：輕烘焙', CAST(N'2022-07-18T20:34:10.0990000' AS DateTime2), N'【醜醜茶 有機綠茶100g】', 900, 300, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 1)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (11, N'咖啡豆220g(半磅)', N'【非洲之王 艾達多(Adado) 水洗】
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (12, N'咖啡豆220g(半磅)', N'【非洲之王 艾達多(Adado) 水洗】
 花香氣、柑橘、伯爵茶、蘋果酸、蜂蜜甜、及回甘的水果香甜
 ■ 處理方式：水洗(純淨超清爽山泉水)
 ■ 品種：衣索比亞原生種 Heirloom
@@ -98,7 +99,7 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 包裝材料：牛皮紙包裝
 烘焙方式：一爆密爆後40秒下豆
 養豆方式：烘焙完成日期五天後才可以打開飲用', CAST(N'2022-07-18T21:09:29.9310000' AS DateTime2), N'【非洲之王 艾達多(Adado) 水洗豆 220g裝】', 300, 800, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 2)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (12, N'水蜜桃6入裝 (約187.5g±20g/顆)', N'★我們推薦黃家水蜜桃的理由
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (13, N'水蜜桃6入裝 (約187.5g±20g/顆)', N'★我們推薦黃家水蜜桃的理由
 ■為保鮮度 每日清晨採收出貨
 ■使用植物性基肥 甜度自然不膩口
 ■嬌嫩欲滴 果香迷人
@@ -106,36 +107,36 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 梨山擁有得天獨厚的生長條件，因海拔高日夜溫差大加上豐富的天然資源，所孕育出的水蜜桃口感鮮嫩多汁、果肉綿密細緻，濃郁的水蜜桃香氣讓人驚嘆。
 
 黃爸爸每日清晨五點，必須趕在太陽還沒起床就上工採收水蜜桃，因為此時摘採的水蜜桃最新鮮，並趕在中午前分級、包裝、宅配，每到七、八月份黃爸爸都要跟時間賽跑，為的就是希望把最新鮮的水蜜桃送到消費者手上。', CAST(N'2022-07-18T21:10:22.7260000' AS DateTime2), N'【超人氣！梨山特有 上海水蜜桃6入裝】', 820, 620, 0, N'放置陰涼處', NULL, N'水果類', NULL, 2)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (13, N'鮮乳大罐(936ml) x 8', N'★因夏季炎熱，特別提醒您要注意鮮乳的保存:
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (14, N'鮮乳大罐(936ml) x 8', N'★因夏季炎熱，特別提醒您要注意鮮乳的保存:
 1.收到鮮乳後，請立刻放入冰箱冷藏。
 2.最佳冷藏溫度是4度C，鮮乳盡量放置在冷藏的上層(避免放冰箱門)。
 3.離開冷藏請不要超過15分鐘。', CAST(N'2022-07-18T21:10:54.9200000' AS DateTime2), N'【鮮奶訂閱組合C- 8大罐】', 860, 500, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 2)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (14, N'1kg盒裝9~9.5row', N'■ 來自美國西北部 著名產區
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (15, N'1kg盒裝9~9.5row', N'■ 來自美國西北部 著名產區
 ■ 世界上口感與色澤最好的櫻桃之一
 ■ 夏季盛產 現在吃 正當季
 
 美國西北櫻桃，不是指品種，是指美國華盛頓州、俄勒崗州、愛達荷州及猶他州所產的櫻桃。這四州位於美國西北部，因此稱為西北櫻桃。因美國西北部絕佳的氣候、地理環境，世界上首屈一指的栽種技術，再經過美國農業單位嚴格檢驗、農場專業篩選，讓西北櫻桃聞名世界，更被稱為世界上口感與色澤最好的櫻桃之一。
 
 西北櫻桃表皮光澤透亮，果肉結實又具彈性，夏季是西北櫻桃的產季，一年只有一次，請把握品嚐這富含鐵質的水果。進口水果皆通過政府進口檢驗規範，請安心購買，開心品嚐。', CAST(N'2022-07-18T21:11:28.0000000' AS DateTime2), N'【水果中的鑽石 美國西北櫻桃1kg裝】', 1200, 1000, 0, N'冰箱冷藏', NULL, N'水果類', NULL, 2)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (15, N'烘焙咖啡豆454g×5包，單向排氣閥包裝。', N'由封閉者依產季及每批咖啡豆品質挑選混合成完美的口味，並依季節調整烘焙度。是最能品嚐出咖啡師傅功力與品味的招牌!', CAST(N'2022-07-18T21:26:11.7250000' AS DateTime2), N'【商用綜合咖啡豆 454g×5包】', 2300, 200, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (16, N'300公克(20公克x15入/包)', N'銷售第一名，最好喝，超便宜，不怕您比較。
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (16, N'烘焙咖啡豆454g×5包，單向排氣閥包裝。', N'由封閉者依產季及每批咖啡豆品質挑選混合成完美的口味，並依季節調整烘焙度。是最能品嚐出咖啡師傅功力與品味的招牌!', CAST(N'2022-07-18T21:26:11.7250000' AS DateTime2), N'【商用綜合咖啡豆 454g×5包】', 2300, 200, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (17, N'300公克(20公克x15入/包)', N'銷售第一名，最好喝，超便宜，不怕您比較。
 ★獨一無二的異國風味咖啡，媲美經典拿鐵、卡布基諾。
 ★無加糖、沒有焦苦與酸澀味、最佳黃金比例口感。
 ★味道濃純，口感香滑，濃郁的香氣更是令人回味無窮。
 ★最好喝，超便宜，以台灣人口感喜好調配的咖啡。', CAST(N'2022-07-18T21:32:40.1900000' AS DateTime2), N'【二合一無加糖白咖啡(20gx15入/包)】', 160, 1200, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (17, N'咖啡豆763g', N'濃郁複雜的花香、莓果、葡萄、黑嘉麗軟糖、多層次水果風味、層次飽滿豐富。', CAST(N'2022-07-18T21:33:39.9770000' AS DateTime2), N'【星爆精選 星爆豆 763g裝】', 8763, 8763, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (18, N'3.5g/包；共30包/盒', N'選用陳期已逾16年的熟茶為原料製作，歷經時間淬鍊茶湯口感醇和飽滿，茶香帶棗乾、糯米及熟茶茶香，水甜滑順，口尾回甘度佳，熟茶的溫暖與醇和，飯後來上一杯，是生活美麗的點綴。
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (18, N'咖啡豆763g', N'濃郁複雜的花香、莓果、葡萄、黑嘉麗軟糖、多層次水果風味、層次飽滿豐富。', CAST(N'2022-07-18T21:33:39.9770000' AS DateTime2), N'【星爆精選 星爆豆 763g裝】', 8763, 8763, 0, N'放置陰涼處', NULL, N'咖啡豆類', NULL, 3)
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (19, N'3.5g/包；共30包/盒', N'選用陳期已逾16年的熟茶為原料製作，歷經時間淬鍊茶湯口感醇和飽滿，茶香帶棗乾、糯米及熟茶茶香，水甜滑順，口尾回甘度佳，熟茶的溫暖與醇和，飯後來上一杯，是生活美麗的點綴。
 
 特別推薦：普洱奶茶
 兩茶包搭配300cc水小火滾煮3分鐘，再加入200cc牛奶小火煮至溫熱後熄火，可依個人喜好加入蜂蜜或糖調味。', CAST(N'2022-07-18T21:41:09.0930000' AS DateTime2), N'【普洱熟茶立體茶包30入】', 480, 600, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (19, N'60g±3%/罐', N'★有機驗證機構：慈心有機驗證(股)公司 證書字號：1-009-110128
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (20, N'60g±3%/罐', N'★有機驗證機構：慈心有機驗證(股)公司 證書字號：1-009-110128
 此茶樹是用種子來繁殖，經過野放栽培而成，製茶時先以基本烏龍茶的製作過程製作後，再轉為紅茶的做法來完成，以重發酵、輕烘焙來製成，不炒菁保留了茶葉的活性，經過存放，茶質已經轉為甘甜順口！結合烏龍茶與紅茶的製作過程，讓其茶味也融合了這兩種茶的醇和、甘潤的特色，帶有熟果香，與中重焙火製成的烏龍茶更多了一分溫潤與滑順，好入口不刺激。
 
 茶園完全不使用除草劑、化學肥料及農藥，透過友善土地的栽種方式，喝綠光農園的有機茶，不但有益身心，亦能透過喝有機茶來支持、維護我們的水源與自然生態，歡迎大家來品嚐。', CAST(N'2022-07-18T21:41:38.9530000' AS DateTime2), N'【有機紅水烏龍單罐60g】', 1050, 1666, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (20, N'無毒檸檬切片(低溫烘乾)25g', N'將無毒新鮮檸檬切片後以低溫烘乾，製作出天然無添加的無毒檸檬果乾，保留最天然的檸檬香氣與營養。
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (21, N'無毒檸檬切片(低溫烘乾)25g', N'將無毒新鮮檸檬切片後以低溫烘乾，製作出天然無添加的無毒檸檬果乾，保留最天然的檸檬香氣與營養。
 
 不含防腐劑及任何添加物。', CAST(N'2022-07-18T21:42:16.4230000' AS DateTime2), N'【檸檬茶片】', 160, 2000, 0, N'放置陰涼處', NULL, N'茶葉類', NULL, 4)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (21, N'6份時令有機葉菜類(約250g/包)
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (22, N'6份時令有機葉菜類(約250g/包)
 2份有機瓜果根莖類(約500g/包)', N'精選花蓮縣壽豐鄉農友供應之當季農產品，每份組合含6份有機葉菜類、2份有機瓜果根莖類。
 
 參考菜單:
@@ -144,14 +145,15 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 【瓜果根莖類】白蘿蔔、白花椰、南瓜、芭蕉、結頭菜、甜玉米、馬鈴薯、茄子、黑木耳、小黃瓜、花生、甜椒、芋頭、地瓜等當季根莖瓜果類或時令水果。
 
 ◎為正常作業及均衡營養考量，配送內容依實際出貨為主', CAST(N'2022-07-18T21:49:30.3000000' AS DateTime2), N'【輕量套餐 2莖6葉有機蔬果箱】', 600, 3000, 0, N'冰箱冷藏', NULL, N'蔬菜類', NULL, 5)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (22, N'5斤/箱', N'■「綠竹筍原料」均通過有機(或轉型期)農產品驗證
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (23, N'5斤/箱', N'■「綠竹筍原料」均通過有機(或轉型期)農產品驗證
 ■無添加保鮮劑、人工添加物
 ■專業預冷保鮮處理
 
 綠竹筍在八里區生產已逾百年，其出土綠化前色澤金黃亮麗，品質特優，因此農會將此命名為「黃金筍」，八里區黃金筍多種在砂壤土中，加上東北季風帶來的鹽份，所以品質特別細嫩甜美，吃來口感如細嫩水梨一般。
 
 帶殼黃金筍於現採後兩小時內進行預冷處理，能延長保鮮期限，長途運輸也方便。烹調食用前需剝殼去皮，經預冷的黃金筍鮮炒時，特別鮮、甜、脆。', CAST(N'2022-07-18T21:50:17.2960000' AS DateTime2), N'【帶殼預冷黃金筍5斤/箱】', 990, 2220, 0, N'冰箱冷藏', NULL, N'蔬菜類', NULL, 5)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (23, N'彩色地瓜10斤：菱角地瓜/紫地瓜/栗子地瓜/台農66號/台農57號～約各2斤', N'本組合有五種地瓜：菱角地瓜、紫地瓜、栗子地瓜、台農66號地瓜、台農57號地瓜，台灣是地瓜王國，不管是在地品種或外來改良，在甜度細緻度上都享譽國際，慧軒農場用傳承三代的種植技術，讓您一次品嚐多種台灣之光！
+
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (24, N'彩色地瓜10斤：菱角地瓜/紫地瓜/栗子地瓜/台農66號/台農57號～約各2斤', N'本組合有五種地瓜：菱角地瓜、紫地瓜、栗子地瓜、台農66號地瓜、台農57號地瓜，台灣是地瓜王國，不管是在地品種或外來改良，在甜度細緻度上都享譽國際，慧軒農場用傳承三代的種植技術，讓您一次品嚐多種台灣之光！
 
 ■菱角地瓜：產量超稀少！外皮為紫色，果肉如同牛奶白又帶著淡淡的紫，吃起來有菱角香氣及牛奶味，質地相當細緻綿密，史場少見。
 
@@ -162,10 +164,10 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 ■台農66號地瓜：紅皮橘肉，口感甘甜軟嫩水分相當多，為台灣相當常見的『紅薯』，胡蘿蔔素含量高，不管是蒸煮、配稀飯，都好吃！
 
 ■台農57號地瓜：黃皮黃肉，台灣最普遍蕃薯品種，品質相當穩定，甜度高口感鬆Q，烤地瓜首選品種，蒸後冰鎮也超好吃。', CAST(N'2022-07-18T21:51:03.8890000' AS DateTime2), N'【無毒彩色地瓜10斤裝】', 700, 1600, 0, N'放置陰涼處', NULL, N'蔬菜類', NULL, 5)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (24, N'940cc鮮乳x20瓶', N'■使用自家種植牧草餵養
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (25, N'940cc鮮乳x20瓶', N'■使用自家種植牧草餵養
 ■使用100%無人工調整鮮乳(符合國家CNS3056規定)
 ■絕無添加防腐劑及人工香料', CAST(N'2022-07-18T22:11:12.2650000' AS DateTime2), N'【主恩鮮乳 940cc 20瓶 團購優惠組】', 1880, 1000, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (25, N'200cc寡多醣可可亞x15瓶', N'牧場要在生乳品質、經營效益、飼養管理、疾病防治、環境衛生等各方面都能維持特優水準，除了飼養環境要青山綠水無汙染，更仰賴來自以色列，高科技的牛隻健康管理系統，透過牛隻身上的無線傳輸監控環，掌握每頭牛的活動量、飲食及健康狀況，比對生乳品質後，才能針對個別狀況給予最適當的照顧，確保每滴鮮乳都維持最佳品質。
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (26, N'200cc寡多醣可可亞x15瓶', N'牧場要在生乳品質、經營效益、飼養管理、疾病防治、環境衛生等各方面都能維持特優水準，除了飼養環境要青山綠水無汙染，更仰賴來自以色列，高科技的牛隻健康管理系統，透過牛隻身上的無線傳輸監控環，掌握每頭牛的活動量、飲食及健康狀況，比對生乳品質後，才能針對個別狀況給予最適當的照顧，確保每滴鮮乳都維持最佳品質。
 
 五梅牧場寡多醣可可亞的特色:
 1.完全以生乳調配不使用奶粉、奶精及人工乳化劑。
@@ -174,10 +176,10 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 (2)不使用人工色素
 (3)不使用消泡劑
 3.添加二種水溶性膳食纖維(Fibersol-2、Inulin)', CAST(N'2022-07-18T22:11:47.6120000' AS DateTime2), N'【200cc 寡多醣可可亞牛羊乳 15瓶組】', 560, 1300, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (26, N'920cc鮮乳x6瓶', N'根據各界醫學研究，乳鐵蛋白對提升腸道免疫力極具幫助，抵抗如腸病毒等病菌，吸收能力不好或常感冒的幼童尤其需要。
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (27, N'920cc鮮乳x6瓶', N'根據各界醫學研究，乳鐵蛋白對提升腸道免疫力極具幫助，抵抗如腸病毒等病菌，吸收能力不好或常感冒的幼童尤其需要。
 
 一般採高溫殺菌的鮮乳，卻也同時破壞了重要的營養成分，老爹鮮乳經檢驗證實其營養價值非常接近生乳成份，此研究結果更曾發表於畜產業知名的國際期刊"乳品新知 Journal of Dairy Science"上，廣受迴響!', CAST(N'2022-07-18T22:12:14.6300000' AS DateTime2), N'【老爹鮮乳 920cc 6瓶組】', 700, 1700, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (27, N'936ml鮮羊乳x2瓶', N'■備受大廠壓迫 酪農辛苦慘賠
+INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (28, N'936ml鮮羊乳x2瓶', N'■備受大廠壓迫 酪農辛苦慘賠
 祥豪牧場的羊乳從以前就被大廠收購，價錢受到打壓，因此一直處於賠錢的狀態，第二代楊仁豪先生偶然發現父母所經營的牧場已經連年虧損近百萬元，從小認識的當地酪農也皆是如此。
 
 ■自創羊舍品牌 生產高品質羊乳
@@ -185,7 +187,7 @@ INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [
 
 ■精選飼育羊種 調配營養飼料
 牧場所飼養的羊隻品種是阿爾拜因羊，母羊的泌乳期長、體質強健，對不同氣候環境的適應性良好。而牧場選用的飼料更混合台灣產的新鮮玉米粒、豆殼、豆粕，以及進口苜蓿草等，幫助羊隻補充每日所需營養。因此牧場的羊兒各個乳汁豐沛，不但營養價值高，且口感香醇濃郁。', CAST(N'2022-07-18T22:12:45.7930000' AS DateTime2), N'【936ml 鮮羊乳 2瓶組】', 420, 1600, 0, N'冰箱冷藏', NULL, N'牛奶類', NULL, 6)
-INSERT [dbo].[farmer_product] ([farmer_product_id], [contents], [description], [launched_time], [name], [price], [quantity], [state], [storage], [suspend_time], [type], [violation_time], [farmer_id]) VALUES (28, N'貓貓1隻', N'有點傷心的貓咪', CAST(N'2022-07-22 13:24:06.1780000' AS DateTime2), N'小貓咪', 500, 1, 0, N'放置陰涼處', NULL, N'牛奶類', NULL, 1)
+
 SET IDENTITY_INSERT [dbo].[farmer_product] OFF
 
 SET IDENTITY_INSERT [dbo].[farmer_product_pic] ON
@@ -206,31 +208,32 @@ INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (14, N'https://i.imgur.com/NBKSiaA.jpg', 6)
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (15, N'https://i.imgur.com/Ik8kind.jpg', 7)
 INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (16, N'https://i.imgur.com/aHCgsc4.jpg', 7)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (18, N'https://i.imgur.com/NeebdTU.jpg', 8)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (19, N'https://i.imgur.com/6aTbzwg.jpg', 8)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (20, N'https://i.imgur.com/NEdjy3F.jpg', 9)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (21, N'https://i.imgur.com/UgMc3ZP.jpg', 9)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (22, N'https://i.imgur.com/UEGt0vZ.jpg', 10)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (23, N'https://i.imgur.com/ZGDwn56.jpg', 10)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (24, N'https://i.imgur.com/smcEuvC.jpg', 11)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (25, N'https://i.imgur.com/plq4s2V.jpg', 12)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (26, N'https://i.imgur.com/7noz2mC.jpg', 12)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (27, N'https://i.imgur.com/WSS1Miz.jpg', 13)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (29, N'https://i.imgur.com/qNJrhSR.jpg', 14)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (30, N'https://i.imgur.com/tVTiyRa.jpg', 15)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (31, N'https://i.imgur.com/VukYCXp.jpg', 16)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (32, N'https://i.imgur.com/yzDu1Wn.jpg', 17)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (33, N'https://i.imgur.com/r8cw4IF.jpg', 18)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (34, N'https://i.imgur.com/SWUSMXA.jpg', 19)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (35, N'https://i.imgur.com/FVxyJv3.jpg', 20)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (36, N'https://i.imgur.com/VbPaXg6.jpg', 21)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (37, N'https://i.imgur.com/DJL5cLw.jpg', 22)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (38, N'https://i.imgur.com/QpEua6w.jpg', 23)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (39, N'https://i.imgur.com/NgSGZ1d.jpg', 24)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (40, N'https://i.imgur.com/eApRBpR.jpg', 25)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (41, N'https://i.imgur.com/ysQBZ0W.jpg', 26)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (42, N'https://i.imgur.com/bZ8LR2u.jpg', 27)
-INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (43, N'https://i.imgur.com/8t017n8.jpg', 28)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (17, N'https://i.imgur.com/8t017n8.jpg', 8)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (18, N'https://i.imgur.com/NeebdTU.jpg', 9)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (19, N'https://i.imgur.com/6aTbzwg.jpg', 9)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (20, N'https://i.imgur.com/NEdjy3F.jpg', 10)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (21, N'https://i.imgur.com/UgMc3ZP.jpg', 10)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (22, N'https://i.imgur.com/UEGt0vZ.jpg', 11)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (23, N'https://i.imgur.com/ZGDwn56.jpg', 11)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (24, N'https://i.imgur.com/smcEuvC.jpg', 12)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (25, N'https://i.imgur.com/plq4s2V.jpg', 13)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (26, N'https://i.imgur.com/7noz2mC.jpg', 13)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (27, N'https://i.imgur.com/WSS1Miz.jpg', 14)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (29, N'https://i.imgur.com/qNJrhSR.jpg', 15)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (30, N'https://i.imgur.com/tVTiyRa.jpg', 16)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (31, N'https://i.imgur.com/VukYCXp.jpg', 17)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (32, N'https://i.imgur.com/yzDu1Wn.jpg', 18)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (33, N'https://i.imgur.com/r8cw4IF.jpg', 19)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (34, N'https://i.imgur.com/SWUSMXA.jpg', 20)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (35, N'https://i.imgur.com/FVxyJv3.jpg', 21)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (36, N'https://i.imgur.com/VbPaXg6.jpg', 22)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (37, N'https://i.imgur.com/DJL5cLw.jpg', 23)
+
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (39, N'https://i.imgur.com/QpEua6w.jpg', 24)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (40, N'https://i.imgur.com/NgSGZ1d.jpg', 25)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (41, N'https://i.imgur.com/eApRBpR.jpg', 26)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (42, N'https://i.imgur.com/ysQBZ0W.jpg', 27)
+INSERT [dbo].[farmer_product_pic] ([pic_id], [picture_link], [farmer_product_id]) VALUES (43, N'https://i.imgur.com/bZ8LR2u.jpg', 28)
 SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 
 
@@ -629,7 +632,7 @@ INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_prod
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好讚 太讚了ㄅ', 5, CAST(N'2022-01-21T14:48:11.2380000' AS DateTime2), 5, NULL, 3)
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好讚 太讚了ㄅ', 5, CAST(N'2022-01-21T14:48:11.2380000' AS DateTime2), 6, NULL, 3)
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 7, NULL, 4)
-INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 8, NULL, 4)
+INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 13, NULL, 4)
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 9, NULL, 4)
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 10, NULL, 4)
 INSERT [dbo].[product_comment] ( [comment_content], [star], [time], [farmer_product_id], [goods_id], [user_id]) VALUES ( N'好好吃 還會再買', 4, CAST(N'2022-02-21T14:48:11.2380000' AS DateTime2), 11, NULL, 4)
