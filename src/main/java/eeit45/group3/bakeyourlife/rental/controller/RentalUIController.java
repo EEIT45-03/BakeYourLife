@@ -10,6 +10,8 @@ import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,11 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class RentalUIController {
@@ -34,19 +39,23 @@ public class RentalUIController {
     VenueService venueService;
     TackleService tackleService;
 
+    UserService userService;
+
     EmailService emailService;
 
     @Autowired
-    public RentalUIController(RentalService rentalService, VenueService venueService, TackleService tackleService, EmailService emailService) {
+    public RentalUIController(RentalService rentalService, VenueService venueService, TackleService tackleService, UserService userService, EmailService emailService) {
         this.rentalService = rentalService;
         this.venueService = venueService;
         this.tackleService = tackleService;
+        this.userService = userService;
         this.emailService = emailService;
     }
 
     @GetMapping("/VenueSelect/{name}/{date}")
     public ResponseEntity<List<AvailableQuantity>> getVenueSelect(@PathVariable String name,
                                                                   @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
+
                                                  ){
         List<AvailableQuantity> list = rentalService.getVenueSelect(name,date);
         if(list != null){
@@ -54,6 +63,8 @@ public class RentalUIController {
         }
         return null;
     }
+
+
 
     @GetMapping("User/rental/show/{id}/venuelist")
     public ResponseEntity<List<VenueList>> getShowVenuelist(@PathVariable Integer id){
@@ -84,6 +95,42 @@ public class RentalUIController {
             rentalService.updateRental(rental);
         }
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/User/updateVenueList",method = RequestMethod.POST)
+    public void updateVenueList(@RequestBody @Valid VenueListRequest venueListRequest,
+                                                    Principal principal) throws ParseException {
+        if (venueListRequest!=null){
+            User user = userService.findByUsername(principal.getName());
+            Rental rental = rentalService.CheckUserRental(user, "未下單", "場地");
+            rentalService.updateVenueList(rental ,venueListRequest);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/User/checkIVL",method = RequestMethod.POST)
+    public boolean checkIVL(@RequestBody @Valid Map<String,String> bean,
+                                Principal principal) throws ParseException {
+        User user = userService.findByUsername(principal.getName());
+
+        Date date =  new SimpleDateFormat("yyyy-MM-dd").parse(bean.get("date"));
+
+        if (bean!=null){
+            Rental rental = rentalService.CheckUserRental(user, "未下單", "場地");
+            Venue venue = venueService.findByVenueName(bean.get("name"));
+            if(rental != null) {
+                List<VenueList> venueLists = rentalService.findByRentalAndVenueAndRentalDateAndPeriod(
+                        rental, venue, date, bean.get("period")
+                );
+                if (venueLists != null){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     @RequestMapping("User/rental/DeleteRental")
     public ResponseEntity<?> deleteRental(@RequestParam Integer rentalId) {
@@ -175,5 +222,8 @@ public class RentalUIController {
         rentalService.updateRental(rental);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+
+
 
 }

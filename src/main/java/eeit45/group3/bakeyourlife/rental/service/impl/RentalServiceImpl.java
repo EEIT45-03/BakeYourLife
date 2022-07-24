@@ -243,6 +243,16 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
+	public Rental CheckUserRental(User user, String state, String listType) {
+		Rental rental = rentalRepository.findByUserAndStateAndType(user, state, listType);
+		if(rental != null){
+			return rental;
+		}
+
+		return null;
+	}
+
+	@Override
 	public Rental updateRentalPic(Rental rental) {
 		Long sum = null;
 		if("器具".equals(rental.getType())){
@@ -375,6 +385,22 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.save(venueList);
 	}
 
+	public VenueList updateVenueList(Rental rental, VenueListRequest venueListRequest){
+
+		for (VenueList item : rental.getVenueList()){
+			if(item.getRentalDate() == venueListRequest.getRentalDate()){
+				if(item.getPeriod() == venueListRequest.getPeriod()){
+					int person = item.getPerson() + venueListRequest.getPerson();
+					int price = item.getPrice() + venueListRequest.getPrice();
+					item.setPerson(person);
+					item.setPrice(price);
+					return venueListRepository.save(item);
+				}
+			}
+		}
+		return null;
+	}
+
 
 	//刪除場地租借清單
 	@Override
@@ -415,6 +441,11 @@ public class RentalServiceImpl implements RentalService{
 		return venueList;
 	}
 
+
+	@Override
+	public List<VenueList> findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state) {
+		return venueListRepository.findByRentalAndVenueAndRentalDateAndPeriod(rental,venue,date,state);
+	}
 
 	public boolean checkVenueListRequest(VenueListRequest venueListRequest){
 

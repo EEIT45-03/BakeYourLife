@@ -8,6 +8,7 @@ import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -70,6 +71,9 @@ public interface RentalService {
 	public Rental CheckUserRental(Integer userId, String listType);
 
 
+	public Rental CheckUserRental(User user, String state, String listType);
+
+
 	public Rental updateRentalPic(Rental rental);
 
 	/*場地租借清單 DAO
@@ -104,6 +108,7 @@ public interface RentalService {
 	//更新場地租借清單
 	public VenueList updateVenueList(VenueList venueList);
 
+	public VenueList updateVenueList(Rental rental ,VenueListRequest venueListRequest);
 	//刪除場地租借清單
 	public void deleteVenueList(Integer venueListId);
 
@@ -112,6 +117,7 @@ public interface RentalService {
 
 	public boolean checkVenueListRequest(VenueListRequest venueListRequest);
 
+	public List<VenueList> findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state);
 
 
 	/*教室 DAO
