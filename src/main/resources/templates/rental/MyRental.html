@@ -143,6 +143,7 @@
                     '<th scope="col" class="col-sm-2">場地時段</th>' +
                     '<th scope="col" class="col-sm-2">數量</th>' +
                     '<th scope="col" class="col-sm-2">小計</th>' +
+                    '<th></th>' +
                     '</tr>' +
                     '</thead>' +
                     '<tbody>';
@@ -150,9 +151,10 @@
                 for (let item of data){
                     htmldata += "<tr>";
                     htmldata += "<th>"+ item.venue.venueName + "</th>";
-                    htmldata += "<th>"+ item.rentalDate + " " + item.period + "</th>";
+                    htmldata += "<th>"+ item.rentalDate +" " + item.period + "</th>";
                     htmldata += "<th>"+ item.person + "</th>";
                     htmldata += "<th>"+ item.price + "</th>";
+                    htmldata += "<th></th>";
                     htmldata += "</tr>";
                 }
 

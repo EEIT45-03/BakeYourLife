@@ -63,6 +63,7 @@ public class Venue implements Serializable {
 	@Column(name = "picList")
 	private Set<VenueList> venueList = new LinkedHashSet<VenueList>();
 
+
 	@Transient
 	private List<String> base64;
 
@@ -72,7 +73,10 @@ public class Venue implements Serializable {
 	public Venue() {
 	}
 
-	public Venue(String venueName, Integer personMax, Integer hrPrice, List<VenuePicList> venuePicList, String notes, VenueSort venueSort, Set<VenueList> venueList, List<String> base64, String sort) {
+	public Venue(String venueName, Integer personMax, Integer hrPrice,
+				 List<VenuePicList> venuePicList, String notes, VenueSort venueSort,
+				 Set<VenueList> venueList, List<String> base64, String sort
+				) {
 		this.venueName = venueName;
 		this.personMax = personMax;
 		this.hrPrice = hrPrice;
@@ -82,6 +86,7 @@ public class Venue implements Serializable {
 		this.venueList = venueList;
 		this.base64 = base64;
 		this.sort = sort;
+
 	}
 
 	public Integer getVenueId() {
@@ -163,5 +168,7 @@ public class Venue implements Serializable {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+
+
 }
 

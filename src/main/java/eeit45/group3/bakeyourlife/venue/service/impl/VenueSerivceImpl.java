@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.venue.service.impl;
 
-import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductPic;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
 import eeit45.group3.bakeyourlife.venue.dao.VenuePicListRepository;
 import eeit45.group3.bakeyourlife.venue.dao.VenueRepository;
@@ -12,13 +11,9 @@ import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static eeit45.group3.bakeyourlife.utils.ImgurService.updateByMultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,11 +25,15 @@ public class VenueSerivceImpl implements VenueService {
 
     private VenuePicListRepository venuePicListRepository;
 
+
+
     @Autowired
-    public VenueSerivceImpl(VenueRepository venueRepository, VenueSortRepository venueSortRepository, VenuePicListRepository venuePicListRepository) {
+    public VenueSerivceImpl(VenueRepository venueRepository, VenueSortRepository venueSortRepository,
+                            VenuePicListRepository venuePicListRepository) {
         this.venueRepository = venueRepository;
         this.venueSortRepository = venueSortRepository;
         this.venuePicListRepository = venuePicListRepository;
+
     }
 
     //查詢全部的場地
@@ -262,4 +261,6 @@ public class VenueSerivceImpl implements VenueService {
 //
 //        return check;
     }
+
+
 }

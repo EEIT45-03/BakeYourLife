@@ -214,6 +214,7 @@
                             </div>
 
                             <button type="submit" id="submit_c" class="btn btn-primary">建立</button>
+                            <button type="button" id="sub_auto" class="btn btn-primary">一鍵輸入</button>
 
                     </div>
                 </div>
@@ -236,6 +237,25 @@
 <!-- Bootstrap core JavaScript-->
 <div th:replace="admin/javascript.html"></div>
 <script th:src="@{/js/venue.js}"></script>
+<script>
+    $('#sub_auto').on('click', function (){
+        $('#vName').val('C101')
+        $('#pMax').val(30)
+        $('#hPri').val(100)
+        $('#vSort').val('小型烘培室')
+        $('#vNotes').val('每組擁有獨至的小型烘培區，適合單人或雙人共同體驗烘培，每組可1~2人。\n' +
+            '\n' +
+            '場地使用規則:\n' +
+            '1. 本教室之場地皆有樓層管理人員，請遵從樓層管理人員指示。 借用期間，借 用者應負責維持場地內外秩序、公共安全及環境衛生，並應接受本教室之監 督指導。\n' +
+            '2. 本教室出借場地之時間，包含使用後將教室器具清洗乾淨及擦拭乾淨。\n' +
+            '3. 本教室出借場地之費用 ： 不包含調味料、餐巾紙、擦手紙、免洗碗筷、吸管 ... 等耗材 。\n' +
+            '4. 本教室出借場地之費用： 不包含垃圾清運處理、廚餘分類處理；若需本教室 協助處理，需另行付費。費用參照收費標準 。\n' +
+            '5. 使用各項設備、器材，務必遵守使用規則，注意安全。\n' +
+            '6. 垃圾請依照各項分類做資源回收。\n' +
+            '7. 現場 陳設室內之 器皿、餐具 及硬體設備皆可使用。 各種用具使用 ~ 完畢須用 清潔劑 洗滌擦拭乾淨並放回原處。\n' +
+            '8. 結束 後應分別將地面及工作台清掃或擦拭乾淨 → 所使用之器皿洗滌後逐一清點歸還回原位。')
+    })
+</script>
 </body>
 
 </html>
