@@ -27,8 +27,8 @@
         }
 
         .userimg {
-            width: 120px;
-            height: 90px;
+            width: 350px;
+            height: 250px;
         }
 
         body {
@@ -83,6 +83,17 @@
             font-size: 14px;
             color: #AAAAAA;
             display: block;
+        }
+
+        .media-heading{
+            margin-top: 20px;
+            margin-left: 50px;
+            margin-bottom: 20px;
+        }
+
+        .media-detail{
+            margin-left: 55px;
+            margin-bottom: 20px;
         }
 
     </style>
@@ -188,7 +199,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                               aria-selected="false">課程評價 <span>(1)</span></a>
+                               aria-selected="false">學員成果 <span></span>[[${total}]]</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -237,19 +248,34 @@
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>學員評論</h6>
-                                <p>不簡單的課程
+<!--                                <h6>學員成果</h6>-->
+                                <section class="content-item" id="comments">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- COMMENT 1 - START -->
+                                                <div class="media" th:each="comment :*{studentResultList}">
+                                                    <a class="pull-left" href="#">
+                                                        <img class="img userimg media-object"
+                                                             th:src="${comment.resultImageUrl}"
+                                                             alt=""></a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading" th:text="${comment.strTitle}">
+                                                            John Doe</h4>
 
-                                    我當初是先看了志賀的書才決定買這門課的。
-                                    志賀老師的書看完覺得操作有點難，
-                                    再看LISA老師的課程有一點懂志賀老師書上寫的流程了。
-
-                                    LISA老師操作看似優雅，但裡面卻藏很多細節，
-                                    老師說麵團要有筋性，但拉拉麵團判斷筋性，這應該要有相當經驗才有辦法判斷。
-                                    且18℃發酵這件事，我還不知從何下手，所以到現在還沒有實際動手
-                                    （用保麗龍箱再一直換冰寶我還沒實驗，有空來試做看看不用18℃的品項）
-
-                                    我覺得這個課程適合較有經驗的人</p>
+                                                        <p class="media-detail" th:utext="${#strings.replace(#strings.escapeXml(comment.strContent),'&#10;','&lt;br&gt;')}"></p>
+<!--                                                        <ul class="list-unstyled list-inline media-detail pull-left">-->
+<!--&lt;!&ndash;                                                            <li><i class="fa fa-calendar"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                <span th:text=" ${#dates.format(comment., 'yyyy/MM/dd HH:mm')}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            </li>&ndash;&gt;-->
+<!--                                                        </ul>-->
+                                                    </div>
+                                                </div>
+                                                <!-- COMMENT 1 - END -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         </div>
                     </div>

@@ -113,6 +113,12 @@
                         <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名編號: ${register.registerId}|"></span></p>
                         <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名人數: ${register.attendance}|"></span></p>
                         <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|報名日期: ${#dates.format(register.registerDate, 'yyyy/MM/dd')}|"></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" th:text="|單價/人: ${register.course.cProduct.price}|"></span></p>
+                        <p style="font-size: 14px; line-height: 140%;"></br></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" >請匯款至以下銀行: </span></p>
+                        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 14px; line-height: 25.2px; color: #666666;" >台新銀行 (812) 2048-09-0000811-7</span></p>
+
+
                         <a style="font-size: 14px; line-height: 140%;" th:href="@{'http://localhost:8080/Course2/'+${register.registerId}+'/'+ 4 }">點我完成課程</a>
 <!--                        '/Course/' + registerId + '/' + state,-->
 <!--                       </p>-->

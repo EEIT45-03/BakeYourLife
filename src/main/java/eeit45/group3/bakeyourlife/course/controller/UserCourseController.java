@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserCourseController {
@@ -46,10 +47,14 @@ public class UserCourseController {
     @GetMapping(path = "/Course/CourseDetails")
     public String selectByProductId(@RequestParam(required = false) Long id,Model model) {
         Product product = null;
-        if(id != null){
+        List<StudentResult> studentResultList = null;
+        if (id != null) {
             product = productService.selectProductById(id);
+            studentResultList = courseService.findStudentReslutByProduct(id);
         }
         model.addAttribute("product", product);
+        model.addAttribute("studentResultList", studentResultList);
+        model.addAttribute("total", studentResultList.size());
         return "course/CourseDetails";
     }
     //--------------------報名相關--------------------------------------------------------------------

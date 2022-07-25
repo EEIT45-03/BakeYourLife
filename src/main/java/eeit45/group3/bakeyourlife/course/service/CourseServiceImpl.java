@@ -185,6 +185,7 @@ public class CourseServiceImpl implements CourseService {
 		register.setUser(user);
 		register.setTotalPrice(sum);
 		register.setRegisterDate(new Date());
+		register.setCourse(course);
 		registerRepository.save(register);
 		//報名人數加入開課明細
 		Integer attSum = registerRepository.getSumAttendanceByCourse(course);
