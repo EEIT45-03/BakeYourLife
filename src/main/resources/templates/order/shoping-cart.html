@@ -94,10 +94,10 @@
 <!--            <div class="col-lg-6">-->
 <!--                <div class="shoping__continue">-->
 <!--                    <div class="shoping__discount">-->
-<!--                        <h5>優惠卷</h5>-->
+<!--                        <h5>優惠券</h5>-->
 <!--                        <form action="#">-->
-<!--                            <input type="text" placeholder="輸入你的優惠卷代碼">-->
-<!--                            <button type="submit" class="site-btn">使用優惠卷</button>-->
+<!--                            <input type="text" placeholder="輸入你的優惠券代碼">-->
+<!--                            <button type="submit" class="site-btn">使用優惠券</button>-->
 <!--                        </form>-->
 <!--                    </div>-->
 <!--                </div>-->
@@ -200,15 +200,15 @@ function remove(id) {
         })
             .then(function (data) {
                 Swal.fire({
-                    title: '優惠卷使用成功',
-                    html: "注意優惠卷有最低消費金額限制<br>未達消費金額時，折扣將不會生效!!",
+                    title: '優惠券使用成功',
+                    html: "注意優惠券有最低消費金額限制<br>未達消費金額時，折扣將不會生效!!",
                     icon: 'success',
                 })
                 getDataFormJosn(data)
             }).catch(function(err) {
             Swal.fire({
                 title: '錯誤',
-                text: "輸入錯誤的優惠卷、不在使用期間中或已達使用上限",
+                text: "輸入錯誤的優惠券、不在使用期間中或已達使用上限",
                 icon: 'warning',
             })
         });
@@ -269,13 +269,13 @@ function getDataFormJosn(cart) {
     let coupon;
     let discountAmount;
     if(cart.coupon !=null){
-        coupon = `<span>優惠卷:${cart.coupon.code} 折扣額度為 ${cart.coupon.discountString}</span>
+        coupon = `<span>優惠券:${cart.coupon.code} 折扣額度為 ${cart.coupon.discountString}</span>
 <a href="javascript:" onclick="removeCoupon()">移除</a>`
         discountAmount = `<li>折扣 <span>-NT$${cart.discountAmount}</span></li>`;
     }else {
         discountAmount = '';
-        coupon = `<input type="text" placeholder="輸入你的優惠卷代碼" id="coupon">
-                            <button class="site-btn" id="useCoupon">使用優惠卷</button>`
+        coupon = `<input type="text" placeholder="輸入你的優惠券代碼" id="coupon">
+                            <button class="site-btn" id="useCoupon">使用優惠券</button>`
     }
 
 
@@ -300,7 +300,7 @@ function getDataFormJosn(cart) {
             <div class="col-lg-6">
                 <div class="shoping__continue">
                     <div class="shoping__discount">
-                        <h5>優惠卷</h5>
+                        <h5>優惠券</h5>
                             ${coupon}
                     </div>
                 </div>
@@ -378,7 +378,7 @@ function removeCoupon() {
         .then((response) => response.json())
         .then(function (data) {
             Swal.fire({
-                title: '優惠卷移除成功',
+                title: '優惠券移除成功',
                 icon: 'success',
             })
             getDataFormJosn(data)

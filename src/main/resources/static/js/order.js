@@ -110,7 +110,7 @@ function getData(result) {
 }
 
 function getTrackingNumber(result) {
-    if (result.trackingNumber == null) {
+    if (result.trackingNumber === '') {
         return "";
     } else {
         return `<tr>
@@ -129,7 +129,7 @@ function getCoupon(result) {
         return "";
     } else {
         return `						<tr>
-							<td class="text-lift">優惠卷代碼${result.code}</td>
+							<td class="text-lift">優惠券代碼${result.code}</td>
 							<td colspan="3" class="text-center" id="coupon">-NT$${result.discountAmount}</td>
 						</tr>`
     }

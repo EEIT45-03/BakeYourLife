@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>建立優惠卷</title>
+    <title>建立優惠券</title>
 
     <div th:replace="admin/css.html"></div>
 </head>
@@ -38,7 +38,7 @@
                     <p class="mb-4">
                         <a href="../Coupon/" class="btn btn-primary btn-icon-split btn-sm">
                             <span class="icon text-white-50"> <i class="fas fa-undo"></i>
-                            </span> <span class="text">返回優惠卷管理</span>
+                            </span> <span class="text">返回優惠券管理</span>
                         </a>
 
 
@@ -47,29 +47,29 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">建立優惠卷</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">建立優惠券</h6>
                         </div>
                         <div class="card-body">
                                					<form>
 
                             <div class="row mb-3">
-                                <label for="name" class="col-sm-2 col-form-labels">優惠卷名稱:</label>
+                                <label for="name" class="col-sm-2 col-form-labels">優惠券名稱:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="請輸入優惠卷名稱"
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="請輸入優惠券名稱"
                                         required />
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="code" class="col-sm-2 col-form-labels">優惠卷代碼:</label>
+                                <label for="code" class="col-sm-2 col-form-labels">優惠券代碼:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="code" id="code" placeholder="請輸入優惠卷代碼"
+                                    <input type="text" class="form-control" name="code" id="code" placeholder="請輸入優惠券代碼"
                                         required />
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-labels">優惠卷可使用時間:</label>
+                                <label class="col-sm-2 col-form-labels">優惠券可使用時間:</label>
                                 <div class="col-sm-10 input-group">
                                     <input type="datetime-local" class="form-control" name="startDate" id="startDate"
                                         required />
@@ -117,7 +117,7 @@
 
 
 
-                        <button id="send" class="btn btn-primary">建立優惠卷</button>
+                        <button id="send" class="btn btn-primary">建立優惠券</button>
                             <button id="auto" class="btn btn-warning">一鍵輸入</button>
                         <!--                    </form>-->
                     </div>
@@ -184,8 +184,8 @@
                     //建立成功，狀態碼會是201
                     if (xhr.readyState === 4 && xhr.status === 201) {
                         Swal.fire(
-                            '優惠卷新增!',
-                            '優惠卷已成功新增!',
+                            '優惠券新增!',
+                            '優惠券已成功新增!',
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
@@ -194,7 +194,7 @@
                         })
                     }else if(xhr.readyState === 4 && xhr.status === 400){
                         Swal.fire(
-                            '優惠卷新增失敗!',
+                            '優惠券新增失敗!',
                             JSON.parse(xhr.response).message,
                             'error'
                         )
@@ -213,7 +213,7 @@
             });
 
             $('#auto').click(function (){
-               $('#name').val("一鍵輸入優惠卷");
+               $('#name').val("一鍵輸入優惠券");
                $('#type').val("deduct");
                $('#code').val('BYL888');
                $('#startDate').val(new Date().toISOString().substring(0,10) + 'T00:00');

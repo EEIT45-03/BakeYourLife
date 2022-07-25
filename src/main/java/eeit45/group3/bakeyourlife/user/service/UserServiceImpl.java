@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
     public void sendNewUserCouponEmail(User user) {
         String email = user.getEmail();
         try {
-            emailService.sendUserMail(email, "歡迎加入 Bake Your Life 烘焙材料網(內含優惠卷)",user,"coupon");
+            emailService.sendUserMail(email, "歡迎加入 Bake Your Life 烘焙材料網(內含優惠券)",user,"coupon");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

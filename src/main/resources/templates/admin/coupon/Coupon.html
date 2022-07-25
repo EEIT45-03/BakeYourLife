@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>優惠卷管理</title>
+  <title>優惠券管理</title>
 
   <div th:replace="admin/css.html"></div>
 </head>
@@ -35,12 +35,12 @@
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">優惠卷管理</h1>
+        <h1 class="h3 mb-2 text-gray-800">優惠券管理</h1>
         <p class="mb-4">
           <a href="CreateCoupon"
              class="btn btn-primary btn-icon-split btn-sm"> <span
                   class="icon text-white-50"> <i class="fas fa-plus"></i>
-						</span> <span class="text">建立優惠卷</span>
+						</span> <span class="text">建立優惠券</span>
           </a>
         </p>
 
@@ -48,7 +48,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">優惠卷資訊</h6>
+            <h6 class="m-0 font-weight-bold text-primary">優惠券資訊</h6>
           </div>
           <div class="card-body">
             <div class="">
@@ -56,7 +56,7 @@
                 <thead>
                 <tr>
                   <th>名稱</th>
-                  <th>優惠卷代碼</th>
+                  <th>優惠券代碼</th>
                   <th>折扣額度</th>
 <!--                  <th>最低消費金額</th>-->
                   <th>使用上限</th>
@@ -134,7 +134,7 @@
   });
   function deleteAlert(code) {
     Swal.fire({
-      title: '請問是否要刪除此優惠卷?',
+      title: '請問是否要刪除此優惠券?',
       text: "",
       icon: 'warning',
       showCancelButton: true,
@@ -150,7 +150,7 @@
           success: function (msg) {
             Swal.fire(
                     '已刪除!',
-                    '優惠卷已成功刪除!',
+                    '優惠券已成功刪除!',
                     'success'
             ).then((result) => {
               if (result.isConfirmed) {

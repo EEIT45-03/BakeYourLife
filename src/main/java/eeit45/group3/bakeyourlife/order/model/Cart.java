@@ -30,7 +30,7 @@ public class Cart implements Serializable,Cloneable {
     private Integer shippingFee = 100;
     private Integer total;
     private Integer discountAmount;
-    //優惠卷
+    //優惠券
     private Coupon coupon;
 
     private String message;

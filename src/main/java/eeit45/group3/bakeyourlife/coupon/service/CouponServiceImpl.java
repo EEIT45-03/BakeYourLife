@@ -27,7 +27,7 @@ public class CouponServiceImpl implements CouponService{
     public Coupon createCoupon(Coupon coupon) {
         boolean exists = repository.existsById(coupon.getCode());
         if(exists){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"這個優惠卷代碼已存在");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"這個優惠券代碼已存在");
         }
         return repository.save(coupon);
     }
