@@ -15,4 +15,7 @@ public interface RegisterRepository extends JpaRepository<Register, Integer> {
     @Query( value = "SELECT sum(r.attendance) FROM course_register r WHERE r.fk_op_course = :course",
             nativeQuery = true)
     Integer getSumAttendanceByCourse (@Param("course") Course course);
+    @Query( value = "SELECT sum(attendance) FROM course_register group by course",
+            nativeQuery = true)
+    List<Register> getSumAttendanceByCourse();
 }
