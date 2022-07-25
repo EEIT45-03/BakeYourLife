@@ -10,7 +10,10 @@
     <title>租借首頁</title>
 
     <div th:replace="css.html"></div>
+    <style>
 
+
+    </style>
 </head>
 
 <body>
@@ -109,7 +112,7 @@
                     if(sort.sort == "課用烘培室"){
                         continue;
                     }
-                    ul_vSort = ul_vSort + "<li><a onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
+                    ul_vSort = ul_vSort + "<li><a style='cursor:hand' onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
                 }
 
                 $('#ul_vSort').append(ul_vSort);
@@ -125,7 +128,7 @@
             .then(data => {
                 let ul_tSort = "";
                 for(let sort of data){
-                    ul_tSort = ul_tSort + "<li><a onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
+                    ul_tSort = ul_tSort + "<li><a style='cursor:hand' onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
                 }
                 $('#ul_tSort').append(ul_tSort);
             })

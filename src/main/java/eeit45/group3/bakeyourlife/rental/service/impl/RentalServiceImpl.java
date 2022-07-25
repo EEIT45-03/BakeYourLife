@@ -87,6 +87,11 @@ public class RentalServiceImpl implements RentalService{
 		return rentalRepository.findAllByType(listType);
 	}
 
+	@Override
+	public List<Rental> findAllRentalByUser(User user) {
+		return rentalRepository.findAllByUser(user);
+	}
+
 	//依租借單編號查詢租借單
 	@Override
 	public List<Rental> findAllByRentalNoStartingWith(String rentalNo) {
@@ -113,8 +118,8 @@ public class RentalServiceImpl implements RentalService{
 	}
 
 	@Override
-	public List<Rental> findAllByState(String state) {
-		return rentalRepository.findAllByState(state);
+	public List<Rental> findAllByStateAndUser(String state, User user) {
+		return rentalRepository.findAllByStateAndUser(state,user);
 	}
 
 	//依會員與租借類型查詢租借單
@@ -281,6 +286,11 @@ public class RentalServiceImpl implements RentalService{
 		return venueListRepository.findById(venueListId).orElse(null);
 	}
 
+	@Override
+	public VenueList findByVenueListNo(String venueListNo) {
+		return venueListRepository.findByVenueListNo(venueListNo);
+	}
+
 	//依租借單ID查詢場地租借清單
 	@Override
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId) {
@@ -385,6 +395,8 @@ public class RentalServiceImpl implements RentalService{
 			return venueListRepository.save(venueList);
 	}
 
+	@Override
+	@Transactional
 	public VenueList updateVenueList3(Rental rental, VenueListRequest venueListRequest){
 
 		Venue venue = venueService.findByVenueName(venueListRequest.getVenueName());

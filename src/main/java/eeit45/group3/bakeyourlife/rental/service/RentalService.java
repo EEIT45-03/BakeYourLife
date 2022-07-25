@@ -31,8 +31,10 @@ public interface RentalService {
 	//依租借單類型查詢租借單
 	public List<Rental> findAllByType(String type);
 
+	public List<Rental> findAllRentalByUser(User user);
+
 	//依租借單狀態查詢租借單
-	public List<Rental> findAllByState(String state);
+	public List<Rental> findAllByStateAndUser(String state,User user);
 
 	//依租借單編號查詢租借單
 	public List<Rental> findAllByRentalNoStartingWith(String rentalNo);
@@ -84,6 +86,9 @@ public interface RentalService {
 
 	//依清單ID查詢場地租借清單
 	public VenueList findByVenueListId(Integer venueListId);
+
+	//依清單編號查詢場地租借清單
+	public VenueList findByVenueListNo(String venueListNo);
 
 	//依租借單ID查詢場地租借清單
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId);

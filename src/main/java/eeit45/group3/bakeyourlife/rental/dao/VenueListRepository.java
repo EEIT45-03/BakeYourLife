@@ -15,6 +15,8 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
 
     public List<VenueList> findAllByRental(Rental rental);
 
+    public  VenueList findByVenueListNo(String no);
+
 //    Long findPriceSumByRental(Rental rental);
 
     @Query("SELECT SUM(vl.price) FROM VenueList vl " +
@@ -28,7 +30,6 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
                     nativeQuery = true)
     public List<AvailableQuantity> findSumByVenueAndDatetime(@Param("v") Integer venue,
                                                              @Param("date") Date date);
-
 
     public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental,Venue venue,Date date, String period);
 }
