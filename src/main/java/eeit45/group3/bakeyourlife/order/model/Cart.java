@@ -21,7 +21,7 @@ import java.util.*;
 /**
  * 購物車封裝物件
  */
-public class Cart implements Serializable {
+public class Cart implements Serializable,Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -114,6 +114,7 @@ public class Cart implements Serializable {
             orderItem.setProductType(cartItem.getCartType());
             orderItem.setPrice(cartItem.getCartPrice());
             orderItem.setProductName(cartItem.getCartName());
+            orderItem.setImgUrl(cartItem.getCartImgUrl());
             orderItem.setQty(qty);
             orderItem.setSubTotal(orderItem.getPrice()*orderItem.getQty());
         }
@@ -165,5 +166,15 @@ public class Cart implements Serializable {
                 ", message='" + message + '\'' +
                 ", cart=" + cart +
                 '}';
+    }
+
+    @Override
+    public Cart clone() {
+        try {
+            Cart clone = (Cart) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

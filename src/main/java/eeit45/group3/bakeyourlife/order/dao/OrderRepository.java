@@ -32,7 +32,7 @@ public interface OrderRepository extends DataTablesRepository<Order, Integer> {
 
     List<Order> findAllByUser(User user);
 
-    @Query(nativeQuery = true, value = "SELECT ot.product_no AS 'id',ot.product_name AS 'label', SUM(ot.sub_total)/10000 'value' FROM order_item ot LEFT JOIN orders o ON ot.order_id = o.order_id WHERE o.order_status != '已退款' AND O.order_status != '已取消' GROUP BY ot.product_no,ot.product_name ORDER BY  SUM(ot.sub_total)/10000")
+    @Query(nativeQuery = true, value = "SELECT TOP(15) ot.product_no AS 'id',ot.product_name AS 'label', SUM(ot.sub_total)/10000 'value' FROM order_item ot LEFT JOIN orders o ON ot.order_id = o.order_id WHERE o.order_status != '已退款' AND O.order_status != '已取消' GROUP BY ot.product_no,ot.product_name ORDER BY  SUM(ot.sub_total)/10000 desc")
     List<ProductSaleAmount> findProductSaleAmount();
 
 

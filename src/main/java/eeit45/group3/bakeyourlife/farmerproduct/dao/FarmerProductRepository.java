@@ -12,6 +12,9 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     //單個商品 從商品ID找
     FarmerProductBean findByFarmerProductId(Integer farmerProductId);
 
+    //多個商品  按時間排序 新到舊
+    List<FarmerProductBean> findAllByOrderByLaunchedTimeDesc();
+
     //多個商品 從狀態找 按時間排序 新到舊
     List<FarmerProductBean> findByStateOrderByLaunchedTimeDesc(Integer state);
 
@@ -30,13 +33,16 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
     //多個商品 從廠商ID找
     List<FarmerProductBean> findByFarmerFarmerId(Integer farmerId);
 
+    //多個商品 從廠商ID找 按時間排序 新到舊
+    List<FarmerProductBean> findByFarmerFarmerIdOrderByLaunchedTimeDesc(Integer farmerId);
+
     //廠商商品數量
     Long countByFarmerFarmerId(Integer farmerId);
 
 
     //最熱賣商品 件數
     @Query(nativeQuery = true, value = "select TOP 1 oi.product_name+'@'+convert(varchar,format((sum(oi.qty)),'N0')) from order_item oi " +
-            "join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product  where farmer_id =?) f on oi.product_no =f.id " +
+            "join ( select 'F'+convert(varchar,farmer_product_id) AS 'id' from farmer_product  where name != '小貓咪' and farmer_id =?) f on oi.product_no =f.id " +
             "join(select order_id,order_status from orders where order_status != '已退款' AND order_status != '已取消') o on oi.order_id = o.order_id " +
             "group by oi.product_name order by sum(oi.qty) desc")
     String topSaleItemByFarmerId(Integer farmerId);
@@ -86,7 +92,7 @@ public interface FarmerProductRepository extends JpaRepository<FarmerProductBean
 
     //熱銷Top 6
     @Query(nativeQuery = true, value = "  select Top 6  f1.* from farmer_product f1 " +
-            " join(select 'F'+convert(varchar,farmer_product_id) AS 'fid',farmer_product_id from farmer_product where state = '0' ) f2 " +
+            " join(select 'F'+convert(varchar,farmer_product_id) AS 'fid',farmer_product_id from farmer_product where state = '0' and name !='小貓咪' ) f2 " +
             " on f1.farmer_product_id =f2.farmer_product_id  " +
             " join(select product_no,sum(qty) as 'sumQty' from order_item where product_type ='小農' group by product_no  )f3  on f2.fid =f3.product_no order by sumQty desc")
     List<FarmerProductBean> topSix();

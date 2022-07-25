@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="rental: ${rentals}">
+                        <tr th:each="rental: ${rentals}" th:if="${rental.state != '已退單'}">
                             <td></td>
                             <td th:text="${rental.rentalNo}"></td>
                             <td th:text="${#dates.format(rental.rentalDate, 'yyyy/MM/dd HH:mm:ss')}"></td>

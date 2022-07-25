@@ -7,6 +7,7 @@ import eeit45.group3.bakeyourlife.user.model.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.Comparator;
 import java.util.List;
 
 public class InsertInitDataJdbc {
@@ -160,6 +161,7 @@ public class InsertInitDataJdbc {
                 " gender, image_url, password, phone, register_time, username,enabled)" +
                 " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection=null;
+        users.sort(Comparator.comparing(User::getRegisterTime));
         try{
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
@@ -269,7 +271,7 @@ public class InsertInitDataJdbc {
     }
 
     private void setOrderId(List<Order> orders, Integer orderId, Integer itemNo) {
-
+        orders.sort(Comparator.comparing(Order::getOrderDate));
         for (Order order : orders) {
             order.setOrderId(orderId++);
             for (OrderItem orderItem : order.getOrderItemList()) {

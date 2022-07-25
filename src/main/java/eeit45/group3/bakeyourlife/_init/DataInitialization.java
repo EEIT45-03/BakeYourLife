@@ -10,13 +10,11 @@ import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.good.service.GoodService;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
-import eeit45.group3.bakeyourlife.order.dao.OrderRepository;
 import eeit45.group3.bakeyourlife.order.dao.SalesRecordRepository;
 import eeit45.group3.bakeyourlife.order.model.Cart;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.SalesRecord;
-import eeit45.group3.bakeyourlife.user.dao.UserRepository;
 import eeit45.group3.bakeyourlife.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -26,12 +24,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Component
 public class DataInitialization implements ApplicationListener<ContextRefreshedEvent> {
@@ -77,11 +78,11 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
 
 
     @Override
-//    @Transactional
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        List<Order> orders = new ArrayList<>();
-        List<User> users = new ArrayList<>();
-        List<SalesRecord> salesRecords = new ArrayList<>();
+        List<Order> orders = new LinkedList<>();
+        List<User> users = new LinkedList<>();
+        List<SalesRecord> salesRecords = new LinkedList<>();
         Map<String,CartItem> cartItemsMap = new HashMap<>();
         farmerProducts = farmerProductService.findAll();
         farmerProducts.forEach(o -> {
@@ -119,6 +120,8 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
             Date date = cal.getTime();
 //            System.out.println(date);
             //每天產生3個會員
+            int size = fakeUserDatas.size();
+
             for (int j = 0; j < 3; j++) {
                 //隨機產生會員資料
                 FakeUserData fakeUserData = fakeUserDatas.get(new Random().nextInt(fakeUserDatas.size()));
@@ -130,17 +133,29 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
             }
 
 
+            //打散User資料
+            List<User> shuffle = new ArrayList<>(users);
+            Collections.shuffle(shuffle);
             //產生訂單
-
-            users.forEach(user -> {
-                //50%機率產生訂單
-                if (Math.random() < 0.3) {
+            int finalI = i;
+            shuffle.forEach(user -> {
+                //30%機率產生訂單
+                double range = 0.2;
+                if(finalI > 300){
+                    range = 0.2 + (finalI*0.001);
+                }
+                if (Math.random() < range) {
                     long registerTime = user.getRegisterTime().getTime();
                     //產生registerTime後的訂單，今天前的隨機時間
                     long end = date.getTime() + 86400000;
                     //隨機registerTime~end隨機數字
                     long orderDate = registerTime + (long) (Math.random() * (end + 5 - registerTime));
-                    Order order = genOrder(user, new Date(orderDate));
+                    Order order;
+                    if(range > 0.3){
+                        order = genOrder(user, new Date(orderDate),true);
+                    }else {
+                        order = genOrder(user, new Date(orderDate),false);
+                    }
                     orders.add(order);
 
                     order.getOrderItemList().forEach(e -> {
@@ -168,8 +183,6 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
                             salesRecords.add(salesRecord);
                         }
                     });
-
-
                 }
             });
 
@@ -194,6 +207,7 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     }
 
 
+
     /**
      * 轉成假資料
      * 帳號密碼為a+手機
@@ -203,11 +217,14 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
      */
     private User toUser(FakeUserData fakeUserData) {
         User user = new User();
-        user.setUsername("a" + fakeUserData.getPhone());
-        user.setPassword(encoder.encode("a" + fakeUserData.getPhone()));
+        char firstChar = (char) (new Random().nextInt(26) + 97);
+        String username = firstChar + fakeUserData.getPhone();
+        user.setUsername(username);
+        user.setPassword(encoder.encode(username));
         user.setEnabled(true);
         user.setFullName(fakeUserData.getName());
-        user.setEmail("a" + fakeUserData.getPhone() + "@example.com");
+        //a-z ascii 97~122
+        user.setEmail(username + "@example.com");
         user.setPhone(fakeUserData.getPhone());
         user.setAuthority("ROLE_USER");
         user.setImageUrl("https://i.imgur.com/gEHJxsi.jpg");
@@ -219,10 +236,15 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         return user;
     }
 
-    private Order genOrder(User user, Date date) {
+    private Order genOrder(User user, Date date, boolean high) {
 //        //隨機1~100
         long random = (int) (Math.random() * 100);
-        Order order = genCart().getOrder();
+        Order order = null;
+        if(high){
+            order = genCart(true).getOrder();
+        }else {
+            order = genCart(false).getOrder();
+        }
         order.setUser(user);
         order.setOrderDate(date);
         DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -273,9 +295,11 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
     }
 
 
-    private Cart genCart() {
+    private Cart genCart(boolean high) {
         //隨機1~5
-        int buyNum = (int) (Math.random() * 5) + 1;
+        Random generator = new Random(new Date().getTime());
+        int buyNum = generator.nextInt(5) + 1;
+//        int buyNum = (int) (Math.random() * 5) + 1;
         int productNum = cartItems.size();
         Cart cart = new Cart();
         //建立隨機商品及數量
@@ -284,8 +308,11 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
             int random = (int) (Math.random() * productNum);
             CartItem cartItem = cartItems.get(random);
             int qty = 1;
-            if (cartItem.getCartPrice() < 500) {
-                qty = (int) (Math.random() * 10);
+//            if (cartItem.getCartPrice() < 500) {
+//                qty = (int) (Math.random() * 10);
+//            }
+            if(high){
+                qty = (int) (Math.random() * 3);
             }
             cart.addItem(cartItem, qty);
         }

@@ -30,4 +30,6 @@ public interface CartItem {
 
     void updateStock(Integer stock);
 
+    String getCartImgUrl();
+
 }

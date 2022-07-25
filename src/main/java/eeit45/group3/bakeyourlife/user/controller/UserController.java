@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import eeit45.group3.bakeyourlife.good.model.Goods;
 import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.service.FarmerService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
@@ -43,6 +44,21 @@ public class UserController {
         model.addAttribute("users", users);
         return "admin/user/User";
     }
+
+    @GetMapping("/UserChart")
+    public String viewUserChart(Model model) {
+        Long count = userService.count();
+        model.addAttribute("count", count);
+        Long countEnabled = userService.countEnabled();
+        model.addAttribute("countEnabled", countEnabled);
+
+
+        return "admin/user/UserChart";
+    }
+
+
+
+
 
     @GetMapping("/CreateUser")
     public String viewCreateUser(Model model) {
@@ -116,6 +132,19 @@ public class UserController {
         return "redirect:./";
 
     }
+    @RequestMapping("EnableUser")
+    public String enableUser(@RequestParam Integer userId) {
+       User user = userService.findByUserId(userId);
+       if (user.isEnabled()) {
+           user.setEnabled(false);
+       }else {
+           user.setEnabled(true);
+       }
+        userService.updateUser(user);
+        return "redirect:./";
+
+    }
+
 
     @PostMapping(value = "/CheckUser", produces = "application/json; charset = UTF-8")
     public @ResponseBody boolean checkUser(@RequestParam String username) {

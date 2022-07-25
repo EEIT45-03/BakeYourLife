@@ -33,19 +33,19 @@ public class FarmerProductBean implements Serializable, CartItem {
 
     @Transient
     private Integer farmerId;
-    @NotBlank(message = "類型不可為空")
+
     private String type;// 產品類型
-    @NotBlank(message = "名稱不可為空")
+
     private String name;// 名稱
-    @NotNull(message = "價格不可為空")
+
     private Integer price;// 價格
-    @NotNull(message = "數量不可為空")
+
     private Integer quantity;// 數量
-    @NotBlank(message = "保存方式不可為空")
+
     private String storage;// 保存方式
-    @NotBlank(message = "內容物不可為空")
+
     private String contents;// 內容物
-    @NotBlank(message = "商品介紹不可為空")
+
     @Column(columnDefinition = "nvarchar(600)")
     private String description;// 商品介紹
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -264,6 +264,11 @@ public class FarmerProductBean implements Serializable, CartItem {
     @Override
     public void updateStock(Integer stock) {
         this.quantity = stock;
+    }
+
+    @Override
+    public String getCartImgUrl() {
+        return farmerProductPicList.get(0).getPictureLink();
     }
 
     @Override

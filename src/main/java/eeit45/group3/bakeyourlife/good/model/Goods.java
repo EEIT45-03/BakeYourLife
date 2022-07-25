@@ -280,4 +280,9 @@ public class Goods implements CartItem {
     public void updateStock(Integer stock) {
         this.count = stock.toString();
     }
+
+    @Override
+    public String getCartImgUrl() {
+        return imageUrl.split(",")[0];
+    }
 }

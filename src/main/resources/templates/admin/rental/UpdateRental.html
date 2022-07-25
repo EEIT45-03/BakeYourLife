@@ -47,8 +47,8 @@
         <label for="mu_sta" class="col-sm-3 col-form-labels">租借狀態:</label>
         <div class="col-sm-9">
             <select th:field="*{state}" type="text" class="form-control form-select mb-3"
-                    name="state" id="mu_sta" aria-label="Default select example">
-                <option th:value="未下單" th:text="未下單" selected></option>
+                    name="state" th:value="*{state}" id="mu_sta" aria-label="Default select example">
+                <option th:value="未下單" th:text="未下單"></option>
                 <option th:value="未付款" th:text="未付款">
                 <option th:value="已付款" th:text="已付款"></option>
                 <option th:value="已退單" th:text="已退單"></option>

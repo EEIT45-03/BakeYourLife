@@ -131,7 +131,7 @@ $(document).ready(function () {
     // });
 
     $('#submit_c').on('click', function () {
-        if (check) {
+        if (check()) {
             var venue = getVenue();
             $.ajax({
                 url: "/admin/Venue/CreateVenue",
@@ -160,7 +160,7 @@ $(document).ready(function () {
     });
 
     $('#submit_u').on('click', function () {
-        if (check) {
+        if (check()) {
             var venue = getVenue();
             $.ajax({
                 url: "/admin/Venue/UpdateVenue",
@@ -196,7 +196,7 @@ function getVenue() {
     let personMax = $.trim($("#pMax").val());
     let hrPrice = $.trim($("#hPri").val());
     let sort = $.trim($("#vSort").val());
-    let notes = $.trim($("#vNotes").val());
+    let notes = ($("#vNotes").val());
     let base64Array = new Array();
     $("input[name=base64]").each(function () {
         base64Array.push($(this).val());
@@ -213,20 +213,33 @@ function getVenue() {
     return venue;
 }
 
+
+
 function check(){
     let venueName = $.trim($("#vName").val());
     let personMax = $.trim($("#pMax").val());
     let hrPrice = $.trim($("#hPri").val());
     let sort = $.trim($("#vSort").val());
-    let notes = $.trim($("#tNotes").val());
+    let notes = $.trim($("#vNotes").val());
+    var res = /^[A-Z]\d{2,5}$/;
+    var flag = res.test(venueName);
     if(venueName === '' || venueName.length <=0){
         Swal.fire(
             '請輸入場地名稱',
+            '一個英文字母+3~4個數字',
             '',
             'warning'
         )
         return false;
-    }
+    } else if (!flag || venueName.length >4){
+        Swal.fire(
+            '請輸入場地名稱',
+            '一個英文字母+3~4個數字',
+            '',
+            'warning'
+        )
+        return false;
+    } else
     if(personMax === '' || personMax <= 0 ){
         Swal.fire(
             '請輸入場地上限組數',
@@ -235,6 +248,7 @@ function check(){
         )
         return false;
     }
+
     if(hrPrice === '' || hrPrice <= 0 ){
         Swal.fire(
             '請輸入價錢/時',

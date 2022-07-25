@@ -94,6 +94,23 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
+
+
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
+
+    @Override
+    public Long countEnabled() {
+        return repository.countEnabled();
+    }
+
+
+
+
+
     @Override
     public void register(User user )
             throws UnsupportedEncodingException, MessagingException {
@@ -130,6 +147,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
+
+    //----------------------------------------------------------------------------------------------------------
+
+
     @Override
     public void resetpsw(User user) {
         String randomCode = RandomString.make(64);
@@ -147,6 +168,11 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
     }
+
+    //-------------------------------------------------------------------------------------------------------
+
+
+
     @Override
     public void loginresetpsw(User user) {
         String randomCode = RandomString.make(64);
