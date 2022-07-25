@@ -149,19 +149,18 @@ public class OrderUIController {
                     if (user != null && farmerProductBean != null) {
                         Date date = new Date();
                         productComment = new ProductComment(farmerProductBean, user, date, comment, star);
+                        productCommentService.create(productComment);
                     }
-                    productCommentService.create(productComment);
                     break;
                 case 'G':
                     //烘培商品評價
                     System.out.println("商品id:" + id + " star:" + star + " comment:" + comment);
                     Goods goods = goodService.getGoods(id);
-                    System.out.println(goods.getName());
                     if (user != null && goods != null) {
                         Date date = new Date();
                         productComment = new ProductComment(goods, user, date, comment, star);
+                        productCommentService.create(productComment);
                     }
-                    productCommentService.create(productComment);
 
                     break;
             }

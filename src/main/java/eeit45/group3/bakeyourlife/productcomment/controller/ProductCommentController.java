@@ -88,8 +88,9 @@ public class ProductCommentController {
 
     @DeleteMapping("/ProductComments/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Integer id) {
-        productCommentService.delete(id);
+
         ProductComment productCommentDb = productCommentService.findById(id);
+        productCommentService.delete(id);
 
         FarmerProductBean farmerProductBeanDb = productCommentDb.getFarmerProductBean();
         Goods goodsDb = productCommentDb.getGoods();
