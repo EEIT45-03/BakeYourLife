@@ -711,4 +711,25 @@ public class RentalServiceImpl implements RentalService{
 	public void sendRentalMail(Rental rental) throws UnsupportedEncodingException, MessagingException {
 
 	}
+
+
+	@Override
+	public Long findByRentalTotalSum() {
+		return rentalRepository.findByRentalTotalSum();
+	}
+
+	@Override
+	public Long findByRentalCount() {
+		return rentalRepository.findByRentalCount();
+	}
+
+	@Override
+	public Long findByVenueListPersonSum() {
+		return venueListRepository.findByVenueListPersonSum();
+	}
+
+	@Override
+	public List<AvailableQuantity> findSortPersonSum(){
+		return venueListRepository.findSortPersonSum();
+	}
 }

@@ -39,4 +39,11 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
     public Rental findByUserAndStateAndType(User user, String state, String listType);
 
     public List<Rental> findAllByStateAndUser(String state,User user);
+
+    @Query("Select Sum(total) FROM Rental")
+    public Long findByRentalTotalSum();
+
+
+    @Query("SELECT count(r) FROM Rental r")
+    Long findByRentalCount();
 }

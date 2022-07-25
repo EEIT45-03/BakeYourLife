@@ -78,6 +78,11 @@ public interface RentalService {
 
 	public Rental updateRentalPic(Rental rental);
 
+
+	Long findByRentalTotalSum();
+
+	Long findByRentalCount();
+
 	/*場地租借清單 DAO
 		----------------------------------------------------------------*/
 
@@ -123,6 +128,11 @@ public interface RentalService {
 	public boolean checkVenueListRequest(VenueListRequest venueListRequest);
 
 	public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state);
+
+	Long findByVenueListPersonSum();
+
+
+	List<AvailableQuantity> findSortPersonSum();
 
 
 	/*教室 DAO
