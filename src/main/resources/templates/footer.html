@@ -154,13 +154,24 @@
     }
 
     //會員中心SIDEBAR
+
+    $(document).ready(function () {
+        $(".panel").slideUp(0)
+        $(".panela").slideUp(0)
+        $(".panelb").slideUp(0)
+
+    })
     $(function(){
         $(".flip").click(function(){
             $(".panel").slideToggle();
         });});
     $(function(){
-        $(".aflip").click(function(){
-            $(".apanel").slideToggle();
+        $(".flipa").click(function(){
+            $(".panela").slideToggle();
+        });});
+    $(function(){
+        $(".flipb").click(function(){
+            $(".panelb").slideToggle();
         });});
 
 </script>

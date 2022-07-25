@@ -1,16 +1,21 @@
 package eeit45.group3.bakeyourlife.user.service;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.user.dao.UserRepository;
+import eeit45.group3.bakeyourlife.user.model.CustomOAuth2User;
 import eeit45.group3.bakeyourlife.user.model.CustomUserDetails;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,16 +48,51 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser(Authentication authentication){
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        return repository.findByUsername(userDetails.getUsername());
+        if(authentication instanceof OAuth2AuthenticationToken){
+            CustomOAuth2User customOAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            String email = customOAuth2User.getEmail();
+            return repository.findByEmail(email);
+        }else if (authentication instanceof UsernamePasswordAuthenticationToken ||
+                authentication instanceof RememberMeAuthenticationToken){
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            return repository.findByUsername(userDetails.getUsername());
+        }
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        return repository.findByUsername(userDetails.getUsername());
+//        return userDetails.getUser();
+        return null;
+    }
+    @Override
+    public User getCurrentOAuthUser(Authentication authentication){
+        CustomOAuth2User customOAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+        String email = customOAuth2User.getEmail();
+        return repository.findByEmail(email);
 //        return userDetails.getUser();
     }
 
     @Override
     public void setCurrentUser(Authentication authentication, User user){
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        userDetails.setUser(user);
+        //-------------------------------------------------
+        if(authentication instanceof OAuth2AuthenticationToken){
+            CustomOAuth2User customOAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            customOAuth2User.setUser(user);
+        }else if (authentication instanceof UsernamePasswordAuthenticationToken ||
+                authentication instanceof RememberMeAuthenticationToken){
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            userDetails.setUser(user);
+
+        }
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        return repository.findByUsername(userDetails.getUsername());
+//        return userDetails.getUser();
+        //---------------------------------------------------
+
+
+
+
     }
+
+
 
     @Override
     public List<User> findAll() {
@@ -221,6 +261,25 @@ public class UserServiceImpl implements UserService {
 
             return true;
         }
+
+    }
+
+    @Override
+    public void createNewUserAfterOAuthLoginSuccess(String email, String name, String imageUrl){
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        User user = new User();
+        user.setEmail(email);
+        user.setFullName(name);
+        user.setEnabled(true);
+        user.setImageUrl(imageUrl);
+        user.setRegisterTime(ts);
+        user.setAuthority("ROLE_USER");
+        repository.save(user);
+    }
+    @Override
+    public void updateUserAfterOAuthLoginSuccess(User user, String name){
+        user.setFullName(name);
+        repository.save(user);
 
     }
 
