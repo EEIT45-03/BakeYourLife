@@ -16,6 +16,8 @@ public interface UserService {
     User getCurrentUser(Authentication authentication);
 
 
+    User getCurrentOAuthUser(Authentication authentication);
+
     void setCurrentUser(Authentication authentication, User user);
 
     List<User> findAll();
@@ -56,4 +58,7 @@ public interface UserService {
     boolean pswverify(String verificationCode);
 
 
+    void createNewUserAfterOAuthLoginSuccess(String email, String name,String imageUrl);
+
+    void updateUserAfterOAuthLoginSuccess(User user, String name);
 }

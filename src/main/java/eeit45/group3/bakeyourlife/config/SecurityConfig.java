@@ -1,5 +1,6 @@
 package eeit45.group3.bakeyourlife.config;
 
+import eeit45.group3.bakeyourlife.user.config.OAuth2LoginSuccessHandler;
 import eeit45.group3.bakeyourlife.user.service.CustomOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,15 +25,19 @@ public class SecurityConfig {
     CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 
+    OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
-    @Autowired
+
     private CustomOauth2UserService customOauth2UserService;
 
     @Autowired
     @Lazy
-    public void setUserDetailsService(UserDetailsService userDetailsService,CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+    public void setUserDetailsService(UserDetailsService userDetailsService,CustomAuthenticationFailureHandler customAuthenticationFailureHandler,OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler,CustomOauth2UserService customOauth2UserService) {
         this.userDetailsService = userDetailsService;
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
+        this.customOauth2UserService = customOauth2UserService;
+
     }
 
     @Bean
@@ -60,11 +65,11 @@ public class SecurityConfig {
                 .failureHandler(customAuthenticationFailureHandler)
                 .defaultSuccessUrl("/default", false)
                 .and().rememberMe()
-//                .key("123")
-                .userDetailsService(userDetailsService)
+                .key("123")
                 .tokenValiditySeconds(60 * 60 * 24)
+                .userDetailsService(userDetailsService)
 //                .alwaysRemember(true)
-                .useSecureCookie(true)
+//                .useSecureCookie(true)
                 .and()
                 .httpBasic()
                 .and()
@@ -75,7 +80,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and().oauth2Login()
                 .loginPage("/login")
-                .userInfoEndpoint().userService(customOauth2UserService);
+                .userInfoEndpoint().userService(customOauth2UserService)
+                .and().successHandler(oAuth2LoginSuccessHandler);
         return http.build();
     }
 
