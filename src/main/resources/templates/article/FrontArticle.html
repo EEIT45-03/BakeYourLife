@@ -11,67 +11,7 @@
 
     <div th:replace="css.html"></div>
     <style>
-        .wrapper{
-            width: 800px;
-            height: 400px;
-            background-color: black;
-            margin: 0 auto;
-            position: relative;
-        }
-        .slide-imgs{
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            position: absolute;
-            display: flex;
-            width: 4000px;
-            /* left: -800px; */
 
-        }
-        .slide-imgs li{
-            width: 800px;
-            height: 400px;
-        }
-        .slide-imgs li img{
-            width: 100%;
-            height: 100%;
-            /*控制元素內容填入大小比例*/
-            object-fit: cover;
-        }
-        .pages{
-            position: absolute;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            bottom: 10px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-
-        }
-        .pages li{
-            border: 1px solid white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 0 5px;
-        }
-        .pages-arrow{
-            position: absolute;
-            z-index: 1;
-            font-size: 36px;
-            width: 40px;
-            height: 100%;
-            color: white;
-            display: flex;
-            /* 次軸對齊 */
-            align-items: center;
-            opacity: 6;
-            cursor: pointer;
-        }
-        .right{
-            right: 0;
-        }
 
 
         .carousel .carousel-item {
@@ -90,14 +30,27 @@
             font-size: 14px;font-family: Microsoft YaHei;padding: 12px;border: #F0F0F0;text-align:center;
         }
 
-        /*.error {*/
-        /*    color: red;*/
-        /*    font-size: 10pt;*/
-        /*    font-weight:bold;*/
-        /*    width: 116px;height: 45px;*/
-        /*}*/
-    </style>
+        .product-icon-heart {
+            width: 31%;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .product-icon-heart .heart-toggle {
+            color: #D6D4D4;
+        }
+        .product-icon-heart .heart-toggle .fas {
+            color: red;
+        }
+        .product-icon-heart .heart-toggle:hover {
+            color: red;
+        }
 
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script>
 
         var title = document.getElementById("SelectTitle").value;
@@ -287,92 +240,67 @@
                                 <h5><a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" th:text="${ article.title}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;">
                                 </a></h5>
                                 <p th:text="${ article.type}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;"></p>
-
                                 <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__btn">觀看文章 <span class="arrow_right"></span></a>
+                                <div class="col-12 product-icons">
+                                    <div class="col-4 d-inline-block product-icon-heart mr-0">
+                                        <a sec:authorize="hasRole('ROLE_USER')" th:if="${!article.state}" class="heart-toggle"  th:onclick="|archiveFunction(${article.postid})|" id="heart" >
+                                            <i class="far fa-heart"></i>
+                                        </a>
+                                    <a sec:authorize="hasRole('ROLE_USER')" th:if="${article.state}" class="heart-toggle full" href="#">
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </div>
 
-                                <button type="button"
-                                           class="update"
-                                            id="favorite" th:onclick="|archiveFunction(${article.postid})|"><i class="fa-solid fa-heart"></i></button>
+<!--                                   <div class="col-4 inline-block product-icon-heart mr-0">&ndash;&gt;-->
+<!--                                        <a class="heart-toggle full" href="#">-->
+<!--                                            <i class="fas fa-heart"></i>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                               </div>-->
 
-<!--                                <button -->
+
+<!--                                                                              class="heart-toggle"-->
+<!--                                                                             id="favorite" th:value="${article.postid}"></a>-->
+
+<!--                             <button sec:authorize="hasRole('ROLE_USER')"  type="button"-->
+<!--                                           class="update"-->
+<!--                                            id="favorite" th:onclick="|archiveFunction(${article.postid})|"><i class="fa-solid fa-heart"></i></button>-->
+
+                                <!--                                <button -->
 <!--                                        class="heart-icon"fa-solid fa-book-->
 <!--                                        id="favorite" th:onclick="|archiveFunction(${article.postid})|">收藏文章<i class="icon_heart_alt"></i></button>-->
-<!--                                <a href="#" class="heart-icon" th:onclick="|archiveFunction(${article.postid})|">收藏文章<span class="icon_heart_alt"></span></a>-->
-<!--&lt;!&ndash;                                -->
-
-                            </div>
-                        </div>
-                    </div>
-
-<!--                    <div class="row" id="container"></div>-->
+<!--                                <a sec:authorize="hasRole('ROLE_USER')"  class="heart-icon" th:onclick="|archiveFunction(${article.postid})|">收藏文章<span class="icon_heart_alt"></span></a>-->
 
 
-                    <div class="modal fade" id="InsertArticle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">新增文章</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/ArticleAdd"  method="post" enctype="multipart/form-data" id="form" >
-                                        <div class="form-group">
-<!--                                            <input type="hidden" name="userid"  id="userid">-->
-                                            <label for="title">標題:</label>
-                                            <input type="text" name="title" class="form-control"  id="title">
-                                        </div>
+<!--                                      <div class="col-4 inline-block product-icon-heart mr-0">-->
+<!--                                        <a class="heart-toggle full" href="#">-->
+<!--                                            <i class="fas fa-heart"></i>-->
+<!--                                                  </a>-->
+<!--                                                   </div>-->
+<!--                                                   </div>-->
 
-                                        <div class="form-group">
-                                            <label for="type">文章分類:</label>
-                                            <select name="type" class="form-control" id="type">
-                                                <option value= null label="請選擇分類">請選擇分類</option>
-                                                <option value="活動資訊">活動資訊</option>
-                                                <option value="課程資訊">課程資訊</option>
-                                                <option value="食譜討論">食譜討論</option>
-                                            </select>
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="date">發文日期:</label>
-                                            <input type="date" name="date" id="date">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>內文:</label>
-                                            <textarea name="content" class="form-control"  id="content" cols="30"
-                                                      rows="10"></textarea> <br>
-                                        </div>
-                                        <div class="form-group">
-                                            <img width="100" height="100" style="display:block; margin:auto;" id="previewImage"/>
-                                            <label for="articleImage">上傳圖片</label>
-                                            <input type="file" name="articleImage" class="form-control-file" id="articleImage">
-                                        </div>
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="correctInput">一鍵輸入</button>
-                                    <button  class="btn btn-outline-warning" id="testadd">送出文章</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-12">
-                        <div class="product__pagination blog__pagination">
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-<!--                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InsertArticle" input style="float:right">-->
-<!--                            新增文章-->
-<!--                        </button>-->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+                <div class="col-lg-12">
+                    <div class="product__pagination blog__pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 <!-- Blog Section End -->
@@ -385,79 +313,7 @@
 </body>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script>
-    var editor; //要先定義
-    $('#correctInput').click(function () {
 
-        $('#title').val('烘焙小百科:烘焙材料該怎麼保存？')
-        $('#type').val('食譜討論')
-        $('#type').niceSelect('update')
-        $('#date').val('2022-07-07')
-        //$('#content').val('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。')
-        editor.setData('麵粉按照蛋白質含量的高低，又分為高筋麵粉、中筋麵粉、低筋麵粉。除此之外，像是抹茶粉、可可粉、芝士粉、杏仁粉、奶粉等等，可以簡單地成為烘焙風味粉，旨在提高產品的風味，讓口感更加豐富另外常見的，還有糯米粉、粘米粉、玉米澱粉、馬鈴薯澱粉、木薯粉等等。上述眾多粉類的保存，都需要放置在避光、陰涼且乾燥的環境中密封保存另外由於這些粉類的強吸附力，應避免與氣味強烈的食材同放和遠離地面減少污染，防止霉變。然後像是一些不太常用的粉類，或者到了夏天特別炎熱的時候，一定要用保鮮盒密封起來放進冰箱冷藏，可以有效保存好這些粉類。');
-    })  //ckEditor要加setData才能使用JS一鍵輸入
-
-    ClassicEditor
-        .create( document.querySelector( '#content' ) )
-        .then( editor => {
-            console.log( editor );
-            window.editor = editor;//一鍵輸入要加
-            editor = editor;//一鍵輸入要加
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-
-
-    $(document).ready(function(){
-        $("body").on("change", "#articleImage", function(e){
-            var file = e.target.files[0];
-            var mediabase64data;
-            getBase64(file).then(
-                mediabase64data => $('#previewImage').attr('src', mediabase64data)
-            );
-        });
-    })
-
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
-
-    $('#testadd').click(function (event) {
-        event.preventDefault();
-        add();
-    })
-
-    function add() {
-        const editorData = editor.getData(); //ckEditor要加getData，Ajax傳輸才能取到值
-        var formData = new FormData($('#form')[0]);
-        formData.append('content',editorData)   //append要用是附加傳資料
-        //console.log(formData)
-        $.ajax({
-            url: "[[@{/ArticleAdd}]]",
-            data: formData,
-            type: "post",
-            cache: false, // 不需要cache
-            processData: false, // jQuery預設會把data轉為query String, 所以要停用
-            contentType: false,
-            enctype: 'multipart/form-data',
-            // dataType: "json",
-            // contentType: "application/json;charset=utf-8",
-            success: function (result) {
-                // loadData();
-                // console.log(111111)
-                $('#InsertArticle').modal('hide');
-                window.location.reload();
-            },
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
-    }
 
     var selectElement = document.getElementById('typeSelect');
     var xhr2 = new XMLHttpRequest();
@@ -487,10 +343,7 @@
                                                    ${mapData[i].title}
                                            </a></h5><a href="/FrontArticle/ArticleDetail?postid=${mapData[i].postid}"
                                                class="blog__btn">觀看文章<span class="arrow_right"></span></a>
-                                               <button type="button"
-                                           class="update"
-                                            id="favorite" onclick="archiveFunction(${mapData[i].postid})"><i class="fa-solid fa-heart"></i></button>
-                            </div></div></div>`
+                                        </div></div></div>`
 
 
                         html = html + append
@@ -506,66 +359,88 @@
 
 
 
-    $(document).ready(() => {
-        $('.carousel').carousel({
-            interval: 2000
-        })
-    })
-
-
-    // var add = document.querySelector('#favorite');
+    // window.onload = function() {
+    //     var btn = document.getElementById("favorite"); // 『Click Me(JavaScript)』按鈕的事件處理函數
+    //     btn.onclick = function() {
+    //         var xhr = new XMLHttpRequest();
+    //         xhr.open("GET", "<c:url value='/farvorite/addFavorite' />", true);
     //
-    // add.addEventListener('click', function () {
     //
-    //     addFavorite();
-    // })
+    //         xhr.send();
+    //         xhr.onreadystatechange = function () {
+    //             if (xhr.readyState == 4 && xhr.status == 200) {
+    //                 let html = ''
+    //                 const append = `<div class="col-4 inline-block product-icon-heart mr-0">-->
+    //                                     <a class="heart-toggle full" href="#">
+    //                                         <i class="fas fa-heart" th:if="${fa.state} == '已收藏'"></i>
+    //                                               </a>
+    //                                                </div>
+    //                                                </div>`
+    //                 html = html + append
+    //             }
+    //             var div = document.getElementById('favorite');
+    //             div.innerHTML = html;
+    //         }
 
 
-    function archiveFunction(postid) {
-        // var formData = new FormData($('#addFavorite')[0]);
-        $.ajax({
-            url: "[[@{/farvorite/addFavorite}]]" + "/" + postid,
-            // data: formData,
-            type: "post",
-            cache: false, // 不需要cache
-            processData: false, // jQuery預設會把data轉為query String, 所以要停用
-            contentType: false,
-            // enctype: 'multipart/form-data',
-            // dataType: "json",
-            // contentType: "application/json;charset=utf-8",
-            success: function (msg) {
-                Swal.fire(
-                    '已收藏!',
-                    '文章已成功收藏!',
-                    'success'
-                ).then((result) => {
-                    if (result.isConfirmed) {
-                        // location.reload();
-                        // location = '/FrontArticle';
+            // var add = document.querySelector('#favorite');
+            //
+            // add.addEventListener('click', function () {
+            //
+            //     addFavorite();
+            // })
+
+
+            $('.heart-toggle').click(function () {
+                $(this).find('i').toggleClass('fas far');
+            });
+
+
+            function archiveFunction(postid) {
+                // var formData = new FormData($('#addFavorite')[0]);
+                $.ajax({
+                    url: "[[@{/farvorite/addFavorite}]]" + "/" + postid,
+                    // data: formData,
+                    type: "post",
+                    cache: false, // 不需要cache
+                    processData: false, // jQuery預設會把data轉為query String, 所以要停用
+                    contentType: false,
+                    // enctype: 'multipart/form-data',
+                    // dataType: "json",
+                    // contentType: "application/json;charset=utf-8",
+                    success: function (msg) {
+                        Swal.fire(
+                            '已收藏!',
+                            '文章已成功收藏!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                // location.reload();
+                                // location = '/FrontArticle';
+                            }
+                        })
+                    },
+                    error: function (postid) {
+                        // console.log(msg.status)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '請先登入!',
+                            text: '收藏前請先登入帳號 ',
+                            footer: '<a href="/login"  target="_blank">點我登入</a>'
+                        })
                     }
-                })
-            },
-            error: function (msg) {
-                // console.log(msg.status)
-                Swal.fire({
-                    icon: 'error',
-                    title: '請先登入!',
-                    text: '收藏前請先登入帳號 ',
-                    footer: '<a href="/login"  target="_blank">點我登入</a>'
-                })
+                });
             }
-        });
-    }
 
 
+            $(document).ready(() => {
+                $('.carousel').carousel({
+                    interval: 1500
+                })
+
+            });
 
 
-    $(document).ready(() => {
-        $('.carousel').carousel({
-            interval: 1000
-        })
-
-    });
 
 </script>
 

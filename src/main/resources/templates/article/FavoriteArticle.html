@@ -124,7 +124,6 @@
                                             <td th:text="${#dates.format(favorite.createdDate, 'yyyy/MM/dd HH:mm:sss')}">
                                             <td><img th:src="${favorite.article.imageUrl}" style="display:block; margin:auto; border-radius:10px;width:75px; height:70px;"></td>
                                             <td th:text="${ favorite.article.counter}"></td>
-
                                             <td><button type="button"
                                                         class="btn btn-danger"
                                                         th:onclick="|archiveFunction(${favorite.id})|" id="btn">移除收藏</button></td>

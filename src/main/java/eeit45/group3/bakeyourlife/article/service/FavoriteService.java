@@ -14,4 +14,6 @@ public interface FavoriteService {
     List<Favorite> findAllByUser(User user);
 
     void deleteById(Integer id);
+
+    List<Favorite> findFavoriteByState(String state);
 }

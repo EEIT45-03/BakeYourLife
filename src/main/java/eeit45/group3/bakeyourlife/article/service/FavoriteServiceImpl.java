@@ -30,5 +30,8 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteRepository.deleteById(id);
     }
 
+    public List<Favorite> findFavoriteByState(String state){
+      return favoriteRepository.findFavoriteByState(state);
+    }
 
 }

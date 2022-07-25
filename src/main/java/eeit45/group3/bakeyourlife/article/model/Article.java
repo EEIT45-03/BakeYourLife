@@ -54,6 +54,17 @@ public class Article implements Serializable {
 //	private String base64;
 	private Integer counter;
 
+	@Transient
+	private boolean state;
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
 	public User getUser() {
 		return user;
 	}

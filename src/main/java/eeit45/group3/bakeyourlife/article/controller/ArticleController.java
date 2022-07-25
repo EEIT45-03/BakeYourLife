@@ -42,8 +42,9 @@ public class ArticleController {
 	private UserService userService;
 
 	@GetMapping(path = "/")
-	private String processFindOne(@RequestParam(required = false) Integer postid, Model m) {
+	private String processFindOne(@RequestParam(required = false) Integer postid, Model m,Authentication authentication) {
 
+		User currentUser = userService.getCurrentUser(authentication);
 		List<Article> listAll = articleservice.findAll();
 		m.addAttribute("articles", listAll);
 //		List<Message> messageAll = messageService.findMessageAll();

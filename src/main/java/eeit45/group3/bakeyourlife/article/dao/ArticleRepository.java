@@ -29,6 +29,10 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     List<Article> findAllByUser(User user);
 
+    //
+//    @Query(nativeQuery = true,value = "SELECT CAST(CASE WHEN f.id IS NULL THEN 0 ELSE 1 END AS bit) AS state,[postid], [content], [counter], [date], [image_url], [title], [type], [user_id] FROM Article a LEFT JOIN ( SELECT * FROM favorite F WHERE f.use_id = ?1) f ON a.postid = f.article_id")
+//    List<Article> findAll(Integer userId);
+
     @Query(nativeQuery = true,value ="select TOP(3)* from ARTICLE  ORDER BY counter DESC")
     List<Article> findTopCounter(Integer counter);
 }

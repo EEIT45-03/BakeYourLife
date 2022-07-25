@@ -5,6 +5,7 @@ import eeit45.group3.bakeyourlife.article.model.Favorite;
 import eeit45.group3.bakeyourlife.article.service.ArticleService;
 
 import eeit45.group3.bakeyourlife.article.service.FavoriteService;
+import eeit45.group3.bakeyourlife.user.model.Farmer;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.article.model.Article;
@@ -35,26 +36,25 @@ public class FavoriteController {
 
     @PostMapping("/addFavorite/{postid}")
     public ResponseEntity<Favorite> addToFavorite(
-            Authentication authentication,@PathVariable("postid") Integer postid) {
+            Authentication authentication, @PathVariable("postid") Integer postid) {
 
         // authenticationService.authenticate(token);
 
         User user = userService.getCurrentUser(authentication);
         Article SetArticle = articleService.selectOne(postid).orElse(null);
         Favorite favorite = new Favorite();
-        //favorite.setId();
+        favorite.setId(postid);
+        favorite.setState("已收藏");
         favorite.setArticle(SetArticle);
         favorite.setUser(user);
         Date date = new Date();
         favorite.setCreatedDate(date);
 
-        Favorite favoriteList = favoriteService.createFavorite(favorite);
+        Favorite savedFavorite = favoriteService.createFavorite(favorite);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(favoriteList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFavorite);
     }
-
-
 
 
     @GetMapping("")
@@ -65,7 +65,7 @@ public class FavoriteController {
         User user = userService.getCurrentUser(authentication);
 
         List<Favorite> favorites = favoriteService.findAllByUser(user);
-        return  ResponseEntity.status(HttpStatus.OK).body(favorites);
+        return ResponseEntity.status(HttpStatus.OK).body(favorites);
     }
 
     @DeleteMapping("/farvoriteDelete/{id}")
@@ -74,7 +74,16 @@ public class FavoriteController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+
+    @PostMapping(value = "/checkFavorite/{postid}", produces = "application/json; charset = UTF-8")
+    public @ResponseBody boolean checkFavorite(Authentication authentication, @PathVariable("postid") Integer postid) {
+        Article article = articleService.selectOne(postid).orElse(null);
+        //User user = userService.findByUserId(userId);
+        if (article != null) {
+            return true;
+        }
+        return false;
+    }
+
 }
-
-
 

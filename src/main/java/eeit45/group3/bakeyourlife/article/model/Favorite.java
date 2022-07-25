@@ -10,7 +10,7 @@ import java.util.Date;
 public class Favorite {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne(targetEntity = User.class,fetch = FetchType.EAGER)
@@ -24,6 +24,8 @@ public class Favorite {
     @JoinColumn(name = "article_id")
     private  Article article;
 
+    private String state;
+
     public Favorite() {
     }
 
@@ -33,15 +35,24 @@ public class Favorite {
         this.createdDate = new Date();
     }
 
-    public Favorite(Integer id, User user, Date createdDate, Article article) {
+    public Favorite(Integer id, User user, Date createdDate, String state,Article article) {
         this.id = id;
         this.user = user;
         this.createdDate = createdDate;
+        this.state = state;
         this.article = article;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public void setId(Integer id) {
