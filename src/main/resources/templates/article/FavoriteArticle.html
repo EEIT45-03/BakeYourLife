@@ -53,30 +53,26 @@
 
 <div id="wrapper">
 
+    <!--    <div th:replace="sidebar.html"></div>-->
 
+    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-2 col-md-3 " style="margin: 50px;">
-                <div class="blog__sidebar">
-                    <div class="blog__sidebar__item ">
-                        <h4>會員中心選單</h4>
-                        <ul>
-                            <li><i class="fa-solid fa-address-card faIcon"></i> <a th:href="@{/User/UserData/}">會員資料</a></li>
-                            <li><i class="fa-solid fa-heart faIcon"></i> <a th:href="@{/#/}">喜愛清單</a></li>
-                            <li><i class="fa-solid fa-cart-shopping faIcon"></i> <a th:href="@{/User/order/}">購買清單</a></li>
-<!--                            <li><i class="fa-solid fa-ticket faIcon"></i> <a th:href="@{/#/}">我的優惠卷</a></li>-->
-                            <li><i class="fa-solid fa-school faIcon"></i> <a th:href="@{/#/}">我的課程</a></li>
-                            <li><i class="fa-solid fa-table faIcon"></i> <a th:href="@{/#/}">我的租借</a></li>
-                            <li><i class="fa-solid fa-book faIcon"></i> <a th:href="@{/User/UserArticle/}">我的文章</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <!-- Main Content -->
+        <div  class="container">
 
 
-            <div id="th" class="col-xl-9">
+            <!-- Begin Page Content -->
+            <div class="row">
+                <div th:replace="user/UserSidebar.html"></div>
+
+
+
+
+
+
+
+            <div id="th" class="col-xl-10">
 
 
 
