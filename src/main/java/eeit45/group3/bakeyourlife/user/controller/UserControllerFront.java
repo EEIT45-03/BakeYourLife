@@ -141,15 +141,23 @@ public class UserControllerFront {
     }
 
     @GetMapping("/User/UserData")
-    public String viewUser(Principal principal, Model model) {
-        if (principal != null) {
+    public String viewUser(Principal principal, Model model,Authentication authentication) {
             User user = userService.findByUsername(principal.getName());
-            if (user.getUserId() != null) {
+            User userOAuth = userService.getCurrentOAuthUser(authentication);
+        if (principal != null) {
+
+            if (user != null) {
                 model.addAttribute("user", user);
                 return "user/UserCenterUpdate";
+            } else {
+                model.addAttribute("user", userOAuth);
+                System.out.println(userOAuth);
+                return "user/UserCenterUpdate";
+
             }
+
         }
-        return "redirect:/login";
+            return "redirect:/login";
     }
 
     @PostMapping("/User/UserData")
@@ -182,16 +190,27 @@ public class UserControllerFront {
     }
 
     @GetMapping("/User/Updatepsw")
-    public String viewUpdatepsw(Principal principal, Model model) {
+    public String viewUpdatepsw(Principal principal, Model model,Authentication authentication) {
+    User user = userService.findByUsername(principal.getName());
+    User userOAuth = userService.getCurrentOAuthUser(authentication);
         if (principal != null) {
-            User user = userService.findByUsername(principal.getName());
-            if (user.getUserId() != null) {
-                model.addAttribute("user", user);
-                return "user/UserUpdatepsw";
-            }
+
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "user/UserUpdatepsw";
+        } else {
+            model.addAttribute("user", userOAuth);
+            System.out.println(userOAuth);
+            return "user/UserUpdatepsw";
+
         }
-        return "redirect:/login";
+
     }
+        return "redirect:/login";
+}
+
+
+
 
     @PostMapping("/User/Updatepsw")
     public String updatepsw(Authentication authentication, User user) {
