@@ -4,6 +4,8 @@ import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
+import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,11 +29,14 @@ public class RentalController {
 
     private TackleService tackleService;
 
+    private UserService userService;
+
     @Autowired
-    public RentalController(RentalService rentalService, VenueService venueService, TackleService tackleService) {
+    public RentalController(RentalService rentalService, VenueService venueService, TackleService tackleService,UserService userService) {
         this.rentalService = rentalService;
         this.venueService = venueService;
         this.tackleService = tackleService;
+        this.userService = userService;
     }
 
     @GetMapping("/Rental/")
@@ -63,27 +69,31 @@ public class RentalController {
     }
 
     @GetMapping("/User/rental/")
-    public String viewUserRentalAll(Model m) {
-        m.addAttribute("rentals", rentalService.findAllRental());
+    public String viewUserRentalAll(Model m, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        m.addAttribute("rentals", rentalService.findAllRentalByUser(user));
         return "/rental/MyRental";
     }
 
     @GetMapping("/User/rental/noorder")
-    public String viewUserRentalNoorder(Model m) {
-        m.addAttribute("rentals", rentalService.findAllByState("未下單"));
+    public String viewUserRentalNoorder(Model m,Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        m.addAttribute("rentals", rentalService.findAllByStateAndUser("未下單",user));
         return "/rental/MyRental";
     }
 
 
     @GetMapping("/User/rental/waitpay")
-    public String viewUserRentalWaitpay(Model m) {
-        m.addAttribute("rentals", rentalService.findAllByState("待付款"));
+    public String viewUserRentalWaitpay(Model m,Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        m.addAttribute("rentals", rentalService.findAllByStateAndUser("待付款",user));
         return "/rental/MyRental";
     }
 
     @GetMapping("/User/rental/alreadypay")
-    public String viewUserRentalAlreadypay(Model m) {
-        m.addAttribute("rentals", rentalService.findAllByState("已付款"));
+    public String viewUserRentalAlreadypay(Model m,Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        m.addAttribute("rentals", rentalService.findAllByStateAndUser("已付款",user));
         return "/rental/MyRental";
     }
 

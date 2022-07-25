@@ -8,6 +8,7 @@ import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.user.model.User;
+import eeit45.group3.bakeyourlife.venue.model.Venue;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -30,8 +31,10 @@ public interface RentalService {
 	//依租借單類型查詢租借單
 	public List<Rental> findAllByType(String type);
 
+	public List<Rental> findAllRentalByUser(User user);
+
 	//依租借單狀態查詢租借單
-	public List<Rental> findAllByState(String state);
+	public List<Rental> findAllByStateAndUser(String state,User user);
 
 	//依租借單編號查詢租借單
 	public List<Rental> findAllByRentalNoStartingWith(String rentalNo);
@@ -70,6 +73,9 @@ public interface RentalService {
 	public Rental CheckUserRental(Integer userId, String listType);
 
 
+	public Rental CheckUserRental(User user, String state, String listType);
+
+
 	public Rental updateRentalPic(Rental rental);
 
 	/*場地租借清單 DAO
@@ -80,6 +86,9 @@ public interface RentalService {
 
 	//依清單ID查詢場地租借清單
 	public VenueList findByVenueListId(Integer venueListId);
+
+	//依清單編號查詢場地租借清單
+	public VenueList findByVenueListNo(String venueListNo);
 
 	//依租借單ID查詢場地租借清單
 	public List<VenueList> findVenueListByFK_RentalId(Integer FK_rentalId);
@@ -104,6 +113,7 @@ public interface RentalService {
 	//更新場地租借清單
 	public VenueList updateVenueList(VenueList venueList);
 
+	public VenueList updateVenueList3(Rental rental ,VenueListRequest venueListRequest);
 	//刪除場地租借清單
 	public void deleteVenueList(Integer venueListId);
 
@@ -112,6 +122,7 @@ public interface RentalService {
 
 	public boolean checkVenueListRequest(VenueListRequest venueListRequest);
 
+	public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental, Venue venue, Date date, String state);
 
 
 	/*教室 DAO

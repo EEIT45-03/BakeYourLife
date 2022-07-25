@@ -15,6 +15,8 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
 
     public List<VenueList> findAllByRental(Rental rental);
 
+    public  VenueList findByVenueListNo(String no);
+
 //    Long findPriceSumByRental(Rental rental);
 
     @Query("SELECT SUM(vl.price) FROM VenueList vl " +
@@ -22,11 +24,12 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
     public Long findPriceSumByRental(@Param("r") Rental rental);
 
     @Query(value = "select vl.period as 'label', sum(vl.person) as 'value' from venue_list vl " +
+                    "INNER JOIN (SELECT * FROM rental where state != '已退單') r ON vl.fk_rental_id = r.rental_id " +
                     "WHERE vl.rental_date = :date " +
-                    "AND vl.fk_venue_id = :v  GROUP BY vl.period",
+                    "AND vl.fk_venue_id = :v  GROUP BY vl.period ",
                     nativeQuery = true)
     public List<AvailableQuantity> findSumByVenueAndDatetime(@Param("v") Integer venue,
                                                              @Param("date") Date date);
 
-
+    public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental,Venue venue,Date date, String period);
 }

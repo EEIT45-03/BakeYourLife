@@ -10,7 +10,10 @@
     <title>租借首頁</title>
 
     <div th:replace="css.html"></div>
+    <style>
 
+
+    </style>
 </head>
 
 <body>
@@ -41,15 +44,16 @@
         <div class="col-lg-3 col-md-5">
             <div class="sidebar">
                 <div class="sidebar__item">
-                    <h4>場地</h4>
+<!--                    <h4>場地</h4>-->
+                    <h4>種類</h4>
                     <ul id="ul_vSort">
 
                     </ul>
                     <br>
-                    <br>
-                    <h4>器材</h4>
-                    <ul id="ul_tSort">
-                    </ul>
+<!--                    <br>-->
+<!--                    <h4>器材</h4>-->
+<!--                    <ul id="ul_tSort">-->
+<!--                    </ul>-->
                 </div>
             </div>
         </div>
@@ -69,20 +73,20 @@
                 </div>
             </div>
 
-            <div class="product__discount">
-                <div class="section-title product__discount__title">
-                    <h2>器材</h2>
-                </div>
-                <div class="row" id="tDiv">
+<!--            <div class="product__discount">-->
+<!--                <div class="section-title product__discount__title">-->
+<!--                    <h2>器材</h2>-->
+<!--                </div>-->
+<!--                <div class="row" id="tDiv">-->
 
-                </div>
-                <div class="product__pagination" id="tSel">
-<!--                    <a href="#">1</a>-->
-<!--                    <a href="#">2</a>-->
-<!--                    <a href="#">3</a>-->
-<!--                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>-->
-                </div>
-            </div>
+<!--                </div>-->
+<!--                <div class="product__pagination" id="tSel">-->
+<!--&lt;!&ndash;                    <a href="#">1</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#">2</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#">3</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
 
             </div>
 
@@ -108,7 +112,7 @@
                     if(sort.sort == "課用烘培室"){
                         continue;
                     }
-                    ul_vSort = ul_vSort + "<li><a onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
+                    ul_vSort = ul_vSort + "<li><a style='cursor:hand' onclick='getVenueBySort("+ sort.venueSortId + ")'>" + sort.sort + "</a></li>";
                 }
 
                 $('#ul_vSort').append(ul_vSort);
@@ -124,7 +128,7 @@
             .then(data => {
                 let ul_tSort = "";
                 for(let sort of data){
-                    ul_tSort = ul_tSort + "<li><a onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
+                    ul_tSort = ul_tSort + "<li><a style='cursor:hand' onclick='getTackleBySort("+ sort.tackleSortId + ")'>" + sort.sort + "</a></li>";
                 }
                 $('#ul_tSort').append(ul_tSort);
             })
