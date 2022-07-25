@@ -267,7 +267,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createNewUserAfterOAuthLoginSuccess(String email, String name, String imageUrl){
         Timestamp ts = new Timestamp(System.currentTimeMillis());
+        String randomCode = RandomString.make(10);
+
         User user = new User();
+        user.setUsername(randomCode);
         user.setEmail(email);
         user.setFullName(name);
         user.setEnabled(true);

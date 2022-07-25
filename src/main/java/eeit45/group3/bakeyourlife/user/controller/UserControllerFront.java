@@ -141,24 +141,19 @@ public class UserControllerFront {
     }
 
     @GetMapping("/User/UserData")
-    public String viewUser(Principal principal, Model model,Authentication authentication) {
-            User user = userService.findByUsername(principal.getName());
-            User userOAuth = userService.getCurrentOAuthUser(authentication);
-        if (principal != null) {
+    public String viewUser( Model model,Authentication authentication) {
+            User user = userService.getCurrentUser(authentication);
 
             if (user != null) {
                 model.addAttribute("user", user);
                 return "user/UserCenterUpdate";
             } else {
-                model.addAttribute("user", userOAuth);
-                System.out.println(userOAuth);
-                return "user/UserCenterUpdate";
+
+                return "redirect:/login";
 
             }
 
         }
-            return "redirect:/login";
-    }
 
     @PostMapping("/User/UserData")
     public String updateUser(Authentication authentication, User user) {
@@ -190,24 +185,19 @@ public class UserControllerFront {
     }
 
     @GetMapping("/User/Updatepsw")
-    public String viewUpdatepsw(Principal principal, Model model,Authentication authentication) {
-    User user = userService.findByUsername(principal.getName());
-    User userOAuth = userService.getCurrentOAuthUser(authentication);
-        if (principal != null) {
+    public String viewUpdatepsw(Model model,Authentication authentication) {
+//    User user = userService.findByUsername(principal.getName());
+    User user = userService.getCurrentUser(authentication);
 
         if (user != null) {
             model.addAttribute("user", user);
             return "user/UserUpdatepsw";
         } else {
-            model.addAttribute("user", userOAuth);
-            System.out.println(userOAuth);
-            return "user/UserUpdatepsw";
+            return "redirect:/login";
 
         }
 
     }
-        return "redirect:/login";
-}
 
 
 
