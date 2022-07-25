@@ -512,6 +512,11 @@ INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (
 INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (27, N'https://i.imgur.com/KurZRTY.jpg', 12)
 SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
 
+
+   --自動生產編號
+Insert INTO produce_no VALUES ('20220725', 'rental','6')
+Insert INTO produce_no VALUES ('20220725', 'venueList','17')
+
     --新增租借單
 SET IDENTITY_INSERT [dbo].[rental] ON
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (1, CAST(N'2022-07-25T13:24:17.0000000' AS DateTime2), N'202207250000001', NULL, N'已付款', 2000, N'場地', 2)
