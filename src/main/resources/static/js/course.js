@@ -66,7 +66,7 @@ $('#wrongInput').click(function () {
     $('#endDate').val('2022-08-20 01:00')
     $('#venue').val('1')
 	$('#applicants').val('0')
-    $('#teacher').val('Teacher1')
+    $('#teacher').val('謝佳陵')
     $('#note').val('')
 })
 
@@ -76,9 +76,9 @@ $('#correctInput').click(function () {
 	$('#hours').val('60')
 	$('#startDate').val('2022-08-22 01:00')
 	$('#endDate').val('2022-08-25 01:00')
-	$('#venue').val('1')
+	$('#venue').val('2')
 	$('#applicants').val('0')
-	$('#teacher').val('Teacher1')
+	$('#teacher').val('謝佳陵')
 	$('#note').val('')
 })
 
@@ -316,7 +316,7 @@ function CreateCourseTime(ctimeId){
 		.then(function(data){
 
 			Swal.fire({
-				title: '新增場地清單',
+				title: '新增時段',
 				icon: 'info',
 				html:data,
 				width: '40%',
@@ -331,7 +331,7 @@ function CreateCourseTime(ctimeId){
 //刪除場地清單
 function deleteCourseTime(ctimeId) {
 	Swal.fire({
-		title: '請問是否要刪除此清單?',
+		title: '請問是否要刪除此時段?',
 		icon: 'warning',
 		showCancelButton: true,
 		cancelButtonText: '取消',
@@ -375,7 +375,7 @@ function updateCourseTime(ctimeId){
 		.then(function(data){
 
 			Swal.fire({
-				title: '修改場地清單',
+				title: '修改時段',
 				icon: 'info',
 				html:data,
 				width: '40%',
