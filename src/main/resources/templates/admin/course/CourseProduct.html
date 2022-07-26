@@ -81,7 +81,7 @@
                                     <th scope="row"><img alt="" th:src="*{{product.image}}" style="width: 100px;height: 100px;"></th>
                                     <td>[[*{product.name}]]</td>
                                     <td>[[*{product.summary}]]</td>
-                                    <td>[[*{product.description}]]</td>
+                                    <td th:utext="*{product.description}"></td>
                                     <td>NT$[[*{product.price}]]</td>
                                     <td><a th:href="@{'deleteProd/{id}'(id=${product.id})}"
                                            class="btn btn-danger mt-4">delete</a></td>
@@ -116,6 +116,9 @@
 
 <div th:replace="admin/javascript.html"></div>
 <script th:src="@{/js/course.js}"></script>
+<script>
+
+</script>
 </body>
 </html>
 
