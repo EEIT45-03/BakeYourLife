@@ -6,6 +6,7 @@ import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
 import eeit45.group3.bakeyourlife.rental.model.VenueList;
 import eeit45.group3.bakeyourlife.rental.service.RentalService;
+import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.tackle.model.Tackle;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
@@ -329,15 +330,15 @@ public class AdminRentalController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-
-    @GetMapping("/Chart")
-    public String viewAdminSale(Model model) {
+    @GetMapping("/RentalChart")
+    public String viewAdminRentalSale(Model model) {
         Long sum = rentalService.findByRentalTotalSum();
         model.addAttribute( "sum", sum);
         Long count = rentalService.findByRentalCount();
         model.addAttribute( "count", count);
-        Long count1 = rentalService.findByVenueListPersonSum();
+        AvailableQuantity count1 = rentalService.findVenuePersonMax();
         model.addAttribute( "count1", count1);
-        return "/Chart";
+            return "admin/rental/RentalChart";
     }
+
 }

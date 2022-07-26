@@ -38,4 +38,14 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
 
     @Query(value = "SELECT sum(person) as 'value' ,sort as 'label' FROM venue v left join venue_sort vs ON v.fk_sort_id = vs.venue_sort_id join venue_list vl ON v.venue_id = vl.fk_venue_id group by sort",nativeQuery = true)
     public  List<AvailableQuantity> findSortPersonSum();
+
+
+    @Query(value = "select sum(vl.person) as 'value', v.venue_name as 'label' from venue_list vl join venue v on vl.fk_venue_id = v.venue_id group by v.venue_name ",nativeQuery = true)
+    public  List<AvailableQuantity> findVenuePersonSum();
+
+    @Query(value = "select sum(vl.price) as 'value', v.venue_name as 'label' from venue_list vl join venue v on vl.fk_venue_id = v.venue_id group by v.venue_name ",nativeQuery = true)
+    public  List<AvailableQuantity> findVenuePriceSum();
+
+    @Query(value = "select * from (select sum(vl.person) as 'value', v.venue_name as 'label' from venue_list vl join venue v on vl.fk_venue_id = v.venue_id group by v.venue_name) r where r.value = (select max(r1.value) from  ( select sum(vl.person) as 'value', v.venue_name as 'label' from venue_list vl join venue v on vl.fk_venue_id = v.venue_id group by v.venue_name ) r1)",nativeQuery = true)
+    public  AvailableQuantity findVenuePersonMax();
 }

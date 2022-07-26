@@ -510,12 +510,16 @@ INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (
 INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (25, N'https://i.imgur.com/bOUD65S.jpg', 12)
 INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (26, N'https://i.imgur.com/3gSo8JX.jpg', 12)
 INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (27, N'https://i.imgur.com/KurZRTY.jpg', 12)
-SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
+INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (28, N'https://i.imgur.com/ocpG0sh.jpg', 1)
+    INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (29, N'https://i.imgur.com/JLVWfyf.jpg', 2)
+        INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (30, N'https://i.imgur.com/FM697kq.jpg', 3)
+        INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (31, N'https://i.imgur.com/Vn9yNyQ.jpg', 4)
+    SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
 
 
    --自動生產編號
-Insert INTO produce_no VALUES ('20220726', 'rental','3')
-Insert INTO produce_no VALUES ('20220726', 'venueList','9')
+Insert INTO produce_no VALUES ('20220726', 'rental','5')
+Insert INTO produce_no VALUES ('20220726', 'venueList','17')
 
     --新增租借單
 SET IDENTITY_INSERT [dbo].[rental] ON
@@ -525,9 +529,11 @@ INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment],
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (4, NULL, N'202207250000004', NULL, N'已退單', 1500, N'場地', 3)
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (5, CAST(N'2022-07-25T13:29:44.0000000' AS DateTime2), N'202207250000005', NULL, N'已付款', 4800, N'場地', 4)
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (6, CAST(N'2022-07-25T13:30:15.0000000' AS DateTime2), N'202207250000006', NULL, N'已付款', 1800, N'場地', 3)
-INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (7, CAST(N'2022-07-26T08:33:07.7800000' AS DateTime2), N'202207260000001', NULL, N'待付款', 3200, N'場地', 2)
-INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (8, CAST(N'2022-07-26T08:34:46.9280000' AS DateTime2), N'202207260000002', NULL, N'待付款', 28800, N'場地', 2)
-INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (9, NULL, N'202207260000003', NULL, N'未下單', 3600, N'場地', 2)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (7, CAST(N'2022-07-26T08:33:07.0000000' AS DateTime2), N'202207260000001', NULL, N'已付款', 3200, N'場地', 2)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (8, CAST(N'2022-07-26T08:34:46.0000000' AS DateTime2), N'202207260000002', NULL, N'待付款', 28800, N'場地', 3)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (9, CAST(N'2022-07-26T11:25:03.0000000' AS DateTime2), N'202207260000003', NULL, N'待付款', 7000, N'場地', 4)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (10, CAST(N'2022-07-26T11:27:18.4260000' AS DateTime2), N'202207260000004', NULL, N'待付款', 3600, N'場地', 2)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (11, CAST(N'2022-07-26T11:31:06.3290000' AS DateTime2), N'202207260000005', NULL, N'待付款', 1600, N'場地', 2)
 
     SET IDENTITY_INSERT [dbo].[rental] OFF
 
@@ -559,6 +565,14 @@ INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (24, N'N', N'12:00-20:00', 10, 24000, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726007', 8, 11)
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (25, N'N', N'08:00-16:00', 1, 2400, CAST(N'2022-08-03T00:00:00.0000000' AS DateTime2), N'V20220726008', 9, 12)
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (26, N'N', N'16:00-20:00', 1, 1200, CAST(N'2022-07-27T00:00:00.0000000' AS DateTime2), N'V20220726009', 9, 11)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (27, N'N', N'16:00-20:00', 1, 500, CAST(N'2022-07-28T00:00:00.0000000' AS DateTime2), N'V20220726010', 9, 5)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (28, N'N', N'08:00-12:00', 1, 500, CAST(N'2022-08-01T00:00:00.0000000' AS DateTime2), N'V20220726011', 9, 5)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (29, N'N', N'12:00-16:00', 2, 800, CAST(N'2022-07-29T00:00:00.0000000' AS DateTime2), N'V20220726012', 9, 7)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (30, N'N', N'12:00-20:00', 2, 1600, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726013', 9, 8)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (31, N'N', N'08:00-12:00', 1, 1200, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726014', 10, 11)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (32, N'N', N'08:00-16:00', 1, 2400, CAST(N'2022-07-31T00:00:00.0000000' AS DateTime2), N'V20220726015', 10, 11)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (33, N'N', N'12:00-16:00', 2, 800, CAST(N'2022-08-04T00:00:00.0000000' AS DateTime2), N'V20220726016', 11, 8)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (34, N'N', N'12:00-16:00', 2, 800, CAST(N'2022-08-06T00:00:00.0000000' AS DateTime2), N'V20220726017', 11, 7)
 
     SET IDENTITY_INSERT [dbo].[venue_list] OFF
 
