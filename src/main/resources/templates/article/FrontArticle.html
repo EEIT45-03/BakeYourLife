@@ -201,7 +201,7 @@
                                 </a></h5>
                                 <p th:text="${ article.type}" style="font-family:Microsoft JhengHei 微軟正黑體,serif;"></p>
                                 <a th:href="@{/FrontArticle/ArticleDetail(postid=${article.postid})}" class="blog__btn">觀看文章 <span class="arrow_right"></span></a>
-                                <div class="col-12 product-icons">
+                                <span class="col-12 product-icons">
                                     <div class="col-4 d-inline-block product-icon-heart mr-0">
                                         <a sec:authorize="hasRole('ROLE_USER')" th:if="${!article.state}" class="heart-toggle"  th:onclick="|archiveFunction(${article.postid})|" id="heart" >
                                             <i class="far fa-heart"></i>
@@ -211,54 +211,16 @@
                                         </a>
                                     </div>
 
-<!--                                   <div class="col-4 inline-block product-icon-heart mr-0">&ndash;&gt;-->
-<!--                                        <a class="heart-toggle full" href="#">-->
-<!--                                            <i class="fas fa-heart"></i>-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                               </div>-->
-
-
-<!--                                                                              class="heart-toggle"-->
-<!--                                                                             id="favorite" th:value="${article.postid}"></a>-->
-
-<!--                             <button sec:authorize="hasRole('ROLE_USER')"  type="button"-->
-<!--                                           class="update"-->
-<!--                                            id="favorite" th:onclick="|archiveFunction(${article.postid})|"><i class="fa-solid fa-heart"></i></button>-->
-
-                                <!--                                <button -->
-<!--                                        class="heart-icon"fa-solid fa-book-->
-<!--                                        id="favorite" th:onclick="|archiveFunction(${article.postid})|">收藏文章<i class="icon_heart_alt"></i></button>-->
-<!--                                <a sec:authorize="hasRole('ROLE_USER')"  class="heart-icon" th:onclick="|archiveFunction(${article.postid})|">收藏文章<span class="icon_heart_alt"></span></a>-->
-
-
-<!--                                      <div class="col-4 inline-block product-icon-heart mr-0">-->
-<!--                                        <a class="heart-toggle full" href="#">-->
-<!--                                            <i class="fas fa-heart"></i>-->
-<!--                                                  </a>-->
-<!--                                                   </div>-->
-<!--                                                   </div>-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
 
 
 
-                    </div>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 
-                <div class="col-lg-12">
-                    <div class="product__pagination blog__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
-            </div>
+
         </div>
     </div>
     </div>

@@ -621,7 +621,7 @@ SET IDENTITY_INSERT [dbo].[article] OFF
 SET IDENTITY_INSERT [dbo].[message] ON
 
 INSERT [dbo].[message] ([message_id], [date_time], [image_url], [message], [postid], [user_id]) VALUES (1, CAST(N'2022-07-20T10:47:34.8140000' AS DateTime2), N'https://i.imgur.com/lNPl7Qy.jpg', N'想請問上課時間~',  3, 2)
-INSERT [dbo].[message] ([message_id], [date_time], [image_url], [message], [postid], [user_id]) VALUES (2, CAST(N'2022-07-20T10:51:49.6880000' AS DateTime2), N'https://i.imgur.com/w4r4lCj.jpg', N'想請問上課時間?~', 3, 3)
+INSERT [dbo].[message] ([message_id], [date_time], [image_url], [message], [postid], [user_id]) VALUES (2, CAST(N'2022-07-20T10:51:49.6880000' AS DateTime2), N'https://i.imgur.com/w4r4lCj.jpg', N'adgfhkokd', 3, 3)
 INSERT [dbo].[message] ([message_id], [date_time], [image_url], [message], [postid], [user_id]) VALUES (3, CAST(N'2022-07-20T10:54:14.5620000' AS DateTime2), N'https://i.imgur.com/v3UKiPB.png', N'好讚!加入會員有優惠!', 4, 4)
 INSERT [dbo].[message] ([message_id], [date_time], [image_url], [message], [postid], [user_id]) VALUES (4, CAST(N'2022-07-20T10:58:06.7900000' AS DateTime2), N'https://i.imgur.com/KaKjwkC.jpg', N'很喜歡張錫源老師的課~
 希望下次他還會來Bake Your Life 開課!謝謝~
