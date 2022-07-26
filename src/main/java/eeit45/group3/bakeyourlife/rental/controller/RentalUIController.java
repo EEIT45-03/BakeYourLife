@@ -227,15 +227,38 @@ public class RentalUIController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @ResponseBody
     @GetMapping("/admin/rental/SortPersonSum")
     public RentalChart findSortPersonSum(){
         RentalChart chart = new RentalChart();
-//        List<AvailableQuantity> list = rentalService.findSortPersonSum();
-//        for (AvailableQuantity item : list){
-//            chart.addData(item);
-//        } R
+        List<AvailableQuantity> list = rentalService.findSortPersonSum();
+        for (AvailableQuantity item : list){
+            chart.addData(item);
+        }
         return chart;
     }
 
+    @ResponseBody
+    @GetMapping("/admin/rental/VenuePersonSum")
+    public RentalChart findVenuePersonSum(){
+        RentalChart chart = new RentalChart();
+        List<AvailableQuantity> list = rentalService.findVenuePersonSum();
+        for (AvailableQuantity item : list){
+            chart.addData(item);
+        }
+        return chart;
+    }
+
+
+    @ResponseBody
+    @GetMapping("/admin/rental/VenuePriceSum")
+    public RentalChart findVenuePriceSum(){
+        RentalChart chart = new RentalChart();
+        List<AvailableQuantity> list = rentalService.findVenuePriceSum();
+        for (AvailableQuantity item : list){
+            chart.addData(item);
+        }
+        return chart;
+    }
 
 }

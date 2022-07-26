@@ -732,4 +732,20 @@ public class RentalServiceImpl implements RentalService{
 	public List<AvailableQuantity> findSortPersonSum(){
 		return venueListRepository.findSortPersonSum();
 	}
+
+	@Override
+	public List<AvailableQuantity> findVenuePersonSum() {
+		return venueListRepository.findVenuePersonSum();
+	}
+
+
+	@Override
+	public List<AvailableQuantity> findVenuePriceSum() {
+		return venueListRepository.findVenuePriceSum();
+	}
+
+	@Override
+	public AvailableQuantity findVenuePersonMax() {
+		return venueListRepository.findVenuePersonMax();
+	}
 }

@@ -201,4 +201,9 @@ public interface RentalService {
 
 	public void sendRentalMail(Rental rental) throws UnsupportedEncodingException, MessagingException;
 
+	public List<AvailableQuantity> findVenuePersonSum();
+
+	public List<AvailableQuantity> findVenuePriceSum();
+
+	public  AvailableQuantity findVenuePersonMax();
 }
