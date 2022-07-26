@@ -229,9 +229,9 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         user.setAuthority("ROLE_USER");
         user.setImageUrl("https://i.imgur.com/gEHJxsi.jpg");
         user.setAddress(fakeUserData.getAddress());
-        //隨機0、1
-        int random = (int) (Math.random() * 2);
-        user.setGender(random == 0 ? "男" : "女");
+        //30%
+        int random = new Random().nextInt(100);
+        user.setGender(random > 70 ? "男" : "女");
         user.setBirth(genRandomDate());
         return user;
     }

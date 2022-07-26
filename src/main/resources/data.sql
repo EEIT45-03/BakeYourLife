@@ -514,8 +514,8 @@ SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
 
 
    --自動生產編號
-Insert INTO produce_no VALUES ('20220725', 'rental','6')
-Insert INTO produce_no VALUES ('20220725', 'venueList','17')
+Insert INTO produce_no VALUES ('20220726', 'rental','3')
+Insert INTO produce_no VALUES ('20220726', 'venueList','9')
 
     --新增租借單
 SET IDENTITY_INSERT [dbo].[rental] ON
