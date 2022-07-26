@@ -243,7 +243,7 @@ SET IDENTITY_INSERT [dbo].[farmer_product_pic] OFF
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市楊梅區中山路121巷4弄9號', N'1994-09-19', N'vison918889@gmail.com', N'管理者', N'男', N'$2a$10$YGN1RifEWFMQqWgVNFPl6uK68J8bjMpsOjQIw18ZEchdoQXZq1vP.', N'0918583187', GETDATE(), N'byl0729',N'ROLE_ADMIN',N'https://i.imgur.com/BhAxrqk.jpg',1)
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'eeit45@bycc.dev', N'跳跳虎', N'男', N'$2a$10$L6rXqpJopBrColGAahlYrOy6MWDIxAVQFJI3Ttrd31ZCoqK0x6gmS', N'0956326532', GETDATE(), N'usertest1',N'ROLE_USER',N'https://i.imgur.com/oGvQlYA.jpg',1)
 --課程測試帳號
-INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'麵包超人', N'男', N'$2a$10$mEy3IiNLg7bZa/V/jP6oQe9ZYUb1jWDuddjE2MeTaQonEz2cQfM9.', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/8OWhg3I.png',1)
+INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'麵包超人', N'男', N'$2a$10$irmlCNkjjQ8utDi06aHVte./TMmh15Ky3yQitT3.CjMMNXaVDMtsi', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/8OWhg3I.png',1)
 -- INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'yi999897@gmail.com', N'測試會員', N'男', N'$2a$10$T3NCCFHTBIuMYsREiyFGDOi08B1KGO4jQ1/mA/S/vbOa4aL3t0G1u', N'0956326532', GETDATE(), N'usertest123',N'ROLE_USER',N'https://i.imgur.com/q5nYQAo.png',1)
 --文章測試
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png',1)
@@ -586,24 +586,73 @@ INSERT [dbo].[coupon] ([discriminator], [code], [end_date], [max_quantity], [min
 
 
 --新增課程資料
-SET IDENTITY_INSERT [dbo].[course_prodcut] ON
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (1, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/hunDTmc.jpg', N'丙級西點烘焙下午班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (2, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/2UnR7Lm.jpg', N'乙級麵包烘焙假日班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-INSERT [dbo].[course_prodcut] ([id], [description], [image], [name], [price], [summary]) VALUES (3, N'單元一：烘培食品概論(麵包、蛋糕、西點)、產品分類、原料特性、製程解說及分析、烘培計算及配方範圍演算。單元二：圓頂奶油土司、奶油空心餅(泡芺)', N'https://i.imgur.com/Fd0KQoL.jpg', N'乙級蛋糕烘焙晚上班', 14000, N'烘培食品概論(麵包、蛋糕、西點)圓頂奶油土司、奶油空心餅(泡芺)')
-SET IDENTITY_INSERT [dbo].[course_prodcut] OFF
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1000, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'TeacherChen', 1, 1)
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1001, 0, CAST(N'2022-08-26T01:00:00.0000000' AS DateTime2), 12, N'', CAST(N'2022-08-23T01:00:00.0000000' AS DateTime2), N'TeacherLin', 1, 1)
-INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1002, 0, CAST(N'2022-08-27T01:00:00.0000000' AS DateTime2), 15, N'', CAST(N'2022-08-24T01:00:00.0000000' AS DateTime2), N'TeacherWang', 2, 1)
-SET IDENTITY_INSERT [dbo].[course_time] ON
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (1, CAST(N'2022-08-29T10:00:00.0000000' AS DateTime2), N'10001', N'', CAST(N'2022-08-29T12:00:00.0000000' AS DateTime2), 1000)
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (2, CAST(N'2022-08-30T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-30T12:00:00.0000000' AS DateTime2), 1000)
-INSERT [dbo].[course_time] ([ctime_id], [ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (3, CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1000)
-SET IDENTITY_INSERT [dbo].[course_time] OFF
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES (N'<p>第一天：長條狀奶油鬆餅＋果醬夾心蛋糕餅＋裝飾奶油小西餅</p>
+
+<p>第二天：雙色冰箱小西餅-方形＋全麥蘇打夾心餅乾</p>
+
+<p>＋巧克力披覆甜餅乾</p>
+
+<p>第三天：&nbsp;裝飾薑餅屋＋雙色冰箱小西餅-圓形</p>
+', N'https://i.imgur.com/oIM5zPW.jpg', N'乙級烘焙下午特訓班', 30000, N'目前國內烘焙證照最高等級「乙級證照」，取得將讓您終身受用無窮。依勞委會職訓局頒佈「烘焙」乙級技術士技能檢定規範術科篇，共分為麵包、西點、餅乾、伴手禮四大類。')
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES (N'<p>圓頂奶油土司麵包、圓頂葡萄乾土司麵包、<br />
+山形白土司麵包、橄欖形餐包、奶酥甜麵包、布丁餡甜麵包、紅豆餡甜麵包</p>
+', N'https://i.imgur.com/WNhX4sH.jpg', N'丙級麵包烘焙晚間班', 18000, N'專業證照課程-烘焙麵包丙級不僅考證照、更讓您學得專業技術，取得專業認證、學習第二專長，將對你位來就業、創業受用無窮；年滿15歲，無任何烹飪經驗皆可參加。本教室訓練場地新、設備齊全，提供您親手實作、親身體驗作麵包的樂趣。')
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES ( N'<p>A. 奶油貓舌小西餅 B. 葡萄乾燕麥紅糖小西餅 C. 調味小餅乾 D. 奶油小西餅 E. 瑪琍牛奶餅乾 F. 奶油蘇打餅乾&nbsp;G. 奶油椰子餅乾</p>
+
+<p>另加學科：烘焙概論、烘焙計算、考場規定、及考試應注意事項、透過即測即評，一日內考完學科、術科，當天通過領證！</p>
+', N'https://i.imgur.com/6Cumml6.jpg', N'丙級餅乾烘焙下午班', 15000, N'專業證照課程-烘焙丙級不僅考證照、更讓您學得專業技術，取得專業認證、學習第二專長，將對你位來就業、創業受用無窮；年滿15歲，無任何烹飪經驗皆可參加。本教室訓練場地新、設備齊全，提供您親手實作、親身體驗作麵包的樂趣。')
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES (N'<p>第一堂：烘焙概論及計算、奶油大理石蛋糕(4個) 第二堂：戚風蛋糕捲(2條)、奶油空心餅(16個)&nbsp;</p>
+', N'https://i.imgur.com/6GegbSQ.jpg', N'丙級蛋糕烘焙假日班', 20000, N'專業證照課程-烘焙丙級西點蛋糕不僅考證照、更讓您學得專業技術，取得專業認證、學習第二專長，將對你位來就業、創業受用無窮；年滿15歲，無任何烹飪經驗皆可參加。本教室訓練場地新、設備齊全，提供您親手實作、親身體驗作西點蛋糕的樂趣。')
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES (N'<p>巧克力戚風蛋糕捲、奶油大理石蛋糕、海綿蛋糕、奶油空心餅、 香草天使蛋糕、蒸烤雞蛋牛奶布丁、檸檬布丁派等七種</p>
+', N'https://i.imgur.com/EnRCJba.jpg', N'丙級西點烘焙上午班', 14000, N'巧克力戚風蛋糕捲、奶油大理石蛋糕、海綿蛋糕、奶油空心餅、 香草天使蛋糕、蒸烤雞蛋牛奶布丁、檸檬布丁派等七種')
+INSERT [dbo].[course_prodcut] ([description], [image], [name], [price], [summary]) VALUES (N'<p>邀請具有十年以上經驗的專業西點烘焙師傅親自教學，在專業烘焙教學廚房上課，課程豐富多元，中秋節應景的月餅蛋黃酥，經典甜點提拉米蘇、法芙娜蛋糕吐司、舒芙蕾乳酪，到時下最夯的生吐司、虎皮蛋糕等。</p>
+', N'https://i.imgur.com/6qGXxpu.jpg', N'西點烘焙假日體驗班', 2000, N'邀請具有十年以上經驗的專業西點烘焙師傅親自教學，在專業烘焙教學廚房上課，課程豐富多元，中秋節應景的月餅蛋黃酥，經典甜點提拉米蘇、法芙娜蛋糕吐司、舒芙蕾乳酪，到時下最夯的生吐司、虎皮蛋糕等')
+--新增開課
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1000, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'謝佳陵', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1001, 0, CAST(N'2022-08-26T01:00:00.0000000' AS DateTime2), 12, N'', CAST(N'2022-08-23T01:00:00.0000000' AS DateTime2), N'謝佳陵', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1002, 0, CAST(N'2022-08-27T01:00:00.0000000' AS DateTime2), 15, N'', CAST(N'2022-08-24T01:00:00.0000000' AS DateTime2), N'謝佳陵', 1, 1)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1003, 0, CAST(N'2022-08-26T01:00:00.0000000' AS DateTime2), 12, N'', CAST(N'2022-08-23T01:00:00.0000000' AS DateTime2), N'謝佳陵', 2, 2)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1004, 0, CAST(N'2022-09-02T01:00:00.0000000' AS DateTime2), 12, N'', CAST(N'2022-08-29T01:00:00.0000000' AS DateTime2), N'謝佳陵', 2, 2)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1005, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'謝佳陵', 3, 3)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1006, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'謝佳陵', 4, 3)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1007, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 60, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'謝佳陵', 5, 2)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1008, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 8, N'', CAST(N'2022-08-15T01:00:00.0000000' AS DateTime2), N'謝佳陵', 6, 4)
+INSERT [dbo].[course] ([open_course], [applicants], [end_date], [hours], [note], [start_date], [teacher], [fk_c_product_id], [fk_venue_id]) VALUES (1009, 0, CAST(N'2022-08-25T01:00:00.0000000' AS DateTime2), 8, N'', CAST(N'2022-08-22T01:00:00.0000000' AS DateTime2), N'謝佳陵', 6, 2)
+
+--課程時段
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-29T10:00:00.0000000' AS DateTime2), N'10001', N'', CAST(N'2022-08-29T12:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-30T10:00:00.0000000' AS DateTime2), N'10002', N'', CAST(N'2022-08-30T12:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10003', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1000)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-25T10:00:00.0000000' AS DateTime2), N'10011', N'', CAST(N'2022-08-25T12:00:00.0000000' AS DateTime2), 1001)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-26T10:00:00.0000000' AS DateTime2), N'10012', N'', CAST(N'2022-08-26T12:00:00.0000000' AS DateTime2), 1001)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-27T10:00:00.0000000' AS DateTime2), N'10013', N'', CAST(N'2022-08-27T12:00:00.0000000' AS DateTime2), 1001)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-09-01T10:00:00.0000000' AS DateTime2), N'10021', N'', CAST(N'2022-09-01T12:00:00.0000000' AS DateTime2), 1002)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-09-02T10:00:00.0000000' AS DateTime2), N'10022', N'', CAST(N'2022-09-02T12:00:00.0000000' AS DateTime2), 1002)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-09-03T10:00:00.0000000' AS DateTime2), N'10023', N'', CAST(N'2022-09-03T12:00:00.0000000' AS DateTime2), 1002)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10031', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1003)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10041', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1004)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-08-31T10:00:00.0000000' AS DateTime2), N'10051', N'', CAST(N'2022-08-31T12:00:00.0000000' AS DateTime2), 1005)
+INSERT [dbo].[course_time] ([ctime_end_date], [ctime_no], [ctime_note], [ctime_start_date], [fk_op_course_id]) VALUES (CAST(N'2022-09-30T10:00:00.0000000' AS DateTime2), N'10061', N'', CAST(N'2022-09-30T12:00:00.0000000' AS DateTime2), 1006)
 --新增報名資料
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022001, 1, CAST(N'2022-01-01T11:00:00.0000000' AS DateTime2), 1, 1000, 1)
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022002, 2, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022003, 3, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
-INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [fk_op_course], [fk_user_id]) VALUES (2022004, 4, CAST(N'2022-01-02T11:00:00.0000000' AS DateTime2), 4, 1001, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022001, 1, CAST(N'2022-07-26T09:48:14.7850000' AS DateTime2), 1, 30000, 1002, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022002, 1, CAST(N'2022-07-26T10:00:13.3310000' AS DateTime2), 0, 30000, 1000, 2)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022003, 1, CAST(N'2022-07-26T10:00:37.7600000' AS DateTime2), 3, 15000, 1005, 2)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022004, 1, CAST(N'2022-07-26T10:01:01.2740000' AS DateTime2), 0, 18000, 1004, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022005, 1, CAST(N'2022-07-26T09:48:14.7850000' AS DateTime2), 1, 30000, 1002, 1)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022006, 1, CAST(N'2022-07-26T10:00:13.3310000' AS DateTime2), 0, 30000, 1000, 1)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022007, 1, CAST(N'2022-07-26T10:00:37.7600000' AS DateTime2), 0, 15000, 1005, 1)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022008, 1, CAST(N'2022-07-26T10:01:01.2740000' AS DateTime2), 4, 18000, 1004, 2)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022009, 2, CAST(N'2022-07-26T10:07:29.5380000' AS DateTime2), 4, 60000, 1000, 2)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022010, 1, CAST(N'2022-07-26T10:07:55.9420000' AS DateTime2), 4, 20000, 1006, 3)
+INSERT [dbo].[course_register] ([register_id], [attendance], [register_date], [state], [total_price], [fk_op_course], [fk_user_id]) VALUES (2022011, 2, CAST(N'2022-07-26T10:08:47.7430000' AS DateTime2), 5, 40000, 1000, 2)
+--新增留言
+SET IDENTITY_INSERT [dbo].[course_student_result] ON
+INSERT [dbo].[course_student_result] ([str_id], [result_image_url], [str_content], [str_title], [time], [fk_product_id], [fk_user_id]) VALUES (1, N'https://i.imgur.com/a9J2Spk.jpg', N'週末，在家裡跟家人一起體驗超初級烘焙，
+動手做的時間很好玩，過程簡單，成品又好吃，
+口味很像喜餅裡面會有的奶油/伯爵茶小餅乾，
+香醇的奶油味，配上簡單的原物料，
+可愛又迷人的小餅乾就出爐囉', N'奶油小餅乾', CAST(N'2022-07-26T10:51:02.7160000' AS DateTime2), 1, 2)
+SET IDENTITY_INSERT [dbo].[course_student_result] OFF
 
 --新增文章資料
 SET IDENTITY_INSERT [dbo].[article] ON

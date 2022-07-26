@@ -29,7 +29,7 @@ public class Course implements Serializable{
 			pkColumnName = "op_course_pk",
 			valueColumnName = "open_course",
 			allocationSize = 1,
-			initialValue = 1002
+			initialValue = 1009
 	)
 	@GeneratedValue( strategy = GenerationType.TABLE, generator = "coseq")
 	private Integer openCourse;

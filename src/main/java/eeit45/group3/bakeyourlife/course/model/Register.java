@@ -20,7 +20,7 @@ public class Register implements Serializable {
     private static final long serialVersionUID = 1L;
     //報名編號
     @Id
-    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 2022005 )
+    @SequenceGenerator( name = "ReSeq", sequenceName = "register", allocationSize = 1 , initialValue = 2022012 )
     @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ReSeq")
     private Integer registerId;
 
