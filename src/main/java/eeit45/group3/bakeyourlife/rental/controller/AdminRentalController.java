@@ -330,4 +330,14 @@ public class AdminRentalController {
     }
 
 
+    @GetMapping("/Chart")
+    public String viewAdminSale(Model model) {
+        Long sum = rentalService.findByRentalTotalSum();
+        model.addAttribute( "sum", sum);
+        Long count = rentalService.findByRentalCount();
+        model.addAttribute( "count", count);
+        Long count1 = rentalService.findByVenueListPersonSum();
+        model.addAttribute( "count1", count1);
+        return "/Chart";
+    }
 }

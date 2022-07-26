@@ -249,133 +249,133 @@ INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_t
 INSERT INTO users(address,birth,email,full_name,gender,password,phone,register_time,username,authority,image_url,enabled) VALUES (N'桃園市中壢區新生路二段421號', N'1993-08-19', N'hallie0705@gmail.com', N'依米奇', N'男', N'$2a$10$FnzDcG7WUQXUeUA1K6CwOe7BVoMZGHyydt9PtPfYNAIyJKDVzH6j2', N'0956326532', GETDATE(), N'article123',N'ROLE_USER',N'https://i.imgur.com/ezcCdg3.png',1)
 
 
---新增器具類別
--- INSERT INTO tackle_sort(sort) VALUES(N'烤箱');
--- INSERT INTO tackle_sort(sort) VALUES(N'模具');
--- INSERT INTO tackle_sort(sort) VALUES(N'容器');
--- INSERT INTO tackle_sort(sort) VALUES(N'濾網/篩具');
--- INSERT INTO tackle_sort(sort) VALUES(N'桿麵棍');
--- INSERT INTO tackle_sort(sort) VALUES(N'攪拌用具');
--- INSERT INTO tackle_sort(sort) VALUES(N'刷具');
--- INSERT INTO tackle_sort(sort) VALUES(N'刀具/切割工具');
--- INSERT INTO tackle_sort(sort) VALUES(N'測量工具');
--- INSERT INTO tackle_sort(sort) VALUES(N'擠花/翻糖工具');
+-- 新增器具類別
+INSERT INTO tackle_sort(sort) VALUES(N'烤箱');
+INSERT INTO tackle_sort(sort) VALUES(N'模具');
+INSERT INTO tackle_sort(sort) VALUES(N'容器');
+INSERT INTO tackle_sort(sort) VALUES(N'濾網/篩具');
+INSERT INTO tackle_sort(sort) VALUES(N'桿麵棍');
+INSERT INTO tackle_sort(sort) VALUES(N'攪拌用具');
+INSERT INTO tackle_sort(sort) VALUES(N'刷具');
+INSERT INTO tackle_sort(sort) VALUES(N'刀具/切割工具');
+INSERT INTO tackle_sort(sort) VALUES(N'測量工具');
+INSERT INTO tackle_sort(sort) VALUES(N'擠花/翻糖工具');
 
---新增器具
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,N'
---                                                                                                          NB-H3801 大容量、發酵烘烤一機完成。
---                                                                                                          ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
---                                                                                                          ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
---                                                                                                          ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
---
---                                                                                                          ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架。',N'PANASONIC NB-H3801',N'38L電烤箱', 1);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,N'
---                                                                                                          NB-H3203 大容量、發酵烘烤一機完成。
---                                                                                                          ●雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷,同時擁有更良好的聚熱功能,效率更提升。
---                                                                                                          ●360度自動旋轉燒烤 - 自動旋轉烘烤,不會過焦或不熟,全面均勻受熱,不遺漏任何一處的美味。
---                                                                                                          ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
---                                                                                                          ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
---                                                                                                          ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
---
---                                                                                                          ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架',N'PANASONIC  NB-H3203',N'32L電烤箱', 1);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
---                                                                                                          產地：台灣。
---
---                                                                                                         成份：鋁合金(耐溫230度)。
---                                                                                                         規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小兔頭_5入_T213016',N'鳳梨酥模具+壓棒(兔子)', 2);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
---                                                                                                          產地：台灣。
---
---                                                                                                          成份：鋁合金(耐溫230度)。
---                                                                                                          規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小熊頭_5入_T213015',N'鳳梨酥模具+壓棒(小熊)', 2);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,N'
---                                                                                                          產地：日本。
---
---                                                                                                          成份：鍍錫鋼片。
---                                                                                                          規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA雙心12連_126-19B',N'雙心12連模具', 2);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,N'
---                                                                                                          產地：日本。
---
---                                                                                                          成份：鍍錫鋼片。
---                                                                                                          規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA栗子12連_126-18',N'栗子12連模具', 2);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,N'
---                                                                                                          產地：日本。
---
---                                                                                                          成份：鍍錫鋼片。
---                                                                                                          規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。',N'多連烤盤_MATSUNAGA瑪德蓮15連_126-13',N'瑪德蓮15連模具', 2);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,N'
---                                                                                                         產地：日本。
---
---                                                                                                         材質：耐熱玻璃(耐熱溫差120度)。
---                                                                                                         尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。
---                                                                                                         容量：(S)900ml/(M)1500ml/(L)2200ml。
---                                                                                                         商品重量：約2.45公斤。
---                                                                                                         用途：盛裝食材用。
---                                                                                                         注意事項：不可重摔',N'玻璃盆_MXPN-3704',N'玻璃盆', 3);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,N'
---                                                                                                         產地：中國。
---
---                                                                                                         材質：不鏽鋼。
---                                                                                                         尺寸規格 : 直徑長約20公分、高約12公分。
---                                                                                                         商品重量：約470公克。
---                                                                                                         用途：盛裝食材用。
---                                                                                                         注意事項：不可重摔、放入微波爐',N'深型打蛋盆20cm_WK9364',N'20cm不鏽鋼盆', 3);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
---                                                                                                         產地：中國。
---
---                                                                                                         材質：不鏽鋼。
---                                                                                                         尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。
---                                                                                                         商品重量：約460公克。
---                                                                                                         用途：盛裝食材用。
---                                                                                                         注意事項：不可重摔、放入微波爐',N'深型打蛋盆24cmBetty_CT4967',N'24cm不鏽鋼盆', 3);
--- INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
---                                                                                                         產地：中國。
---
---                                                                                                         材質：不鏽鋼。
---                                                                                                         尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。
---                                                                                                         商品重量：約500公克。
---                                                                                                         用途：盛裝食材用。
---                                                                                                         注意事項：不可重摔、放入微波爐',N'握把底止滑打蛋盆23cm_CT4966',N'握把底止滑打蛋盆', 3);
+-- 新增器具
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (4740,30,50,N'
+                                                                                                         NB-H3801 大容量、發酵烘烤一機完成。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架。',N'PANASONIC NB-H3801',N'38L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2950,50,50,N'
+                                                                                                         NB-H3203 大容量、發酵烘烤一機完成。
+                                                                                                         ●雙層防燙隔熱門 - 防止烘烤過程中誤觸玻璃門而燙傷,同時擁有更良好的聚熱功能,效率更提升。
+                                                                                                         ●360度自動旋轉燒烤 - 自動旋轉烘烤,不會過焦或不熟,全面均勻受熱,不遺漏任何一處的美味。
+                                                                                                         ●3D熱風對流 - 大火力立體熱風對流烘烤,全面包圍時才,不易烤焦,油切更健康。
+                                                                                                         ●上下獨立控溫滿足各種火力需求 - 上火+下火雙重控溫:上火、下火可同時設定不同溫度,滿足多種食材不同厚度的火裡需求。
+                                                                                                         ●發酵行程 發酵烘培一機完成 - 結合發酵箱功能,一次滿足發酵與烘培需求,選擇發酵行程,無須再另外設定溫度就能維持30度~50度C最佳發酵環境。
+
+                                                                                                         ●附加設備 - 琺瑯烤盤、琺瑯深烤盤、烤網、抽取式集屑盤、取物夾、取物支架',N'PANASONIC  NB-H3203',N'32L電烤箱', 1);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
+                                                                                                         產地：台灣。
+
+                                                                                                        成份：鋁合金(耐溫230度)。
+                                                                                                        規格：最長約5公分、寬約4公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小兔頭_5入_T213016',N'鳳梨酥模具+壓棒(兔子)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (500,10,100,N'
+                                                                                                         產地：台灣。
+
+                                                                                                         成份：鋁合金(耐溫230度)。
+                                                                                                         規格：最長約4.6公分、寬約4.5公分、高約2.2公分，每組五入。',N'鳳梨酥模具組_鋁合金小熊頭_5入_T213015',N'鳳梨酥模具+壓棒(小熊)', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2000,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5.5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA雙心12連_126-19B',N'雙心12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2200,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約2公分，置物最長約5公分、寬約5公分、高約2公分/共12連。',N'多連烤盤_MATSUNAGA栗子12連_126-18',N'栗子12連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (2350,10,80,N'
+                                                                                                         產地：日本。
+
+                                                                                                         成份：鍍錫鋼片。
+                                                                                                         規格：整體長約30公分、寬約22公分、高約1.7公分，置物最長約5公分、寬約3.5公分、高約1.7公分/共15連。',N'多連烤盤_MATSUNAGA瑪德蓮15連_126-13',N'瑪德蓮15連模具', 2);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (300,15,50,N'
+                                                                                                        產地：日本。
+
+                                                                                                        材質：耐熱玻璃(耐熱溫差120度)。
+                                                                                                        尺寸規格 : 直徑長約15.6公分、高約10.2公分。直徑長約21公分、高約12公分。
+                                                                                                        容量：(S)900ml/(M)1500ml/(L)2200ml。
+                                                                                                        商品重量：約2.45公斤。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔',N'玻璃盆_MXPN-3704',N'玻璃盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (390,15,50,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 直徑長約20公分、高約12公分。
+                                                                                                        商品重量：約470公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'深型打蛋盆20cm_WK9364',N'20cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約22.8公分、外徑約23.2公分(不含嘴口)、高約13.4公分。
+                                                                                                        商品重量：約460公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'深型打蛋盆24cmBetty_CT4967',N'24cm不鏽鋼盆', 3);
+INSERT INTO Tackle(damages,day_price,max,notes,specification,tackle_name, fk_sort_id) VALUES (350,15,40,N'
+                                                                                                        產地：中國。
+
+                                                                                                        材質：不鏽鋼。
+                                                                                                        尺寸規格 : 內徑約24公分、外徑約27.5公分、高約14.5公分。
+                                                                                                        商品重量：約500公克。
+                                                                                                        用途：盛裝食材用。
+                                                                                                        注意事項：不可重摔、放入微波爐',N'握把底止滑打蛋盆23cm_CT4966',N'握把底止滑打蛋盆', 3);
 
 --新增器具圖片
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/tb8W5J4.png',1);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/32RgBtM.png',1);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xBpTAEm.png',1);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nIQ7cWy.png',1);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hxevsGw.png',2);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/uwkvD6G.png',2);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Qk8Pz8S.png',2);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/7LYKHqh.png',2);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hKTKUIm.png',2);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/HRaZVRP.png',3);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/S2KDkan.png',3);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6WpFPTN.png',3);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Hveg2Gl.png',3);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/1mGDySq.png',4);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/suof28U.png',4);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hSnuiOC.png',4);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/eVTMLU3.png',4);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/CBzzRt4.png',5);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6oxKYZl.png',5);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/bMe6oVu.png',5);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Taf9bPN.png',5);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/rROpkOM.png',6);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/F2WY0eR.png',6);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/abXs2p1.png',6);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/UneqTz4.png',6);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/IaCJqaU.png',7);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/umbhqpf.png',7);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/ojBEUSN.png',7);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/9mO9pbP.png',7);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/h0dBp7v.png',8);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/jqoZB4F.png',8);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nd7Jw0W.png',9);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xAadPqt.png',9);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/yq493eP.png',10);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/U21OVeB.png',10);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/77tCgYR.png',11);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/EJTHlhj.png',11);
--- INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/qi2ZZCt.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/tb8W5J4.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/32RgBtM.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xBpTAEm.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nIQ7cWy.png',1);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hxevsGw.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/uwkvD6G.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Qk8Pz8S.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/7LYKHqh.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hKTKUIm.png',2);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/HRaZVRP.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/S2KDkan.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6WpFPTN.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Hveg2Gl.png',3);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/1mGDySq.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/suof28U.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/hSnuiOC.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/eVTMLU3.png',4);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/CBzzRt4.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/6oxKYZl.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/bMe6oVu.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/Taf9bPN.png',5);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/rROpkOM.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/F2WY0eR.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/abXs2p1.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/UneqTz4.png',6);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/IaCJqaU.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/umbhqpf.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/ojBEUSN.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/9mO9pbP.png',7);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/h0dBp7v.png',8);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/jqoZB4F.png',8);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/nd7Jw0W.png',9);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/xAadPqt.png',9);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/yq493eP.png',10);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/U21OVeB.png',10);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/77tCgYR.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/EJTHlhj.png',11);
+INSERT INTO tackle_pic_list(picture,fk_tackle_id) VALUES(N'https://i.imgur.com/qi2ZZCt.png',11);
 
 --新增場地類別
 INSERT INTO venue_sort(sort) VALUES(N'課用烘培室');
@@ -512,6 +512,11 @@ INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (
 INSERT [dbo].[venue_pic_list] ([pic_list_id], [picture], [fk_venue_id]) VALUES (27, N'https://i.imgur.com/KurZRTY.jpg', 12)
 SET IDENTITY_INSERT [dbo].[venue_pic_list] OFF
 
+
+   --自動生產編號
+Insert INTO produce_no VALUES ('20220725', 'rental','6')
+Insert INTO produce_no VALUES ('20220725', 'venueList','17')
+
     --新增租借單
 SET IDENTITY_INSERT [dbo].[rental] ON
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (1, CAST(N'2022-07-25T13:24:17.0000000' AS DateTime2), N'202207250000001', NULL, N'已付款', 2000, N'場地', 2)
@@ -520,7 +525,11 @@ INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment],
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (4, NULL, N'202207250000004', NULL, N'已退單', 1500, N'場地', 3)
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (5, CAST(N'2022-07-25T13:29:44.0000000' AS DateTime2), N'202207250000005', NULL, N'已付款', 4800, N'場地', 4)
 INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (6, CAST(N'2022-07-25T13:30:15.0000000' AS DateTime2), N'202207250000006', NULL, N'已付款', 1800, N'場地', 3)
-SET IDENTITY_INSERT [dbo].[rental] OFF
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (7, CAST(N'2022-07-26T08:33:07.7800000' AS DateTime2), N'202207260000001', NULL, N'待付款', 3200, N'場地', 2)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (8, CAST(N'2022-07-26T08:34:46.9280000' AS DateTime2), N'202207260000002', NULL, N'待付款', 28800, N'場地', 2)
+INSERT [dbo].[rental] ([rental_id], [rental_date], [rental_no], [replenishment], [state], [total], [list_type], [user_id]) VALUES (9, NULL, N'202207260000003', NULL, N'未下單', 3600, N'場地', 2)
+
+    SET IDENTITY_INSERT [dbo].[rental] OFF
 
     --場地清單
 SET IDENTITY_INSERT [dbo].[venue_list] ON
@@ -541,7 +550,17 @@ INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (15, N'N', N'08:00-20:00', 1, 1200, CAST(N'2022-08-06T00:00:00.0000000' AS DateTime2), N'V20220725015', 5, 7)
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (16, N'N', N'12:00-16:00', 2, 800, CAST(N'2022-07-26T00:00:00.0000000' AS DateTime2), N'V20220725016', 6, 7)
 INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (17, N'N', N'08:00-16:00', 1, 1000, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220725017', 6, 6)
-SET IDENTITY_INSERT [dbo].[venue_list] OFF
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (18, N'N', N'12:00-16:00', 1, 400, CAST(N'2022-07-27T00:00:00.0000000' AS DateTime2), N'V20220726001', 7, 8)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (19, N'N', N'08:00-16:00', 1, 800, CAST(N'2022-07-27T00:00:00.0000000' AS DateTime2), N'V20220726002', 7, 7)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (20, N'N', N'08:00-16:00', 1, 800, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726003', 7, 7)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (21, N'N', N'08:00-20:00', 1, 1200, CAST(N'2022-08-06T00:00:00.0000000' AS DateTime2), N'V20220726004', 7, 7)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (22, N'N', N'16:00-20:00', 1, 1200, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726005', 8, 10)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (23, N'N', N'08:00-20:00', 1, 3600, CAST(N'2022-07-31T00:00:00.0000000' AS DateTime2), N'V20220726006', 8, 10)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (24, N'N', N'12:00-20:00', 10, 24000, CAST(N'2022-07-30T00:00:00.0000000' AS DateTime2), N'V20220726007', 8, 11)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (25, N'N', N'08:00-16:00', 1, 2400, CAST(N'2022-08-03T00:00:00.0000000' AS DateTime2), N'V20220726008', 9, 12)
+INSERT [dbo].[venue_list] ([venue_list_id], [ingredients], [period], [person], [price], [rental_date], [venue_list_no], [fk_rental_id], [fk_venue_id]) VALUES (26, N'N', N'16:00-20:00', 1, 1200, CAST(N'2022-07-27T00:00:00.0000000' AS DateTime2), N'V20220726009', 9, 11)
+
+    SET IDENTITY_INSERT [dbo].[venue_list] OFF
 
 
 --新增訂單資料

@@ -32,4 +32,10 @@ public interface VenueListRepository extends JpaRepository<VenueList, Integer> {
                                                              @Param("date") Date date);
 
     public VenueList findByRentalAndVenueAndRentalDateAndPeriod(Rental rental,Venue venue,Date date, String period);
+
+    @Query(value = "select SUM(vl.person) from venue_list vl INNER JOIN (SELECT * FROM rental where state != '已退單') r ON vl.fk_rental_id = r.rental_id",nativeQuery = true)
+    public Long findByVenueListPersonSum();
+
+    @Query(value = "SELECT sum(person) as 'value' ,sort as 'label' FROM venue v left join venue_sort vs ON v.fk_sort_id = vs.venue_sort_id join venue_list vl ON v.venue_id = vl.fk_venue_id group by sort",nativeQuery = true)
+    public  List<AvailableQuantity> findSortPersonSum();
 }

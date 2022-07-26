@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.rental.controller;
 
 import eeit45.group3.bakeyourlife.email.service.EmailService;
 import eeit45.group3.bakeyourlife.email.service.EmailServiceImpl;
+import eeit45.group3.bakeyourlife.order.utils.Chart;
 import eeit45.group3.bakeyourlife.rental.dto.VenueListRequest;
 import eeit45.group3.bakeyourlife.rental.model.Rental;
 import eeit45.group3.bakeyourlife.rental.model.TackleList;
@@ -12,6 +13,7 @@ import eeit45.group3.bakeyourlife.rental.utils.AvailableQuantity;
 import eeit45.group3.bakeyourlife.tackle.service.TackleService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import eeit45.group3.bakeyourlife.utils.RentalChart;
 import eeit45.group3.bakeyourlife.venue.model.Venue;
 import eeit45.group3.bakeyourlife.venue.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -224,7 +227,15 @@ public class RentalUIController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-
+    @GetMapping("/admin/rental/SortPersonSum")
+    public RentalChart findSortPersonSum(){
+        RentalChart chart = new RentalChart();
+//        List<AvailableQuantity> list = rentalService.findSortPersonSum();
+//        for (AvailableQuantity item : list){
+//            chart.addData(item);
+//        } R
+        return chart;
+    }
 
 
 }

@@ -6,5 +6,5 @@ public interface AvailableQuantity {
 
     String getLabel();
 
-    Integer getValue();
+    Long getValue();
 }
