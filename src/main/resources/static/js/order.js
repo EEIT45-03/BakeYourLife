@@ -110,7 +110,7 @@ function getData(result) {
 }
 
 function getTrackingNumber(result) {
-    if (result.trackingNumber === '') {
+    if (result.trackingNumber === '' || result.trackingNumber == null) {
         return "";
     } else {
         return `<tr>
