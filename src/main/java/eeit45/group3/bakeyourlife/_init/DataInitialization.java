@@ -190,16 +190,16 @@ public class DataInitialization implements ApplicationListener<ContextRefreshedE
         }
 
 
-        long start = System.currentTimeMillis();
 
         InsertInitDataJdbc jdbc = new InsertInitDataJdbc(dataSource);
 
+        long start = System.currentTimeMillis();
         jdbc.saveAllByUsers(users);
         jdbc.saveAllByOrders(orders);
+        long end = System.currentTimeMillis();
 //        jdbc.saveAllBySalesRecords(salesRecords);
         coupon.setUsedQuantity(couponUsedNumber);
         couponService.updateCoupon(coupon);
-        long end = System.currentTimeMillis();
 
         System.out.println(String.format("Total time: %d 毫秒", (end - start)));
         System.out.println("DataInitialization finished");

@@ -124,6 +124,10 @@ public class ShoppingCartController {
         String type = itemNo.substring(0, 1);
         Integer itemId = Integer.valueOf(itemNo.substring(1));
         CartItem cartItem = getCartItem(type,itemId);
+        if(cartItem == null && currentUser!=null){
+            cart.removeItem(itemNo);
+            redisTemplate.opsForValue().set("cart_" + currentUser.getUserId(), cart);
+        }
 
 
         return getCartResponseEntity(qty, cart, cartItem,currentUser);
@@ -312,11 +316,11 @@ public class ShoppingCartController {
         }
         if (cartItem != null && cartItem.isEnable() && cartItem.getStock()>=qty) {
             cart.updataItem(cartItem,qty);
-        }else if(!cartItem.isEnable()) {
+        }else if(cartItem == null || !cartItem.isEnable()) {
             Cart error = cart.clone();
             error.setMessage("商品不存在或已下架");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-        }else if(cartItem.getStock()<qty) {
+        }else if(cartItem != null && cartItem.getStock()<qty) {
             Cart error = cart.clone();
             error.setMessage("庫存不足");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

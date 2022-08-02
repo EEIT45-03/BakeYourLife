@@ -1,18 +1,11 @@
 package eeit45.group3.bakeyourlife.article.controller;
 
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import eeit45.group3.bakeyourlife.article.model.Message;
-import eeit45.group3.bakeyourlife.article.service.MessageService;
-import eeit45.group3.bakeyourlife.article.validator.ArticleValidator;
+import eeit45.group3.bakeyourlife.article.model.Article;
+import eeit45.group3.bakeyourlife.article.service.ArticleService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
 import eeit45.group3.bakeyourlife.utils.ImgurService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
@@ -23,12 +16,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
-import eeit45.group3.bakeyourlife.article.model.Article;
-import eeit45.group3.bakeyourlife.article.service.ArticleService;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 @Controller

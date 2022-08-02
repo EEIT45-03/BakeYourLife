@@ -1,6 +1,5 @@
 package eeit45.group3.bakeyourlife.config;
 
-import org.apache.tomcat.util.descriptor.LocalResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.AuthenticationException;

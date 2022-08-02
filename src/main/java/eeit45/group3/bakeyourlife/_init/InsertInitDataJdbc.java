@@ -51,7 +51,7 @@ public class InsertInitDataJdbc {
             orderPs = connection.prepareStatement(orderSql);
             orderItemPs = connection.prepareStatement(orderItemSql);
 
-            int batchSize = 800;
+            int batchSize = 10000;
             int orderCount = 0;
 
             for (Order order : orders) {
