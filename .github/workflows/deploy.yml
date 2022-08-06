@@ -62,10 +62,8 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         script: |
-            sudo /etc/init.d/BakeYourLife stop
+            sudo systemctl stop BakeYourLife
             mv ~/source/BakeYourLife.jar ~/source/BakeYourLife-old.jar
             mv ~/source/BakeYourLife-0.0.1-SNAPSHOT.jar ~/source/BakeYourLife.jar
-            sudo rm -rf /etc/init.d/BakeYourLife
-            sudo ln -s -f ~/source/BakeYourLife.jar /etc/init.d/BakeYourLife
-            sudo /etc/init.d/BakeYourLife start
+            sudo systemctl start BakeYourLife
             rm ~/source/BakeYourLife-old.jar
