@@ -16,6 +16,7 @@ import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatusConverter;
 import eeit45.group3.bakeyourlife.order.constant.PayType;
 import eeit45.group3.bakeyourlife.user.model.User;
+import org.hibernate.annotations.BatchSize;
 
 
 @Entity
@@ -91,6 +92,7 @@ public class Order implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code")
     @JsonIgnore
+    @BatchSize(size = 10)
     private Coupon coupon;
 
     private Integer discountAmount;
@@ -100,6 +102,7 @@ public class Order implements Serializable {
 
     //持有的商品清單
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+    @BatchSize(size = 10)
     private Set<OrderItem> orderItemList = new LinkedHashSet<>();
 
 
