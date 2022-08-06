@@ -34,7 +34,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-@Component
+//@Component
 public class DataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 
     //取消率
