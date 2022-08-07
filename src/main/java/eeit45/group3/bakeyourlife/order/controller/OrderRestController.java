@@ -59,7 +59,7 @@ public class OrderRestController {
 	@GetMapping("/OrdersByDT")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public DataTablesOutput<Order> getOrdersByDataTables(@Valid DataTablesInput input){
-			System.out.println(input);
+//			System.out.println(input);
 			DataTablesOutput<Order> orders = null;
 			orders = orderService.findAll(input);
 			return orders;

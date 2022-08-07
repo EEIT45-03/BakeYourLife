@@ -2,6 +2,7 @@ package eeit45.group3.bakeyourlife.user.model;
 
 import eeit45.group3.bakeyourlife.farmerproduct.model.FarmerProductBean;
 import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class User implements Serializable {
     private String imageUrl;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @BatchSize(size = 10)
     private List<ProductComment> productCommentList;
 
     @Column(name = "verification_code", length = 64)
