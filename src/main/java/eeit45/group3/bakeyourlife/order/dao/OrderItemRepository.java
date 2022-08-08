@@ -5,7 +5,8 @@ import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
-    List<OrderItem> findByOrder(Order order);
+    Set<OrderItem> findByOrder(Order order);
 }
