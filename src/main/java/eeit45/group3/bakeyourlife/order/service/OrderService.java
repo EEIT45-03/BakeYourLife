@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.order.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
@@ -103,7 +104,7 @@ public interface OrderService {
     //建立訂單
     Order createOrder(Order order);
 
-    List<OrderItem> findOrderItemByOrderId(Integer orderId);
+    Set<OrderItem> findOrderItemByOrderId(Integer orderId);
 
 //    Order createOrder(OrderRequest orderRequest);
 }

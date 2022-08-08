@@ -3,6 +3,7 @@ package eeit45.group3.bakeyourlife.order.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.coupon.service.CouponService;
@@ -376,7 +377,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public List<OrderItem> findOrderItemByOrderId(Integer orderId){
+	public Set<OrderItem> findOrderItemByOrderId(Integer orderId){
 		Order order = orderRepository.findById(orderId).orElse(null);
 		if(order != null){
 			return orderItemRepository.findByOrder(order);

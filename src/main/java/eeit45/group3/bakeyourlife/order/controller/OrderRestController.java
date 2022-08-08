@@ -71,7 +71,7 @@ public class OrderRestController {
 	@GetMapping("/Orders/{orderId}")
 	public ResponseEntity<Order> getOrder(@PathVariable Integer orderId){
 		Order order = orderService.findByOrderId(orderId).orElse(null);
-		
+		order.setOrderItemList(orderService.findOrderItemByOrderId(orderId));
 		if(order != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(order);
 		}else {
@@ -98,11 +98,11 @@ public class OrderRestController {
 	}
 
 
-	@GetMapping("/Orders/{orderId}/OrderItems")
-	public ResponseEntity<List<OrderItem>> getOrderItemsByOrderId(@PathVariable Integer orderId){
-		List<OrderItem> orderItems = orderService.findOrderItemByOrderId(orderId);
-		return ResponseEntity.status(HttpStatus.OK).body(orderItems);
-	}
+//	@GetMapping("/Orders/{orderId}/OrderItems")
+//	public ResponseEntity<List<OrderItem>> getOrderItemsByOrderId(@PathVariable Integer orderId){
+//		List<OrderItem> orderItems = orderService.findOrderItemByOrderId(orderId);
+//		return ResponseEntity.status(HttpStatus.OK).body(orderItems);
+//	}
 
 
 
