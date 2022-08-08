@@ -36,7 +36,7 @@ public class ChatBotController {
         /**
          * Info 訊息
          */
-        dialogflowMessenger.addInfoMessage("Info標題","內文","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/FrontArticle/ArticleDetail?postid=1");
+        dialogflowMessenger.addInfoMessage("Info標題","內文","https://i.imgur.com/N42uCxU.jpg","https://bake.bycc.dev/FrontArticle/ArticleDetail?postid=1");
 
 
         /**
@@ -58,7 +58,7 @@ public class ChatBotController {
          * Icon Type : https://fonts.google.com/icons?selected=Material+Icons
          * Button 訊息
          */
-        dialogflowMessenger.addButtonMessage("Home","#FF9800","Button文字","http://localhost:8080/",null,null,null);
+        dialogflowMessenger.addButtonMessage("Home","#FF9800","Button文字","https://bake.bycc.dev/",null,null,null);
 
 
         /**
@@ -83,9 +83,9 @@ public class ChatBotController {
          * Chips 訊息
          */
         Option option = new Option();
-        option.addOption("Chips選項一","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
-        option.addOption("Chips選項二","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
-        option.addOption("Chips選項三","https://i.imgur.com/N42uCxU.jpg","http://localhost:8080/");
+        option.addOption("Chips選項一","https://i.imgur.com/N42uCxU.jpg","https://bake.bycc.dev/");
+        option.addOption("Chips選項二","https://i.imgur.com/N42uCxU.jpg","https://bake.bycc.dev/");
+        option.addOption("Chips選項三","https://i.imgur.com/N42uCxU.jpg","https://bake.bycc.dev/");
         dialogflowMessenger.addChipsMessage(option);
 
         return dialogflowMessenger.getResponse();

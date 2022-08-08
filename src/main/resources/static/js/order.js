@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 function showAlert(orderId) {
     Swal.showLoading()
-    fetch('//localhost:8080/Orders/' + orderId)
+    fetch('//bake.bycc.dev/Orders/' + orderId)
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText)
@@ -147,7 +147,7 @@ function refundingAlert(orderNo,refundReason) {
         denyButtonText: `拒絕`,
         cancelButtonText: '取消',
     }).then((result) => {
-        let baseUrl = 'http://localhost:8080/Order/' + orderNo + '/Refunding?choose=';
+        let baseUrl = 'https://bake.bycc.dev/Order/' + orderNo + '/Refunding?choose=';
         if (result.isConfirmed) {
             fetch(baseUrl + 'accept',
                 {
@@ -191,7 +191,7 @@ function refundAlert(orderNo) {
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Refund/'+result.value,
+            fetch('https://bake.bycc.dev/Order/' + orderNo + '/Refund/'+result.value,
                 {
                     method: "POST",
                 }).then(
@@ -215,7 +215,7 @@ function cancelAlert(orderNo) {
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Cancel',
+            fetch('https://bake.bycc.dev/Order/' + orderNo + '/Cancel',
                 {
                     method: "POST"
                 }).then(
@@ -239,7 +239,7 @@ function receiveAlert(orderNo) {
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            fetch('http://localhost:8080/Order/' + orderNo + '/Receive',
+            fetch('https://bake.bycc.dev/Order/' + orderNo + '/Receive',
                 {
                     method: "POST"
                 }).then(
@@ -267,7 +267,7 @@ function shipAlert(orderNo) {
         showLoaderOnConfirm: true,
         preConfirm: (trackingNumber) => {
 
-            return fetch('http://localhost:8080/Order/' + orderNo + '/Ship?trackingNumber=' + trackingNumber,
+            return fetch('https://bake.bycc.dev/Order/' + orderNo + '/Ship?trackingNumber=' + trackingNumber,
                 {
                     method: "POST"
                 })
