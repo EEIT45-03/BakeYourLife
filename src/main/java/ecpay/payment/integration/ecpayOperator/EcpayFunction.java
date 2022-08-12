@@ -1,9 +1,6 @@
 package ecpay.payment.integration.ecpayOperator;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
@@ -45,10 +42,10 @@ import ecpay.payment.integration.exception.EcpayException;
  *
  */
 public class EcpayFunction {
-	
+
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	private final static String CIPHER_ALGORITHM = "AES/CBC/NoPadding";
-		
+
 	/**
 	 * 產生檢查碼
 	 * @param key
@@ -74,7 +71,7 @@ public class EcpayFunction {
 			throw new EcpayException(ErrorMessage.GEN_CHECK_MAC_VALUE_FAIL);
 		}
 	}
-	
+
 	/**
 	 * AES加密
 	 * @param HashKey
@@ -102,7 +99,7 @@ public class EcpayFunction {
 //		System.out.println(urlEncode);
 		return urlEncode;
 	}
-	
+
 	private final static String pkcs7Padding(String plaintext){
 //		System.out.println(plaintext.length());
 		int blockSize = 16;
@@ -122,7 +119,7 @@ public class EcpayFunction {
 //		System.out.println(plaintext.length());
 		return plaintext;
 	}
-	
+
 	/**
 	 * 產生檢查碼
 	 * @param key
@@ -145,7 +142,7 @@ public class EcpayFunction {
 		urlEncode = netUrlEncode(urlEncode);
 		return hash(urlEncode.getBytes(), "SHA-256");
 	}
-	
+
 	/**
 	 * 將物件的屬性與檢查碼組合成http的參數資料格式
 	 * @param obj
@@ -168,7 +165,7 @@ public class EcpayFunction {
 		}
 		return result + "CheckMacValue=" + CheckMacValue;
 	}
-	
+
 	/**
 	 * 將物件轉為Hashtable
 	 * @param obj
@@ -189,7 +186,7 @@ public class EcpayFunction {
 		}
 		return resultDict;
 	}
-	
+
 	private final static String invokeMethod(Method method, Object obj){
 		try{
 			return method.invoke(obj, null).toString();
@@ -197,7 +194,7 @@ public class EcpayFunction {
 			throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
 		}
 	}
-	
+
 	/**
 	 * client http post的功能
 	 * @param url
@@ -236,7 +233,7 @@ public class EcpayFunction {
 			throw new EcpayException(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * 產生 Unix TimeStamp
 	 * @return TimeStamp
@@ -246,14 +243,14 @@ public class EcpayFunction {
 		Integer timeStamp = (int)(date.getTime() / 1000);
 		return timeStamp.toString();
 	}
-	
-	public final static Document xmlParser(String uri){
+
+	public final static Document xmlParser(InputStream is){
 		try{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setValidating(false);
 			factory.setIgnoringElementContentWhitespace(true);
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			return builder.parse(uri);
+			return builder.parse(is);
 		} catch(Exception e){
 			throw new Error(e);
 		}
