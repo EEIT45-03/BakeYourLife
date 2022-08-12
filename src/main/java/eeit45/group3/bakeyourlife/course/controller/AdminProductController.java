@@ -29,14 +29,14 @@ public class AdminProductController {
 	{
 		List<Product> products = productService.getAllProduct();
 		model.addAttribute("products", products);
-		return "/admin/course/CourseProduct";
+		return "admin/course/CourseProduct";
 	}
 
 	@GetMapping("/addP")
 	public String showAddProduct(Model model) {
 		//表單綁定用
 		model.addAttribute("product",new Product());
-		return "/admin/course/CreateCp";
+		return "admin/course/CreateCp";
 	}
 
 	@RequestMapping(value = "/addP", method = RequestMethod.POST)

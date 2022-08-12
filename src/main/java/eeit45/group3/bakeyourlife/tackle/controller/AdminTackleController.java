@@ -50,7 +50,7 @@ public class AdminTackleController {
             //設置給JSP使用
             model.addAttribute("tackles", tackleService.findAllTackle());
         }
-        return "/admin/tackle/Tackle";
+        return "admin/tackle/Tackle";
     }
 
 
@@ -58,7 +58,7 @@ public class AdminTackleController {
     public String viewCreateTackle(Model model) {
         model.addAttribute("sorts", tackleService.findAllTackleSort());
         model.addAttribute("tackle",new Tackle());
-        return "/admin/tackle/CreateTackle";
+        return "admin/tackle/CreateTackle";
     }
 
 //    @PostMapping("/CreateTackle")
@@ -94,7 +94,7 @@ public ResponseEntity<Tackle> ceateVenueList(@RequestBody @Valid Tackle tackle) 
             model.addAttribute("tackleRequest",tackle);
         }
 
-        return "/admin/tackle/UpdateTackle";
+        return "admin/tackle/UpdateTackle";
     }
 
 

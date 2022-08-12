@@ -175,7 +175,7 @@ public class FrontArticleController {
 //        List<Article> articleType = articleService.findTopCounter(counter);
 //        model.addAttribute("selectType", articleType);
 //
-//        return "/index";
+//        return "index";
 //
 //    }
 

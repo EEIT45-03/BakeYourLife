@@ -41,45 +41,45 @@ public class RentalController {
 
     @GetMapping("/Rental/")
     public String viewIndex(){
-        return "/rental/Index";
+        return "rental/Index";
     }
 
     @GetMapping("/Rental/Introduce/Venue/{id}")
     public String viewVenueCommodity(@PathVariable Integer id,
                                 Model model) {
         model.addAttribute("venueBean", venueService.findByVenueId(id));
-        return "/rental/VenueIntroduce";
+        return "rental/VenueIntroduce";
     }
 
     @GetMapping("/Rental/Introduce/Tackle/{id}")
     public String viewTackleCommodity(@PathVariable Integer id,
                                      Model model) {
         model.addAttribute("tackleBean", tackleService.findByTackleId(id));
-        return "/rental/TackleIntroduce";
+        return "rental/TackleIntroduce";
     }
 
     @GetMapping("/Rental/Venue")
     public String viewRental() {
-        return "/rental/RentalVenue";
+        return "rental/RentalVenue";
     }
 
     @GetMapping("/Rental/Tackle")
     public String viewRTackle() {
-        return "/rental/RentalTackle";
+        return "rental/RentalTackle";
     }
 
     @GetMapping("/User/rental/")
     public String viewUserRentalAll(Model m, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         m.addAttribute("rentals", rentalService.findAllRentalByUser(user));
-        return "/rental/MyRental";
+        return "rental/MyRental";
     }
 
     @GetMapping("/User/rental/noorder")
     public String viewUserRentalNoorder(Model m,Principal principal) {
         User user = userService.findByUsername(principal.getName());
         m.addAttribute("rentals", rentalService.findAllByStateAndUser("未下單",user));
-        return "/rental/MyRental";
+        return "rental/MyRental";
     }
 
 
@@ -87,14 +87,14 @@ public class RentalController {
     public String viewUserRentalWaitpay(Model m,Principal principal) {
         User user = userService.findByUsername(principal.getName());
         m.addAttribute("rentals", rentalService.findAllByStateAndUser("待付款",user));
-        return "/rental/MyRental";
+        return "rental/MyRental";
     }
 
     @GetMapping("/User/rental/alreadypay")
     public String viewUserRentalAlreadypay(Model m,Principal principal) {
         User user = userService.findByUsername(principal.getName());
         m.addAttribute("rentals", rentalService.findAllByStateAndUser("已付款",user));
-        return "/rental/MyRental";
+        return "rental/MyRental";
     }
 
     @GetMapping("/User/rental/update/{id}")
@@ -112,6 +112,6 @@ public class RentalController {
             m.addAttribute("tackles",tackles);
             m.addAttribute("lists", rentalService.findTackleListByFK_RentalId(id));
         }
-        return "/rental/RentalUpdate";
+        return "rental/RentalUpdate";
     }
 }
