@@ -35,6 +35,7 @@ public class OrderOperateController {
     public ResponseEntity<String> pay(@PathVariable String orderNo, HttpServletRequest request){
         Order order = orderService.findByOrderNo(orderNo).orElse(null);
         String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
+        baseURL = baseURL.contains("localhost")?baseURL:baseURL.replace("http","https");
         if(order!=null && order.getOrderStatus() == OrderStatus.WAIT_PAYMENT){
             switch (order.getPayType()){
                 case ECPAY:
