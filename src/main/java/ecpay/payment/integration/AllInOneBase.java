@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,7 +37,7 @@ public class AllInOneBase {
 //		try{
 			Document doc;
 			/* when using web project*/
-			Resource resources = new ClassPathResource("payment_conf.xml");
+			Resource resources = new DefaultResourceLoader().getResource("classpath:META-INF/resources/payment_conf.xml");
 			String configPath = "";
 			try {
 				if (resources != null){
