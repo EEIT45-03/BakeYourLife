@@ -53,7 +53,7 @@ public class AdminVenueController {
         }
 
         //設置給JSP使用
-        return "/admin/venue/Venue";
+        return "admin/venue/Venue";
     }
 
 
@@ -61,7 +61,7 @@ public class AdminVenueController {
     public String viewCreateVenue(Model model) {
         model.addAttribute("sorts", venueService.findAllVenueSort());
 //        model.addAttribute("venue",new Venue());
-        return "/admin/venue/CreateVenue";
+        return "admin/venue/CreateVenue";
     }
 
     @ResponseBody
@@ -89,7 +89,7 @@ public class AdminVenueController {
         if(venue != null){
 
             model.addAttribute("venueRequest",venue);
-            return "/admin/venue/UpdateVenue";
+            return "admin/venue/UpdateVenue";
         }
         return null;
     }

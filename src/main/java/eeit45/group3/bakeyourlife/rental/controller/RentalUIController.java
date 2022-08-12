@@ -187,7 +187,7 @@ public class RentalUIController {
             venues = venueService.findByOrderByVenueNameAsc();
             model.addAttribute("venues",venues);
             model.addAttribute("venueListRequest", venueList);
-            return "/rental/UpdateVenueList";
+            return "rental/UpdateVenueList";
         }
         return null;
     }

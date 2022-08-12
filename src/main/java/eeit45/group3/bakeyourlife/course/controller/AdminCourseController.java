@@ -89,7 +89,7 @@ public class AdminCourseController {
 			//表單綁定用
 //			model.addAttribute("course", course);
 			model.addAttribute("courseTime", courseTime);
-			return "/admin/course/CreateCtime";
+			return "admin/course/CreateCtime";
 		}
 		return null;
 	}
