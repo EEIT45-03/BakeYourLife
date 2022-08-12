@@ -37,7 +37,7 @@ public class AllInOneBase {
 //		try{
 			Document doc;
 			/* when using web project*/
-			Resource resources = new DefaultResourceLoader().getResource("/payment_conf.xml");
+			Resource resources = new DefaultResourceLoader().getResource("classpath:/payment_conf.xml");
 			String configPath = "";
 			try {
 				if (resources != null){
