@@ -1,37 +1,36 @@
 package eeit45.group3.bakeyourlife.good.service;
 
-import java.util.List;
-
-
 import eeit45.group3.bakeyourlife.good.model.Goods;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GoodService {
-	Goods isDup(String name);
+  Goods isDup(String name);
 
-	void save(Goods good);
+  void save(Goods good);
 
-	List<Goods> getAllGoods();
-	List<Goods> getAllBySystem(String system);
+  List<Goods> getAllGoods();
 
-	List<Goods> getAllByNameLike(String name);
+  List<Goods> getAllBySystem(String system);
 
-	Goods getGoods(int pk);
+  List<Goods> getAllByNameLike(String name);
 
-	void deleteGoods(Integer id);
+  Goods getGoods(int pk);
 
-	void updateGoods(Goods mb);
+  void deleteGoods(Integer id);
 
-	List<Goods> findBySystemOrderByAdmissionTimeDesc(String system);
+  void updateGoods(Goods mb);
 
-	List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial);
+  List<Goods> findBySystemOrderByAdmissionTimeDesc(String system);
 
-	Long count();
+  List<Goods> findByPackagematerialAndSystemOrderByAdmissionTimeDesc(String Packagematerial);
 
-	Goods max();
+  Long count();
 
-	Goods min();
+  Goods max();
 
-	List<Goods> findGoodsSales();
+  Goods min();
+
+  List<Goods> findGoodsSales();
 }

@@ -1,110 +1,105 @@
 package eeit45.group3.bakeyourlife.order.service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import eeit45.group3.bakeyourlife.coupon.model.Coupon;
 import eeit45.group3.bakeyourlife.order.constant.OrderStatus;
 import eeit45.group3.bakeyourlife.order.model.Order;
 import eeit45.group3.bakeyourlife.order.model.OrderItem;
 import eeit45.group3.bakeyourlife.user.model.User;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
-    //查詢定單區間
-    List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
+  // 查詢定單區間
+  List<Order> findAllByOrderDateBetween(Date orderDateStart, Date orderDateEnd);
 
-    List<Order> findAllByUserAndOrderDateBetween(User user,Date orderDateStart, Date orderDateEnd);
+  List<Order> findAllByUserAndOrderDateBetween(User user, Date orderDateStart, Date orderDateEnd);
 
-    List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
+  List<Order> findAllByOrderStatusAndUser(OrderStatus orderStatus, User user);
 
-    List<Order> findAllByOrderStatus(OrderStatus orderStatus);
+  List<Order> findAllByOrderStatus(OrderStatus orderStatus);
 
+  List<Order> findAllByCouponCode(String code);
 
-    List<Order> findAllByCouponCode(String code);
-    Order findByByCoupon(User user,Coupon coupon);
+  Order findByByCoupon(User user, Coupon coupon);
 
-    Long count();
+  Long count();
 
-    Integer findYearSaleAmount();
+  Integer findYearSaleAmount();
 
-    void freeStock(Order order);
+  void freeStock(Order order);
 
-    /*
-     * 用商品名稱找訂單
-     *
-     */
+  /*
+   * 用商品名稱找訂單
+   *
+   */
 
-    //List<Order> findAllByItemName(String itemName);
+  // List<Order> findAllByItemName(String itemName);
 
-    //用使用者ID查詢所有訂單
-    List<Order> findAllByUser(User user);
+  // 用使用者ID查詢所有訂單
+  List<Order> findAllByUser(User user);
 
-    List<Order> findAllByUserId(Integer userId);
+  List<Order> findAllByUserId(Integer userId);
 
+  // 查詢所有訂單
+  List<Order> findAll();
 
+  DataTablesOutput<Order> findAll(DataTablesInput input);
 
-    //查詢所有訂單
-    List<Order> findAll();
-    DataTablesOutput<Order> findAll(DataTablesInput input);
+  Page<Order> findAll(Pageable pageable);
 
-    Page<Order> findAll(Pageable pageable);
+  // 用訂單類型找訂單
+  // List<Order> findAllByOrderType(Integer orderType);
 
-    //用訂單類型找訂單
-    //List<Order> findAllByOrderType(Integer orderType);
+  // 用訂單狀態找訂單
+  // List<Order> findAllByOrderStatus(Integer orderStatus);
 
-    //用訂單狀態找訂單
-    //List<Order> findAllByOrderStatus(Integer orderStatus);
+  // 用PK找訂單
+  Optional<Order> findByOrderId(Integer orderId);
 
-    //用PK找訂單
-    Optional<Order> findByOrderId(Integer orderId);
+  // 用訂單編號找訂單
+  Optional<Order> findByOrderNo(String orderNo);
 
-    //用訂單編號找訂單
-    Optional<Order> findByOrderNo(String orderNo);
+  // 評價
+  Order review(Integer orderId, boolean isReview);
 
-    //評價
-    Order review(Integer orderId,boolean isReview);
+  // 發起支付
+  Order pay(Integer orderId);
 
-    //發起支付
-    Order pay(Integer orderId);
+  // 訂單發貨
+  Order deliver(Integer orderId, String trackingNumber);
 
+  // 訂單收貨
+  Order receive(Integer orderId);
 
+  // 訂單取消
+  Order cancel(Integer orderId);
 
-    //訂單發貨
-    Order deliver(Integer orderId, String trackingNumber);
+  // 訂單提出退款
+  Order refund(Integer orderId, Integer refundReason);
 
-    //訂單收貨
-    Order receive(Integer orderId);
+  // 訂單退款同意
+  Order accept(Integer orderId);
 
-    //訂單取消
-    Order cancel(Integer orderId);
+  // 訂單退款拒絕
+  Order reject(Integer orderId);
 
-    //訂單提出退款
-    Order refund(Integer orderId,Integer refundReason);
+  // 用PK刪除訂單
+  void deleteOrder(Integer orderId);
 
-    //訂單退款同意
-    Order accept(Integer orderId);
+  // 更新訂單
+  //    void updateOrder(Order order);
+  //		void updateOrder(OrderRequest orderRequest);
 
-    //訂單退款拒絕
-    Order reject(Integer orderId);
+  // 建立訂單
+  Order createOrder(Order order);
 
-    //用PK刪除訂單
-    void deleteOrder(Integer orderId);
+  Set<OrderItem> findOrderItemByOrderId(Integer orderId);
 
-    //更新訂單
-//    void updateOrder(Order order);
-//		void updateOrder(OrderRequest orderRequest);
-
-    //建立訂單
-    Order createOrder(Order order);
-
-    Set<OrderItem> findOrderItemByOrderId(Integer orderId);
-
-//    Order createOrder(OrderRequest orderRequest);
+  //    Order createOrder(OrderRequest orderRequest);
 }

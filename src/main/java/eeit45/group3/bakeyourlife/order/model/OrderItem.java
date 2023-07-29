@@ -1,7 +1,7 @@
 package eeit45.group3.bakeyourlife.order.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,126 +11,110 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @JsonIgnoreProperties("order")
 public class OrderItem implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
-	//自增PK
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer itemNo;
-	
-	//商品ID
-	private String productNo;
-	
-	//商品名稱
-	private String productName;
+  private static final long serialVersionUID = 1L;
 
-	//商品類型
-	private String productType;
-	
-	//單價，不存入資料庫(購物車用)，因為未串接商品，暫時使用
-	@Transient
-	private Integer price;
-	
-	//數量 
-	private Integer qty;
-	
-	//小計
-	private Integer subTotal;
+  // 自增PK
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer itemNo;
 
-	@Transient
-	private String imgUrl;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="orderId")
-	private Order order;
+  // 商品ID
+  private String productNo;
 
+  // 商品名稱
+  private String productName;
 
-	public String getImgUrl() {
-		return imgUrl;
-	}
+  // 商品類型
+  private String productType;
 
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
+  // 單價，不存入資料庫(購物車用)，因為未串接商品，暫時使用
+  @Transient private Integer price;
 
-	public String getProductType() {
-		return productType;
-	}
+  // 數量
+  private Integer qty;
 
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
+  // 小計
+  private Integer subTotal;
 
-	public Order getOrder() {
-		return order;
-	}
+  @Transient private String imgUrl;
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "orderId")
+  private Order order;
 
-	public Integer getPrice() {
-		return price;
-	}
+  public String getImgUrl() {
+    return imgUrl;
+  }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+  public void setImgUrl(String imgUrl) {
+    this.imgUrl = imgUrl;
+  }
 
-	public Integer getItemNo() {
-		return itemNo;
-	}
+  public String getProductType() {
+    return productType;
+  }
 
-	public void setItemNo(Integer itemNo) {
-		this.itemNo = itemNo;
-	}
+  public void setProductType(String productType) {
+    this.productType = productType;
+  }
 
-	public String getProductNo() {
-		return productNo;
-	}
+  public Order getOrder() {
+    return order;
+  }
 
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
+  public void setOrder(Order order) {
+    this.order = order;
+  }
 
-	public String getProductName() {
-		return productName;
-	}
+  public Integer getPrice() {
+    return price;
+  }
 
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+  public void setPrice(Integer price) {
+    this.price = price;
+  }
 
-	public Integer getQty() {
-		return qty;
-	}
+  public Integer getItemNo() {
+    return itemNo;
+  }
 
-	public void setQty(Integer qty) {
-		this.qty = qty;
-	}
+  public void setItemNo(Integer itemNo) {
+    this.itemNo = itemNo;
+  }
 
+  public String getProductNo() {
+    return productNo;
+  }
 
-	public Integer getSubTotal() {
-		return subTotal;
-	}
+  public void setProductNo(String productNo) {
+    this.productNo = productNo;
+  }
 
-	public void setSubTotal(Integer subTotal) {
-		this.subTotal = subTotal;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+  public String getProductName() {
+    return productName;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
+
+  public Integer getQty() {
+    return qty;
+  }
+
+  public void setQty(Integer qty) {
+    this.qty = qty;
+  }
+
+  public Integer getSubTotal() {
+    return subTotal;
+  }
+
+  public void setSubTotal(Integer subTotal) {
+    this.subTotal = subTotal;
+  }
 }

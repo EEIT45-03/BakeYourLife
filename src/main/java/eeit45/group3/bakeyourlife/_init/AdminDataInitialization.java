@@ -1,16 +1,16 @@
-//package eeit45.group3.bakeyourlife._init;
+// package eeit45.group3.bakeyourlife._init;
 //
-//import eeit45.group3.bakeyourlife.venue.model.Venue;
-//import eeit45.group3.bakeyourlife.rental.service.RentalService;
-//import eeit45.group3.bakeyourlife.user.model.User;
-//import eeit45.group3.bakeyourlife.user.service.UserService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationListener;
-//import org.springframework.context.event.ContextRefreshedEvent;
-//import org.springframework.stereotype.Component;
+// import eeit45.group3.bakeyourlife.venue.model.Venue;
+// import eeit45.group3.bakeyourlife.rental.service.RentalService;
+// import eeit45.group3.bakeyourlife.user.model.User;
+// import eeit45.group3.bakeyourlife.user.service.UserService;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.context.ApplicationListener;
+// import org.springframework.context.event.ContextRefreshedEvent;
+// import org.springframework.stereotype.Component;
 //
-//@Component
-//public class AdminDataInitialization implements ApplicationListener<ContextRefreshedEvent> {
+// @Component
+// public class AdminDataInitialization implements ApplicationListener<ContextRefreshedEvent> {
 //
 //
 //    UserService userService;
@@ -44,4 +44,4 @@
 //        }
 //    }
 //
-//}
+// }

@@ -1,17 +1,17 @@
-//package eeit45.group3.bakeyourlife.user.dao;
+// package eeit45.group3.bakeyourlife.user.dao;
 //
-//import java.util.ArrayList;
-//import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 //
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
+// import org.hibernate.Session;
+// import org.hibernate.SessionFactory;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Repository;
 //
-//import eeit45.group3.bakeyourlife.user.model.User;
+// import eeit45.group3.bakeyourlife.user.model.User;
 //
-////@Repository
-//public class UserDaoImpl implements UserDao {
+//// @Repository
+// public class UserDaoImpl implements UserDao {
 //	SessionFactory factory;
 //
 //	@Autowired
@@ -46,7 +46,8 @@
 //	public User findByUsername(String username) {
 //		Session session = factory.getCurrentSession();
 //		String hql_userIsExist = "FROM User u WHERE u.username = :uname";
-//		User user = session.createQuery(hql_userIsExist, User.class).setParameter("uname", username).uniqueResult();
+//		User user = session.createQuery(hql_userIsExist, User.class).setParameter("uname",
+// username).uniqueResult();
 //		return user;
 //	}
 //
@@ -64,4 +65,4 @@
 //		session.saveOrUpdate(user);
 //	}
 //
-//}
+// }

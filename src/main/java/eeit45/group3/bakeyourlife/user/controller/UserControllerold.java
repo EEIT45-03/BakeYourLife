@@ -1,34 +1,35 @@
-package eeit45.group3.bakeyourlife.user.controller;//package eeit45.group3.bakeyourlife.user.controller;
+package eeit45.group3.bakeyourlife.user.controller; // package
+                                                    // eeit45.group3.bakeyourlife.user.controller;
 //
-//import java.io.IOException;
+// import java.io.IOException;
 //
-//import java.util.List;
+// import java.util.List;
 //
-//import javax.servlet.ServletConfig;
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebInitParam;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import eeit45.group3.bakeyourlife.user.model.User;
-//import eeit45.group3.bakeyourlife.user.service.UserService;
-//import eeit45.group3.bakeyourlife.user.service.UserServiceImpl;
+// import javax.servlet.ServletConfig;
+// import javax.servlet.ServletException;
+// import javax.servlet.annotation.WebInitParam;
+// import javax.servlet.annotation.WebServlet;
+// import javax.servlet.http.HttpServlet;
+// import javax.servlet.http.HttpServletRequest;
+// import javax.servlet.http.HttpServletResponse;
+// import eeit45.group3.bakeyourlife.user.model.User;
+// import eeit45.group3.bakeyourlife.user.service.UserService;
+// import eeit45.group3.bakeyourlife.user.service.UserServiceImpl;
 //
-///**
+/// **
 // * Servlet implementation class UserController
 // */
-//@WebServlet(urlPatterns = { 
-//		"/User/", 
-//		"/User/CreateUser", 
-//		"/User/UpdateUser", 
+// @WebServlet(urlPatterns = {
+//		"/User/",
+//		"/User/CreateUser",
+//		"/User/UpdateUser",
 //		"/User/DeleteUser",
-//		"/User/CheckUser"}, 
-//initParams = {
+//		"/User/CheckUser"},
+// initParams = {
 //		@WebInitParam(name = "UserIndexPath", value = "/JSP/user/UserOld.jsp"),
 //		@WebInitParam(name = "CreateUserPath", value = "/JSP/user/CreateUserOld.jsp"),
 //		@WebInitParam(name = "UpdateUserPath", value = "/JSP/user/UpdateUserOld.jsp") })
-//public class UserControllerold extends HttpServlet {
+// public class UserControllerold extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
 //	private String UserIndexPath;
 //	private String CreateUserPath;
@@ -152,13 +153,13 @@ package eeit45.group3.bakeyourlife.user.controller;//package eeit45.group3.bakey
 //		if (user==null) {
 //			response.getWriter().write("true");
 //		}
-////		response.setContentType("text/html");  
-////	      boolean flag = false;  
-////	    String userName=request.getParameter("userName").toString();  
-////		    flag = us.userIsExist(userName); 
-////	   if(true == flag){  
+////		response.setContentType("text/html");
+////	      boolean flag = false;
+////	    String userName=request.getParameter("userName").toString();
+////		    flag = us.userIsExist(userName);
+////	   if(true == flag){
 ////	          response.getWriter().write("true");//此值jquery可以接收到
 ////	    }
 //	}
-//}
+// }
 //

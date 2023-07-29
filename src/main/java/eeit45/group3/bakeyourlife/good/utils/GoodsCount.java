@@ -2,9 +2,9 @@ package eeit45.group3.bakeyourlife.good.utils;
 
 public interface GoodsCount {
 
-    String getId();
+  String getId();
 
-    String getLabel();
+  String getLabel();
 
-    Integer getValue();
+  Integer getValue();
 }

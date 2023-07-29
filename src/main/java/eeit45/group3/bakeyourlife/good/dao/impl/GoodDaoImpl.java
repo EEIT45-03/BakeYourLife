@@ -1,25 +1,25 @@
-//package eeit45.group3.bakeyourlife.good.dao.impl;
+// package eeit45.group3.bakeyourlife.good.dao.impl;
 //
-//import java.util.List;
+// import java.util.List;
 //
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
+// import org.hibernate.Session;
+// import org.hibernate.SessionFactory;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Repository;
 //
-//import eeit45.group3.bakeyourlife.good.dao.GoodDao;
-//import eeit45.group3.bakeyourlife.good.model.Goods;
+// import eeit45.group3.bakeyourlife.good.dao.GoodDao;
+// import eeit45.group3.bakeyourlife.good.model.Goods;
 //
-//import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
-////import eeit45.group3.util.HibernateUtils;
+// import javax.persistence.EntityManager;
+// import javax.persistence.PersistenceContext;
+//// import eeit45.group3.util.HibernateUtils;
 //
-//@Repository
-//public class GoodDaoImpl implements GoodDao {
+// @Repository
+// public class GoodDaoImpl implements GoodDao {
 ////	@Autowired
 ////	SessionFactory factory;
-//@PersistenceContext
-//EntityManager entityManager;
+// @PersistenceContext
+// EntityManager entityManager;
 ////	public GoodDaoImpl() {
 ////		factory = HibernateUtils.getSessionFactory();
 ////	}
@@ -80,4 +80,4 @@
 //		return 1;
 //	}
 //
-//}
+// }

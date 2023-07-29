@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TackleSortRepository extends JpaRepository<TackleSort, Integer> {
 
-    public TackleSort findBySort(String sort);
+  public TackleSort findBySort(String sort);
 }

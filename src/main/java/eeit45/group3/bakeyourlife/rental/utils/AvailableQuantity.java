@@ -2,9 +2,9 @@ package eeit45.group3.bakeyourlife.rental.utils;
 
 public interface AvailableQuantity {
 
-    String getId();
+  String getId();
 
-    String getLabel();
+  String getLabel();
 
-    Long getValue();
+  Long getValue();
 }

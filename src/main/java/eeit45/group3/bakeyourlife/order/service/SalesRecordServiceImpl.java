@@ -8,18 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class SalesRecordServiceImpl implements SalesRecordService{
+public class SalesRecordServiceImpl implements SalesRecordService {
 
-    private SalesRecordRepository salesRecordRepository;
+  private SalesRecordRepository salesRecordRepository;
 
-    @Autowired
-    public SalesRecordServiceImpl(SalesRecordRepository salesRecordRepository) {
-        this.salesRecordRepository = salesRecordRepository;
-    }
+  @Autowired
+  public SalesRecordServiceImpl(SalesRecordRepository salesRecordRepository) {
+    this.salesRecordRepository = salesRecordRepository;
+  }
 
-    @Override
-    @Transactional
-    public void createSalesRecord(SalesRecord salesRecord) {
-        salesRecordRepository.save(salesRecord);
-    }
+  @Override
+  @Transactional
+  public void createSalesRecord(SalesRecord salesRecord) {
+    salesRecordRepository.save(salesRecord);
+  }
 }

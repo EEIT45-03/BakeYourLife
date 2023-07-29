@@ -6,6 +6,8 @@ import eeit45.group3.bakeyourlife.article.service.ArticleService;
 import eeit45.group3.bakeyourlife.article.service.FavoriteService;
 import eeit45.group3.bakeyourlife.user.model.User;
 import eeit45.group3.bakeyourlife.user.service.UserService;
+import java.io.IOException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -17,80 +19,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.util.List;
-
 @Controller
 @RequestMapping(path = "User/UserArticle")
 public class UserArticleController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ArticleService articleService;
+  @Autowired private UserService userService;
+  @Autowired private ArticleService articleService;
 
+  @Autowired private FavoriteService favoriteService;
 
-    @Autowired
-    private FavoriteService favoriteService;
+  @GetMapping(path = "")
+  private String processFindOne(
+      @RequestParam(required = false) Integer userid, Model m, Authentication authentication) {
 
-    @GetMapping(path = "")
-    private String processFindOne(@RequestParam(required = false) Integer userid, Model m, Authentication authentication ) {
+    User user = userService.getCurrentUser(authentication);
+    List<Article> listAll = articleService.findAllByUser(user);
 
-        User user = userService.getCurrentUser(authentication);
-        List<Article> listAll = articleService.findAllByUser(user);
+    m.addAttribute("articles", listAll);
 
-        m.addAttribute("articles", listAll);
+    return "article/UserArticle";
+  }
 
+  @GetMapping(path = "/farvorite")
+  private String processFavorite(
+      @RequestParam(required = false) Integer postid, Model m, Authentication authentication) {
 
-        return "article/UserArticle";
+    User user = userService.getCurrentUser(authentication);
+    List<Favorite> favorites = favoriteService.findAllByUser(user);
 
+    m.addAttribute("favorites", favorites);
+    return "article/FavoriteArticle";
+  }
+
+  @GetMapping(path = "/Update")
+  public String processQuery(@PathVariable Integer postid, Model model) throws IOException {
+    Article article = articleService.selectOne(postid).orElse(null);
+    if (article == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(path = "/farvorite")
-    private String processFavorite(@RequestParam(required = false) Integer postid, Model m, Authentication authentication ) {
+    article.setCounter(article.getCounter() + 1);
+    articleService.update(article);
 
-        User user = userService.getCurrentUser(authentication);
-        List<Favorite> favorites = favoriteService.findAllByUser(user);
+    model.addAttribute("article", article);
+    return "article/UserArticle";
+  }
 
-        m.addAttribute("favorites", favorites);
-        return "article/FavoriteArticle";
-
+  @GetMapping(path = "/UserArticleDetail")
+  public String processArticleQuery(@RequestParam(required = false) Integer postid, Model model)
+      throws IOException {
+    Article article = articleService.selectOne(postid).orElse(null);
+    if (article == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+    // Message message = messageService.messageOne(messageId).orElse(null);
+    //		article = listone.get(0);
+    article.setCounter(article.getCounter() + 1);
+    articleService.update(article);
 
-
-
-    @GetMapping(path = "/Update")
-    public String processQuery(@PathVariable Integer postid,
-                               Model model) throws IOException {
-        Article article = articleService.selectOne(postid).orElse(null);
-        if (article == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-        article.setCounter(article.getCounter() + 1);
-        articleService.update(article);
-
-        model.addAttribute("article", article);
-        return "article/UserArticle";
-
-    }
-
-    @GetMapping(path = "/UserArticleDetail")
-    public String processArticleQuery(@RequestParam(required = false) Integer postid,
-                               Model model) throws IOException {
-        Article article = articleService.selectOne(postid).orElse(null);
-        if (article == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        //Message message = messageService.messageOne(messageId).orElse(null);
-//		article = listone.get(0);
-        article.setCounter(article.getCounter() + 1);
-        articleService.update(article);
-
-        // List<Message> messageAll = messageService.findMessageAll();
-        //model.addAttribute("messages", messageAll);
-        model.addAttribute("article", article);
-        return "article/UserArticleDetail";
-
-    }
+    // List<Message> messageAll = messageService.findMessageAll();
+    // model.addAttribute("messages", messageAll);
+    model.addAttribute("article", article);
+    return "article/UserArticleDetail";
+  }
 }

@@ -1,10 +1,10 @@
-//package eeit45.group3.bakeyourlife.user.dao;
+// package eeit45.group3.bakeyourlife.user.dao;
 //
-//import java.util.List;
+// import java.util.List;
 //
-//import eeit45.group3.bakeyourlife.user.model.User;
+// import eeit45.group3.bakeyourlife.user.model.User;
 //
-//public interface UserDao {
+// public interface UserDao {
 //
 //	Object save(User user);
 //
@@ -18,4 +18,4 @@
 //
 //	void updateUser(User user);
 //
-//}
+// }

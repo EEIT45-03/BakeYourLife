@@ -1,106 +1,102 @@
 package eeit45.group3.bakeyourlife.rental.dto;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import eeit45.group3.bakeyourlife.rental.model.Rental;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class TackleListRequest {
 
+  private String tackleListNo;
 
-	private String tackleListNo;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date lendDate;
 
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date lendDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date endDate;
 
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date endDate;
-	
-	private Integer total;
+  private Integer total;
 
-	private String state;
+  private String state;
 
-	private Rental rental;
+  private Rental rental;
 
-	private Integer[] tackleIds;
+  private Integer[] tackleIds;
 
-	private Integer[] quantitys;
+  private Integer[] quantitys;
 
-	private Integer[] prices;
-	
-	public TackleListRequest() {
-	}
+  private Integer[] prices;
 
-	public String getTackleListNo() {
-		return tackleListNo;
-	}
+  public TackleListRequest() {}
 
-	public void setTackleListNo(String tackleListNo) {
-		this.tackleListNo = tackleListNo;
-	}
+  public String getTackleListNo() {
+    return tackleListNo;
+  }
 
-	public Date getLendDate() {
-		return lendDate;
-	}
+  public void setTackleListNo(String tackleListNo) {
+    this.tackleListNo = tackleListNo;
+  }
 
-	public void setLendDate(Date lendDate) {
-		this.lendDate = lendDate;
-	}
+  public Date getLendDate() {
+    return lendDate;
+  }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+  public void setLendDate(Date lendDate) {
+    this.lendDate = lendDate;
+  }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+  public Date getEndDate() {
+    return endDate;
+  }
 
-	public Integer getTotal() {
-		return total;
-	}
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
 
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
+  public Integer getTotal() {
+    return total;
+  }
 
-	public String getState() {
-		return state;
-	}
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+  public String getState() {
+    return state;
+  }
 
-	public Rental getRental() {
-		return rental;
-	}
+  public void setState(String state) {
+    this.state = state;
+  }
 
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
+  public Rental getRental() {
+    return rental;
+  }
 
-	public Integer[] getTackleIds() {
-		return tackleIds;
-	}
+  public void setRental(Rental rental) {
+    this.rental = rental;
+  }
 
-	public void setTackleIds(Integer[] tackleIds) {
-		this.tackleIds = tackleIds;
-	}
+  public Integer[] getTackleIds() {
+    return tackleIds;
+  }
 
-	public Integer[] getQuantitys() {
-		return quantitys;
-	}
+  public void setTackleIds(Integer[] tackleIds) {
+    this.tackleIds = tackleIds;
+  }
 
-	public void setQuantitys(Integer[] quantitys) {
-		this.quantitys = quantitys;
-	}
+  public Integer[] getQuantitys() {
+    return quantitys;
+  }
 
-	public Integer[] getPrices() {
-		return prices;
-	}
+  public void setQuantitys(Integer[] quantitys) {
+    this.quantitys = quantitys;
+  }
 
-	public void setPrices(Integer[] prices) {
-		this.prices = prices;
-	}
+  public Integer[] getPrices() {
+    return prices;
+  }
+
+  public void setPrices(Integer[] prices) {
+    this.prices = prices;
+  }
 }

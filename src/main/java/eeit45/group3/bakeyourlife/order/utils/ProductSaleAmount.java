@@ -2,10 +2,9 @@ package eeit45.group3.bakeyourlife.order.utils;
 
 public interface ProductSaleAmount {
 
-    String getId();
+  String getId();
 
-    String getLabel();
+  String getLabel();
 
-    Integer getValue();
-
+  Integer getValue();
 }

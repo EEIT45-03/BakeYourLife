@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VenueSortRepository extends JpaRepository<VenueSort, Integer> {
 
-    public VenueSort findBySort(String sort);
+  public VenueSort findBySort(String sort);
 }

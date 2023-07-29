@@ -1,69 +1,73 @@
 package eeit45.group3.bakeyourlife.course.service;
 
-
 import eeit45.group3.bakeyourlife.course.model.Course;
 import eeit45.group3.bakeyourlife.course.model.CourseTime;
 import eeit45.group3.bakeyourlife.course.model.Register;
 import eeit45.group3.bakeyourlife.course.model.StudentResult;
 import eeit45.group3.bakeyourlife.user.model.User;
-import org.springframework.security.core.Authentication;
-
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.security.core.Authentication;
 
 public interface CourseService {
 
-		//--------Course課程-----------
-		//查詢所有開課資料
-		List<Course> findAll();
-		//查詢所有課程類型
-//		List<Course> findAllByType(Integer courseId);
-		//用PK找
-		Optional<Course> findById(Integer openCourse);
-		//用開課編號刪除課程
-		void deleteById(Integer openCourse);
-		//更新課程
-		void updateCourse(Course course);
-		
-		//建立課程
-		void createCourse(Course course);
+  // --------Course課程-----------
+  // 查詢所有開課資料
+  List<Course> findAll();
+  // 查詢所有課程類型
+  //		List<Course> findAllByType(Integer courseId);
+  // 用PK找
+  Optional<Course> findById(Integer openCourse);
+  // 用開課編號刪除課程
+  void deleteById(Integer openCourse);
+  // 更新課程
+  void updateCourse(Course course);
 
-		//--------CourseTime課程代號-----------
+  // 建立課程
+  void createCourse(Course course);
 
-		//查詢所有開課資料
-		List<CourseTime> findAllCtime();
+  // --------CourseTime課程代號-----------
 
-		//用PK找
-		Optional<CourseTime> findByCtId(Integer ctimeId);
-		//用開課編號刪除課程
-		void deleteByCtId(Integer courseId);
-		//更新課程
-		void updateCourseTime(CourseTime courseTime);
+  // 查詢所有開課資料
+  List<CourseTime> findAllCtime();
 
-		//建立課程
-		void createCourseTime(CourseTime courseTime);
+  // 用PK找
+  Optional<CourseTime> findByCtId(Integer ctimeId);
+  // 用開課編號刪除課程
+  void deleteByCtId(Integer courseId);
+  // 更新課程
+  void updateCourseTime(CourseTime courseTime);
 
-		//-----Register--------
-		List<Register> findAllRegister();
-		List<Register> findRegisterByUser(User user);
-		Optional<Register> findByRegisterId(Integer registerId);
-		void deleteByRegisterId(Integer registerId);
+  // 建立課程
+  void createCourseTime(CourseTime courseTime);
 
-	    void updateRegister(Integer registerId,Integer attendance,Integer state, Integer totalPrice);
-		void createRegister(Register register);
-		void createRegisterWithId(Register register);
+  // -----Register--------
+  List<Register> findAllRegister();
 
-		void updateRegisterState(Register register);
+  List<Register> findRegisterByUser(User user);
 
-//		void addAttendanceToOpCourse(Course course);
-		void createStudentResult(StudentResult studentResult);
-		void createStudentResult(StudentResult studentResult, Authentication authentication);
-		void upadateStudentResult(StudentResult studentResult);
+  Optional<Register> findByRegisterId(Integer registerId);
 
-		Optional<StudentResult> findStudentReslutById(Integer strId);
-		List<StudentResult> findStudentReslutByProduct(Long productId);
-		List<StudentResult> findAllStudentResult();
+  void deleteByRegisterId(Integer registerId);
 
+  void updateRegister(Integer registerId, Integer attendance, Integer state, Integer totalPrice);
 
+  void createRegister(Register register);
+
+  void createRegisterWithId(Register register);
+
+  void updateRegisterState(Register register);
+
+  //		void addAttendanceToOpCourse(Course course);
+  void createStudentResult(StudentResult studentResult);
+
+  void createStudentResult(StudentResult studentResult, Authentication authentication);
+
+  void upadateStudentResult(StudentResult studentResult);
+
+  Optional<StudentResult> findStudentReslutById(Integer strId);
+
+  List<StudentResult> findStudentReslutByProduct(Long productId);
+
+  List<StudentResult> findAllStudentResult();
 }

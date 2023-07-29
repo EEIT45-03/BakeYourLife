@@ -2,11 +2,9 @@ package eeit45.group3.bakeyourlife.course.util;
 
 public interface CourseCount {
 
-    String getId();
+  String getId();
 
-    String getLabel();
+  String getLabel();
 
-    Integer getValue();
-
-
+  Integer getValue();
 }

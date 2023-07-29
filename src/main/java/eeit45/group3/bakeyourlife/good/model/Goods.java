@@ -1,14 +1,10 @@
 package eeit45.group3.bakeyourlife.good.model;
 
-import java.sql.Blob;
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import eeit45.group3.bakeyourlife.order.model.CartItem;
 import eeit45.group3.bakeyourlife.productcomment.model.ProductComment;
+import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -17,272 +13,290 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @Table(name = "Member_GoodsTable3")
 @Component
 public class Goods implements CartItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String name;//名稱
-    String element;//成分
-    String origin;//產地
-    String savetime;//保存期限
-    String packages;//包裝價格
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Integer id;
 
-	String packagematerial;//種類
-	String saveway;//保存方式
+  String name; // 名稱
+  String element; // 成分
+  String origin; // 產地
+  String savetime; // 保存期限
+  String packages; // 包裝價格
 
-	public String getSales() {
-		return sales;
-	}
+  String packagematerial; // 種類
+  String saveway; // 保存方式
 
-	public void setSales(String sales) {
-		this.sales = sales;
-	}
+  public String getSales() {
+    return sales;
+  }
 
-	String sales;//促銷
+  public void setSales(String sales) {
+    this.sales = sales;
+  }
 
-//	@JsonIgnore++
-//	Blob image;
-//	String fileName;
+  String sales; // 促銷
 
-    String imageUrl;
+  //	@JsonIgnore++
+  //	Blob image;
+  //	String fileName;
 
+  String imageUrl;
 
-    Timestamp admissionTime;  //Get Time that's moment .
-    @Transient
-//	MultipartFile productImage;
+  Timestamp admissionTime; // Get Time that's moment .
 
-    MultipartFile[] productImage;
-    String count;//數量
+  @Transient
+  //	MultipartFile productImage;
 
-    String system;//上架狀態
+  MultipartFile[] productImage;
 
-    @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<ProductComment> productCommentList;
+  String count; // 數量
 
-    public String[] getImageUrlArray() {
-        return imageUrl.split(",");
-    }
+  String system; // 上架狀態
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+  @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private List<ProductComment> productCommentList;
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+  public String[] getImageUrlArray() {
+    return imageUrl.split(",");
+  }
 
-    @Column(columnDefinition = "nvarchar(max)")
-    String describe;//描述
+  public String getImageUrl() {
+    return imageUrl;
+  }
 
-    @Column(columnDefinition = "nvarchar(max)")
-    String evaluation;//評論
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
 
-    String stars;//星星數
+  @Column(columnDefinition = "nvarchar(max)")
+  String describe; // 描述
 
-    public String getEvaluation() {
-        return evaluation;
-    }
+  @Column(columnDefinition = "nvarchar(max)")
+  String evaluation; // 評論
 
-    public void setEvaluation(String evaluation) {
-        this.evaluation = evaluation;
-    }
+  String stars; // 星星數
 
-    public String getStars() {
-        return stars;
-    }
+  public String getEvaluation() {
+    return evaluation;
+  }
 
-    public void setStars(String stars) {
-        this.stars = stars;
-    }
+  public void setEvaluation(String evaluation) {
+    this.evaluation = evaluation;
+  }
 
-    public Goods(Integer id, String name, String element, String origin, String savetime, String packages,
-                 String packagematerial, String saveway, Timestamp admissionTime,
-                 CommonsMultipartFile[] productImage, String count, String system, String describe, String stars,
-                 String evaluation, String imageUrl,String sales) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.element = element;
-        this.origin = origin;
-        this.savetime = savetime;
-        this.packages = packages;
-        this.packagematerial = packagematerial;
-        this.saveway = saveway;
-//		this.image = image;
-//		this.fileName = fileName;
-		this.admissionTime = admissionTime;
-		this.productImage = productImage;
-		this.count = count;
-		this.system = system;
-		this.describe = describe;
-		this.stars = stars;
-		this.evaluation = evaluation;
-		this.imageUrl = imageUrl;
-		this.sales = sales;
-	}
-	public Goods() {
-		super();}
+  public String getStars() {
+    return stars;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public void setStars(String stars) {
+    this.stars = stars;
+  }
 
-    public String getDescribe() {
-        return describe;
-    }
+  public Goods(
+      Integer id,
+      String name,
+      String element,
+      String origin,
+      String savetime,
+      String packages,
+      String packagematerial,
+      String saveway,
+      Timestamp admissionTime,
+      CommonsMultipartFile[] productImage,
+      String count,
+      String system,
+      String describe,
+      String stars,
+      String evaluation,
+      String imageUrl,
+      String sales) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.element = element;
+    this.origin = origin;
+    this.savetime = savetime;
+    this.packages = packages;
+    this.packagematerial = packagematerial;
+    this.saveway = saveway;
+    //		this.image = image;
+    //		this.fileName = fileName;
+    this.admissionTime = admissionTime;
+    this.productImage = productImage;
+    this.count = count;
+    this.system = system;
+    this.describe = describe;
+    this.stars = stars;
+    this.evaluation = evaluation;
+    this.imageUrl = imageUrl;
+    this.sales = sales;
+  }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
+  public Goods() {
+    super();
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getDescribe() {
+    return describe;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setDescribe(String describe) {
+    this.describe = describe;
+  }
 
-    public String getElement() {
-        return element;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setElement(String element) {
-        this.element = element;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getOrigin() {
-        return origin;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
+  public String getElement() {
+    return element;
+  }
 
-    public String getSavetime() {
-        return savetime;
-    }
+  public void setElement(String element) {
+    this.element = element;
+  }
 
-    public void setSavetime(String savetime) {
-        this.savetime = savetime;
-    }
+  public String getOrigin() {
+    return origin;
+  }
 
-    public String getPackages() {
-        return packages;
-    }
+  public void setOrigin(String origin) {
+    this.origin = origin;
+  }
 
-    public void setPackages(String packages) {
-        this.packages = packages;
-    }
+  public String getSavetime() {
+    return savetime;
+  }
 
-    public String getPackagematerial() {
-        return packagematerial;
-    }
+  public void setSavetime(String savetime) {
+    this.savetime = savetime;
+  }
 
-    public void setPackagematerial(String packagematerial) {
-        this.packagematerial = packagematerial;
-    }
+  public String getPackages() {
+    return packages;
+  }
 
-    public String getSaveway() {
-        return saveway;
-    }
+  public void setPackages(String packages) {
+    this.packages = packages;
+  }
 
-    public void setSaveway(String saveway) {
-        this.saveway = saveway;
-    }
+  public String getPackagematerial() {
+    return packagematerial;
+  }
 
-    //	public Blob getImage() {
-//		return image;
-//	}
-//	public void setImage(Blob image) {
-//		this.image = image;
-//	}
-//	public String getFileName() {
-//		return fileName;
-//	}
-//	public void setFileName(String fileName) {
-//		this.fileName = fileName;
-//	}
-    public Timestamp getAdmissionTime() {
-        return admissionTime;
-    }
+  public void setPackagematerial(String packagematerial) {
+    this.packagematerial = packagematerial;
+  }
 
-    public void setAdmissionTime(Timestamp admissionTime) {
-        this.admissionTime = admissionTime;
-    }
+  public String getSaveway() {
+    return saveway;
+  }
 
-    public MultipartFile[] getProductImage() {
-        return productImage;
-    }
+  public void setSaveway(String saveway) {
+    this.saveway = saveway;
+  }
 
-    public void setProductImage(MultipartFile[] productImage) {
-        this.productImage = productImage;
-    }
+  //	public Blob getImage() {
+  //		return image;
+  //	}
+  //	public void setImage(Blob image) {
+  //		this.image = image;
+  //	}
+  //	public String getFileName() {
+  //		return fileName;
+  //	}
+  //	public void setFileName(String fileName) {
+  //		this.fileName = fileName;
+  //	}
+  public Timestamp getAdmissionTime() {
+    return admissionTime;
+  }
 
-    public String getCount() {
-        return count;
-    }
+  public void setAdmissionTime(Timestamp admissionTime) {
+    this.admissionTime = admissionTime;
+  }
 
-    public void setCount(String count) {
-        this.count = count;
-    }
+  public MultipartFile[] getProductImage() {
+    return productImage;
+  }
 
-    public String getSystem() {
-        return system;
-    }
+  public void setProductImage(MultipartFile[] productImage) {
+    this.productImage = productImage;
+  }
 
-    public void setSystem(String system) {
-        this.system = system;
-    }
+  public String getCount() {
+    return count;
+  }
 
-    public List<ProductComment> getProductCommentList() {
-        return productCommentList;
-    }
+  public void setCount(String count) {
+    this.count = count;
+  }
 
-    public void setProductCommentList(List<ProductComment> productCommentList) {
-        this.productCommentList = productCommentList;
-    }
+  public String getSystem() {
+    return system;
+  }
 
-    @Override
-    public String getCartNo() {
-        return "G" + this.id;
-    }
+  public void setSystem(String system) {
+    this.system = system;
+  }
 
-    @Override
-    public String getCartType() {
-        return "烘培材料";
-    }
+  public List<ProductComment> getProductCommentList() {
+    return productCommentList;
+  }
 
-    @Override
-    public Integer getCartPrice() {
-        return Integer.valueOf(this.packages);
-    }
+  public void setProductCommentList(List<ProductComment> productCommentList) {
+    this.productCommentList = productCommentList;
+  }
 
-    @Override
-    public String getCartName() {
-        return this.name;
-    }
+  @Override
+  public String getCartNo() {
+    return "G" + this.id;
+  }
 
-    @Override
-    public boolean isEnable() {
-        return "上架中".equals(this.system);
-    }
+  @Override
+  public String getCartType() {
+    return "烘培材料";
+  }
 
-    @Override
-    public Integer getStock() {
-        return Integer.valueOf(this.count);
-    }
+  @Override
+  public Integer getCartPrice() {
+    return Integer.valueOf(this.packages);
+  }
 
-    @Override
-    public void updateStock(Integer stock) {
-        this.count = stock.toString();
-    }
+  @Override
+  public String getCartName() {
+    return this.name;
+  }
 
-    @Override
-    public String getCartImgUrl() {
-        return imageUrl.split(",")[0];
-    }
+  @Override
+  public boolean isEnable() {
+    return "上架中".equals(this.system);
+  }
+
+  @Override
+  public Integer getStock() {
+    return Integer.valueOf(this.count);
+  }
+
+  @Override
+  public void updateStock(Integer stock) {
+    this.count = stock.toString();
+  }
+
+  @Override
+  public String getCartImgUrl() {
+    return imageUrl.split(",")[0];
+  }
 }

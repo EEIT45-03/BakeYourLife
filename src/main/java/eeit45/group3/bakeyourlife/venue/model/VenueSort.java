@@ -1,62 +1,60 @@
 package eeit45.group3.bakeyourlife.venue.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import javax.persistence.*;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "VenueSort")
 @Component
 public class VenueSort implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer venueSortId;
 
+  @Column(nullable = false, unique = true)
+  private String sort;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer venueSortId;
+  @JsonBackReference
+  @OneToMany(
+      cascade = {CascadeType.ALL},
+      orphanRemoval = false,
+      mappedBy = "venueSort")
+  private Set<Venue> venues = new LinkedHashSet<Venue>();
 
-    @Column(nullable = false, unique = true)
-    private String sort;
+  public VenueSort() {}
 
-    @JsonBackReference
-    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = false, mappedBy = "venueSort")
-    private Set<Venue> venues = new LinkedHashSet<Venue>();
+  public VenueSort(String sort) {
+    this.sort = sort;
+  }
 
-    public VenueSort() {
-    }
+  public Integer getVenueSortId() {
+    return venueSortId;
+  }
 
-    public VenueSort(String sort) {
-        this.sort = sort;
-    }
+  public void setVenueSortId(Integer venueSortId) {
+    this.venueSortId = venueSortId;
+  }
 
-    public Integer getVenueSortId() {
-        return venueSortId;
-    }
+  public String getSort() {
+    return sort;
+  }
 
-    public void setVenueSortId(Integer venueSortId) {
-        this.venueSortId = venueSortId;
-    }
+  public void setSort(String sort) {
+    this.sort = sort;
+  }
 
-    public String getSort() {
-        return sort;
-    }
+  public Set<Venue> getVenues() {
+    return venues;
+  }
 
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public Set<Venue> getVenues() {
-        return venues;
-    }
-
-    public void setVenues(Set<Venue> venues) {
-        this.venues = venues;
-    }
+  public void setVenues(Set<Venue> venues) {
+    this.venues = venues;
+  }
 }
